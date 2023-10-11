@@ -1,0 +1,42 @@
+Laravel Sanctum Token API Authentication Not Working in Postman
+
+I am trying to utilize Sanctum for an API only application. I am not using it for a SPA. I have a single end point set up and protected by the Sanctum middleware. I am creating a user and a token for said user through the tinker cli tool. I then paste the token into Postman under the bearer token selection within the authorization tab. However, when I submit the request I get an unauthenticated error. Not quite sure what I am doing incorrect here. Followed the documentation provided very closely as well as the sparse videos I could find. Here are some code snippets. I appreciate the insight here.
+
+API.php
+
+```
+Route::middleware('auth:sanctum')->apiResource('/documents','DocumentHandlerController');
+```
+
+
+Middleware/Authenticate.php
+
+```
+class Authenticate extends Middleware
+{
+    /**
+     * Return 401 when not authorized
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string|null
+     */
+    public function handle($request)
+    {
+        return response()->json(
+            ['message'=>'Unauthorized']
+            ,Response::HTTP_UNAUTHORIZED
+        );
+    }
+}
+```
+
+
+Function from my controller
+
+```
+public function index()
+    {
+        return response()->json(['Success'],Response::HTTP_OK);
+    }
+```
+

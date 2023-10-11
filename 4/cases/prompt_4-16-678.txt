@@ -1,0 +1,18 @@
+aws cli output automatically being sent to vi
+
+I am currently learning the AWS CLI (v2) and have installed it on Ubuntu 18.04. I am running zsh with oh-my-zsh installed. I am trying to get aws command output to be reported back to the terminal as a JSON string (or even as text), but the output is  redirected to vi.
+
+My AWS account is brand new - no EC2 instances. When I run the following command:
+
+```
+aws ec2 describe-instances
+```
+
+
+It sends the expected output value (e.g. { "Reservations": [] }), but directly to vi instead of outputting a JSON string to the terminal requiring closing vi afterwards. This occurs regardless of output format (json, text, table) or what shell I use (bash, zsh). 
+
+I am not sure if this is a AWS CLI configuration issue/change or a shell/Linux configuration issue/change
+
+- - 
+
+Thank you for any/all suggestions.

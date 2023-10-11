@@ -1,0 +1,25 @@
+Best way to parse a string to an enum
+
+I have an enum as follows
+```
+type Capability int
+
+const (
+    Read   Capability = iota // Read   = 0
+    Create                   // Create = 1
+    Update                   // Update = 2
+    Delete                   // Delete = 3
+    List                     // List   = 4
+)
+```
+
+I want to be able to get the string representation from the enum  parse a string to get the enum.
+I get the string from the enum as follows.
+```
+capabilityStrs := []string{"read", "create", "update", "delete", "list"}
+func (c Capability) String() string {
+    return capabilityStrs[c]
+}
+```
+
+How do I parse a string into an enum such that a call to `ParseSTring("read") gives me`Read`. What is the Best way to go about this?

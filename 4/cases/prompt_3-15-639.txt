@@ -1,0 +1,19 @@
+Running Excel 4.0 macro using button
+
+Macros on my spreadsheet that have been working for years, stopped working via buttons, though they still work from the VBA Developer window.
+I use a normal shape (rectangle) as the button and assigned the macro to it (selecting from "ThisWorkbook").
+To head off suggested fixes I've seen for other similar posts:
+- - - - - - - - - 
+I created a new program to show the problem is not the code itself:
+```
+Sub button_not_working()
+    MsgBox "button_not_working"
+End Sub
+```
+
+This program works using the green Play button in the VBA screen, but not via an assigned button on a sheet.
+Code is in a normal VBA code Module (not "ThisWorkbook" area on VBA screen).
+Macro is assigned by right-clicking shape, and the list of available Macros is just those in "This Workbook" on the Assign Macro popup.
+[](https://i.stack.imgur.com/p0cBQ.jpg)
+When clicking the Shape to run the assigned macro I get this error message.
+[](https://i.stack.imgur.com/DfyCJ.jpg)

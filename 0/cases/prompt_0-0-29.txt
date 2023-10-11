@@ -1,0 +1,13 @@
+Chain 2 queries in RTK Query
+
+What is the proper way to chain queries if the 2nd query requires a parameter that is returned by the 1st?
+```
+const { data: user } = useGetUserQuery();
+```
+
+The user object contains an ID that is used to run
+```
+const { data: userBio} = useGetUserBioQuery(user.id);
+```
+
+How do I make sure the 2nd one runs only after the 1st one is fulfilled?

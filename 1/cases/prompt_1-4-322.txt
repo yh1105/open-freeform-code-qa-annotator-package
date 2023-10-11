@@ -1,0 +1,45 @@
+Converting grouped tibble to named list
+
+I feel like there is probably a better way to do this in `tidyverse` than a `for-loop`. Start with a standard tibble/dataframe, and make a list where the name of the list elements are the unique values of one column (`group_by`?) and the list elements are all the values of another column.
+```
+my_data <- tibble(list_names = c("Ford", "Chevy", "Ford", "Dodge", "Dodge", "Ford"),
+                    list_values = c("Ranger", "Equinox", "F150", "Caravan", "Ram", "Explorer"))
+  
+# A tibble: 6 × 2
+  list_names list_values
+  <chr>      <chr>      
+1 Ford       Ranger     
+2 Chevy      Equinox    
+3 Ford       F150       
+4 Dodge      Caravan    
+5 Dodge      Ram        
+6 Ford       Explorer
+```
+
+This is the desired output:
+```
+desired_output <- list(Ford = c("Ranger", "F150", "Explorer"),
+       Chevy = c("Equinox"),
+       Dodge = c("Caravan", "Ram"))
+
+$Ford
+[1] "Ranger"   "F150"     "Explorer"
+
+$Chevy
+[1] "Equinox"
+
+$Dodge
+[1] "Caravan" "Ram"
+```
+
+It can be accomplished with a `for-loop` but I bet there is a `tidyverse` function that makes it more simple/faster, etc.
+```
+desired_output <- list()
+  for(i in seq_along(my_data$list_names)) {
+    entry <- my_data %>%
+      filter(list_names == my_data$list_names[i]) %>%
+      pull(list_values)
+    desired_output[[my_data$list_names[i]]] <- entry
+  }
+```
+

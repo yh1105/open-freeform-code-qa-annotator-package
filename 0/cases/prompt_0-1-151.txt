@@ -1,0 +1,7 @@
+Css changes are not being applied in rails app
+
+I am working on rails app and now I am having trouble.
+> Early when I use to change my frontend styling and apply changes in css then they quickly show up on reload in brower.
+> But in present, don't know but something went wrong. Whenever I change css and save it then onload, things remain same.
+After debugging, I found that app is picking styling files from precompiled assets pipeline. So for the solution, I have to recompile the assets then 2 new files are generated against wach file changed. And there will be 4 files in total against a single css file in which changes are made. So now I have to delete old ones and then have to restart the serve and refreshing the browser will show all the changing and that is weird as I have to do it all the time for every single change.
+I can't figure as I am new to rails. Help....

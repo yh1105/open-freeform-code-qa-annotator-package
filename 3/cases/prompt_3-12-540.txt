@@ -1,0 +1,4 @@
+Flutter - Vertical Divider and Horizontal Divider
+
+In Flutter, is there an option to draw a vertical lines between components as in the image.
+[](https://i.stack.imgur.com/rzquW.png)

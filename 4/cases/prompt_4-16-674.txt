@@ -1,0 +1,89 @@
+Unable to install service fabric runtime
+
+
+## Update
+
+
+By looking at the processes under Task Manager, I was able to locate the installer for Service Fabric Runtime (the first of the two components that are attempted installed below, and apparently the one that fails).
+I found the file and tried to run it from Powershell (after first removing the Service Fabric folder that had been created during my previous attempt). The result is shown below: Apparently it starts the installation process, then freezes and stops, and times out after 10 minutes with no further explanation.
+```
+c:\Appl>MicrosoftServiceFabric.8.2.1363.9590.exe /accepteula /force
+20.01.2022 08:26:11,Info,Installing Service Fabric Runtime. Logs written to C:\WINDOWS\TEMP\InstallFabricRuntime_637782675714458610.log
+20.01.2022 08:26:11,Info,Running extract in parallel.
+20.01.2022 08:26:11,Info,Unpackaging autoextractor...
+20.01.2022 08:26:11,Info,20.01.2022 09:26:11 Running Process: powershell.exe -NoProfile -Command Get-ExecutionPolicy -Scope CurrentUser with timeout 00:01:00
+20.01.2022 08:26:12,Info,Creating temporary runtime directory C:\Program Files\Microsoft Service Fabric.pxl3wsxg.zi0.
+20.01.2022 08:26:12,Info,Extracting runtime cab to C:\Program Files\Microsoft Service Fabric.pxl3wsxg.zi0...
+20.01.2022 08:26:12,Info,20.01.2022 09:26:12 Running Process: C:\WINDOWS\TEMP\MicrosoftServiceFabricAutoextractor.exe /L "C:\Program Files\Microsoft Service Fabric.pxl3wsxg.zi0" /E /Y with timeout 01:00:00
+20.01.2022 08:26:12,Info,Current Powershell Execution Policy: Unrestricted
+20.01.2022 08:26:12,Info,Searching for legacy installation registry key.
+20.01.2022 08:26:12,Info,Service Fabric Product not detected in registry.
+20.01.2022 08:26:18,Info,Successfully extracted cab file to C:\Program Files\Microsoft Service Fabric.pxl3wsxg.zi0
+20.01.2022 08:26:18,Info,Moving FabricRoot files from 'C:\Program Files\Microsoft Service Fabric.pxl3wsxg.zi0' to 'C:\Program Files\Microsoft Service Fabric'.
+20.01.2022 08:26:18,Info,Moved FabricRoot files 'C:\Program Files\Microsoft Service Fabric' successfully.
+20.01.2022 08:26:18,Info,Installing Service Fabric Runtime... Logs written to: C:\WINDOWS\TEMP\FabricSetupLog_637782675714458610.log
+20.01.2022 08:26:18,Info,Executing powershell.exe with parameters: -NoProfile -Command & 'C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code\InstallFabric.ps1' -FabricRootIsPreInstalled -AcceptEULA -LogPath C:\WINDOWS\TEMP\FabricSetupLog_637782675714458610.log
+20.01.2022 08:26:18,Info,20.01.2022 09:26:18 Running Process: powershell.exe -NoProfile -Command & 'C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code\InstallFabric.ps1' -FabricRootIsPreInstalled -AcceptEULA -LogPath C:\WINDOWS\TEMP\FabricSetupLog_637782675714458610.log with timeout 00:10:00
+20.01.2022 08:36:18,Error,Timeout 00:10:00 exceeded, terminating process..
+20.01.2022 08:36:18,Error,Unable to install Service Fabric Runtime using C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code\InstallFabric.ps1. ExitCode: -1. Find additional logs at: C:\WINDOWS\TEMP\FabricSetupLog_637782675714458610.log.
+```
+
+
+---
+
+
+
+### Original question:
+
+
+I'm not sure if this is a valid question for SO, as it relates to the setup of a dev tool/system, rather than a programming question directly, but I hope you'll let it pass, as I think it might be useful for other programmers too:
+([Service Fabric GitHub Repository](https://github.com/microsoft/service-fabric/issues/1307#issue-1107996432)).
+
+---
+
+
+
+### Failing to install Service Fabric SDK
+
+
+This is on Windows 10 (version 10.0.19044)
+I downloaded the installer from the offical site ( [https://learn.microsoft.com/en-us/azure/service-fabric/service-fabric-get-started](https://learn.microsoft.com/en-us/azure/service-fabric/service-fabric-get-started) ) and ran it, as I've done previously on a different PC with no issues.
+
+### The result this time was as follows:
+
+
+![02_err](https://user-images.githubusercontent.com/13332708/150120182-9b63c4bf-a528-4f3a-aec9-60d792df0dfb.png)
+Looking at the  of the two logs, I get (among other stuff) this:
+```
+DownloadManager Information: 0 : Starting EXE command for product 'Microsoft Azure Service Fabric Runtime - 8.2.1363'. Commandline is: 'C:\Users\*MyUserName*\AppData\Local\Microsoft\Web Platform Installer\installers\ServiceFabricRuntime_8_2_CU1\B9FBB56A2D94EADC21BE8863FF10FE681EC8348E\MicrosoftServiceFabric.8.2.1363.9590.exe /AcceptEULA'. Process Id: 15288
+DownloadManager Information: 0 : Install exit code for product 'Microsoft Azure Service Fabric Runtime - 8.2.1363' is '1'
+DownloadManager Error: 0 : Install return code for product 'Microsoft Azure Service Fabric Runtime - 8.2.1363' is Failure
+DownloadManager Information: 0 : Product Microsoft Azure Service Fabric Runtime - 8.2.1363 done install completed
+DownloadManager Information: 0 : Increasing current install to 2
+DownloadManager Warning: 0 : Dependency failed for product 'Microsoft Azure Service Fabric SDK - 5.2.1363'. Skipping install
+```
+
+Looking at the  of the log files, I get this:
+```
+19.01.2022 11:16:15,Info,Extracting runtime cab to C:\Program Files\Microsoft Service Fabric.otwin05u.dde...
+19.01.2022 11:16:15,Info,19.01.2022 12:16:15 Running Process: C:\WINDOWS\TEMP\MicrosoftServiceFabricAutoextractor.exe /L "C:\Program Files\Microsoft Service Fabric.otwin05u.dde" /E /Y with timeout 01:00:00
+19.01.2022 11:16:15,Info,Current Powershell Execution Policy: Unrestricted
+19.01.2022 11:16:15,Info,Searching for legacy installation registry key.
+19.01.2022 11:16:15,Info,Service Fabric Product not detected in registry.
+19.01.2022 11:16:15,Info,Found legacy fabric files at C:\Program Files\Microsoft Service Fabric. Start removal...
+19.01.2022 11:16:15,Info,Executing powershell.exe with parameters: -NoProfile -Command & 'C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code\CleanFabric.ps1' -LogPath C:\WINDOWS\TEMP\FabricSetupLog.Uninstall_637781913748003856.log
+19.01.2022 11:16:15,Info,19.01.2022 12:16:15 Running Process: powershell.exe -NoProfile -Command & 'C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code\CleanFabric.ps1' -LogPath C:\WINDOWS\TEMP\FabricSetupLog.Uninstall_637781913748003856.log with timeout 00:10:00
+19.01.2022 11:16:18,Error,Failed to uninstall Service Fabric through CleanFabric.ps1. ExitCode: 1. Find additional logs at: C:\WINDOWS\TEMP\FabricSetupLog.Uninstall_637781913748003856.log.
+19.01.2022 11:16:18,Error,Uninstallation hit an issue.
+19.01.2022 11:16:18,Info,Cleaning temporary directory C:\Program Files\Microsoft Service Fabric.otwin05u.dde
+19.01.2022 11:16:21,Info,Successfully extracted cab file to C:\Program Files\Microsoft Service Fabric.otwin05u.dde
+Press enter to exit. Process will automatically close after 30 seconds.
+```
+
+I tried to locate the additional logs mentioned (`C:\WINDOWS\TEMP\FabricSetupLog.Uninstall_637781913748003856.log`), but no such log file exists at that location. The only log files I have been able to find are the ones referred to above (located under `c:\windows\Temp`).
+I also tried following the "Direct download" link in the web installer (see below), but this only confirms that the Service Fabric Runtime is required first.
+![03_direct_download](https://user-images.githubusercontent.com/13332708/150122256-6c64acdd-157c-4c09-b157-cab7b2836712.png)
+![04_runtime_required](https://user-images.githubusercontent.com/13332708/150122354-820fcbb4-8c9d-4ebb-af87-fa2cc442da02.png)
+Any tips that might help me track down the underlying issue here would be greatly appreciated.
+ (update after comment below)
+I realize there appears to be an issue with files remaining from a previous installation. One of the log files mentions the folder `C:\program files\ServiceFabric`. This folder is indeed created when I try to install, but I have removed it manually before attempting again. I've done this multiple times, and restarted my PC between this and reinstallation attempts too, just to be sure. In short, I can't find any trace of Service Fabric, yet it still tells me that it is failing to uninstall. Just to be on the safe side, I've also tried removing Visual Studio completely too, in case there was some link/dependency on it somehow, but I still get the same result.

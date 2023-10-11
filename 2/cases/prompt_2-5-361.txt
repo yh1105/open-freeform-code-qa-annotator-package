@@ -1,0 +1,99 @@
+Getting the oracle database host name at runtime
+
+There is a Springboot application which connects to the Oracle data. The URL for the database is configured as
+```
+spring.datasource.url=jdbc:oracle:thin:@(DESCRIPTION=\
+  (LOAD_BALANCE=OFF)(FAILOVER=ON)\
+  (ADDRESS=(PROTOCOL=TCP)(HOST=domainName1.com) (PORT=1521))\
+  (ADDRESS=(PROTOCOL=TCP)(HOST=domainName2.com)(PORT=1521))\
+  (CONNECT_DATA=(SERVICE_NAME=xyz)))
+```
+
+This URL is configured so that when one host is down then the application connects to second database.
+The URL to the database is printed in the application healthcheck as shown below
+```
+Hello 
+version    : 4.0.0
+build      : 2022-03-3 
+datasource :    oracle.jdbc.OracleDriver
+db url     :    jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=domainName1.com) (PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=domainName2.com)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xyz)))
+db status  :    ok
+```
+
+My question is how can I get just the host name of the database being used, that means how can I get the host currently being used (domainName1 or domainName2) by the application and display it on healthcheck? For example as shown below.
+```
+Hello 
+version    : 4.0.0
+build      : 2022-03-3
+datasource :    oracle.jdbc.OracleDriver
+db url     :    jdbc:oracle:thin:@domainName1.com: 1521/coldv1
+db status  :    ok (LVZ count = 379)
+```
+
+The java code I used for this healthcheck is as shown below.
+```
+@GetMapping(path = "/healthcheck",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public String getServiceStatus(){
+        String[] activeProfiles = environment.getActiveProfiles();
+        final BeanWrapper accessor = PropertyAccessorFactory.forBeanPropertyAccess(dataSource);
+        final String driverClassName = String.valueOf(accessor.getPropertyValue("driverClassName"));
+        String url = null;
+
+        if(activeProfiles[1].equals("external_tomcat")) {
+            url = String.valueOf(accessor.getPropertyValue("url"));
+        }else{
+            try {
+                String[] dataSourceProperties = nameService.getDataSource();
+                url = dataSourceProperties[0];
+            } catch (SQLException ex) {
+//                throwables.printStackTrace();
+                log.error(ex.getMessage(), ex);
+            }
+        }
+
+        String version = buildProperties.getVersion();
+        String buildTimestamp = String.valueOf(buildProperties.getTime());
+        BigDecimal count = nameService.getCount("Table_name_of_database");
+
+        StringBuilder result = new StringBuilder("Hello")
+                .append("\nversion    :\t")
+                .append(version)
+                .append("\nbuild      :\t")
+                .append(buildTimestamp)
+                .append("\ndatasource :\t")
+                .append(driverClassName)
+                .append("\ndb url     :\t")
+                .append(url)
+                .append("\ndb status  :\tok  ")
+                .append(count.intValue())
+                .append(")");
+        return result.toString();
+    }
+```
+
+
+## NameService.java
+
+
+```
+@Override
+    public String[] getDataSource() throws SQLException {
+        return getDataSourceProperties();
+    }
+
+
+   
+
+    public String[] getDataSourceProperties() {
+        String[] dataSourceProperties = new String[2];
+        HikariDataSource dataSource = getDataSourceFromHibernateEntityManager();
+        if(dataSource.getJdbcUrl() != null){
+            dataSourceProperties[0] = dataSource.getJdbcUrl();
+            dataSourceProperties[1] = dataSource.getDataSourceClassName();
+        }
+        return dataSourceProperties;
+    }
+```
+

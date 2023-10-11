@@ -1,0 +1,79 @@
+Remove background text and noise from an image using image processing with OpenCV
+
+I have these images
+
+[](https://i.stack.imgur.com/VOfgD.png)
+
+[](https://i.stack.imgur.com/TdRKg.png)
+
+For which I want to remove the text in the background. Only the `captcha characters` should remain(i.e K6PwKA, YabVzu). The task is to identify these characters later using tesseract.
+
+This is what I have tried, but it isn't giving much good accuracy.
+
+```
+import cv2
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = r"C:\Users\HPO2KOR\AppData\Local\Tesseract-OCR\tesseract.exe"
+img = cv2.imread("untitled.png")
+gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray_filtered = cv2.inRange(gray_image, 0, 75)
+cv2.imwrite("cleaned.png", gray_filtered)
+```
+
+
+How can I improve the same?
+
+ 
+I tried all the suggestion that I was getting for this question and none of them worked for me.
+
+ 
+According to Elias, I tried finding the color of the captcha text using photoshop by converting it to grayscale which came out to be somewhere in between [100, 105]. I then threshold the image based on this range. But the result which I got did not give satisfactory result from tesseract.
+
+```
+gray_filtered = cv2.inRange(gray_image, 100, 105)
+cv2.imwrite("cleaned.png", gray_filtered)
+gray_inv = ~gray_filtered
+cv2.imwrite("cleaned.png", gray_inv)
+data = pytesseract.image_to_string(gray_inv, lang='eng')
+```
+
+
+Output :
+
+```
+'KEP wKA'
+```
+
+
+Result : 
+
+[](https://i.stack.imgur.com/AqYeO.png)
+
+
+
+```
+def get_text(img_name):
+    lower = (100, 100, 100)
+    upper = (104, 104, 104) 
+    img = cv2.imread(img_name)
+    img_rgb_inrange = cv2.inRange(img, lower, upper)
+    neg_rgb_image = ~img_rgb_inrange
+    cv2.imwrite('neg_img_rgb_inrange.png', neg_rgb_image)
+    data = pytesseract.image_to_string(neg_rgb_image, lang='eng')
+    return data
+```
+
+
+gives : 
+
+[](https://i.stack.imgur.com/rSrSz.png)
+
+and the text as
+
+```
+GXuMuUZ
+```
+
+
+Is there any way to soften it a little

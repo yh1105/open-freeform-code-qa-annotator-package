@@ -1,0 +1,16 @@
+How do I import a PowerShell module for use by a pipeline task
+
+I'm creating a Build Pipeline in Azure DevOps. I have a PowerShell task that invokes a script inside a file - it's not "inline" PowerShell. That script needs the `Az.Accounts` module so I added `Import-Module Az.Accounts`. When I run the pipeline, I get the following:
+
+```
+Import-Module : The specified module 'Az.Accounts' was not loaded because no valid module file was found in any module 
+directory.
+At D:\a\1\s\XXX\XXX\XXX.ps1:14 char:1
++ Import-Module Az.Accounts
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (Az.Accounts:String) [Import-Module], FileNotFoundException
+    + FullyQualifiedErrorId : Modules_ModuleNotFound,Microsoft.PowerShell.Commands.ImportModuleCommand
+```
+
+
+How do I add the missing module so my script can run?

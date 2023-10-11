@@ -1,0 +1,4 @@
+How to log data to the Flutter console?
+
+I am a beginner and using IntelliJ IDEA, and I wanted to log data to the console?
+I tried `print()` and `printDebug()`, but none of my data were showing in the Flutter console.

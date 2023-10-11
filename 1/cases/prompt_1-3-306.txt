@@ -1,0 +1,95 @@
+in python , How I can save the result to csv , AttributeError: 'dict' object has no attribute 'to_csv'
+
+How I can save the result to csv in arranged way ? meaning adding extra columns explain what 'added' and what 'removed' and what 'changed'
+
+I tried diff.to_csv('diff.csv') and got this error
+
+```
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'dict' object has no attribute 'to_csv'
+```
+
+
+This is the python code
+
+```
+from csv_diff import load_csv, compare
+diff = compare(
+    load_csv(open("list1.csv"), key="ean"),
+    load_csv(open("list2.csv"), key="ean")
+)
+diff.to_csv('diff.csv')
+```
+
+
+ 
+
+
+
+```
+price, oldprice,title,brand,category,unit,ean,,
+17,,VR BOX Virtual Reality 3D Glasses Bluetooth Game Remote Control For Phone Iphone,other,3d glasses,2023700513,272434,,
+18,,3d Glasses,other,3d glasses,1493500513,2272434,,
+22,,Zefas Active 3D GlassesFor SmartPhones,zefas,3d glasses,1342700513,2272456,,
+22.98,,3D Glasses Circular Polarized Lenses for Polarized TV| 3D Cinemas,other,3d glasses,1992100513,2272483,,
+25,,max3 pro,other,3d glasses,1904600513,2272432,,
+28.27,,Red Blue Clip on Anaglyph Glasses,other,3d glasses,2068900513,2272453,,
+```
+
+
+
+
+```
+price,oldprice,title,brand,category,unit,ean,,
+22.98,,3D Glasses Circular Polarized Lenses for Polarized TV| 3D Cinemas,other,3d  glasses,1992100513,2272483,,
+25,,max3 pro,other,3d glasses,1904600513,2272432,,
+59,,Red-blue Cyan Anaglyph 3D,terratec,3d glasses,2103700513,2272428,,
+65,,Sinogoodies Passive 3D GlassesFor SmartPhones,sinogoodies,3d glasses,1603700513,2272464,,
+69.91,,G15-DLP 3D Active Shutter Glasses for DLP-LINK DLP LINK 3D for Optoma Sharp LG Acer BenQ Projectors,other,3d glasses,2039200513,227243,,
+70,,Sinogoodies Passive 3D GlassesFor Multi,sinogoodies,3d glasses,1603600513,2272464,,
+```
+
+
+ 
+
+```
+compare(
+        load_csv(open("list1.csv"), key="ean"),
+        load_csv(open("list2.csv"), key="ean")
+    )
+```
+
+
+is 
+
+```
+{'added': [{'price': '59', 'oldprice': '', 'title': 'Red-blue Cyan Anaglyph 3D',
+ 'brand': 'terratec', 'category': '3d glasses', 'unit': '2103700513', 'ean': '22
+72428', '': ''}, {'price': '70', 'oldprice': '', 'title': 'Sinogoodies Passive 3
+D GlassesFor Multi', 'brand': 'sinogoodies', 'category': '3d glasses', 'unit': '
+1603600513', 'ean': '2272464', '': ''}, {'price': '69.91', 'oldprice': '', 'titl
+e': 'G15-DLP 3D Active Shutter Glasses for DLP-LINK DLP LINK 3D for Optoma Sharp
+ LG Acer BenQ Projectors', 'brand': 'other', 'category': '3d glasses', 'unit': '
+2039200513', 'ean': '227243', '': ''}], 'removed': [{'price': '17', 'oldprice':
+'', 'title': 'VR BOX Virtual Reality 3D Glasses Bluetooth Game Remote Control Fo
+r Phone Iphone', 'brand': 'other', 'category': '3d glasses', 'unit': '2023700513
+', 'ean': '272434', '': ''}, {'price': '18', 'oldprice': '', 'title': '3d Glasse
+s', 'brand': 'other', 'category': '3d glasses', 'unit': '1493500513', 'ean': '22
+72434', '': ''}, {'price': '22', 'oldprice': '', 'title': 'Zefas Active 3D Glass
+esFor SmartPhones', 'brand': 'zefas', 'category': '3d glasses', 'unit': '1342700
+513', 'ean': '2272456', '': ''}, {'price': '28.27', 'oldprice': '', 'title': 'Re
+d Blue Clip on Anaglyph Glasses', 'brand': 'other', 'category': '3d glasses', 'u
+nit': '2068900513', 'ean': '2272453', '': ''}], 'changed': [], 'columns_added':
+[], 'columns_removed': []}
+```
+
+
+
+
+```
+import pandas as pd
+dataframe = pd.DataFrame(diff)
+dataframe.to_csv("data.csv", header=True)
+```
+

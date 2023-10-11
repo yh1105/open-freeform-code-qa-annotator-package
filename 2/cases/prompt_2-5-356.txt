@@ -1,0 +1,38 @@
+Java sort list with streams first by length then alphabetically
+
+I can sort already by the description length, but how can I alphabetically sort two `Article` if two of them have the same length? (if the description of two articles has the same length, then the sorting should be alphabetical).
+```
+public List<Article> sortAsc() {
+    removeNull();
+    return articles.stream()
+            .sorted(Comparator.comparingInt(a -> a.getDescription().length()))
+            .collect(Collectors.toList());
+}
+
+
+
+
+public class ComparatorAppController implements Comparator<String> {
+
+/***
+ * compare each element
+ * @param o1
+ * @param o2
+ * @return
+ */
+public int compare(String o1, String o2) {
+    // check length in one direction
+    if (o1.length() > o2.length()) {
+        return 1;
+    }
+    // check length in the other direction
+    else if (o1.length() < o2.length()) {
+        return -1;
+    }
+    // if same alphabetical order
+    return o1.compareTo(o2);
+}
+```
+
+}
+How can I use my Comparator for this situation? Or should I change it to something else?

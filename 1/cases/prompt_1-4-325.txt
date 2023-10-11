@@ -1,0 +1,25 @@
+How can I make a discontinuous axis in R with ggplot2?
+
+I have a dataframe (`dat`) with two columns 1) `Month` and 2) `Value`. I would like to highlight that the x-axis is not continuous in my boxplot by interrupting the x-axis with two angled lines on the x-axis that are empty between the angled lines.
+Example Data and Boxplot
+```
+library(ggplot2)
+set.seed(321)
+dat <- data.frame(matrix(ncol = 2, nrow = 18))
+x <- c("Month", "Value")
+colnames(dat) <- x
+dat$Month <- rep(c(1,2,3,10,11,12),3)
+dat$Value <- rnorm(18,20,2)
+
+ggplot(data = dat, aes(x = factor(Month), y = Value)) +
+  geom_boxplot() +
+  labs(x = "Month") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 16),
+        axis.text.x = element_text(size = 14, color = "black"),
+        axis.text.y = element_text(size = 14, color = "black"))
+```
+
+The ideal figure would look something like below. How can I make this discontinuous axis in ggplot?
+[](https://i.stack.imgur.com/gSiqt.png)

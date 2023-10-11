@@ -1,0 +1,60 @@
+Best way to create this JSON object in Golang
+
+I'm trying to find the best way to create this JSON object using Go: 
+
+```
+{
+  "Clients" : [
+    {
+      "Hostname" : "example.com",
+      "IP" : "127.0.0.1",
+      "MacAddr" : "mactonight"
+    },
+    {
+      "Hostname" : "foo.biz",
+      "IP" : "0.0.0.0",
+      "MacAddr" : "12:34:56:78"
+    }
+  ]
+}
+```
+
+
+In my existing code, I'm currently slicing multiple string lines and then splitting each line into 3 separate variables (host, ip, mac). For example `hostname 192.168.1.0 F0:F0:F0:F0:F0` gets converted consectively.
+
+This is done by the following code:
+
+```
+func parselines(line string){
+    for _, line := range strings.Split(line, "\n") {
+        if line != "" {
+            s := strings.Split(line, " ")
+            host, ip, mac := s[0], s[1], s[2]
+            fmt.Println("Hostname: " + host + " IP: " + ip + " MAC: " + mac)
+        }
+    }
+}
+```
+
+
+So within this for loop I'd be looking to build the JSON object mentioned above. I've tried with structs but I'm really confused as to how to use them. I've done this with Ruby which took a few lines of code, but Go seems to be quite challenging (for me that is!). In ruby it's done like this:
+
+```
+require 'json'
+
+clients = []
+
+STDIN.each do |line|
+  fields = line.split(/\s+/)
+  clients << {
+    Hostname: fields[0],
+    IP: fields[1],
+    MacAddr: fields[2]
+  }
+end
+
+connections = {}
+connections[:Clients] = clients
+puts connections.to_json
+```
+

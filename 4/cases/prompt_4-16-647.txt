@@ -1,0 +1,6 @@
+Run Power Automate flow from Windows Desktop via shortcut key or command line / shell
+
+I would like to run a Power Automate flow by pressing a keyboard shortcut or alternatively calling it up from CMD or Powershell script.
+The flow would simply start execution once the keyboard shortcut is pressed or a Powershell script is run.
+As it is now; I need to start Power Automate and then click on play in order to start a specific flow. I am trying to avoid all that.
+The ultimate goal is to, once the system is up (Windows 10) and I'm logged it, I press the shortcut key and go do something else and by the time I get back the flow is done. The flow itself works flawlessly. Please note that I am not looking for a solution which would involve smartphones and flow buttons on said phones, purely  a Windows , PC, only solution or a way to a solution.

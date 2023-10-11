@@ -1,0 +1,16 @@
+error while import pytorch module. (The specified module could not be found.)
+
+I just newly install python 3.8 via anaconda installer and install pytorch using command
+```
+conda install pytorch torchvision cpuonly -c pytorch
+```
+
+when i try to import torch, I got this error message.
+```
+OSError: [WinError 126] The specified module could not be found. Error loading "C:\Users\chunc\anaconda3\lib\site-packages\torch\lib\asmjit.dll" or one of its dependencies.
+```
+
+I can see [dll files](https://i.stack.imgur.com/s92PY.png) are still in the directory.
+I ran Dependency Walker and it gave me [this result](https://i.stack.imgur.com/nsnqp.png).
+I am with this problem for a day.
+What should i do if i want to use PyTorch module?

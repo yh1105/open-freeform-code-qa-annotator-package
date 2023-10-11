@@ -1,0 +1,36 @@
+Errno - 13 Permission denied: '/media/ - Django
+
+I am using Django 3.1 in ubuntu,
+I got an error while uploading media files
+```
+PermissionError at /admin/main/artist/1/change/
+[Errno 13] Permission denied: '/media/artists'
+
+Exception Type: PermissionError
+Exception Value:    
+[Errno 13] Permission denied: '/media/artists'
+Exception Location: /usr/lib/python3.8/os.py, line 223, in makedirs
+Python Executable:  /home/rahul/.local/share/virtualenvs/music-69qL54Ia/bin/python
+```
+
+This code works in windows, but not in ubuntu
+Settings.py
+```
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / '/media/'
+```
+
+Models.py
+```
+class Artist(models.Model):
+    image = models.ImageField(upload_to='artists/%Y/%m/%d/', default='demo-artist.jpg', null=True, blank=True)
+```
+
+I tried this but didn't work
+```
+https://stackoverflow.com/questions/21797372/django-errno-13-permission-denied-var-www-media-animals-user-uploads
+```
+

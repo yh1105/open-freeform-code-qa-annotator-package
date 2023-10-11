@@ -1,0 +1,43 @@
+using ant design switch inside Forms
+
+What's the correct way to use ant design switch inside, I could not get much from the official documentation.
+[Switch-Ant Design](https://ant.design/components/switch/)
+Here's how I am using it.
+```
+<Form form={form} layout="vertical">
+  <Form.Item
+    label="Description"
+    name="description"
+    rules={[{ required: true, message: 'Enter a description' }]}
+  >
+    <Input placeholder="Enter Description" />
+  </Form.Item>
+
+  <Form.Item name="switch" noStyle valuePropName="checked">
+    <Switch checkedChildren="Yes" unCheckedChildren="No" />
+    <span>Chargable</span>
+  </Form.Item>
+
+  <Button
+    onClick={() => {
+      form
+        .validateFields()
+        .then((values) => {
+          form.resetFields()
+          onCreate(values)
+        })
+        .catch((info) => {
+          console.log('Validate Failed:', info)
+        })
+    }}
+  >
+    Save
+  </Button>
+</Form>
+```
+
+onCreate does no take the value from the switch, It does take it from the description
+```
+const onCreate = (values) => {}
+```
+

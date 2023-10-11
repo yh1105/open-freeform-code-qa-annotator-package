@@ -1,0 +1,14 @@
+How to truncate text in TailwindCSS?
+
+I am using `truncate` in TailwindCSS to make text ellipsis if text-overflow more than one line but it does not work.
+My code not works below:
+```
+<div className="ml-1 inline-block">
+   <span>Label: </span>
+   <span className="font-semibold truncate">
+     long texttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+   </span>
+</div>
+```
+
+

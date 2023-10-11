@@ -1,0 +1,73 @@
+How to auto-resize imageview for different screen sizes android studio?
+
+I am starting to develop apps for android devices using Android Studio. While I was testing my app for screen size compatibilty I noticed that the imageviews do not auto-resize. 
+
+The imageview placement looks completely different in different screen sizes. If the screen is small enough, the imageview will sometimes be placed outside of the viewscope.
+
+I have looked all over the internet but I am a little confused on how to make the app compatible with most screen sizes (not including tablets). I went to the android website and they said to use wrap_content. but if I use this, I wont be able to adjust the height and width of the imageview to how I want it. 
+
+Does anyone know how to make imageview auto-resize accordingly to the screen size?
+
+Here are images of what is happening:
+
+
+
+[](https://i.stack.imgur.com/qRuEU.png)
+
+
+
+[](https://i.stack.imgur.com/F1cF5.png3)
+
+
+
+[](https://i.stack.imgur.com/P5MnE.png)
+
+In Xcode there is a feature called auto-resize that automatically resizes the content for you. Does android studio have something similar to that?
+
+
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    
+    <Button
+        android:id="@+id/resetButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="56dp"
+        android:background="#F70000"
+        android:text="Undo"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="288dp"
+        android:layout_height="248dp"
+
+        android:background="#1750DF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+
+
+Thank you in advance!

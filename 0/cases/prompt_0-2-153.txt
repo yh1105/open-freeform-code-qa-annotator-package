@@ -1,0 +1,31 @@
+Is there a shorter way to write a border on only one side?
+
+I got borders on all the edges by doing something like:
+It is actually a mistake, but at the time of the question I believe I can draw a line only to the TOP with the following code. (Actually, lines are drawn on all edges.)
+```
+<div class="border border-blue-900 border-t-1">foo</div>
+```
+
+I wanted to display it only on one side, so I did some research.
+I noticed that when I used `border` in `tailwindcss`,
+the following was output in the output file.
+> /**- 
+1. Prevent padding and border from affecting element width.
+
+- - - - - `content-box`- - [https://github.com/mozdevs/cssremedy/issues/4](https://github.com/mozdevs/cssremedy/issues/4)- - - 
+1. Allow adding a border to an element by just adding a border-width.
+
+- - - `none`- - - `border-width`- `solid`- `border`- `border-width``border`- - - [https://github.com/tailwindcss/tailwindcss/pull/116](https://github.com/tailwindcss/tailwindcss/pull/116)
+The original of this output would have come from
+[https://github.com/tailwindlabs/tailwindcss/blob/723e8d4377eb25b66a6224f767937fa02762eb52/src/plugins/css/preflight.css#L71](https://github.com/tailwindlabs/tailwindcss/blob/723e8d4377eb25b66a6224f767937fa02762eb52/src/plugins/css/preflight.css#L71)
+I thought this was probably the cause.
+I have succeeded in applying it only to the top edge by writing the following.
+```
+<div class="border border-blue-900 border-t-1 border-l-0 border-r-0 border-b-0">foo</div>
+```
+
+However, this is too long. Is there any way to make it shorter?
+ I am also considering the following as alternatives.
+[How do I take it as a parameter in JIT?](https://stackoverflow.com/questions/68877759/how-do-i-take-it-as-a-parameter-in-jit)
+This way, I can also adjust the width (not the width in the border, it is for `display: block`).
+What I want to do is just display it on any one side, so the above link is trying to display it on the bottom. (In other words, it doesn't matter if it's at the top, bottom, or anywhere else. It's just an example.)

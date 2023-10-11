@@ -1,0 +1,131 @@
+Best practise of using view model in jetpack compose
+
+I have few doubt using viewmodel in composable function. I am adding my activity code, I am passing my intent bundle.
+
+1. So I want to ask is this best practise to use viewmodel like this to create viewmodel global in the activity?
+
+
+
+```
+class InputActivity : ComponentActivity() {
+
+    private val viewModel by viewModel<InputViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupViewModel()
+        setContent {
+            Theme {
+                AppBarScaffold(
+                    displayHomeAsUpEnabled = true,
+                    titleId = R.string.personal_health
+                ) {
+                    viewModel.OptionData?.let {
+                        Input(it)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel.optionData = intent.getParcelableExtra("optiondata")
+    }
+}
+```
+
+I have so many composable function
+
+```
+@Composable
+fun Input(optionData: OptionData) {
+    var value by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        InputItem()
+        Spacer()
+        OnSubmitPulse()
+    }
+}
+```
+
+
+```
+@Composable
+fun InputItem() {
+    Image()
+    PulsePressure()
+}
+```
+
+
+```
+@Composable
+fun PulsePressure() {
+    Column {
+        InputWithUnitContainer()
+        InputWithUnitContainer()
+    }
+}
+```
+
+
+```
+@Composable
+fun InputWithUnitContainer() {
+    Row() {
+        Text()
+        TextField(value = "")
+        Text()
+    }
+}
+```
+
+Every function have logic which I want to store in viewmodel.
+
+1. So should I create viewmodel in constructors parameters or pass viewmodel instance every time ?
+
+
+
+```
+fun Input(optionData: OptionData,viewModel: InputViewModel = viewModel())
+```
+
+
+```
+fun InputItem(viewModel: InputViewModel = viewModel())
+```
+
+
+```
+fun PulsePressure(viewModel: InputViewModel = viewModel())
+```
+
+
+```
+fun Input(optionData: OptionData,viewModel: InputViewModel = viewModel()) {
+        InputItem(viewModel)
+}
+```
+
+
+```
+fun InputItem(viewModel: InputViewModel) {
+      PulsePressure(viewModel)
+}
+```
+
+
+```
+fun PulsePressure(viewModel: InputViewModel) {
+    // more function call
+}
+```
+
+So what would you guys suggest in jetpack compose. Please ask me if you don't understand me question. Many Thanks

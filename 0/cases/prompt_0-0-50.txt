@@ -1,0 +1,40 @@
+Understanding esModuleInterop in tsconfig file
+
+I was checking out someone `.tsconfig` file and there I spotted `--esModuleInterop`
+This is his `.tsconfig` file
+```
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modues"]
+}
+```
+
+Here, My primary question is what is   `"esModuleInterop": true,` and
+`"allowSyntheticDefaultImports": true,`. I know they are sort of dependent on the  `"module": "commonjs",` . Can someone try to explain it in the best human language possible?
+The official docs for `allowSyntheticDefaultImports` states
+> Allow default imports from modules with no default export. This does
+not affect code emit, just typechecking.
+What does that mean? If there isn't any export default then I think the only use case of the import default would be to initialize something? Like a singleton?
+The following question/answer does not make sense as well
+[Is there a way to use --esModuleInterop in tsconfig as opposed to it being a flag?](https://stackoverflow.com/questions/48785451/is-there-a-way-to-use-esmoduleinterop-in-tsconfig-as-opposed-to-it-being-a-fla)
+And `--esModuleInterop` definition on the compiler page
+> Emit __importStar and __importDefault helpers for runtime babel
+ecosystem compatibility and enable --allowSyntheticDefaultImports for
+typesystem compatibility.
+Also seemed difficult for me to understand/comprehend

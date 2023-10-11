@@ -1,0 +1,25 @@
+How to remove object if one variable is false in list using java streams
+
+I am using java 8
+I have a model class like
+```
+class Student{
+    String name;
+    List<Subject> subjects1;
+    List<Subject> subjects2;
+    List<Subject> subjects3;
+    // getters & setters
+}
+
+class Subject{
+    String sub;
+    Integer marks;
+    boolean status;
+    // getters & setters
+}
+```
+
+`status` may be true or false.
+Now if the status is false then I have to remove those objects from the subjects list
+How to do it in Streams?
+Thanks in advance.

@@ -1,0 +1,20 @@
+Next.js 13 - Error: The "target" property is no longer supported in next.config.js, Even next.config.js does not have the target property
+
+I upgraded my next.js app to Next.js 13 and pushed the new version to AWS Amplify. The build failed due to this error: The "target" property is no longer supported in next.config.js
+`Error: The "target" property is no longer supported in next.config.js. See more info here https://nextjs.org/docs/messages/deprecated-target-config at Object.loadConfig [as default (/codebuild/output/src405507991/src/assistian/node_modules/next/dist/server/config.js:97:19)`
+Here is my next.config.js with no target:
+```
+/** @type {import('next').NextConfig} */
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+    return config
+  }
+}
+```
+
+Any opinion on what is going wrong?

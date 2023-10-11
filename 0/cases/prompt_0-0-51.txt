@@ -1,0 +1,65 @@
+How to transfer custom SPL token by '@solana/web3.js' and '@solana/sol-wallet-adapter'
+
+I am trying to transfer a custom SPL token with the solana-wallet adapter. However I am having trouble getting the wallet's secret key/signing the transaction.
+I've looked at these answers for writing the transfer code, but I need to get the Signer and I have trouble figuring out how with solana-wallet adapter:
+[How can you transfer SOL using the web3.js sdk for Solana?](https://stackoverflow.com/questions/68166964/how-can-you-transfer-sol-using-the-web3-js-sdk-for-solana)
+[How to transfer custom token by '@solana/web3.js'](https://stackoverflow.com/questions/68236211/how-to-transfer-custom-token-by-solana-web3-js)
+These examples hardcode the secret key and since I'm using a wallet extension this is not possible.
+According to this issue on the webadapter repo [https://github.com/solana-labs/wallet-adapter/issues/120](https://github.com/solana-labs/wallet-adapter/issues/120) you need to:
+
+1. Create a @solana/web3.js Transaction object and add instructions to it
+2. Sign the transaction with the wallet
+3. Send the transaction over a Connection
+
+
+But Ii am having difficulty finding examples or documentation as to how to do step 1 and 2.
+```
+const SendTransaction: React.FC<Props> = ({ children }) => {
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction } = useWallet()
+
+    const onSendSPLTransaction = useCallback(
+        async (toPubkey: string, amount: number) => {
+            if (!toPubkey || !amount) return
+            const toastId = toast.loading('Processing transaction...')
+
+            try {
+                if (!publicKey) throw new WalletNotConnectedError()
+                const toPublicKey = new PublicKey(toPubkey)
+                const mint = new PublicKey('Mint address')
+                const payer = '????' // how to get this Signer
+                const token = new Token(connection, mint, TOKEN_PROGRAM_ID, payer)
+                const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+
+                const transaction = new Transaction().add(
+                    Token.createTransferInstruction(
+                        TOKEN_PROGRAM_ID,
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        [],
+                        0
+                    )
+                )
+
+                const signature = await sendTransaction(transaction, connection)
+
+                const response = await connection.confirmTransaction(signature, 'processed')
+                console.log('response', response)
+                toast.success('Transaction sent', {
+                    id: toastId,
+                })
+            } catch (error) {
+                toast.error(`Transaction failed: ${error.message}`, {
+                    id: toastId,
+                })
+            }
+        },
+        [publicKey, sendTransaction, connection]
+    )
+
+    return <>{children(onSendSPLTransaction)}</>
+}
+```
+

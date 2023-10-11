@@ -1,0 +1,3 @@
+Live server installed but not working in VS code
+
+I have installed the live server extension but the browser does not update after I save my HTML or other files. What might be causing a problem?

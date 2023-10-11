@@ -1,0 +1,95 @@
+Absolute Imports: React and Typescript
+
+
+## Background
+
+
+
+I have a React app bootstrapped using `create-react-app` and typescript. As the application has grown, () I would like to implement absolute imports. I am using VS Code (Visual Studio Code) and with very little configuration, I got TS and VS Code to recognize my absolute imports.
+
+For TS, I took the following steps in my `tsconfig.json`:
+
+- `"baseUrl": "client"`- `include``"include": ["./**/*.ts", "./**/*.tsx", "client"]`
+
+For VS Code, I changed my User Settings: Typescript -> Preferences: Import Module Specifier -> non-relative
+
+That worked great. All of my imports were using absolute imports, no errors. But, when I ran the app, I got an error: `Error: Cannot find module "component"` I expected to see my app like I did before the absolute imports. 
+
+
+## What I Tried
+
+
+
+Figured, the error was a webpack or babel issue. 
+
+
+1. Created env File Added the following to an env file in the root of the app (same location as my package.json)
+
+
+
+```
+NODE_PATH=client/
+```
+
+
+That did not work. Same error: `Error: Cannot find module "components"`. Also tried changing NODE_PATH to REACT_APP_NODE_PATH that did not work either.
+
+
+1. Modify Babel Config Added babel plugin module resolver with yarn add -D babel-plugin-module-resolver. Then modified my babel.config.js to:
+
+
+
+```
+module.exports = { 
+  env {...}, 
+  plugins: [
+    [
+      'module-resolver',
+      {
+        cwd: 'babelrc',
+        extensions: ['.ts', '.tsx', '.js'],
+        alias: {
+          client: './client',
+        },
+      },
+    ],
+  ]
+}
+```
+
+
+That returns the same error. (I am restarting the server after every change to my config files)
+
+
+I used a lot of different articles to try to find clarity. Here are some:
+
+- [here](https://medium.com/@ktruong008/absolute-imports-with-create-react-app-4338fbca7e3d)- [here](https://dev.to/mr_frontend/absolute-imports-in-create-react-app-3ge8)- [here](https://justinnoel.dev/2019/06/18/configuring-react-absolute-imports-for-typescript/)- [StackOverflow](https://stackoverflow.com/questions/56908357/use-absolute-path-in-react-components)- 
+
+And many others. None of that worked. 
+
+
+## Project Structure
+
+
+
+My project structure is a little "unconventional" or not my typical pattern which could be causing an issue.
+
+```
+└── root dir
+    ├── assets
+    │   └── client
+    │       ├── assets
+    │       ├── components
+    │       ├── hooks
+    │       └── ...
+    │   └── babel.config.js
+    │   └── .babelrc
+    │   └── webpack.config.js
+    │   └── package.json
+    └── server files (no server dir)
+```
+
+
+So `client` is like my `src` in a typical react app. `assets` is the "entry dir" for my server which is in the `root dir`.
+
+Any help would be appreciated.

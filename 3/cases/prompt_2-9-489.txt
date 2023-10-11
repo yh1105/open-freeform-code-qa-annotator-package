@@ -1,0 +1,13 @@
+How to fix this in error rails "warning: 299 Elasticsearch built-in security features are not enabled. Without authentication, your cluster could..."
+
+I have a Rails app that uses Searchkick and after updating my gems and yarn, I'm getting this Elasticsearch warning"
+```
+warning: 299 Elasticsearch-7.13.1-9a7758028e4ea59bcab41c12004603c5a7dd84a9 "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.13/security-minimal-setup.html to enable security."
+```
+
+I tried following the instructions at the [webpage mentioned](https://www.elastic.co/guide/en/elasticsearch/reference/7.13/security-minimal-setup.html), but I'm getting stuck at the `run the elasticsearch-setup-passwords utility` step. I can't find this script anywhere.
+I'm currently on an M1 Mac, but running terminal with Rosetta, so homebrew was installed with Rosetta.
+This is just for my development machine, so it doesn't seem like security is that important and previous versions of Elasticsearch installed with Homebrew did not display this warning.
+Here's what I'm running now:
+- - - `brew install Elasticsearch``brew services start elasticsearch`- 
+Is there a way to ignore this message? Or how do I fix this? It's so large in my console that I can't read my tests.

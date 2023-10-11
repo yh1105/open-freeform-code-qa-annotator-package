@@ -1,0 +1,121 @@
+Change button position in HTML & CSS?
+
+I wrote a CSS file for my HTML Page but it make my page mess up. The stop button is behind the game frame.
+
+1) How should I move stop button at Top to properly align with begin button.
+
+2) The bottom arrows going out of screen how should I slightly move it up so they would display properly?
+
+3) How To add color on the text Points Earned and click to start the game?
+
+![The image is avilable here](https://i.stack.imgur.com/HY836.png)
+
+HTML code:
+
+```
+<html>
+<head>
+    <link rel="icon" href="./arrows/clubbackground.jpg" type="image/gif" sizes="16x16">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="jsRev.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>DDR-Project 1</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div id="BackgroundScene">
+  <div id="DanceScoreboard">
+    <div id="GameStopped"><button id="StartBtn" class="btnStyle" onclick="gameStarted=true;">Begin Game</button>
+      <br><br><br>
+      <div class="Status">Click Begin Game to start</div>
+    </div>
+    <div id="GameRunning"><button id="StopBtn" class="btnStyle" onclick="self.close()">Stop Game</button>
+      <div id="Status" class="Status"></div>
+    </div>
+    <div id="dancePoints" class="Points">Points Earned:
+      <div class="OutputText" id="CorrectCount">0</div>
+    </div>
+  </div>
+  <div class="stage"></div>
+  <!-- ENDS .STAGE -->
+  <div id="controls">
+    <img id="left" src="./arrows/staticLeft.png">
+    <img id="up" src="./arrows/staticUp.png">
+    <img id="down" src="./arrows/staticDown.png">
+    <img id="right" src="./arrows/staticRight.png">
+  </div>
+  <!-- ENDS #CONTROLS -->
+
+</body>
+</html>
+```
+
+
+CSS file:
+
+```
+.stage {
+    width: 1150px;    
+    height: 500px;
+    margin:0;
+    padding:0;
+    background-image: url('./arrows/clubbackground.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    text-align: center;
+    opacity: 90%;
+
+}
+
+#controls {
+    padding-left: 350px;
+
+}
+/*#left {
+
+}
+#up {
+
+}
+#down {
+
+}
+#right {
+
+}*/
+.btnStyle {
+    border-radius: 4px;
+    border: medium solid #000000;
+    background-color:rgb(92, 250, 246);
+    font-family: "Arial", Impact, Charcoal, sans-serif;
+    font-weight: bold;
+    font-size:20px;
+    color: #ffffff;
+    padding: 5px 30px;
+    margin:8px 70px;
+}
+
+#StartBtn{
+    position: fixed;
+    left: 100px;
+    text-shadow: 2px 2px 4px black;
+}
+
+#StopBtn{
+    position: fixed;
+    left: 500px;
+    down: 10px;
+    border-radius: 4px;
+    border: medium solid #000000;
+    background-color:rgb(92, 250, 246);
+    font-family: "Arial", Impact, Charcoal, sans-serif;
+    font-weight: bold;
+    font-size:20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px black;
+    padding: 5px 30px;
+    margin:8px 70px;
+}
+```
+

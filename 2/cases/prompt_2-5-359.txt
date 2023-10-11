@@ -1,0 +1,46 @@
+Fortify's denial of service problem in stringbuilder in java
+
+Fortify client gives the error and recommendations for string builder,
+
+```
+StringBuilder sb=new StringBuilder();    
+sb.append(request.getParameter("id"));
+sb.append(request.getParameter("name"));
+sb.append(request.getParameter("question"));
+sb.append(request.getParameter("answer"));
+```
+
+
+User-controlled data is appended to a StringBuilder instance initialized with the default constructor
+Appending user-controlled data to a StringBuilder or StringBuffer instance initialized with the default backing character array
+size (16) can cause the application to consume large amounts of heap memory while resizing the underlying array to fit user's
+data. When data is appended to a StringBuilder or StringBuffer instance, the instance will determine if the backing character
+array has enough free space to store the data. If the data does not fit, the StringBuilder or StringBuffer instance will create a new
+array with a capacity of at least double the previous array size, and the old array will remain in the heap until it is garbage
+collected. Attackers can use this implementation detail to execute a Denial of Service (DoS) attack.
+
+Initialize the StringBuilder or StringBuffer with an initial capacity of the expected appended data size to reduce the number of
+times the backing array is resized. Check the size of the data before appending it to a StringBuilder or StringBuffer instance.
+```
+...
+private final int BUFFER_CAPACITY = 5200;
+StringBuilder sb = new StringBuilder(BUFFER_CAPACITY);
+...
+final String lineSeparator = System.lineSeparator();
+String[] labels = request.getParameterValues("label");
+for (String label : labels) {
+if (label.length() + lineSeparator.length() + sb.length()<= sb.capacity()) {
+sb.append(label).append(lineSeparator);
+} else {
+// Handle error
+}
+}
+```
+
+
+
+1. If the garbage collectors free it's memory , how the attacker can cause denial of service attack? does it applicable ?
+2. My requirement to store the dynamic data range of 0 to 12000 max characters in string builder , so if i use 12000 characters to initialize the string builder , then if my input has only 100 character string means , remaining 11900 length of memory is not required . so in that case do i really needs to set the max of characters in String Builder capacity ? or i can go with length validation for my input parameters only with default constructor?
+
+
+what will be the better solution for this problem?

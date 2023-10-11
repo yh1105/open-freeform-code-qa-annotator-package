@@ -1,0 +1,9 @@
+Using openpyxl to find rows that contain cell with specific value
+
+I am completely new to `openpyxl` so, as you can imagine, I am having pretty hard times when I try to make use of it.
+I have an Excel report that contains only one sheet (called `Sheet1)`. I'd like to search all cells for those that contain specific string (product name ABC in this case).
+Then I would like to copy contents of every cell in the rows that contain cell with `ABC` product name. And assign every cell to a variable.
+To give you better idea of what I am trying to achieve I'll give you an example:
+[](https://i.stack.imgur.com/aQ9m7.jpg)
+So in this case I would only copy cells from rows: 2, 4, 6 (as only they contain `ABC` product).
+I have already looked up similar questions and answers to them but I don't understand them (never have used Excel before).

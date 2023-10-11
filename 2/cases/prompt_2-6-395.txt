@@ -1,0 +1,15 @@
+Add Swagger description to minimal .NET6 APIs
+
+I have a small project in .NET6 that contains minimal APIs like that one
+```
+app.MapGet("/clients",
+     async (IClientRepository repo) =>
+     {
+          var results = await repo.GetClientsAsync();
+          return mapper.Map<IEnumerable<ClientModel>>(results);
+     });
+```
+
+In the `SwaggerUI` I can use this API but I can't find a way to add description to it (although in the project settings I check for creating an API XML documentation).
+[](https://i.stack.imgur.com/DfCTU.png)
+How can I add the XML comment?

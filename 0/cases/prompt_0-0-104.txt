@@ -1,0 +1,8 @@
+React Native - Change button color on focus
+
+I'm using the `Button` component from React Native and I need to change the color of the button when the button is focused with a TV remote (Amazon Fire Stick). I don't see any focus listeners available for the button. Is there anyway to achieve this functionality? Here is my code:
+```
+<Button disabled={props.loading} styles={styles.button} title="1" onPress={() => {props.addNumber(1)}}/>
+```
+
+I looked at the `TouchableHighlight` component but it won't work because I need the color to change when the user has focused on the button before the button is clicked. By default, the opacity change is so small that it's hard to tell the button is currently focused.

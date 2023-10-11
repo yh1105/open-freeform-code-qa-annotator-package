@@ -1,0 +1,448 @@
+
+# Post \#57631705 [Link](https://stackoverflow.com/questions/57631705/)
+
+## RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation
+
+**Vote**: 7 (449/702) **Views**: 21762 (283/702) 
+
+**Internal ID** \#1-3-276
+
+Created at 2019-08-23 19:00:20
+
+Tags: `python` `pytorch` `in-place`
+
+----------
+
+#### Metadata:
+
+Area: `Data Science & Machine Learning`
+
+Language: `python` (full parsed tag list: `python`)
+
+----------
+
+**Notepad**
+
+
+----------
+
+In a pytorch model training process I get this error:
+
+> RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation: [torch.cuda.LongTensor [128, 1]] is at version 8; expected version 7 instead. Hint: the backtrace further above shows the operation that failed to compute its gradient. The variable in question was changed in there or anywhere later. Good luck!
+
+with stack trace 
+
+```
+sys:1: RuntimeWarning: Traceback of forward call that caused the error:
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/runpy.py", line 174, in _run_module_as_main
+    "__main__", fname, loader, pkg_name)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/runpy.py", line 72, in _run_code
+    exec code in run_globals
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel_launcher.py", line 16, in <module>
+    app.launch_new_instance()
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/traitlets/config/application.py", line 658, in launch_instance
+    app.start()
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/kernelapp.py", line 499, in start
+    self.io_loop.start()
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/tornado/ioloop.py", line 1073, in start
+    handler_func(fd_obj, events)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/tornado/stack_context.py", line 300, in null_wrapper
+    return fn(*args, **kwargs)
+  File "/home/arash/.local/lib/python2.7/site-packages/zmq/eventloop/zmqstream.py", line 456, in _handle_events
+    self._handle_recv()
+  File "/home/arash/.local/lib/python2.7/site-packages/zmq/eventloop/zmqstream.py", line 486, in _handle_recv
+    self._run_callback(callback, msg)
+  File "/home/arash/.local/lib/python2.7/site-packages/zmq/eventloop/zmqstream.py", line 438, in _run_callback
+    callback(*args, **kwargs)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/tornado/stack_context.py", line 300, in null_wrapper
+    return fn(*args, **kwargs)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/kernelbase.py", line 283, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/kernelbase.py", line 233, in dispatch_shell
+    handler(stream, idents, msg)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/kernelbase.py", line 399, in execute_request
+    user_expressions, allow_stdin)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/ipkernel.py", line 208, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/ipykernel/zmqshell.py", line 537, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/IPython/core/interactiveshell.py", line 2714, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/IPython/core/interactiveshell.py", line 2818, in run_ast_nodes
+    if self.run_code(code, result):
+  File "/home/arash/anaconda2/envs/mzh27/lib/python2.7/site-packages/IPython/core/interactiveshell.py", line 2878, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File "<ipython-input-71-a5b255596e11>", line 33, in <module>
+    sampled_captions, sampled_log_probs=predict_captions(out_enc,hid_enc,enc_pp,'sample')
+  File "<ipython-input-70-a6ea511f0678>", line 18, in predict_captions
+    out_dec, hid_dec, word_logits = dec.forward(r, last_enc, img_features)
+  File "<ipython-input-21-0601dad4805f>", line 21, in forward
+    emb = self.embedding(input)
+  File "/home/arash/.local/lib/python2.7/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/arash/.local/lib/python2.7/site-packages/torch/nn/modules/sparse.py", line 117, in forward
+    self.norm_type, self.scale_grad_by_freq, self.sparse)
+  File "/home/arash/.local/lib/python2.7/site-packages/torch/nn/functional.py", line 1506, in embedding
+    return torch.embedding(weight, input, padding_idx, scale_grad_by_freq, sparse)
+
+---------------------------------------------------------------------------
+RuntimeError                              Traceback (most recent call last)
+<ipython-input-71-a5b255596e11> in <module>()
+     54                  torch.stack(sampled_log_probs).reshape(-1)).mean()
+     55         torch.autograd.set_detect_anomaly(True)
+---> 56         loss.backward()
+     57         clip_grad_value_(enc_optim.param_groups[0]['params'], 5.0)
+     58         clip_grad_value_(dec_optim.param_groups[0]['params'], 5.0)
+
+/home/arash/.local/lib/python2.7/site-packages/torch/tensor.pyc in backward(self, gradient, retain_graph, create_graph)
+    105                 products. Defaults to ``False``.
+    106         """
+--> 107         torch.autograd.backward(self, gradient, retain_graph, create_graph)
+    108 
+    109     def register_hook(self, hook):
+
+/home/arash/.local/lib/python2.7/site-packages/torch/autograd/__init__.pyc in backward(tensors, grad_tensors, retain_graph, create_graph, grad_variables)
+     91     Variable._execution_engine.run_backward(
+     92         tensors, grad_tensors, retain_graph, create_graph,
+---> 93         allow_unreachable=True)  # allow_unreachable flag
+     94 
+     95
+```
+
+
+But I'm unable to locate in-place operation that causes the error.
+Here is my code:
+
+```
+for epoch in xrange(0, 13):
+    print ("Starting New Epoch: %d" % epoch)
+    rewards = {
+        'sample_cider': [],
+        'sample_context': [],
+        'sample_reward': [],  # actual reward, controlled by beta
+        'greedy_cider': [],
+        'greedy_context': [],
+        'greedy_reward': []
+    }
+
+    order = np.arange(enc_padded_text.shape[0])
+    np.random.shuffle(order)
+    enc_padded_text = enc_padded_text[order]
+    input_text=[input_text[i] for i in order]
+    dec_text_tensor.data = dec_text_tensor.data[order]
+
+    for i in xrange(num_batches):
+        s = i * BATCH_SIZE
+        e = (i+1) * BATCH_SIZE
+
+        _, enc_pp, dec_pp, enc_lengths = make_packpadded_s2s(s, e, enc_padded_text, dec_text_tensor)
+
+        enc.zero_grad()
+        dec.zero_grad()
+
+        hid = enc.initHidden(BATCH_SIZE)
+
+        out_enc, hid_enc = enc.forward(enc_pp, hid, enc_lengths)
+
+        hid_enc = torch.cat([hid_enc[0,:, :], hid_enc[1,:,:]], dim=1).unsqueeze(0)
+        gt_dict = dict(zip(_,input_text[s:e]))
+        sampled_captions, sampled_log_probs=predict_captions(out_enc,hid_enc,enc_pp,'sample')
+        sampled_dict = dict(zip(_, sampled_captions))
+        with torch.no_grad():
+            greedy_captions = predict_captions(out_enc,hid_enc,enc_pp, 'greedy')
+            greedy_dict = dict(zip(_, greedy_captions))
+
+
+        sample_cider_score, sample_context_score, sample_reward = get_scores(
+            dec_pp[:,1:], sampled_captions, gt_dict, sampled_dict)
+        greedy_cider_score, greedy_context_score, greedy_reward = get_scores(
+            dec_pp[:,1:], greedy_captions, gt_dict, greedy_dict)
+
+        # self-critical: score from sampling - score from test time
+        advantages = torch.Tensor((sample_cider_score - greedy_cider_score).reshape(-1))
+
+        # normalize advantages
+        advantages = ((advantages - advantages.mean()) /
+                      advantages.std() + 1e-9)
+        if cuda:
+            advantages = advantages.cuda()
+        loss = -(advantages *
+                 torch.stack(sampled_log_probs).reshape(-1)).mean()
+        torch.autograd.set_detect_anomaly(True)
+        loss.backward()
+        clip_grad_value_(enc_optim.param_groups[0]['params'], 5.0)
+        clip_grad_value_(dec_optim.param_groups[0]['params'], 5.0)
+        enc_optim.step()
+        dec_optim.step()
+
+        rewards['sample_cider'].extend(sample_cider_score)
+        rewards['sample_context'].extend(sample_context_score)
+        rewards['sample_reward'].extend(sample_reward)
+        rewards['greedy_cider'].extend(greedy_cider_score)
+        rewards['greedy_context'].extend(greedy_context_score)
+        rewards['greedy_reward'].extend(greedy_reward)
+
+        if (b + 1) % 100 == 0:
+            print('\t[Batch {} running metrics] - R train {:.2f} - R train (greedy): {:.2f}'.format(
+                b + 1, np.mean(rewards['sample_reward']), np.mean(rewards['greedy_reward'])))
+```
+
+
+predict_captions function:
+
+```
+def predict_captions(img_features,hid_enc,enc_pp, mode='sample', constrain=False,L=22):
+    dec_tensor = torch.ones((enc_pp.shape[0]), L+1, dtype=torch.long) * Toks.SOS
+    global cuda
+    if cuda:
+        dec_tensor = dec_tensor.cuda(device=device)
+    last_enc = hid_enc
+    if mode == 'beam_search':
+        return self.beam_search(img_features, state, lstm_states)
+
+    predictions = []
+    log_probs = []
+
+    # this should store the index of the first occurrence of <EOS>
+    # for each sample in the batch
+    EOS_tracker = np.full(img_features.shape[0], None)
+    for i in range(L):
+        r=dec_tensor[:,i].unsqueeze(1)
+        out_dec, hid_dec, word_logits = dec.forward(r, last_enc, img_features)
+        out_dec[:, 0, Toks.UNK] = -np.inf # ignore unknowns
+        l=out_dec[:,0]
+        chosen = torch.argmax(l,dim=1)
+        dec_tensor[:, i+1] = chosen
+        last_enc = hid_dec
+        # decoding stuff
+        probs = F.softmax(word_logits, dim=2)
+        probs=probs.reshape(128,20004)
+
+        if constrain:
+            # enforce constraint that the same word can't be predicted
+            # twice in a row. zero-out the probability of previous words
+            for p, prev_idx in zip(probs, state['prev_word_indeces']):
+                p[prev_idx] = 0
+
+        if mode == 'sample':
+            idxs = torch.multinomial(probs, 1)
+        else:
+            idxs = torch.argmax(probs, dim=1)
+        if cuda:
+            idxs = idxs.cpu()
+        words = [dec_idx_to_word[index] for index in idxs] 
+        predictions.append(np.array(words).reshape(-1))
+
+        # get the respective log probability of chosen word
+        # for each sample in the batch
+        log_probs.append([lp[i] for (lp, i)
+                         in zip(torch.log(probs), idxs)])
+
+        # inefficient but this should be fast enough anyway... ? :(
+        eos_idxs = (np.array(words)==dec_idx_to_word[2]).nonzero()[0]
+        for idx in eos_idxs:
+            if EOS_tracker[idx] is None:
+                EOS_tracker[idx] = i + 1
+
+        # finish loop if they're all done
+        if len(EOS_tracker[EOS_tracker == None])==0:
+            break
+
+
+    # build the actual sentences, up until the first occurrence of <EOS>
+    captions = [
+        [' '.join(w[:eos_idx])] for (w, eos_idx) in
+        zip(np.array(predictions).T, EOS_tracker)
+    ]
+    print captions
+    # do this only when training. not needed otherwise.
+    if mode == 'sample':
+        log_probs = [lp[:eos_idx].sum() for (lp, eos_idx) in zip(np.array(log_probs).T, EOS_tracker)]
+        return captions, log_probs
+
+    return captions
+```
+
+
+models:
+
+```
+class Encoder_s2s(nn.Module):
+    def __init__(self, input_size, hidden_size):
+        super(Encoder_s2s, self).__init__()
+        assert hidden_size % 2 == 0
+
+        self.hidden_size = hidden_size
+        self.input_size = input_size
+
+        self.hidden_init_tensor = torch.zeros(2, 1, self.hidden_size/2, requires_grad=True)
+        nn.init.normal_(self.hidden_init_tensor, mean=0, std=0.05)
+        self.hidden_init = torch.nn.Parameter(self.hidden_init_tensor, requires_grad=True)
+
+        self.embedding = nn.Embedding(input_size, hidden_size)
+        self.emb_drop = nn.Dropout(0.2)
+        self.gru = nn.GRU(hidden_size, hidden_size/2, batch_first=True, bidirectional=True)
+        self.gru_out_drop = nn.Dropout(0.2)
+        self.gru_hid_drop = nn.Dropout(0.3)
+
+    def forward(self, input, hidden, lengths):
+        emb = self.emb_drop(self.embedding(input))
+        #emb = embedded_dropout(self.embedding, input, dropout=0.2 if self.training else 0)
+        pp = torch.nn.utils.rnn.pack_padded_sequence(emb, lengths, batch_first=True)
+        out, hidden = self.gru(pp, hidden)
+        out = torch.nn.utils.rnn.pad_packed_sequence(out, batch_first=True)[0]
+        out = self.gru_out_drop(out)
+        hidden = self.gru_hid_drop(hidden)
+        return out, hidden
+
+    def initHidden(self, bs):
+        return self.hidden_init.expand(2, bs, self.hidden_size/2).contiguous()
+
+class DecoderAttn(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size, out_bias):
+        super(DecoderAttn, self).__init__()
+        self.hidden_size = hidden_size
+        self.input_size = input_size
+
+        self.embedding = nn.Embedding(input_size, hidden_size)
+        self.emb_drop = nn.Dropout(0.2)
+        self.gru = nn.GRU(hidden_size, hidden_size, batch_first=True)
+        self.gru_drop = nn.Dropout(0.2)
+        self.mlp = nn.Linear(hidden_size*2, output_size)
+        if out_bias is not None:
+            out_bias_tensor = torch.tensor(out_bias, requires_grad=False)
+            self.mlp.bias.data[:] = out_bias_tensor
+        self.logsoftmax = nn.LogSoftmax(dim=2)
+
+        self.att_mlp = nn.Linear(hidden_size, hidden_size, bias=False)
+        self.attn_softmax = nn.Softmax(dim=2)
+
+    def forward(self, input, hidden, encoder_outs):
+        emb = self.embedding(input)
+        emb=self.emb_drop(emb)
+        out, hidden = self.gru(emb, hidden)
+
+        out_proj = self.att_mlp(out)
+        enc_out_perm = encoder_outs.permute(0, 2, 1)
+        e_exp = torch.bmm(out_proj, enc_out_perm)
+        attn = self.attn_softmax(e_exp)
+
+        ctx = torch.bmm(attn, encoder_outs)
+
+        full_ctx = torch.cat([self.gru_drop(out), ctx], dim=2)
+
+        out = self.mlp(full_ctx)
+        out1 = self.logsoftmax(out)
+        return out1, hidden, out
+```
+
+
+
+----------
+        
+## Answer \#0
+
+**Accepted** Vote: 7
+
+Created at 2019-09-08 16:22:35
+
+------------
+
+A tensor matching this description `torch.cuda.LongTensor [128, 1]`, should narrow down your search. 
+
+A quick google search revealed that, `LongTensors` are most commonly  returned by `min` , `max`, `sort`. so the lines 
+
+```
+l=out_dec[:,0]
+chosen = torch.argmax(l,dim=1)
+dec_tensor[:, i+1] = chosen
+```
+
+
+Most probably the line `dec_tensor[:, i+1] = chosen` seems problematic.
+
+
+------------
+    
+    
+## Answer \#1
+
+ Vote: 3
+
+Created at 2022-08-31 11:56:46
+
+------------
+
+I had the same issue. In my case, the issue was caused by the += notation. It turns out that assigning a tensor with addition
+```
+h = f(x)
+epsilon = torch.random()
+h+=e ❌
+```
+
+counts as an inplace operation, but normal variable assignment does not
+```
+h = f(x)
+epsilon = torch.random()
+h = h + e ✅
+```
+
+
+
+------------
+    
+    
+## Answer \#2
+
+ Vote: 2
+
+Created at 2019-09-01 04:13:37
+
+------------
+
+Not sure if you had already checked these, but could help : 
+
+
+1. https://discuss.pytorch.org/t/encounter-the-runtimeerror-one-of-the-variables-needed-for-gradient-computation-has-been-modified-by-an-inplace-operation/836/15
+2. http://www.yongfengli.tk/2018/04/13/inplace-operation-in-pytorch.html
+
+
+
+
+------------
+    
+    
+## Answer \#3
+
+ Vote: 0
+
+Created at 2023-03-03 10:04:00
+
+------------
+
+The problematic line is:
+```
+dec_tensor[:, i+1] = chosen
+```
+
+There you are modifying the values of the `dec_tensor` and `self.item_memory` in place, which caused the error.
+
+## fix
+
+
+try
+```
+dec_tensor = dec_tensor.clone()
+dec_tensor[:, i+1] = chosen
+```
+
+
+## explanation
+
+
+c.f. this post [https://stackoverflow.com/a/75625572/12234753](https://stackoverflow.com/a/75625572/12234753)
+
+
+------------
+    
+    

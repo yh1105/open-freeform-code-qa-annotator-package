@@ -1,0 +1,25 @@
+How to repeat the input until a special condition is met in Python?
+
+I need to take integer inputs from the user and add them to a set. The number of integers is unknown. The input process will end when the user input is "Done".
+Here is my code:
+```
+s = set()
+print('Please type the number, when you are done please type "Done":')
+while True:
+    try:
+        a = int(input())
+        s.add(a)
+    except:
+        if a == "Done":
+            break
+        else:
+            print('Integer only, please re-type:')
+            continue
+print(s)
+```
+
+But it didn't work as intended.
+My idea is simple. If the user types an integer then it's fine, just add to set `s`. If they type a string (which `int(input()` is wrong), then it will go down to `except`, if the string is "Done", then break the `while True` loop, if it isn't then ask the user to re-type and continue the loop.
+Here is the error if I type a string first and if I type normally:
+[](https://i.stack.imgur.com/yYTiP.png)
+I tried to use a simple if-else statement at the start but it causes traceback right at `int(input())`.

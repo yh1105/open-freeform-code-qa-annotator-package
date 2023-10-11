@@ -1,0 +1,7 @@
+How to use multiple Consumers for a single widget in flutter Provider
+
+I can't wrap my head around using  for a single widget with provider? Suppose my widget is CurvedNavigationBar and I have 4 items in that widget. I also have 4 different classes that extend ChangeNotifier and 
+
+? I looked at the documentation and could not found such an example.. is this even possible? I found that Consumer has a builder method, so that means you can build a widget  
+
+Should I rather have a single class that extends ChangeNotifier and then update values in that widget and uses only a single Consumer to listen for updated values?

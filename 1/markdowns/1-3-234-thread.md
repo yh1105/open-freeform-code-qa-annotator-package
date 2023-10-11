@@ -1,0 +1,235 @@
+
+# Post \#66373169 [Link](https://stackoverflow.com/questions/66373169/)
+
+## Tensorflow 2 Object Detection API: Numpy Version Errors
+
+**Vote**: 11 (370/702) **Views**: 6457 (494/702) 
+
+**Internal ID** \#1-3-234
+
+Created at 2021-02-25 17:07:18
+
+Tags: `python-3.x` `numpy` `object-detection-api`
+
+----------
+
+#### Metadata:
+
+Area: `Data Science & Machine Learning`
+
+Language: `python` (full parsed tag list: `python`)
+
+----------
+
+**Notepad**
+
+
+----------
+
+I followed the "Training Custom Object Detector" tutorial ([https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html))
+When running the script to continue training a pre-trained model:
+`python model_main_tf2.py --model_dir=models/my_ssd_resnet50_v1_fpn --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config`
+(found here: [https://github.com/tensorflow/models/blob/master/research/object_detection/model_main_tf2.py](https://github.com/tensorflow/models/blob/master/research/object_detection/model_main_tf2.py))
+, I get the following errors.
+Scenario #1:
+- - 
+`NotImplementedError: Cannot convert a symbolic Tensor (cond_2/strided_slice:0) to a numpy array. This error may indicate that you're trying to pass a Tensor to a NumPy call, which is not supported`
+I looked online and it suggests to downgrade the numpy version < 1.20.0 ([NotImplementedError: Cannot convert a symbolic Tensor (2nd_target:0) to a numpy array](https://stackoverflow.com/questions/58479556/notimplementederror-cannot-convert-a-symbolic-tensor-2nd-target0-to-a-numpy)). Note, the version numpy version must be >= 1.19.2 for tensorflow 2.2.0.
+Scenario #2:
+- - 
+`ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject`
+However, the online recommendation is to upgrade numpy to >= 1.20.0. ([ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject](https://stackoverflow.com/questions/66060487/valueerror-numpy-ndarray-size-changed-may-indicate-binary-incompatibility-exp)). There is a github issue related to this: [https://github.com/tensorflow/models/issues/9749](https://github.com/tensorflow/models/issues/9749).
+I'm not sure what version to use to get the code running.
+
+```
+File "model_main_tf2.py", line 113, in <module>
+    tf.compat.v1.app.run()
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\platform\app.py", line 40, in run
+    _run(main=main, argv=argv, flags_parser=_parse_flags_tolerate_undef)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\absl\app.py", line 303, in run
+    _run_main(main, args)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\absl\app.py", line 251, in _run_main
+    sys.exit(main(argv))
+  File "model_main_tf2.py", line 104, in main
+    model_lib_v2.train_loop(
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\model_lib_v2.py", line 530, in train_loop
+    train_input = strategy.experimental_distribute_datasets_from_function(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\util\deprecation.py", line 340, in new_func
+    return func(*args, **kwargs)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\distribute_lib.py", line 1143, in experimental_distribute_datasets_from_function
+    return self.distribute_datasets_from_function(dataset_fn, options)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\distribute_lib.py", line 1134, in distribute_datasets_from_function
+    return self._extended._distribute_datasets_from_function(  # pylint: disable=protected-access
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\mirrored_strategy.py", line 545, in _distribute_datasets_from_function
+    return input_lib.get_distributed_datasets_from_function(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\input_lib.py", line 161, in get_distributed_datasets_from_function
+    return DistributedDatasetsFromFunction(dataset_fn, input_workers,
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\input_lib.py", line 1272, in __init__
+    _create_datasets_from_function_with_input_context(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\distribute\input_lib.py", line 1936, in _create_datasets_from_function_with_input_context
+    dataset = dataset_fn(ctx)
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\model_lib_v2.py", line 521, in train_dataset_fn
+    train_input = inputs.train_input(
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\inputs.py", line 893, in train_input
+    dataset = INPUT_BUILDER_UTIL_MAP['dataset_build'](
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\builders\dataset_builder.py", line 251, in build
+    dataset = dataset_map_fn(dataset, decoder.decode, batch_size,
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\builders\dataset_builder.py", line 236, in dataset_map_fn
+    dataset = dataset.map_with_legacy_function(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\util\deprecation.py", line 340, in new_func
+    return func(*args, **kwargs)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 2679, in map_with_legacy_function
+    ParallelMapDataset(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 4242, in __init__
+    self._map_func = StructuredFunctionWrapper(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 3493, in __init__
+    self._function.add_to_graph(ops.get_default_graph())
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\framework\function.py", line 546, in add_to_graph
+    self._create_definition_if_needed()
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\framework\function.py", line 378, in _create_definition_if_needed
+    self._create_definition_if_needed_impl()
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\framework\function.py", line 400, in _create_definition_if_needed_impl
+    temp_graph = func_graph_from_py_func(
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\framework\function.py", line 971, in func_graph_from_py_func
+    outputs = func(*func_graph.inputs)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 3485, in wrapper_fn
+    ret = _wrapper_helper(*args)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 3453, in _wrapper_helper
+    ret = autograph.tf_convert(func, ag_ctx)(*nested_args)
+  File "C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\autograph\impl\api.py", line 670, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+NotImplementedError: in user code:
+
+    C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\data_decoders\tf_example_decoder.py:524 default_groundtruth_weights  *
+        [tf.shape(tensor_dict[fields.InputDataFields.groundtruth_boxes])[0]],
+    C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\util\dispatch.py:201 wrapper  **
+        return target(*args, **kwargs)
+    C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\ops\array_ops.py:3120 ones
+        output = _constant_if_small(one, shape, dtype, name)
+    C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\ops\array_ops.py:2804 _constant_if_small
+        if np.prod(shape) < 1000:
+    <__array_function__ internals>:5 prod
+
+    C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\numpy\core\fromnumeric.py:3030 prod
+        return _wrapreduction(a, np.multiply, 'prod', axis, dtype, out,
+    C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\numpy\core\fromnumeric.py:87 _wrapreduction
+        return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+    C:\Users\212765830\AppData\Roaming\Python\Python38\site-packages\tensorflow\python\framework\ops.py:852 __array__
+        raise NotImplementedError(
+NotImplementedError: Cannot convert a symbolic Tensor (cond_2/strided_slice:0) to a numpy array. This error may indicate that you're trying to pass a Tensor to a NumPy call, which is not supported
+```
+
+
+```
+2021-02-25 09:59:47.039105: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
+2021-02-25 09:59:47.044310: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+Traceback (most recent call last):
+  File "model_main_tf2.py", line 32, in <module>
+    from object_detection import model_lib_v2
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\model_lib_v2.py", line 29, in <module>
+    from object_detection import eval_util
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\eval_util.py", line 35, in <module>
+    from object_detection.metrics import coco_evaluation
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\metrics\coco_evaluation.py", line 25, in <module>
+    from object_detection.metrics import coco_tools
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\object_detection\metrics\coco_tools.py", line 51, in <module>
+    from pycocotools import coco
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\pycocotools\coco.py", line 56, in <module>
+    from . import mask as maskUtils
+  File "C:\Users\212765830\AppData\Local\Continuum\anaconda3\envs\tensorflow\lib\site-packages\pycocotools\mask.py", line 3, in <module>
+    import pycocotools._mask as _mask
+  File "pycocotools\_mask.pyx", line 1, in init pycocotools._mask
+ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject```
+```
+
+
+
+----------
+        
+## Answer \#0
+
+**Accepted** Vote: 6
+
+Created at 2021-02-26 09:25:41
+
+------------
+
+I had the same error. Are you on windows? If so try (that worked for me):
+
+`pip uninstall pycocotools`
+
+`pip install pycocotools-windows`
+
+
+------------
+    
+    
+## Answer \#1
+
+ Vote: 9
+
+Created at 2021-03-05 02:48:57
+
+------------
+
+I had this same issue:
+> NotImplementedError: Cannot convert a symbolic Tensor (cond_2/strided_slice:0) to a numpy array. This error may indicate that you're trying to pass a Tensor to a NumPy call, which is not supported
+The problem was fixed by changing `np.prod` for `reduce_prod` in this function [https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/array_ops.py](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/array_ops.py)
+```
+def _constant_if_small(value, shape, dtype, name):
+  try:
+    if np.prod(shape) < 1000:
+      return constant(value, shape=shape, dtype=dtype, name=name)
+  except TypeError:
+    # Happens when shape is a Tensor, list with Tensor elements, etc.
+    pass
+  return None
+```
+
+Note that you need to import `reduce_prod` at the top:
+```
+from tensorflow.math import reduce_prod
+```
+
+
+
+------------
+    
+    
+## Answer \#2
+
+ Vote: 5
+
+Created at 2021-03-19 03:27:46
+
+------------
+
+I had this issue on MacOS. I fixed it by installing an older version of pycocotools.
+```
+pip install pycocotools==2.0.0
+```
+
+
+
+------------
+    
+    
+## Answer \#3
+
+ Vote: 2
+
+Created at 2021-04-28 14:25:02
+
+------------
+
+I have the same problem and I downgraded my numpy from 1.20.2 to 1.19.5, now it´s working.
+```
+pip install numpy==1.19.5
+```
+
+You can check the trend here: [https://github.com/tensorflow/models/issues/9706](https://github.com/tensorflow/models/issues/9706)
+
+
+------------
+    
+    

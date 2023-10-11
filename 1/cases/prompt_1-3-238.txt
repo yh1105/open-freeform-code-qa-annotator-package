@@ -1,0 +1,138 @@
+Django - Reverse for '' not found. '' is not a valid view function or pattern name
+
+I'm working on my project for a course and I'm totally stuck right now. I'm creating a website to sell products through paypal and the paypal return/cancel pages are not rendering properly. I've followed the examples in my lessons and checked the code a hundred times but obviously there is something I'm missing.
+
+I'm getting an error when I go to products, click buy now, login to paypal and then either cancel the purchase or buy the product and return to merchant's page.
+paypal_return.html and paypal_cancel.html are 2 templates saved under templates/paypal/ 
+
+Can anybody see what I'm missing? 
+
+Here you can see the full code [https://github.com/IreneG5/spss_online](https://github.com/IreneG5/spss_online)
+
+Traceback
+
+```
+Environment:
+
+
+Request Method: GET
+Request URL: http://127.0.0.1:8000/paypal-cancel/
+
+Django Version: 1.11.4
+Python Version: 2.7.12
+Installed Applications:
+['django.contrib.admin',
+ 'django.contrib.auth',
+ 'django.contrib.contenttypes',
+ 'django.contrib.sessions',
+ 'django.contrib.messages',
+ 'django.contrib.staticfiles',
+ 'django_forms_bootstrap',
+ 'paypal.standard.ipn',
+ 'home',
+ 'accounts',
+ 'paypal_store',
+ 'products']
+Installed Middleware:
+['django.middleware.security.SecurityMiddleware',
+ 'django.contrib.sessions.middleware.SessionMiddleware',
+ 'django.middleware.common.CommonMiddleware',
+ 'django.middleware.csrf.CsrfViewMiddleware',
+ 'django.contrib.auth.middleware.AuthenticationMiddleware',
+ 'django.contrib.messages.middleware.MessageMiddleware',
+ 'django.middleware.clickjacking.XFrameOptionsMiddleware']
+
+
+Template error:
+In template C:\Users\irene\Documents\Full-Stack-Developer\Stream3\Project\spss_online\templates\base.html, error at line 10
+   Reverse for '' not found. '' is not a valid view function or pattern name.   1 : {% load staticfiles %}
+   2 : <!DOCTYPE html>
+   3 : <html lang="en">
+   4 : <head>
+   5 :     <meta charset="UTF-8">
+   6 :     <title>Buy SPSS Online</title>
+   7 :     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   8 :     <meta name="description" content="">
+   9 :     <meta name="author" content="">
+   10 :     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+   11 :     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   12 : 
+   13 : 
+   14 : </head>
+   15 : <body>
+   16 : <div class="container">
+   17 :     <div class='container-fluid'>
+   18 :         <nav id="menu" class="navbar navbar-inverse">
+   19 :             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+   20 :                 <span class="icon-bar"></span>
+
+
+Traceback:
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\core\handlers\exception.py" in inner
+  41.             response = get_response(request)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\core\handlers\base.py" in _get_response
+  187.                 response = self.process_exception_by_middleware(e, request)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\core\handlers\base.py" in _get_response
+  185.                 response = wrapped_callback(request, *callback_args, **callback_kwargs)
+
+File "C:\Users\irene\Documents\Full-Stack-Developer\Stream3\Project\spss_online\paypal_store\views.py" in paypal_cancel
+  15.     return render(request, 'paypal/paypal_cancel.html', args)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\shortcuts.py" in render
+  30.     content = loader.render_to_string(template_name, context, request, using=using)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\loader.py" in render_to_string
+  68.     return template.render(context, request)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\backends\django.py" in render
+  66.             return self.template.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render
+  207.                     return self._render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in _render
+  199.         return self.nodelist.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render
+  990.                 bit = node.render_annotated(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render_annotated
+  957.             return self.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\loader_tags.py" in render
+  177.             return compiled_parent._render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in _render
+  199.         return self.nodelist.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render
+  990.                 bit = node.render_annotated(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render_annotated
+  957.             return self.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\loader_tags.py" in render
+  72.                 result = block.nodelist.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render
+  990.                 bit = node.render_annotated(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\base.py" in render_annotated
+  957.             return self.render(context)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\template\defaulttags.py" in render
+  458.             url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\urls\base.py" in reverse
+  91.     return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+
+File "C:\Users\irene\virtualenv\spss_online_env\lib\site-packages\django\urls\resolvers.py" in _reverse_with_prefix
+  497.         raise NoReverseMatch(msg)
+
+Exception Type: NoReverseMatch at /paypal-cancel/
+Exception Value: Reverse for '' not found. '' is not a valid view function or pattern name.
+```
+

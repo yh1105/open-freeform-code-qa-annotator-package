@@ -1,0 +1,35 @@
+Multiple modules within the same project
+
+I've been playing with Go modules and I was wondering what the best practice is in terms of the following directory structure:
+
+```
+project
+├── go.mod
+├── main.go
+└── players
+    ├── go.mod
+    ├── players.go
+    └── players_test.go
+```
+
+
+I was having problems importing the `players` package into my root project at first, but I noticed I could do this in the root `go.mod` file
+
+```
+module github.com/<name>/<project>
+
+require (
+    github.com/<name>/players v0.0.0
+)
+
+replace github.com/<name>/players => ./players
+```
+
+
+This then allows me to do `import "github.com/<name>/players"` in my `main.go` file.
+
+Now this approach works and was taken from [here](https://github.com/golang/go/wiki/Modules#can-i-work-entirely-outside-of-vcs-on-my-local-filesystem) but I'm not sure if that's the correct approach for this or whether this approach is just meant for updating a local package temporarily while it's outside version control.
+
+Another option, that seems a little overkill, is to make every module its own repository?
+
+TL;DR; - What's the best practice approach to having multiple modules within the same repository and importing them in in other modules / a root `main.go` file?

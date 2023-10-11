@@ -1,0 +1,19 @@
+How to format date in ant table?
+
+I have a table with 6 columns, one of these columns is a date, The default display format of the date is `2020-04-30T21:30:07.000Z` I want to change it to `30-04-2020`.
+
+```
+export const columns = [
+    { title: `ID`, dataIndex: `invoice_id`},
+    { title: `Invoice Number`, dataIndex: `invoice_number` },
+    { title: `Amount`, dataIndex: `invoice_amount`},
+    { title: `Store Name`, dataIndex: `store_name`},
+    { title: `Supplier Name`, dataIndex: `supplier_name`},
+    { title: `Creation Date`, dataIndex: `invoice_date`,},
+  ]
+
+<Table bordered columns={columns} dataSource={invoices_list} />
+```
+
+
+I believe there should be a way to pass date format to the columns. I looked into the `ant` table documentations but didn't find a solution.

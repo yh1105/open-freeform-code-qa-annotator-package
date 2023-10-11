@@ -1,0 +1,51 @@
+React hooks equivalent of componentDidCatch?
+
+I have a simple component that acts as an error boundary in my React app, and which passes off any errors to a logging service.
+
+It looks something like this:
+
+```
+export class CatchError extends React.PureComponent {
+  state = {
+    hasError: false
+  }
+
+  componentDidCatch(error, info) {
+    this.props.log({ error, info })
+    this.setState({ hasError: true })
+  }
+
+  render() {
+    const child = typeof this.props.children === "function"
+      ? this.props.children({ error: hasError })
+      : children
+
+    return React.cloneElement(child, { error: this.state.hasError })
+  }
+}
+```
+
+
+Is there a React hook equivalent to `componentDidCatch` so I can make this component a function and not a class?
+
+So it might look something like this:
+
+```
+export function CatchError({ children, log }) {
+  const [hasError, setHasError] = useState(false)
+  const caught = useDidCatch()
+
+  useEffect(() => {
+    const [error, info] = caught
+    log({ error, info })
+    setHasError(true)
+  }, [caught])
+
+  const child = typeof children === "function"
+    ? children({ error: hasError })
+    : children
+
+  return React.cloneElement(child, { error: hasError })
+}
+```
+

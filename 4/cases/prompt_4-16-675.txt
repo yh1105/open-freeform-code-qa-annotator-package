@@ -1,0 +1,7 @@
+How do I show up the current branch in WSL ( I use Vscode)
+
+I use Vscode, and I want to know Where my HEAD is pointing branch, 
+How Can I show up the current branch name like Bash? 
+I use WSL(ubuntu)termimal in my Vscode and OS is Windows 10
+Thank you
+![WSL image](https://i.stack.imgur.com/DMkOM.png)

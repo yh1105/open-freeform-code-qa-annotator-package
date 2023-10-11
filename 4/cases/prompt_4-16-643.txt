@@ -1,0 +1,13 @@
+How to change the terminal title to currently running process?
+
+I know [how to change the Terminal Window title](https://askubuntu.com/questions/22413/how-to-change-gnome-terminal-title).  What I am trying to find out is how to make `bash` not `zsh` write out the currently running process so if I say do
+```
+$ ls -lF
+```
+
+I would get something like this for the title
+```
+/home/me/curerntFolder (ls -lF)
+```
+
+[Getting the last executed command](https://stackoverflow.com/questions/69624234/get-last-executed-command-in-bash) would be too late since the command has executed already, so it won't set the title with the command that was executed.

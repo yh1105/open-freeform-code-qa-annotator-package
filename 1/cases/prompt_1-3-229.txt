@@ -1,0 +1,3 @@
+How to find and replace text in a single cell when using Jupyter extension inside Visual Studio Code
+
+As the title says, how to find and replace text inside a single jupyter cell when using the jupyter extension in Visual Studio Code? I am familiar with ctr+h but that will replace all the occurrences in the entire jupyter notebook file. This is a really important feature for me, as I am using it a lot in jupyter on the browser.

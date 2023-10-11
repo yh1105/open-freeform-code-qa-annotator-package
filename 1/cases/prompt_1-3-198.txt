@@ -1,0 +1,19 @@
+Pandas: How to read CSV file from google drive public?
+
+I searched similar questions about reading csv from URL but I could not find a way to read csv file from google drive csv file.
+
+My attempt:
+
+```
+import pandas as pd
+
+url = 'https://drive.google.com/file/d/0B6GhBwm5vaB2ekdlZW5WZnppb28/view?usp=sharing'
+dfs = pd.read_html(url)
+```
+
+
+How can we read this file in pandas?
+
+Related links:  
+
+- [Pandas read_csv from url](https://stackoverflow.com/questions/32400867/pandas-read-csv-from-url)- [https://pandas.pydata.org/pandas-docs/version/0.22/io.html#io-read-html](https://pandas.pydata.org/pandas-docs/version/0.22/io.html#io-read-html)

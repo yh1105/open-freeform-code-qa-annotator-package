@@ -1,0 +1,5 @@
+Can't find Git local changes in Intellij Idea 2020.1
+
+I can't seem to find my local changes in Intellij Idea's latest version (2020.1), as you can see in the image below. What am I missing here? The "Git" tab only shows the Git log.
+
+[](https://i.stack.imgur.com/uUTcv.png)

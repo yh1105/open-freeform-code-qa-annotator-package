@@ -1,0 +1,44 @@
+How To Insert Image Inside of Div Element HTML
+
+I am wondering how to insert an image inside of a div element in HTML. I have tried inserting an image through  and through  inside of a div element, but none of those have worked for me and I am not sure how to get it to work. I am wondering how to get my image inserted inside of the div element, so my program will actually display it. The problem is that my image never displays and my solutions did not work for me. Here is the simple and full code: [https://jsfiddle.net/mxafg1vu/](https://jsfiddle.net/mxafg1vu/)
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<div class="header">
+<div id ="header">
+<h2 style="text-indent: 1em; font-family: Helvetica; color: blue;">Holograms</h2>
+</div></div><br>
+
+
+<div class="row">
+  <div class="leftcolumn">
+   <div class="card">
+    <div id="title">
+      <h2>Holograms In The Future?</h2>
+      <h5>November 24th, 2021.</h5>
+
+      <!-- <div class="hologram.jpg" style="height:200px; width: 200px"></div> -->
+       <!--Img src -->
+      <img src="hologram.jpg" alt="Holograms" width="500" height="500"><br>
+
+      <p>Text </p>
+      <p>Text </p>
+    </div>
+    </div> 
+    </div>
+    </div>
+
+<div class="footer">
+  <div id="footer">
+ </div>
+
+</body>
+</html>
+```
+

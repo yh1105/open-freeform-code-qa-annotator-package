@@ -1,0 +1,13 @@
+How to grep for case insensitive string in a file?
+
+I have a file `file1` which ends with
+`Success...` OR
+`success...`
+I want to `grep` for the word `success` in a way which is not case sensitive way.
+I have written the following command but it is case sensitive
+```
+cat file1 | grep "success\.\.\."
+```
+
+How can i change it so that it `returns 0` with both `Success...` OR
+`success...`

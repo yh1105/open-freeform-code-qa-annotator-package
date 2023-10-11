@@ -1,0 +1,48 @@
+Sharing python objects across multiple workers
+
+We have created a service using FastAPI. When our service starts it creates a few python objects that the endpoints then use to store or retrieve data from.
+FastAPI in production starts with multiple workers. Our problem is that .
+The script below shows a (simplified) example of what we are doing, though in our case the usage of Meta() is considerably more complex.
+```
+from fastapi import FastAPI, status
+
+class Meta:
+   def __init__(self):
+      self.count = 0  
+
+app = FastAPI()
+
+meta = Meta()
+
+# increases the count variable in the meta object by 1
+@app.get("/increment")
+async def increment():
+    meta.count += 1
+    return status.HTTP_200_OK
+
+# returns a json containing the current count from the meta object
+@app.get("/report")
+async def report():
+    return {'count':meta.count}
+
+# resets the count in the meta object to 0
+@app.get("/reset")
+async def reset():
+    meta.count = 0
+    return status.HTTP_200_OK
+```
+
+As mentioned above, the problem with multiple workers is that each one will have its own `meta` object. Please be aware that the issue is not visible when running the api with a single worker.
+More explicitly, when we hit the `/increment` endpoint for the first time we will see only one of the two workers responding to the call (this is correct, we don't want both workers doing the same thing). However, because there are two separate `meta` objects, only one of the two will be incremented.  When hitting the `/report` endpoint, depending on which worker responds to the request, either 1 or 0 will be returned.
+The question then is, how do we get the workers to share and operate on the same object?
+As a side question, the problem above affects the `/reset` endpoint too. If this endpoint is called then only one of the workers will reset its object. Is there a way to force all workers to respond to a single call on an endpoint?
+Thanks!
+Edit: I forgot to mention that we have tried (with no success) to store the `meta` object in the `app.state` instead. Essentially:
+```
+app.state.meta = Meta()
+...
+@app.get("/report")
+async def report():
+    return {'count':app.state.meta.count}
+```
+

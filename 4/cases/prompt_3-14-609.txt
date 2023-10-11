@@ -1,0 +1,43 @@
+Why The Navigation Title doesn't show up using SwiftUI?
+
+I am learning `SwiftUI` using apple's official tutorial:
+[https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)
+
+Everything works perfectly until I try to show navigation title on an `NavigationView` by calling `.navigationBarTitle`. 
+
+I have tried to refresh the live view, restart Xcode, but it still doesn't show up.
+
+here is my code:
+
+```
+import SwiftUI
+
+struct LandmarkList : View {
+    var body: some View {
+        NavigationView {
+            List(landmarkData) { landmark in
+                LandmarkRow(landmark: landmark)
+            }
+        }
+        .navigationBarItem(title: Text("Done"))
+        .navigationBarTitle(Text("Landmarks"))
+    }
+}
+
+#if DEBUG
+struct LandmarkList_Previews : PreviewProvider {
+    static var previews: some View {
+        LandmarkList()
+    }
+}
+#endif
+```
+
+
+The Xcode looks like this:
+
+![Screenshot](https://dymx102.github.io/PhotoMagicSite/images/swiftui_navigation_title_not_showing.png)
+
+According to the tutorial, it should show the navigation title but it doesn't in my case.
+
+Any idea why? Thanks!

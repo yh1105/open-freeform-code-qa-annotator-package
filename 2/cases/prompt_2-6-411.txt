@@ -1,0 +1,44 @@
+Implementing both IDisposable and IAsyncDisposable
+
+Say I have a non-sealed class that does not deal with any unmanaged resources. I need to make a single async call during its disposing stage to do some clean up. There are no other managed resources to deal with.
+From what I understand, in order to make the async clean up call, I must implement IAsyncDisposable and use the DisposeAsync() and DisposeAsyncCore() methods. But the guidance says that you should also implement the dispose pattern when you implement the async dispose pattern. This is all fine but there's nothing really I need to do in the Dispose().
+So my question is, should the Dispose() logic be empty or do I need something to do the async cleanup in a synchronous way? (see comment in code about "What if anything should go here").
+```
+public class MyClass : IDisposable, IAsyncDisposable
+{
+    private bool disposed;
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(false);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+                // What if anything should go here?
+            }
+
+            disposed = true;
+        }
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        // Make async cleanup call here e.g. Database.CleanupAsync();
+    }
+}
+```
+

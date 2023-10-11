@@ -1,0 +1,17 @@
+Gdown is giving Permission error for particular file,although it is opening up fine manually
+
+I am not able to download file using gdown package.It is giving permission error.
+But when i am opening it manually.It is giving no such error and opening up fine.
+Here is the code i am using and link
+
+```
+import gdown
+url='https://drive.google.com/uc?id=0B1lRQVLFjBRNR3Jqam1menVtZnc'
+output='letter.pdf'
+gdown.download(url, output, quiet=False)
+```
+
+
+Error is 
+Permission denied: [https://drive.google.com/uc?id=0B1lRQVLFjBRNR3Jqam1menVtZnc](https://drive.google.com/uc?id=0B1lRQVLFjBRNR3Jqam1menVtZnc)
+Maybe you need to change permission over 'Anyone with the link'?

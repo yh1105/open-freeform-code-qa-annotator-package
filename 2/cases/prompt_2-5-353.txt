@@ -1,0 +1,12 @@
+Including profiles in spring boot 2.4.0 version
+
+As a developer, I use the default `dev` profile in my local development environment. Here is part of my `application-dev.properties` file:
+```
+# Profiles    
+spring.profiles.include=auth
+```
+
+Previously I  used Spring Boot 2.3.0.RELEASE and the `spring.profiles.include` property included `auth` profile at runtime.
+But after I migrated to Spring Boot 2.4.0, I don't get the `auth` profile enabled. `spring.profiles.include` property doesn't seem to work as before.
+Please tell me how I can configure my profiles so that I get the same result as before migration. (I would not like to use profile groups here)
+Thanks in advance!

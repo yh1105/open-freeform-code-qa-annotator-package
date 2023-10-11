@@ -1,0 +1,47 @@
+how to prevent iis default not-found page and show a custom reactjs not-found page
+
+so I have a react app which is deployed on IIS, I'm using react router and my routes and the order of them are OK, everything works fine locally in development mode,
+my routes.js file returns routes like this :
+```
+<Router history={history}>
+    <Switch>
+      {/* there are some other routes that are removed from here */}
+      {/* token is the jwt token for user */}
+      {!token && <Route path="/Home" component={HomePage} />}
+
+      <Route path="/" exact>
+        {!!token ? <Redirect to="/Dashboard" /> : <Redirect to="/Home" />}
+      </Route>
+      <Route path="*" exact component={FourOFour} />
+    </Switch>
+  </Router>
+```
+
+I have a jsx file for my "not-found page", which returns the component ,
+as I said everything including the not-found page shows completely fine in the development mode on my machine. but when I deploy my react app on IIS, my custom not-found page won't show, instead the default 404 page of the IIS is shown, how do I make the ISS stop messing with my routes?
+PS: I know it's the servers job to handle the errors such as 404 and it's a default behavior, and I also have tried some suggestions I've found on the web but some of them was ruining everything and some was not clear that what was happening,
+so I was hoping to get a clear explanation of the steps for configs of IIS,
+any suggestion is appreciated
+
+## Update
+
+
+
+first I handled error 404 in my router in client-side, it was not working because iis has default html pages for common errors such as 404, 500, ... and it kinda catches the errors before the request even reaches the client side, so I figured out it's an issue handled by the server not the client side, then I tried different configs in iis, because iis has an "Error Pages" section for each site and in this section you can change the way it treats such errors, for each type of error (actually each status code) it has three options:
+
+1. insert content from static file into the error response
+
+
+which you can give a path to a static html page and it will show up, but as I said above, my not-found page is written in a jsx file, and it has a looooot of java-script code in it, it's not impossible to put everything in a html page and use this way but it would get my code dirty and I prefer a way that is not getting my code messy, plus I tried this way just to see if it works but it show this error:
+"The resource you are looking for has been removed, had its name changed, or is temporarily unavailable."
+
+1. execute a url in this site
+
+
+it could be the best solution for me and I could set a "/404" path in my routes that redirects to my not-found page, and everything would look nice and clean, but sadly it didn't work, looks like iis was not redirect to my specific url and instead shows a white screen, which is worse than it's default 404 page...
+
+1. response with a 302 redirect
+
+
+which is not the solution for me because I don't want to redirect to a page outside of my app
+I also read [this answer](https://stackoverflow.com/a/36623117/10220474) very carefully but still have no clue what to do

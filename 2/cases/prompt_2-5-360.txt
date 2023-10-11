@@ -1,0 +1,30 @@
+@Value for numeric types in yaml file in Spring Boot
+
+I got a `data.yml` in resources folder of a following structure:
+```
+main:
+  header:
+    info: 3600L
+```
+
+I use Spring Boot version 2.4.2, I want to inject property `main.header1.info` to a field, I do this the following way:
+```
+@Component
+@PropertySource("classpath:data.yml")
+public class SomeClass {
+    @Value("`main.header1.info")
+    private long info;
+    ...
+}
+```
+
+But a `NumberFormatException` ocurres:
+```
+java.lang.NumberFormatException: For input string: "main.header1.info"
+    at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[na:na]
+    at java.base/java.lang.Long.parseLong(Long.java:692) ~[na:na]
+    ...
+```
+
+I know that `long` is not supported in `yml`, but I think its not the case. I tried other numeric types and corresponding wrapper-classes, like `Double`.
+So, how to fix that?

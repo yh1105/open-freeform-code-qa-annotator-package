@@ -1,0 +1,5 @@
+Adam optimizer with warmup on PyTorch
+
+In the paper [Attention is all you need](https://papers.nips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf), under section 5.3, the authors suggested to increase the learning rate linearly and then decrease proportionally to the inverse square root of steps.
+[](https://i.stack.imgur.com/GQurA.png)
+How do we implement this in PyTorch with [Adam](https://pytorch.org/docs/stable/optim.html#torch.optim.Adam) optimizer? Preferably without additional packages.

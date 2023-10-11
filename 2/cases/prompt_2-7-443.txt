@@ -1,0 +1,31 @@
+How to pass an array to Laravel Route parameter
+
+I wanted to pass a value of typed `array` to my route parameter, the array could be in any size and a different key-value pairs each time.
+```
+Route::get('/example/{array}', ...
+```
+
+So if I have an array like this:
+```
+$array = [
+  'a' => 'one',
+  'b' => 1,
+  ...
+]
+```
+
+I did this but knew already it ain't gonna work because it looks like I'm passing values to my route parameters named `a`, `b`, etc.
+```
+route('route.name', $array)
+```
+
+As expected the error says:
+> ... [Missing parameter: array]
+So I used the `serialize()`.
+```
+route('route.name', serialize($array))
+```
+
+I'm still getting an error, something like:
+> [Missing parameter: s:1:"a";i:1;s:1:"b";i:2;]
+What am I missing ? I also don't understand what the last error says.

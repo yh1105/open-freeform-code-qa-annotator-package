@@ -1,0 +1,130 @@
+Find occurrence count of the longest common Prefix/Suffix in a List of Strings?
+
+Given a list of Strings:
+```
+ArrayList<String> strList = new ArrayList<String>();
+strList.add("Mary had a little lamb named Willy");
+strList.add("Mary had a little ham");
+strList.add("Old McDonald had a farm named Willy");
+strList.add("Willy had a little dog named ham");
+strList.add("(abc)");
+strList.add("(xyz)");
+strList.add("Visit Target Store");
+strList.add("Visit Walmart Store");
+```
+
+This should produce the output in the form of a `HashMap<String, Integer>` `prefixMap` and `suffixMap`:
+:
+```
+Mary had a -> 2
+Mary had a little -> 2
+( -> 2
+Visit -> 2
+```
+
+:
+```
+named Willy -> 2
+ham -> 2
+) -> 2
+Store -> 2
+```
+
+So far I'm able to generate a prefix that is present in all items in list using the following code:
+```
+public static final int INDEX_NOT_FOUND = -1;
+
+public static String getAllCommonPrefixesInList(final String... strs) {
+    if (strs == null || strs.length == 0) {
+        return EMPTY_STRING;
+    }
+    
+    
+    final int smallestIndexOfDiff = getIndexOfDifference(strs);
+    if (smallestIndexOfDiff == INDEX_NOT_FOUND) {
+        
+        // All Strings are identical
+        if (strs[0] == null) {
+            return EMPTY_STRING;
+        }
+        return strs[0];
+    } else if (smallestIndexOfDiff == 0) {
+        
+        
+        // No common initial characters found, return empty String
+        return EMPTY_STRING;
+    } else {
+        
+        // Common initial character sequence found, return sequence
+        return strs[0].substring(0, smallestIndexOfDiff);
+    }
+}
+
+
+
+
+
+
+public static int getIndexOfDifference(final CharSequence... charSequence) {
+    if (charSequence == null || charSequence.length <= 1) {
+        return INDEX_NOT_FOUND;
+    }
+    boolean isAnyStringNull = false;
+    boolean areAllStringsNull = true;
+    
+    
+    final int arrayLen = charSequence.length;
+    int shortestStrLen = Integer.MAX_VALUE;
+    int longestStrLen = 0;
+
+    // Find the min and max string lengths - avoids having to check that we are not exceeding the length of the string each time through the bottom loop.
+    for (int i = 0; i < arrayLen; i++) {
+        if (charSequence[i] == null) {
+            isAnyStringNull = true;
+            shortestStrLen = 0;
+        } else {
+            areAllStringsNull = false;
+            shortestStrLen = Math.min(charSequence[i].length(), shortestStrLen);
+            longestStrLen = Math.max(charSequence[i].length(), longestStrLen);
+        }
+    }
+
+    // Deals with lists containing all nulls or all empty strings
+    
+    if (areAllStringsNull || longestStrLen == 0 && !isAnyStringNull) {
+        return INDEX_NOT_FOUND;
+    }
+
+    // Handle lists containing some nulls or some empty strings
+    if (shortestStrLen == 0) {
+        return 0;
+    }
+
+    // Find the position with the first difference across all strings
+    int firstDiff = -1;
+    for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
+        final char comparisonChar = charSequence[0].charAt(stringPos);
+        for (int arrayPos = 1; arrayPos < arrayLen; arrayPos++) {
+            if (charSequence[arrayPos].charAt(stringPos) != comparisonChar) {
+                firstDiff = stringPos;
+                break;
+            }
+        }
+        if (firstDiff != -1) {
+            break;
+        }
+    }
+
+    if (firstDiff == -1 && shortestStrLen != longestStrLen) {
+        
+        // We compared all of the characters up to the length of the
+        // shortest string and didn't find a match, but the string lengths
+        // vary, so return the length of the shortest string.
+        return shortestStrLen;
+    }
+    return firstDiff;
+}
+```
+
+However, my goal is to include any / with at least `2+` occurrences into the resulting map.
+How can this be achieved with `Java`?

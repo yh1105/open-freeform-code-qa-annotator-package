@@ -1,0 +1,62 @@
+Node --experimental-modules - Error: Cannot find module
+
+I am getting an error when trying to import a local file, though no problem when using npm packages.
+
+
+# server.js
+
+
+
+```
+import express from 'express'
+import next from 'next'
+
+import apis from './src/server/api'
+```
+
+
+
+# api.js
+
+
+
+```
+export default {
+  ello: 'bye',
+  jamie: 'hey'
+}
+```
+
+
+
+# Starting app
+
+
+
+```
+node --experimental-modules --inspect server.js
+```
+
+
+
+# Error
+
+
+
+```
+For help, see: https://nodejs.org/en/docs/inspector
+(node:20153) ExperimentalWarning: The ESM module loader is experimental.
+internal/modules/esm/default_resolve.js:59
+  let url = moduleWrapResolve(specifier, parentURL);
+            ^
+
+Error: Cannot find module '/var/www/goldendemon.hutber.com/src/server/api' imported from /var/www/goldendemon.hutber.com/server.js
+    at Loader.resolve [as _resolve] (internal/modules/esm/default_resolve.js:59:13)
+    at Loader.resolve (internal/modules/esm/loader.js:70:33)
+    at Loader.getModuleJob (internal/modules/esm/loader.js:143:40)
+    at ModuleWrap.<anonymous> (internal/modules/esm/module_job.js:43:40)
+    at link (internal/modules/esm/module_job.js:42:36) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+```
+

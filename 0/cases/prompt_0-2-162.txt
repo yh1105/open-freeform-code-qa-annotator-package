@@ -1,0 +1,53 @@
+Dynamically change background color on scroll
+
+Is there any way to change background color dynamically on scroll?
+
+For example, refer this site([https://www.samsung.com/sec/smartphones/galaxy-note9/](https://www.samsung.com/sec/smartphones/galaxy-note9/))
+
+When you first access that site, background color is blue.
+
+While scroll down, it's color change to black smoothly.
+
+Also see this site(`codepen.io/Funsella/pen/yLfAG/`)
+
+Second site is same with first. But it's color changed at once.
+
+But first site's color is not change at once.
+
+It changed gradually related to scroll position.
+
+```
+body {
+  height: 100vh;
+}
+.section1 {
+  background-color: white;
+  height: 100%;
+}
+.section2 {
+  background: linear-gradient(#f05fa6, #ed1654);
+  height: 100%;
+}
+```
+```
+<html>
+<body>
+  <section class="section1">
+    SECTION1
+  </section>
+  <section class="section2">
+    SECTION2
+  </section>
+</body>
+</html>
+```
+
+
+
+Above code is what I'm worked on.
+
+Current it's color is split by each section.
+
+When I scroll down, I want to change color `background-color: white` -> `background: linear-gradient(#f05fa6, #ed1654)`
+
+Is there any solution about this?

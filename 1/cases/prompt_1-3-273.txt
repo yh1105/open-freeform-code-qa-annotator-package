@@ -1,0 +1,9 @@
+How to add conda environment to jupyter lab
+
+I'm using Jupyter Lab and I'm having trouble to add `conda` environment. The idea is to launch Jupyter Lab from my base environment, and then to be able to choose my other conda envs as kernels.
+
+I installed the package `nb_conda_kernels` which is supposed to do just that, but it's not working as I want. Indeed, let's assume I create a new Conda Environment, then I launch jupyter lab from base, I can't see the new environment as an available kernel.
+
+I have found a "fix", which works everytime but is not convenient at all. If I install Jupyter Notebook in my new environment, then launch a jupyter notebook from this new environment, close it, go back to base environment, and then launch Jupyter Lab from base environment, my new environment is available as a kernel in Jupyter Lab.
+
+If you know how to make it work without this "fix", I would be very grateful.

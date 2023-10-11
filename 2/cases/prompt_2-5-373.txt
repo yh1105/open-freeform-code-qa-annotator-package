@@ -1,0 +1,11 @@
+How to delete a database in pgadmin
+
+When i try to create other database with the name "eCommerce" in pgadmin 4 this message appears 
+
+
+
+I try to delete the others databases but is not working and appears
+
+
+
+What should i do?

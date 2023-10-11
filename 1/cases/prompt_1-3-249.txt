@@ -1,0 +1,11 @@
+Generating random characters in Python
+
+I would like to generate a 16 character code
+The code has 5 known characters
+The code has 3 digits
+The code must be random
+What I did :
+```
+result1 = "NAA3U" + ''.join((random.choice(string.ascii_uppercase + string.digits) for codenum in range(11)))
+```
+

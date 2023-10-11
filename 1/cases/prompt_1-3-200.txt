@@ -1,0 +1,26 @@
+Subprocess call with exit status 128
+
+Essentially, I am trying to use a subprocess call to checkout a git commit at a specific sha hash.
+
+However, I keep getting the error `subprocess.CalledProcessError: Command '['git', 'checkout', '62bbce43e']' returned non-zero exit status 128.`
+
+This is my code below:
+
+```
+with open(filename) as inputfile:
+    reader = csv.reader(inputfile, delimiter=",")
+    linecount = 0
+    for row in reader:
+        if linecount == 0:
+            linecount += 1
+        else:
+            repo = str(row[0])
+            sha = str(row[2])
+            specificfile = str(row[3])
+            linenum = int(row[4])
+            cl("cd", repo)
+            subprocess.check_output(['git', 'checkout', sha])
+            print("checkout done")
+            git("checkout", "-")
+```
+

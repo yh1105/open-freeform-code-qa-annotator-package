@@ -1,0 +1,29 @@
+Number of ways to form a string of length n using k characters such that at most two adjacent characters can be same
+
+Hi please do let me know what is wrong with my recurrence relation.
+My Logic:
+The number of ways to allot the first `element=k` and number of ways such that the `next (n-1)` elements are different `(k-1)*f(n-2)`
+and number of ways to allot two same elements: `k + (k-1)*f(n-1)`
+Hence the relation:
+`no. of ways = ∑(k + (k-1)*f(n-1) + k + (k-1)*f(n-1))`
+I can see some mistakes like the inclusion of duplicates, however, I am unable to figure out the relation.
+You can also find the code below:
+```
+def count_num_ways(n, k):
+        dp = [0 for i in range(n+1)]
+
+        dp[0] = 0
+        dp[1] = k
+
+        for i in range(2, n+1):
+            dp[i] =  sum(
+                [
+                     k+( k-1 )*dp[n-2],
+                     k+(k-1)*dp[n-1]-k
+                ]
+            )
+
+        print(dp)
+```
+
+Thanks.

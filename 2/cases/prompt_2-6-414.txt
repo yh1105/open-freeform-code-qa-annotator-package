@@ -1,0 +1,48 @@
+How to deserialize json array with nulls to non-nullable int list with JSON.NET?
+
+I have the following part of json that gives me trouble:
+```
+"edges":["5","","5",""]}
+```
+
+Which im trying to deserialize to the following property:
+```
+public class Redacted
+{
+    ...
+
+    [JsonProperty("edges", NullValueHandling = NullValueHandling.Ignore)]
+    public List<int> Edges { get; set; } = new();
+
+    ...
+}
+```
+
+This gives me the followin error however:
+```
+Newtonsoft.Json.JsonSerializationException
+  HResult=0x80131500
+  Message=Error converting value {null} to type 'System.Int32'. Path 'edges[1]', line 1, position 186.
+  Source=Newtonsoft.Json
+  StackTrace:
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Populate(JsonReader reader, Object target)
+   at REDACTED.ReadJson(JsonReader reader, Type objectType, Object existingValue, JsonSerializer serializer) in REDACTED.cs:line 45
+
+  This exception was originally thrown at this call stack:
+    System.Convert.ChangeType(object, System.Type, System.IFormatProvider)
+    Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(Newtonsoft.Json.JsonReader, object, System.Globalization.CultureInfo, Newtonsoft.Json.Serialization.JsonContract, System.Type)
+
+Inner Exception 1:
+InvalidCastException: Null object cannot be converted to a value type.
+```
+
+I tried to specify `NullValueHandling.Ignore` in my model but this seems to only get applied to the property and not to the items in the list.
+I prefer to not have to set `NullValueHandling.Ignore` in the settings, it should only apply to this specific property.
+How can I deserialize this json to an `List<int>`?

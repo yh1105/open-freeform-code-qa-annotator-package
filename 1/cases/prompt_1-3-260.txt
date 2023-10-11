@@ -1,0 +1,29 @@
+ModuleNotFoundError: No module named 'bs4' [BeautifulSoup]
+
+I was trying to run a simple python file using BeautifulSoup when I received the following error message in Atom.
+
+I have already installed BeautifulSoup using the following command in my Macbook's terminal.
+```
+$ pip3 install beautifulsoup4
+```
+
+I want to note that I have both Python 2.7.10 and Python 3.8.5 installed. I looked at my installed modules, and I only see 'bs4' in the modules for python3 and not in python.
+When I try to place  in Atom or PyCharm, both text editors say that the module  exist. Any help would be much appreciated, thank you.
+
+
+
+```
+import requests
+from bs4 import BeautifulSoup
+```
+
+
+
+```
+Traceback (most recent call last):
+  File "/Users/lyons/Documents/scrape/scrape.py", line 2, in <module>
+    from bs4 import BeautifulSoup
+ModuleNotFoundError: No module named 'bs4'
+[Finished in 2.237s]
+```
+

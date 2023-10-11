@@ -1,0 +1,41 @@
+"package XXX is not in GOROOT" when building a Go project
+
+I have a weird issue that arose when I took a break from this project. Upon starting up Goland, I'm riddled with errors when trying to run my project. 
+
+The specific error, when building one of my packages, is: 
+`start.go: package project/game is not in GOROOT (C:\Go\src\project\game)`
+
+I have a folder structure as such under `C:\Users\username`
+
+```
+go
+|-src
+   |-project
+        |-game
+            |-entity
+                 |-whatever.go
+            |-game_stuff.go
+        |-server
+```
+
+
+and my env vars are as such:
+
+```
+GOROOT=C:\Go 
+GOPATH=C:\Users\ketchup\go
+```
+
+
+for each of the modules (project/game/entity, project/game, project/server), I did a `git mod init`. 
+
+When building, Goland will try to run this:
+
+```
+C:\Go\bin\go.exe build -o C:\Users\ketchup\AppData\Local\Temp\___go_build_project_server.exe project/server
+```
+
+
+and return the error.
+
+Can anyone help me with this issue? Kind of lost since Goland was working fine the last time I opened it. Also not even sure what direction to look at - I'm pretty new to Go and I'm not really sure what documentation to look at :\  Thank you everyone! 

@@ -1,0 +1,9 @@
+Speed up reading multiple pickle files
+
+I have a lot of pickle files. Currently I read them in a loop but it takes a lot of time. I would like to speed it up but don't have any idea how to do that.
+Multiprocessing wouldn't work because in order to transfer data from a child subprocess to the main process data need to be serialized (pickled) and deserialized.
+Using threading wouldn't help either because of GIL.
+I think that the solution would be some library written in C that takes a list of files to read and then runs multiple threads (without GIL). Is there something like this around?
+
+Answering your questions:
+- - `pandas.Series`- - - - - 

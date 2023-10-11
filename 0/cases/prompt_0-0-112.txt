@@ -1,0 +1,32 @@
+Puppeteer: Failed to launch the browser process! spawn
+
+When I try to run `node app.js`, I get error:
+> the message is Failed to launch the browser process! spawn
+/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app
+> EACCES
+
+I checked  the folder at `/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app` and the file is not zipped. It can be run.
+
+If I try to execute without the path,  it works, but
+I would like to use either Chrome or Chromium to open a new page.
+`const browser = await puppeteer.launch({headless:false'});`
+```
+const express = require('express');
+const puppeteer = require('puppeteer');
+const app = express();
+
+(async () => {
+  const browser = await puppeteer.launch({headless:false, executablePath:'/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app'});
+ const page = await browser.newPage();
+ await page.goto('https://google.com', {waitUntil: 'networkidle2'});
+
+})().catch((error) =>{
+  console.error("the message is " + error.message);
+});
+
+app.listen(3000, function (){
+    console.log('server started');
+})
+```
+
+[](https://i.stack.imgur.com/0Sef5.jpg)

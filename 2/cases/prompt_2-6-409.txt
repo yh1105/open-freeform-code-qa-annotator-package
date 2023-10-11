@@ -1,0 +1,64 @@
+How to fix 'Value cannot be null. Parameter name: Key' error in c#
+
+I was using Dictionary in C# and wanted to display a Key inputted by the user and display that key and its corresponding value if that key is present in the dictionary. Also, continue reading the lines until there is no more input.
+
+```
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class Solution 
+{
+    static void Main(String[] args) 
+    {
+        string number = Console.ReadLine();
+        int n;
+        Int32.TryParse(number, out n);
+
+        var phoneBook = new Dictionary<string, string>();
+
+        for(int i = 0; i < n; i++)
+        {
+            string name = Console.ReadLine();
+            string phoneNumber = Console.ReadLine();
+            phoneBook.Add(name, phoneNumber);
+        }
+
+        foreach (var pair in phoneBook)
+        {
+            string name = pair.Key;
+            string phoneNumber = pair.Value;
+        }
+
+
+        string x = Console.ReadLine();
+        if(!phoneBook.ContainsKey(x))
+        {
+            Console.WriteLine("Not Found");
+        }
+        else
+        {
+            string result = phoneBook[x];
+            Console.Write(x);
+            Console.Write("=");
+            Console.Write(result);
+        }
+    }
+}
+
+
+Error message:
+
+    Unhandled Exception:
+    System.ArgumentNullException: Value cannot be null.
+    Parameter name: key
+      at System.Collections.Generic.Dictionary2[TKey,TValue].FindEntry (TKey key) <0x7fb28d7c9320 + 0x0023c> in <3833a6edf2074b959d3dab898627f0ac>:0 
+      at System.Collections.Generic.Dictionary2[TKey,TValue].ContainsKey (TKey key) <0x7fb28d7c8cd0 + 0x00009> in <3833a6edf2074b959d3dab898627f0ac>:0 
+      at Solution.Main (System.String[] args) [0x00096] in solution.cs:30 
+    [ERROR] FATAL UNHANDLED EXCEPTION: System.ArgumentNullException: Value cannot be null.
+    Parameter name: key
+      at System.Collections.Generic.Dictionary2[TKey,TValue].FindEntry (TKey key) <0x7fb28d7c9320 + 0x0023c> in <3833a6edf2074b959d3dab898627f0ac>:0 
+      at System.Collections.Generic.Dictionary2[TKey,TValue].ContainsKey (TKey key) <0x7fb28d7c8cd0 + 0x00009> in <3833a6edf2074b959d3dab898627f0ac>:0 
+      at Solution.Main (System.String[] args) [0x00096] in solution.cs:30
+```
+

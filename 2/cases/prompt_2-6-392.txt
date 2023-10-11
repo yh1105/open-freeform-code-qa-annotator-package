@@ -1,0 +1,4 @@
+MediatR Multiple Pipeline Behaviors
+
+Helllo I already use this pattern of Mediator CQRS with Pipeline Behavior for a while, but just now i'm facing a issue where the generic implementation of TResponse and TRequest are not enough. So i'm trying to understand if having two separate pipelines for two very specific request is a bad practice or a bad ideia.
+So the main idea is, having a PipelineBehavior<RequestOne, ResponseOne> to do a specific logic for the requestOne, and another PipelineBehavior<RequestTwo, ResponseTwo> to do another logic that doesn't apply to request one.

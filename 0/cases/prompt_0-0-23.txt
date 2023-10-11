@@ -1,0 +1,50 @@
+Asynchronous calls with React.useMemo
+
+Scenario is relatively simple: we have a long-running, on-demand calculation that occurs on a remote server. We want to memoize the result. Even though we are fetching asychronously from a remote resource, this isn't a side effect because we just want the result of this calculation to display to the user and we definitely don't want to do this on every render.
+
+Problem: it seems that React.useMemo does not directly support Typescript's async/await and will return a promise:
+
+```
+//returns a promise: 
+let myMemoizedResult = React.useMemo(() => myLongAsyncFunction(args), [args])
+//also returns a promise:
+let myMemoizedResult = React.useMemo(() => (async () => await myLongAsyncFunction(args)), [args])
+```
+
+
+What is the correct way to wait on the result from an asynchronous function and memoize the result using React.useMemo? I've used regular promises with plain JS but still struggle with them in these types of situations.
+
+I've tried other approaches such as memoize-one, but the issue seems to be that the `this` context changes due to the way that React function components work [break the memoization](https://github.com/alexreardon/memoize-one#changes-to-this-is-considered-an-argument-change), which is why I'm trying to use React.useMemo.
+
+Maybe I'm trying to fit a square peg in a round hole here - if that's the case it would be good to know that too. For now I'm probably just going to roll my own memoizing function.
+
+Edit: I think part of it was that I was making a different silly mistake with memoize-one, but I'm still interested to know the answer here wrt React.memo.
+
+Here's a snippet - the idea is not to use the memoized result directly in the render method, but rather as something to reference in an event-driven way i.e. on a Calculate button click.
+
+```
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+
+    //My hang up at the moment is that myExpensiveResultObject is 
+    //Promise<T> rather than T
+    let myExpensiveResultObject = React.useMemo(
+        async () => await SomeLongRunningApi(arg),
+        [arg]
+    );
+
+    const getResult = () => {
+        setResult(myExpensiveResultObject.interestingProperty);
+    }
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={getResult}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>);
+}
+```
+

@@ -1,0 +1,12 @@
+Getting current page url on wp-admin/admin dashboard?
+
+Im trying to get the current page url while on the wp-admin/admin dashboard, is it possible?
+Im trying to use these codes but i can't seem to get it to work.
+```
+global $wp;
+$current_page = add_query_arg( $wp->query_vars, home_url( $wp->request ) );
+```
+
+The output i wanted is like this: `https://example.com/1/wp-admin/admin.php?page=test`
+But instead, the output turns like this: `/1/wp-admin/admin.php?page=test&=https://example.com/1`
+Any help is greatly appreciated

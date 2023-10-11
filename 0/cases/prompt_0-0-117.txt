@@ -1,0 +1,4 @@
+Where to store API key in ReactJS?
+
+I quick question!
+I have a webapp that only fetches data from an API so i dont have i backend part. My question is where do you keep your API key? Accordingly to React docs you should not store API keys in the app so how do you manage this when you have an webapp that consumes an API and you have to use the API key in your get requests?

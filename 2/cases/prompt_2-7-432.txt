@@ -1,0 +1,6 @@
+Laravel 5.8 showing "419 Page Expired" after clicking logout from an already cleared session
+
+I run the  command and I will explain step by step what I do after that to understand the scenario,
+- - - - - 
+The thing is, these kinds of scenarios may arise, and I don't want to see this error message, just logout after clicking logout, even if the session is expired.
+

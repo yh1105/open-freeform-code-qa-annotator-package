@@ -1,0 +1,58 @@
+clearInterval not working in React Application using functional component
+
+I wanted to build a timer application in `React` using `functional component` and below are the requirements.
+The component will display a number initialized to `0` know as `counter`.
+The component will display a `Start` button below the `counter` number.
+On clicking the `Start` button the counter will start running. This means the `counter` number will start incrementing by 1 for every one second.
+When the counter is running(incrementing), the `Start` button will become the `Pause` button.
+On clicking the `Pause` button, the `counter` will preserve its value (number) but stops running(incrementing).
+The component will also display a `Reset` button.
+On clicking the `Reset` button, the `counter` will go to its initial value(which is `0` in our case) and stops running(incrementing).
+Below is the code that I have implemented, but `clearInterval` doesn't seems to be working, Also how do i implement Reset Button?
+Code:
+```
+import React, { useState, useEffect } from "react";
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  const [flag, setFlag] = useState(false);
+  const [isClicked, setClicked] = useState(false);
+  var myInterval;
+
+  function incrementCounter() {
+    setClicked(!isClicked);
+    if (flag) {
+      myInterval = setInterval(
+        () => setCounter((counter) => counter + 1),
+        1000
+      );
+      setFlag(false);
+    } else {
+      console.log("sasdsad");
+      clearInterval(myInterval);
+    }
+  }
+
+  function resetCounter() {
+    clearInterval(myInterval);
+    setCounter(0);
+  }
+
+  useEffect(() => {
+    setFlag(true);
+  }, []);
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={incrementCounter}>
+        {isClicked ? "Pause" : "Start"}
+      </button>
+      <button onClick={resetCounter}>Reset</button>
+    </div>
+  );
+}
+```
+
+Codesandbox link:
+[CodeSandbox](https://codesandbox.io/s/romantic-varahamihira-5xso6y?file=/src/Counter.js)

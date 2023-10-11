@@ -1,0 +1,25 @@
+How to retrieve partial matches from a list of strings
+
+For approaches to retrieving partial matches in a  list, go to:
+- [How to return a subset of a list that matches a condition?](https://stackoverflow.com/questions/35101426/how-to-return-a-subset-of-a-list-that-matches-a-condition)- [Python: Find in list](https://stackoverflow.com/questions/9542738/python-find-in-list)
+
+---
+
+
+But if you're looking for how to retrieve partial matches for a list of , you'll find the best approaches concisely explained in the answer below.
+[SO: Python list lookup with partial match](https://stackoverflow.com/questions/6117318/python-list-lookup-with-partial-match) shows how to return a `bool`, if a `list` contains an element that partially matches (e.g. `begins`, `ends`, or `contains`) a certain string. But how can you , instead of `True` or `False`
+
+### Example:
+
+
+```
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+```
+
+Here, the approach in the linked question will return `True` using:
+```
+any(s.startswith(wanted) for s in l)
+```
+
+So how can you return the element `'threes'` instead?

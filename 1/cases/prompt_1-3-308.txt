@@ -1,0 +1,11 @@
+Cannot install librosa python, how can I uninstall llvmlite?
+
+I have recently tried to install `librosa` on Windows using `pip install librosa`. Nevertheless, this error appears:
+
+> Cannot uninstall 'llvmlite'. It is a distutils installed project and
+  thus we cannot accurately determine which files belong to it which
+  would lead to only a partial uninstall.
+
+As a solution, I have executed `conda update --all`, and `conda install numba=0.39.0`, without any improvement.
+
+Thank you in advanced.

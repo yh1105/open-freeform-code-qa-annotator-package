@@ -1,0 +1,25 @@
+Python split string by multiple delimiters following a hierarchy
+
+I want to split strings only once based on multiple delimiters like "and", "&" and "-" in that order. Example:
+```
+'121 34 adsfd' -> ['121 34 adsfd']
+'dsfsd and adfd' -> ['dsfsd ', ' adfd']
+'dsfsd & adfd' -> ['dsfsd ', ' adfd']
+'dsfsd - adfd' -> ['dsfsd ', ' adfd']
+'dsfsd and adfd and adsfa' -> ['dsfsd ', ' adfd and adsfa']
+'dsfsd and adfd - adsfa' -> ['dsfsd ', ' adfd - adsfa']
+'dsfsd - adfd and adsfa' -> ['dsfsd - adfd ', ' adsfa']
+```
+
+I tried the below code to achieve this:
+```
+import re
+re.split('and|&|-', string, maxsplit=1)
+```
+
+It works for all cases except the last one. As it does not follow the hierarchy, for the last one it returns:
+```
+'dsfsd - adfd and adsfa' -> ['dsfsd ', ' adfd and adsfa']
+```
+
+How can I achieve this?

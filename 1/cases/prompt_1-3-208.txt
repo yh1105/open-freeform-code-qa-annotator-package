@@ -1,0 +1,14 @@
+How to check that a string contains only “a-z”, “A-Z” and “0-9” characters
+
+I am importing string and trying to check if text contains only "a-z", "A-Z", and "0-9".
+
+But I get only input and it doesn't print success when I enter letters and digits
+
+```
+import string
+text=input("Enter: ")
+correct = string.ascii_letters + string.digits
+if text in correct:
+    print("Success")
+```
+

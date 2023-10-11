@@ -1,0 +1,18 @@
+Angular 11 CLI, "ng generate" option: --skip-tests
+
+When using the Angular 11 CLI, when I [generate](https://angular.io/cli/generate) a new component I can specify the option `--skip-tests` to avoid generating a `.component.spec.ts` at this stage.
+```
+ng generate component --name asdf --module app --skip-tests --dry-run
+```
+
+When I generate a new module containing a new component (`--route` option) I can't specify the `--skip-tests` option.
+```
+ng generate module --name asdf --module app --route asdf --routing true --skip-tests --dry-run
+```
+
+If I do I get the error:
+```
+Unknown option: '--skip-tests'
+```
+
+Is there another way to skip generating the test in this case or is it just not supported for `generate module`?

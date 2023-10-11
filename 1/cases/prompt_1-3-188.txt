@@ -1,0 +1,11 @@
+How to extract a cell value from a Dataframe in Pandas
+
+I have a dataframe with 3 columns, like this:
+
+[](https://i.stack.imgur.com/6Sluv.jpg)
+
+I want to search for 12295682 in instrument_token column and extract the related tradingsymbol UBL20JANFUT.
+
+How do I do that?
+
+thanks in advance

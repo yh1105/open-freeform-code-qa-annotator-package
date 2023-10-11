@@ -1,0 +1,8 @@
+Downgrade npm to an older version
+
+I tried updating `npm` to see if it would solve some dependency problems we were having, and now I want to downgrade to the version the rest of the development team is using. How can I install an older version?
+I updated `npm` according to the instructions on the [About npm CLI versions](https://docs.npmjs.com/about-npm-versions):
+> 
+## The latest release of npm
+
+The latest release of `npm` is the most recent stable version. When you install Node.js, `npm` is automatically installed. However, `npm` is released more frequently than Node.js, so to install the latest stable version of `npm`, on the command line, run:`npm install npm@latest -g`

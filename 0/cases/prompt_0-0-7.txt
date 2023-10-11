@@ -1,0 +1,47 @@
+Angular typescript convert string to number
+
+I want to convert a `string number` (an integer represented as a string. ex "12" ) to a `number`
+
+```
+export class Person{
+  FirstName :  string | undefined ;
+  Telephone:  number | undefined ;
+
+}
+```
+
+
+```
+console.log("Person" + JSON.stringify(this.person));
+```
+
+The JSON appears as
+```
+{
+    "FirstName ": "hhhhh",
+    "Telephone": "1478525",
+}
+```
+
+The Telephone property is a number and I want it to appear as follows (without the ""_ :
+```
+{
+    "FirstName ": "hhhhh",
+    "Telephone": 1478525,
+}
+```
+
+Approaches I took.
+```
+this.person.Telephone = parseInt(telephone);
+```
+
+Above didn't work, it shows the same number enclosed as a `string`. I also tried the following:
+```
+this.person.Telephone as number
+```
+
+both approaches didn't work. Can someone help me solve this ?
+Error I get if I don't convert to a number:
+> "The JSON value could not be converted to System.Int32. Path:
+$.Telephone | LineNumber: 2 | BytePositionInLine: 18."

@@ -1,0 +1,15 @@
+How to fix this error : " Module not found :can't resolve popper.js "
+
+After import the Bootstrap and Jquery this error is showning when compiling.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
+
+global.jQuery = require('jquery');
+require('bootstrap');
+```
+

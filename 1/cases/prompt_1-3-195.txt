@@ -1,0 +1,72 @@
+How to update a plot in pyqtgraph?
+
+I am trying to have a user interface using PyQt5 and pyqtgraph. I made two checkboxes and whenever I select them I want to plot one of the two data sets available in the code and whenever I deselect a button I want it to clear the corresponding curve. There are two checkboxes with texts `A1` and `A2` and each of them plot one set of data.
+I have two issues:
+1- If I select `A1` it plots the data associated with `A1` and as long as I do not select `A2`, by deselecting `A1` I can clear the data associated with `A1`.
+However, If I check `A1` box and then I check `A2` box, then deselecting `A1` does not clear the associated plot. In this situation, if I choose to plot random data, instead of a deterministic curve such as `sin`, I see that by selecting either button new data is added but it cannot be removed.
+2- The real application have 96 buttons each of which should be associated to one data set. I think the way I wrote the code is inefficient because I need to copy the same code for one button and data set 96 times. Is there a way to generalize the toy code I presented below to arbitrary number of checkboxes? Or perhaps, using/copying the almost the same code for every button is the usual and correct way to do this?
+The code is:
+```
+from PyQt5 import QtWidgets, uic, QtGui
+import matplotlib.pyplot as plt
+from matplotlib.widgets import SpanSelector
+import numpy as np
+import sys
+import string
+import pyqtgraph as pg
+from pyqtgraph.Qt import QtGui, QtCore
+
+app = QtWidgets.QApplication(sys.argv)
+
+x = np.linspace(0, 3.14, 100)
+y1 = np.sin(x)#Data number 1 associated to checkbox A1
+y2 = np.cos(x)#Data number 2 associated to checkbox A2
+
+#This function is called whenever the state of checkboxes changes
+def todo():
+    if cbx1.isChecked():
+        global curve1
+        curve1 = plot.plot(x, y1, pen = 'r')
+    else:
+        try:
+            plot.removeItem(curve1)
+        except NameError:
+            pass
+    if cbx2.isChecked():
+        global curve2
+        curve2 = plot.plot(x, y2, pen = 'y')
+    else:
+        try:
+            plot.removeItem(curve2)
+        except NameError:
+            pass  
+#A widget to hold all of my future widgets
+widget_holder = QtGui.QWidget()
+
+#Checkboxes named A1 and A2
+cbx1 = QtWidgets.QCheckBox()
+cbx1.setText('A1')
+cbx1.stateChanged.connect(todo)
+
+cbx2 = QtWidgets.QCheckBox()
+cbx2.setText('A2')
+cbx2.stateChanged.connect(todo)
+
+#Making a pyqtgraph plot widget
+plot = pg.PlotWidget()
+
+#Setting the layout
+layout = QtGui.QGridLayout()
+widget_holder.setLayout(layout)
+
+#Adding the widgets to the layout
+layout.addWidget(cbx1, 0,0)
+layout.addWidget(cbx2, 0, 1)
+layout.addWidget(plot, 1,0, 3,1)
+
+widget_holder.adjustSize()
+widget_holder.show()
+
+sys.exit(app.exec_())
+```
+

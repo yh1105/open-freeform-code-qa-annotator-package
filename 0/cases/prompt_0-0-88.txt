@@ -1,0 +1,62 @@
+RangeError: invalid array length
+
+I want to get an array out of the keys on my object but the length should 0 when the Object is empty. The length of array is correct when I try `console.log()` with the array but my code stucks throwing the following error on my browser and it stops the execution:
+
+```
+RangeError: invalid array length
+burger/transformedIngredients<
+src/components/Burger/Burger.js:8
+
+   5 | const burger = (props) => {
+   6 |   let transformedIngredients = Object.keys(props.ingredients).map(igKey => (
+   7 |     // eslint-disable-next-line max-len,react/no-array-index-key
+>  8 |     [...Array(props.ingredients[igKey])].map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />)
+   9 |   )).reduce((arr, el) => (
+  10 |     arr.concat(el)
+  11 |   ), []);
+```
+
+
+This is the code I'm using:
+
+```
+const burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients).map(igKey => (
+    // eslint-disable-next-line max-len,react/no-array-index-key
+    [...Array(props.ingredients[igKey])].map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />)
+  )).reduce((arr, el) => (
+    arr.concat(el)
+  ), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please add some ingredients!</p>;
+  }
+```
+
+
+I am passing `ingredients` from here:
+
+```
+class BurgerBuilder extends Component {
+  state = {
+    ingredients: {
+      salad: 0,
+      bacon: 0,
+      cheese: 0,
+      meat: 0,
+    },
+    totalPrice: 4,
+  };
+render() {
+    return (
+      <Fragment>
+        <Burger ingredients={this.state.ingredients} />
+        <BuildControls
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
+        />
+      </Fragment>
+    );
+  }
+```
+

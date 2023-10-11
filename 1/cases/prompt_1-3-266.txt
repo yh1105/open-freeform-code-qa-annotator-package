@@ -1,0 +1,49 @@
+Django app on Azure not getting static files
+
+Got  my Django project on a Azure webapp, but when I call on SSH terminal:
+> Python manage.py collectstatic
+It says 252 files copied but my static files are not visible on my templates and static folder in wwwroot its empty...Here's my wwwroot structure:
+```
+wwwroot
+|---Myproject
+|---manage.py
+|---oryx-manifest.toml
+|---hostingstart.html
+|---static //With all my static files
+├── myapp
+│   ├── migrations
+│   ├── __pycache__
+│   ├── static
+|   |   |---Images
+|   |   |   |--myimage.png
+|   |   |   |--myimage2.png
+│   └── templates
+```
+
+And this is my settings.py:
+```
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+   ('myapp', os.path.join(BASE_DIR, 'myapp', 'static')),
+)
+STATICFILES_FINDERS = (
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+```
+
+Any idea why or what am I doing wrong ?, does Azure collect different ?
+EDIT> When I go to my website my images don´t show...Im calling them like this on template:
+```
+{% load static %}
+<img src="{% static 'Images/myimage.png' %}" /><br>
+```
+
+EDIT 2 /////
+In wwwroot creates indeed a folder with all my statics, but when I load my template they don´t show, in wen console I get this error for myimage.png and myimage2.png :
+```
+Failed to load resource: the server responded with a status of 404 (Not Found)
+```
+

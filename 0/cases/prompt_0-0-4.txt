@@ -1,0 +1,3 @@
+Difference between Pressable and TouchableOpacity
+
+With the update `react native` to version `0.63`, new components have appeared. Can someone more experienced explain how the `Pressable` differs from the `TouchableOpacity` and when it is better to use them.

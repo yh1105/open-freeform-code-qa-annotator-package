@@ -1,0 +1,28 @@
+How to get data from nested objects in the form of array
+
+As you can see, the keys are now the name of the items and the corresponding value is another object consisting of two keys - quantity and price.
+```
+var itemsToBuy = {
+    milk: {
+        quantity : 5,
+        price: 20
+    },
+    bread: {
+        quantity : 2,
+        price: 15
+    },
+    potato: {
+        quantity : 3,
+        price: 10
+    }
+}
+```
+
+I tried but I am getting only undefined output.
+Want to get data such like :
+```
+['milk', 'bread', 'potato']
+
+[20, 15, 10]
+```
+

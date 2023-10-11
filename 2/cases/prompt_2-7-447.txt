@@ -1,0 +1,41 @@
+submit multiple arrays from html and combine their attribute into seperate collections and store in Laravel App
+
+I submitting the arrays value from the html and recieving them into the Laravel controller, the problem is I have multiple arrays with seprate attributes arrays. I want to store the info into the database as a collection. Let me explain with example
+HTML CODE
+```
+<input type="text" name="tw_name[]" placeholder="name" value="{{ old('tw_name') }}">
+<input type="text" name="tw_price[]"  placeholder="price" value="{{ old('tw_price') }}">
+```
+
+Now I am receving the tw_name and tw_prices arrays in the controller, but I want to store them into the database using model like below
+```
+Bet::create([
+  'name' => 'first_name',
+  'price' => '10',
+]);
+
+Bet::create([
+  'name' => 'second_name',
+  'price' => '20',
+]);
+```
+
+User can add 12 forms, so we can't say that user can submit 3 form or 5 form or 10. So we need to handle the same form and save them into database.
+if the user will submit 3 form it we will recive 3 arrays in controller
+```
+Bet::create([
+  'name' => 'first_name',
+  'price' => '10',
+]);
+
+Bet::create([
+  'name' => 'second_name',
+  'price' => '20',
+]);
+Bet::create([
+  'name' => 'thir_name',
+  'price' => '30',
+]);
+```
+
+How can I save them into database, Thank you

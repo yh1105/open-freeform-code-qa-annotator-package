@@ -1,0 +1,26 @@
+DeprecationWarning: executable_path has been deprecated selenium python
+
+I am using sublime to code python scripts. The following code is for selenium in python to install the driver automatically by using the webdriver_manager package
+```
+# pip install webdriver-manager
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
+driver.maximize_window()
+
+#s=Service(path)
+#driver=webdriver.Chrome(service=s)
+driver.get('https://www.google.com')
+driver.find_element(By.NAME, 'q').send_keys('Yasser Khalil')
+```
+
+The code works fine but I got a warning like that
+```
+Demo.py:7: DeprecationWarning: executable_path has been deprecated, please pass in a Service object
+  driver = webdriver.Chrome(ChromeDriverManager().install())
+```
+
+How to fix such a bug?

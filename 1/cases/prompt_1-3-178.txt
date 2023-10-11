@@ -1,0 +1,56 @@
+Using Playwright for Python, how do I select an option from a drop down list?
+
+This is a followup to this [question](https://stackoverflow.com/questions/64303326/using-playwright-for-python-how-do-i-select-or-find-an-element) on the basic functionality of Playwright for Python.
+How do I  an  from a ?
+This example remote controls a vuejs-webseite that has a drop down list of fruits like "Apple", "Banana", "Carrot", "Orange"
+Here I want to select the option "Banana"
+```
+from playwright import sync_playwright
+import time
+
+URL = '<my url>'
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.newPage()
+    page.goto(URL)
+
+    # identify this element by ID. Wait for it first
+    new_selector = 'id=name-fruit'
+    page.waitForSelector(new_selector)
+    handle = page.querySelector(new_selector)
+
+    # at this point I have the element and can print the content
+    print(handle.innerHTML())
+```
+
+The drop down list HTML like this
+```
+<select data-v-c2cef47a="" id="name-fruit" autocomplete="true" class="form-select__select">
+    <option data-v-c2cef47a="" disabled="disabled" value=""><!----></option>
+    <option data-v-c2cef47a="" value="[object Object]"> Apple </option>
+    <option data-v-c2cef47a="" value="[object Object]"> Banana </option>
+    <option data-v-c2cef47a="" value="[object Object]"> Carrot </option>
+    <option data-v-c2cef47a="" value="[object Object]"> Orange </option> 
+</select>
+```
+
+in Selenium, I would select an option like this
+```
+from selenium.webdriver.support.ui import Select
+Select(handle).select_by_visible_text('Banana')  # Note: no spaces needed!
+```
+
+The Javascript docs for Playwright have this, which is not exactly the same, because it seems to identify the object at the same time.
+```
+// Single selection matching the label
+await page.selectOption('select#colors', { label: 'Blue' });
+```
+
+How do I do the selection in Playwright for Python?
+I tried both of these and nothing happens.
+```
+handle.selectOption("text=Banana") 
+handle.selectOption("text= Banana ")
+```
+

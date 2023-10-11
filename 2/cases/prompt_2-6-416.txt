@@ -1,0 +1,6 @@
+Adding Entity Framework Model on Visual Studio 2022
+
+I am using Visual Studio 2022 with.Net 6.0, I installed Entity Framework 6.4.4 after adding it when I create an Entity Framework model. I am getting a Popup message saying that.
+> The project's target framework does not contain Entity Framework runtime assemblies. Please review the target framework information on the project's property page.
+Can somebody tell us how to solve that problem?
+[](https://i.stack.imgur.com/w8CnM.jpg)

@@ -1,0 +1,13 @@
+Composer error while Composer update in cpanel
+
+I have a Laravel project in, which laravel version is 8.75 and php version is 7.4.
+When I upload my project in cpanel and go to terminal and run 'composer update' command ,it shows this type of error. I search this error but couldn't find any solution.
+$ composer update
+Composer is operating significantly slower than normal because you do not have the PHP curl extension enabled.
+Loading composer repositories with package information
+[Composer\Downloader\TransportException]
+The "https://repo.packagist.org/packages.json" file could not be downloaded: allow_url_fopen must be enabled in php.ini (https:// wrapper is disabled in the server configuration by allow_url_fopen=0
+Failed to open stream: no suitable wrapper could be found)
+update [--with WITH] [--prefer-source] [--prefer-dist] [--prefer-install PREFER-INSTALL] [--dry-run] [--dev] [--no-dev] [--lock] [--no-install] [--no-autoloader] [--no-suggest] [--no-progress] [-w|--with-dependencies] [-W|--with-all-dependencies] [-v|vv|vvv|--verbose] [-o|--optimize-autoloader] [-a|--classmap-authoritative] [--apcu-autoloader] [--apcu-autoloader-prefix APCU-AUTOLOADER-PREFIX] [--ignore-platform-req IGNORE-PLATFORM-REQ] [--ignore-platform-reqs] [--prefer-stable] [--prefer-lowest] [-i|--interactive] [--root-reqs] [--] []...
+See this image :
+[enter image description here](https://i.stack.imgur.com/Xh1rl.png)

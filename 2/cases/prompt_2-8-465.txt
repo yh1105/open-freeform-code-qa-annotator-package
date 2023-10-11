@@ -1,0 +1,19 @@
+Force retesting or disable test caching
+
+
+
+When I run the same go test twice the second run is not done at all. The results are the cached ones from the first run.
+
+```
+PASS    
+ok      tester/apitests    (cached)
+```
+
+
+
+
+I already checked [https://golang.org/cmd/go/#hdr-Testing_flags](https://golang.org/cmd/go/#hdr-Testing_flags) but there is no cli flag for that purpose.
+
+
+
+

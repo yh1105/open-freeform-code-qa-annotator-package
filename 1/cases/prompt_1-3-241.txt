@@ -1,0 +1,54 @@
+Why does .loc assignment with two sets of brackets result in NaN in a pandas.DataFrame?
+
+I have a DataFrame:
+
+|  | name | age | 
+|  | ---- | --- | 
+| 0 | Paul | 25 | 
+| 1 | John | 27 | 
+| 2 | Bill | 23 | 
+
+
+I know that if I enter:
+> ```
+df[['name']] = df[['age']]
+```
+
+I'll get the following:
+
+|  | name | age | 
+|  | ---- | --- | 
+| 0 | 25 | 25 | 
+| 1 | 27 | 27 | 
+| 2 | 23 | 23 | 
+
+
+But I expect the  result from the command:
+> ```
+df.loc[:, ['name']] = df.loc[:, ['age']]
+```
+
+But instead, I get this:
+
+|  | name | age | 
+|  | ---- | --- | 
+| 0 | NaN | 25 | 
+| 1 | NaN | 27 | 
+| 2 | NaN | 23 | 
+
+
+For some reason, if I omit those square brackets `[]` around column names, I'll get exactly what I expected. That is the command:
+> ```
+df.loc[:, 'name'] = df.loc[:, 'age']
+```
+
+gives the right result:
+
+|  | name | age | 
+|  | ---- | --- | 
+| 0 | 25 | 25 | 
+| 1 | 27 | 27 | 
+| 2 | 23 | 23 | 
+
+
+`.loc` Is it some sort of a bug or is it intended behaviour? I can't figure out the reason for such a behaviour.

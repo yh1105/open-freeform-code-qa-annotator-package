@@ -1,0 +1,15 @@
+How to remove package using Angular CLI?
+
+Angular 6 has new CLI command `ng add <package>`.
+
+How can I remove the package using Angular CLI?
+
+UPDATE
+
+[documentation](https://blog.angular.io/version-6-of-angular-now-available-cc56b0efa7a4)
+
+> `ng add` will use your package manager to download new dependencies and invoke an installation script (implemented as a schematic) which can update your project with configuration changes, add additional dependencies (e.g. polyfills), or scaffold package-specific initialization code
+
+It is not the same `npm install <package>`
+
+I was trying to use `ng rm` but it is not working yet. 

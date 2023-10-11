@@ -1,0 +1,29 @@
+How to use pair in a priority queue and then return the value using the key as the priority
+
+So I want to use the smallest key as the priority and then return the VALUE of that corresponding key:
+
+```
+import javafx.util.Pair;
+import java.util.PriorityQueue;
+
+public class Test
+{
+    public static void main (String[] args)
+    {
+        int n = 5;
+
+        PriorityQueue <Pair <Integer,Integer> > l = new PriorityQueue <Pair <Integer,Integer> > (n);
+
+        l.add(new Pair <> (1, 90));
+        l.add(new Pair <> (7, 54));
+        l.add(new Pair <> (2, 99));
+        l.add(new Pair <> (4, 88));
+        l.add(new Pair <> (9, 89));
+
+        System.out.println(l.poll().getValue()); 
+    }
+}
+```
+
+
+The output Im looking for is 90 because 1 is the smallest key. Its fine even if the value is used as the priority and the key is returned because I can just swap the data if neccessary. I want to display key/value using value/key as a priority (minimum value in this case). I do not know how this can be done in this scenario. This works fine in C++.

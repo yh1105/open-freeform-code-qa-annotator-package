@@ -1,0 +1,51 @@
+Make Axios send cookies in its requests automatically
+
+I am sending requests from the client to my Express.js server using Axios. 
+
+I set a cookie on the client and I want to read that cookie from all Axios requests without adding them manually to request by hand. 
+
+This is my clientside request example:
+
+```
+axios.get(`some api url`).then(response => ...
+```
+
+
+I tried to access headers or cookies by using these properties in my Express.js server:
+
+```
+req.headers
+req.cookies
+```
+
+
+Neither of them contained any cookies. I am using cookie parser middleware:
+
+```
+app.use(cookieParser())
+```
+
+
+How do I make Axios send cookies in requests automatically? 
+
+Edit:
+
+I set cookie on the client like this:
+
+```
+import cookieClient from 'react-cookie'
+
+...
+let cookie = cookieClient.load('cookie-name')
+if(cookie === undefined){
+      axios.get('path/to/my/cookie/api').then(response => {
+        if(response.status == 200){
+          cookieClient.save('cookie-name', response.data, {path:'/'})
+        }
+      })
+    }
+...
+```
+
+
+While it's also using Axios, it is not relevant to the question. I simply want to embed cookies into all my requests once a cookie is set. 

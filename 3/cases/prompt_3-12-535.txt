@@ -1,0 +1,16 @@
+Error when trying to install second flutter app on the emulator
+
+I created a simple flutter app and run it on android emulator. It worked Ok. Now I created another one and when I'm trying to run it on the emulator I'm getting:
+
+```
+Error: ADB exited with exit code 1
+adb: failed to install /Users/Admin/Development/flutter/flutter_app_test/build/app/outputs/apk/app.apk: Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]
+Error launching application on Android SDK built for x86.
+```
+
+
+Once I delete the first app from emulator I'm able to install the second one and run it successfully. 
+
+So anytime I have one flutter app installed on the emulator installing another one will lead to the same error.
+
+Is there a way to overcome this limitation? Or this is a bug?

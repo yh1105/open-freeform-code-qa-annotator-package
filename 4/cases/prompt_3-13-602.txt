@@ -1,0 +1,42 @@
+Hilt Activity must be attached to an @AndroidEntryPoint Application
+
+The app crashes as soon as it gets installed and throws the weird error above.
+I have annotated the activity as shown below as well as its child fragments.
+```
+@AndroidEntryPoint
+    class HomeActivity : AppCompatActivity() {
+        companion object{
+           lateinit var currentUser: User
+        }
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+    
+            setContentView(R.layout.activity_home)
+            val navController = Navigation.findNavController(this, R.id.home_nav)
+            val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+            bottomNavigationView.setupWithNavController(navController)
+            fetchCurrentUser()
+        }
+```
+
+Also attaching the Application class which is mandatory for every app using Hilt as per the documentation
+```
+@HiltAndroidApp
+class CoreApplication:Application()
+```
+
+and the logcat of the crash
+```
+Caused by: java.lang.IllegalStateException: Hilt Activity must be attached to an @AndroidEntryPoint Application. Found: class androidx.multidex.MultiDexApplication
+        at dagger.hilt.android.internal.managers.ActivityComponentManager.createComponent(ActivityComponentManager.java:82)
+        at dagger.hilt.android.internal.managers.ActivityComponentManager.generatedComponent(ActivityComponentManager.java:65)
+        at com.example.vcare.home.Hilt_HomeActivity.generatedComponent(Hilt_HomeActivity.java:43)
+        at com.example.vcare.home.Hilt_HomeActivity.inject(Hilt_HomeActivity.java:62)
+        at com.example.vcare.home.Hilt_HomeActivity.onCreate(Hilt_HomeActivity.java:37)
+        at com.example.vcare.home.HomeActivity.onCreate(HomeActivity.kt:27)
+        at android.app.Activity.performCreate(Activity.java:7224)
+        at android.app.Activity.performCreate(Activity.java:7213)
+        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1272)
+        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2926)
+```
+

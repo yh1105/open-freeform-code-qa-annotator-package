@@ -1,0 +1,25 @@
+Python - convert binary mask to polygon
+
+Given a simple binary mask (e.g. the boundary of a rectangle).
+
+![binary mask](https://i.stack.imgur.com/w3kmz.png)
+
+How can I use a polygon to get the x-y coordinates?
+
+This is what I have tried so far:
+
+```
+coords = np.transpose(np.nonzero(mask))
+```
+
+
+However, this approach generates a filled object and not the desired boundary.
+
+```
+plt.plot(coords[:, 1], coords[:,0])
+```
+
+
+![unwanted output](https://i.stack.imgur.com/rFrwN.png)
+
+Basically, I want a list of x-y coordinates of the white pixels to use this list to re-draw the rectangle (not filled).

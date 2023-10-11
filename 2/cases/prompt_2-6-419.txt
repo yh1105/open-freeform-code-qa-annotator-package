@@ -1,0 +1,33 @@
+Blazor - passing arguments to parent
+
+How to pass multiple arguments from child to parent upon onClick event in child component
+
+Child Razor
+
+```
+@foreach( var item in items)
+{
+  @foreach( var score in item.scores)
+  {
+    <span @onclick="ItemClicked(item.name, score.id)"> 
+      @item.name 
+    </span>
+  }
+}
+```
+
+
+Parent Razor
+
+```
+<Child ItemClicked = "@ItemClicked"/>
+
+@code{
+ private void ItemClicked(string name, int id)
+    {
+        Console.WriteLine(name);
+        Console.WriteLine(id);
+    }
+}
+```
+

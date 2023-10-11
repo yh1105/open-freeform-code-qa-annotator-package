@@ -1,0 +1,26 @@
+React Native crash release build - FATAL EXCEPTION: create_react_context
+
+There is no problem in the development environment, but when I get the release build, the app crashes. (Android) I created a new project (v0.68.2), I didn't make any changes, the room crashed in the same way.
+```
+npx react-native run-android --variant=release
+```
+
+- 
+```
+FATAL EXCEPTION: create_react_context
+
+java.lang.RuntimeException: Unable to load script. Make sure you're either running Metro (run 'npx react-native start') or that your bundle 'index.android.bundle' is packaged correctly for release.
+
+FATAL EXCEPTION: create_react_context
+Process: com.testreleasebuild, PID: 8291
+java.lang.RuntimeException: Unable to load script. Make sure you're either running Metro (run 'npx react-native start') or that your bundle 'index.android.bundle' is packaged correctly for release.
+    at com.facebook.react.bridge.CatalystInstanceImpl.jniLoadScriptFromAssets(Native Method)
+    at com.facebook.react.bridge.CatalystInstanceImpl.loadScriptFromAssets(CatalystInstanceImpl.java:248)
+    at com.facebook.react.bridge.JSBundleLoader$1.loadScript(JSBundleLoader.java:29)
+    at com.facebook.react.bridge.CatalystInstanceImpl.runJSBundle(CatalystInstanceImpl.java:277)
+    at com.facebook.react.ReactInstanceManager.createReactContext(ReactInstanceManager.java:1422)
+    at com.facebook.react.ReactInstanceManager.access$1200(ReactInstanceManager.java:138)
+    at com.facebook.react.ReactInstanceManager$5.run(ReactInstanceManager.java:1111)
+    at java.lang.Thread.run(Thread.java:923)
+```
+

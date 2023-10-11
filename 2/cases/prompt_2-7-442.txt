@@ -1,0 +1,13 @@
+require(vendor/autoload.php): failed to open stream
+
+I know that this issue has been posted many times, but for me it seems to be a different problem.
+Indeed, this error
+> Warning: require(vendor/autoload.php): failed to open stream: No such file or directory in C:\xampp\htdocs\site_web\send_mail.php on line 3Fatal error: require(): Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\site_web\send_mail.php on line 3
+appears at the begining of my code from this line:
+```
+require 'vendor/autoload.php';
+```
+
+So, I guess there must be a /vendor/autoload.php file somewhere in my computer (I have installed composer and ran `composer require phpmailer/phpmailer`).
+So, I looked for this file using: `dir /s autoload.php` in the Windows command line, and found one here: `C:\Windows\SysWOW64\vendor\autoload.php`,
+but for me,  folder has nothing to see with , I don't see what I am missing here.

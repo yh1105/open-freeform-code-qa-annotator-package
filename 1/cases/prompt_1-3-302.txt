@@ -1,0 +1,15 @@
+pip always fails ssl verification
+
+Pip always fails ssl even when I do `pip install dedupe` or `pip install --trusted-host pypi.python.org dedupe`
+
+The output is always the same no matter what:
+
+> Collecting dedupeRetrying (Retry(total=4, connect=None, read=None,
+  redirect=None, status=None)) after connection broken by
+  'SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate
+  verify failed (_ssl.c:777)'),)': /simple/dedupe/
+  Retrying...skippingCould not find a version that satisfies the requirement dedupe (from versions: ) No matching distribution found for dedupe
+
+So I uninstalled anaconda and reinstalled it. Same thing.
+
+Do you think the problem is that my _ssl.c file (which I have no idea where it is) must be corrupt or something? Why would pip need to reference that if I'm telling it to bypass ssl verification anyway?

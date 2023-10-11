@@ -1,0 +1,35 @@
+Flutter : PlatformException(no_available_camera, No cameras available for taking pictures., null, null)
+
+guys! I am facing this camera version. It happened after I merged my projects. It says there is no camera available but back then it was running fine. Please have a look!
+```
+E/flutter: [ERROR:flutter/lib/ui/ui_dart_state.cc(177)] Unhandled Exception: PlatformException(no_available_camera, No cameras available for taking pictures., null, null)
+    #0      StandardMethodCodec.decodeEnvelope (package:flutter/src/services/message_codecs.dart:582:7)
+    #1      MethodChannel._invokeMethod (package:flutter/src/services/platform_channel.dart:159:18)
+    <asynchronous suspension>
+    #2      MethodChannel.invokeMethod (package:flutter/src/services/platform_channel.dart:332:12)
+    #3      MethodChannelImagePicker.pickImagePath (package:image_picker_platform_interface/src/method_channel/method_channel_image_picker.dart:62:21)
+    #4      MethodChannelImagePicker.pickImage (package:image_picker_platform_interface/src/method_channel/method_channel_image_picker.dart:30:25)
+    #5      ImagePicker.getImage (package:image_picker/image_picker.dart:101:21)
+    #6      _ImageEvaluationState.getImage (package:PhotoEarn/screens/camera/image_evaluation.dart:201:38)
+    #7      _ImageEvaluationState.build.<anonymous closure> (package:PhotoEarn/screens/camera/image_evaluation.dart:1099:33)
+    #8      _InkResponseState._handleTap (package:flutter/src/material/ink_well.dart:993:19)
+    #9      _InkResponseState.build.<anonymous closure> (package:flutter/src/material/ink_well.dart:1111:38)
+    #10     GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:183:24)
+    #11     TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:598:11)
+    #12     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:287:5)
+    #13     BaseTapGestureRecognizer.acceptGesture (package:flutter/src/gestures/tap.dart:259:7)
+    #14     GestureArenaManager.sweep (package:flutter/src/gestures/arena.dart:157:27)
+    #15     GestureBinding.handleEvent (package:flutter/src/gestures/binding.dart:362:20)
+    #16     GestureBinding.dispatchEvent (package:flutter/src/gestures/binding.dart:338:22)
+    #17     RendererBinding.dispatchEvent (package:flutter/src/rendering/binding.dart:267:11)
+    #18     GestureBinding._handlePointerEvent (package:flutter/src/gestures/binding.dart:295:7)
+    #19     GestureBinding._flushPointerEventQueue (package:flutter/src/gestures/binding.dart:240:7)
+    #20     GestureBinding._handlePointerDataPacket (package:flutter/src/gestures/binding.dart:213:7)
+    #21     _rootRunUnary (dart:async/zone.dart:1206:13)
+    #22     _CustomZone.runUnary (dart:async/zone.dart:1100:19)
+    #23     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1005:7)
+    #24     _invoke1 (dart:ui/hooks.dart:265:10)
+    #25     _dispatchPointerDataPacket (dart:ui/hooks.dart:174:5)
+```
+
+Please have a look at this error message and help in this. I am looking to hearing from you all. Thank you in advance.

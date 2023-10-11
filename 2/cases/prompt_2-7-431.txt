@@ -1,0 +1,98 @@
+Laravel 8 dd() limitations
+
+how can I increase the laravel 8  `dd()` limitations? I have lots of nested relationship and I cant view most of them due to many data. For example this
+```
+#relations: array:4 [▼
+    "activecourses" => Illuminate\Database\Eloquent\Collection {#1346 ▼
+      #items: array:3 [▼
+        0 => App\Models\Studentcourse {#1353 ▶}
+        1 => App\Models\Studentcourse {#1354 ▼
+          #guarded: []
+          #connection: "mysql"
+          #table: "studentcourses"
+          #primaryKey: "id"
+          #keyType: "int"
+          +incrementing: true
+          #with: []
+          #withCount: []
+          +preventsLazyLoading: false
+          #perPage: 15
+          +exists: true
+          +wasRecentlyCreated: false
+          #escapeWhenCastingToString: false
+          #attributes: array:22 [ …22]
+          #original: array:22 [ …22]
+          #changes: []
+          #casts: []
+          #classCastCache: []
+          #attributeCastCache: []
+          #dates: []
+          #dateFormat: null
+          #appends: []
+          #dispatchesEvents: []
+          #observables: []
+          #relations: array:1 [ …1]
+          #touches: []
+          +timestamps: true
+          #hidden: []
+          #visible: []
+          #fillable: []
+        }
+        2 => App\Models\Studentcourse {#1355 ▶}
+      ]
+      #escapeWhenCastingToString: false
+    }
+```
+
+I found this link [Laravel dd function limitations](https://stackoverflow.com/questions/39011241/laravel-dd-function-limitations) but I think its outdated since the new dd function for laravel 8 is
+this is from vendor folder.
+```
+use Symfony\Component\VarDumper\VarDumper;
+
+if (!function_exists('dump')) {
+    /**
+     * @author Nicolas Grekas <p@tchwork.com>
+     */
+    function dump($var, ...$moreVars)
+    {
+        VarDumper::dump($var);
+
+        foreach ($moreVars as $v) {
+            VarDumper::dump($v);
+        }
+
+        if (1 < func_num_args()) {
+            return func_get_args();
+        }
+
+        return $var;
+    }
+}
+
+if (!function_exists('dd')) {
+    /**
+     * @return never
+     */
+    function dd(...$vars)
+    {
+        if (!in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) && !headers_sent()) {
+            header('HTTP/1.1 500 Internal Server Error');
+        }
+
+        foreach ($vars as $v) {
+            VarDumper::dump($v);
+        }
+
+        exit(1);
+    }
+}
+```
+
+Tried adding this lines before `dd()` but doesnt work
+```
+ini_set('xdebug.var_display_max_depth', 100);
+   ini_set('xdebug.var_display_max_children', 2000);
+   ini_set('xdebug.var_display_max_data', 2000);
+```
+
+Is there any way or alternative in viewing nested data? I dont want to use `var_dump` or `print_r` since the browser becomes slow when there are lots of data. Thanks in advance.

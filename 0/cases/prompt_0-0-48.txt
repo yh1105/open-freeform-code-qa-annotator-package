@@ -1,0 +1,27 @@
+Defining multiple mapped types in typescript?
+
+Say I have the following typescript code:
+```
+type fruit = "apple" | "banana" | "pear"
+type color = "red" | "yellow" | "green"
+```
+
+And I want to create a type that has a numeric property for each fruit and a boolean property for each color, something like
+```
+type FruitsAndColors = {
+  [key in fruit]: number;
+  [key in color]: boolean
+}
+```
+
+Unfortunately, this errors with the message "A mapped type may not declare properties or methods", yet it compiles fine. What's actually happening here?
+I can get around this with something like
+```
+type FruitsAndColors = {
+  [key in fruit]: number;
+} & {
+  [key in color]: boolean
+}
+```
+
+But I'd like to know what the actual issue is.

@@ -1,0 +1,17 @@
+unsafe:data:image/jpeg;base64, net::ERR_UNKNOWN_URL_SCHEME in Angular 7
+
+I am getting image as base64 blob from a service and I am binding into
+view. But I am facing an issue. How can I sanitize the url into a
+trusted url. I have tried with sanitizer but no luck..
+Please help me out..
+
+```
+<img src="data:image/jpeg;base64,{{inspectionDetails.reportImage}}" width="100%" height="100%" alt="Image" />
+```
+
+
+```
+this.ImgUrl = this.inspectionDetails.reportImage;
+this.base64Image = this._sanitizer.bypassSecurityTrustResourceUrl(this.ImgUrl);
+```
+

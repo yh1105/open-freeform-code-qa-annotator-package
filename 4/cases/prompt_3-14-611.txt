@@ -1,0 +1,42 @@
+How to create spacing between items in a SwiftUI List view?
+
+I can't seem to find a way to create spacing between `List` items.
+Maybe I shouldn't put in a list in the first place?
+[](https://i.stack.imgur.com/6bLkZ.png)
+What do you think?
+This the code that generates the view:
+```
+struct ContentView: View {
+    
+    @ObservedObject var ratesVM = RatesViewModel()
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        UITableView.appearance().backgroundColor = UIColor.init(named: "midnight blue")
+        UITableViewCell.appearance().backgroundColor = .green
+        UITableView.appearance().separatorStyle = .none
+    }
+    
+    var body: some View {
+        
+        NavigationView {
+            List (ratesVM.ratesList, id: \.self) { rate in
+                    Image(systemName: "plus")
+                    
+                    Button(action: {print("pressed")}) {
+                        Text(rate.hebrewCurrencyName)
+                }
+            }
+            .navigationBarTitle("המרות מטבע")
+            .navigationBarItems(leading:
+                Button(action: {
+                    print("button pressed")
+                    self.ratesVM.callService()
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color.orange)})
+        }.environment(\.layoutDirection, .rightToLeft)
+    }
+}
+```
+

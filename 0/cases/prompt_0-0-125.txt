@@ -1,0 +1,6 @@
+How to upgrade Vue version
+
+I was using the Vue version (2.5), I ran that command `npm install -g @vue/cli` after that I check my vue version by using the command `vue --version`and it shows me `@vue/cli 4.1.2`. but in my package.json file the version did not upgrade, it still showing me the older version i.e 2.5.7. 
+[](https://i.stack.imgur.com/cKW6d.png) 
+
+Any help would be highly appreciable

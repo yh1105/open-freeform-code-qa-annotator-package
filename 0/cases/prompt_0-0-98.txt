@@ -1,0 +1,7 @@
+How to do app versioning in create react app?
+
+I need to display  of my react app in the footer in  format.
+
+I need this version to increment every time I deploy the app by being provided a choice if I want to increment  or  or .
+
+How do I achieve this? :)

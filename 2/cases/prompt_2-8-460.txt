@@ -1,0 +1,31 @@
+Golang: A map Interface, how to print key and value
+
+I get a map interface, like :
+
+```
+getUsersAppInfo := usersAppInfo.GetUsersAppInfo(getUserId)
+```
+
+
+then I print :
+
+```
+fmt.Println(getUsersAppInfo)
+```
+
+
+get this, like :
+
+```
+[map[appId:2 fcmServerKey:keyTestTest name:com.app]]
+```
+
+
+Ask : How to just print the value, like
+
+```
+appId value is 2 
+name value is com.app 
+fcmServerKey:keyTestTest value is keyTestTest
+```
+

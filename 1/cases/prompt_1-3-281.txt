@@ -1,0 +1,100 @@
+I am trying to compare the letters in two words however duplicate letters is causing the program to not work as intended [Python]
+
+I am trying to build a wordle solver as a self project however I got stuck in a small part of my code. The method that checks for each letter in both the choice word and the guess work and color codes them is working perfectly unless there is a word with a duplicate letter (eg: the word SHARE would work correctly however the word GUESS would only color code GUES). I tried using counter but how exactly would I exactly input the letter at the right place in the list?
+```
+def wordcolor(self, choice, guess):
+    guesscolor = dict()
+    choiceword = []
+    guesslist = []
+    guessdict = dict()
+    choicedict = dict()
+    for a in choice:
+        choiceword.append(a)
+    for b in guess:
+        guesslist.append(b)
+
+    for idx, value in enumerate(choiceword):
+        choicedict[idx] = value
+
+    for idx, value in enumerate(guesslist):
+        guessdict[idx] = value
+
+    guesscolor[0] = guesslist[0]
+    guesscolor[1] = guesslist[1]
+    guesscolor[2] = guesslist[2]
+    guesscolor[3] = guesslist[3]
+    guesscolor[4] = guesslist[4]
+
+    counter = 0
+
+    lengthofword = len(guesslist)
+
+    totalsame = 0
+
+    sameword = 0
+
+    countsguess = Counter(guessh)
+    duplicatesguess = [c for c in countsguess if countsguess[c] > 1]
+    countschoice = Counter(choice)
+    duplicateschoices = [c for c in countschoice if countschoice[c] > 1]
+
+    for a in duplicateschoices:
+        if a == None:
+            duplicateschoices.append("None")
+    for a in duplicatesguess:
+        if a == None:
+            duplicatesguess.append("None")
+
+    while (counter < lengthofword):
+        if guessdict[counter] in choicedict.values():
+
+            totalsame += 1
+
+            if choiceword[counter] == guesslist[counter]:
+                print(f"The word at index {counter} is present in both strings in same place")
+                sameword += 1
+                a = guessdict[counter]
+                guesscolor[a] = "green"
+
+
+
+            else:
+                a = guessdict[counter]
+                guesscolor[a] = "orange"
+            counter += 1
+
+
+        else:
+            a = guessdict[counter]
+            guesscolor[a] = "red"
+            counter += 1
+
+    print(guesscolor)
+
+    print("There are " + str(totalsame) + " duplicate characters." + str(sameword) + " of them are in the same place")
+
+
+Game(0).wordcolor(choice, guessh)
+```
+
+Example output:
+```
+Computer choice word: eject 
+Human Guess: ejjet (I haven't made the code to check guesses against dictionary) 
+The word at index 0 is present in both strings in same place
+The word at index 1 is present in both strings in same place
+The word at index 4 is present in both strings in same place
+{0: 'e', 1: 'j', 2: 'j', 3: 'e', 4: 't', 'e': 'orange', 'j': 'orange', 't': 'green'} (Ignores duplicate letters) 
+There are 5 duplicate characters. 3 of them are in the same place
+Incorrect Guess
+```
+
+
+```
+Computer choice word: rotas 
+Human Guess: share  
+0: 's', 1: 'h', 2: 'a', 3: 'r', 4: 'e', 's': 'orange', 'h': 'red', 'a': 'orange', 'r': 'orange', 'e': 'red'}
+There are 3 duplicate characters.0 of them are in the same place
+Incorrect Guess
+```
+

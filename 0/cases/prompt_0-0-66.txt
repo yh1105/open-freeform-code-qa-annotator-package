@@ -1,0 +1,7 @@
+Cypress: run only one test
+
+I want to toggle only running one test, so I don't have to wait for my other tests to see the result of one test.
+
+Currently, I comment out my other tests, but this is really annoying.
+
+Is there a way to toggle only running one test in `Cypress`?

@@ -1,0 +1,20 @@
+How to use :not() in tailwind.css?
+
+I recently started to give tailwind.css a try in my Nuxt project. so I needed to use `:not(:last-child)` pseudo-elements but I didn't find how.
+
+```
+<ul>
+    <li
+      v-for="(item, index) in items"
+      :key="`item-${index}`"
+      class="border-solid border-b border-black"
+    >
+      Item
+    </li>
+  </ul>
+```
+
+
+I want to add a border-bottom to all of the `<li>` except the last one.
+
+I know Tailwind has [first](https://tailwindcss.com/docs/pseudo-class-variants/#first-child-v1-1-0) & [last](https://tailwindcss.com/docs/pseudo-class-variants/#last-child-v1-1-0) pseudo-class variant but I can't use them with `:not()`

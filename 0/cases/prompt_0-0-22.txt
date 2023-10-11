@@ -1,0 +1,59 @@
+React Navigation V5 Hide Bottom Tabs
+
+I would like to be able to hide the tabs on a screen using React Native Navigation v5.
+
+I've been reading the documentation but it doesn't seem like they've updated this for v5 and it refers to the < v4 way of doing things.
+
+here is my code:
+
+```
+import Home from './components/Home';
+import SettingsScreen from './components/Settings';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const SettingsStack = createStackNavigator();
+const ProfileStack  = createStackNavigator();
+
+function SettingsStackScreen() {
+    return (
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+        </SettingsStack.Navigator>
+    )
+}
+
+function ProfileStackScreen() {
+    return (
+        <ProfileStack.Navigator>
+            <ProfileStack.Screen name="Home" component={Home} />
+        </ProfileStack.Navigator>
+    )
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={ProfileStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+
+Things I have tried:
+
+
+1. Accessing the options of the function and hiding that way.
+2. Passing tabBarVisible as a prop to the Screen.
+
+
+
+What I am asking for is, what is the correct way of hiding tabs on screens in React Navigation v5.

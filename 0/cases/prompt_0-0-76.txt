@@ -1,0 +1,26 @@
+How to configure axios to use SSL certificate?
+
+I'm trying to make a request with axios to an api endpoint and I'm getting the following error: `Error: unable to verify the first certificate`
+
+It seems the https module, which axios uses, is unable to verify the SSL certificate used on the server.
+
+When visiting the server with my browser, the certificate is valid and I can see/download it. I can also make requests to the api on my browser through https.
+
+I can work around it by turning off verification. This code works.
+
+```
+const result = await axios.post(
+    `https://${url}/login`,
+    body,
+    {
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    }
+  )
+```
+
+
+Problem is, this doesn't verify the SSL certificate and therefore opens up security holes.
+
+How can I configure axios to trust the certificate and correctly verify it?

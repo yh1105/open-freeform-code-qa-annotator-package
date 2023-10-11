@@ -1,0 +1,63 @@
+React: Prevent scroll when modal is open
+
+I have a custom modal component. When it's open, there is no scrolling whatsoever in the background.
+
+I tried this code below:
+
+```
+componentDidMount() {
+    document.body.style.overflow = 'hidden';
+}
+
+componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+}
+```
+
+
+Which seems to work at first, but when I use the modal component, in another page, there is no scroll even when the modal is closed.
+
+Is there a better solution for this?
+
+My modal component:
+
+```
+export class Modal extends React.Component {
+
+constructor(props) {
+    super(props);
+}
+
+componentDidMount() {
+    document.body.style.overflow = 'hidden';
+}
+
+componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+}
+
+render() {
+    return (
+        <React.Fragment>
+            {this.props.showAt ?
+                this.props.show ?
+                    <div style={style} className={`${this.props.sectionName} ${modalTypeStyle ? modalTypeStyle : styles.modalWhite} ${modalTypeSize ? modalTypeSize : styles.modalSmall} ${!this.props.showAt ? styles.modalWhiteFixed : ""}`}>
+                        {this.props.arrowShape ? <div className={arrowTypeStyle ? arrowTypeStyle : styles.triangleToprightWhite} /> : null}
+                        {this.props.children}
+                    </div>
+                    : null
+                :
+                this.props.show ?
+                    <div className={`${this.props.className} ${styles.modal}`}>
+                        <div style={style} className={`${this.props.sectionName} ${modalTypeStyle ? modalTypeStyle : styles.modalWhite} ${modalTypeSize ? modalTypeSize : styles.modalSmall} ${!this.props.showAt ? styles.modalWhiteFixed : ""}`}>
+                            {this.props.arrowShape ? <div className={arrowTypeStyle ? arrowTypeStyle : styles.triangleToprightWhite} /> : null}
+                            {this.props.children}
+                        </div>
+                    </div> :
+                    null}
+        </React.Fragment>
+    )
+  }
+}
+```
+

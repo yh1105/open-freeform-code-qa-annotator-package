@@ -1,0 +1,16 @@
+Run two nested for loops in parallel to create matrix
+
+I've written a method that takes in an integer "n" and creates a square matrix where the values of each element are dictated by their respective i,j indices.
+When I build a small matrix 30x30 it works just fine, but when I try to do something larger like 1000x1000 it takes very long. Is there any way that I can speed it up with multiprocessing?
+```
+def createMatrix(n):
+    matrix = []
+    for j in range(1,n+1):
+        row = []
+        for i in range(1,n+1):
+            value = 1/(i+j-1)
+            row.append(value)
+        matrix.append(row)
+    return np.array(matrix)
+```
+

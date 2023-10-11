@@ -1,0 +1,41 @@
+How to use enum value in asdict function from dataclasses module
+
+I have a dataclass with a field `template` of type Enum. When using the `asdict` function it converts my dataclass to a dictionary. Is it possible to use the [value](https://docs.python.org/3/library/enum.html#programmatic-access-to-enumeration-members-and-their-attributes) attribute of `FoobarEnum` to return the string value instead of the Enum object?
+
+My initial idea was to use the [dict_factory=dict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict) parameter of the `asdict` function and provide my own factory but I couldn't figure out how to do this.
+
+```
+from dataclasses import dataclass, asdict
+from enum import Enum
+
+
+@dataclass
+class Foobar:
+  name: str
+  template: "FoobarEnum"
+
+
+class FoobarEnum(Enum):
+  FIRST = "foobar"
+  SECOND = "baz"
+
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(asdict(foobar))
+```
+
+
+Current output:
+
+```
+{'name': 'John', 'template': <FoobarEnum.FIRST: 'foobar'>}
+```
+
+
+Goal:
+
+```
+{'name': 'John', 'template': 'foobar'}
+```
+

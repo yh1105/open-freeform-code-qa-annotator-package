@@ -1,0 +1,19 @@
+Checking text appears inside an element using react testing library
+
+I'm writing some tests for a React app using [Testing Library](https://testing-library.com/). I want to check that some text appears, but I need to check it appears in a particular place because I know it already appears somewhere else.
+The [Testing Library documentation for queries](https://testing-library.com/docs/dom-testing-library/api-queries#bytext) says that the `getByText` query takes a `container` parameter, which I guessed lets you search within that container. I tried doing this, with the `container` and `text` parameters in the order specified in the docs:
+```
+const container = getByTestId('my-test-id');
+expect(getByText(container, 'some text')).toBeTruthy();
+```
+
+and I get an error: `matcher.test is not a function`.
+If I put the params the other way round:
+```
+const container = getByTestId('my-test-id');
+expect(getByText('some text', container)).toBeTruthy();
+```
+
+I get a different error: `Found multiple elements with the text: some text`
+Which means it's not searching inside the specified container.
+I think I'm not understanding how `getByText` works. What am I doing wrong?

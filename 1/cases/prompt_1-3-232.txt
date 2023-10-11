@@ -1,0 +1,67 @@
+'tf' is not defined on load_model() - using lambda
+
+I have a `Keras` model that I am trying to export and use in a different python code.
+
+Here is my code:
+
+```
+from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM, GRU, Flatten, Dropout, Lambda
+from keras.layers.embeddings import Embedding
+import tensorflow as tf
+
+
+EMBEDDING_DIM = 100
+
+model = Sequential()
+model.add(Embedding(vocab_size, 300, weights=[embedding_matrix], input_length=max_length, trainable=False))
+model.add(Lambda(lambda x: tf.reduce_mean(x, axis=1)))
+model.add(Dense(8, input_dim=4, activation='relu'))
+model.add(Dense(3, activation='softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(X_train_pad, y_train, batch_size=128, epochs=25, validation_data=(X_val_pad, y_val), verbose=2)
+model.save('my_model.h5')
+```
+
+
+
+---
+
+
+
+In , when I import `my_model.h5` :
+
+```
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+
+def learning(test_samples):
+    model = load_model('my_model.h5')
+    #ERROR HERE
+    #rest of the code
+```
+
+
+The error is the following:
+
+```
+in <lambda>
+    model.add(Lambda(lambda x: tf.reduce_mean(x, axis=1)))
+NameError: name 'tf' is not defined
+```
+
+
+After research, I got that the fact that `lambda` is the reason for this problem, but I added these references and it didn't help:
+
+```
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+```
+
+
+What could be the problem?
+
+Thank you

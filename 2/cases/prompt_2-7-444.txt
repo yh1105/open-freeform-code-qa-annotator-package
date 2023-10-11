@@ -1,0 +1,12 @@
+Laravel Spatie Roles get current users role
+
+Using laravels Spatie/Roles is there a way to get the current users role who is logged in?
+
+I've tried
+
+```
+if($this->hasRole('admin')) { //do something }
+```
+
+
+but it wont work

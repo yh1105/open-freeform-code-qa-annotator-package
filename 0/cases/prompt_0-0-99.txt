@@ -1,0 +1,22 @@
+Angular 5 Validators.pattern regex for only numbers
+
+I'm having trouble getting the Angular 5 Validators.pattern to work. I've tried every regex that SHOULD normally work, but it's not working. I read that Validators.pattern requires a different format, but I can't seem to find it...
+
+Any ideas what the Validators.pattern should be to
+
+(1) allow only numbers, positive and negative
+
+and 
+
+(2) allow only numbers, positive and negative, optionally with up to 2 decimal places
+
+Valid examples would be: 
+1
+1.2
+1.22
+-21
+-21.48
+
+Anything with any letter in it would be invalid.
+
+Thanks for your help!

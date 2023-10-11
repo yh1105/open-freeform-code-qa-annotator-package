@@ -1,0 +1,9 @@
+Method setView is deprecated
+
+While I'm doing custom toast on my app, I noticed that setView is deprecated.
+[](https://i.stack.imgur.com/CwrA4.png)
+Does anyone have a solution for this?
+```
+toast.setView(customView);
+```
+

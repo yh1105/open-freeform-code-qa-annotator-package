@@ -1,0 +1,52 @@
+Bootstrap align navbar items to the right
+
+How do I align a navbar item to right?
+
+I want to have the login and register to the right.
+But everything I try does not seem to work.
+
+[](https://i.stack.imgur.com/G2o6H.png)
+
+
+## This is what I have tried so far:
+
+
+
+- `<div>``<ul>``style="float: right"`- `<div>``<ul>``style="text-align: right"`- `<li>`- `!important`- `nav-item``nav-right``<li>`- `pull-sm-right``<li>`- `align-content-end``<li>`
+
+
+## This is my code:
+
+
+
+```
+<div id="app" class="container">
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Navbar</a>
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricingg</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav " >
+      <li  class="nav-item">
+        <a class="nav-link" href="{{ url('/login') }}">Login</a>
+      </li>
+      <li  class="nav-item">
+        <a class="nav-link" href="{{ url('/register') }}">Register</a>
+      </li>
+    </ul>
+  </nav>
+  @yield('content')
+</div>
+```
+

@@ -1,0 +1,27 @@
+Can't connect to Elasticsearch with Node.Js on Kubernetes (self signed certificate in certificate chain)
+
+I have a NodeJs application running inside a Kubernetes cluster (I am using [microk8s](https://microk8s.io/)). I've also followed the [official steps](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-quickstart.html) to setup Elasticsearch on Kubernetes.
+
+# Issue
+
+
+But I am unable to connect to the Elasticsearch cluster. I get this error:
+```
+ConnectionError: self signed certificate in certificate chain
+```
+
+This is a [code snippet](https://github.com/flolu/elasticsearch-k8s-connection/blob/e5c321d7727dc026ec1af14a7dcea44a1874d14b/search/index.ts#L4) of my connection:
+```
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  // https://elasticsearch-es-http.default.svc.cluster.local:9200
+});
+```
+
+
+# Minimal reproduction
+
+
+I've created a minimal reproduction of this issue here: [https://github.com/flolu/elasticsearch-k8s-connection](https://github.com/flolu/elasticsearch-k8s-connection). (Setup instructions are in the README)
+Basically, everything works fine when running Elasticsearch inside Docker compose, but I can't connect when running inside Kubernetes.
+The reason for this is probably because I didn't setup TLS certificates correctly, but I haven't found any information about it. 

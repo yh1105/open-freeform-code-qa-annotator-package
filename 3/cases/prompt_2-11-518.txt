@@ -1,0 +1,35 @@
+Is the Rule of 5 (for constructors and destructors) outdated?
+
+The rule of 5 states that if a class has a user-declared destructor, copy constructor, copy assignment constructor, move constructor, or move assignment constructor, then it must have the other 4.
+But today it dawned on me: when do you ever need a user-defined destructor, copy constructor, copy assignment constructor, move constructor, or move assignment constructor?
+In my understanding, implicit constructors / destructors work just fine for aggregate data structures. However, classes which manage a resource need user-defined constructors / destructors.
+However, can't all resource managing classes be converted into an aggregate data structure using a smart pointer?
+Example:
+```
+// RAII Class which allocates memory on the heap.
+class ResourceManager {
+    Resource* resource;
+    ResourceManager() {resource = new Resource;}
+    // In this class you need all the destructors/ copy ctor/ move ctor etc...
+    // I haven't written them as they are trivial to implement
+};
+```
+
+vs
+```
+class ResourceManager {
+    std::unique_ptr<Resource> resource;
+};
+```
+
+Now example 2 behaves exactly the same as example 1, but all the implicit constructors work.
+Of course, you can't copy `ResourceManager`, but if you want a different behavior, you can use a different smart pointer.
+The point is that you don't need user-defined constructors when smart pointers already have those so implicit constructors work.
+The only reason I would see to have user-defined constructors would be when:
+
+1. you can't use smart pointers in some low-level code (I highly doubt this is ever the case).
+2. you are implementing the smart pointers themselves.
+
+
+However, in normal code I don't see any reason to use user-defined constructors.
+Am I missing something here?

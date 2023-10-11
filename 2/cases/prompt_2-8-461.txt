@@ -1,0 +1,42 @@
+Bulk insert with sqlx
+
+I'am trying to make a bulk insert with sqlx and golang : 
+
+```
+for _, result := range results {
+            queryInsert := `INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES ($1,$2,$3,$4)`
+            db.MustExec(queryInsert,result.Com1,result.Com2,result.Path,result.Time)
+            queryUpdate := `UPDATE "DataCom_commcombinaison" set done = TRUE WHERE com1 =$1 and com2 =$2`
+            db.MustExec(queryUpdate,result.Com1,result.Com2)
+        }
+```
+
+
+That code works but it's slow.
+
+I've tried this :
+
+```
+tx := db.MustBegin()
+for _, result := range results {
+        queryInsert := `INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES ($1,$2,$3,$4)`
+        tx.MustExec(queryInsert,result.Com1,result.Com2,result.Path,result.Time)
+        queryUpdate := `UPDATE "DataCom_commcombinaison" set done = TRUE WHERE com1 =$1 and com2 =$2`
+        tx.MustExec(queryUpdate,result.Com1,result.Com2)
+    }
+tx.Commit()
+```
+
+
+but it does nothing when i look at my records i doesn't see any records.
+
+Regards
+
+edit : 
+
+```
+INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES ($1,$2,$3,$4),($2,$3,$4,$5),($3,$4,$5,$6),($4,$5,$6,$7),($5,$6,$7,$8),($6,$7,$8,$9),($7,$8,$9,$10),($8,$9,$10,$11),($9,$10,$11,$12),($10,$11,$12,$13)
+UPDATE "DataCom_commcombinaison" set done = TRUE WHERE (com1 = $1 AND com2 = $2 )  OR (com1 = $2 AND com2 = $3 )  OR (com1 = $3 AND com2 = $4 )  OR (com1 = $4 AND com2 = $5 )  OR (com1 = $5 AND com2 = $6 )  OR (com1 = $6 AND com2 = $7 )  OR (com1 = $7 AND com2 = $8 )  OR (com1 = $8 AND com2 = $9 )  OR (com1 = $9 AND com2 = $10 )  OR (com1 = $10 AND com2 = $11 ) 
+panic: pq: column "com2" is of type integer but expression is of type text
+```
+

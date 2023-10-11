@@ -1,0 +1,16 @@
+When I run `npm install`, it returns with `ERR! code EINTEGRITY` (npm 5.3.0)
+
+I am getting this error while running `sudo npm install`. On my server, npm was installed earlier. I've tried to delete the `package-lock.json` file, and ran `npm cache clean --force`, but it didn't work. 
+
+My npm version is 5.3.0.
+
+The error:
+
+```
+npm ERR! code EINTEGRITY
+npm ERR! sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA== integrity checksum failed when using sha512: wanted sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA== but got sha512-WXI95kpJrxw4Nnx8vVI90PuUhrQjnNgghBl5tn54rUNKZYbxv+4ACxUzPVpJEtWxKmeDwnQrzjc0C2bYmRJVKg==. (65117 bytes)
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ubuntu/.npm/_logs/2017-11-29T05_33_52_182Z-debug.log
+```
+

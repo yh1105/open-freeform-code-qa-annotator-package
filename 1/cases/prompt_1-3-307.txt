@@ -1,0 +1,7 @@
+ModuleNotFoundError: No module named 'statsmodels.miscmodels.ordinal_model'
+
+I want to build a Ordered Probit model using statsmodel package in python. Used the following code to import:
+`from statsmodels.miscmodels.ordinal_model import OrderedModel`
+but getting a following error:
+
+I have updated the package as well but the error persists.

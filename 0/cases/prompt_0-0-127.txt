@@ -1,0 +1,4 @@
+When I open the terminal shows "The specified command("completion") is invalid. For a list of available options, run "ng help"
+
+When I open the terminal did't do anything. It will shows errors as below.
+[](https://i.stack.imgur.com/lx1jC.png)

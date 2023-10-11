@@ -1,0 +1,4 @@
+Detect Apple Silicon from command line
+
+How can I detect from a shell script that it is running on M1 Apple hardware?
+I want to be able to run a command-line command so that I can write an `if`-statement whose body will only be executed when run on a mac with an M1 processor (and at least macOS Big Sur, naturally).

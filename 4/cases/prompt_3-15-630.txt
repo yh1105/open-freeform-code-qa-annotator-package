@@ -1,0 +1,13 @@
+Excel, How to split cells by comma delimiter into new cells
+
+So let's say I have data like this with some delimiter like commas that I want to split to new cells either across to columns or down into rows.
+
+| The Data | Location | 
+| -------- | -------- | 
+| One Museum, Two Museum | City A | 
+| 3rd Park, 4th Park, 5th Park | City B | 
+
+
+How would you do it in either direction? There are lots of methods why is methods provided preferred?
+Looking for methods in:
+- - - - 

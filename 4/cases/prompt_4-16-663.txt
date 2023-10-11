@@ -1,0 +1,116 @@
+Is there a globbing pattern to match by file extension, both PWD and recursively?
+
+[globbing](https://stackoverflow.com/questions/30229465/what-is-file-globbing)
+- [Match all files under all nested directories with shell globbing](https://stackoverflow.com/questions/4349082/match-all-files-under-all-nested-directories-with-shell-globbing)- [grep search all directories with filename extension](https://stackoverflow.com/questions/72245606/grep-search-all-directories-with-filename-extension)- [grep recursively, but only in files with certain extensions (plural)](https://stackoverflow.com/questions/12516937/how-can-i-grep-recursively-but-only-in-files-with-certain-extensions)- `set -o globstar; ls **/*.*`- `ls **/*.php`- `set -o globstar; **/*.php`- `grep -r --include=\*.php "find me" ./``grep`[this Question](https://stackoverflow.com/questions/4349082/match-all-files-under-all-nested-directories-with-shell-globbing)`grep``--include=GLOB`
+From [this Answer (here)](https://stackoverflow.com/a/72246808/10343144), I believe there may not be a way to do this using globbing.
+
+# tl;dr
+
+
+I need:
+- - `ls``sed``cp``cat``chown``rm`- - - 
+I'm using `grep` & `ls` only as examples, but I need a glob expression that applies to other commands also.
+- `grep -r --include=GLOB``cp``grep`- `find``grep``|``while do;`
+
+## Examples
+
+
+Suppose I have these files, all containing "find me":
+```
+./file1.js
+./file2.php
+./inc/file3.js
+./inc/file4.php
+./inc.php/file5.js
+./inc.php/file6.php
+```
+
+I need to match only/all  one time:
+```
+./file2.php
+./inc/file4.php
+./inc.php/file6.php
+```
+
+
+## Duplicates returned: shopt -s globstar; ... **/*.php
+
+
+This changes the problem; it does not solve it.
+
+### Dup: ls
+
+
+ entering `shopt -s globstar` as a single command...
+`ls **/*.php` returns:
+```
+inc/file4.php
+inc.php/file5.js
+inc.php/file6.php
+```
+
+- 
+ entering `shopt -s globstar` as a single command...
+`ls **/*.php` returns:
+```
+file2.php
+inc/file4.php
+inc.php/file6.php
+
+inc.php:
+file5.js
+file6.php
+```
+
+- 
+
+### Dup: grep
+
+
+ entering `shopt -s globstar` as a single command...
+`grep -R "find me" **/*.php` returns:
+```
+inc/file4.php: find me
+inc.php/file6.php: find me
+```
+
+- 
+ entering `shopt -s globstar` as a single command...
+`grep -R "find me" **/*.php` returns:
+```
+file2.php: find me
+inc/file4.php: find me
+inc.php/file5.js: find me
+inc.php/file6.php: find me
+inc.php/file6.php: find me
+```
+
+- - `ls`
+
+## Current solution: faulty misuse of && logic
+
+
+```
+grep -r "find me" *.php && grep -r "find me" */*.php
+ls -l *.php && ls -l */*.php
+```
+
+- `I fail here && so I never happen`
+
+## Desired solution: single command via globbing
+
+
+```
+grep -r "find me" [GLOB]
+ls -l [GLOB]
+```
+
+
+---
+
+
+
+## Insight from grep
+
+
+`grep` does have the `--include` flag, which achieves the same result but using a flag specific to `grep`. `ls` does not have an `--include` option. This leads me to believe that there is no such glob expression, which is why `grep` has this flag.

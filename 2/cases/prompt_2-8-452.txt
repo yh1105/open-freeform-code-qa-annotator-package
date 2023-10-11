@@ -1,0 +1,3 @@
+Arrays without fixed length in golang
+
+I have recently started with `golang` and was working with `arrays` and came across a situation where I did not have the number of elements. Is there a way to initialize a array without a size and then append elements in the end? Something like there in other programming languages like `c++`, `javascript` where there are `vectors` and `arrays` that can be used and we can add elements by functions like `push_back` or `push`. Is there a way that we can do this or is there a library in which we can do this? Thank you!

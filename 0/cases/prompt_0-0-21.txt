@@ -1,0 +1,36 @@
+How can I copy text from Vuetify's v-text-field to clipboard?
+
+I am using  and trying to copy text from `v-text-field` component to clipboard when button is clicked. [Sample code available on codepen](https://codepen.io/milost1982/pen/abowjpJ?&editable=true&editors=101):
+
+```
+<template>
+    <div id="app">
+      <v-app id="inspire">
+        <v-container>
+          <v-text-field v-model="text1"></v-text-field>
+          <v-btn @click="copyText">copy</v-btn>
+        </v-container>
+      </v-app>
+    </div>
+</template>
+
+<script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data() { 
+        return {
+          text1: 'lorem ipsum 123'
+        }
+      },
+      methods: {
+        copyText (){
+          // copy to clipboard
+        }
+      }
+    })
+</script>
+```
+
+
+The question is what code to put in `copyText` method of the Vue instance?

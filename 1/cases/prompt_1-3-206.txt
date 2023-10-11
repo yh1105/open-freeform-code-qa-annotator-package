@@ -1,0 +1,114 @@
+How to make the positions of buttons in navbar fixed even when the screen size changes in Dash-plotly with python
+
+I am trying to keep the position of the buttons fixed in the Nanbar of my Dash app even when we zoom in the browser or if the screen size changes. I used dash bootstrap components to make the layout but the buttons disorient when I zoom in or if I use a smaller display. I am new to this so any help would be appreciated.
+At 100% zoom
+[](https://i.stack.imgur.com/8c4Fr.png)
+At 110% zoom
+[](https://i.stack.imgur.com/GbIcC.png)
+this is my code
+```
+import random
+import time
+import webbrowser
+from collections import deque
+
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.graph_objs as go
+from dash.dependencies import Output, Input
+
+BS = "https://codepen.io/chriddyp/pen/bWLwgP.css"
+app = dash.Dash('vehicle-data', external_stylesheets=[BS])
+
+button_group = html.Div(
+    [
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='HOME',
+                       style={
+                           'display': 'inline-block',
+                           'align': 'center',
+                           'color': 'white', 'marginLeft': '100px',
+                           'fontSize': '15px ',
+                           'backgroundColor': '#101820',
+                           'width': '150px',
+                           'height': '50px',
+                           'marginRight': '100px'
+                       }, className='lg'),
+
+            href='http://127.0.0.1:5050/', refresh=True), className='lg'),
+
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='OVERVIEW',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '10px',
+                              'fontSize': '15px ',
+                              'width': '150px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/overview', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='GRAPH',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/pages/graph_page', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='CONSOLE',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/log_stream', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='DIAGNOSTIC',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '2px',
+                              'fontSize': '15px ',
+                              'width': '170px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/diag', refresh=True))
+    ],
+
+)
+
+app.layout = html.Div([
+    html.Div([
+        dbc.Row(
+            [
+                dbc.Col([button_group]),
+            ],
+            style={
+                'textAlign': 'center',
+                'position': 'sticky',
+                'backgroundColor': '#101820',
+                'display': 'flex',
+                'marginRight': '0px',
+            },
+        ),
+        dcc.Location(id='url', refresh=False),
+        html.Div(id='page-content', children=[])
+    ]),
+])
+
+
+if __name__ == '__main__':
+    webbrowser.open('http://127.0.0.1:8050/')
+    app.run_server(debug=True)
+```
+
+[](https://i.stack.imgur.com/CQytJ.png)

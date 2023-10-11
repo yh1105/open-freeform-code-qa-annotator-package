@@ -1,0 +1,13 @@
+How to apply a condition on the entire dataframe/ all columns
+
+I have a dataframe with 14 rows × 1500 columns which contains only Numerical values. I want to apply a simple condition that if any values in the entire dataframe is above a certain number, say 25, then replace those values with 1 else replace with 0. I have found some solution on where I can perform such operation but I have specify the column name but I couldn't find any solution where I can perform one condition on the entire dataframe.
+```
+df[0.0] = df[0.0].apply(lambda x: 1 if x >=25 else 0)
+```
+
+This works for a specific column but
+```
+df = df[:,:].apply(lambda x: 1 if x >=25 else 0)
+```
+
+doesn't work. Could someone help?

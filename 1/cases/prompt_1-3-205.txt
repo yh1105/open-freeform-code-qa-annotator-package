@@ -1,0 +1,14 @@
+Django-filter, how to make multiple fields search? (with django-filter!)
+
+How can I make multiple fields search with Django-filter from model like:
+
+```
+class Location(models.Model):
+    loc = models.CharField(max_length=100, blank=True)
+    loc_mansioned = models.CharField(max_length=100, blank=True)
+    loc_country = models.CharField(max_length=100, blank=True)
+    loc_modern = models.CharField(max_length=100, blank=True)
+```
+
+
+I need one input field on my website, that can search over all fields of Location model

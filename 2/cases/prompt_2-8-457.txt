@@ -1,0 +1,35 @@
+Cannot run debug Go using VSCode on Mac M1
+
+I found a topic that encounter the same problem ([Can't debug Golang in vscode apple m1](https://stackoverflow.com/questions/67637872/cant-debug-golang-in-vscode-apple-m1)) but I'm not sure it's an old solution or not because I'm using the Go version
+```
+go1.17.1 darwin/arm64
+```
+
+with
+```
+dlv version 1.7.2
+```
+
+and
+```
+VSCode version 1.60.2 (arm64)
+```
+
+on
+```
+Mac M1 BigSur (11.6)
+```
+
+when I run debug (`fn+f5`) a Debug console shows:
+```
+Starting: /Users/username/go/bin/dlv-dap dap --check-go-version=false --listen=127.0.0.1:53115 --log-dest=3 from /Users/username/go/src/project-name
+DAP server listening at: 127.0.0.1:53115
+```
+
+and there is a Pop-up error:
+```
+Failed to launch: could not launch process: can not run under Rosetta, check that the installed build of Go is right for your CPU architecture
+```
+
+I have tried downgrade go version to 1.16.8 arm64 with dlv 1.6.1 but still got the same error.
+I can use go build successfully on both versions.

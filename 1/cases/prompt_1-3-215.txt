@@ -1,0 +1,7 @@
+When we should use "db_index=True" in Django?
+
+When we should define `db_index=True` on a model fields ?
+I'm trying to optimize the application & I want to learn more about `db_index`, in which conditions we should use it ?
+The documentation says that using `db_index=True` on model fields is used to speed up the lookups with slightly disadvantages with storage and memory.
+Should we use `db_index=True` only on those fields that have unique values like the primary field `id` ? 
+What happens if we enabled indexing for those fields which are not unique and contains repetitive data ?

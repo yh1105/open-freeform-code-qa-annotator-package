@@ -1,0 +1,71 @@
+vue 3 emit warning " Extraneous non-emits event listeners"
+
+I am trying to emit data from child to parent using the composition API
+I get the following warning.
+> [Vue warn]: Extraneous non-emits event listeners (updatedcount) were passed to component but could not be automatically inherited because component renders fragment or text root nodes. If the listener is intended to be a component custom event listener only, declare it using the "emits" option.at <HelloWorld onUpdatedcount=fn > at 
+childcomponent.vue
+```
+<template>
+  <h1>{{ store.count }}</h1>
+  <button @click="fired">click me</button>
+</template>
+
+<script>
+import useStore from "../store/store.js";
+export default {
+  name: "HelloWorld",
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+</script>
+```
+
+parentcomponent.vue
+```
+<template>
+  <div>
+    {{ hello }}
+    <br />
+    <br />
+    <input type="text" v-model="hello.searchQuery" />
+    <br><br>
+    <button @click="hello.count--">click me too!</button>
+    <hello-world @updatedcount="mydata" />
+  </div>
+</template>
+
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+import useStore from "./store/store.js";
+
+export default {
+  components: {
+    HelloWorld,
+  },
+  setup() {
+    const hello = useStore();
+
+    function mydata(event) {
+      console.log(event);
+    }
+
+    return {
+      hello,
+      mydata
+    };
+  },
+};
+</script>
+```
+

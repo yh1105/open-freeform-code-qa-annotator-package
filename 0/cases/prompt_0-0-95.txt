@@ -1,0 +1,29 @@
+TypeError: Class extends value undefined is not a constructor or null while running next.js
+
+While running
+```
+npm run dev
+```
+
+I suddenly start getting error without pretty much any change to the code of the project:
+```
+TypeError: Class extends value undefined is not a constructor or null
+    at Object.618 (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:100)
+    at __nccwpck_require__ (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11735)
+    at Object.270 (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:413)
+    at __nccwpck_require__ (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11735)
+    at Object.327 (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:260)
+    at __nccwpck_require__ (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11735)
+    at Object.845 (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:3733)
+    at __nccwpck_require__ (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11735)
+    at /Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11863
+    at Object.<anonymous> (/Users/EugeneBos/Websites/dotalaning/node_modules/next/dist/compiled/postcss-scss/scss-syntax.js:1:11889)
+    at Module._compile (node:internal/modules/cjs/loader:1108:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1137:10)
+    at Module.load (node:internal/modules/cjs/loader:973:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:813:14)
+    at Module.require (node:internal/modules/cjs/loader:997:19)
+    at require (node:internal/modules/cjs/helpers:92:18)
+```
+
+Modifying the code of the app so it won't include any files or load anything still produces the same error.

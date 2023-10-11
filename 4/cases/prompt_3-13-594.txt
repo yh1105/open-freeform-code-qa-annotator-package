@@ -1,0 +1,123 @@
+Kotlin random() always generates the same "random" numbers
+
+I have created an app which should choose an image randomly from an array of images. On my Emulator Nexus 5X Android 5.1 everything works as expected. As soon as I try the same on my real device Galaxy Note 10 Lite I always get the same "random" numbers in same order. I first need to restart my phone to generate a new list of "random" numbers which is then always the same. Example: My array contains 200 elements, I open the app on my Galaxy and it chooses the following random number for the image ids: 43, 12, 176, 33, 2, 78. Then I close the app and I open the app again, now it has the exact same "random" numbers again: 43, 12, 176, 33, 2, 78. I need to restart my phone to get new random numbers, which will stay the same until I restart my phone again. On my emulator everything works fine and I get new random numbers always when I restart the app as expected.
+Here is my full code of my app without array list of images:
+MainActivity.kt
+```
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+ val imageList = arrayOf(Image(R.drawable.image1, false),
+            Image(R.drawable.image2, false),
+            Image(R.drawable.image3, false))
+
+val imageViewMain = findViewById<ImageView>(R.id.imageViewMain)
+    loadNextImage(imageViewMain, imageList)
+
+    imageViewMain.setOnClickListener {
+        val dialogClickListener =
+            DialogInterface.OnClickListener { _, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        loadNextImage(imageViewMain, imageList)
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> { }
+                }
+            }
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage("Nächstes Bild?").setPositiveButton("Ja", dialogClickListener)
+            .setNegativeButton("Nein", dialogClickListener).show()
+    }
+}
+
+private fun getNextChoice(): Int {
+    return (0..1).random()
+}
+
+private fun getNextImage(imageList: Array<Image>): Int {
+    val listSize = imageList.size
+    var imageId: Int
+    do {
+        imageId = (0 until listSize).random()
+    } while (imageList[imageId].played)
+
+    imageList[imageId].played = true
+    return imageList[imageId].image
+}
+
+private fun loadNextImage(imageViewMain: ImageView, imageList: Array<Image>) {
+    val imageQuestionmark = R.drawable.questionmark
+    val nextChoice = getNextChoice()
+    if (nextChoice == 0) {
+        imageViewMain.load(imageQuestionmark)
+    } else if (nextChoice == 1) {
+        imageViewMain.load(getNextImage(imageList))
+    }
+    Toast.makeText(this, "Bild hat geladen", Toast.LENGTH_SHORT).show()
+}
+}
+```
+
+Image:
+```
+data class Image(
+    val image: Int,
+    var played: Boolean
+)
+```
+
+
+I tried what cactustictacs suggested in the comment and create a simple app, once with the kotlin random function and once with the java random function. here is the code I used:
+Kotlin:
+```
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val buttonTest = findViewById<Button>(R.id.buttonTest)
+
+        buttonTest.setOnClickListener {
+            val getRandomNumber = (0..999).random()
+            Toast.makeText(this, getRandomNumber.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+```
+
+Java:
+```
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button buttonTest = (Button) findViewById(R.id.buttonTest);
+
+        buttonTest.setOnClickListener(v -> {
+            int randomNumber = new Random().nextInt(999);
+            Toast.makeText(this, "" + randomNumber, Toast.LENGTH_SHORT).show();
+        });
+    }
+}
+```
+
+on Kotlin I get the same behavior as with my inital problem, doesnt matter what I do with the app (I CAN EVEN UNINSTALL AND INSTALL AGAIN) I always get the same set of numbers. On Java its working as exptected, as soon as I close the app I get a new set of numbers. So the error definetly lays in kotlin.
+Maybe it helps, my Android version is 12 and my phone Galaxy Note 10 Lite.

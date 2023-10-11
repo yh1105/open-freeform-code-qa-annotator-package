@@ -1,0 +1,26 @@
+Typescript input onchange event.target.value
+
+In my react and typescript app, I use:
+```
+onChange={(e) => data.motto = (e.target as any).value}
+```
+
+How do I correctly define the typings for the class, so I wouldn't have to hack my way around the type system with `any`?
+```
+export interface InputProps extends React.HTMLProps<Input> {
+...
+
+}
+
+export class Input extends React.Component<InputProps, {}> {
+}
+```
+
+If I put `target: { value: string };` I get :
+```
+ERROR in [default] /react-onsenui.d.ts:87:18
+Interface 'InputProps' incorrectly extends interface 'HTMLProps<Input>'.
+  Types of property 'target' are incompatible.
+    Type '{ value: string; }' is not assignable to type 'string'.
+```
+

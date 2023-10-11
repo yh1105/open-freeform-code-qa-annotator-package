@@ -1,0 +1,6 @@
+Python pandas - ValueError: invalid literal for int() with base 10:
+
+I have a dataframe with a column named `year` in object format. I want to convert object to int but I have this error :
+> ValueError: invalid literal for int() with base 10: '2021.0'
+Here is my code :
+`data_h_df['year'].astype(str).astype(int)`

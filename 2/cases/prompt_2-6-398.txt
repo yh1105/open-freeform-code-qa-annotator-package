@@ -1,0 +1,37 @@
+Unable to resolve ILogger from Microsoft.Extensions.Logging
+
+I've configured my console application's `Main` like so
+```
+var services = new ServiceCollection()
+    .AddLogging(logging => logging.AddConsole())
+    .BuildServiceProvider();
+```
+
+And then I try to use it in another class like so
+```
+private readonly ILogger _logger;
+    
+public MyClass(ILogger logger)
+{
+    _logger = logger;
+}
+
+public void MyFunc()
+{
+    _logger.Log(LogLevel.Error, "My Message");
+}
+```
+
+> System.InvalidOperationException: 'Unable to resolve service for type
+'Microsoft.Extensions.Logging.ILogger'
+I've tried the solutions [here](https://stackoverflow.com/a/51329388/2025666) but it didn't work for me.
+
+Based on Yaakov's comment below and [this Github comment](https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/92#issuecomment-223991293) I'm able to resolve it correctly by doing this
+```
+public MyClass(ILogger<MyClass> logger)
+{
+    _logger = logger;
+}
+```
+
+I would have preferred to have this in the initial `BuildServiceProvider` but looks like I'm gonna have to repeat this every time I want to use the logger (or create my own ILogger).

@@ -1,0 +1,19 @@
+Error: Failed to load parser 'babel-eslint' declared in '.eslintrc': Cannot find module 'babel-eslint' in create-react-app
+
+Trying to install [eslint](https://www.npmjs.com/package/eslint) into [create-react-app](https://www.npmjs.com/package/create-react-app), but get next error when running linter:
+
+![enter image description here]](https://i.stack.imgur.com/YhtHl.png)
+
+Here is my `.eslintrc` config file:
+
+```
+{
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
+  "parser": "babel-eslint"
+}
+```
+
+
+If install `babel-eslint` manually it'll potentially produce another error based on package conflict between  project and `react-scripts` dependencies:
+[](https://i.stack.imgur.com/shgSj.png)

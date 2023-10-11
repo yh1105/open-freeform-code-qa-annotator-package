@@ -1,0 +1,4 @@
+How and where to use ::ng-deep?
+
+How and where can one use `::ng-deep` in Angular 4?
+Actually I want to overwrite some of the CSS properties of the child components from the parent components. Moreover is it supported on IE11?

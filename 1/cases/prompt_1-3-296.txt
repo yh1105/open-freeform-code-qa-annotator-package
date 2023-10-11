@@ -1,0 +1,47 @@
+Tensorflow Keras error: Unknown image file format. One of JPEG, PNG, GIF, BMP required
+
+i'm training a classifier and i made sure all the pictures are jpg but still, this error occurs:
+InvalidArgumentError:  Unknown image file format. One of JPEG, PNG, GIF, BMP required.
+[[{{node decode_image/DecodeImage}}]]
+[[IteratorGetNext]] [Op:__inference_train_function_1481]
+i tried training on a smaller dataset and also they were all jpg and there was no problem
+this is the code:
+```
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+
+dataset = keras.preprocessing.image_dataset_from_directory(
+  '/content/drive/MyDrive/fi_dataset/train', batch_size=64, image_size=(200, 200))
+
+dense = keras.layers.Dense(units=16)
+inputs = keras.Input(shape=(None, None, 3))
+
+from tensorflow.keras import layers
+
+x = CenterCrop(height=150, width=150)(inputs)
+x = Rescaling(scale=1.0 / 255)(x)
+
+x = layers.Conv2D(filters=32, kernel_size=(3, 3), activation="relu")(x)
+x = layers.MaxPooling2D(pool_size=(3, 3))(x)
+x = layers.Conv2D(filters=32, kernel_size=(3, 3), activation="relu")(x)
+x = layers.MaxPooling2D(pool_size=(3, 3))(x)
+x = layers.Conv2D(filters=32, kernel_size=(3, 3), activation="relu")(x)
+
+x = layers.GlobalAveragePooling2D()(x)
+
+num_classes = 1
+outputs = layers.Dense(num_classes, activation="sigmoid")(x)
+
+model = keras.Model(inputs=inputs, outputs=outputs)
+
+data = np.random.randint(0, 256, size=(64, 200, 200, 3)).astype("float32")
+processed_data = model(data)
+
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+               metrics=[keras.metrics.binary_accuracy],)
+
+history=model.fit(dataset, epochs=10)
+```
+

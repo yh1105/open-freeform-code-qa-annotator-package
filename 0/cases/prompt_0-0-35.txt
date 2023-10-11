@@ -1,0 +1,6 @@
+How to Connect Heroku Redis TLS Node?
+
+I dont seem to be able to connect to Heroku Redis using TLS on Node.
+These docs arent really much help: [https://devcenter.heroku.com/articles/securing-heroku-redis](https://devcenter.heroku.com/articles/securing-heroku-redis)
+Does anyone have a working example? Should I be using REDIS_URL or REDIS_TLS_URL?
+Im using node_redis v3

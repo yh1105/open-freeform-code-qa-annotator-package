@@ -1,0 +1,13 @@
+Barplot for count data with multiple columns
+
+I have a dataframe that looks something like this:
+Columns with data:
+```
+Sex     Var1  Var2   Var3
+Male     Yes    No    Yes
+Female    No   Yes     No
+Male      No    No    Yes
+Female   Yes   Yes     No
+```
+
+I want to create a barplot with two bars for each Variable (one for Males, one for Females) in the X axis and the "Yes" count in the Y axis and I don't really know how. Any help would be much appreciated.

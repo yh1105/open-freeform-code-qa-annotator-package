@@ -1,0 +1,65 @@
+How to avoid nested chains of "if let"?
+
+I'm wading through a codebase full of code like this:
+```
+if let Some(i) = func1() {
+    if let Some(j) = func2(i) {
+        if let Some(k) = func3(j) {
+            if let Some(result) = func4(k) {
+                // Do something with result
+            } else {
+                println!("func 4 returned None");
+            }
+        } else {
+            println!("func 3 returned None");
+        }
+    } else {
+        println!("func 2 returned None");
+    }
+} else {
+    println!("func 1 returned None");
+}
+```
+
+That's a stupid, simplified example, but the general pattern is that:
+- `Option`- `None`- `Some`- `None``None`
+The problem, of course, is that the above code is an ugly and unreadable. It gets even uglier when you substitute `i`, `func1` etc. with variable/function names that actually mean something in the real code, and many examples in my real codebase have far more than four nested `if let`s. It's an example of the [arrow anti-pattern](http://wiki.c2.com/?ArrowAntiPattern), it completely fails the [squint test](https://atom.io/packages/squint-test), and it's confusing how the error messages appear in reverse order to the functions which can cause them.
+Is there really not a better way to do this? I want to refactor the above into something that has a cleaner, flatter structure where everything appears in a sensible order. [if let chaining](https://rust-lang.github.io/rfcs/2497-if-let-chains.html) might help but it doesn't look like that feature is available in Rust yet. I thought maybe I could clean things up by using `?` and/or extracting some helper functions, but I couldn't get it to work and I'd rather not extract a ton of new functions all over the place if I can avoid it.
+Here's the best I could come up with:
+```
+let i : u64;
+let j : u64;
+let k : u64;
+let result : u64;
+
+if let Some(_i) = func1() {
+    i = _i;
+} else {
+   println!("func 1 returned None");
+   return;
+}
+if let Some(_j) = func2(i) {
+    j = _j;
+} else {
+   println!("func 2 returned None");
+   return;
+}
+if let Some(_k) = func3(j) {
+    k = _k;
+} else {
+   println!("func 3 returned None");
+   return;
+}
+if let Some(_result) = func3(k) {
+    result = _result;
+} else {
+   println!("func 4 returned None");
+   return;
+}
+
+
+// Do something with result
+```
+
+But this still feels very long and verbose, and I don't like how I'm introducing these extra variables `_i`, `_j` etc.
+Is there something I'm not seeing here? What's the simplest and cleanest way to write what I want to write?

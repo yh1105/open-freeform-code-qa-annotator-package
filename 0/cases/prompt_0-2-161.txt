@@ -1,0 +1,4 @@
+How to change primary color for Prime NG
+
+How can I change default primary color for primeNG (saga-blue theme) ? changing --primary-color doesn't help, because in node_modules/..../theme.css elements are styled using the main color hex and not ' --primary-color '.
+I also can't override styling for all elements that use that primary color because they are too many + they have different shades of --primary-color on hover and on focus, how can I handle this ?

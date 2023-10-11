@@ -1,0 +1,38 @@
+Reset to Initial State with React Hooks
+
+I'm currently working on a signup form and the following is a snippet of my code:
+
+```
+const Signup = () => {
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+    const clearState = () => {
+        setUsername('')
+        setEmail('')
+        setPassword('')
+        setPasswordConfirmation('')
+    }
+
+    const handleSubmit = signupUser => e => {
+        e.preventDefault()
+        signupUser().then(data => {
+            console.log(data)
+            clearState() // <-----------
+        })
+    }
+
+    return <JSX />
+}
+
+export default Signup
+```
+
+
+Each piece of state is used for a controlled input for the form.
+
+Essentially what I want to do is after the user has successfully signed up, I want the state to go back to the initial state with the fields cleared.
+
+It's quite imperative to manually set each piece of state back to empty strings in`clearState` I was wondering if there is a method or function that comes with React that resets the state back to its initial values?

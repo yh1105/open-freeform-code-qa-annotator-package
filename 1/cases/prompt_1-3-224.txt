@@ -1,0 +1,40 @@
+Filter a list containing specific string
+
+
+I have a specific set of a long list containing many asset pairs with different endings: `BTCUSDT` `ETHBTC` `ANKRETH`... From this list, I would like to filter out the symbols ending with USDT.
+
+I have tried using `filter` and `all` with iterations, however, none provides the exact result.
+Here are my attempts:
+
+```
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_set = [word for word in symbols if 'USDT' in my_set]
+my_set
+```
+
+> This results in an empty set.
+
+```
+keyword = ['USDT']
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+final = [ x for x in my_set in all(keyword in keyword for keyword in my_set)]
+final
+```
+
+This results in the error:
+> TypeError: argument of type 'bool' is not iterable
+
+```
+my_final_set = filter(lambda x:x.endswith(("USDT")), my_set)
+my_final_set
+```
+
+> This shows: <filter at 0x7fe537eebf10>
+I basically want my final list with all symbols ending with `USDT`
+
+```
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+```
+
+results in: `['LUNAUSDT', 'BTCUSDT']`
+Any help or advice on what I'm doing wrong would be massively appreciated. Thanks in advance!

@@ -1,0 +1,11 @@
+Write a Unit Test for function without return value
+
+I have a function that takes a link as input, then requests values, then puts them in an available list, this function doesn't return anything, how can I write test cases for them?
+For example:
+```
+list = []
+def myfunc(link):
+    [code block]
+    list.append(value)
+```
+

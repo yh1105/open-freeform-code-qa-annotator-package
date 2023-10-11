@@ -1,0 +1,51 @@
+Json serialization of nested dataclasses
+
+I would need to take the question about `json serialization of @dataclass` from [Make the Python json encoder support Python's new dataclasses](https://stackoverflow.com/questions/51286748/make-the-python-json-encoder-support-pythons-new-dataclasses)  a bit further: consider when they are in a nested structure. 
+
+Consider:
+
+```
+import json
+from attr import dataclass
+from dataclasses_json import dataclass_json
+@dataclass
+@dataclass_json
+class Prod:
+    id: int
+    name: str
+    price: float
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+pjson = json.dumps(prods)
+```
+
+
+That gives us:
+
+```
+TypeError: Object of type Prod is not JSON serializable
+```
+
+
+Note the above does incorporate one of the answers [https://stackoverflow.com/a/59688140/1056563](https://stackoverflow.com/a/59688140/1056563) . It  claims to support the nested case via the `dataclass_json` decorator . Apparently that does not actually work. 
+
+I also tried another of the answers [https://stackoverflow.com/a/51286749/1056563](https://stackoverflow.com/a/51286749/1056563) :
+
+```
+class EnhancedJSONEncoder(json.JSONEncoder):
+        def default(s, o):
+            if dataclasses.is_dataclass(o):
+                return dataclasses.asdict(o)
+            return super().default(o)
+```
+
+
+And I created a helper method for it:
+
+```
+def jdump(s,foo):
+    return json.dumps(foo, cls=s.c.EnhancedJSONEncoder)
+```
+
+
+But using that method also did not effect the (error) result.  Any further tips?

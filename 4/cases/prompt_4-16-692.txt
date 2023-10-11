@@ -1,0 +1,3 @@
+How to use a new Windows Terminal app for SSH?
+
+The [Windows Terminal](https://github.com/microsoft/terminal) app is advertised as a central hub for all terminal work, so I'm interested in a way to bring my SSH connections into it and replace ancient PuTTY.

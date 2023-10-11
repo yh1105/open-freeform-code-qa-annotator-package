@@ -1,0 +1,41 @@
+Bearer error="invalid_token", error_description="The issuer is invalid"
+
+I have a simple web api project, which looks like this:
+
+```
+[Authorize]
+        [Route("Get")]
+        public ActionResult<string> SayHello()
+        {
+            return "Hello World";
+        }
+```
+
+
+I am trying to test it with Postman.  By following the steps here: [https://kevinchalet.com/2016/07/13/creating-your-own-openid-connect-server-with-asos-testing-your-authorization-server-with-postman/](https://kevinchalet.com/2016/07/13/creating-your-own-openid-connect-server-with-asos-testing-your-authorization-server-with-postman/)
+
+1) Send the request below and receive a token as expected:
+
+[](https://i.stack.imgur.com/iqduu.png)
+
+2) Attempt to send another request with the authorization token as shown below:
+
+[](https://i.stack.imgur.com/StJYj.png)
+
+Why do I get a 401 (unauthorized) error? The WWW-Authenticate response header says: Bearer error="invalid_token", error_description="The issuer is invalid".  I am using .Net Core 3.1.  I have commented out the sensitive information in the screenshots.
+
+The web api works as expected when accessed from an MVC application.
+
+Here is the startup code:
+
+```
+services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = identityUrl; //identityurl is a config item
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = apiName;
+
+                });
+```
+

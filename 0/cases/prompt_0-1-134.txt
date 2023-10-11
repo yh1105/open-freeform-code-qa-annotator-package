@@ -1,0 +1,7 @@
+How to quickly create <div> classes in VSCode
+
+Generally new to web design and watching some tutorials on creating some backend for a project, getting really tired of writing out the  manually, I see youtubers do .classname and then the class with the div appears, but for some reason it isn't working for me? Any help would be appreciated.
+
+Also, would it be easier to switch to Sublime, my buddies think that it is the way to go.
+
+Cheers.

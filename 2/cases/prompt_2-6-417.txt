@@ -1,0 +1,12 @@
+How to disable "Attempting to reconnect to the server" message on ASP.NET Core producton server
+
+I have an ASP.NET Core 3.1 C# razor pages application that also uses some Blazor-serverside razor components. I have published it to IIS on Windows 2008 R2 Server.
+But when browsing the site in Chrome on one andorid mobile phone a message appears periodically:
+
+> Attemting to reconnect to the server
+
+Also when user stays inactive for a while, e.g. turns off the  mobile phone display, a message appears
+
+> Disconnected from server. Reload page ...
+
+The site is not in english and those generic messages are not good for end user exprience. Is there any way how to disable  those messages, or at least translate them to another language?

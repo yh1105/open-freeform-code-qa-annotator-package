@@ -1,0 +1,20 @@
+How can I convert an array into a comma separated string?
+
+I have an array and I am printing it like this:
+
+```
+echo "${data[*]}"
+```
+
+
+
+
+```
+/QE-CI-RUN-71/workspace/QE-AU/57/testng-results_1.xml 
+/QE-CI-RUN-71/workspace/QE-AU/57/testng-results_2.xml
+```
+
+
+I want to store the above output as a comma separated value. How can I achieve this in Bash?
+
+The data array is dynamic, it may have any number of values.

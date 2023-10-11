@@ -1,0 +1,10 @@
+In WSL2: Ubuntu 20.04 for Windows 10 nodejs is installed but npm is not working
+
+I am using  in my  operating system. I have installed `nodejs` using the command `sudo apt-get install -y nodejs` when I do `node -v` command I get `v12.18.3`
+
+but when I do `npm -v` command I get this below command
+
+I also do `whereis` command. Hope this will help to find solution.
+ 
+I have tried almost all the stackoverflow solutions and github issues but nothing is worked for me.
+Hope any kind soul has the solution to this problem. Thanks in advance.

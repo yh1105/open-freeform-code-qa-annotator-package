@@ -1,0 +1,9 @@
+Coverting all the list elements to string using Python?
+
+I have a list:
+```
+roll = [1, 2, 3]
+```
+
+For converting each of the element into a string, can we directly do `roll = str(roll)` rather that iterating over it and calling `str()` on each element? Is this a correct way?
+I am new to Python, any hint in the right direction will do!

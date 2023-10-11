@@ -1,0 +1,33 @@
+Nullable reference type in C#8 when using DTO classes with an ORM
+
+I activated this feature in a project having data transfer object (DTO) classes, as given below:
+
+```
+public class Connection
+    {
+        public string ServiceUrl { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; }
+        //... others 
+    }
+```
+
+
+But I get the error:
+
+> `CS8618`: Non-nullable property 'ServiceUrl' is uninitialized. Consider declaring the property as nullable.
+
+This is a DTO class, so I'm not initializing the properties. This will be the responsibility of the code initializing the class to ensure that the properties are non-null. 
+
+For example, the caller can do:
+
+```
+var connection = new Connection
+{
+  ServiceUrl=some_value,
+  //...
+}
+```
+
+
+My question: How to handle such errors in DTO classes when C#8's nullability context is enabled?

@@ -1,0 +1,11 @@
+Getting Error 403 in Google Colab with Tensorboard with Firefox
+
+I have a tfevent file already present on my Drive and I have successfully connected it to Google Colab. After searching within the issues of Tensorboard Github, I found that I had to set dom.serviceWorkers.enabled to True which I have done. But on Google Colab after performing the two steps:
+
+1. %load_ext tensorboard
+2. %tensorboard --logdir path/to/logs
+
+
+I am getting a Error 403 on the second step cell:[](https://i.stack.imgur.com/TuHkS.png)
+I am using Firefox version 81.0.1 (64-bit) and my default mode is Private Window, so history and cache are cleared after I close all browser window.
+Can someone help me with this?

@@ -1,0 +1,37 @@
+Problem with pip install mariadb - mariadb_config not found
+
+I have been trying to run `pip3 install mariadb` on my raspberry pi running ubuntu 18.04 and I was unsuccessful.
+I have tried installing following packages as suggested in other answers:
+```
+sudo apt-get install mariadb-server
+sudo apt-get install libmariadbclient-dev
+sudo apt-get install libmysqlclient-dev
+
+pip3 install mysqlclient
+pip3 install mysql-connector-python-rf
+```
+
+However, I'm still running intto the problem as shown:
+```
+ubuntu@ubuntu:~$ pip3 install mariadb
+Collecting mariadb
+  Using cached https://files.pythonhosted.org/packages/8f/c9/7050899dc1066409a17e1147d3afe1b078e582afdb755c6d3cb9c9a5c3ab/mariadb-1.0.0.tar.gz
+    Complete output from command python setup.py egg_info:
+    /bin/sh: 1: mariadb_config: not found
+    Traceback (most recent call last):
+      File "<string>", line 1, in <module>
+      File "/tmp/pip-build-2gdw_t_r/mariadb/setup.py", line 26, in <module>
+        cfg = get_config(options)
+      File "/tmp/pip-build-2gdw_t_r/mariadb/mariadb_posix.py", line 49, in get_config
+        cc_version = mariadb_config(config_prg, "cc_version")
+      File "/tmp/pip-build-2gdw_t_r/mariadb/mariadb_posix.py", line 27, in mariadb_config
+        "mariadb_config not found.\nPlease make sure, that MariaDB Connector/C is installed on your system, edit the configuration file 'site.cfg' and set the 'mariadb_config'\noption, which should point to the mariadb_config utility.")
+    OSError: mariadb_config not found.
+    Please make sure, that MariaDB Connector/C is installed on your system, edit the configuration file 'site.cfg' and set the 'mariadb_config'
+    option, which should point to the mariadb_config utility.
+    
+    ----------------------------------------
+Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-2gdw_t_r/mariadb/
+```
+
+I do have `/etc/mysql/my.cnf` file.

@@ -1,0 +1,33 @@
+how to make a table scrollable with html + Tailwind CSS
+
+i have this table like in the image below, it is overflow from the right side, how can I add scrolling, I am using Tailwind CSS like in this code:
+```
+<table class="table-auto overflow-scroll">
+                    <thead>
+                    <tr class="bg-gray-100">
+                        <th class="w-20 px-4 py-2">No.</th>
+                        <th class="px-4 py-2">First Name</th>
+                        <th class="px-4 py-2">Second Name</th>
+                        <th class="px-4 py-2">Third Name</th>
+                        <th class="px-4 py-2">Department</th>
+                        <th class="px-4 py-2">Stage</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Roles</th>
+                        <th class="px-4 py-2">status</th>
+                        <th class="px-4 py-2">University Email</th>
+                        <th class="px-4 py-2">University Password</th>
+                        <th class="px-4 py-2">Students Files</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        @if(isset($users)) @include('dashboard.users.partials.users_details') @endif
+                        @if(isset($searches)) @include('dashboard.users.partials.search') @endif
+                        @if(isset($statusSearch)) @include('dashboard.users.partials.status_search') @endif
+
+                    </tbody>
+                </table>
+```
+
+[](https://i.stack.imgur.com/Qggv2.png)

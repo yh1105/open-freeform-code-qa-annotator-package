@@ -1,0 +1,3 @@
+How to enable `ignoreUndefinedProperties` in node js
+
+I am developing a REST api for my application in Nodejs and Express. But each time i try to send a request I get an undefined error. Please how can i enable 'ignoreundefinedproperties'

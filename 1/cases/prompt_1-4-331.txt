@@ -1,0 +1,20 @@
+Use dplyr's if_else function with functional true/false values
+
+
+## Question
+
+
+How can dplyr's `if_else()` function be used such that its output is a function? With `ifelse()` from `base` this is trivial but with `if_else()` something goes wrong. Is that intended behavior or am I just not able to do that properly?
+
+## Reprex
+
+
+```
+x <- 2
+ifelse(x == 2, min, max)
+#> function (..., na.rm = FALSE)  .Primitive("min")
+dplyr::if_else(x == 2, min, max)
+#> Error in true[rep(NA_integer_, length(condition))]: object of type 'builtin' is not subsettable
+```
+
+[reprex package](https://reprex.tidyverse.org)

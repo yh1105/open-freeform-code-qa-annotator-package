@@ -1,0 +1,19 @@
+Xdebug 3 - The setting 'xdebug.remote_***' has been renamed, see the upgrading guide
+
+I just installed Xdebug v3.0.0beta1 on my OSX and tried to use it on PhpStorm 2020.1, but I get this :
+> Xdebug: [Config] The setting 'xdebug.remote_enable' has been renamed,
+see the upgrading guide at
+[https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_enable](https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_enable)
+(See: [https://xdebug.org/docs/errors#CFG-C-CHANGED](https://xdebug.org/docs/errors#CFG-C-CHANGED)) Xdebug: [Config]
+The setting 'xdebug.remote_host' has been renamed, see the upgrading
+guide at
+[https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_host](https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_host) (See:
+[https://xdebug.org/docs/errors#CFG-C-CHANGED](https://xdebug.org/docs/errors#CFG-C-CHANGED)) Xdebug: [Config] The
+setting 'xdebug.remote_mode' has been renamed, see the upgrading guide
+at [https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_mode](https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_mode)
+(See: [https://xdebug.org/docs/errors#CFG-C-CHANGED](https://xdebug.org/docs/errors#CFG-C-CHANGED)) Xdebug: [Config]
+The setting 'xdebug.remote_port' has been renamed, see the upgrading
+guide at
+[https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_port](https://xdebug.org/docs/upgrade_guide#changed-xdebug.remote_port)
+And the links provided lead to nothing but an image with bugs.
+My question is what are the right settings to set and where to actually change them since i have nothing about xdebug in my php.ini file.

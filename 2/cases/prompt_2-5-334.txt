@@ -1,0 +1,12 @@
+When should you use @Configuration instead of @Service/@Controller/@Component for defining beans
+
+I am trying to understand the Spring Framework better and my question is basically:
+What is the benefit of the @Configuration annotation compared to @Service/@Controller/@Repository (or @Component if it is none of the other 3)
+As I understand the @Configuration is meant to be a source of beans, but by just marking my classes with for example @Service it becomes a bean and will be picked up by the component scanning?
+As I understand it I could either have a @Configuration class that has methods that create a couple of beans (say some services) or just have the classes annotated with @Service directly.
+What would be the benefit of having the @Configuration class? Or is the @Configuration mostly useful for some edge cases that I have missed?
+I read somewhere that the @Value annotation can be used in a @Configuration annotated class, but I can see in our codebase that we use it in other places, that are not @Configuration marked, so that does not seem to be required
+I've been told there is a thread here:
+[What is the difference between @Configuration and @Component in Spring?](https://stackoverflow.com/questions/39174669/what-is-the-difference-between-configuration-and-component-in-spring)
+But I feel that it only starts explaining what the difference is between the annotations, not WHEN/What the benefit of using one over the other is.
+Thanks!

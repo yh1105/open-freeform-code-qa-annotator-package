@@ -1,0 +1,14 @@
+Create a button with rounded border
+
+How would you make a `FlatButton` into a button with a rounded border? I have the rounded border shape using `RoundedRectangleBorder` but somehow need to color the border.
+
+```
+new FlatButton(
+  child: new Text("Button text),
+  onPressed: null,
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+)
+```
+
+
+Example of how button with rounded button would look :  [](https://i.stack.imgur.com/GdvrF.png)

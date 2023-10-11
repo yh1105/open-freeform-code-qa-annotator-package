@@ -1,0 +1,34 @@
+Typescript: Omit nested property
+
+I have an interface like this:
+```
+export interface Campaign {
+  id: string
+  orders?: number
+  avgOrderValue?: number
+  optionalAttributes: string[]
+  attributeValues: {
+    optionalAttributes: CampaignAttribute[]
+    mandatoryAttributes: CampaignAttribute[]
+    values?: { [key: string]: unknown }
+  }
+  created: number
+  lastUpdated: number
+}
+```
+
+And I want to create a type out of this for my form that needs to omit the `attributeValues.optionalAttributes` and `attributeValues.mandatoryAttributes` from the interface.
+I was thinking that maybe Typescript can do something like this:
+```
+export type CampaignFormValues = Omit<Campaign, 'attributeValues.mandatoryAttributes'>
+```
+
+But this doesn't work.
+I used the answer from this question: [Deep Omit with typescript](https://stackoverflow.com/questions/55539387/deep-omit-with-typescript)
+But this answer just deep omits every matched key, so using it like this:
+```
+export type CampaignFormValues = Omit<Campaign, 'optionalAttributes'>
+```
+
+Would also remove the root level `optionalAttributes` which I want to keep.
+Is there any way to do a nested omit with Typescript?

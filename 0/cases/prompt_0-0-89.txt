@@ -1,0 +1,45 @@
+VueJS Using Prop Type Validation With NULL and 'undefined' Values?
+
+Even though [VueJS 2 official documentation about prop validation](https://v2.vuejs.org/v2/guide/components-props.html#Prop-Validation) is stating (as a code example's comment line):
+> // Basic type check (`null` and `undefined` values will pass any type
+validation)
+[this code reproduction](https://vuep.run/6ecbe302)
+```
+[Vue warn]: Invalid prop: type check failed for prop "value". Expected String, Number, Boolean, got Null
+```
+
+```
+<template>
+  <div>
+    <h1>{{ title }}:</h1>
+    <MyInput :value="null" />
+  </div>
+</template>
+
+<script>
+Vue.component('MyInput', Vue.extend({
+  props: {
+    value: {
+      type: [String, Number, Boolean],
+      required: true,
+    },
+  },
+  template: `
+    <select v-model="value">
+      <option value="null">
+        null value
+      </option>
+      <option value="">
+        Empty value
+      </option>
+    </select>`,
+}));
+
+export default {
+  data: () => ({
+    title: 'VueJS Using Prop Type Validation With NULL and `undefined` Values?'
+  }),
+};
+</script>
+```
+

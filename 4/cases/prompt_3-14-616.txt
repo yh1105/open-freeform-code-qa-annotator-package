@@ -1,0 +1,177 @@
+Cannot convert value of type '[array]' to expected argument type 'Range<Int>'
+
+I can not understand what could be the problem
+
+i have some Json 
+for example is 
+
+```
+[
+{
+    "id": 1,
+    "title": "Title",
+    "info": "info",
+    "brand": "brand",
+    "model": "MODEL",
+    "make_year": year,
+    "properties": [
+        {
+                "id": 1,
+                "icon": "ic_rgb",
+                "label": "color",
+                "value": "red"
+            },
+            {
+                "id": 2,
+                "icon": "ic_car",
+                "label": "type",
+                "value": "value"
+            },
+            {   "id": 3,
+                "icon": "ic_fuel",
+                "label": "fuel",
+                "value": "gas"
+            }  
+        ],
+    },
+{
+    "id": 2,
+    "title": "title2",
+    "message": "massage2",
+    "info": "wow you are amazing, thanks for the help",
+    "properties": [
+        {
+                "id": 11,
+                "icon": "ic_rgb",
+                "label": "2color",
+                "value": "2blue"
+            },
+            {
+                "id": 21,
+                "icon": "ic_car",
+                "label": "2type",
+                "value": "2cgh"
+            },
+            {   "id": 31,
+                "icon": "ic_fuel",
+                "label": "fuel",
+                "value": "test"
+            },
+            ....
+        ],
+}
+]
+```
+
+
+and my model 
+
+```
+struct Unicards: Hashable, Codable, Identifiable {
+var id: Int
+var title: String?
+var info: String?
+var brand: String?
+var model: String?
+var make_year: Int?
+var messege: String?
+var messege_color: String?
+var price: String?
+var price_currency: String?
+var price_tooltip: String?
+
+
+var properties: [HPropert]?
+struct HPropert: Hashable, Codable, Identifiable {
+
+    var id: Int
+    var icon: String?
+    var label: String
+    var value: String
+
+}
+```
+
+
+and what the problem... i'm trying to create forEach method for horizontal collection for properties 
+
+I partially succeeded, I implemented this method with a nested array, and it even generates the number of cells correctly. wow!)
+
+but when I want to assign values ​​for the text by index it gives an error ...
+
+I actually can not understand the problem, since the array has already been calculated and created by the number of cell objects.
+
+but when I ask the formula to assign values ​​I get 
+
+```
+Cannot convert value of type '[Unicards.HPropert]' to expected argument type 'Range<Int>'
+```
+
+
+my code below 
+
+```
+struct Card_cell_rowOfCheracteristics: View {
+
+var data2: Unicards
+
+var body: some View {
+    let properties = data2.properties!
+
+    return    VStack() {
+//            Text("thanx bro!. have a nice day")
+//                .font(.system(size: 14))
+//                .font(.headline)
+//                .fontWeight(.light)
+//                .multilineTextAlignment(.leading)
+
+        ScrollView(Axis.Set.horizontal) {
+
+
+
+            HStack {
+
+
+                ForEach(properties) { card in <--- Cannot convert value of type '[Unicards.HPropert]' to expected argument type 'Range<Int>'
+                    VStack {
+                        Image()
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 34, height: 34)
+
+
+                        VStack {
+
+                            Text(properties[card].label) 
+                                .font(.system(size: 14))
+                                .fontWeight(.medium)
+                            Text(properties[card].value)
+                                .font(.system(size: 14))
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+struct Card_cell_rowOfCheracteristics_Previews: PreviewProvider {
+    static var previews: some View {
+        Card_cell_rowOfCheracteristics(data2: PlatesData[0])
+    }
+}
+}
+```
+
+
+but if i say 
+
+```
+properties[0].label
+```
+
+
+no errors occur

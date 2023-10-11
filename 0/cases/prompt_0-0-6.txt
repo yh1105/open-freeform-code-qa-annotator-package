@@ -1,0 +1,102 @@
+ReactJS redirecting to another page on successful statement not working
+
+I am trying to create this single-page-application in react, and I want to redirect to another page based on if the username and password inputs are correct. I have tried multiple approaches, such as the <Redirect to .. tag and history.push(), but none of them seem to be getting rendered. If I try alerts or console.log , I can see that the statement was successful, but the redirect code is never rendered.
+This is how my CustomerLoginPage render method looks :
+```
+render() {
+    return (
+     
+        <div class="App-header">
+          <NavLink to="/main">
+            <button id="backButton">Go Back</button>
+          </NavLink>
+          <h4>Login with your customer account</h4>
+          <br />
+          <input id="customerLoginUsername" placeholder=" Username"></input>
+          <input id="customerLoginPassword" type="password" placeholder=" Password"></input>
+          <br />
+          <button id="customerLoginButton" onClick={this.handleSubmit}> 
+            Login
+          </button>
+         
+  
+          <div className="content"></div>
+        </div>
+     
+    );
+  }
+}
+export default withRouter(CustomerLoginPage);
+```
+
+And this is how the handleSubmit() looks like :
+```
+handleSubmit() {
+    
+    let usernameInput = document.getElementById('customerLoginUsername');
+    let passwordInput = document.getElementById('customerLoginPassword');
+  
+    if (usernameInput.value !== 'customer' || passwordInput.value !== 'customer') {
+      // alert("Wrong username or password!");
+    } else {
+      this.props.history.replace('/customerhomepage');
+    }
+  }
+```
+
+What could I be missing here? Thanks!
+
+I managed to fix this issue by changing my CustomerLoginPage from a class component to a function component , and then using useHistory to change the page.
+After reading the suggestions about using my Router as a HOC, I removed it from all the files except for index.js and switched to a BrowserRouter instead of HashRouter.
+This is how CustomerLoginPage looks now :
+```
+function CustomerLoginPage () {
+
+  const history = useHistory();
+
+  const loginButtonClicked = () =>{ 
+    let path = '/customerhomepage'; 
+    history.push(path);
+  }
+
+  const backButtonClicked = () => {
+    let path = '/main'; 
+    history.push(path);
+  }
+
+  const handleSubmit = () => {
+    
+    let usernameInput = document.getElementById('customerLoginUsername');
+    let passwordInput = document.getElementById('customerLoginPassword');
+  
+    if (usernameInput.value !== 'customer' || passwordInput.value !== 'customer') {
+      alert("Wrong username or password!");
+    } else {
+      loginButtonClicked();
+    }
+  }
+  
+    return (
+     
+        <div class="App-header">
+  
+          <button id="backButton" onClick={backButtonClicked}>Go Back</button>
+          <h4>Login with your customer account</h4>
+          <br />
+          <input id="customerLoginUsername" placeholder=" Username"></input>
+          <input id="customerLoginPassword" type="password" placeholder=" Password"></input>
+          <br />
+          <button id="customerLoginButton" onClick={handleSubmit}> 
+            Login
+          </button>
+         
+  
+          <div className="content"></div>
+        </div>
+     
+    );
+  }
+
+export default withRouter(CustomerLoginPage);
+```
+

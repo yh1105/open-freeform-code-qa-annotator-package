@@ -1,0 +1,58 @@
+How to replace environment variable value in yaml file to be parsed using python script
+
+I need to use environment variable "PATH" in yaml file which needs to be parsed with a script.  
+
+This is the environment variable I have set on my terminal:
+
+```
+$ echo $PATH
+/Users/abc/Downloads/tbwork
+```
+
+
+This is my sample.yml:
+
+```
+---
+Top: ${PATH}/my.txt
+Vars:
+- a
+- b
+```
+
+
+When I parse this yaml file with my script, I don't see `PATH` variables actual value. 
+
+This is my script:
+
+```
+import yaml
+import os
+import sys
+
+stream = open("sample.yml", "r")
+docs = yaml.load_all(stream)
+for doc in docs:
+    for k,v in doc.items():
+        print k, "->", v
+    print "\n",
+```
+
+
+Output:
+
+```
+Top -> ${PATH}/my.txt
+Vars -> ['a', 'b']
+```
+
+
+Expected output is:
+
+```
+Top -> /Users/abc/Downloads/tbwork/my.txt
+Vars -> ['a', 'b']
+```
+
+
+Can someone help me figuring out the correct way to do it if I am doing it wrong way?

@@ -1,0 +1,62 @@
+Angular 5 ngHide ngShow [hidden] not working
+
+Good day, guys!
+
+I am trying to make my Angular 5 app hide elements (or show hidden). However, this seems to not work.
+
+I've tried ngHide, ng-hide, ngShow, ng-show, [hidden] methods - none of them works.
+
+My login.component.ts looks like this:
+
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+
+export class LoginComponent implements OnInit {
+  isHidden: boolean = true;
+  input_pw: string = 'password';
+
+  constructor() { }
+
+  ngOnInit() {
+    console.log(this.isHidden); //console shows true
+  }
+
+}
+```
+
+
+And login.component.html:
+
+```
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div>
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw" ngHide="isHidden">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+```
+
+
+Am I doing something wrong here?
+
+NOTE: I did not change or add anything related to css.

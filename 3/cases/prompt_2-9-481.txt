@@ -1,0 +1,8 @@
+Why does Rails fails to boot with "Expected to find a manifest file in `app/assets/config/manifest.js` (Sprockets::Railtie::ManifestNeededError)"?
+
+After `bundle update` my Rails app fails to boot with:
+
+```
+Expected to find a manifest file in `app/assets/config/manifest.js` (Sprockets::Railtie::ManifestNeededError)
+```
+

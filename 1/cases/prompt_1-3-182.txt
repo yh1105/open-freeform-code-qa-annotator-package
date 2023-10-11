@@ -1,0 +1,46 @@
+Put logo and title above/on top of page navigation in sidebar of streamlit multipage app
+
+I am using the new [multipage feature](https://docs.streamlit.io/library/get-started/multipage-apps) and would like to style my multipage app and put a logo with a title on top of/before the page navigation.
+Here's a small example tested on `Python 3.9` with `streamlit==1.11.1` in the following directory structure:
+```
+/Home.py
+/pages/Page_1.py
+/pages/Page_2.py
+```
+
+`Home.py`:
+```
+import streamlit as st
+
+
+st.sidebar.markdown(
+    "My Logo (sidebar) should be on top of the Navigation within the sidebar"
+)
+
+st.markdown("# Home")
+```
+
+`Page_1.py`:
+```
+import streamlit as st
+
+st.markdown("Page 1")
+```
+
+`Page_2.py`:
+```
+import streamlit as st
+
+st.markdown("Page 2")
+```
+
+which I can run using:
+```
+$ streamlit run Home.py
+```
+
+But this leads to the Text printed  and not  the navigation:
+[](https://i.stack.imgur.com/ZUjGl.png)
+Is there any way to do this? Any hints are welcome!
+Best wishes,
+Cord

@@ -1,0 +1,40 @@
+Laravel error when sending custom email address using smtp server
+
+I have a project that has a module that sends email from request. Im using beautymail package for the email template. I can send an email using a gmail account, but there is this email that I get from my client that has a custome email address in it. Like this xx.xxxxx@propnex.sg, they said that the email is a smtp server. So I tried configuring my `.env` and other configuration files in laravel. But I get this error upon sending `Connection could not be established with host mail.propnex.sg :stream_socket_client(): SSL operation failed with code 1. OpenSSL Error messages: error:1408F10B:SSL routines:ssl3_get_record:wrong version number` Could someone tell me why Im getting this error and what should I do to get rid of this? Thanks a lot
+
+.env config
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=mail.propnex.sg
+MAIL_PORT=587
+MAIL_USERNAME=xx.xxxxx@propnex.sg
+MAIL_PASSWORD=xxxxxxxx
+MAIL_ENCRYPTION=ssl
+```
+
+
+Mail.php
+
+```
+'from' => [
+        'address' => 'xx.xxxxx@propnex.sg',
+        'name' => 'Propnex',
+    ],
+
+    'reply_to' => ['address' => 'xx.xxxxx@propnex.sg', 'name' => 'Propnex'],
+
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+
+
+    'username' => env('MAIL_USERNAME'),
+
+    'password' => env('MAIL_PASSWORD'),
+
+    'port' => env('MAIL_PORT', 587),
+
+    'driver' => env('MAIL_DRIVER', 'smtp'),
+
+    'host' => env('MAIL_HOST', 'mail.propnex.sg'),
+```
+

@@ -1,0 +1,8 @@
+Some conflicts were found in the installation area: jbr/bin/java is modified
+
+On Ubuntu, can't update to IntelliJ IDEA 2020.3 because of this conflict. What's going on? How do I resolve it?
+[](https://i.stack.imgur.com/0874E.jpg)
+Image transcript:
+> Some conflicts were found in the installation area.Some of the conflicts below do not have a solution, so the patch cannot be applied.
+Please download this version from developer Web site and reinstall it from scratch.
+Press 'Cancel' to exit.

@@ -1,0 +1,5 @@
+Powershell. edit string make it camelCase and PascalCase
+
+My goal is to know how this kind of text `$var1 = "my-name-is"` convert to camelCase`"myNameIs"`.
+And this type `$var2 = "my_Name_is"` convert to PascalCase`"MyNameIs"`
+Have no idea how to do it

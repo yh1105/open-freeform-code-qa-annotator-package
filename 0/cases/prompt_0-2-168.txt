@@ -1,0 +1,5 @@
+Link with target="_blank" and rel="noopener noreferrer" still vulnerable?
+
+I see people recommending that whenever one uses `target="_blank"` in a link to open it in a different window, they should put `rel="noopener noreferrer"`. I wonder how does this prevent me from using Developer Tools in Chrome, for example, and removing the rel attribute. Then clicking the link...
+
+Is that an easy way to still keep the vulnerability?

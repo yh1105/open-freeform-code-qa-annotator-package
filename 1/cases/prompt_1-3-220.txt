@@ -1,0 +1,3 @@
+Query aws to list all resources using boto3 python sdk
+
+Is there a way to get all the resources in the aws account through python code using boto3. I went through the documentation, didn't find any list function which might solve this.

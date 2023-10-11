@@ -1,0 +1,5 @@
+How can select 1 element from the 8 elements matching my selectors. [Cypress test]
+
+I am trying to verify the heading of a section when running a test, using this locater `[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:first-child`
+I am getting 4 elements I want to select the first one**(Joined)** of the 4 elements
+[](https://i.stack.imgur.com/fH3a9.png)

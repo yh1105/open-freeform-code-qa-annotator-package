@@ -1,0 +1,47 @@
+CSS Scroll Snapping, vertical not working
+
+I used [this article](https://css-tricks.com/practical-css-scroll-snapping/) as a point of reference, in particular [this working snippet](https://codepen.io/maxakohler/pen/KBKNxd), but in my page (the script below) the vertical snap scrolling isn't working. Why?
+```
+.parent {
+  height: 100vh;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+```
+<div class="parent row">
+  <section class="one">
+  </section>
+  <section class="two">
+  </section>
+  <section class="three">
+  </section>
+  <section class="four">
+  </section>
+</div>
+```
+
+

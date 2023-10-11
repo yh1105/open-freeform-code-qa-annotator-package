@@ -1,0 +1,12 @@
+tensorflow: Not creating XLA devices, tf_xla_enable_xla_devices not set
+
+I run drive.py program from [Code Project | A Complete guide to self driving car](https://www.codeproject.com/Articles/1273179/A-Complete-guide-to-self-driving-Car?fbclid=IwAR1L7mOaPTZ7-vwWicXcAS7FLhVLcU9BUgaivhK0P9tbXAGe0zOThAuktMs)
+but when i start program i have error:
+Not creating XLA devices, tf_xla_enable_xla_devices not set
+Does anyone know how I can fix this problem? What should I download or reinstall?
+I use:
+Python 3.8.7
+CUDA 11.0
+tensorflow 2.4.1
+On [http://0.0.0.0:4567/](http://0.0.0.0:4567/) of course I see nothing
+[](https://i.stack.imgur.com/3pXqE.jpg)

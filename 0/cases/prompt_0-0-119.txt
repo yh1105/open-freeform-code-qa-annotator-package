@@ -1,0 +1,115 @@
+Cannot destructure property of object from context
+
+Re-posting a similar question to my last because of a new issue. I'm trying to use context with hooks to manage authentication in my react app. I'm getting the error `TypeError: Cannot destructure property 'isAuthenticated' of 'Object(...)(...)' as it is undefined.`, yet when I `console.log` the property where it's defined, I see `false` not `undefined`.
+
+I have the context definition and provider in `authContext.js`
+
+```
+import React, { useState, useEffect, createContext } from "react";
+import axios from "axios";
+
+const AuthContext = createContext();
+export { AuthContext };
+
+const AuthContextProvider = (props) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const setAuth = (boolean) => {
+    setIsAuthenticated(boolean);
+  };
+
+  const apiOptions = {
+    url: "users/is-verified",
+    method: "GET",
+    headers: {
+      token: localStorage.token,
+    },
+  };
+
+  function isAuth() {
+    axios(apiOptions)
+      .then((response) => {
+        console.log("auth ran");
+        const resData = response.data;
+        resData === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
+  useEffect(() => {
+    isAuth();
+  }, []);
+  console.log(isAuthenticated);
+  return (
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, setAuth }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthContextProvider;
+```
+
+
+Then I have my routes wrapped in the provider in `app.js`
+
+```
+import React from "react";
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+import "./App.css";
+import Register from "./components/pages/register";
+import AuthContextProvider from "./components/context/authContext";
+import RegisterRoutes from "./components/routing/registerRoutes";
+
+function App() {
+
+  return (
+    <AuthContextProvider>
+      <div className="App h-100 ">
+        <Switch>
+          <Route
+            exact
+            path="/register"
+            render={(props) => (
+              <RegisterRoutes {...props} />
+            )}
+          />
+        </Switch>
+      </div>
+    </AuthContextProvider>
+  );
+}
+
+export default App;
+```
+
+
+Then I have a `RegisterRoutes` component that returns one of two pages based on the `isAuthenticated` value
+
+```
+import React, { useContext } from "react";
+import AuthContext from "../context/authContext";
+import { Redirect } from "react-router-dom";
+import Register from "../pages/register";
+
+function RegisterRoutes(props) {
+  const { isAuthenticated, setAuth } = useContext(AuthContext);
+  console.log(isAuthenticated);
+
+  return !isAuthenticated ? (
+    <Register {...props} setAuth={setAuth} />
+  ) : (
+    <Redirect to="/login" />
+  );
+}
+
+export default RegisterRoutes;
+```
+

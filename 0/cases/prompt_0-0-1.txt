@@ -1,0 +1,30 @@
+NextJS deployed to Vercel: 404 page not found
+
+I have a NextJS app without an integrated api that I want to deploy to Vercel. It works fine when I run it locally `yarn run dev` and I can also build it `yarn run build` without any errors. When I deploy it Vercel, however, I receive a `404 Error`.
+Here is my folder structure:
+```
+app/
+  - components
+  - pages
+    - editor
+      - [id].tsx
+    ...tsx
+  - public
+  - utils
+    - db
+      api.ts
+```
+
+I am using NextJs 10.0.3.
+Here is a link to the deployed [app](https://clubhouse-bio-2qgg4rvij.vercel.app).
+I don't have a nextjs config file. My assumption is that the error is caused by the dynamic route but I can't find my mistake. Also, no page is working when the app is deployed as opposed to only the dynamic page.
+Do you have pointers on where to look next?
+EDIT 1:
+[Here](https://github.com/JanRuettinger/ClubhouseBio) is a link to the GitHub repo.
+EDIT 2:
+I found an issue but don't know how to fix it.
+This is how my build output looks like on Vercel:
+[](https://i.stack.imgur.com/Vfw3p.png)
+This is how it's supposed to look like on Vercel:
+[](https://i.stack.imgur.com/HKeVr.png)
+Not sure why the whole `_next` folder is missing.

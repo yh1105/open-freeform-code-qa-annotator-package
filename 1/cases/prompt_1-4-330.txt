@@ -1,0 +1,9 @@
+How to update GitHub authentification token on Rstudio to match the new policy?
+
+While pushing a commit to GitHub yesterday, I received an email from the GitHub team:
+> Basic authentication using a password to Git is deprecated and will soon no longer work. Visit [https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/) for more information around suggested workarounds and removal dates.Thanks,
+The GitHub Team
+I don't understand a word of the help page...
+I did create a more secure access token a few months ago when they first announced the change in authentification, and entered it in the terminal of my mac. I thought that would be it. My question is: 
+Thanks in advance for your help,
+Rosalie

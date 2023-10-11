@@ -1,0 +1,81 @@
+Laravel 6-7 How Can I Override/Change a Vendor Class?
+
+I recently ran into a problem where I need to change one of Laravel's vendor files to get a desired result.
+That file is `vendor/laravel/framework/Illuminate/Routing/CompileRouteCollection.php`.
+
+Inside that file, a function needs to be changed.
+
+```
+protected function requestWithoutTrailingSlash(Request $request)
+{
+    $trimmedRequest = Request::createFromBase($request);
+
+    $parts = explode('?', $request->server->get('REQUEST_URI'), 2);
+
+    $trimmedRequest->server->set(
+        'REQUEST_URI', rtrim($parts[0], '/').(isset($parts[1]) ? '?'.$parts[1] : '')
+    );
+
+    return $trimmedRequest;
+}
+```
+
+
+More specifically, this part: `rtrim($parts[0], '/')`. That / at the end needs to be removed in order for parts of my routes to work.
+
+I have tried creating my own custom class inside: `App\Helpers\CompiledRouteCollection.php`. In which I copy the function listed above and make my own changes.
+
+App\Helpers\CompiledRouteCollection.php
+
+```
+namespace App\Helpers;
+
+use Illuminate\Http\Request;
+
+class CompiledRouteCollection extends \Illuminate\Routing\CompiledRouteCollection
+{
+    protected function requestWithoutTrailingSlash(Request $request)
+    {
+        $trimmedRequest = Request::createFromBase($request);
+
+        $parts = explode('?', $request->server->get('REQUEST_URI'), 2);
+
+        $trimmedRequest->server->set(
+            'REQUEST_URI', rtrim($parts[0], '').(isset($parts[1]) ? '?'.$parts[1] : '')
+        );
+
+        return $trimmedRequest;
+    }
+}
+```
+
+
+Then I go into App\Providers\AppServiceProvider and I run this inside of the register function.
+
+```
+public function register()
+{
+    $loader = AliasLoader::getInstance();
+    $loader->alias('App\Helpers\CompiledRouteCollection', 'Illuminate\Routing\CompiledRouteCollection');
+}
+```
+
+
+But nothing happens.
+
+
+
+I changed my alias to this:
+
+```
+$loader = AliasLoader::getInstance();
+$loader->alias('Illuminate\Routing\CompiledRouteCollection', 'App\Helpers\CompiledRouteCollection');
+```
+
+
+But now in my Helper class it returns this error when trying to access any page:
+`Class 'Illuminate\Routing\CompiledRouteCollection' not found`
+
+To anyone who is interested in helping me out thank you so much. If you need more information please let me know!
+
+If you need more context I opened up an issue on laravel/framework that has the full background explanation [here](https://github.com/laravel/framework/issues/32082)

@@ -1,0 +1,16 @@
+Does C# perform short circuit evaluation of if statements with await?
+
+I believe that C# stops evaluating an if statement condition as soon as it is able to tell the outcome. So for example:
+```
+if ( (1 < 0) && check_something_else() )
+    // this will not be called
+```
+
+Since the condition `(1 < 0)` evaluates as `false`, the `&&` condition cannot be met, and `check_something_else()` will not be called.
+How does C# evaluate an if statement with asynchronous functions? Does it wait for both to return? So for example:
+```
+if( await first_check() && await second_check() )
+    // ???
+```
+
+Will this ever be short-circuited?

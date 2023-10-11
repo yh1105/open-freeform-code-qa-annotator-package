@@ -1,0 +1,46 @@
+How to speed up the agg of pandas groupby bins?
+
+I have created different bins for each column and grouped the DataFrame based on these.
+```
+import pandas as pd
+import numpy as np
+
+np.random.seed(100)
+df = pd.DataFrame(np.random.randn(100, 4), columns=['a', 'b', 'c', 'value'])
+
+# for simplicity, I use the same bin here
+bins = np.arange(-3, 4, 0.05)
+
+df['a_bins'] = pd.cut(df['a'], bins=bins)
+df['b_bins'] = pd.cut(df['b'], bins=bins)
+df['c_bins'] = pd.cut(df['c'], bins=bins)
+```
+
+The output of `df.groupby(['a_bins','b_bins','c_bins']).size()` indicates the group length is 2685619.
+
+## Calculate statistics of each group
+
+
+Then, the statistics of each group are calculated like this:
+```
+%%timeit
+df.groupby(['a_bins','b_bins','c_bins']).agg({'value':['mean']})
+
+>>> 16.9 s ± 637 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+
+## Expected output
+
+
+
+1. Is it possible to speed this up?
+2. The quicker method should also support finding the value by inputs of a, b, and c values, like this:
+
+
+```
+df.groupby(['a_bins','b_bins','c_bins']).agg({'value':['mean']}).loc[(-1.72, 0.32, 1.18)]
+
+>>> -0.252436
+```
+

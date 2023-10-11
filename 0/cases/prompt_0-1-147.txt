@@ -1,0 +1,3 @@
+How to install bootstrap in laravel 8
+
+All of the info I can find online says that you should install bootstrap by running `composer require laravel/ui` and then `php artisan ui boostrap`. However, in Laravel 8, `laravel/ui` is deprecated. Is there a new/better way of installing bootstrap?

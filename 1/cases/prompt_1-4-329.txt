@@ -1,0 +1,43 @@
+Faster way to look for a value in pandas DataFrame?
+
+I'm trying to "translate" some of my R scripts to Python, but I notice, that working with data frames in Python is tremendously slower than doing it in R, e.g. exctracting cells according to some conditions.
+I've done a little investigation, this is how much time it takes to look for a specific value in Python:
+```
+import pandas as pd
+from timeit import default_timer as timer
+
+code = 145896
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+start = timer()
+for _ in range(100000):
+    desired = df.loc[df['code1']==code, 'code2'][0]
+print(timer() - start) # 19.866242500000226 (sec)
+```
+
+and in R:
+```
+code <- 145896
+
+df <- data.frame("code1" = c(145896, 800175, 633974, 774521, 416109),
+           "code2" = c(100, 800, 600, 700, 400),
+           "code3" = c(1, 8, 6, 7, 4))
+
+start <- Sys.time()
+for (i in 1:100000) {
+  desired <- df[df$code1 == code, "code2"]
+}
+print(Sys.time() - start) # Time difference of 1.140949 secs
+```
+
+I'm relatively new to Python, and I'm probably missing something. Is there some way to speed up this process? Maybe the whole idea of transferring this script to Python is pointless? In other operations Python is faster (namely working with strings), and it would be very inconvenient to jump between two or more scripts once working with data frames is required. Any help on this, please?
+
+Real script block iterates over rows of initial data frame (which is fairly large, 500-1500k rows) and creates a new one with rows, containing value from original column "code1" and codes, that correspond it, from another data frame, and many other values, that are newly created. I believe, I can clarify it with the picture:
+[](https://i.stack.imgur.com/89h2R.png)
+Later in the script I will need to search for specific values in loops based on different conditions too. So the speed of search is essential.

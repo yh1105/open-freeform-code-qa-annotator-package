@@ -1,0 +1,21 @@
+Why `downlevelIteration` is not on by default?
+
+When targeting ES5 with usage of spread operator `...` to convert an `Iterator` to an `Array`, it shows the error to use `-downlevelIteration` compiler option. Once it is on, spread operators seem just work flawlessly.
+
+I wonder why is there a need to specify this? Are there any downsides/limitation when it is enabled besides adding more emitted generated code from tslib?
+
+Another example:  (eg. 3):
+
+```
+[...Array(3).keys()]  // output: [0, 1, 2]
+```
+
+
+It displays an error in VS Code:
+[](https://i.stack.imgur.com/cSrYT.png)
+
+Error message from `tsc`:
+
+> Type 'IterableIterator' is not an array type or a string type. Use compiler option '--downlevelIteration' to allow iterating of iterators.
+
+[Edit and view the code and error in TypeScript Playground](https://www.typescriptlang.org/play/#src=%5B...Array(3).keys()%5D)

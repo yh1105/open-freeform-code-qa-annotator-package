@@ -1,0 +1,36 @@
+Pandas GroupBy and select rows with the minimum value in a specific column
+
+I have a DataFrame with columns A, B, and C. For each value of A, I would like to select the row with the minimum value in column B.
+That is, from this:
+```
+df = pd.DataFrame({'A': [1, 1, 1, 2, 2, 2],
+                   'B': [4, 5, 2, 7, 4, 6],
+                   'C': [3, 4, 10, 2, 4, 6]})      
+    A   B   C
+0   1   4   3
+1   1   5   4
+2   1   2   10
+3   2   7   2
+4   2   4   4
+5   2   6   6
+```
+
+I would like to get:
+```
+A   B   C
+0   1   2   10
+1   2   4   4
+```
+
+For the moment I am grouping by column A, then creating a value that indicates to me the rows I will keep:
+```
+a = data.groupby('A').min()
+a['A'] = a.index
+to_keep = [str(x[0]) + str(x[1]) for x in a[['A', 'B']].values]
+data['id'] = data['A'].astype(str) + data['B'].astype('str')
+data[data['id'].isin(to_keep)]
+```
+
+I am sure that there is a much more straightforward way to do this.
+I have seen many answers here that use MultiIndex, which I would prefer to avoid.
+Thank you for your help.

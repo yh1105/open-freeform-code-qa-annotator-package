@@ -1,0 +1,56 @@
+How to get SHAP values for each class on a multiclass classification problem in python
+
+I have the following dataframe:
+```
+import pandas as pd
+import random
+
+import xgboost
+import shap
+
+foo = pd.DataFrame({'id':[1,2,3,4,5,6,7,8,9,10],
+                   'var1':random.sample(range(1, 100), 10),
+                   'var2':random.sample(range(1, 100), 10),
+                   'var3':random.sample(range(1, 100), 10),
+                   'class': ['a','a','a','a','a','b','b','c','c','c']})
+```
+
+For which I want to run a classification algorithm in order to predict the 3 `class`es
+So I split my dataset into train and test and I run an xgboost
+```
+cl_cols = foo.filter(regex='var').columns
+X_train, X_test, y_train, y_test = train_test_split(foo[cl_cols],
+                                                        foo[['class']],
+                                                        test_size=0.33, random_state=42)
+
+
+model = xgboost.XGBClassifier(objective="binary:logistic")
+model.fit(X_train, y_train)
+```
+
+Now I would like to get the mean SHAP values , instead of the mean from the  SHAP values generated from this code:
+```
+shap_values = shap.TreeExplainer(model).shap_values(X_test)
+shap.summary_plot(shap_values, X_test)
+```
+
+[](https://i.stack.imgur.com/DsAik.png)
+Also, the plot labels the `class` as 0,1,2. How can I know to which `class` from the original do the 0,1 & 2 correspond ?
+Because this code:
+```
+shap.summary_plot(shap_values, X_test,
+                 class_names= ['a', 'b', 'c'])
+```
+
+gives
+[](https://i.stack.imgur.com/SR1ju.png)
+and this code:
+```
+shap.summary_plot(shap_values, X_test,
+                 class_names= ['b', 'c', 'a'])
+```
+
+gives
+[](https://i.stack.imgur.com/Z1s0M.png)
+So I am not sure about the legend anymore.
+Any ideas ?

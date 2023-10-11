@@ -1,0 +1,17 @@
+What is the difference between @RequiredArgsConstructor(onConstructor = @__(@Inject)) and @RequiredArgsConstructor?
+
+What is the difference between Lombok's 
+
+```
+@RequiredArgsConstructor
+```
+
+
+and 
+
+```
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
+```
+
+
+I know that `RequiredArgsConstructor` injects all the final dependencies in constructor only.

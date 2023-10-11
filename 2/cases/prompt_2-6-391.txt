@@ -1,0 +1,43 @@
+Should static files be included in a Docker Image?
+
+I have a .NET microservice running as a docker container that is responsible for sending emails to customers. These emails contains additional banner which is a png file.
+Should that file be included in my Docker Image during build process? Is it a good practise at all?
+Is it a better approach to upload the file to an already built container or linked the file stored in different place?
+Dockerfile
+```
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
+
+WORKDIR /app
+
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+
+WORKDIR /src
+
+COPY src/Email.Service/Email.Service.csproj .
+COPY nuget.config .
+
+RUN dotnet restore Email.Service.csproj --configfile nuget.config
+
+COPY src/Email.Service .
+
+RUN dotnet build Email.Service.csproj -c Release -o /app
+
+FROM build AS publish
+
+RUN dotnet publish Email.Service.csproj -c Release -o /app
+
+FROM base AS final
+
+WORKDIR /app
+
+COPY --from=publish /app .
+
+COPY src/Email.Service/Assets Assets
+
+ENTRYPOINT [ "dotnet" ]
+CMD [ "Email.Service.dll" ]
+```
+
+banner.png lives in Assets directory in the project.

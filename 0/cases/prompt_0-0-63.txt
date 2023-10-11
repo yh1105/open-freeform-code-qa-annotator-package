@@ -1,0 +1,47 @@
+How to disable button according to input length by using React useState?
+
+I have a simple page with input fields and a button and I want to make button disabled when both field length is less than 3. It is simple thing but I am confused about the hook because it is going into infinite loop.
+Here is code:
+```
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    var isButtonDisabled = false;
+
+    if (firstName <= 3 || lastName <= 3) {
+        isButtonDisabled = true;
+    }
+    else {
+        isButtonDisabled = false;
+    }
+
+    return (
+
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" defaultValue={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" defaultValue={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+
+        </>
+
+    );
+
+}
+export default TableFooterPanel;
+```
+
+With this code, the boxes only check whether they are empty or filled.
+If I uncomment useState hook and try to set it in if-else condition then this time  is happening and page is crashing.
+How can I check the input length without falling into infinite-loop?

@@ -1,0 +1,111 @@
+How can I instantiate a non-nil pointer of type argument with generic Go?
+
+Now that type parameters are available on `golang/go:master`, I decided to give it a try. It seems that I'm running into a limitation I could not find in the [Type Parameters Proposal](https://go.googlesource.com/proposal/+/refs/heads/master/design/43651-type-parameters.md). (Or I must have missed it).
+I want to write a function which returns a slice of values of a generic type with the constraint of an interface type. If the passed type is an implementation with a pointer receiver, how can we instantiate it?
+```
+type SetGetter[V any] interface {
+    Set(V)
+    Get() V
+}
+
+// SetGetterSlice turns a slice of type V into a slice of type T,
+// with T.Set() called for each entry in values.
+func SetGetterSlice[V any, T SetGetter[V]](values []V) []T {
+    out := make([]T, len(values))
+
+    for i, v := range values {
+        out[i].Set(v) // panic if T has pointer receiver!
+    }
+
+    return out
+}
+```
+
+When calling the above `SetGetterSlice()` function with the `*Count` type as `T`, this code will panic upon calling `Set(v)`. ([Go2go playground](https://go2goplay.golang.org/p/h-xUzVDIy0p)) To no surprise, as basically the code created a slice of `nil` pointers:
+```
+// Count implements SetGetter interface
+type Count struct {
+    x int
+}
+
+func (c *Count) Set(x int) { c.x = x }
+func (c *Count) Get() int  { return c.x }
+
+func main() {
+    ints := []int{1, 2, 3, 4, 5}
+
+    sgs := SetGetterSlice[int, *Count](ints)
+    
+    for _, s := range sgs {
+        fmt.Println(s.Get())
+    }
+}
+```
+
+
+## Variations of the same problem
+
+
+This ideas won't work, and I can't seem to find any simple way to instantiate the pointed value.
+
+1. out[i] = new(T) will result in a compile failure, as it returns a *T where the type checker wants to see T.
+2. Calling *new(T), compiles but will result in the same runtime panic because new(T) returns **Count in this case, where the pointer to Count is still nil.
+3. Changing the return type to a slice of pointer to T will result in a compile failure:
+
+
+```
+func SetGetterSlice[V any, T SetGetter[V]](values []V) []*T {
+    out := make([]*T, len(values))
+
+    for i, v := range values {
+        out[i] = new(T)
+        out[i].Set(v) // panic if T has pointer receiver
+    }
+
+    return out
+}
+
+func main() {
+    ints := []int{1, 2, 3, 4, 5}
+
+    SetGetterSlice[int, Count](ints)
+    // Count does not satisfy SetGetter[V]: wrong method signature
+}
+```
+
+
+## Workaround
+
+
+The only solution I found until now, is to require a [constructor function](https://go2goplay.golang.org/p/-FEF-zpzBqT) to be passed to the generic function. But this just feels wrong and a bit tedious. Why would this be required if `func F(T interface{})() []T` is perfectly valid syntax?
+```
+func SetGetterSlice[V any, T SetGetter[V]](values []V, constructor func() T) []T {
+    out := make([]T, len(values))
+
+    for i, v := range values {
+        out[i] = constructor()
+        out[i].Set(v)
+    }
+
+    return out
+}
+
+// ...
+func main() {
+    ints := []int{1, 2, 3, 4, 5}
+
+    SetGetterSlice[int, *Count](ints, func() *Count { return new(Count) })
+}
+```
+
+
+## Summary
+
+
+My questions, in order of priority:
+
+1. Am I overlooking something obvious?
+2. Is this a limitation of generics in Go and this is as good as it gets?
+3. Is this limitation known or should I raise an issue at the Go project?
+
+

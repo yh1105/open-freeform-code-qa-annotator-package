@@ -1,0 +1,33 @@
+mongo-connect error with mongo-connect(session)
+
+After searching around about it, I can't find any solution or mistake in my `code` about this error. I've got my `app.js` files inside my node JS application with the `mongo-connect` declaration :
+```
+const MongoStore = require('connect-mongo')(session)
+```
+
+And I've got this error :
+> TypeError: Class constructor MongoStore cannot be invoked without
+'new'
+at Object. (/Users/souhailmohamed/project/devops/story website/app.js:11:20)
+at Module._compile (internal/modules/cjs/loader.js:1063:30)
+at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+at Module.load (internal/modules/cjs/loader.js:928:32)
+at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
+at internal/main/run_main_module.js:17:47
+There is my `app.use` code beloww :
+```
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+```
+
+I understand pretty well about the
+```
+const MongoStore = require('connect-mongo')(session)
+```
+
+but I didn't understand the error. But it's from a tutorial from youtube by traversy media [LinK](https://www.youtube.com/watch?v=SBvmnHTQIPY&t=4202s&ab_channel=TraversyMedia)

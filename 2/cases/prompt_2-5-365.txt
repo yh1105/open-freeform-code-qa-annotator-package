@@ -1,0 +1,19 @@
+TypeError: expressJwt is not a function
+
+I'm trying to write middleware for user authorization in my app. I use this function to check if a route requires being sign in.
+The code is as follows:
+```
+const { expressJwt } = require('express-jwt'); 
+
+exports.requireSignin = expressJwt({
+secret: process.env.JWT_SECRET,
+algorithms: ["HS256"],
+userProperty: "auth",});
+```
+
+However, I get the following error:
+```
+TypeError: expressJwt is not a function at Object.<anonymous> (path to the file)\
+```
+
+What could be the problem? None of the other answers seem to be helpful.

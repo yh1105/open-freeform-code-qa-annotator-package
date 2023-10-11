@@ -1,0 +1,22 @@
+module 'six.moves' has no attribute 'collections_abc'
+
+I have a script that connects to YouTube API version 3 and retrieves public data. This script is deployed in airflow, it was working fine for a month, today it failed with this message for the following line:
+```
+def youtube_search(term,region):
+        youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY,cache_discovery=False)
+```
+
+```
+File "/usr/local/airflow/.local/lib/python3.6/site-packages/googleapiclient/discovery.py", line 455, in build_from_document
+    if isinstance(client_options, six.moves.collections_abc.Mapping):
+AttributeError: module 'six.moves' has no attribute 'collections_abc'
+```
+
+I went to check the [455th](https://github.com/googleapis/google-api-python-client/blob/master/googleapiclient/discovery.py) line on `discovery.py`
+```
+if isinstance(client_options, six.moves.collections_abc.Mapping):
+        client_options = google.api_core.client_options.from_dict(client_options)
+```
+
+The `six` [module](https://github.com/benjaminp/six/blob/master/six.py) has not changed for a long time, nor has my script deployed in airflow, which config has not changed either.
+As [Google](https://github.com/googleapis/google-api-python-client/blob/master/googleapiclient/discovery.py) module imports `six`, which has not changed, I can't figure out why would I get this error at random?

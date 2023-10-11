@@ -1,0 +1,5 @@
+How to create a global variable in ASP.NET Core Web API application?
+
+How can I create a global variable in an ASP.NET Core Web API application? In ASP.NET MVC, I could do it like:
+`Application["<variableName>"] = <value>`
+I tried the same in my web API application, but was unable to find an equivalent for this. I saw some solutions which suggested me to store the data `appsettings.json`, but since the data I want to store in the global variable is not static, I cannot use that setup. I need to set different data during runtime. How can I do that? Please help me.

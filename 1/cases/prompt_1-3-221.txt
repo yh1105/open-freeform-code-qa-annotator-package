@@ -1,0 +1,21 @@
+VSCode: The Python path in your debug configuration is invalid
+
+Very new to Python and VSCode (and stackoverflow). I've been using both for about 3 months now just fine, up until recently that is.
+When trying to run any basic Python program in the debugger, the popup `The Python path in your debug configuration is invalid. Source: Python(Extension)` appears and the debugger won't run. I go to my `launch.json` file and sure enough, I have the path to where Python is set up.
+{
+```
+"version": "0.2.0",
+"configurations": [
+    {
+        "name": "Python: Current File",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "python": "${command:python.interpreterPath}"
+    }
+]
+```
+
+}
+Messing with `settings.json` doesn't help anything either because I do have the path to Python set up, but the debugger still won't run. I am at a loss what to do here. I have never gone into my .json files in the past before, nor have I ever had to configure my Python path after installing VSCode for the first time.

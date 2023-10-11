@@ -1,0 +1,126 @@
+How to copy list values to another list in flutter
+
+I am trying to copy values of one list to another,
+I use three buttons 1st one to append a value to mylist, second one to clear the mylist, 3rd button to copy values from mynewlist to mylist.
+i tried this
+```
+List<String> mylist = [
+    'Albania',
+    'Andorra',
+    'Armenia',
+    'Austria',
+    'Azerbaijan',
+    'Belarus',
+    'Belgium',
+    'Albania',
+    'Andorra',
+    'Armenia',
+    'Austria',
+    'Azerbaijan',
+    'Belarus',
+    'Belgium',
+  ];
+
+  List<String> mynewlist = [
+    'Albania',
+    'Andorra',
+    'Armenia',
+    'Austria',
+    'Azerbaijan',
+    'Belarus',
+    'Belgium',
+    'Albania',
+    'Andorra',
+    'Armenia',
+    'Austria',
+    'Azerbaijan',
+    'Belarus',
+    'Belgium',
+  ];
+
+
+
+Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            print('clicked 1st');
+                            print(mylist.length);
+                            print(mynewlist.length);
+                            mylist.add('sdsds');
+                          });
+                        },
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset(
+                                'images/bulb.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                              Text('bulb')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            print('clicked 2nd');
+                            print(mylist.length);
+                            print(mynewlist.length);
+//after i set mylist = mynewlist; when i click this button it clears the old and new list.
+                            mylist.removeRange(0, mylist.length);
+                          });
+                        },
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset(
+                                'images/bulb.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                              Text('bulb')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            print('clicked 3rd');
+                            print(mylist.length);
+                            print(mynewlist.length);
+                         mylist = mynewlist;
+                          });
+                        },
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset(
+                                'images/bulb.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                              Text('bulb')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+```
+
+On the initial time it works perfectly the second time i click the second button it clears the mylist and mynewlist.
+How can i copy the values of second list without clearing the new new list

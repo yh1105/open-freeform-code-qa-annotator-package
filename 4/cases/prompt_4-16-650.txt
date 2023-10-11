@@ -1,0 +1,34 @@
+How to save each line of text file as array through powershell
+
+If I have a text file, C:\USER\Documents\Collections\collection.txt that has the following information:
+
+```
+collectionA.json
+collectionB.json
+collectionC.json
+collectionD.json
+```
+
+
+I am wondering how, through Powershell, I am able to store each line in the text file as elements of an array such as..
+
+```
+array arrayFromFile = new Array;
+foreach(line x in collection.txt)
+{
+    arrayFromFile.Add(x);
+}
+```
+
+
+..with the end goal of doing the following:
+
+```
+foreach(string x in arrayFromFile)
+{
+    newman run x;
+}
+```
+
+
+My apologies for the seemingly easy question - I have never dealt with Powershell before.

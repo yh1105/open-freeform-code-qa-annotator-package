@@ -1,0 +1,80 @@
+Why is numpy native on M1 Max greatly slower than on old Intel i5?
+
+I just got my new MacBook Pro with M1 Max chip and am setting up Python. I've tried several combinational settings to test speed - now I'm quite confused. First put my questions here:
+- - - - 
+Evidence supporting my questions is as follows:
+
+---
+
+
+Here are the settings I've tried:
+
+- [Miniforge-arm64](https://github.com/conda-forge/miniforge)`Kind``Apple`- [Anaconda](https://docs.anaconda.com/anaconda/install/mac-os/)`Kind``Intel`
+
+- `conda install numpy`- 
+```
+conda install -c apple tensorflow-deps
+python -m pip install tensorflow-macos
+python -m pip install tensorflow-metal
+```
+
+
+- - [Apple Silicon version](https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=macM1)
+
+---
+
+
+Here is the test code:
+```
+import time
+import numpy as np
+np.random.seed(42)
+a = np.random.uniform(size=(300, 300))
+runtimes = 10
+
+timecosts = []
+for _ in range(runtimes):
+    s_time = time.time()
+    for i in range(100):
+        a += 1
+        np.linalg.svd(a)
+    timecosts.append(time.time() - s_time)
+
+print(f'mean of {runtimes} runs: {np.mean(timecosts):.5f}s')
+```
+
+and here are the results:
+```
++-----------------------------------+-----------------------+--------------------+
+|   Python installed by (run on)→   | Miniforge (native M1) | Anaconda (Rosseta) |
++----------------------+------------+------------+----------+----------+---------+
+| Numpy installed by ↓ | Run from → |  Terminal  |  PyCharm | Terminal | PyCharm |
++----------------------+------------+------------+----------+----------+---------+
+|          Apple Tensorflow         |   4.19151  |  4.86248 |     /    |    /    |
++-----------------------------------+------------+----------+----------+---------+
+|        conda install numpy        |   4.29386  |  4.98370 |  4.10029 | 4.99271 |
++-----------------------------------+------------+----------+----------+---------+
+```
+
+This is quite slow. For comparison,
+- `2.39917s`- [post (but not in English)](https://www.zhihu.com/question/431073191/answer/1657202944)`2.53214s``1.00613s`- 
+Here is the CPU information details:
+- 
+```
+$ sysctl -a | grep -e brand_string -e cpu.core_count
+machdep.cpu.brand_string: Intel(R) Core(TM) i5-6360U CPU @ 2.00GHz
+machdep.cpu.core_count: 2
+```
+
+- 
+```
+% sysctl -a | grep -e brand_string -e cpu.core_count
+machdep.cpu.brand_string: Apple M1 Max
+machdep.cpu.core_count: 10
+```
+
+
+---
+
+
+I follow instructions strictly from tutorials - but why would all these happen? Is it because of my installation flaws, or because of M1 Max chip? Since my work relies heavily on local runs, local speed is very important to me. Any suggestions to possible solution, or any data points on your own device would be greatly appreciated :)

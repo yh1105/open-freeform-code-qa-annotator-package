@@ -1,0 +1,64 @@
+Compare two dataframes Pyspark
+
+I'm trying to compare two data frames with have same number of columns i.e. 4 columns with id as key column in both data frames
+
+```
+df1 = spark.read.csv("/path/to/data1.csv")
+df2 = spark.read.csv("/path/to/data2.csv")
+```
+
+
+Now I want to append new column to DF2 i.e. column_names which is the list of the columns with different values than df1
+
+```
+df2.withColumn("column_names",udf())
+```
+
+
+
+
+```
++------+---------+--------+------+
+|   id | |name  | sal  | Address |
++------+---------+--------+------+
+|     1|  ABC   | 5000 | US      |
+|     2|  DEF   | 4000 | UK      |
+|     3|  GHI   | 3000 | JPN     |
+|     4|  JKL   | 4500 | CHN     |
++------+---------+--------+------+
+```
+
+
+
+
+```
++------+---------+--------+------+
+|   id | |name  | sal  | Address |
++------+---------+--------+------+
+|     1|  ABC   | 5000 | US      |
+|     2|  DEF   | 4000 | CAN     |
+|     3|  GHI   | 3500 | JPN     |
+|     4|  JKL_M | 4800 | CHN     |
++------+---------+--------+------+
+```
+
+
+Now I want DF3
+
+
+
+```
++------+---------+--------+------+--------------+
+|   id | |name  | sal  | Address | column_names |
++------+---------+--------+------+--------------+
+|     1|  ABC   | 5000 | US      |  []          |
+|     2|  DEF   | 4000 | CAN     |  [address]   |
+|     3|  GHI   | 3500 | JPN     |  [sal]       |
+|     4|  JKL_M | 4800 | CHN     |  [name,sal]  |
++------+---------+--------+------+--------------+
+```
+
+
+I saw this SO question, [How to compare two dataframe and print columns that are different in scala](https://stackoverflow.com/questions/44338412/how-to-compare-two-dataframe-and-print-columns-that-are-different-in-scala). Tried that, however the result is different.
+
+I'm thinking of going with a UDF function by passing row from each dataframe to udf and compare column by column and return column list. However for that both the data frames should be in sorted order so that same id rows will be sent to udf. Sorting is costly operation here. Any solution?

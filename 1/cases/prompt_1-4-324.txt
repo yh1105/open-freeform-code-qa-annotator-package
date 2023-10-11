@@ -1,0 +1,14 @@
+How to split a comma and colon separated column into respective columns in R?
+
+Say for example I have a column that looks something like:
+```
+name:Michael,Age:31,City:NYC
+```
+
+How could I split this column into separate columns such that it would yield a result similar as a data frame to:
+```
+name   | Age | City
+1 Michael | 31  | NYC
+```
+
+I've attempted to use mtabulate from the qdapTools package but it only resulted with boolean value columns.

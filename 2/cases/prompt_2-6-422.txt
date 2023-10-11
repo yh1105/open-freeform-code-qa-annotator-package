@@ -1,0 +1,154 @@
+EF-Core: Table "name" already exists - when trying to update database
+
+ASP Core 3.1 - API. I'm using the latest version of Entity Framework Core.
+I have created a table `ToDoItem` and a `ToDoItemContext`. After creating the initial migration, and running `update-database`. I now have that table in my database. I now added a new model called: `ToDoItemDescription`.
+When I try to update the database after creating a new migration, I get the error:
+> Table 'todoitems' already exists
+Further details: I have two contexts, and this is the command I ran:
+```
+update-database -context todoitemscontext
+```
+
+I also tried:
+```
+update-database -context todoitemscontext -migration AddDescription
+```
+
+Here is my full code:
+Models:
+```
+public class TodoItem : IEntity 
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    bool IsComplete { get; set; }
+}
+
+public class ToDoItemDescription 
+{
+    public int id { get; set; }
+    public string Description { get; set; }
+    //public int ToDoItemId { get; set; }
+    public TodoItem TodoItem { get; set; }
+}
+```
+
+Context:
+```
+public class TodoItemsContext : DbContext 
+{
+   public TodoItemsContext(DbContextOptions<TodoItemsContext> options) : base(options) { }
+
+   public DbSet<TodoItem> TodoItems { get; set; }
+   public DbSet<ToDoItemDescription> TodoItemsDescription { get; set; }
+}
+```
+
+Migrations:
+```
+[DbContext(typeof(TodoItemsContext))]
+partial class TodoItemsContextModelSnapshot : ModelSnapshot 
+{
+    protected override void BuildModel(ModelBuilder modelBuilder) {
+    #pragma warning disable 612, 618
+    modelBuilder
+        .HasAnnotation("ProductVersion", "3.1.9")
+        .HasAnnotation("Relational:MaxIdentifierLength", 64);
+    modelBuilder.Entity("project.Models.ToDoItemDescription", b => {
+        b.Property<int>("id")
+        .ValueGeneratedOnAdd()
+        .HasColumnType("int");
+        b.Property<string>("Description")
+        .HasColumnType("longtext CHARACTER SET utf8mb4");
+        b.Property<long?>("TodoItemId")
+        .HasColumnType("bigint");
+        b.HasKey("id");
+        b.HasIndex("TodoItemId");
+        b.ToTable("TodoItemsDescription");
+    });
+
+    modelBuilder.Entity("project.Models.TodoItem", b => {
+        b.Property<long>("Id")
+        .ValueGeneratedOnAdd()
+        .HasColumnType("bigint");
+        b.Property<bool>("IsComplete")
+        .HasColumnType("tinyint(1)");
+        b.Property<string>("Name")
+        .HasColumnType("longtext CHARACTER SET utf8mb4");
+        b.HasKey("Id");
+        b.ToTable("TodoItems");
+    });
+    modelBuilder.Entity("project.Models.ToDoItemDescription", b =>
+    {
+    b.HasOne("project.Models.TodoItem", "TodoItem")
+        .WithMany()
+        .HasForeignKey("TodoItemId");
+    });
+#pragma warning restore 612, 618
+}
+
+public partial class TodoItems_Initial : Migration
+{
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "TodoItems",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsComplete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TodoItems", x => x.Id);
+                });
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "TodoItems");
+        }
+    }
+
+public partial class AddDescription : Migration
+{
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "TodoItemsDescription",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    TodoItemId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TodoItemsDescription", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TodoItemsDescription_TodoItems_TodoItemId",
+                        column: x => x.TodoItemId,
+                        principalTable: "TodoItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TodoItemsDescription_TodoItemId",
+                table: "TodoItemsDescription",
+                column: "TodoItemId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "TodoItemsDescription");
+        }
+}
+```
+
+Thank you.

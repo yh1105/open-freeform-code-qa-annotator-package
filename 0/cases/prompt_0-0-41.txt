@@ -1,0 +1,24 @@
+Angular geolocation
+
+I'm stuck at `geolocation`. Actually it working fine but some problem appear when I using `If else`. When User click allow location it working but the problem appear when user click not allow, it not insert in `else`. This [DEMO](https://stackblitz.com/edit/angular-geolocation-blitz-yvyeyv) as reference.
+
+
+
+```
+ngOnInit() {
+       this.getUserLocation();
+    }
+
+    getUserLocation() {
+       if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            this.lat = position.coords.latitude;
+            this.lng = position.coords.longitude;
+          });
+    }else {
+       console.log("User not allow")
+
+    }
+}
+```
+

@@ -1,0 +1,5 @@
+The generate command requires to be run in an Angular project, but a project definition could not be found
+
+at the time I'm going to create component using ng g component command I facing with this error what I need to do to solve this.
+
+"The generate command requires to be run in an Angular project, but a project definition could not be found."

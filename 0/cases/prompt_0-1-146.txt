@@ -1,0 +1,14 @@
+How to test element's width in cypress when the calculated width isn't accurate?
+
+Let's say I have a `div` in the DOM with `'200px'` of width and a `class` of `'target'`.
+In order to test its width with cypress, I should write the code below:
+```
+cy.get('.target').should('have.css', 'width', '200px');
+```
+
+and there's a bunch of tests, testing widths and heights of elements...
+...
+Today something weird happened!
+All these tests have failed because the value of `width` that cypress found was `200.0000000000032038879956012px` instead of `200px` !!!
+The first solution that came into my mind was to test them on the actual numbers (ex, `200`), instead of the string (ex, `'200px'`) that the cypress found; which I think is an expensive idea!
+

@@ -1,0 +1,15 @@
+Opposite of nullish coalescing operator
+
+Nullish coalescing operator allows assigning a variable if it's not `null` or `undefined`, or an expression otherwise.
+```
+a = b ?? other
+```
+
+It is an improvement over previously used `||` because `||` will also assign other if `b` is empty string or other falsy, but not nullish value.
+However, sometimes, we also use `&&` for value assignment, for example
+```
+a = b && func(b)
+```
+
+where we only want to do `func` on `b` if it's not nullish, otherwise assign the nullish `b`.
+Of course, `&&` checks for falsiness, not nullishness. Is there a nullish version of `&&`?

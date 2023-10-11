@@ -1,0 +1,11 @@
+convert int to ascii - more than one character in rune literal
+
+How do I convert into to its ASCII?
+In java it's `System.out.println((char)(49)); //gives 1`
+I tried
+```
+a := '42'
+fmt.Println(rune(a))
+```
+
+I get `more than one character in rune literal`

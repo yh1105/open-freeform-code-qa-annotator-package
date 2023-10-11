@@ -1,0 +1,16 @@
+How to access all the direct children of a div in tailwindcss?
+
+I have this html:
+```
+<div class="section">
+   <div class="header">header</div>
+   <div class="content">
+      <div>sub contents 1</div>              
+      <div>sub contents 2</div>
+   </div>
+</div>
+```
+
+I want to access the direct children of div with class "section" which would be divs with class: "header" and "content".
+I know with css we can do: `div.section > div`
+But how to do this using ?

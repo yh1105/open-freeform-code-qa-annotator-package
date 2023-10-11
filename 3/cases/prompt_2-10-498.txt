@@ -1,0 +1,8 @@
+How to raise a number to a power?
+
+I was trying to raise an integer to a power using the caret operator (`^`), but I am getting surprising results, e.g.:
+```
+assert_eq!(2^10, 8);
+```
+
+How can I perform exponentiation in Rust?

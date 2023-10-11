@@ -1,0 +1,12 @@
+React check if element is visible on viewport
+
+I am trying to identify on scroll if the div is visible on viewport. I am shring the code below:
+```
+<div id="parent">
+     data.map(item => {
+             <div id={item.id}>data.title</div>
+         }
+ <div>
+```
+
+Now I want to get the list of divs inside of #parent which are visible on viewport on scroll.

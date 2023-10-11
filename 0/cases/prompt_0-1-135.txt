@@ -1,0 +1,36 @@
+Image stretching in flexbox in Safari
+
+This is only an issue in Safari and looks like a Safari bug to me. Here is a [fiddle](https://jsfiddle.net/0scrgd9j/) with a simplified version of the issue.
+
+When an image is in a nested flexbox element with a width set and `height: auto` it is being stretched... the auto height is not working. Does something extra need to be added for this to work in Safari?
+
+```
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container section:first-child {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.container img {
+  width: 125px;
+  height: auto;
+}
+```
+```
+<div class="container">
+  <section>
+    <img src="https://via.placeholder.com/250">
+  </section>
+  <section>
+    <img src="https://via.placeholder.com/150">
+  </section>
+</div>
+```
+
+
+
+I expect the height of the image to automatically be adjusted to maintain aspect ratio. This works in all browsers except Safari. In Safari the image is stretched and the auto height does not work.

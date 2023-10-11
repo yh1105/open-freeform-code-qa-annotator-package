@@ -1,0 +1,21 @@
+Why is a doubly-linked-list used in a music player with “next” and “previous” buttons while using list is simpler?
+
+I am learning about linked lists on Codecademy and there is an instruction saying that
+> Before moving on, take a moment to think about doubly-linked lists.
+What do you think are some possible real-life uses?
+with some uses
+- - - 
+
+---
+
+
+Would it be simpler to use a list?
+What are the benefits of using a linked list to perform these tasks?
+For instance, using a list for a music player next and previous buttons
+```
+counter = 0
+playlist = ['song', 'song2', 'song3', 'song4']
+current_song = playlist[counter]
+next_song = playlist[min(counter+1, len(playlist)-1]
+```
+

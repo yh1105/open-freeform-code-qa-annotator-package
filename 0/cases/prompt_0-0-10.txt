@@ -1,0 +1,45 @@
+How to get div 'text' value in Cypress test using jquery
+
+Using Jquery in Cypress.io test, how to get the div 'text' value called 'Wildness' from the below html tag. I have tried below in my Cypress test, but it is throwing undefined in console. 
+
+```
+const $divText = Cypress.$('.ibxudA .WildnessText-kRKTej').text()
+         cy.wrap($divText)
+           .should("eq", "Wildness")
+```
+
+
+```
+<div class="sc-bMvGRv_onetwo">
+<div>
+<div class="abLeftSection">
+<div class="abNewBtn-fTLJBK">
+<button class="ifAKCX ohpWT" type="button">New</button>
+</div>
+<div class="kpLvEV" style="">
+<div class="cWzXYZ">
+<div class="OgGUG">
+<div class="jsnnAD">
+<svg class="dFvKsA"></svg>
+</div>
+</div>
+<div class="ibxudA">First</div>
+</div>
+<div class="kpLvEV" style="">
+<div class="bGADLM"><div class="OgGUG">
+<div class="jsnnAD">
+<svg class="dFvKsA"></svg>
+</div>
+</div>
+<div class="ibxudA">
+<div class="WildnessText-kRKTej" title="Wildness">Wildness</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+```
+
+

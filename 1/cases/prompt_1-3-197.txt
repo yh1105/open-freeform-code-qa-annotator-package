@@ -1,0 +1,24 @@
+how to fill a Pandas dataframe column with a list containing string values
+
+I have a dataframe with 142 rows.
+I have created a new column. I want to fill this new column with a list containing strings.
+
+```
+my_list = ['abc','def','hig']
+df['names'] = df['names'].fill(my_list) #pseudo code
+```
+
+
+I want to fill all the 142 rows in 'names' column with string values in the list in the same order. 
+
+```
+The output should be as:   
+
+     names
+   1 abc
+   2 def
+   3 hig
+   4 abc
+   5 def
+```
+

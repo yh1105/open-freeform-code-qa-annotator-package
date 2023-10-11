@@ -1,0 +1,16 @@
+How to add a new pair to Map in Dart?
+
+I caught the following errors when adding a new pair to a Map.
+- `Variables must be declared using the keywords const, final, var, or a type name`- `Expected to find;`- `the name someMap is already defined`
+I executed the following code.
+```
+Map<String, int> someMap = {
+  "a": 1,
+  "b": 2,
+};
+
+someMap["c"] = 3;
+```
+
+How should I add a new pair to the Map?
+I'd also like to know how to use `Map.update`.

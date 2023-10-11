@@ -1,0 +1,13 @@
+How to check if a value is not null and not empty string in JS
+
+Is there any check if a value is not null and not empty string in Javascript? I'm using the following one:
+
+```
+var data; //get its value from db 
+if(data != null && data != '') {
+   // do something
+}
+```
+
+
+But I'm wondering if there is another better solution. Thanks.

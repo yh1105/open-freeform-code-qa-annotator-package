@@ -1,0 +1,13 @@
+Java trim() : Cleanest way to check null string before trimming?
+
+I use `trim()` method in order to trim leading and trailing whitespaces in some of the string field.
+```
+siteRequest.getName().trim();
+```
+
+However, when string field is null, it throws exception as expected. I can check the values before trimming as shown below:
+```
+siteRequest.getName() ? siteRequest.getName() : siteRequest.getName().trim();
+```
+
+However, if it is possible I would prefer a cleaner way so that several people had already faced this problem. Any suggestion with a smarter approach?

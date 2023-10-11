@@ -1,0 +1,15 @@
+Vue 3 ::v-deep usage as a combinator has been deprecated. Use ::v-deep(<inner-selector>) instead
+
+I started getting the following warning in Vue 3 with the `::v-deep` usage.
+```
+::v-deep usage as a combinator has been deprecated. Use ::v-deep(<inner-selector>) instead
+```
+
+The CSS looks like as follows:
+```
+.parent ::v-deep .child {
+   ...
+}
+```
+
+What's the correct way to use suggested option `::v-deep(<inner-selector>)`?

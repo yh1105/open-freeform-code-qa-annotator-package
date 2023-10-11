@@ -1,0 +1,4 @@
+Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/node-sass/build'
+
+I am trying to run an Angular application. I execute the [ng serve](https://angular.io/cli/serve) command, but it then shows:
+> Error: Cannot find module 'node-sass'

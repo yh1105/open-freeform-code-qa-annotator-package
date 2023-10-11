@@ -1,0 +1,43 @@
+Find object from an array of nested objects by key in JavaScript
+
+I have a JSON nested object tree like this.
+How can I get the specified object by passing an ID value to a function. (ID is a key in all nested objects)
+I tried with recursion & JSON.stringify().findObject() but somehow they are not working.
+```
+{
+    "id": "A",
+    "name": "Item A",
+    "child": [
+        {
+            "id": "B",
+            "name": "Item B",
+            "child": [
+                {
+                    "id": "C",
+                    "name": "Item C"
+                    "child": []
+                }
+            ]
+        },
+        {
+            "id": "D",
+            "name": "Item D",
+            "child": []
+        }
+    ]
+}
+
+
+//Calling like this
+var result = findObject("C");
+```
+
+Then `console.log(result);` Should be
+```
+{
+  "id": "C",
+  "name": "Item C"
+  "child": []
+}
+```
+

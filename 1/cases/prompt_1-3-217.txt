@@ -1,0 +1,3 @@
+How can I add an element to a PyTorch tensor along a certain dimension?
+
+I have a tensor `inps`, which has a size of `[64, 161, 1]` and I have some new data `d` which has a size of `[64, 161]`. How can I add `d` to `inps` such that the new size is `[64, 161, 2]`?

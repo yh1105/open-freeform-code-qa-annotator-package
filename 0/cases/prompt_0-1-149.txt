@@ -1,0 +1,8 @@
+Tailwind underline hover animation
+
+I've spent a day figuring out how to make an animation after hovering over the link by using Tailwind-CSS.
+Here is the animation I want mine link looks like the video.
+[Sample from Youtube](https://www.youtube.com/watch?v=aswRKAjjWuE)
+I have tried using `:after`, but it didn't work out.
+Here is my link component => [https://codepen.io/qqharry21/pen/xxPwqjQ](https://codepen.io/qqharry21/pen/xxPwqjQ)
+I Hope can learn how to fix it, and make it works like the video by Tailwind-CSS, thanks!

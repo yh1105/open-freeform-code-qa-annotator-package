@@ -1,0 +1,14 @@
+Will PIP work for python 2.7 after its End of Life on 1st Jan 2020
+
+Python 2.7 is reaching its end of life on 1st Jan, 2020 as mentioned by 
+
+[https://legacy.python.org/dev/peps/pep-0373/](https://legacy.python.org/dev/peps/pep-0373/)
+
+[https://pythonclock.org/](https://pythonclock.org/)
+
+Will current `pip` keep on working for python 2.7 after that date? It is already showing the msg for deprecation of python 2.7. Will we be able to run
+`pip install abc==1.2.3` after that date?
+
+We do understand that after EOL, no new fixes/support will be done for 2.7, so that is not the concern here. 
+
+The question stems from the desire to keep running on python 2.7 even after EOL.

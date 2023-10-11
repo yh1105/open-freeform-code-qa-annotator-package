@@ -1,0 +1,18 @@
+Send PathVariable @PostMapping in postman
+
+I want send path variable in post mapping, in postman software.I select post mapping body and then how to do? I checked with [@RequestParam vs @PathVariable](https://stackoverflow.com/questions/13715811/requestparam-vs-pathvariable) example,all answers for get method, But I need answer for post method.
+
+```
+@RestController
+@RequestMapping("api/v1/customers") 
+public class CustomerController {
+
+@PostMapping("/{code}")
+    public String postRequest(@PathVariable String code,@RequestBody CustomerDTO dto){
+         System.out.println(dto);
+         System.out.println(code);
+         return "Something";
+    }
+}
+```
+

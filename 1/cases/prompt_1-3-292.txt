@@ -1,0 +1,4 @@
+Extract part of a image using openCV
+
+I'm new to image processing. I wonder if there is any way to extract the star logo from the image?
+[](https://i.stack.imgur.com/x8Nbb.png)

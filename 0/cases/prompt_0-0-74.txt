@@ -1,0 +1,37 @@
+How to get previous URL in Next.js?
+
+How can I get the previous URL in Next.js?
+I thought the values `this.props.router.asPath` and `nextProps.router.asPath` are different.
+Actually, I want to call `router.push` after login. I know that `router.back` goes to the previous page. But it's possible to go to another site. The users having history stacks go to the previous page, the users not having history stacks go to `/` main page.
+```
+import { Component } from 'react'
+import App, { Container } from 'next/app';
+import ErrorComponent from '@/components/error'
+
+export default class MyApp extends App {
+  render() {
+    console.log(this.props)
+    const { Component, pageProps, router } = this.props;
+    const props = {
+      ...pageProps,
+      router
+    }
+    return (
+      <ErrorBoundary>
+        <Container>
+          <Component {...props} />
+        </Container>
+      </ErrorBoundary>
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // previous page url /contents
+    console.log(this.props.router.asPath) // /about
+    console.log(nextProps.router.asPath) // /about
+    console.log('window.history.previous.href', window.history.previous) // undefined
+  }
+}
+```
+
+How can I fix it? Or how can I get the previous URL to move page after login?

@@ -1,0 +1,52 @@
+Check if all required fields are filled in a specific div
+
+I have some form fields that are dynamically generated form the database. There are inputs, checkboxes, radio buttons, textarea's, and select's. All the fields are in a parent div with ID `dynamic-form-fields`. Some fields have a `required` attribute.
+
+This is a multi-step form so each "step/page" needs to be validated before going on to the next step. So it's not submitting the form.
+
+How can I check if all the required fields in div `dynamic-form-fields` are filled?
+
+Here's something what my HTML code looks like:
+
+```
+<input type="text" name="dff[]" placeholder="Name" required>
+<input type="text" name="dff[]" placeholder="Date of Birth">
+<input type="text" name="dff[]" placeholder="Email" required>
+<input type="radio" name="gender" value="Male" required>
+<input type="radio" name="gender" value="Female" required>
+<select name="pet">
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+    <option value="bird">Bird</option>
+</select>
+
+<button id="check">Check</button>
+
+<script>
+    document.getElementById("check").onclick = function () {
+        if() {
+            alert('error please fill all fields!');
+        }
+    };
+</script>
+```
+
+
+As you see, some fields are required and some are not. It is different every time so the solution has to be dynamic. There are also different types of input's such as select, radio, checkbox, text, etc... How can I make sure every "" field inside the div ID `dynamic-form-fields` is filled?
+
+
+---
+
+
+
+
+
+Maybe something like this but how do I get every type of input (text, radio, checkbox, select, etc...) under the div ID `dynamic-form-fields`?
+
+```
+$('#dynamic-form-fields input:required').each(function() {
+  if ($(this).val() === '')
+      alert('error please fill all fields!');
+});
+```
+

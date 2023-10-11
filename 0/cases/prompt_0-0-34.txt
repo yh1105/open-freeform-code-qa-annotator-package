@@ -1,0 +1,120 @@
+Error: Schema validation failed with the following errors: Data path "" should NOT have additional properties(project)
+
+After migrating application from angular 5 to 6, on running ng serve the following errors pop up.
+
+> Schema validation failed with the following errors:
+    Data path "" should NOT have additional properties(project).
+  Error: Schema validation failed with the following errors:
+    Data path "" should NOT have additional properties(project).
+      at MergeMapSubscriber._registry.compile.pipe.operators_1.concatMap.validatorResult [as project] (.../TemplateApp/me-cmf-web-template-angular/node_modules/@angular-devkit/core/src/workspace/workspace.js:210:42)
+      at MergeMapSubscriber._tryNext (/.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/operators/mergeMap.js:65:27)
+      at MergeMapSubscriber._next (.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/operators/mergeMap.js:55:18)
+      at MergeMapSubscriber.Subscriber.next (/home/training/Attinad_Projects/TemplateApp/me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/Subscriber.js:64:18)
+      at MergeMapSubscriber.notifyNext (.../TemplateApp/me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/operators/mergeMap.js:84:26)
+      at InnerSubscriber._next (.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/InnerSubscriber.js:25:21)
+      at InnerSubscriber.Subscriber.next (/.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/Subscriber.js:64:18)
+      at MapSubscriber._next (.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/operators/map.js:52:26)
+      at MapSubscriber.Subscriber.next (/.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/Subscriber.js:64:18)
+      at SwitchMapSubscriber.notifyNext (.../me-cmf-web-template-angular/node_modules/@angular-devkit/core/node_modules/rxjs/internal/operators/switchMap.js:77:26)
+
+I assume that the error is with .angular.json file which I re-named from .angular-cli.json . 
+
+My .angular.json file is as follows : 
+
+```
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "mediaweb"
+    },
+    "apps": [{
+            "root": "src",
+            "outDir": "dist/browser",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.ts",
+            "polyfills": "polyfills.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss",
+                "../node_modules/owl.carousel/dist/assets/owl.carousel.css",
+                "../node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+                "../node_modules/video.js/dist/video-js.css"
+            ],
+            "scripts": [
+                "../node_modules/jquery/dist/jquery.js",
+                "../node_modules/owl.carousel/dist/owl.carousel.js",
+                "../node_modules/video.js/dist/ie8/videojs-ie8.js",
+                "../node_modules/video.js/dist/video.js"
+            ],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        },
+        {
+            "platform": "server",
+            "root": "src",
+            "outDir": "dist/server",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.server.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.server.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        }
+    ],
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
+    },
+    "lint": [{
+            "project": "src/tsconfig.app.json",
+            "exclude": ["**/node_modules/**", "**/UI/**"]
+        },
+        {
+            "project": "src/tsconfig.spec.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "defaults": {
+        "styleExt": "scss",
+        "component": {}
+    }
+}
+```
+
+
+Should I re-structure the json file, if so how?.
+
+Any help would be great.

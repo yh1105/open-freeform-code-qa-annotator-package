@@ -1,0 +1,21 @@
+How can I plot a simple plot with seaborn from a python dictionary?
+
+I have a dictionary like this:
+
+```
+my_dict = {'Southampton': '33.7%', 'Cherbourg': '55.36%', 'Queenstown': '38.96%'}
+```
+
+
+How can I have a simple plot with 3 bars showing the values of each key in a dictionary?
+
+I've tried:
+
+```
+sns.barplot(x=my_dict.keys(), y = int(my_dict.values()))
+```
+
+
+But I get :
+
+> TypeError: int() argument must be a string, a bytes-like object or a number, not 'dict_values'

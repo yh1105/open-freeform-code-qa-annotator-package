@@ -1,0 +1,24 @@
+bash - get a list of environment variables with proper handling of new lines
+
+```
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ env
+...
+MYVAR=something
+MYVAR=10
+...
+```
+
+The code above shows the problem.
+If you try to read this using simplified version (and lots of people do it this way) you would will get wrong values. This explains it:
+```
+$ env | while IFS== read var value; do
+    [ "$var" == "MYVAR" ] && echo $value
+done
+someting
+10
+```
+
+After long investigation I am wondering if `bash` or `sh` is is simply not capable of handling this case.
+If I could get just a list of variables without the values I could have it solved but looks like without an external task (python, for example) I can't do it...
+: How, in shell, I can get a list of environment variables with their values that would work with the example above?

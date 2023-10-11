@@ -1,0 +1,107 @@
+ESLint: Component definition is missing displayName (react/display-name)
+
+I'm using a react hook component with antd. When setting up columns for a table, the render function is giving me an ESLint error:
+> ESLint: Component definition is missing displayName
+(react/display-name)
+I've tried adding displayName to the object but this doesn't work.
+This is how the error looks:
+[](https://i.stack.imgur.com/dffZS.png)
+This is the code:
+```
+const columns_payment_summary_table = [ 
+    {
+      title: FooConstants.LABEL_QUANTITY_SELECTED,
+      dataIndex: 'group',
+      key: 'group',
+      render: text => (
+        <span>{getCountForCountry(text)}</span>
+      ),
+    }
+  ]
+```
+
+Can anyone help?
+Here is full component code (well just the relevant bits)
+```
+import * as FooConstants from './constants'
+import {connect} from 'react-redux'
+import React, {useState, useEffect} from 'react'
+import {Card, Table} from 'antd'
+import PropTypes from 'prop-types'
+
+const propTypes = {
+  foos: PropTypes.object.isRequired,
+}
+
+function Foos(props) {
+
+  const [selectedFooRows, setSelectedFooRows] = useState([])
+
+  useEffect(() => {
+    getFooDetails()
+  }, [])
+
+  function getFooDetails() {
+    props.dispatch({
+      type: FooConstants.GET_FOO_PAYMENT_SUMMARIES,
+      params: {
+        'group_by': 'country_code',
+        'type': FooConstants.CLAIM_FOO,
+      }
+    })
+    props.dispatch({
+      type: FooConstants.GET_FOO_PAYMENTS,
+      params: {'type': FooConstants.CLAIM_FOO, }
+    })
+  }
+
+  const columns_payment_summary_table = [
+    {
+      title: FooConstants.LABEL_QUANTITY_SELECTED,
+      dataIndex: 'group',
+      key: 'group',
+      render: text => (
+        <span>{getCountForCountry(text)}</span>
+      ),
+    }
+  ]
+
+  function getCountForCountry(country_code){
+    let selected_country = selectedFooRows.filter(function(row){
+      return row.group === country_code
+    })
+
+    if(selected_country && selected_country.length > 0){
+      return selected_country[0].ids.length
+    } else {
+      return 0
+    }
+  }
+
+  return (
+    <div>
+      <Card
+        title={FooConstants.LABEL_FOO_SUMMARY}>
+        <Table
+          columns={columns_payment_summary_table}
+          bordered={true}
+          dataSource={props.foos.foo_payment_summaries}
+          loading={props.foos.foo_payment_summaries_pending && !props.foos.foo_payment_summaries}
+          rowKey={record => record.group}
+        />
+      </Card>
+    </div>
+  )
+}
+
+Foos.propTypes = propTypes
+
+const mapStateToProps = (state) => {
+  return {foos: state.foosReducer}
+}
+
+export default connect(
+  mapStateToProps,
+)(Foos)
+```
+

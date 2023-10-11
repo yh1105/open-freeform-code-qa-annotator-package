@@ -1,0 +1,10 @@
+AWS Lambda - Runtime.ImportModuleError: Error: Cannot find module 'jmespath'
+
+I am working with aws lambda using serverless framework, I changed the runtime from `nodejs8.10` to `nodejs10.x`, then I got an errortrace, 
+
+```
+{"errorType":"Runtime.ImportModuleError","errorMessage":"Error: Cannot find module 'jmespath'","stack":["Runtime.ImportModuleError: Error: Cannot find module 'jmespath'","    at _loadUserApp (/var/runtime/UserFunction.js:100:13)","    at Object.module.exports.load (/var/runtime/UserFunction.js:140:17)","    at Object.<anonymous> (/var/runtime/index.js:36:30)","    at Module._compile (internal/modules/cjs/loader.js:701:30)","    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)","    at Module.load (internal/modules/cjs/loader.js:600:32)","    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)","    at Function.Module._load (internal/modules/cjs/loader.js:531:3)","    at Function.Module.runMain (internal/modules/cjs/loader.js:754:12)","    at startup (internal/bootstrap/node.js:283:19)"]}
+```
+
+
+What is the cause of this issue and how can get it fixed?

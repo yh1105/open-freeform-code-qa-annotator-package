@@ -1,0 +1,9 @@
+How to set SameSite cookie attribute to explicit None ASP NET Core
+
+Chrome 76 will begin to support an explicit `SameSite: None` attribute 
+
+[https://web.dev/samesite-cookies-explained/](https://web.dev/samesite-cookies-explained/)
+
+I found that the current implementation of ASP.NET Core treats `SameSiteMode.None` as a no-op and does not send any attribute. How can I add a custom attribute to a cookie and thereby add an explicit `SameSite: None` to the cookie text?
+
+Appending the attribute to the cookie value does not work as HttpResponse.Cookies.Append url-encodes the cookie value.

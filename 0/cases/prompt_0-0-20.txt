@@ -1,0 +1,32 @@
+React — Passing props with styled-components
+
+I just read in the `styled-components` [documentation](https://www.styled-components.com/docs/basics#passed-props) that the following is wrong and it will affect render times. If that is the case, how can I refactor the code and use the required props to create a dynamic style?
+
+Thank you in advance.
+
+
+
+```
+import React from 'react'
+import styled from 'styled-components'
+
+const Tab = ({ onClick, isSelected, children }) => {
+    const TabWrapper = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+    margin: 1px;
+    font-size: 3em;
+    color: ${props => (isSelected ? `white` : `black`)};
+    background-color: ${props => (isSelected ? `black` : `#C4C4C4`)};
+    cursor: ${props => (isSelected ? 'default' : `pointer`)};
+`
+
+    return <TabWrapper onClick={onClick}>{children}</TabWrapper>
+}
+
+
+export default Tab
+```
+

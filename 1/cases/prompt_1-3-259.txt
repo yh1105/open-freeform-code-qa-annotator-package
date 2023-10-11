@@ -1,0 +1,7 @@
+Brighten only dark areas of image in python
+
+I am trying to process images and I would like to brighten the dark areas of my image. I tried Histogram Equalization, however as there are also some bright areas in the image, the result is not satisfying. This is why I am looking for a way to brighten  of the image.
+As an example, Input image is on the left and the expected result is on the right, the hair and face of the girl are brightened
+[](https://i.stack.imgur.com/hEHxh.jpg)
+[](https://i.stack.imgur.com/PhgAN.jpg)
+ImageMagick seems to offer some possibilities to achieve this, however, I would like to do it using python

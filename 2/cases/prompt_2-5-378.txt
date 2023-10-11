@@ -1,0 +1,32 @@
+What is best way of reading test data from CSV file with JUnit 5?
+
+What is best/suggested way of reading test data from CSV file with JUnit 5?
+
+Assuming one line is one test case, one column is one parameter, number of columns is fixed and different columns can have different (basic) types: String, int, double. 
+
+An example would be:
+
+```
+public class Test{
+
+    @Test
+    // ready to use annotation that may load parameters from each line 
+    public void shouldCalculateDiscount(String column1, long column2, double column3) {
+        assertEquals(5, column1.length());
+        assertEquals(column3, column2, 0.0001);
+    }
+}
+```
+
+
+CSV file example:
+
+```
+column1,column2,column3
+a,0,0.0
+abcde,1,1.01
+a-b-c,999,999.0
+```
+
+
+Approach that uses annotations would be perfect, probably something analogical to JUnit's @ParameterizedTest.

@@ -1,0 +1,36 @@
+Terraform Import of map resources
+
+I've got a map variable that identifies existing s3 buckets:
+```
+resource "aws_s3_bucket" "bucket" {
+  for_each = var.s3_replication
+  bucket   = each.value.source
+  #other configuration
+}
+
+variable "s3_replication" {
+  description = "Map of buckets to replicate"
+  type        = map
+  default = {
+    logs = {
+      source = "logs_bucket",
+      destination = "central_logs_bucket"
+    },
+    security = {
+      source = "cloudtrail_bucket",
+      destination = "central_security_bucket"
+    }
+  }
+}
+```
+
+Since these buckets already exist, I am trying to import them and then apply the a configuration to them to update the resources. Unfortunately, I am not able to figure out how to do a terraform import on these. I've tried:
+```
+terraform import aws_s3_bucket.bucket["logs"] logs_bucket
+terraform import aws_s3_bucket.bucket[logs] logs_bucket
+terraform import aws_s3_bucket.bucket[0] logs_bucket
+terraform import aws_s3_bucket.bucket[0].source logs_bucket
+terraform import aws_s3_bucket.bucket[0[source]] logs_bucket
+```
+
+All failing with a different error. Any idea on how to import existing resources listed on a map?

@@ -1,0 +1,5 @@
+How to create virtual environment for python 3.7.0?
+
+I'm able to install it with root user but I wanted to install it in a clean environment. My use case is to test the installation of another application with pip for the customer who is using python3.7.0
+> sudo apt-get updatesudo apt-get install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-devsudo apt-get install python3-pip python3-devsudo apt-get install python3.7
+Thanks.

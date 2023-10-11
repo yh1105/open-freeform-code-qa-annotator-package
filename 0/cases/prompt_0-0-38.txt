@@ -1,0 +1,13 @@
+Angular make subscribe to wait for response
+
+I'm trying to subscribe to an Observable and assign some data from the response, but somehow my code it's not waiting for the response. Basically the console.log(this.newIds) is runned first and  is always empty because the subscribe doesn't wait for response to come from the backend. How I can force my code to wait for the response to come?
+```
+this.repository.getById(Ids).subscribe((response) => {
+      console.log(response);
+      this.newIds = response.map((id) => {
+        return id;
+      });
+    });
+    console.log(this.newIds);
+```
+

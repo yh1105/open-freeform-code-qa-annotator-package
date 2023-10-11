@@ -1,0 +1,44 @@
+Error in Python script "Expected 2D array, got 1D array instead:"?
+
+I'm following [this tutorial](https://pythonprogramming.net/linear-svc-example-scikit-learn-svm-python) to make this ML prediction:
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import style
+
+style.use("ggplot")
+from sklearn import svm
+
+x = [1, 5, 1.5, 8, 1, 9]
+y = [2, 8, 1.8, 8, 0.6, 11]
+
+plt.scatter(x,y)
+plt.show()
+
+X = np.array([[1,2],
+             [5,8],
+             [1.5,1.8],
+             [8,8],
+             [1,0.6],
+             [9,11]])
+
+y = [0,1,0,1,0,1]
+X.reshape(1, -1)
+
+clf = svm.SVC(kernel='linear', C = 1.0)
+clf.fit(X,y)
+
+print(clf.predict([0.58,0.76]))
+```
+
+
+I'm using Python 3.6 and I get error "Expected 2D array, got 1D array instead:"
+I think the script is for older versions, but I don't know how to convert it to the 3.6 version.
+
+Already try with the:
+
+```
+X.reshape(1, -1)
+```
+

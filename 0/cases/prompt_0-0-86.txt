@@ -1,0 +1,48 @@
+import error when using react-icons
+
+I have tried installing react icons, in my application I ran the npm command:
+
+```
+sudo npm install react-icons --save
+```
+
+
+I didn't get any errors, apart from some optional dependencies, that where skipped
+
+```
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 
+(node_modules/fsevents):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for 
+fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: 
+{"os":"linux","arch":"x64"})
+```
+
+
+Whenever I try to import some of the icons, I get an error
+
+```
+./src/components/SkiDaysCount.js
+Module not found: Can't resolve 'react-icons/lib/md' in ' 
+'/home/kristoffer/ReactApps/navbar/src/components'
+```
+
+
+here are my imports:
+
+```
+import {Terrain} from 'react-icons/lib/md'
+import {SnowFlake} from 'react-icons/lib/ti'
+import {Calender} from 'react-icons/lib/fa'
+```
+
+
+Why am I getting this error?
+
+EDIT:
+
+i have also tried using the old syntax for importing, with the same issue as such:
+
+```
+import Calender from 'react-icons/lib/fa/calender'
+```
+

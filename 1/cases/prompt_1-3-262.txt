@@ -1,0 +1,21 @@
+pip3 "TypeError: 'module' object is not callable" after update
+
+I am new in Python, I wanna install Jupyter Notebook in my console I enter the following:
+
+```
+pip3 install --upgrade pip
+```
+
+
+after that I have a error to use pip3 install other library, the console print: 
+
+```
+File "/usr/bin/pip3", line 11, in <module>
+    sys.exit(main())
+TypeError: 'module' object is not callable
+```
+
+
+I don't know what I have to do. 
+
+I use `sudo autoremove python3-pip` after that I use `sudo apt install python3-pip`

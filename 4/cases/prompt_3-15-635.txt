@@ -1,0 +1,41 @@
+How to convert an Excel formatted text to HTML?
+
+I made a web platform where users can add a long description for a product. The Description field is a wysiwyg editor and the content is saved in HTML in my database (MySQL).
+The users rewrote all the descriptions in an Excel file because they have a lot of products (1700+) and they want to do a bulk import of these texts in the database : 1 cell = 1 description = 1 product.
+They formatted the texts (bold, italic, underline, paragraphs...) and  when I will import these descriptions in the database. So, I have to convert these texts into .
+Any idea ?
+The only way I found is to :
+
+1. Copy-paste the cells in a Word file (to keep the layout).
+2. Copy-paste the Word content to an online HTML converter.
+3. Copy-paste the converted text to another Excel file for my bulk import.
+
+
+It would be really time-consuming for the 1700+ products (besides, we have multiple languages...).
+
+---
+
+
+
+[Imagine this text in a cell]
+
+Maecenas non aliquet dui. Maecenas varius, ante vel pharetra porta, augue lectus accumsan risus, non dapibus orci leo a erat.
+ Cras ullamcorper iaculis tortor eget rhoncus. Integer hendrerit vulputate felis
+[I want this in a cell]
+```
+<p><strong>Vestibulum eget viverra nisi.</strong></p>
+
+<p>Maecenas non aliquet dui. Maecenas varius, ante vel pharetra porta, augue lectus accumsan risus, non dapibus orci leo a erat.</p>
+
+<p><em>Suspendisse varius nisi quis metus semper dapibus.</em> Cras ullamcorper iaculis tortor eget rhoncus. Integer hendrerit vulputate felis</p>
+```
+
+Or maybe this (replace the line breaks with `<br />` tags) :
+```
+<strong>Vestibulum eget viverra nisi.</strong><br />
+<br />
+Maecenas non aliquet dui. Maecenas varius, ante vel pharetra porta, augue lectus accumsan risus, non dapibus orci leo a erat.<br />
+<br />
+<em>Suspendisse varius nisi quis metus semper dapibus.</em> Cras ullamcorper iaculis tortor eget rhoncus. Integer hendrerit vulputate felis
+```
+

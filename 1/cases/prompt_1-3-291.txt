@@ -1,0 +1,19 @@
+What is __peg_parser__ in Python?
+
+I was using the [keyword](https://docs.python.org/3/library/keyword.html) built-in module to get a list of all the keywords of the current Python version. And this is what I did:
+```
+>>> import keyword
+>>> print(keyword.kwlist)
+['False', 'None', 'True', '__peg_parser__', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+```
+
+And in the [keyword.kwlist](https://docs.python.org/3/library/keyword.html#keyword.kwlist) list there is `__peg_parser__`. So to see what it does, I type `__peg_parser__` in a Python 3.9 interpreter on Windows (you'll get the same output on Mac OS and Linux as well), and this is what is get:
+```
+>>> __peg_parser__
+  File "<stdin>", line 1
+    __peg_parser__
+    ^
+SyntaxError: You found it!
+```
+
+So my question is, what is `__peg_parser__` and why do I get `SyntaxError: You found it!`?

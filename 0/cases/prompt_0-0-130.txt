@@ -1,0 +1,53 @@
+`ReferenceError: TextEncoder is not defined` when running `react-scripts test --env=jsdom`
+
+I'm using a TensorFlow encoder in my application. It works fine in my browser when the application is running but I get issues when testing that it builds:
+
+```
+$ npx react-scripts test --env=jsdom
+FAIL  src/App.test.js
+  ● Test suite failed to run
+
+    ReferenceError: TextEncoder is not defined
+
+      16 | import TextField from '@material-ui/core/TextField';
+      17 | import Typography from '@material-ui/core/Typography';
+    > 18 | import * as mobilenet from '@tensorflow-models/mobilenet';
+         | ^
+      19 | import * as UniversalSentenceEncoder from '@tensorflow-models/universal-sentence-encoder';
+      20 | import * as tf from '@tensorflow/tfjs';
+      21 | import axios from 'axios';
+
+      at new PlatformBrowser (node_modules/@tensorflow/tfjs-core/src/platforms/platform_browser.ts:26:28)
+      at Object.<anonymous> (node_modules/@tensorflow/tfjs-core/src/platforms/platform_browser.ts:50:30)
+      at Object.<anonymous> (node_modules/@tensorflow/tfjs-core/src/index.ts:29:1)
+      at Object.<anonymous> (node_modules/@tensorflow/tfjs-converter/src/executor/graph_model.ts:18:1)
+      at Object.<anonymous> (node_modules/@tensorflow/tfjs-converter/src/index.ts:17:1)
+      at Object.<anonymous> (node_modules/@tensorflow-models/mobilenet/dist/index.js:38:14)
+      at Object.<anonymous> (src/components/model.js:18:1)
+      at Object.<anonymous> (src/App.js:8:1)
+      at Object.<anonymous> (src/App.test.js:3:1)
+```
+
+
+I'd like to get rid of that error. I've tried using the 'text-encoding' package but I'm not sure how get TextEncoder properly defined before the import happens.
+
+Maybe I can set a different option for `--env`?
+
+I get the same error without `--env=jsdom`. I believe I added it after getting similar types of not defined errors and it corrected an issue.
+
+Here is my test:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+
+
+So setting `--env=node` does not work either because: `ReferenceError: document is not defined`.

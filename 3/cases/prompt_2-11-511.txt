@@ -1,0 +1,68 @@
+Create matrix (2d-array) of size specified by parameter input in C++
+
+I am learning C++ with experiencein mostly Python, R and SQL.
+The way arrays (and vectors which differes somehow from 1d-arrays? and matrices which are 2d-arrays?) work in C++ seems quite different as I cannot specify the size of dimension of the array with an argument from the function.
+A toy-example of my goal is some thing like this:
+
+1. Have a function my_2d_array which takes two arguments M and N and returns a matrix or 2d-array of dimension (MxN) with elements indicating the position of that element. E.g. calling my_2d_array(4,3) would return: [[00, 01, 02], [10, 11, 12], [20, 21, 22], [30, 31, 32]]
+2. The main function should execute my_2d_array and be able to potentially perform calculations with the result or modify it.
+
+
+This is my attempt (with errors):
+```
+int my_2d_array(int N, int M) {
+    int A[N][M];
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::string element = std::to_string(i) + std::to_string(j);
+            A[i][j] = element;
+        }
+    }
+    return A;
+}
+
+
+void main() {
+    int N, M;
+    N = 4;
+    M = 3;
+
+    int A[N][M] = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+}
+```
+
+One (1) dimensional attempt of @JustLearning's suggestion:
+```
+int my_array(int N) {
+    std::array<int, N> A;
+
+    for (int i = 0; i < N; i++) {
+        A[i] = i;
+    }
+    return A;
+}
+
+
+int main() {
+    int N = 4;
+
+    int A[N] = my_array(N);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        std::cout << A[i] << " ";
+    }
+
+}
+```
+

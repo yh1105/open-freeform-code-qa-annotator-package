@@ -1,0 +1,24 @@
+How to increment index in Python loop
+
+I am wanting to loop through a string and capture 2 items each time while also incrementing through the index of the iterable. So I want to slice 2 items but increase the index by 1 every time through the loop. How can I do this?
+my_string = 'teststring'
+desired output =
+te
+es
+st
+ts
+st
+tr
+ri
+in
+ng
+I have tried the following to slice the two items, but can't figure out the best way to iterate thought the index
+```
+str1 = 'teststring'
+i=0
+while i<10: 
+    i +=1
+    str2=str1[0:2]
+    print(str2)
+```
+

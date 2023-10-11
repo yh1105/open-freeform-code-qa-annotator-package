@@ -1,0 +1,41 @@
+How to mock/spy useState hook in jest?
+
+I am trying to spy on useState React hook but i always get the test failed
+This is my React component:
+```
+const Counter= () => {
+    const[counter, setCounter] = useState(0);
+
+    const handleClick=() => {
+        setCounter(counter + 1);
+    }
+
+    return (
+        <div>
+            <h2>{counter}</h2>
+            <button onClick={handleClick} id="button">increment</button>
+        </div>
+    )
+}
+```
+
+:
+```
+it('increment counter correctlry', () => {
+    let wrapper = shallow(<Counter/>);
+    const setState = jest.fn();
+    const useStateSpy = jest.spyOn(React, 'useState');
+
+    useStateSpy.mockImplementation((init) => [init, setState]);
+     const button = wrapper.find("button")
+     button.simulate('click');
+     expect(setState).toHaveBeenCalledWith(1);
+})
+```
+
+Unfortunately this doesn't work and i get the test failed with that message:
+```
+expected 1
+Number of calls: 0
+```
+

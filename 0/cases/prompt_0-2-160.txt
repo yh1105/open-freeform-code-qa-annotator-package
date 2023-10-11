@@ -1,0 +1,5 @@
+What will happen if sourcemap is set as false in Angular
+
+I'm new in Angular. I saw `sourcemap` in `tsconfig.json` and by default it is `"sourceMap": true`. I had few doubts and found [this link](https://stackoverflow.com/questions/21719562/javascript-map-files-javascript-source-maps) useful. Still I have the following doubt regarding the same.
+
+I set `"sourceMap": false`, but couldn't find any change in the app. What will be the actual change if I set so?

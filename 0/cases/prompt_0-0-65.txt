@@ -1,0 +1,33 @@
+React Hooks: Why is .current null for useRef Hook?
+
+I have a simple example of a component: 
+
+```
+function App() {
+  const observed = useRef(null);
+  console.log(observed.current);
+
+  return (
+    <div ref={observed} className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+
+I would expect that `observed.current` would be of type element and current would not be empty but the div element with all its properties. My understanding would be:
+
+
+1. The ref is initialised with a value of null
+2. Null is overwritten by the ref
+
+
+
+But as it turns out, `.current` remains empty. This is bad since I want to pass observed to a function that expects an argument of type Element.
+
+[https://codesandbox.io/embed/purple-forest-0460k](https://codesandbox.io/embed/purple-forest-0460k)

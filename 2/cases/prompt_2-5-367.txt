@@ -1,0 +1,10 @@
+JUnit test class order
+
+I have a java app with maven.
+Junit for tests, with failsafe and surefire plugins.
+I have more than 2000 integration tests.
+To speed up the test running, I use failsafe jvmfork to run my tests parallel.
+I have some heavy test class, and they typically running at end of my test execution and it is slows down my CI verify process.
+The filesafe runorder:balanced would be a good option for me, but i cant use it because the jvmfork.
+To rename the test classes or move to another package and run it alpahabetical is not an option.
+Any suggestion how can I run my slow test classes at the begining of the verify process?

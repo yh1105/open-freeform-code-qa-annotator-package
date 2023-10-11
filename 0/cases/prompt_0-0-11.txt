@@ -1,0 +1,31 @@
+How to reload a page in Angular 8 the proper way
+
+
+
+I have two utility methods - one for navigating to the parent node and one for reloading self. The first one works as supposed to, while the other one fails to cause the reload.
+
+```
+navigateToParent(route: ActivatedRoute) {
+  const options: NavigationExtras = { relativeTo: route };
+  this.router.navigate([".."], options);
+}
+
+navigateToSelf(route: ActivatedRoute) {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = "reload";
+  const self = ".";
+  this.router.navigate([self]);
+
+  // const options: NavigationExtras = { relativeTo: route };
+  // this.router.navigate(["."], options);
+}
+```
+
+
+I followed the answer [here](https://stackoverflow.com/a/57157316/1525840), with the only exception that I'd like my path navigated to, to be generic, not hard-coded. I've tried passing different parameters, like  and  etc. Nothing seems to give me the desired reload.
+
+What do I miss?
+
+I also tried to pick the parts from the  passed into the service's method but I only see a bunch of observables, not the actual segments. And, of course,  only caused an error.
+
+Googling produced a lot of hints with vastly varying suggestions (e.g. [this](https://stackoverflow.com/questions/56715352/how-to-refresh-element-in-angular-8-without-page-reload)), which leads me to the suspicion that it might be heavily dependent on the version (I'm on 8.0) and, also, that many of the suggestions, although accepted, might be misleading and more harmful in the long run, without me realizing it.

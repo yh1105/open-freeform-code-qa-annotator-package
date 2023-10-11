@@ -1,0 +1,38 @@
+How to patch the value of multiselect dropdown (primeng component) in a reactive form?
+
+I am using primeng components in the template.
+I have the option to edit the form, which displays the existing field values. I am not able to patch the value of multiselect dropdown.
+```
+excludeDays = [      
+    {label: 'Mon', value: 1},
+    {label: 'Tue', value: 2},
+    {label: 'Wed', value: 3},
+    {label: 'Thu', value: 4},
+    {label: 'Fri', value: 5},
+    {label: 'Sat', value: 6},
+    {label: 'Sun', value: 7},
+  ]
+```
+
+I have my backend data coming in as a string and then I am converting it into array of number like
+```
+[1,2] or[2,3,4]
+```
+
+Now after I press the edit button I want the values of the dropdown to be selected as above excludeDays values are there.
+```
+<div class="col-12" style="width: auto;" >
+      <p-multiSelect [options]="excludeDays" optionLabel="label" defaultLabel="Select day" formControlName="excludeDays"></p-multiSelect> 
+</div>
+```
+
+I am using
+```
+this.form.patchValue({
+... : ....
+excludeDays: converted array of (excludeDays) to number array
+})
+```
+
+This is the console output of the excludeDays array after converting it into number array
+[](https://i.stack.imgur.com/HKdjr.png)

@@ -1,0 +1,27 @@
+Iterating through list of lists of lists
+
+I am trying to iterate through a 3-D list in python(not numpy but I am willing to convert to a numpy array if this makes it easier) in such a way that from a list like this:
+```
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+```
+
+I can get the output
+```
+[0,0]
+[1,0]
+[2,0]
+[3,0]
+[4,0]
+[6,0]
+```
+
+I can't figure out how to make it iterate like this...
+My code:
+```
+a = [[[0, 0], [0, 0]], [[1, 0], [0, 0]], [[2, 0], [0, 0]] ]
+for i in range(len(a)):
+    for z in range(len(a[i])):
+        print(a[i][z])
+```
+
+I've tried different things but can't seem to get this output.

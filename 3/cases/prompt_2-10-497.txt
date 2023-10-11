@@ -1,0 +1,14 @@
+How to check if a Box is a null pointer?
+
+I want to implement a stack using pointers or something. How can I check if a `Box` is a null pointer? I seen some code with `Option<Box<T>>` and `Box<Option<T>>` but I don't understand this. This is as far as I went:
+```
+struct Node {
+    value: i32,
+    next: Box<Node>,
+}
+
+struct Stack {
+    top: Box<Node>,
+}
+```
+

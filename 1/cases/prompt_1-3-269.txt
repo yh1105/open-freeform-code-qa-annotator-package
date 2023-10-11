@@ -1,0 +1,3 @@
+Pydantic: dataclass vs BaseModel
+
+What are the advantages and disadvantages of using Pydantic's dataclass vs BaseModel? Are there any performance issues or is it easier to Pydantic's dataclass in the other python module?

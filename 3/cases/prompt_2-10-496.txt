@@ -1,0 +1,31 @@
+How to sort a Vec of structs by 2 or multiple fields?
+
+`example`
+```
+struct MyStruct{
+    row: u8,
+    column: u8
+}
+
+let my_vector = a Vec<MyStruct> with like 100 items in it
+```
+
+Lets say I have a simple setup like this ^. I want to sort `my_vector` list of say 100 items by row AND THEN by column so I get my vector looking like `sample 1` instead of `sample 2`.
+`sample 1`
+```
+my_vector = vec![
+MyStruct { row: 10, column: 1 },
+MyStruct { row: 10, column: 2 },
+MyStruct { row: 10, column: 3 }, ]
+```
+
+`sample 2`
+```
+my_vector = vec![
+MyStruct { row: 10, column: 3 },
+MyStruct { row: 10, column: 1 },
+MyStruct { row: 10, column: 2 }, ]
+```
+
+Currently I've been working off [this post](https://stackoverflow.com/questions/56105305/how-to-sort-a-vec-of-structs-by-a-string-field) which describes how to sort by a single key with the `sort_by_key()` function, but the issue i'm having with that is that I can only sort by a single key, and not by two or multiple keys. This results in problems like `sample 2`, where I get my rows sorted but then my columns in a random order.
+,  Thanks

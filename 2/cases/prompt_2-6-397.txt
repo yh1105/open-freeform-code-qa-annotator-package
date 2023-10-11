@@ -1,0 +1,23 @@
+How to disable Browser Link in ASP.NET Core (.NET 6, VS 2022)
+
+I have disabled Browser Link inside Visual Studio 2022, and I have also disabled all the Hot Reload functionality.
+[](https://i.stack.imgur.com/0KgN3.png)
+[](https://i.stack.imgur.com/SmZuJ.png)
+Even the Browser Link Dashboard indicates it should be disabled:
+[](https://i.stack.imgur.com/8qxYg.png)
+I also  any of the `app.UseBrowserLink();` code anywhere in my code. (as documented in [Browser Link in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/client-side/using-browserlink?view=aspnetcore-6.0).
+However, these middlewares still somehow appear in the request pipeline:
+- `Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware`- `Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware`
+These middlewares add this to my HTML:
+```
+<!-- Visual Studio Browser Link -->
+<script type="text/javascript" src="https://localhost:44399/0928d478a97d441187231f2a1a7cd5e5/browserLink" async="async" id="__browserLink_initializationData" data-requestId="c94cf93088fb44e98f4e499b20ad7bfe" data-requestMappingFromServer="False"></script>
+<!-- End Browser Link -->
+
+<script src="/_framework/aspnetcore-browser-refresh.js"></script></body>
+```
+
+And every time I save a file, it reloads the browser. I want to stop this behaviour, and I ran out of options how.
+Is this something that the IIS Express or Visual Studio add automatically?
+I also checked all the packages and DLLs, and I don't see it included anywhere in my code. It must be included automatically via some "magic" that Visual Studio 2022 does.
+

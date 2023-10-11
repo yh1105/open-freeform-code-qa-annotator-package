@@ -1,0 +1,3 @@
+How to encrypt JSON in python
+
+I have a JSON file. I am running a program, in python, where data is extracted from the JSON file. Is there any way to encrypt the JSON file with a key, so that if someone randomly opens the file, it would be a mess of characters, but when the key is fed to the program, it decrypts it and is able to read it? Thanks in advance.

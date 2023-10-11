@@ -1,0 +1,23 @@
+Correct way to communicate the result of a background thread to the Ui Thread in Android
+
+This is one of the most confusing topics for me. .
+Imagine I want to update some `TextView` with some information I just downloaded.There is 3 things I use when I need to perform background tasks:
+
+## AsyncTask
+
+
+Very easy to use, this one has the `onPostExecute()` method that will return the result directly to the UiThread so I can use a callback interface or do whatever I want. I liked this class but it's 
+
+## ThreadPoolExecutor
+
+
+This is what I actually use when need to perform background tasks and here comes my problem, the moment when I have to give the result to the UiThread. I have informed myself about `Looper` and `Handler` classes and about the `mainLooper`.
+So, when I need to return some results I use the method `runOnUiThread()` that, as I have readed, just get the `Looper` of the Ui thread and post my `Runnable` to the queue.
+Well this is working and I can communicate with the main thread but, I find it really ugly, and I am sure there is a more elegant way of doing it than populate all my code of "`runOnUiThread()`" methods. Also, if the background task need too much time, maybe the user already change of `Activity` or `Fragment` when the code inside `runOnUiThread()` runs what will cause `Exceptions` (I know using `LiveData` and `MVVM` pattern would solve this last problem but I am working in a legacy project and I can't refactor all the code so I am working with the clasical Activity mvc pattern)
+ I really searched a lot but didn't find anything...
+
+## Coroutines
+
+
+I am actually working in a legacy project and I must use Java so can't use Kotlin `coroutines`, but I find them easy to use and so powerfull.
+Any help would be appreciated!

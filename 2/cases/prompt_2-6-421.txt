@@ -1,0 +1,23 @@
+OnInitializedAsync() in blazor
+
+I have used `OnInitializedAsync()` in my code. In that hook, I am fetching data.
+In markup, I have checked whether data is null or not. But I found that data checked is executed before the `onInitalizedAsync()` triggered. Meanwhile, after getting data too, data checked is executed.
+I have checked the blazor documents but struggling to find why it triggered at first.
+```
+<Component1>
+  @if (Data != null)
+      {
+        @foreach (var item in Data) {
+             <Component2>
+        }
+       }
+</Componet1>
+
+@code{
+  protected override async Task OnInitializedAsync() {
+       Data = //data from dataBase
+  }
+}
+```
+
+I need to execute data checked only after data fetch. Can anyone guide me to fix this issue?

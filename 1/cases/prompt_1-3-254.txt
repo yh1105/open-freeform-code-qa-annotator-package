@@ -1,0 +1,10 @@
+Plotly: How to add text labels to a histogram?
+
+Is there a way how to display the counted value of the histogram aggregate in the Plotly.Express histogram?
+`px.histogram(pd.DataFrame({"A":[1,1,1,2,2,3,3,3,4,4,4,5]}),x="A")`
+[](https://i.stack.imgur.com/mML9n.png)
+If I would use regular histogram, I can specify `text` parameter which direct to the column which contain the value to display.
+`px.bar(pd.DataFrame({"val":[1,2,3,4,5], "height": [3,2,3,3,1]}), x="val", y="height", text="height")`
+[](https://i.stack.imgur.com/Pqvhj.png)
+But with histograms, this value is calculated and it's not even part of the `fig.to_dict()`. Is there a way to add the text labels into histogram?
+Using the answers below, I've summarized the finding to an article - [https://towardsdatascience.com/histograms-with-plotly-express-complete-guide-d483656c5ad7](https://towardsdatascience.com/histograms-with-plotly-express-complete-guide-d483656c5ad7)

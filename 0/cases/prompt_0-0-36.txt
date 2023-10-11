@@ -1,0 +1,22 @@
+Trigger client-side reload in next.js
+
+
+# Scenario
+
+
+
+The index page uses "getInitialProps" to load data. Then we create a dialog which can create a new data. After creating a new data, the current page should be reloaded.
+
+
+# Problem
+
+
+
+We use `Router.replace('/')` to reload the page. But it triggers a server-side rendering.
+
+
+# Question
+
+
+
+What we need is a client-side reload. The "getInitialProps" function should be called in the browser. So, how to do the client-side reload?

@@ -1,0 +1,33 @@
+Webpack Error - configuration.node has an unknown property 'fs'
+
+I have encountered an error when using the latest version of Webpack (5.1.0). It looks like the configuration is throwing an error because the validation schema is too restrictive. Here is my webpack configuration file in a gist, and the error message I am seeing.
+
+[https://gist.github.com/adarshbhat/3ec5950b66b78102da0cf46e51a3d633](https://gist.github.com/adarshbhat/3ec5950b66b78102da0cf46e51a3d633)
+
+```
+[webpack-cli] 
+Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
+ - configuration.node should be one of these:
+   false | object { __dirname?, __filename?, global? }
+   -> Include polyfills or mocks for various node stuff.
+   Details:
+    * configuration.node has an unknown property 'module'. These properties are valid:
+      object { __dirname?, __filename?, global? }
+      -> Options object for node compatibility features.
+    * configuration.node has an unknown property 'net'. These properties are valid:
+      object { __dirname?, __filename?, global? }
+      -> Options object for node compatibility features.
+    * configuration.node has an unknown property 'fs'. These properties are valid:
+      object { __dirname?, __filename?, global? }
+      -> Options object for node compatibility features.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 2
+npm ERR! jstest@1.0.0 start: `webpack serve`
+npm ERR! Exit status 2
+```
+
+I am attempting to use a parser generator library (antlr4) that works both in a Node.js environment, as well as in browsers. It looks like the library code is requiring global objects like fs, and if it is empty, assumes that it is in a browser environment. According to the [documentation of Antlr4](https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md) and [that of Webpack](https://webpack.js.org/configuration/node/) , this is a supported configuration file. But it is not working. Please help.
+
+- - - - 
+
+Antlr JavaScript documentation has now been updated with the new configuration for Webpack 5

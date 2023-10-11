@@ -1,0 +1,3 @@
+How to uninstall Eclipse?
+
+I want to uninstall Eclipse version Mars 2, but it doesn't appear in the "Programs and Features" area of the Windows Control Panel. The installer has installed start menu shortcuts and other artifacts, so it's not just a matter of deleting the installation folder.

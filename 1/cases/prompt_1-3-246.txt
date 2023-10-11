@@ -1,0 +1,62 @@
+How to invoke Cloud Function from Cloud Scheduler with Authentication
+
+I've looked everywhere and it seems people either use pubsub, app engine http or http with no auth. Not too many people out there showing their work for accessing functions via authentication w/ oidc tokens to access google functions. 
+
+I checked out: [Cannot invoke Google Cloud Function from GCP Scheduler](https://stackoverflow.com/questions/60055422/cannot-invoke-google-cloud-function-from-gcp-scheduler) but nothing seemed to work.
+
+Documentation I followed:
+[https://cloud.google.com/scheduler/docs/http-target-auth#using-gcloud_1](https://cloud.google.com/scheduler/docs/http-target-auth#using-gcloud_1)
+
+
+1. created a new service account
+2. set roles (Cloud scheduler service agent/Cloud functions service agent/Cloud scheduler admin/cloud functions invoker...even tried owner!)
+3. deployed google function that doesn't allow public (unauthenticated) access (a simple helloworld function)
+4. setup cron job on cloud scheduler to run every minute against the new deployed function with this configuration: url = helloworld function oidc-token newly created service account audience set to hello world function url
+
+
+
+outcome on cloud scheduler logs:
+
+```
+Expand all | Collapse all{
+ httpRequest: {
+ }
+ insertId: "ibboa4fg7l1s9"  
+ jsonPayload: {
+  @type: "type.googleapis.com/google.cloud.scheduler.logging.AttemptFinished"   
+  jobName: "projects/project/locations/region/jobs/tester"   
+  status: "PERMISSION_DENIED"   
+  targetType: "HTTP"   
+  url: "https://region-project.cloudfunctions.net/tester"   
+ }
+ logName: "projects/project/logs/cloudscheduler.googleapis.com%2Fexecutions"  
+ receiveTimestamp: "2020-04-15T17:50:14.287689800Z"  
+ resource: {…}  
+ severity: "ERROR"  
+ timestamp: "2020-04-15T17:50:14.287689800Z"
+```
+
+
+I saw one solution that showed someone creating a new project to get to this to work, are there any others??
+
+Appreciate any help provided.
+
+
+
+[New Google Function - running in central (same as my app engine app)](https://i.stack.imgur.com/8ZRRI.png)
+
+[New Service Account - w/ Owner role](https://i.stack.imgur.com/30vXE.png)
+
+[New Scheduled Task - Info](https://i.stack.imgur.com/1Qtr3.png)
+
+[New Scheduled Task - Status](https://i.stack.imgur.com/60cRd.png)
+
+[New Scheduled Task - Logs](https://i.stack.imgur.com/2tXjp.png)
+
+
+
+If you're missing the cloudscheduler service account (ex:
+service-1231231231412@gcp-sa-cloudscheduler.iam.gserviceaccount.com)
+Http auth tasks wont work.
+To fix, I had to disable api and renable and it gave me the service account,
+I didnt use this service account but, that was the only changing factor after I did this to make it work.

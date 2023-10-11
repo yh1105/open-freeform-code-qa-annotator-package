@@ -1,0 +1,3 @@
+How to enable Spring Boot Live Dev Tools on IntelliJ 2021.2 to rebuild classes after modifications and deploy changes to server?
+
+This is a tutorial on how to enable Dev Tools project on IntelliJ 2021.2 and observe the changes in code without having to restart the Tomcat server.

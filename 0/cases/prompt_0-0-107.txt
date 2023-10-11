@@ -1,0 +1,17 @@
+expo version command shows running scripts disabled on this machine
+
+I am trying to develop a react native project in my Windows 10 machine. I installed node js then expo cli via visual studio code terminal. Then I tried the command `expo --version`, the terminal shows error::
+
+```
+expo : File C:\Users\saka\AppData\Roaming\npm\expo.ps1 cannot be loaded because running scripts is disabled on this system. For more 
+information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:1
++ expo --version
++ ~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+```
+
+
+the given link shows many things, but what shall I do to solve my problem? 
+Thank You!!!

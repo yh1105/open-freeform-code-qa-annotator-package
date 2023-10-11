@@ -1,0 +1,10 @@
+How to use Jpackage to make a distribution format for JavaFX applications
+
+since .jar is not anymore the best format to use to distribute our JavaFX project, I'm willing to use the tool JPackage for that instead, but after reading this post : [https://stackoverflow.com/a/68823040/4262407](https://stackoverflow.com/a/68823040/4262407), I ended up having multiple questions, but first of all, I just wanna make sure I ve well understood the process that I should follow :
+the process :
+1-create a modular project
+2-package the project in a .jar format
+3-use the tool Jlink to create a customized run-time image (to reduce the size of the output)
+4-use the tool jpackage (it takes 2 and 3 as inputs)
+I'm also wondering if I can rely on Intellij artifacts to create the .jar file (the 2 step) is it better to use a specific plugin ?
+The last thing that is not clear is do we need to include the dependencies in the .jar file ? since I believe they will be included in the customized run time, won't they?

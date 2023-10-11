@@ -1,0 +1,22 @@
+Why is an empty else-if statement bad style, and how should I rewrite it?
+
+The program that automatically grades my code is docking me "style-points" for an else-if that doesn't execute any code. It says that it may cause an error, but I don't think it could.
+I'm not sure how to change it so that it still works but doesn't break the rule. Why is doing this bad form? I think any other way I write it will be harder for a reader to understand. How should it be written instead?
+```
+if (! seesWater(LEFT))
+{
+    turn(LEFT);
+}
+else if (! seesWater(AHEAD));
+else if (! seesWater(RIGHT))
+{
+    turn(RIGHT);
+}
+else
+{
+    turn180();
+}
+```
+
+The reason the else-if is there but does nothing is because of the priority in which I want the code to act:
+`if (! seesWater(AHEAD))`, then I don't want the rest of the conditions to run at all because they don't matter.

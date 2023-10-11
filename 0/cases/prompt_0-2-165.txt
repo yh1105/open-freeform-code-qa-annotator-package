@@ -1,0 +1,80 @@
+hide open/active accordion when another accordion is clicked
+
+I suspect the issue is with the line `const active = document.querySelector(".accordion.active");` in JS code below. It doesn't seem to be retrieving that element. Could you please help me debug it? Or should I use something else instead of `querySelector`? It is also found that `this.classList.add("active");` is not adding the "active class" to the accordion element when it is clicked.
+```
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      const active = document.querySelector(".accordion.active");
+      console.log(active);
+      if (active) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+```
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 1.5rem;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  background: red;
+}
+
+.active+.panel {
+  display: block;
+}
+```
+```
+<div class="row">
+  <button class="accordion"><div class="question"><?php echo $label; ?></div></button>
+  <div class="panel">
+    <p class="answer">
+      <?php echo $answer; ?>
+    </p>
+    </br>
+  </div>
+</div>
+<div class="row">
+  <button class="accordion"><div class="question"><?php echo $label; ?></div></button>
+  <div class="panel">
+    <p class="answer">
+      <?php echo $answer; ?>
+    </p>
+    </br>
+  </div>
+</div>
+```
+
+

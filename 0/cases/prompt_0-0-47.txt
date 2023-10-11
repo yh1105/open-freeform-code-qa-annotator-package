@@ -1,0 +1,27 @@
+how do you declare an array of objects inside typescript?
+
+I would like to specify a function that takes an array of objects as a parameter, but I don't have a particular type defined for the object (a sort of "anonymous type")
+```
+bagTotal = (products) => {
+ // function does stuff
+}
+```
+
+I understand I can do this:
+```
+bagTotal = (products: any[]) => {
+ // function does stuff
+}
+```
+
+but this is a bit more relaxed then what I want: to be strict with typescript.
+`products` is an array of the same-looking objects; all objects have a name, a price and a description.
+how can I declare that?
+I want to do something like
+```
+bagTotal = (products: [{name: string, price: number, description: string}]) => {
+ // function does stuff
+}
+```
+
+but that's not right. How can I declare this?

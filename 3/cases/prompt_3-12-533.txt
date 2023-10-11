@@ -1,0 +1,47 @@
+Flutter - Detect Tap on the Screen that is filled with other Widgets
+
+I am trying to detect a tap on the screen. I've tried multiple variation of using the `GestureDetector` but that just leads to the app detecting tap on the  and .
+
+Here is the code:
+
+```
+class QQHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('QuoteQuota'),
+        ),
+        body: GestureDetector(
+          onTap: () => print('Tapped'),
+          child: QQBody(),
+        ),
+      ),
+    );
+  }
+}
+
+class QQBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Hello, World!'
+      ),
+    );
+  }
+}
+```
+
+
+Output: "tapped" printed when I click "Hello, World!".
+
+Expected Output: "tapped" printed when I click anywhere on the screen with Text in the Center.
+
+How do I do this?

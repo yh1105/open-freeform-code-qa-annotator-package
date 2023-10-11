@@ -1,0 +1,35 @@
+How to properly reset Vue Composition Api's reactive values
+
+I'm wondering how should I reset a reactive in vuejs setup? (i know if change it to the ref and using view.value will solve this problem, but there should be an answer to this for using reactive)
+```
+setup(props, context){
+  // states
+  const DataTable = reactive((null as unknown) as DataTable);
+  const PolicyForm = reactive((null as unknown) as PolicyForm);
+  let view = reactive(resetViewState());
+  let config = reactive(
+    (resetPreRegisterConfig() as unknown) as PreRegisterConfig
+  );
+  // methods:
+  const fetchProfilelist = (
+    pagination: Pagination{ page:1, size:15},
+    sort_label: string = ""
+  ) => {
+    DataTable.fetchTablelist(api_fetchProfilelist, pagination, sort_label);
+  };
+  const pageRefresh = () => {
+    view = resetViewState(); // 
+    config = resetPreRegisterConfig();
+    fetchProfilelist();
+
+  };
+  return {
+    DataTable,
+    PolicyForm,
+    view,
+    config,
+    fetchProfilelist,
+    pageRefresh
+  }
+```
+

@@ -1,0 +1,14 @@
+Finding min and max in array Javascript
+
+So I try to find the minimum and maximum if an array and want to call the function. I made this code, but it doesn´t work. I just don´t get why.
+```
+function getMinMax(arr){
+  let maximum = Math.max(arr);
+  let minimum = Math.min(arr);
+ let result =  ([maximum, minimum]); 
+  return result;
+};
+
+getMinMax([10,3,8,1,33])
+```
+

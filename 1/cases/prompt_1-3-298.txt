@@ -1,0 +1,11 @@
+Why does Python return [15] for [0xfor x in (1, 2, 3)]?
+
+When running the following line:
+```
+>>> [0xfor x in (1, 2, 3)]
+```
+
+I expected Python to return an error.
+Instead, the REPL returns:
+> `[15]`
+What can possibly be the reason?

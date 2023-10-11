@@ -1,0 +1,5 @@
+What is the use case of Styled-Components' .attrs() function?
+
+I came across the [.attrs() function in styled components](https://www.styled-components.com/docs/basics#attaching-additional-props), but I do not understand what it does, or what it does ?
+I tried to understand the example in their docs, but as far as I am concerned, I can do the exact same thing without the `attrs()` function.
+Could somebody please explain this to me or give a simple example?

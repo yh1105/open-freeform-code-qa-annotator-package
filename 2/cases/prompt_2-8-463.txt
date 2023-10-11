@@ -1,0 +1,31 @@
+In Go generics, how to use a common method for types in a union constraint?
+
+I'm trying to understand the usage of the type union constraint in Go generics (v1.18). Here is the code I tried:
+```
+type A struct {
+}
+
+type B struct {
+}
+
+type AB interface {
+    *A | *B
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T AB](x T) bool {
+    return x.some()   // <- error
+}
+```
+
+The compiler complains:
+> `x.some` undefined (type `T` has no field or method some)
+Why is that? If I cannot use a shared method of type `*A` and `*B`, what's the point of defining types union `*A | *B` at all?
+(Apparently I can define an interface with the shared method and directly use that. But in my particular use case I want to restrict to the certain types explicitly.)

@@ -1,0 +1,83 @@
+How can I convert HTML to Object structure with text and formatting?
+
+I need to convert a HTML String with nested Tags like this one:
+```
+const strHTML = "<p>Hello World</p><p>I am a text with <strong>bold</strong> word</p><p><strong>I am bold text with nested <em>italic</em> Word.</strong></p>"
+```
+
+Into the following Array of objects with this Structure:
+```
+const result = [{
+  text: "Hello World",
+  format: null
+}, {
+  text: "I am a text with",
+  format: null
+}, {
+  text: "bold",
+  format: ["strong"]
+}, {
+  text: " word",
+  format: null
+}, {
+  text: "I am a text with nested",
+  format: ["strong"]
+}, {
+  text: "italic",
+  format: ["strong", "em"]
+}, {
+  text: "Word.",
+  format: ["strong"]
+}];
+```
+
+I managed the conversion with the DOMParser() as long as there are no nested Tags. I am not able to get it running with nested Tags, like in the last paragraph, so my whole paragraph is bold, but the word "italic" should be both bold and italic. I cannot get it running as a recursion.
+Any help would be appreciated.
+So the code I wrote so far is this one:
+```
+export interface Phrase {
+    text: string;
+    format: string | string[];
+}
+
+export class HTMLParser {
+
+    public parse(text: string): void {
+        const parser = new DOMParser();
+        const sourceDocument = parser.parseFromString(text, "text/html");
+        this.parseChildren(sourceDocument.body.childNodes);
+
+        // HERE SHOULD BE the result
+        console.log("RESULT of CONVERSION", this.phrasesProcessed);
+    }
+
+    public phrasesProcessed: Phrase[] = [];
+
+    private parseChildren(toParse: NodeListOf<ChildNode>) {
+        this.phrasesProcessed = [];
+        try {
+            Array.from(toParse)
+                .map(item => {
+                    if (item.nodeType === Node.ELEMENT_NODE && item instanceof HTMLElement) {
+                        return Array.from(item.childNodes).map(child => ({ text: child.textContent, format: (child.nodeType === Node.ELEMENT_NODE && child instanceof HTMLElement) ? child.tagName : null }));
+                    } else {
+                        return Array.from(item.childNodes).map(child => ({ text: child.textContent, format: null }));
+                    }
+                })
+                .filter(line => line.length) // only non emtpy arrays
+                .map(element => ([...element, { text: "\n", format: null }])) // add linebreak after each P
+                .reduce((acc: (Phrase)[], val) => acc.concat(val), []) // flatten
+                .forEach(
+                    element => {
+                        // console.log("ELEMENT", element);
+                        this.phrasesProcessed.push(element);
+                    }
+                );
+        } catch (e) {
+            console.warn(e);
+        }
+    }
+
+}
+```
+

@@ -1,0 +1,33 @@
+ERROR: Could not build wheels for opencv-python which use PEP 517 and cannot be installed directly
+
+I was trying to install OpenCV4 in a docker on jetson nano. It has jetpack 4.4 s os. The docker was successfully created and Tensorflow is running but while installing OpenCV using pip it is showing CMake error.
+```
+root@5abf405fb92d:~# pip3 install opencv-python
+Collecting opencv-python
+  Downloading opencv-python-4.4.0.42.tar.gz (88.9 MB)
+     |████████████████████████████████| 88.9 MB 2.5 kB/s 
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+    Preparing wheel metadata ... done
+Requirement already satisfied: numpy>=1.13.3 in /usr/local/lib/python3.6/dist-packages (from opencv-python) (1.18.4)
+Building wheels for collected packages: opencv-python
+  Building wheel for opencv-python (PEP 517) ... error
+  ERROR: Command errored out with exit status 1:
+   command: /usr/bin/python3 /usr/local/lib/python3.6/dist-packages/pip/_vendor/pep517/_in_process.py build_wheel /tmp/tmpqpzwrofy
+       cwd: /tmp/pip-install-93nxibky/opencv-python
+  Complete output (9 lines):
+    File "/tmp/pip-build-env-o_hualnr/overlay/lib/python3.6/site-packages/skbuild/setuptools_wrap.py", line 560, in setup
+      cmkr = cmaker.CMaker(cmake_executable)
+    File "/tmp/pip-build-env-o_hualnr/overlay/lib/python3.6/site-packages/skbuild/cmaker.py", line 95, in __init__
+      self.cmake_version = get_cmake_version(self.cmake_executable)
+    File "/tmp/pip-build-env-o_hualnr/overlay/lib/python3.6/site-packages/skbuild/cmaker.py", line 82, in get_cmake_version
+      "Problem with the CMake installation, aborting build. CMake executable is %s" % cmake_executable)
+  Traceback (most recent call last):
+  
+  Problem with the CMake installation, aborting build. CMake executable is cmake
+  ----------------------------------------
+  ERROR: Failed building wheel for opencv-python
+Failed to build opencv-python
+ERROR: Could not build wheels for opencv-python which use PEP 517 and cannot be installed directly
+```
+

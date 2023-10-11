@@ -1,0 +1,46 @@
+How do you use Basic Authentication with System.Net.Http.HttpClient?
+
+I'm trying to implement a rest client in c# .net core that needs to first do Basic Authentication, then leverage a Bearer token in subsequent requests. 
+
+When I try to do Basic Authentication in combination with client.PostAsync with a FormUrlEncodedContent object, I'm getting an exception: 
+
+```
+System.InvalidOperationException occurred in System.Net.Http.dll: 'Misused header name. Make sure request headers are used with HttpRequestMessage, response headers with HttpResponseMessage, and content headers with HttpContent objects.'
+```
+
+
+```
+//setup reusable http client
+HttpClient client = new HttpClient();
+Uri baseUri = new Uri(url);
+client.BaseAddress = baseUri;
+client.DefaultRequestHeaders.Clear();
+client.DefaultRequestHeaders.ConnectionClose = true;
+
+//Post body content
+var values = new List<KeyValuePair<string,string>>();
+values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+
+var content = new FormUrlEncodedContent(values);
+
+//Basic Authentication
+var authenticationString = $"{clientId}:{clientSecret}";
+var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+content.Headers.Add("Authorization", $"Basic {base64EncodedAuthenticationString}");
+
+//make the request
+var task = client.PostAsync("/oauth2/token",content);
+var response = task.Result;
+response.EnsureSuccessStatusCode();
+string responseBody = response.Content.ReadAsStringAsync().Result;
+Console.WriteLine(responseBody);
+```
+
+
+```
+Exception has occurred: CLR/System.InvalidOperationException
+An unhandled exception of type 'System.InvalidOperationException' occurred in System.Net.Http.dll: 'Misused header name. Make sure request headers are used with HttpRequestMessage, response headers with HttpResponseMessage, and content headers with HttpContent objects.'
+   at System.Net.Http.Headers.HttpHeaders.GetHeaderDescriptor(String name)
+   at System.Net.Http.Headers.HttpHeaders.Add(String name, String value)
+```
+

@@ -1,0 +1,3 @@
+How to use @Parcelize now that kotlin-android-extensions is being deprecated?
+
+How do I replace `annotation class Parcelize` from `package kotlinx.android.parcel` with `@Parcelize` which is not coming from the `kotlin-android-extensions` plugin?

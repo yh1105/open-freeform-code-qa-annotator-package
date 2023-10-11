@@ -1,0 +1,15 @@
+Powershell: How do I install the Nuget provider for PowerShell on a unconnected machine so I can install a nuget package from the PS command line?
+
+I'm trying to install `pswindowsupdate.2.0.0.4.nupkg` from the Powershell command line on a Win 7 computer not connected to the internet. I'm running PS  5.1.14409.1005. I obtained the nupkg from [https://www.preview.powershellgallery.com/packages/PSWindowsUpdate/2.0.0.4](https://www.preview.powershellgallery.com/packages/PSWindowsUpdate/2.0.0.4)
+
+The `PS` command `Install-Module -Name pswindowsupdate.2.0.0.4.nupkg -Repository {path to pswindowsupdate.2.0.0.4.nupkg}` throws an error message:
+
+> PowerShellGet requires NuGet provider version '2.8.5.201' or newer to interact with NuGet-based repositories. The NuGet provider must be available in 'C:\Program Files\PackageManagement\ProviderAssemblies' or 'C:\Users{my login}\AppData\Local\PackageManagement\ProviderAssemblies'. You can also install the NuGet provider by running 'Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force'. Do you want PowerShell to install and import the NuGet provider now?
+
+Saying 'yes', of course, fails to install the NuGet provider because I'm not connected to the internet.
+
+I obtained `nuget.exe` (v4.7.0), stored it in 'C:\Program Files\PackageManagement\ProviderAssemblies' and added 'C:\Program Files\PackageManagement\ProviderAssemblies' to my `path` statement. However, executing `Install-Module -Name pswindowsupdate.2.0.0.4.nupkg -Repository {path to pswindowsupdate.2.0.0.4.nupkg}` still fails.
+
+What exactly is a `NuGet provider`? Is it just nuget.exe? How do I obtain and install the Nuget provider (v2.8.5.201 or greater) for PowerShell so I can install this nuget package from the PowerShell command line?
+
+

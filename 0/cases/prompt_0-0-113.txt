@@ -1,0 +1,19 @@
+React Testing Library: When to use userEvent.click and when to use fireEvent
+
+I'm presently learning React-Testing-Library.
+I'd like to test mouse interaction with an element. Presently it's a bit unclear to me the difference between userEvent.click(element) and fireEvent.click(element). Are both recommended for use, and in the example below are they being correctly implemented?
+```
+const mockFunction = jest.fn(() => console.info('button clicked'));
+const { getByTestId } = render(<MyAwesomeButton onClick={mockFunction} />);
+const myAwesomeButton = getByTestId('my-awesome-button');
+
+// Solution A
+fireEvent(myAwesomeButton)
+expect(mockFunction.toHaveBeenCalledTimes(1);
+
+// Solution B
+userEvent.click(myAwesomeButton);
+expect(mockFunction).toHaveBeenCalledTimes(1);
+```
+
+Thanks in advance for any clarity.

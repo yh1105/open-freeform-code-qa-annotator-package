@@ -1,0 +1,16 @@
+Replace all newline characters using python
+
+I am trying to read a pdf using python and the content has many newline (crlf) characters. I tried removing them using below code:
+
+```
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = content.replace("\r\n", "")
+print(content)
+```
+
+
+But the output remains unchanged. I tried using double backslashes also which didn't fix the issue. can someone please advise?

@@ -1,0 +1,15 @@
+Cannot install latest nodejs using conda on Mac
+
+When I run `conda search -c conda-forge nodejs`, I get:
+
+```
+# Name                       Version           Build  Channel
+...
+nodejs                        14.2.0      h2c41780_1  conda-forge
+nodejs                        14.2.0      h38d8c5a_0  conda-forge
+nodejs                        14.3.0      h2c41780_0  conda-forge
+nodejs                        14.4.0      h2c41780_0  conda-forge
+```
+
+
+But when I try to install it using `conda install -c conda-forge nodejs` it tries to install 6.13.1. Doing `conda install -c conda-forge nodejs==14.4.0` also does not work. It keeps trying to "solve" the environment. Any suggestions on how to fix this?

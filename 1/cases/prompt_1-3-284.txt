@@ -1,0 +1,16 @@
+Tensorboard not found as magic function in jupyter
+
+I want to run tensorboard in jupyter using the latest tensorflow 2.0.0a0. 
+With the tensorboard version 1.13.1, and python 3.6. 
+
+using 
+
+`... %tensorboard --logdir {logs_base_dir}`
+
+I get the error :
+
+`UsageError: Line magic function %tensorboard not found`
+
+Do you have an idea what the problem could be? It seems that all versions are up to date and the command seems correct too. 
+
+Thanks

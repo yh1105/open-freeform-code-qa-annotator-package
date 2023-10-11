@@ -1,0 +1,4 @@
+Android Jetpack Compose NumberPicker Widget Equivalent
+
+What is the recommended solution for creating a NumberPicker Widget in Jetpack Compose?  Similar to the image below.  I am able to create an NumberPicker using an AndroidView within my composable but the view does not seem to allow flings or snap to position.  Btw the UI below shows three NumberPickers placed in a row.  It is not supposed to represent a DatePicker
+[](https://i.stack.imgur.com/SRmBJ.png)

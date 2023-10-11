@@ -1,0 +1,28 @@
+Python: How to str.replace multiple different strings with the same replacement?
+
+I am trying to replace multiple different strings with the same string replace rule.
+```
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+
+for i in list_names:
+    vari1 = list_names[1]
+    vari2 = list_names[2]
+    vari3 = list_names[3]
+```
+
+I am trying to replace the ! and the ? above with ''.
+At the moment I can do this string by string using the below code:
+```
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+for i in list_names:
+    vari1 = list_names[1]
+    vari2 = list_names[2]
+    vari3 = list_names[3]
+    vari1 = vari1.replace('!', '').replace('?', '')
+    vari2 = vari2.replace('!', '').replace('?', '')
+    vari3 = vari3.replace('!', '').replace('?', '')
+```
+
+I am aware it doesn't make sense to use a loop in the above code. But I intend to build on this.
+Given that the string replaces are the same for all 3 variables, is there any easy way to do this for all of them at once?
+Thanks!

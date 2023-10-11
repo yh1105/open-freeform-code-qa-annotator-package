@@ -1,0 +1,57 @@
+Shortcut to extract Flutter widget from UI layout
+
+If I have a complex layout that I want to simplify, what is the shortcut in Android Studio (or IntelliJ) to extract the widget out into a method? 
+
+Example: 
+
+I want to extract the three main widgets in the Stack.
+
+```
+class BodyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/image.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment(-0.7, -0.7),
+          child: Container(
+            height: 300,
+            child: RichText(
+              text: TextSpan(
+                text: 'My text',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'Some other text',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 5.0,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
+
+
+I could do it by hand but I'm looking for a shortcut.

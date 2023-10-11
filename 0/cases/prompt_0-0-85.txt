@@ -1,0 +1,19 @@
+How can I set a primary color in Chakra UI theme?
+
+I want to set the primary and secondary color in my theme.js/theme.ts. Is there any way to do that?
+I am used to work with Material UI components in my React projects.
+It is possible to set a palette with 'primary' and 'secondary' there.
+I mean something like this:
+```
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#7bb9e8"
+    },
+    secondary: {
+      main: "#eb7f7f"
+    }
+  }
+})
+```
+

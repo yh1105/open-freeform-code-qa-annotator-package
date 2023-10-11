@@ -1,0 +1,22 @@
+Calculate the difference between two timestamps in bash
+
+I want to find out total system boot time by subtracting two timestamps. 
+First I use this command to get the start time and end time:
+
+```
+sudo journalctl | grep "Logs begin at" | awk '{print $6" "$7" "$12" "$13}'
+```
+
+
+which gets me the following output:
+
+```
+2020-05-21 05:52:47 2020-05-28 19:37:36
+```
+
+
+(The first two fields being the start time and the last two fields being the end time)
+
+Now I want to find the difference between the start time and end time, preferably in the format:
+
+"0 year(s), 0 month(s), 7 day(s), HH:MM:SS"

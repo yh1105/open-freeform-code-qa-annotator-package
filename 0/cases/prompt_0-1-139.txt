@@ -1,0 +1,27 @@
+Tailwind CSS - Responsive breakpoints as components
+
+How should I deal with responsive breakpoints as components in Tailwind?
+
+Without Tailwind, I used to declare breakpoints as a scss mixins:
+
+```
+@mixin tablet-portrait {
+  @media (min-width: 700px) {
+    @content;
+  }
+}
+```
+
+
+Then:
+
+```
+@include tablet-portrait {
+  // whatever
+}
+```
+
+
+I know that Tailwind has responsive utility clases to use it inline as `md:color-red` but I need to abstract this breakpoins as components, as in above example.
+
+How should I extract Tailwind breakpoints from Tailwind config file?

@@ -1,0 +1,54 @@
+Set horizontal scroll in angular material tabs
+
+If we see the following tabs in the mobile's browser, there are two buttons [] (the first one is on the right side and the other is on the left side)
+
+```
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+    <mat-tab label="Item-1"> Content 1 </mat-tab>
+    <mat-tab label="Item-2"> Content 2 </mat-tab>
+    <mat-tab label="Item-3"> Content 3 </mat-tab>
+    <mat-tab label="Item-4"> Content 4 </mat-tab>
+    <mat-tab label="Item-5"> Content 5 </mat-tab>
+    <mat-tab label="Item-6"> Content 6 </mat-tab>
+    <mat-tab label="Item-7"> Content 7 </mat-tab>
+    <mat-tab label="Item-8"> Content 8 </mat-tab>
+    <mat-tab label="Item-9"> Content 9 </mat-tab>
+    <mat-tab label="Item-10"> Content 10 </mat-tab>
+</mat-tab-group>
+```
+
+
+[](https://i.stack.imgur.com/TwYZ5.png)
+
+I'm going to remove the two buttons and use scroll instead.
+
+
+
+ Remove the two buttons with the following code :
+
+```
+ngAfterViewInit(): void {
+  document.getElementsByClassName('mat-tab-header-pagination-before')[0].remove();
+  document.getElementsByClassName('mat-tab-header-pagination-after')[0].remove();
+}
+```
+
+
+ put the following style in style.css:
+
+```
+.mat-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 1;
+    overflow-x: scroll !important;
+}
+```
+
+
+
+
+The problem of the above method is when we select item-10 we can not scroll left
+
+[StackBlitz Here.](https://stackblitz.com/edit/angular-6fgzsv)

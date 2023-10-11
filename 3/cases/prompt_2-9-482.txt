@@ -1,0 +1,20 @@
+Upgrading to Ruby 3.1 causes Psych::DisallowedClass exception when using YAML.load_file
+
+When upgrading to ruby 3.1, I am seeing the following sort error message when using `YAML.load_file some_file_name`
+```
+Psych::DisallowedClass:
+   Tried to load unspecified class: Matrix
+```
+
+Other load statements cause similar errors but cite different unspecified classes e.g. OpenStruct.  It appears that the latest version of YAML only loads classes from a permitted white list, so it is necessary to use a permitted_class keyword to allow other classes. I have tried
+```
+hsh = YAML.load_file some_file_name, permitted_classes: [Matrix, OpenStruct]
+```
+
+but this gives the error
+```
+Psych::DisallowedClass:
+   Tried to load unspecified class: Symbol
+```
+
+how do I fix this?

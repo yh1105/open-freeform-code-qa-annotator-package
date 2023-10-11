@@ -1,0 +1,10 @@
+How to manually specify a git commit sha?
+
+[This answer](https://stackoverflow.com/a/14676852/7437143) explains that normally a git commit SHA is generated based on various parameters. However, I would like to know: 
+For example, suppose one wants to create and push a commit to Git with the following sha:
+```
+1e23456ffd118db9dc04caf40a442040e5ec99f9
+```
+
+(For simplicity, assume one can assume it is a unique sha).
+The XY-problem is a manual mirror script between two different Git servers. It would be more convenient to simply have identical commit SHA's than to keep a mapping of the commits between the Git servers. This is because the manual mirror is more efficient (saving computation time and server bandwidth) if I can skip certain commits from the `source` server. Yet that means the parent commits change in the `target` server, with respect to the same commit in the `source` server. In turn, that would imply the SHA changes, which would require me to keep track of a mapping of the sha's in the `source` and `target` server. In short, it would be more convenient to simply override the sha's of the commits to the `target` server, than to ensure the two servers have the exact same commits (for the few commits that are actually mirrored).

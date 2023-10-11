@@ -1,0 +1,50 @@
+TypeError: list indices must be integers or slices, not str - While accessing element of list
+
+I'm new to Python. Here I'm trying to access `list` object in python which is throwing following error.
+> TypeError: list indices must be integers or slices, not str
+
+---
+
+
+`print(a)`
+
+```
+['{"id":9,"name":"Foo"}']
+```
+
+`print(type(a))`
+
+```
+<class 'list'>
+```
+
+`print(a['id'])`
+
+```
+TypeError: list indices must be integers or slices, not str
+```
+
+`print(a[0]['id'])`
+
+```
+TypeError: string indices must be integers
+```
+
+`print(a[0])`
+
+```
+{"id":9,"name":"Foo"}
+```
+
+
+---
+
+
+
+### Expected Output
+
+
+```
+9
+```
+

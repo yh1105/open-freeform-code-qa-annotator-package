@@ -1,0 +1,27 @@
+How to check if python package is latest version programmatically?
+
+How do you check if a package is at its latest version programmatically in a script and return a true or false?
+
+I can check with a script like this:
+
+```
+package='gekko'
+import pip
+if hasattr(pip, 'main'):
+    from pip import main as pipmain
+else:
+    from pip._internal import main as pipmain
+pipmain(['search','gekko'])
+```
+
+
+or with command line: 
+
+```
+(base) C:\User>pip search gekko
+gekko (0.2.3)  - Machine learning and optimization for dynamic systems
+  INSTALLED: 0.2.3 (latest)
+```
+
+
+But how do I check programmatically and return true or false?

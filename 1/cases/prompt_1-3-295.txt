@@ -1,0 +1,26 @@
+Pandas: Combine rows having same date different time into a single row of the same date(consolidate partial data of different time for same identity)
+
+I have a sample dataframe as given below.
+```
+import pandas as pd
+import numpy as np
+
+NaN = np.nan
+data = {'ID':['A', 'A', 'A', 'B','B','B'],
+    'Date':['2021-09-20 04:34:57', '2021-09-20 04:37:25', '2021-09-20 04:38:26', '2021-09-01 
+    00:12:29','2021-09-01 11:20:58','2021-09-02 09:20:58'],
+    'Name':['xx',NaN,NaN,'yy',NaN,NaN],
+    'Height':[174,NaN,NaN,160,NaN,NaN],
+    'Weight':[74,NaN,NaN,58,NaN,NaN],
+    'Gender':[NaN,'Male',NaN,NaN,'Female',NaN],
+    'Interests':[NaN,NaN,'Hiking,Sports',NaN,NaN,'Singing']}
+
+ df1 = pd.DataFrame(data)
+ df1
+```
+
+[](https://i.stack.imgur.com/T1TDv.png)
+I want to combine the data present on the same date into a single row. The 'Date' column is in timestamp format.
+The final output should look like the image shown below.
+[](https://i.stack.imgur.com/Gg8gE.png)
+Any help is greatly appreciated. Thanks.

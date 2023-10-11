@@ -1,0 +1,22 @@
+Xdebug failed install on Mac m1
+
+I'm trying to install Xdebug on my Mac m1, I followed this page([https://xdebug.org/docs/install](https://xdebug.org/docs/install)) to install. This is the step I followed:
+step1 => go to cmd: arch -x86_64 sudo pecl install xdebug
+step2 => go to php.ini delete this line of code
+```
+zend_extension="xdebug.so"
+```
+
+step3 => go to php.ini add this
+```
+[xdebug]
+zend_extension=/opt/homebrew/lib/php/pecl/20190902/xdebug.so
+xdebug.mode=debug
+xdebug.client_host=127.0.0.1
+xdebug.client_port="9003"
+```
+
+step4 => go to cmd: php -v
+
+[](https://i.stack.imgur.com/Kd87U.png)
+

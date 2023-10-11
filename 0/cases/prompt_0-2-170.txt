@@ -1,0 +1,23 @@
+animate line under two css tabs
+
+Please I wanna know how to create an animation like this one using JS or Jquery or Vue Transitions, (I am using bootstrap).
+
+I want to move the line under the TAB1 to the right when I click on TAB2. how can I animate the div to move smoothly from left to right and verse-versa ?
+
+[](https://i.stack.imgur.com/NK8zF.png)
+This is my code:
+
+```
+<div class="col-md-12">
+  <div class="col-md-6">
+        <p>TAB1</p>
+  </div>
+  <div class="col-md-6">
+        <p>TAB2</p>
+  </div>
+</div>
+<div class="col-md-6">
+<span style="height:10px;background-color:"></span>
+</div>
+```
+

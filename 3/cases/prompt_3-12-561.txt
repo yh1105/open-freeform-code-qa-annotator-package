@@ -1,0 +1,29 @@
+Set timeout for HTTPClient get() request
+
+This method submits a simple HTTP request and calls a success or error callback just fine:
+
+```
+void _getSimpleReply( String command, callback, errorCallback ) async {
+
+    try {
+
+      HttpClientRequest request = await _myClient.get( _serverIPAddress, _serverPort, '/' );
+
+      HttpClientResponse response = await request.close();
+
+      response.transform( utf8.decoder ).listen( (onData) { callback( onData ); } );
+
+    } on SocketException catch( e ) {
+
+      errorCallback( e.toString() );
+
+    }
+  }
+```
+
+
+If the server isn't running, the Android-app more or less instantly calls the errorCallback.
+
+On iOS, the errorCallback takes a very long period of time - more than 20 seconds - until any callback gets called.
+
+

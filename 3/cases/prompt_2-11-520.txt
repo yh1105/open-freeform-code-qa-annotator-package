@@ -1,0 +1,47 @@
+operator== marked 'override', but does not override
+
+I am have an issue while overriding the base class operator==. Here is the code.
+```
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+template <typename T>
+class IClient {
+  virtual const std::vector<T>& getID() = 0;
+  virtual bool isEqual(const std::vector<T>& anotherID) = 0;
+  virtual bool operator==(const IClient& anotherClient) = 0;
+};
+
+class SeviceClient : public IClient<int8_t> {
+  const std::vector<int8_t> ID;
+
+ public:
+  SeviceClient(const std::vector<int8_t>& ID) : ID(std::move(ID)) {}
+  SeviceClient(const std::vector<int8_t>&& ID) : ID(std::move(ID)) {}
+
+  const std::vector<int8_t>& getID() override {
+      return ID;
+  }
+  bool isEqual(const std::vector<int8_t>& anotherID) override {
+      return true;
+  }
+  bool operator==(const SeviceClient& anotherClient) override {
+      return true;
+  }
+};
+```
+
+It complains that
+```
+error: 'bool SeviceClient::operator==(const SeviceClient&)' marked 'override', but does not override
+```
+
+The compiler looks happy when i convert the function to
+```
+bool operator==(const IClient<int8_t>& anotherClient) override {}
+```
+
+Is this solution for the problem or am I missing something here ?
+Thanks

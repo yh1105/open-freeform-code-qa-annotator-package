@@ -1,0 +1,80 @@
+React Navigation v5: How to get route params of the parent navigator inside the child screen
+
+So I have nested navigators
+Main BottomTab.Navigator
+- - - - - - - - 
+The problem is when I navigate from Profile View Screen to Following Navigator, I pass some parameters to the parent Following Navigator and I want all of those params in the children tabs Screens (Pages/Groups).
+But the route of the children tab screens do not get the parameters which are passed to the parent navigator (Following Tab Navigator)
+Is there a way to do that?
+Here's my code:
+
+```
+const ProfileStack = () => (
+  <Stack.Navigator
+    initialRouteName='profileView'
+  >
+    <Stack.Screen
+      name='profileView'
+      component={ProfileScreen}
+      options={{
+        headerMode: 'screen',
+        headerShown: false,
+      }}
+    />
+
+    <Stack.Screen
+      name='followers'
+      component={FollowersScreen}
+      options={{
+        headerTitle: 'Followers',
+      }}
+    />
+    <Stack.Screen
+      name='following'
+      component={FollowingTabs}
+      options={{
+        headerTitle: 'Following',
+      }}
+    />
+ </Stack.Navigator>
+```
+
+
+```
+const Tabs = createMaterialTopTabNavigator();
+export const FollowingTabs = () => (
+  <Tabs.Navigator
+    initialRouteName='page'
+    lazy
+    swipeEnabled
+  >
+    <Tabs.Screen
+      component={PageScreen}
+      name='page'
+      options={{ tabBarLabel: '2 Pages' }}
+    />
+    <Tabs.Screen
+      component={GroupScreen}
+      name='groups'
+      options={{ tabBarLabel: '3 Groups' }}
+    />
+  </Tabs.Navigator>
+);
+```
+
+From the profileView Screen I'm trying to navigate to the following Tabs Screen and need to pass some parameters as follows.
+```
+const onPressHandler = () => {
+    navigation.navigate('following', **{ isPublicProfile, firstName }**);  // These parameters are passed to the route of the following Tabs Navigator
+  };
+```
+
+And when I try to read these parameters in children tabs (Pages/Groups) these are undefined
+```
+const PageScreen = ({ route }) => {
+  const { isPublicProfile, firstName } = route.params; // undefined?? Can't read parent's params
+...
+```
+
+Any help would be appreciated.
+Edit: I found this open Issue on GitHub ([https://github.com/react-navigation/rfcs/issues/43](https://github.com/react-navigation/rfcs/issues/43)) Is this not possible yet?

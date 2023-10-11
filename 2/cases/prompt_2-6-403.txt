@@ -1,0 +1,27 @@
+ASP.NET Core return JSON with status code
+
+I'm looking for the correct way to return JSON with a HTTP status code in my .NET Core Web API controller. I use to use it like this:
+
+```
+public IHttpActionResult GetResourceData()
+{
+    return this.Content(HttpStatusCode.OK, new { response = "Hello"});
+}
+```
+
+
+This was in a 4.6 MVC application but now with .NET Core I don't seem to have this `IHttpActionResult` I have `ActionResult` and using like this:
+
+```
+public ActionResult IsAuthenticated()
+{
+    return Ok(Json("123"));
+}
+```
+
+
+But the response from the server is weird, as in the image below:
+
+[](https://i.stack.imgur.com/DpSlo.png)
+
+I just want the Web API controller to return JSON with a HTTP status code like I did in Web API 2.

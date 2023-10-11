@@ -1,0 +1,38 @@
+How to make select dropdown readonly or disabled conditionally in angular?
+
+I am using Angular7 and I want to make select element readonly or disabled conditionnaly.
+
+
+
+```
+editable: boolean = true;
+```
+
+
+And the template:
+
+```
+<select  #listOfOptions="ngModel" [(ngModel)]="myList" [readonly]="!editable" class="form-control">
+    </select>
+```
+
+
+This causes:
+
+> Error: Template parse errors:
+      Can't bind to 'readOnly' since it isn't a known property of 'select'.
+
+There is an [issue](https://github.com/ng-select/ng-select/issues/786) about this, no solutions yet!
+
+
+
+```
+<select [attr.disabled]="!editable">
+...
+</select>
+```
+
+
+It is always disabled, no matter how I set the editable variable.
+
+Thank you for help.

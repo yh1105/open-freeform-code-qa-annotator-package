@@ -1,0 +1,24 @@
+GitHub Action: Pass Environment Variable to into Action using PowerShell
+
+I am using trying to build a workflow that will run in PowerShell.  I am setting an environment for my branch name to use in a step for checkout of a different repository.
+```
+run: |
+  $branchName = $Env:GITHUB_REF -replace "refs/heads/", ""
+  echo "CURRENT_BRANCH=${branchName}" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+```
+
+In a later step, I'm trying to pass in the variable:
+```
+- name: Checkout repo  
+  uses: actions/checkout@v2
+  with:
+    repository: 'MyOrg/MyRepo'
+    ref: ${env:CURRENT_BRANCH}
+```
+
+I've tried different formats involving curly brackets, but I keep getting output from the build that shows that exact text as the path.  I'm not sure sure how to get it to evaluate.
+When I do  `${{ env:CURRENT_BRANCH }}` I received the following error:
+> The workflow is not valid.
+.github/workflows/publish.yml (Line: 54, Col: 14):
+Unexpected symbol: 'env:CURRENT_BRANCH'. Located at position 1
+within expression: env:CURRENT_BRANCH

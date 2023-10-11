@@ -1,0 +1,51 @@
+TypeError: _API.default is not a constructor with Jest tests
+
+I have an API class that I am trying to use in a React app.
+```
+// API file
+
+class API {
+...
+}
+
+export default API;
+
+// Other file
+import API from "utils/API";
+
+const api = new API();
+```
+
+And I am getting the error:
+```
+TypeError: _API.default is not a constructor
+```
+
+But.. it seems like my default is set?
+My Jest setup is like this:
+```
+"jest": {
+    "setupFiles": [
+      "./jestSetupFile.js"
+    ],
+    "testEnvironment": "jsdom",
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-router-native/.*|@invertase/react-native-apple-authentication/.*)"
+    ]
+  },
+```
+
+My  guess is that this is due to a configuration of my babel, webpack or package.json.
+What could be causing this?
+Note, I want to be clear, this doesn't happen whatsoever in my main application,  in Jest testing
+
+---
+
+
+If I change it to a named export/import, I get this:
+```
+TypeError: _API.API is not a constructor
+```
+
+ confusing behavior.

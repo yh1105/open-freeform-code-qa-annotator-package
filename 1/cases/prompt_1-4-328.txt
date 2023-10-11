@@ -1,0 +1,22 @@
+pivot_longer into multiple columns
+
+I am trying to use `pivot_longer`. However, I am not sure how to use `names_sep` or `names_pattern` to solve this.
+```
+dat <- tribble(
+     ~group,  ~BP,  ~HS,  ~BB, ~lowerBP, ~upperBP, ~lowerHS, ~upperHS, ~lowerBB, ~upperBB,
+        "1", 0.51, 0.15, 0.05,     0.16,     0.18,      0.5,     0.52,     0.14,     0.16,
+      "2.1", 0.67, 0.09, 0.06,     0.09,     0.11,     0.66,     0.68,     0.08,      0.1,
+      "2.2", 0.36, 0.13, 0.07,     0.12,     0.15,     0.34,     0.38,     0.12,     0.14,
+      "2.3", 0.09, 0.17, 0.09,     0.13,     0.16,     0.08,     0.11,     0.15,     0.18,
+      "2.4", 0.68, 0.12, 0.07,     0.12,     0.14,     0.66,     0.69,     0.11,     0.13,
+        "3", 0.53, 0.15, 0.06,     0.14,     0.16,     0.52,     0.53,     0.15,     0.16)
+```
+
+Desired output (First row from wide data)
+```
+group names   values lower upper
+   1    BP      0.51  0.16  0.18
+   1    HS      0.15  0.5   0.52
+   1    BB      0.05  0.14  0.16
+```
+

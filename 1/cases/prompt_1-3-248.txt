@@ -1,0 +1,34 @@
+To invert colours from black to white in opencv python
+
+I have a condition where I want to detect white line incase of black background and black line incase of white background. I used bitwise_not operation something like this:
+
+```
+cv2.bitwise_not(mask_black)
+```
+
+
+It is working perfectly until and unless i give a condition like this:
+
+```
+if mask_black == cv2.bitwise_not(mask_black):
+```
+
+
+I get an error
+
+> ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+I am having doubts about using conditions where if black background occurs white line is to be detected and if white background occurs black line is to be detected
+
+```
+mask_black = cv2.inRange(hsv, low_black, high_black)
+mask_not=cv2.bitwise_not(mask_black)
+
+if mask_black==cv2.bitwise_and(mask_black, mask_not):
+    body 
+else:
+    body
+```
+
+
+This is returning the above error

@@ -1,0 +1,11 @@
+Corrupt VBA Project Module Not Found Error
+
+I have a workbook that was saved yesterday afternoon, and was working perfectly. I have opened it this morning, and none of the modules in the VBE are 'found'. Visually I can see them all sitting there.
+[](https://i.stack.imgur.com/CCjXi.png)
+When trying to open any of these modules to edit the code, the windows are greyed out, as below.
+[](https://i.stack.imgur.com/7HfgY.png)
+When I try exporting the code modules, I get the 'Module Not Found' errror.
+[](https://i.stack.imgur.com/Gp16Q.png)
+Does anyone know a) why this has happened, and b) how can I fix this?
+I thought initially it was the instance of my Excel, so have restarted the PC.
+Any help is appreciated!

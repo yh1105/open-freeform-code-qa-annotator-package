@@ -1,0 +1,17 @@
+how to use optional url parameters with NestjS
+
+I'm trying to replace our current backend service using Nestjs library, 
+however, I want to create a route with 2 optional parameters in the URL something like : 
+
+`/route/:param1/config/:OptionalParam3?/:OptionalParam3?` 
+
+that means the route should catch : 
+
+
+1. route/aa/config
+2. route/aa/config/bb
+3. route/aa/config/bb/cc
+
+
+
+how can I achieve that, I have tried to use `?` and `()` but it's not working well.

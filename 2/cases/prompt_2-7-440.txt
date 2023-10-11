@@ -1,0 +1,16 @@
+Class 'Illuminate\Support\Facades\Input' not found
+
+I have an error when upgrading laravel 6 
+
+> Symfony \ Component \ Debug \ Exception \ FatalThrowableError
+  (E_ERROR) Class 'Illuminate\Support\Facades\Input' not found
+
+
+
+[](https://i.stack.imgur.com/HlQX4.jpg)
+
+
+
+[](https://i.stack.imgur.com/MfrOw.jpg)
+
+ 

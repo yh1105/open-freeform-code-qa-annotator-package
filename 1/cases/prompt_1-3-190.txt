@@ -1,0 +1,8 @@
+Listen to mqtt topics with django channels and celery
+
+I would like a way to integrate django with mqtt and for that the first thing that came in my mind was using django-channels and an mqtt broker that supports mqtt over web sockets, so I could communicate directly between the broker and django-channels.
+However, I did not found a way to start a websocket client from django, and acording to this [link](https://forum.djangoproject.com/t/add-a-websocket-client-to-django-not-a-server/2916/8) it's not possible.
+Since I'm also starting to study task queues I wonder if it would be a good practice to start an mqtt client using paho-mqtt and then run that in a separate process using celery. This process would then forward the messages receives by the broker to django channels through websockets, this way I could also communicate with the client process, to publish data or stop the mqtt client when needed, and all that directly from django.
+I'm a little skeptical about this idea since I also read that process run in celery should not take too long to complete, and in this case that's exactly what I want to do.
+So my question is, how much of a bad idea that is? Is there any other option to directly integrate django with mqtt?
+*

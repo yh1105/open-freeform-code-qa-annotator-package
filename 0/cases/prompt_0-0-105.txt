@@ -1,0 +1,6 @@
+Should I use both Cypress and Jest together?
+
+I'm learning both Jest and Cypress at same time. I know that they are not direct competitors because Cypress is focused on E2E and Jest on unit testing. For now I have implemented in my project both Jest and Cypress with few tests.
+But actually most things I can test in both Cypress and Jest, and often I have hard time to decide with what write my test. Also it is harder to maintain compared to single test library.
+I'm wondering - how often is Cypress (or alternative) and Jest (or alternative) used together? Is it really standard and good practice to use both? Or most developers/teams sticks with single one solution and it is fine?
+: It was a long time since this question was asked. I got compromise that was also suggested in comment. Instead using only Cypress or Cypress + Jest, I'm using Cypress + new Cypress Component Testing (so no Jest). Thanks to that I'm having same library and assertions (easier to manage) but can test both e2e and components.

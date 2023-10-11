@@ -1,0 +1,15 @@
+How to correctly import custom types in typescript
+
+I have custom type in `src/@types/app.d.ts` ( `export type AuthKeyT = string` )
+
+I would like to use it in `tsx` react file (using `import { AuthKeyT } from '@types/app'`), but I am getting an error:
+
+> Cannot import type declaration files. Consider importing 'app' instead of '@types/app' 
+
+So, when I use `import { AuthKeyT } from 'app'` I am getting:
+
+> Cannot find module 'app'.
+
+So.. what is wrong? How should I import custom type?
+
+I am using typescript `3.7.2` in react app.

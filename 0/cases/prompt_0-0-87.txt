@@ -1,0 +1,38 @@
+How to update values of every object in an array of objects in Javascript?
+
+I'm trying to update a value of  in all objects in an array(data) with the values from , my code is:
+```
+import "./styles.css";
+
+const data = [
+  { id: 1, car: "Toyota 2020", owner: "BM" },
+  { id: 2, car: "Nissan", owner: "DK" },
+  { id: 3, car: "Mazda", owner: "JA" },
+  { id: 4, car: "Ford", owner: "DS" }
+];
+const newData = ["Audi", "Bentley", "BMW", "Buick"];
+
+
+export default function App() {
+  return (
+    <div className="App">
+      {data?.map((item) => {
+        return <li key={item.id}>{item.car}</li>;
+      })}
+    </div>
+  );
+}
+```
+
+I don't know how to change car values in data with values from newData, so data would be like this:
+```
+const data = [
+  { id: 1, car: "Audi", owner: "BM" },
+  { id: 2, car: "Bentley", owner: "DK" },
+  { id: 3, car: "BMW", owner: "JA" },
+  { id: 4, car: "Buick", owner: "DS" }
+];
+```
+
+[codesandbox](https://codesandbox.io/embed/agitated-silence-5zbk0?fontsize=14&hidenavigation=1&theme=dark)
+Later in code I'm mapping through data and I need to display updated car values, I'm not sure which method to use. Any help greatly appreciated.

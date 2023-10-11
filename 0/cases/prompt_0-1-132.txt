@@ -1,0 +1,6 @@
+Is it possible to style a checkbox like this?
+
+I have a design with a very specific way to add checkboxes. It is for a filter list of products. When the filter is selected, the checkbox should have a black box in the middle. However, I can't seem to find how to do it.
+I have logic running from the checkbox on whether it is checked or not for some JavaScript so it definitely needs to remain a checkbox.
+Anybody have any ideas?
+[](https://i.stack.imgur.com/ki1PZ.png)

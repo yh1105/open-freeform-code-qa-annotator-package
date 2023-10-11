@@ -1,0 +1,6 @@
+Flipper cannot be opened because the developer cannot be verified in macOS Catalina
+
+`Flipper` is a platform for debugging iOS, Android and React Native apps.
+I have downloaded the `Flipper` app from [https://fbflipper.com/](https://fbflipper.com/), but I can't run it.
+[](https://i.stack.imgur.com/eDtz1.png)
+macOS version: `Catalina 10.15.3`

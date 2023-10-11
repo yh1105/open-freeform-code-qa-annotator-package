@@ -1,0 +1,10 @@
+Create a vector of pairs from a single vector in C++
+
+I have a single even-sized vector that I want to transform into a vector of pairs where each pair contains always two elements. I know that I can do this using simple loops but I was wondering if there is a nice standard-library tool for this? It can be assumed that the original vector always contains an even amount of elements.
+Example:
+```
+vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+
+vector<pair<int, int>> goal { {1, 2}, {3, 4}, {5, 6}, {7, 8} };
+```
+

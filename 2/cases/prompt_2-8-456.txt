@@ -1,0 +1,58 @@
+Using multiple interfaces in Golang
+
+I'm learning Golang and as an exercise in using interfaces I'm building a toy program. I'm having some problem trying to use a type that "should implement" two interfaces - one way to solve that in C++ and Java would be to use inheritance(there are other techniques, but I think that is the most common). As I lack that mechanism in Golang, I'm not sure how to proceed about it. Below is the code:
+```
+var (
+    faces = []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
+
+    suits = []string{"Hearts", "Diamonds", "Spades", "Clubs"}
+)
+
+type Card interface {
+    GetFace() string
+    GetSuit() string
+}
+
+type card struct {
+    cardNum int
+    face    string
+    suit    string
+}
+
+func NewCard(num int) Card {
+    newCard := card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+
+    return &newCard
+}
+
+func (c *card) GetFace() string {
+    return c.face
+}
+
+func (c *card) GetSuit() string {
+    return c.suit
+}
+
+func (c *card) String() string {
+    return fmt.Sprintf("%s%s ", c.GetFace(), c.GetSuit())
+}
+```
+
+What I'm trying to achieve:
+- - 
+The problem comes when I'm trying to use a new card though the "Card" interface and also trying to get the string representation. I cannot pass the interface as the parameter of the implementation of the  method as there is a compiler error which is related to the addressability of an interface at the core language level(still digging through that documentation). The very simple example of testing exposes the issue:
+```
+func TestString(t *testing.T) {
+    card := NewCard(0)
+    assert.EqualValues(t, "AceHearts ", card.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```
+
+The compiler tells me, for good reason, that . I could just add the  method to my  interface, but I do not find that to be clean: I have other entities implemented with the same model and I would have to add that redundancy everywhere; there is already an interface with that method.
+What would be a good solution for the above issue that I'm having?
+(to address some of the very good comments)
+- - - - - 
