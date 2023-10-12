@@ -1,0 +1,43 @@
+The two ways you've provided are already quite efficient. However, if you want to simplify it further, you can use the `dedup_by` method provided by Rust's `slice` type. This method removes consecutive duplicate elements of the slice in-place.
+
+But, to use `dedup_by`, you need to sort your array first. Here is how you can do it:
+
+```rust
+use std::cmp::Ordering;
+
+#[derive(Debug, Eq, PartialEq)]
+struct Person {
+    name: String,
+    age: u32,
+}
+
+impl Ord for Person {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+impl PartialOrd for Person {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+fn main() {
+    let mut arr = vec![
+        Person { name: "aaa".to_string(), age: 10 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "ccc".to_string(), age: 30 },
+    ];
+
+    arr.sort();
+    arr.dedup();
+
+    dbg!(arr);
+}
+```
+
+In this code, we first implement `Ord` and `PartialOrd` for `Person` so we can sort the array. Then we sort the array and call `dedup` to remove duplicate elements.
+
+Please note that this will only remove consecutive duplicates, so it's important to sort the array first. Also, this will modify the array in-place, so if you need the original array, you should clone it before sorting and deduping.

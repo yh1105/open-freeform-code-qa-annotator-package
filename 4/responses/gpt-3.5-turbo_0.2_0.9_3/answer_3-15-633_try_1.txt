@@ -1,0 +1,28 @@
+Yes, you can achieve the same result in Office Pro Plus 2019 using the `IF` and `INDEX` functions. Here's the formula you can use:
+
+`=IFERROR(INDEX(B:B,SMALL(IF(A:A="x",ROW(A:A)),ROW(1:1))),"")`
+
+This is an array formula, so you need to enter it with `Ctrl + Shift + Enter` instead of just pressing Enter. Then you can drag it down to get all the values.
+
+Alternatively, you can use a macro to achieve the same result. Here's an example macro that does the same thing:
+
+```
+Sub FilterData()
+    Dim lastRow As Long
+    Dim i As Long
+    Dim j As Long
+    
+    lastRow = Cells(Rows.Count, "A").End(xlUp).Row
+    
+    j = 1
+    
+    For i = 1 To lastRow
+        If Cells(i, "A").Value = "x" Then
+            Cells(j, "B").Value = Cells(i, "B").Value
+            j = j + 1
+        End If
+    Next i
+End Sub
+```
+
+This macro loops through all the rows in `Column A`, and if it finds a value of "x", it copies the corresponding value from `Column B` to a new sheet. You can modify it to suit your needs.

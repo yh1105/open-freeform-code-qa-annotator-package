@@ -1,0 +1,43 @@
+To create the JSON object in Go, you can define a struct that matches the structure of the JSON object. Here's an example:
+
+```
+type Client struct {
+    Hostname string `json:"Hostname"`
+    IP string `json:"IP"`
+    MacAddr string `json:"MacAddr"`
+}
+
+type Connection struct {
+    Clients []Client `json:"Clients"`
+}
+```
+
+In this example, we define two structs: `Client` and `Connection`. `Client` has three fields: `Hostname`, `IP`, and `MacAddr`. `Connection` has one field: `Clients`, which is a slice of `Client` structs.
+
+To create the JSON object, you can create a `Connection` struct and populate its `Clients` field with `Client` structs. Here's an example:
+
+```
+func parselines(line string) {
+    clients := []Client{}
+    for _, line := range strings.Split(line, "\n") {
+        if line != "" {
+            s := strings.Split(line, " ")
+            client := Client{Hostname: s[0], IP: s[1], MacAddr: s[2]}
+            clients = append(clients, client)
+        }
+    }
+    connection := Connection{Clients: clients}
+    jsonBytes, err := json.Marshal(connection)
+    if err != nil {
+        fmt.Println("Error marshaling JSON:", err)
+        return
+    }
+    fmt.Println(string(jsonBytes))
+}
+```
+
+In this example, we create an empty slice of `Client` structs called `clients`. We then loop through each line of input, split it into three fields, and create a `Client` struct with those fields. We append each `Client` struct to the `clients` slice.
+
+After we've processed all the input, we create a `Connection` struct with the `clients` slice as its `Clients` field. We then use the `json.Marshal` function to convert the `Connection` struct to a JSON byte array. Finally, we print the JSON string.
+
+Note that we check for errors when marshaling the JSON object, and print an error message if there's a problem.

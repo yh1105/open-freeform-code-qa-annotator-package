@@ -1,0 +1,33 @@
+The "XSRF check failed" error occurs because Atlassian's server-side Cross Site Request Forgery (XSRF) protection is blocking the request. When you submit a form in Atlassian products, it usually includes a hidden input field named `atl_token` or `atlassian-token` which is used for XSRF protection.
+
+However, in your case, you are submitting the form to a custom REST endpoint, which doesn't have this XSRF protection. Therefore, you need to disable the XSRF check for this specific request.
+
+You can do this by adding the `no-check` value to the `X-Atlassian-Token` header in your AJAX request. Here is an example of how you can do this using jQuery:
+
+```javascript
+AJS.$("#yourFormId").submit(function(e) {
+    e.preventDefault(); // prevent the default form submission
+
+    var url = "/rest/scriptrunner/latest/custom/cloneJE2Cube"; // the url of your custom REST endpoint
+    var data = AJS.$(this).serialize(); // serialize the form data
+
+    AJS.$.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        headers: {
+            "X-Atlassian-Token": "no-check" // disable the XSRF check
+        },
+        success: function(response) {
+            // handle the success response
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // handle the error response
+        }
+    });
+});
+```
+
+Please replace `"#yourFormId"` with the actual ID of your form. This code should be placed in a `<script>` tag at the end of your dialog HTML.
+
+This code will prevent the default form submission and instead submit the form using AJAX, with the XSRF check disabled. You can handle the success and error responses in the `success` and `error` callbacks respectively.

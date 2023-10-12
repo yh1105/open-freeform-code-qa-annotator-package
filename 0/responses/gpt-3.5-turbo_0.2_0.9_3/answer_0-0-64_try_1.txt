@@ -1,0 +1,27 @@
+The error message indicates that some of the dependencies have incompatible versions. 
+
+To resolve this issue, you can try the following steps:
+
+1. Update the `rxjs` package to version 6.2.0 by running the following command:
+
+   ```
+   npm install rxjs@6.2.0
+   ```
+
+2. Update the `typescript` package to version 2.7.2 or higher by running the following command:
+
+   ```
+   npm install typescript@">=2.7.2 <2.8"
+   ```
+
+3. After updating the dependencies, run the `ng update @angular/core` command again.
+
+If the above steps do not work, you can try removing the `@angular/flex-layout` package temporarily and then running the update command. Once the update is complete, you can reinstall the `@angular/flex-layout` package with the updated dependencies.
+
+```
+npm uninstall @angular/flex-layout
+ng update @angular/core
+npm install @angular/flex-layout
+```
+
+Make sure to test your app thoroughly after the update to ensure that everything is working as expected.

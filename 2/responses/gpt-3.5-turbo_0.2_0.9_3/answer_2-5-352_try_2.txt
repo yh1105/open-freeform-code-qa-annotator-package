@@ -1,0 +1,15 @@
+It seems like the issue is with the version of Java that you have installed. Hyperledger Besu requires Java 11 or higher to run, and you currently have Java 8 installed.
+
+You can download and install Java 11 or higher from the official Java website: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+
+Once you have installed Java 11 or higher, you can set the `JAVA_HOME` environment variable to point to the installation directory of Java 11 or higher. You can do this by following these steps:
+
+1. Open the Start menu and search for "Environment Variables".
+2. Click on "Edit the system environment variables".
+3. Click on the "Environment Variables" button.
+4. Under "System Variables", click on "New".
+5. Enter "JAVA_HOME" as the variable name.
+6. Enter the path to the installation directory of Java 11 or higher as the variable value (e.g. "C:\Program Files\Java\jdk-11.0.11").
+7. Click "OK" to save the changes.
+
+After setting the `JAVA_HOME` environment variable, try running the `bin\besu --help` command again and see if it works.

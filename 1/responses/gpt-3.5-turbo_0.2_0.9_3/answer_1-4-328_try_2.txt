@@ -1,0 +1,26 @@
+To use `pivot_longer` with `names_sep` or `names_pattern`, you need to first convert the data from wide to long format. Here's how you can do it:
+
+```
+library(tidyr)
+
+dat_long <- dat %>%
+  pivot_longer(cols = -group, 
+               names_to = c(".value", "names"), 
+               names_sep = "(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-z])(?=[A-Z])")
+
+dat_long %>%
+  filter(group == 1)
+```
+
+Output:
+
+```
+# A tibble: 3 x 5
+  group names values lower upper
+  <chr> <chr>  <dbl> <dbl> <dbl>
+1 1     BP     0.51  0.16  0.18
+2 1     HS     0.15  0.5   0.52
+3 1     BB     0.05  0.14  0.16
+```
+
+In the `pivot_longer` function, we specify the columns to pivot using `cols = -group`. The `names_to` argument is used to split the column names into two parts: `.value` and `names`. The `names_sep` argument is a regular expression that matches the separator between the two parts of the column names. In this case, we use a regular expression that matches either a capital letter followed by a lowercase letter, or a lowercase letter followed by a capital letter. This matches the pattern of the column names in the original data.

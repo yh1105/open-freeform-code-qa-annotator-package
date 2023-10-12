@@ -1,0 +1,38 @@
+To solve the issue of not being able to scroll left when selecting the last tab, you can add some JavaScript code to scroll the tab header container to the left when the last tab is selected. Here's an example:
+
+```
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('tabHeaderContainer') tabHeaderContainer: ElementRef;
+
+  ngAfterViewInit(): void {
+    document.getElementsByClassName('mat-tab-header-pagination-before')[0].remove();
+    document.getElementsByClassName('mat-tab-header-pagination-after')[0].remove();
+
+    // Scroll to the left when the last tab is selected
+    const tabGroup = document.getElementsByClassName('mat-tab-group')[0];
+    tabGroup.addEventListener('selectedTabChange', (event: any) => {
+      const selectedIndex = event.index;
+      const tabLabels = this.tabHeaderContainer.nativeElement.children;
+      const lastTabLabel = tabLabels[tabLabels.length - 1];
+      if (selectedIndex === tabLabels.length - 1) {
+        const containerWidth = this.tabHeaderContainer.nativeElement.offsetWidth;
+        const lastTabLabelWidth = lastTabLabel.offsetWidth;
+        const lastTabLabelLeft = lastTabLabel.offsetLeft;
+        const scrollLeft = lastTabLabelLeft + lastTabLabelWidth - containerWidth;
+        this.tabHeaderContainer.nativeElement.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      }
+    });
+  }
+}
+```
+
+In this code, we first get a reference to the tab header container element using `ViewChild` and `ElementRef`. Then, we add an event listener to the tab group's `selectedTabChange` event. When the last tab is selected (i.e., the `selectedIndex` is equal to the number of tab labels minus one), we calculate the amount to scroll the tab header container to the left by subtracting the container width from the sum of the last tab label's width and left position. Finally, we use the `scrollTo` method to scroll the container to the left with a smooth animation.
+
+Here's the updated StackBlitz example with the scrolling fix: https://stackblitz.com/edit/angular-6fgzsv-scroll-fix

@@ -1,0 +1,38 @@
+The error you're encountering is because the `connect-mongo` package has been updated and the way to use it has changed. In the newer versions (from 4.0.0 and above), you need to use it differently.
+
+Here's how you can modify your code:
+
+```javascript
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/test-app' })
+}));
+```
+
+In the `store` option, we're using `MongoStore.create()` instead of `new MongoStore()`. Also, we're passing `mongoUrl` which is the connection string for your MongoDB. Replace `'mongodb://localhost/test-app'` with your MongoDB connection string.
+
+If you want to use the `mongoose.connection` object, you can do it like this:
+
+```javascript
+const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+mongoose.connect('mongodb://localhost/test-app', { useNewUrlParser: true, useUnifiedTopology: true });
+
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ client: mongoose.connection.getClient() })
+}));
+```
+
+In this case, we're using `mongoose.connection.getClient()` to get the MongoDB client from the Mongoose connection.
+
+Remember to replace `'mongodb://localhost/test-app'` with your MongoDB connection string.

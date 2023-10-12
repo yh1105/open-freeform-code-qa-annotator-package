@@ -1,0 +1,62 @@
+To achieve this, you can create two methods `getPrefixes` and `getSuffixes` that will generate all possible prefixes and suffixes for each string in the list. Then, you can use a `HashMap` to count the occurrences of each prefix and suffix. Here is a simple implementation:
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> strList = new ArrayList<String>();
+        strList.add("Mary had a little lamb named Willy");
+        strList.add("Mary had a little ham");
+        strList.add("Old McDonald had a farm named Willy");
+        strList.add("Willy had a little dog named ham");
+        strList.add("(abc)");
+        strList.add("(xyz)");
+        strList.add("Visit Target Store");
+        strList.add("Visit Walmart Store");
+
+        HashMap<String, Integer> prefixMap = getPrefixes(strList);
+        HashMap<String, Integer> suffixMap = getSuffixes(strList);
+
+        System.out.println("Prefixes with 2+ occurrences:");
+        for (Map.Entry<String, Integer> entry : prefixMap.entrySet()) {
+            if (entry.getValue() >= 2) {
+                System.out.println(entry.getKey() + " -> " + entry.getValue());
+            }
+        }
+
+        System.out.println("\nSuffixes with 2+ occurrences:");
+        for (Map.Entry<String, Integer> entry : suffixMap.entrySet()) {
+            if (entry.getValue() >= 2) {
+                System.out.println(entry.getKey() + " -> " + entry.getValue());
+            }
+        }
+    }
+
+    public static HashMap<String, Integer> getPrefixes(ArrayList<String> strList) {
+        HashMap<String, Integer> prefixMap = new HashMap<>();
+        for (String str : strList) {
+            String[] words = str.split(" ");
+            for (int i = 1; i <= words.length; i++) {
+                String prefix = String.join(" ", Arrays.copyOfRange(words, 0, i));
+                prefixMap.put(prefix, prefixMap.getOrDefault(prefix, 0) + 1);
+            }
+        }
+        return prefixMap;
+    }
+
+    public static HashMap<String, Integer> getSuffixes(ArrayList<String> strList) {
+        HashMap<String, Integer> suffixMap = new HashMap<>();
+        for (String str : strList) {
+            String[] words = str.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                String suffix = String.join(" ", Arrays.copyOfRange(words, i, words.length));
+                suffixMap.put(suffix, suffixMap.getOrDefault(suffix, 0) + 1);
+            }
+        }
+        return suffixMap;
+    }
+}
+```
+
+This code will print all prefixes and suffixes that occur at least twice in the list of strings. Note that this implementation considers a prefix or suffix to be any sequence of words at the beginning or end of a string, not just single words.

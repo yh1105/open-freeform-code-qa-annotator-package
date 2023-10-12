@@ -1,0 +1,13 @@
+It seems that the update has caused some issues with Access databases. You can try the following solutions:
+
+1. Uninstall the update: If the update is causing too many issues, you can uninstall it and see if the problem goes away. To do this, go to Control Panel > Programs and Features > View Installed Updates. Find the update in question and uninstall it.
+
+2. Use a different query method: Instead of using the `DoCmd.RunSQL` method, try using the `CurrentDb.Execute` method. For example:
+
+```
+CurrentDb.Execute "update users set uname= 'bob' where usercode=1"
+```
+
+3. Compact and repair the database: Sometimes, Access databases can become corrupted and cause issues like this. Try compacting and repairing the database to see if it resolves the issue. To do this, go to File > Options > Current Database. Click on the "Compact and Repair Database" button.
+
+4. Contact Microsoft support: If none of the above solutions work, you can contact Microsoft support for further assistance. They may have a patch or workaround for this issue.

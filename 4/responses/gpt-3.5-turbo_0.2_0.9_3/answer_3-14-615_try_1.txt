@@ -1,0 +1,32 @@
+Yes, it is possible to get the current scroll position of a `ScrollView` using the `GeometryReader` and `ScrollViewProxy`. Here's an example:
+
+```
+struct ContentView: View {
+    @State private var scrollOffset: CGFloat = 0
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 20) {
+                    ForEach(0..<50) { index in
+                        Text("Item \(index)")
+                            .frame(width: geometry.size.width, height: 50)
+                    }
+                }
+                .background(GeometryReader { scrollViewGeometry in
+                    Color.clear.onAppear {
+                        self.scrollOffset = scrollViewGeometry.frame(in: .global).minY
+                    }
+                })
+            }
+        }
+        .onAppear {
+            print("Current scroll position: \(scrollOffset)")
+        }
+    }
+}
+```
+
+In this example, we use a `GeometryReader` to get the frame of the `ScrollView` and then use the `ScrollViewProxy` to get the current scroll position. We set the `scrollOffset` state variable to the `minY` value of the `ScrollView`'s frame in the global coordinate space. We then print the current scroll position in the `onAppear` modifier of the `ContentView`.
+
+Note that the `onAppear` modifier of the `Color` is used to ensure that the `GeometryReader` is only executed once the `ScrollView` has appeared on the screen.

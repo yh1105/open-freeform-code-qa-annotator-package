@@ -1,0 +1,13 @@
+It seems like IntelliJ is still using the old version of Java (1.8) to compile your application. Here are a few things you can try:
+
+1. Make sure that you have set the correct JDK version in IntelliJ. Go to File > Project Structure > SDKs and make sure that the JDK 11 is listed and selected as the default SDK.
+
+2. Check the project settings in IntelliJ. Go to File > Project Structure > Project and make sure that the Project SDK is set to JDK 11.
+
+3. Check the module settings in IntelliJ. Go to File > Project Structure > Modules and make sure that the Language Level is set to 11.
+
+4. If none of the above steps work, try invalidating the cache and restarting IntelliJ. Go to File > Invalidate Caches / Restart and select "Invalidate and Restart".
+
+5. If you still have issues, try creating a new project in IntelliJ and see if you can compile it using JDK 11. If it works, then there might be an issue with your current project settings.
+
+6. Lastly, make sure that you have updated your build tools (e.g. Maven, Gradle) to use JDK 11. You can check the build tool documentation for instructions on how to do this.

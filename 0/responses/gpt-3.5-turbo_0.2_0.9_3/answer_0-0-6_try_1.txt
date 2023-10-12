@@ -1,0 +1,55 @@
+Glad to hear that you were able to fix the issue! Switching to a function component and using `useHistory` hook is a good approach. It's also good to hear that you removed the `Router` from all files except for `index.js` and switched to `BrowserRouter`. 
+
+Just a small suggestion: instead of using `document.getElementById` to get the input values, you can use React's `useState` hook to store the input values in state and update them when the user types in the input fields. This way, you can avoid directly manipulating the DOM and make your code more declarative. Here's an example:
+
+```
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+function CustomerLoginPage() {
+  const history = useHistory();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = () => {
+    if (username !== 'customer' || password !== 'customer') {
+      alert('Wrong username or password!');
+    } else {
+      history.push('/customerhomepage');
+    }
+  };
+
+  return (
+    <div className="App-header">
+      <button id="backButton" onClick={() => history.goBack()}>
+        Go Back
+      </button>
+      <h4>Login with your customer account</h4>
+      <br />
+      <input
+        id="customerLoginUsername"
+        placeholder=" Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        id="customerLoginPassword"
+        type="password"
+        placeholder=" Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br />
+      <button id="customerLoginButton" onClick={handleSubmit}>
+        Login
+      </button>
+
+      <div className="content"></div>
+    </div>
+  );
+}
+
+export default CustomerLoginPage;
+```
+
+Hope this helps! Let me know if you have any other questions.

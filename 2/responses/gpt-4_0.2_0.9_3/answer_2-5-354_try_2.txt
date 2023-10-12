@@ -1,0 +1,71 @@
+The error message indicates that Hibernate is unable to determine the type for a List in the `UserRole` class. This is likely due to the missing `@OneToMany` annotation on the `user` field in the `UserRole` class.
+
+Here is how you should modify your classes:
+
+User.java
+
+```java
+@Entity
+@Table(name="user")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    ..........
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private UserRole userRole;
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    .......
+}
+```
+
+UserRole.java
+
+```java
+@Entity
+@Table(name="user_role")
+public class UserRole {
+
+    .......
+
+    @OneToMany(mappedBy="userRole",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> user;
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
+
+    public long getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(long role_id) {
+        this.role_id = role_id;
+    }
+
+    .........
+
+}
+```
+
+The `@OneToMany` annotation in the `UserRole` class indicates that a user role can be associated with multiple users. The `mappedBy` attribute tells Hibernate that the `userRole` field in the `User` class is the owner of the relationship.
+
+The `@ManyToOne` annotation in the `User` class indicates that a user can have one user role. The `@JoinColumn` annotation tells Hibernate to use the `role_id` column in the `user` table to join with the `user_role` table.
+
+Also, make sure that the `UserRole` class has an `@Id` annotation on the `role_id` field, as this is required for Hibernate to map the relationship correctly.

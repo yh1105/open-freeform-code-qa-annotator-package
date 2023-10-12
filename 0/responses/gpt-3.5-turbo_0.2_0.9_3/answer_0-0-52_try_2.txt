@@ -1,0 +1,9 @@
+To remove a package installed using `ng add`, you can follow these steps:
+
+1. Open the `angular.json` file in the root directory of your project.
+2. Find the `schematics` property under the `@schematics/angular` section.
+3. Locate the package you want to remove and delete its entry.
+4. Save the changes to the `angular.json` file.
+5. Run `npm uninstall <package>` to remove the package from your project.
+
+Note that removing a package installed using `ng add` may not completely remove all of its dependencies. You may need to manually remove any remaining dependencies or files related to the package.

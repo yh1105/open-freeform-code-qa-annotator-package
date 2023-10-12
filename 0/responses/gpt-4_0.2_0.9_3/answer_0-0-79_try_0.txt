@@ -1,0 +1,25 @@
+The error message `ERR_MODULE_NOT_FOUND` means that Node.js can't find the module you're trying to import. This could be due to a few reasons:
+
+1. The path to the module is incorrect.
+2. The module doesn't exist.
+3. The module is not correctly exported.
+
+In your case, the problem seems to be with the path you're using to import the `api.js` file in your `server.js` file. 
+
+You're currently using a relative path `./src/server/api` to import the `api.js` file. This path is relative to the current file, `server.js`. If the `server.js` file is not in the same directory as the `src` directory, this path won't work.
+
+To fix this, you need to adjust the path to match the actual location of the `api.js` file. If `server.js` and `src` are in the same directory, the path should be `./src/server/api`. If `server.js` is inside a directory within the `src` directory, you might need to use `../src/server/api` or another appropriate path.
+
+Here's how you can adjust the import statement:
+
+```javascript
+import apis from '../src/server/api'
+```
+
+Or, if `server.js` and `src` are in the same directory:
+
+```javascript
+import apis from './src/server/api'
+```
+
+Please adjust the path according to your project's directory structure. If the problem persists, make sure that the `api.js` file exists in the specified location and is correctly exporting the `apis` object.

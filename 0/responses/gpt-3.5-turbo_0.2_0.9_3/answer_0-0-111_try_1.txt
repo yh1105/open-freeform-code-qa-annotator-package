@@ -1,0 +1,20 @@
+It seems like there are conflicting dependencies in your project. Here are some steps you can try to resolve the issue:
+
+1. Delete the `node_modules` folder and `package-lock.json` file.
+2. Run `npm cache clean --force` to clear the npm cache.
+3. Update your `npm` version by running `npm install -g npm`.
+4. Install the latest version of `@angular/cli` globally by running `npm install -g @angular/cli`.
+5. Install the dependencies in the correct order:
+
+```
+npm install @angular/compiler-cli@11.0.0
+npm install @angular-devkit/build-angular@0.1100.1
+npm install @angular/cdk@11.0.0
+npm install @angular/core@11.0.0
+npm install @angular/material@11.0.0
+npm install
+```
+
+6. If the issue persists, try running `npm audit fix --force` to force the installation of the latest compatible versions of the dependencies.
+
+I hope this helps you resolve the issue. Let me know if you have any further questions or concerns.

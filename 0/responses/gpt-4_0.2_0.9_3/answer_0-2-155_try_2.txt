@@ -1,0 +1,24 @@
+You can change the height of the `mat-form-field` with `appearance="outline"` by overriding the default CSS styles. 
+
+Here is an example of how you can do it:
+
+```css
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  padding-bottom: 0.25em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0.5em 0.75em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  border-top: 0.5em solid;
+  padding: 0.25em 0;
+}
+```
+
+In the above CSS, you can adjust the `padding` and `border-top` values to suit your needs. 
+
+Please note that these styles should be placed in a global stylesheet, or you should use `::ng-deep` to force style encapsulation if you are placing them in a component's stylesheet.
+
+Also, be aware that changing these styles might affect the alignment and layout of other form field elements (like labels, hints, errors), so you might need to adjust those as well.

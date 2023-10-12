@@ -1,0 +1,35 @@
+The issue you're facing might be due to the fact that you're not actually showing the toast. The `$('.toast').toast(option)` line is just initializing the toast. To show it, you need to call `$('.toast').toast('show')`.
+
+Here's how you can do it:
+
+```javascript
+$(document).ready(function(){
+    $('.toast').toast({ autohide: false });
+    $('.toast').toast('show');
+});
+```
+
+This code will initialize the toast and then show it when the document is ready. The `{ autohide: false }` option is used to keep the toast visible until the user dismisses it.
+
+Also, make sure that your toast is not hidden by CSS. If it's still not showing, try adding this CSS rule to make sure it's visible:
+
+```css
+.toast {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+```
+
+This will position the toast at the top right corner of the page. You can adjust the position according to your needs.
+
+If you want the toast to autohide after a certain amount of time, you can set the `autohide` option to `true` and use the `delay` option to specify the delay in milliseconds:
+
+```javascript
+$(document).ready(function(){
+    $('.toast').toast({ autohide: true, delay: 5000 });
+    $('.toast').toast('show');
+});
+```
+
+This will hide the toast automatically after 5 seconds.

@@ -1,0 +1,17 @@
+It seems like you're having issues with conflicting dependencies. Here are the steps you can follow to resolve this issue:
+
+1. First, make sure you have the latest version of Node.js and npm installed. You can check your version by running `node -v` and `npm -v` in your terminal. If you don't have the latest version, you can download it from the official Node.js website.
+
+2. Next, you should try to clean your npm cache by running `npm cache clean --force`.
+
+3. Delete your `node_modules` folder and `package-lock.json` file. These files will be regenerated in the next steps.
+
+4. Run `npm install -g @angular/cli@11.0.1` to globally install the specific version of Angular CLI.
+
+5. Now, go to your project directory and run `npm install`. This will install all the dependencies defined in your `package.json` file.
+
+6. After that, run `ng update @angular/core@11 @angular/cli@11`. This command will update your Angular core and CLI to version 11.
+
+7. Finally, run `ng update @angular/material@11` and `ng update @angular/cdk@11` to update Angular Material and CDK to version 11.
+
+If you still encounter issues, you might want to consider creating a new Angular 11 project and moving your source files to the new project. This can be a more reliable way to upgrade if your project has complex dependencies.

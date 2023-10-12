@@ -1,0 +1,7 @@
+You can use the `:first-of-type` selector to select the first element of a certain type within its parent element. In this case, you can modify your locator to select the first `span` element within the first `div` element that matches the `data-cy` attribute value:
+
+```
+[data-cy="offerBreakUpTableHeaderCellRenderer"] > div:first-of-type > span:first-of-type
+```
+
+This should select the "Joined" heading element that you are looking for.

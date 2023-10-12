@@ -1,0 +1,23 @@
+It seems like you're dealing with a complex issue. Unfortunately, Excel VBA doesn't have native support for SharePoint and OneDrive operations. However, there are a few workarounds that you might consider.
+
+1. **Use SharePoint REST API**: SharePoint provides a REST API that you can use to interact with SharePoint data in a more structured way. You can use this API to create folders, upload files, and perform other operations. This would require some knowledge of HTTP and REST, but there are many resources available online to help you get started.
+
+2. **Use Office 365 CLI**: Office 365 CLI is a command-line interface that allows you to manage your Office 365 tenant. You can use it to perform operations on SharePoint and OneDrive, including creating folders and uploading files. You can call Office 365 CLI commands from VBA using the Shell function.
+
+3. **Use a third-party library**: There are third-party libraries available that provide a more user-friendly interface for interacting with SharePoint and OneDrive from VBA. One such library is SharePoint Client Object Model, which allows you to interact with SharePoint data using a set of easy-to-use objects and methods.
+
+As for retrieving the local path of a file stored on OneDrive, you might try using the `ActiveWorkbook.Path` property in VBA. This property returns the full path of the workbook, which should include the local OneDrive path if the workbook is stored on OneDrive.
+
+Here is a sample code snippet:
+
+```vba
+Sub GetLocalPath()
+    Dim localPath As String
+    localPath = ActiveWorkbook.Path
+    MsgBox localPath
+End Sub
+```
+
+This code will display a message box with the local path of the active workbook. If the workbook is stored on OneDrive, the path should start with something like "C:\Users\YourUsername\OneDrive".
+
+Please note that these are just possible solutions and might not work in all scenarios. It's always a good idea to test different approaches and see what works best for your specific situation.

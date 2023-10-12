@@ -1,0 +1,99 @@
+To split the data into 5 separate columns, you can use the `Split` function in VBA. Here's how you can modify your code to achieve this:
+
+```
+Sub ExtractData()
+
+Dim filename As String, nextrow As Long, MyFolder As String
+Dim MyFile As String, text As String, textline As String, filedate As String
+Dim filenum As Integer
+Dim idx%
+
+MyFolder = "D:\Automation\VSWR\"
+MyFile = Dir(MyFolder & "VSWR W51.txt")
+
+nextrow = ActiveSheet.Cells(Rows.Count, "A").End(xlUp).Row + 1
+
+Cells(1, 1).Value = "eNodeBName"
+Cells(1, 2).Value = "Time"
+Cells(1, 3).Value = "MML SN"
+Cells(1, 4).Value = "MML Command"
+Cells(1, 5).Value = "Retcode"
+Cells(1, 6).Value = "Explain_info"
+Cells(1, 7).Value = "Cabinet No."
+Cells(1, 8).Value = "Subrack No."
+Cells(1, 9).Value = "Slot No."
+Cells(1, 10).Value = "TX Channel No."
+Cells(1, 11).Value = "VSWR(0.01)"
+'Columns(1).EntireColumn.AutoFit
+
+Do While MyFile <> ""
+
+Open (MyFolder & MyFile) For Input As #1
+
+    Do Until EOF(1)
+        Line Input #1, textline 'read a line
+        
+        idx = InStr(textline, "NE")
+        If idx > 0 Then
+            'ActiveSheet.Cells(nextrow, "A").Value = Mid(textline, idx + 5)
+            ActiveSheet.Cells(nextrow, "A").Value = Mid(textline, filenum + 5)
+        End If
+
+        idx = InStr(textline, "Report")
+        If idx > 0 Then
+            ActiveSheet.Cells(nextrow, "B").Value = Right(textline, filenum + 19)
+        End If
+        
+        idx = InStr(textline, "O&M")
+        If idx > 0 Then
+            ActiveSheet.Cells(nextrow, "C").Value = ("O&M" & Mid(textline, filenum + 4))
+        End If
+        
+        
+        idx = InStr(textline, "MML Session")
+        If idx > 0 Then
+            ActiveSheet.Cells(nextrow, "D").Value = "DSP VSWR:;"
+        End If
+        
+        
+        idx = InStr(textline, "RETCODE")
+        If idx > 0 Then
+            ActiveSheet.Cells(nextrow, "E").Value = "0"
+        End If
+           
+        idx = InStr(textline, "RETCODE")
+        If idx > 0 Then
+            ActiveSheet.Cells(nextrow, "F").Value = Mid(textline, filenum + 12)
+
+            'nextrow = nextrow + 1 'now move to next row
+        End If
+                 
+        idx = InStr(textline, "Cabinet No.")
+        If idx > 0 Then
+        
+            ' read the next 4 lines to get the data for columns G to K
+            For i = 1 To 4
+                Line Input #1, textline
+                If i = 1 Then
+                    ActiveSheet.Cells(nextrow, "G").Value = Split(textline, ":")(1)
+                ElseIf i = 2 Then
+                    ActiveSheet.Cells(nextrow, "H").Value = Split(textline, ":")(1)
+                ElseIf i = 3 Then
+                    ActiveSheet.Cells(nextrow, "I").Value = Split(textline, ":")(1)
+                ElseIf i = 4 Then
+                    ActiveSheet.Cells(nextrow, "J").Value = Split(textline, ":")(1)
+                    ActiveSheet.Cells(nextrow, "K").Value = Split(textline, ":")(2)
+                End If
+            Next i
+            
+            nextrow = nextrow + 1 'now move to next row
+        End If
+    Loop  
+Close #1
+MyFile = Dir()
+
+Loop
+End Sub
+```
+
+In the modified code, the `For` loop reads the next 4 lines after the line containing "Cabinet No." and uses the `Split` function to extract the data for columns G to K. The `If` statements inside the loop check which column the data should be written to based on the line number.

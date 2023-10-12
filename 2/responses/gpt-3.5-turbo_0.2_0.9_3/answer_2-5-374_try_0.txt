@@ -1,0 +1,9 @@
+It seems like the error is related to the JNA library not being able to link with the C library. This could be due to a mismatch in architecture between the JNA library and the system architecture.
+
+One possible solution is to try installing the JNA library separately and then linking it with Cassandra. You can download the JNA library from the official website (https://github.com/java-native-access/jna) and then add it to the classpath of Cassandra.
+
+Another solution is to try running Cassandra in a Docker container. This can help avoid any compatibility issues with the system architecture.
+
+You can also try running Cassandra with a different version of JDK, such as JDK11 or JDK16, to see if that resolves the issue.
+
+Lastly, you can check if there are any updates or patches available for Cassandra that address this issue.

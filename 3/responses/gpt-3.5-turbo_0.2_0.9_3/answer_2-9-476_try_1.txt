@@ -1,0 +1,17 @@
+It looks like the `rbenv` command is not being recognized by your shell. This could be due to a few different reasons, but here are a few things you can try:
+
+1. Make sure that rbenv is installed correctly and that the `rbenv` command is available in your `PATH`. You can check this by running `which rbenv` in your terminal. If it returns a path, then rbenv is installed correctly and in your `PATH`. If it doesn't return anything, then rbenv is not installed or not in your `PATH`.
+
+2. Check that the `~/.zshenv` file is being sourced correctly. You can do this by running `echo $PATH` in your terminal. If the output includes the path to your rbenv installation, then the `~/.zshenv` file is being sourced correctly. If it doesn't include the path, then the `~/.zshenv` file is not being sourced correctly.
+
+3. Make sure that the `rbenv init` command is being executed correctly. You can check this by running `rbenv init` in your terminal. If it outputs some commands that you can copy and paste into your shell, then `rbenv init` is working correctly. If it doesn't output anything, then there may be an issue with your rbenv installation.
+
+4. Try adding the `rbenv` command to your `PATH` manually. You can do this by adding the following line to your `~/.zshrc` file:
+
+   ```
+   export PATH="$HOME/.rbenv/bin:$PATH"
+   ```
+
+   Then run `source ~/.zshrc` in your terminal to reload your shell configuration.
+
+Hopefully one of these solutions will help you resolve the issue.

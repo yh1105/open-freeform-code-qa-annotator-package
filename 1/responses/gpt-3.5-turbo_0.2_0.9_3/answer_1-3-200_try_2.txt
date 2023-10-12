@@ -1,0 +1,15 @@
+The error message you are receiving indicates that the `git checkout` command is failing. There could be several reasons for this, such as the specified commit hash not existing or the repository not being in a clean state.
+
+Here are a few things you can try to troubleshoot the issue:
+
+1. Check that the commit hash exists in the repository by running the command `git log` and verifying that the hash is present in the output.
+
+2. Ensure that the repository is in a clean state by running the command `git status` and verifying that there are no uncommitted changes.
+
+3. Try running the `git checkout` command manually in the terminal to see if you get any additional error messages.
+
+4. Add the `stderr=subprocess.STDOUT` argument to your `subprocess.check_output` call to capture any error messages that may be printed to the console.
+
+5. Consider using the `subprocess.run` method instead of `subprocess.check_output` to capture both the stdout and stderr output.
+
+6. Finally, you can try wrapping the `git checkout` command in a try-except block to catch any exceptions that may be raised and print out the error message.

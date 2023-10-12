@@ -1,0 +1,32 @@
+In Java, the PriorityQueue does not automatically know how to compare the Pair objects. You need to provide a Comparator to the PriorityQueue to tell it how to compare the objects. Here is how you can do it:
+
+```java
+import javafx.util.Pair;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+
+public class Test
+{
+    public static void main (String[] args)
+    {
+        int n = 5;
+
+        PriorityQueue <Pair <Integer,Integer> > l = new PriorityQueue <Pair <Integer,Integer> > (n, new Comparator<Pair<Integer, Integer>>() {
+            @Override
+            public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
+                return o1.getKey().compareTo(o2.getKey());
+            }
+        });
+
+        l.add(new Pair <> (1, 90));
+        l.add(new Pair <> (7, 54));
+        l.add(new Pair <> (2, 99));
+        l.add(new Pair <> (4, 88));
+        l.add(new Pair <> (9, 89));
+
+        System.out.println(l.poll().getValue()); 
+    }
+}
+```
+
+In this code, we are providing an anonymous class that implements the Comparator interface. The compare method is overridden to compare the keys of the Pair objects. Now, the PriorityQueue will use this comparator to order the elements in the queue. The smallest key will be the head of the queue, and when you call poll(), it will return the Pair with the smallest key. Then, getValue() will return the value associated with the smallest key.

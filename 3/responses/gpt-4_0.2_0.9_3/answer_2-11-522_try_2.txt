@@ -1,0 +1,38 @@
+In C++, the standard library does not provide a direct way to set the affinity of a thread to a specific core or to query a thread's properties in such a detailed manner. This is because C++ aims to provide a high level of portability across different platforms and operating systems, and such features are highly platform-specific.
+
+However, many operating systems provide their own APIs that allow you to control thread affinity. For example, on a Unix-like system such as Linux, you can use the `pthread_setaffinity_np` function to set the CPU affinity of a thread. On Windows, you can use the `SetThreadAffinityMask` function.
+
+Here is an example of how you might set the CPU affinity of a thread on Linux:
+
+```cpp
+#include <pthread.h>
+#include <stdio.h>
+
+void* run(void* data) {
+    // Do work here...
+    return NULL;
+}
+
+int main() {
+    pthread_t thread;
+    cpu_set_t cpuset;
+
+    pthread_create(&thread, NULL, run, NULL);
+
+    CPU_ZERO(&cpuset);
+    CPU_SET(0, &cpuset);  // Set the thread to run on CPU 0
+
+    int result = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
+    if (result != 0) {
+        perror("pthread_setaffinity_np");
+    }
+
+    pthread_join(thread, NULL);
+
+    return 0;
+}
+```
+
+Remember that setting thread affinity can have complex effects on performance and is generally best left to the operating system's scheduler unless you have a specific reason to control it.
+
+As for the new processors like Apple's M series and Intel's Alder Lake, it's up to the operating system's scheduler to decide how to distribute threads across the different types of cores. It's not clear yet how much control developers will have over this process, and it may vary between different operating systems.

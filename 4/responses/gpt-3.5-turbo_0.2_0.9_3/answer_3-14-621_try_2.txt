@@ -1,0 +1,241 @@
+The error message is indicating that you are trying to access the `@State` variable outside of the `body` property of the `View`. This is not allowed because the `@State` variable is meant to be used only within the `View` and its lifecycle methods.
+
+To initialise the value of a `@State` variable using an external value, you can use a computed property instead of the `init()` method. Here's an updated version of your code:
+
+```
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+    let letter: String
+    @State var fullText: String = ""
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+    }
+
+    var body: some View {
+        TextField($fullText)
+   

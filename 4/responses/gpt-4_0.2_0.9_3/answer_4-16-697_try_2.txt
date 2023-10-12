@@ -1,0 +1,18 @@
+The issue you're experiencing is due to the fact that Docker does not source the `~/.bashrc` file when it runs a command. The `~/.bashrc` file is sourced when you start a new interactive shell session, which is why it works when you run `docker run -it IMAGE_NAME bash` and then manually run the `launch.sh` script.
+
+To solve this issue, you can source the `~/.bashrc` file directly in your `launch.sh` script. Here is how you can modify your `launch.sh` script:
+
+```bash
+#!/bin/bash
+
+# Source the .bashrc file
+source ~/.bashrc
+
+cd /workspace/demo
+npm install
+node index.js
+```
+
+This way, the `~/.bashrc` file will be sourced every time the `launch.sh` script is run, ensuring that `nvm` is properly loaded and the `node` and `npm` commands are available.
+
+However, please note that sourcing `~/.bashrc` might not be a good practice in a Dockerfile, as it can lead to unexpected behavior. A better approach would be to install Node.js directly in the Dockerfile without using `nvm`. This way, the `node` and `npm` commands will be available system-wide, and you won't need to source any files in your `launch.sh` script.

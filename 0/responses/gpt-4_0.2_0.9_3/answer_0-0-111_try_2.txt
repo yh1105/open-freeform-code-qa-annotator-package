@@ -1,0 +1,42 @@
+The error messages you're seeing are due to conflicting dependencies in your project. The Angular CLI is trying to update `@angular-devkit/build-angular` to version `0.1100.1`, but this version requires `@angular/compiler-cli` version `11.0.0` or later. However, your project currently has a different version of `@angular/compiler-cli` installed, hence the conflict.
+
+Here's a step-by-step guide on how to resolve this issue:
+
+1. First, update your global Angular CLI to version 11.0.1 by running the following command:
+
+   ```
+   npm uninstall -g @angular/cli
+   npm cache verify
+   npm install -g @angular/cli@11.0.1
+   ```
+
+2. Then, navigate to your project directory and update the local Angular CLI:
+
+   ```
+   ng update @angular/cli@11.0.1
+   ```
+
+3. Next, update `@angular/core`:
+
+   ```
+   ng update @angular/core@11.0.0
+   ```
+
+4. After that, update `@angular-devkit/build-angular`:
+
+   ```
+   ng update @angular-devkit/build-angular@0.1100.1
+   ```
+
+5. Now, update `@angular/cdk` and `@angular/material`:
+
+   ```
+   ng update @angular/cdk@11.0.0
+   ng update @angular/material@11.0.0
+   ```
+
+6. Finally, run `npm install` to install any remaining dependencies.
+
+If you still encounter issues, try deleting your `node_modules` directory and `package-lock.json` file, then run `npm install` again. This will force npm to resolve and fetch the latest versions of all dependencies.
+
+Remember to backup your project before making these changes, just in case something goes wrong.

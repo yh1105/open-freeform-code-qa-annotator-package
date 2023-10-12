@@ -1,0 +1,41 @@
+To parse the JSON response, you can use the `JSONDecoder` class in Swift 5. Here's an example of how you can parse the JSON and get the `price` value:
+
+```
+struct PriceResponse: Codable {
+    let status: String
+    let data: PriceData
+}
+
+struct PriceData: Codable {
+    let network: String
+    let prices: [Price]
+}
+
+struct Price: Codable {
+    let price: String
+    let price_base: String
+    let exchange: String
+    let time: Int
+}
+
+func api() {
+    guard let url = URL(string: "https://sochain.com//api/v2/get_price/DOGE/USD") else { return }
+
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+
+        do {
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(PriceResponse.self, from: data)
+            let price = response.data.prices.first?.price
+            print("Price: \(price ?? "N/A")")
+        } catch {
+            print("Error decoding JSON: \(error)")
+        }
+    }
+
+    task.resume()
+}
+```
+
+In this example, we define three structs to represent the JSON response: `PriceResponse`, `PriceData`, and `Price`. We then use `JSONDecoder` to decode the JSON data into an instance of `PriceResponse`. Finally, we extract the `price` value from the first element in the `prices` array and print it to the console.

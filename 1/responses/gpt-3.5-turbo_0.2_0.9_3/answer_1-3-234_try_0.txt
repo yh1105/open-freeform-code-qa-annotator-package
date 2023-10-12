@@ -1,0 +1,24 @@
+It seems like you are facing two different issues. The first issue is related to the numpy version, and the second issue is related to the binary incompatibility of numpy and pycocotools.
+
+For the first issue, you can try downgrading the numpy version to < 1.20.0 as suggested by the error message. You can use the following command to install the specific version of numpy:
+
+```
+pip install numpy==1.19.5
+```
+
+For the second issue, you can try upgrading the numpy version to >= 1.20.0 as suggested by the online recommendation. You can use the following command to upgrade the numpy version:
+
+```
+pip install numpy --upgrade
+```
+
+If you still face the same issue after upgrading the numpy version, you can try uninstalling and reinstalling pycocotools using the following commands:
+
+```
+pip uninstall pycocotools
+pip install pycocotools
+```
+
+This should resolve the binary incompatibility issue.
+
+Note that you may need to restart your kernel or terminal after installing or upgrading the packages for the changes to take effect.

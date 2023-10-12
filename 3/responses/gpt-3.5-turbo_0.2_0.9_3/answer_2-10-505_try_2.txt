@@ -1,0 +1,11 @@
+You can use the `DateTimeOffset` structure to convert the `SystemTime` variable to the ISO 8601 format. Here's an example:
+
+```csharp
+SystemTime systemTime = // your SystemTime variable
+DateTimeOffset dateTimeOffset = new DateTimeOffset(systemTime.Year, systemTime.Month, systemTime.Day, systemTime.Hour, systemTime.Minute, systemTime.Second, TimeSpan.Zero);
+string iso8601 = dateTimeOffset.ToString("o");
+```
+
+The `DateTimeOffset` constructor takes the year, month, day, hour, minute, second, and offset values as parameters. In this example, we're using `TimeSpan.Zero` for the offset, which means the time is in UTC.
+
+The `ToString` method with the "o" format specifier returns the ISO 8601 string representation of the `DateTimeOffset` object.

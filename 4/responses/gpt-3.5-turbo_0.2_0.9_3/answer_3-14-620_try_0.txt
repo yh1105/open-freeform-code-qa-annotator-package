@@ -1,0 +1,46 @@
+One possible solution is to use the `ScrollViewReader` and `GeometryReader` views in SwiftUI to manually scroll to a specific position in the `List`. Here's an example:
+
+```swift
+struct ContentView: View {
+    @State private var scrollToIndex: Int? = nil
+    
+    var body: some View {
+        VStack {
+            Button("Scroll to 10") {
+                self.scrollToIndex = 10
+            }
+            List(0..<100) { index in
+                Text("Row \(index)")
+                    .id(index)
+            }
+            .onAppear {
+                if let scrollToIndex = self.scrollToIndex {
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            self.scrollToIndex = nil
+                        }
+                        self.scrollTo(scrollToIndex)
+                    }
+                }
+            }
+            .onChange(of: scrollToIndex) { newValue in
+                if let newValue = newValue {
+                    self.scrollTo(newValue)
+                }
+            }
+        }
+    }
+    
+    private func scrollTo(_ index: Int) {
+        DispatchQueue.main.async {
+            withAnimation {
+                self.scrollToIndex = index
+            }
+        }
+    }
+}
+```
+
+In this example, we have a `List` with 100 rows and a button that triggers scrolling to a specific row (in this case, row 10). When the button is tapped, we set the `scrollToIndex` state variable to the desired index. In the `List`'s `onAppear` callback, we check if `scrollToIndex` is set and, if so, we scroll to the desired index using the `scrollTo` method. We also use a `GeometryReader` to get the position of the row we want to scroll to, and a `ScrollViewReader` to scroll to that position.
+
+Note that this approach may not be as performant as using a `UITableView` directly, but it should be sufficient for most cases.

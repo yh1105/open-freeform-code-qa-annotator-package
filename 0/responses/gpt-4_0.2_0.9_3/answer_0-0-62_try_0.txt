@@ -1,0 +1,21 @@
+The error you're seeing is due to the way you're assigning keys in your `v-for` loop. Vue.js requires that each node in a list have a unique key so it can track each node's identity. This is especially important when you want to reorder or update the list.
+
+In your case, you're using the entire `comment` object as the key:
+
+```html
+<div v-for="comment in comments" :key="comment">
+```
+
+Vue.js recommends using string or number values as keys. If your `comment` object has a unique id, you should use that as the key:
+
+```html
+<div v-for="comment in comments" :key="comment.id">
+```
+
+If your `comment` object doesn't have a unique id, and you're sure that the `text` of each comment is unique, you could use that:
+
+```html
+<div v-for="comment in comments" :key="comment.text">
+```
+
+But be careful with this approach. If two comments have the same text, you'll run into issues. It's always best to use a truly unique value as the key.

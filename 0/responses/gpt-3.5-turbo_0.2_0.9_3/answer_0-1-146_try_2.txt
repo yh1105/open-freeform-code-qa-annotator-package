@@ -1,0 +1,22 @@
+One solution to this issue is to use Cypress' `within` command to get the width of the element relative to its parent element. This can help avoid issues with decimal places and ensure that the width is being measured accurately.
+
+Here's an example:
+
+```
+cy.get('.parent')
+  .within(() => {
+    cy.get('.target').should('have.css', 'width', '200px');
+  });
+```
+
+In this example, we're using the `within` command to scope the search for the `.target` element to its parent element with the class `.parent`. This ensures that the width is being measured relative to the parent element, which can help avoid issues with decimal places.
+
+Another solution is to use Cypress' `round` command to round the width value to a specific number of decimal places. For example:
+
+```
+cy.get('.target')
+  .invoke('width')
+  .should('be.closeTo', 200, 0.01);
+```
+
+In this example, we're using the `invoke` command to get the raw width value of the `.target` element, and then using the `be.closeTo` assertion to check that it's within 0.01 of the expected value of 200. This can help avoid issues with decimal places by rounding the value to a specific number of decimal places.

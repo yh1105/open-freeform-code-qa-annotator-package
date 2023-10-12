@@ -1,0 +1,13 @@
+To get the list of item names and prices separately, you can use the `Object.keys()` method to get an array of keys from the `itemsToBuy` object, and then use the `map()` method to create a new array of prices by accessing the `price` property of each item object. Here's an example code snippet:
+
+```
+var itemNames = Object.keys(itemsToBuy);
+var itemPrices = itemNames.map(function(item) {
+  return itemsToBuy[item].price;
+});
+
+console.log(itemNames);   // ['milk', 'bread', 'potato']
+console.log(itemPrices);  // [20, 15, 10]
+```
+
+This code first gets an array of keys from the `itemsToBuy` object using `Object.keys()`, which returns `['milk', 'bread', 'potato']`. Then it uses the `map()` method to create a new array of prices by iterating over each item name in the `itemNames` array and accessing the `price` property of the corresponding item object in the `itemsToBuy` object. The resulting `itemPrices` array is `[20, 15, 10]`.

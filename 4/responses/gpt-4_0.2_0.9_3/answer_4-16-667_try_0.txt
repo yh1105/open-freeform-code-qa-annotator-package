@@ -1,0 +1,13 @@
+The issue you're encountering seems to be related to the `CATALINA_HOME` environment variable. The script is looking for `setclasspath.sh` in the directory specified by `CATALINA_HOME`, but it seems like it's not finding it there.
+
+Here are a few things you can check:
+
+1. **Check the value of `CATALINA_HOME`**: You can do this by adding `echo $CATALINA_HOME` in your script before the if condition. This will print the value of `CATALINA_HOME` when the script runs. Make sure that this path is correct and points to the directory where `setclasspath.sh` is located.
+
+2. **Set `CATALINA_HOME` manually**: If `CATALINA_HOME` is not set correctly, you can set it manually in your script before the if condition. For example, you can add `CATALINA_HOME=/usr/local/tomcat` before the if condition. This will set `CATALINA_HOME` to `/usr/local/tomcat` for the duration of the script.
+
+3. **Check the file path**: Make sure that the file path in the if condition is correct. The path should be `$CATALINA_HOME/bin/setclasspath.sh`. If `CATALINA_HOME` is `/usr/local/tomcat`, then the full path should be `/usr/local/tomcat/bin/setclasspath.sh`.
+
+4. **Check the file permissions**: Make sure that `setclasspath.sh` has the correct permissions. The script needs to be able to read the file, so it should have read permissions. You can check the file permissions with `ls -l $CATALINA_HOME/bin/setclasspath.sh`. You can change the file permissions with `chmod +r $CATALINA_HOME/bin/setclasspath.sh`.
+
+If none of these solutions work, there might be an issue with the Docker image you're using. You might want to try using a different image or building your own image.

@@ -1,0 +1,26 @@
+It seems like the issue is with the content type of the response. The error message suggests that there is no converter for the `Pet` class with the preset content type of `null`. 
+
+You can try specifying the content type of the response explicitly in the `@RequestMapping` annotation, like this:
+
+```
+@RequestMapping(value = "/pet/{petId}", produces = {"application/json", "application/xml"})
+```
+
+This should tell Spring to use the appropriate converter for the specified content types.
+
+If that doesn't work, you can try adding a message converter explicitly to your Spring configuration. For example, if you want to support XML responses, you can add the following to your `WebMvcConfigurer` implementation:
+
+```
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new MappingJackson2XmlHttpMessageConverter());
+    }
+}
+```
+
+This will add a converter that can convert `Pet` objects to XML.
+
+I hope this helps! Let me know if you have any further questions.

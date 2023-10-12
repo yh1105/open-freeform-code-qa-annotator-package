@@ -1,0 +1,16 @@
+The issue you're encountering is due to the way JavaScript handles floating point numbers. It's a common problem in many programming languages, not just JavaScript.
+
+Instead of testing for an exact match, you could test to see if the width is within a certain range. This will allow for some slight variation in the actual value due to the way JavaScript handles floating point numbers.
+
+Here's how you could do it:
+
+```javascript
+cy.get('.target').then(($el) => {
+  const width = parseFloat($el.css('width'));
+  expect(width).to.be.closeTo(200, 1); // 1px tolerance
+});
+```
+
+In this code, we're using the `closeTo` assertion from Chai (the assertion library used by Cypress) to check if the width is within 1px of 200. This should be enough to handle any slight variations in the actual width due to floating point precision issues.
+
+This approach should be more efficient than converting the widths to numbers for each test, and it will also make your tests more robust and less likely to fail due to minor differences in the actual and expected values.

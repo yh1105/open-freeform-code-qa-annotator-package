@@ -1,0 +1,75 @@
+You can extract the breakpoints from the Tailwind config file by accessing the `theme` object and then the `screens` property. Here's an example:
+
+```
+const { screens } = require('tailwindcss/defaultTheme');
+
+console.log(screens);
+```
+
+This will output an object with the default breakpoints defined by Tailwind:
+
+```
+{
+  'sm': '640px',
+  'md': '768px',
+  'lg': '1024px',
+  'xl': '1280px',
+  '2xl': '1536px',
+}
+```
+
+You can then use these breakpoints to create your own mixins or functions, like this:
+
+```
+const { screens } = require('tailwindcss/defaultTheme');
+
+function tabletPortrait(css) {
+  return `@media (min-width: ${screens['md']}) {
+    ${css}
+  }`;
+}
+
+// Usage:
+const myStyles = `
+  color: red;
+`;
+
+const tabletPortraitStyles = tabletPortrait(myStyles);
+```
+
+This will output the following CSS:
+
+```
+@media (min-width: 768px) {
+  color: red;
+}
+```
+
+You can also use the `@apply` directive to apply Tailwind classes within your custom mixins or functions, like this:
+
+```
+const { screens } = require('tailwindcss/defaultTheme');
+
+function tabletPortrait(css) {
+  return `@media (min-width: ${screens['md']}) {
+    @apply bg-gray-100;
+    ${css}
+  }`;
+}
+
+// Usage:
+const myStyles = `
+  color: red;
+`;
+
+const tabletPortraitStyles = tabletPortrait(myStyles);
+```
+
+This will output the following CSS:
+
+```
+@media (min-width: 768px) {
+  background-color: #f7fafc;
+  color: red;
+}
+```

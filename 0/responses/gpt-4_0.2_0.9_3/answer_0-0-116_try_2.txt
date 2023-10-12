@@ -1,0 +1,17 @@
+The error message you're seeing indicates that the 'node-sass' module is not installed in your project. 'node-sass' is a library that provides binding for Node.js to LibSass, the C version of the popular stylesheet preprocessor, Sass.
+
+You can install 'node-sass' using npm (Node Package Manager) with the following command:
+
+```bash
+npm install node-sass
+```
+
+This command should be run in the root directory of your Angular project.
+
+If you still encounter issues after installing 'node-sass', it might be a compatibility issue. In that case, you can try installing an older version of 'node-sass' that is compatible with your version of Node.js. For example, to install 'node-sass' version 4.14.1, you would use:
+
+```bash
+npm install node-sass@4.14.1
+```
+
+You can check the compatibility of 'node-sass' with Node.js [here](https://github.com/sass/node-sass#supported-nodejs-versions-vary-by-release-please-consult-the-releases-page-below-is-a-general-guide-line).

@@ -1,0 +1,48 @@
+Yes, you can achieve this by using Streamlit's `beta_container` and `beta_columns` functions. Here's an example implementation:
+
+`Home.py`:
+```
+import streamlit as st
+from pages import Page_1, Page_2
+
+# Set page title and favicon
+st.set_page_config(page_title="My App", page_icon=":guardsman:")
+
+# Define sidebar logo and title
+sidebar_logo = st.sidebar.beta_container()
+with sidebar_logo:
+    st.image("path/to/logo.png", use_column_width=True)
+    st.markdown("# My App")
+
+# Define page navigation
+pages = {
+    "Page 1": Page_1,
+    "Page 2": Page_2,
+}
+page = st.sidebar.radio("Go to", list(pages.keys()))
+
+# Display selected page
+pages[page]()
+```
+
+`Page_1.py`:
+```
+import streamlit as st
+
+def Page_1():
+    st.markdown("## Page 1")
+```
+
+`Page_2.py`:
+```
+import streamlit as st
+
+def Page_2():
+    st.markdown("## Page 2")
+```
+
+In this implementation, we use `beta_container` to create a container for the logo and title in the sidebar. We then use `beta_columns` to display the logo and title side-by-side. Finally, we use `set_page_config` to set the page title and favicon.
+
+Note that we import the `Page_1` and `Page_2` functions from their respective files, and call them as functions in the `pages` dictionary. This allows us to easily switch between pages using the `radio` widget in the sidebar.
+
+I hope this helps! Let me know if you have any questions.

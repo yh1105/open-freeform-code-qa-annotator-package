@@ -1,0 +1,30 @@
+The problem you're facing is due to the fact that you're performing multiple JOIN operations on the same table (`describe_expression`) for each filter. This can be quite expensive in terms of performance, especially when the number of filters increases.
+
+One way to improve the performance is to use subqueries. Instead of joining the `describe_expression` table multiple times, you can create a subquery for each filter and then combine them using the `INTERSECT` operator. This way, you're performing the filtering operation on smaller datasets, which should be faster.
+
+Here's how you can do it:
+
+```python
+from django.db.models import Subquery
+
+# Create a list to store the subqueries
+subqueries = []
+
+for filter in filters:
+    # Create a subquery for each filter
+    subquery = Description.objects.filter(expression_set__class__in=filter["class"])
+    subqueries.append(subquery)
+
+# Start with the first subquery
+queryset = Description.objects.filter(id__in=Subquery(subqueries[0].values('id')))
+
+# Intersect the remaining subqueries
+for subquery in subqueries[1:]:
+    queryset = queryset.filter(id__in=Subquery(subquery.values('id')))
+
+# Now you can use the queryset
+```
+
+This should give you the same results as your original query, but it should be faster because it performs the filtering operation on smaller datasets.
+
+Also, make sure that you have proper indexing on your tables. Indexing can greatly improve the performance of your queries. In your case, you should have indexes on the `class_id` and `description_id` fields of the `describe_expression` table.

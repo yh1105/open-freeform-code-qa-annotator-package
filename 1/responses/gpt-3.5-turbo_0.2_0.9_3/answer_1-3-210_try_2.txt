@@ -1,0 +1,22 @@
+The reason why the access times are different is because the `match` statement in Python is implemented using a binary search algorithm. This means that the cases are sorted and the algorithm starts by checking the middle case. If the value being matched is less than the middle case, it continues the search in the lower half of the cases, otherwise it continues in the upper half. This process is repeated until the matching case is found.
+
+In your example, the cases are sorted in ascending order, so the algorithm will start by checking the middle case, which is `'3'`. If the value being matched is less than `'3'`, it will continue the search in the lower half of the cases (`'0'`, `'1'`, `'2'`). If it is greater than `'3'`, it will continue the search in the upper half (`'4'`, `'5'`, `'6'`, `'7'`). This binary search algorithm is more efficient than a linear search, but it does mean that the access times are not equal.
+
+If you want to have equal access times, you could use a dictionary instead of a `match` statement. This would allow you to map each value to its corresponding output, without the need for a binary search. For example:
+
+```
+def match_case(decimal):
+    cases = {
+        '0': "000",
+        '1': "001",
+        '2': "010",
+        '3': "011",
+        '4': "100",
+        '5': "101",
+        '6': "110",
+        '7': "111"
+    }
+    return cases.get(decimal, "NA")
+```
+
+This implementation uses the `get` method of the dictionary to look up the output for the given input. If the input is not in the dictionary, it returns the default value of `"NA"`. This implementation should have equal access times for each case.

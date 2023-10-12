@@ -1,0 +1,13 @@
+You can achieve this by iterating over the map and printing the key and value. Here's how you can do it:
+
+```go
+for key, value := range getUsersAppInfo[0] {
+    fmt.Printf("%s value is %v\n", key, value)
+}
+```
+
+This code will iterate over each key-value pair in the map and print them in the format you specified. 
+
+Please note that `getUsersAppInfo[0]` is used because `getUsersAppInfo` seems to be a slice of maps based on your output. If it's just a single map, you can remove the `[0]`.
+
+Also, the `%v` verb is a placeholder that will be replaced by the value. It's a general placeholder that can print any type. If you know the type of the value, you can use a more specific placeholder (like `%s` for strings, `%d` for integers, etc.).

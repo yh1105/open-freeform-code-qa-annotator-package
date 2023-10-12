@@ -1,0 +1,11 @@
+The issue you're experiencing might be due to macOS's security settings. Here's how you can resolve it:
+
+1. Open `System Preferences` on your Mac.
+2. Click on `Security & Privacy`.
+3. Go to the `General` tab.
+4. At the bottom of the window, you should see a message like "`Flipper` was blocked from use because it is not from an identified developer."
+5. Click the lock to make changes, you will be asked to enter your password.
+6. After entering your password, click `Open Anyway` next to the message about `Flipper`.
+7. A dialog box will appear warning you about the app you're about to open. Click `Open`.
+
+After following these steps, you should be able to run `Flipper` on your Mac. If you're still having trouble, please let me know.

@@ -1,0 +1,25 @@
+In JavaScript/TypeScript, there are no built-in functions that exactly match the behavior of Kotlin's scope functions like `let`, `run`, `with`, `apply`, and `also`. However, you can emulate some of their behavior using JavaScript's existing features and syntax.
+
+For example, Kotlin's `let` function can be emulated using JavaScript's immediately invoked function expressions (IIFE):
+
+```javascript
+// Kotlin
+val result = someObject.let { it.doSomething() }
+
+// JavaScript
+const result = ((it) => it.doSomething())(someObject);
+```
+
+Kotlin's `apply` function can be emulated using JavaScript's `Object.assign` method:
+
+```javascript
+// Kotlin
+val result = someObject.apply { property = newValue }
+
+// JavaScript
+const result = Object.assign(someObject, { property: newValue });
+```
+
+As for libraries, I'm not aware of any that provide these exact functions. However, you can create your own utility functions to mimic this behavior if you find it useful.
+
+Remember that JavaScript and Kotlin are different languages with different idioms and best practices. What works well in Kotlin might not work as well in JavaScript, and vice versa. It's usually best to write JavaScript in a way that's idiomatic to JavaScript, rather than trying to make it behave like another language.

@@ -1,0 +1,33 @@
+The error message you are seeing indicates that the version of pdftk you are trying to use is not compatible with the CPU architecture of your Mac. This is a common issue on newer versions of MacOS, as pdftk is a 32-bit application and MacOS Catalina only supports 64-bit applications.
+
+One solution to this problem is to use an alternative tool that is compatible with 64-bit MacOS, such as PDFtk Server or QPDF. Both of these tools can perform many of the same tasks as pdftk, and can be installed using Homebrew or other package managers.
+
+To install PDFtk Server using Homebrew, you can run the following command in your terminal:
+
+```
+brew install pdftk-java
+```
+
+This will install the Java-based version of PDFtk Server, which can be used to manipulate PDF files from the command line.
+
+To install QPDF using Homebrew, you can run the following command:
+
+```
+brew install qpdf
+```
+
+QPDF is a more lightweight tool than PDFtk Server, but it can still perform many common PDF manipulation tasks.
+
+Once you have installed one of these tools, you can use it to perform the same tasks that you would with pdftk. For example, to merge two PDF files using PDFtk Server, you could run the following command:
+
+```
+pdftk file1.pdf file2.pdf cat output merged.pdf
+```
+
+To achieve the same result using QPDF, you could run the following command:
+
+```
+qpdf --empty --pages file1.pdf file2.pdf -- merged.pdf
+```
+
+I hope this helps you to solve your problem!

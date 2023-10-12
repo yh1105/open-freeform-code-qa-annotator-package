@@ -1,0 +1,41 @@
+The issue here is that TypeScript is not able to resolve the path to your type definition file. TypeScript has a special handling for `@types/` directory which is used for declaration files of libraries that don't provide their own.
+
+Here's how you can solve this:
+
+1. First, make sure that your `tsconfig.json` file includes the `src` directory in the `include` array:
+
+```json
+{
+  "include": ["src"]
+}
+```
+
+2. Then, you can import your type using a relative path:
+
+```tsx
+import { AuthKeyT } from '../@types/app';
+```
+
+The `../` part may vary depending on the structure of your project. Adjust it so that it points to the correct location of your `@types` directory.
+
+3. If you want to avoid using relative paths, you can add a `paths` configuration in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@types/*": ["@types/*"]
+    }
+  },
+  "include": ["src"]
+}
+```
+
+Then, you can import your type like this:
+
+```tsx
+import { AuthKeyT } from '@types/app';
+```
+
+This tells TypeScript to look for `@types` in the `src` directory.

@@ -1,0 +1,19 @@
+The problem with your current approach is that you're trying to modify the string in place, which is not possible in Python as strings are immutable. Also, the `toUpperCase()` method doesn't exist in Python, you should use `upper()` instead.
+
+Here's a corrected version of your function:
+
+```python
+def to_camel_case(text):
+    if not text:
+        return ''
+    else:
+        text = text.replace('-', ' ').replace('_', ' ')
+        words = text.split()
+        for i in range(1, len(words)):
+            words[i] = words[i].capitalize()
+        return ''.join(words)
+```
+
+This function first checks if the input string is empty. If it is, it returns an empty string. If it's not, it replaces all dashes and underscores with spaces, splits the string into words, capitalizes all words except the first one, and then joins them back together without spaces.
+
+This function should pass all your tests.

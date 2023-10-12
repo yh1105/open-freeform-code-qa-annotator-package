@@ -1,0 +1,40 @@
+The issue you're facing is due to the fact that the `json.dumps()` function doesn't know how to serialize your `Prod` objects. You need to convert your `Prod` objects to a serializable format before passing them to `json.dumps()`. 
+
+The `dataclass_json` decorator you're using provides a `to_dict()` method which can be used for this purpose. Here's how you can modify your code to make it work:
+
+```python
+import json
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+@dataclass
+@dataclass_json
+class Prod:
+    id: int
+    name: str
+    price: float
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+prods_dict = [prod.to_dict() for prod in prods]
+pjson = json.dumps(prods_dict)
+```
+
+In this code, `[prod.to_dict() for prod in prods]` is a list comprehension that converts each `Prod` object in the `prods` list to a dictionary. The resulting list of dictionaries can be serialized by `json.dumps()` without any issues.
+
+Regarding the `EnhancedJSONEncoder` class, it seems like you're not using it correctly. You should pass an instance of `EnhancedJSONEncoder` to `json.dumps()` as the `cls` argument, not the class itself. Here's how you can do it:
+
+```python
+import json
+import dataclasses
+
+class EnhancedJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if dataclasses.is_dataclass(o):
+            return dataclasses.asdict(o)
+        return super().default(o)
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+pjson = json.dumps(prods, cls=EnhancedJSONEncoder)
+```
+
+In this code, `cls=EnhancedJSONEncoder` tells `json.dumps()` to use the `EnhancedJSONEncoder` class for serializing objects. The `default()` method of `EnhancedJSONEncoder` is called for objects that `json.dumps()` can't serialize by default. If the object is a dataclass, it's converted to a dictionary using `dataclasses.asdict()`. If it's not a dataclass, the `default()` method of the parent class is called.

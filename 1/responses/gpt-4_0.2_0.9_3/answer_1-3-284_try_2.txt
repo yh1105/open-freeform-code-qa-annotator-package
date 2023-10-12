@@ -1,0 +1,18 @@
+The error message you're seeing suggests that the `%tensorboard` magic function is not found. This is likely because the TensorBoard Jupyter magic was not available until TensorBoard 1.14.0. Since you're using TensorBoard 1.13.1, you won't have access to this feature.
+
+To solve this problem, you should upgrade your TensorBoard to a version 1.14.0 or later. You can do this by running the following command in your terminal:
+
+```bash
+pip install --upgrade tensorboard
+```
+
+After upgrading TensorBoard, you should be able to use the `%tensorboard` magic in your Jupyter notebook.
+
+If you still encounter issues after upgrading, you can try loading TensorBoard using the following code:
+
+```python
+%load_ext tensorboard
+%tensorboard --logdir {logs_base_dir}
+```
+
+The first line loads the TensorBoard extension and the second line runs TensorBoard within your notebook.

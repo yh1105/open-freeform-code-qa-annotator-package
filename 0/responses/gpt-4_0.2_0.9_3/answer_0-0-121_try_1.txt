@@ -1,0 +1,21 @@
+The error message you're seeing is a TypeScript error. TypeScript is complaining because it doesn't know the type of `process.env.APP_ENV`. TypeScript is a statically typed language, which means it needs to know the types of all variables at compile time. 
+
+In this case, `process.env.APP_ENV` is a Node.js environment variable, and TypeScript doesn't know what type it is. 
+
+To fix this error, you need to tell TypeScript what type `process.env.APP_ENV` is. You can do this by declaring a global interface for `process.env` and adding `APP_ENV` as a property. Here's an example:
+
+```typescript
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      APP_ENV: string;
+    }
+  }
+}
+```
+
+This tells TypeScript that `process.env.APP_ENV` is a string. Now you should be able to use `process.env.APP_ENV` without any TypeScript errors.
+
+Remember to place this declaration in a `.d.ts` file (like `typings.d.ts` or `env.d.ts`) in your project, so TypeScript can pick it up during the compilation process. 
+
+Also, make sure that you have set the `APP_ENV` variable in your environment. You can do this in your `.env` file or in your deployment settings, depending on how your project is set up.

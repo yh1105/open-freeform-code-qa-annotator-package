@@ -1,0 +1,15 @@
+This error is related to the way Windows handles command line arguments with embedded quotes. It's a known issue with NetBeans and Maven on Windows.
+
+Here are a few possible solutions:
+
+1. **Downgrade to NetBeans 8.2**: This version doesn't have the issue with embedded quotes.
+
+2. **Use a different command line interpreter**: Instead of `cmd`, you could use PowerShell, Git Bash, or Cygwin. You can change the command line interpreter in the NetBeans settings.
+
+3. **Move your installation to a path without spaces**: The issue is caused by the space in the path to `mvn.cmd`. If you move your NetBeans and Maven installations to a path without spaces, the issue should be resolved.
+
+4. **Upgrade to a newer version of NetBeans**: This issue has been fixed in newer versions of NetBeans. If you upgrade to the latest version, the issue should be resolved.
+
+5. **Edit the NetBeans configuration file**: You can edit the `netbeans.conf` file to change the way NetBeans handles command line arguments. You can find more information on how to do this in the NetBeans documentation.
+
+Remember to always backup your work before making any major changes to your system or software.

@@ -1,0 +1,21 @@
+Unfortunately, Power Automate does not currently support triggering flows directly from a keyboard shortcut or a command line script. However, there are workarounds you can use to achieve similar functionality.
+
+One way is to use a third-party automation tool like AutoHotkey or AutoIt. These tools allow you to create scripts that can simulate mouse clicks and keystrokes, which can be used to start a Power Automate flow. Here's a basic example using AutoHotkey:
+
+1. Install AutoHotkey from https://www.autohotkey.com/
+2. Create a new script file with the .ahk extension (e.g., start_flow.ahk)
+3. Open the script file in a text editor and paste the following code:
+
+```autohotkey
+^!s::
+Run, "C:\Path\To\PowerAutomate.exe"
+WinWaitActive, Power Automate
+Click, 100, 200  ; coordinates of the Play button
+return
+```
+
+This script will start Power Automate and click the Play button when you press Ctrl+Alt+S. You'll need to replace "C:\Path\To\PowerAutomate.exe" with the actual path to Power Automate, and adjust the coordinates of the Click command to match the position of the Play button on your screen.
+
+Another way is to use the Power Automate API to trigger flows programmatically. This requires more technical knowledge and involves creating a custom application in Azure AD, but it gives you more flexibility and control. You can find more information about this approach in the Power Automate documentation: https://docs.microsoft.com/en-us/power-automate/developer/apis
+
+Please note that these are just workarounds and may not work perfectly in all situations. If you need this feature, I recommend submitting a feature request to the Power Automate team.

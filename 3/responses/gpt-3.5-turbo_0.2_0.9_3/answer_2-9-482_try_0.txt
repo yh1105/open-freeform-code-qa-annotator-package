@@ -1,0 +1,16 @@
+In Ruby 3.1, YAML has introduced a new security feature that restricts loading of certain classes by default. To fix the error, you need to explicitly allow the classes that you want to load using the `permitted_classes` option.
+
+However, the `permitted_classes` option only allows the specified classes and their subclasses. In your case, the `OpenStruct` class has a `Symbol` attribute, which is not allowed by default. To allow loading of `Symbol`, you need to add it to the `permitted_symbols` option.
+
+Here's an example of how to load a YAML file with `Matrix`, `OpenStruct`, and `Symbol` permitted:
+
+```ruby
+require 'yaml'
+
+permitted_classes = [Matrix, OpenStruct]
+permitted_symbols = [:foo, :bar] # add any symbols used in the YAML file
+
+hsh = YAML.safe_load(File.read(some_file_name), permitted_classes: permitted_classes, permitted_symbols: permitted_symbols)
+```
+
+Note that `safe_load` is used instead of `load_file` to avoid potential security issues with loading files from untrusted sources. Also, make sure to add all the necessary classes and symbols to the permitted lists to avoid any further errors.

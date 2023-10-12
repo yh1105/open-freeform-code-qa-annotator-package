@@ -1,0 +1,79 @@
+To achieve the layout you want, you can use a combination of flexbox and media queries. Here's an example code snippet to get you started:
+
+HTML:
+
+```
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-12 order-lg-1 order-md-2">
+      <!-- Left sidebar content -->
+    </div>
+    <div class="col-lg-6 col-md-12 order-lg-2 order-md-1">
+      <!-- Main content -->
+    </div>
+    <div class="col-lg-3 col-md-12 order-lg-3 order-md-3">
+      <!-- Right sidebar content -->
+    </div>
+  </div>
+</div>
+```
+
+CSS:
+
+```
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-lg-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-lg-3:last-child {
+  margin-left: auto;
+}
+
+@media (max-width: 991.98px) {
+  .col-lg-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .col-lg-3:last-child {
+    margin-left: 0;
+  }
+  
+  .order-lg-1 {
+    order: 2;
+  }
+  
+  .order-lg-2 {
+    order: 1;
+  }
+  
+  .order-lg-3 {
+    order: 3;
+  }
+}
+```
+
+Explanation:
+
+- The `.container` element is set to `display: flex` and `flex-wrap: wrap` to allow the columns to wrap to the next line when the screen size is reduced.
+- The `.col-lg-*` classes are used to set the width of the columns for large screens (screens wider than 992px). The left and right sidebars are set to 25% width and the main content is set to 50% width.
+- The `.col-lg-3:last-child` selector is used to move the right sidebar to the right edge of the container.
+- The media query targets screens smaller than 992px and sets the width of all columns to 100% to make them stack vertically. The `.order-lg-*` classes are used to change the order of the columns so that the left sidebar appears above the main content and the right sidebar appears below it.
+
+With this code, the layout should adjust as you described when the screen size changes. You can adjust the column widths and order as needed to fit your design.

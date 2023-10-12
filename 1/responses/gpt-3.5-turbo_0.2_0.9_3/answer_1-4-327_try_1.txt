@@ -1,0 +1,7 @@
+To select the second column by name, you can use the `[[` operator and specify the name of the column as a string:
+
+```
+d3[["a.x"]]
+```
+
+This will select the second column, which has been automatically renamed to "a.x" to avoid having two columns with the same name.

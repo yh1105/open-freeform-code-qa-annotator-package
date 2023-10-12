@@ -1,0 +1,36 @@
+You can use the `uname` command to get information about the system, including the processor architecture. On an M1 Mac, the processor architecture will be `arm64`. Here's an example shell script that checks for an M1 processor:
+
+```
+#!/bin/bash
+
+# Get the processor architecture
+arch=$(uname -m)
+
+# Check if it's an M1 processor
+if [[ "$arch" == "arm64" ]]; then
+  echo "This is an M1 Mac"
+else
+  echo "This is not an M1 Mac"
+fi
+```
+
+You can run this script on any Mac to see if it detects an M1 processor. If you want to check for macOS Big Sur as well, you can use the `sw_vers` command to get the macOS version:
+
+```
+#!/bin/bash
+
+# Get the processor architecture
+arch=$(uname -m)
+
+# Get the macOS version
+macos_version=$(sw_vers -productVersion)
+
+# Check if it's an M1 Mac running macOS Big Sur
+if [[ "$arch" == "arm64" && "$macos_version" == "11."* ]]; then
+  echo "This is an M1 Mac running macOS Big Sur"
+else
+  echo "This is not an M1 Mac running macOS Big Sur"
+fi
+```
+
+This script will only print "This is an M1 Mac running macOS Big Sur" if both conditions are true.

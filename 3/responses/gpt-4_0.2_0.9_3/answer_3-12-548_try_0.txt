@@ -1,0 +1,16 @@
+It seems like you're trying to prevent users from navigating back to authenticated pages after they've logged out. This is a common security measure in many applications. 
+
+In Flutter, you can achieve this by removing all previous routes from the navigation stack when you navigate the user to the login page. This way, there will be no pages for the user to navigate back to.
+
+Here's how you can do it:
+
+```dart
+Navigator.of(context).pushAndRemoveUntil(
+  MaterialPageRoute(builder: (context) => LoginPage()),
+  (Route<dynamic> route) => false,
+);
+```
+
+In this code, `pushAndRemoveUntil` pushes the `LoginPage` onto the navigation stack, and then removes all previous routes until the provided predicate returns true. In this case, we're using `(Route<dynamic> route) => false` to indicate that no routes should be left in the stack.
+
+This will ensure that once the user is logged out and redirected to the login page, they cannot navigate back to any previous pages using the back button.

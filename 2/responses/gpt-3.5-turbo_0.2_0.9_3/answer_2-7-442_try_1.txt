@@ -1,0 +1,15 @@
+The issue you are facing is related to the path of the `autoload.php` file. When you run `composer require phpmailer/phpmailer`, Composer downloads the required package and creates a `vendor` folder in your project directory. The `autoload.php` file is located inside this `vendor` folder.
+
+In your code, you are trying to require the `autoload.php` file using a relative path (`require 'vendor/autoload.php';`). This means that PHP will look for the `vendor` folder in the same directory as your PHP file.
+
+Based on the error message you provided, it seems that PHP is unable to find the `autoload.php` file in the `vendor` folder. This could be because the `vendor` folder is not located in the same directory as your PHP file.
+
+To fix this issue, you need to make sure that the `vendor` folder is located in the same directory as your PHP file. You can do this by running the `composer require` command in the same directory as your PHP file.
+
+Alternatively, you can update the path to the `autoload.php` file in your code to reflect the correct location. For example, if the `vendor` folder is located in the root directory of your project, you can use the following code to require the `autoload.php` file:
+
+```
+require __DIR__ . '/vendor/autoload.php';
+```
+
+This code uses the `__DIR__` constant to get the absolute path to the directory of the current PHP file, and then appends the path to the `autoload.php` file relative to that directory.

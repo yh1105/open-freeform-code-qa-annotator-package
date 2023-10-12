@@ -1,0 +1,17 @@
+Sure, I can help you with that. Here are the steps to enable Dev Tools project on IntelliJ 2021.2:
+
+1. Open your project in IntelliJ 2021.2.
+2. Click on the "File" menu and select "Settings".
+3. In the Settings window, expand the "Build, Execution, Deployment" option and select "Compiler".
+4. In the Compiler settings, check the "Build project automatically" option.
+5. Click on the "Apply" button to save the changes.
+
+Now, to observe the changes in code without having to restart the Tomcat server, follow these steps:
+
+1. Open the "Run" menu and select "Edit Configurations".
+2. In the Run/Debug Configurations window, select your Tomcat server configuration.
+3. In the "Server" tab, check the "Enable JMX agent" option.
+4. In the "Deployment" tab, check the "Deploy applications automatically" option.
+5. Click on the "Apply" button to save the changes.
+
+Now, whenever you make changes to your code, IntelliJ will automatically compile and deploy the changes to the Tomcat server. You can observe the changes in real-time without having to restart the server.

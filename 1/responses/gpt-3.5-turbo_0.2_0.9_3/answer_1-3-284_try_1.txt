@@ -1,0 +1,23 @@
+The `%tensorboard` magic command is not a built-in command in Jupyter Notebook. It is provided by the `jupyter_tensorboard` extension. 
+
+To use `%tensorboard` command, you need to install the `jupyter_tensorboard` extension first. You can install it using the following command:
+
+```
+!pip install jupyter_tensorboard
+```
+
+After installing the extension, you need to load it using the following command:
+
+```
+%load_ext tensorboard
+```
+
+Then, you can use the `%tensorboard` command to launch TensorBoard in Jupyter Notebook.
+
+Make sure that you have the latest version of TensorBoard installed. You can install it using the following command:
+
+```
+!pip install --upgrade tensorboard
+```
+
+I hope this helps!

@@ -1,0 +1,23 @@
+The error message indicates that the style used by `TextInputLayout` requires your app theme to be `Theme.MaterialComponents` or a descendant of it. However, your app theme is defined as `Theme.MaterialComponents.Light.NoActionBar`. 
+
+To fix this issue, you can either change your app theme to `Theme.MaterialComponents` or a descendant of it, or you can override the style of `TextInputLayout` to use a style that is compatible with your current app theme.
+
+To override the style of `TextInputLayout`, you can define a new style in your `styles.xml` file that extends `Widget.MaterialComponents.TextInputLayout.OutlinedBox` and sets the required attributes. For example:
+
+```
+<style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="boxStrokeColor">@color/colorBrand</item>
+</style>
+```
+
+Then, in your XML layout, you can set the `style` attribute of `TextInputLayout` to use your new style:
+
+```
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/inputFirstName"
+    style="@style/MyTextInputLayout"
+    ...
+    />
+```
+
+This will ensure that `TextInputLayout` uses a style that is compatible with your current app theme.

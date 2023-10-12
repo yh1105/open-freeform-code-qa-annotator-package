@@ -1,0 +1,89 @@
+The issue is that you are not binding the form inputs to any variables in your component. Therefore, when you try to access the form data in your `afterClosed()` subscription, it is undefined. To fix this, you need to use `ngModel` to bind the form inputs to variables in your component. Here's an example:
+
+In your dialog component:
+
+```
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+@Component({
+  selector: 'app-dialog-content',
+  templateUrl: './dialog-content.component.html',
+  styleUrls: ['./dialog-content.component.css']
+})
+export class DialogContentComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogContentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
+
+  onCreateClick(): void {
+    this.dialogRef.close(this.data);
+  }
+
+}
+```
+
+In your dialog component HTML:
+
+```
+<mat-dialog-content>
+  <form class="example-form">
+    <div fxLayout="column" fxLayoutAlign="space-around" class="form">
+      <div class="input">
+        <mat-form-field class="input4">
+          <input matInput placeholder="Shift name" [(ngModel)]="data.name">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="input input2">
+          <input matInput placeholder="Start" atp-time-picker [(ngModel)]="data.start">
+        </mat-form-field>
+        <mat-form-field class="input input2">
+          <input matInput placeholder="End" atp-time-picker [(ngModel)]="data.end">
+        </mat-form-field>
+      </div>
+      <br/>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-button" mat-button (click)="onCancelClick()">Cancel</button>
+  <button class="mat-button" mat-button (click)="onCreateClick()" cdkFocusInitial color="primary">Create</button>
+</mat-dialog-actions>
+```
+
+In your main component:
+
+```
+import { Work } from '../../../../classes/work_shift';
+import { DialogContentComponent} from './dialog-content/dialog-content.component';
+export class WorkShiftsComponent implements OnInit {
+ shifts: Work[];
+  name: string;
+  start: string;
+  end: string;
+  constructor(public dialog: MatDialog, private shiftService: WorkShiftsService) { }
+
+  ngOnInit() {
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContentComponent, {
+      width: '640px',
+      disableClose: true,
+      data: {name: this.name, start: this.start, end: this.end}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);//returns the form data
+    });
+  }
+}
+```
+
+With these changes, the form data should now be properly bound to the `data` object passed to the dialog, and you should be able to access it in your `afterClosed()` subscription.

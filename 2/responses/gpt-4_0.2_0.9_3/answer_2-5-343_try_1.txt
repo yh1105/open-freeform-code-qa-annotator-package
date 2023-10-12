@@ -1,0 +1,28 @@
+The problem with your code is that it assumes that the two subsequences will always be at the end of the array. This is not necessarily true. The subsequences could be anywhere in the array.
+
+Here is a Python solution that uses dynamic programming to solve the problem. It iterates through all possible pairs of subsequences and keeps track of the maximum sum of products. It also handles the case where the numbers can be negative.
+
+```python
+def max_sum_of_products(n, arr):
+    prefix = [0]*(n+1)
+    suffix = [0]*(n+1)
+    dp = [[0]*(n+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        prefix[i] = prefix[i-1] + arr[i-1]
+        dp[i][i] = max(dp[i-1][i-1], arr[i-1]*arr[i-1])
+    for i in range(n, 0, -1):
+        suffix[i] = suffix[i+1] + arr[i-1]
+    for length in range(2, n+1):
+        for i in range(1, n-length+2):
+            j = i + length - 1
+            dp[i][j] = max(dp[i][j], dp[i+1][j-1] + arr[i-1]*arr[j-1])
+            dp[i][j] = max(dp[i][j], dp[i+1][j] + arr[i-1]*(prefix[i+length-2]-prefix[i]))
+            dp[i][j] = max(dp[i][j], dp[i][j-1] + arr[j-1]*(suffix[j-length+2]-suffix[j+1]))
+    return dp[1][n]
+
+n = int(input())
+arr = list(map(int, input().split()))
+print(max_sum_of_products(n, arr))
+```
+
+This solution works by first calculating the prefix and suffix sums of the array. Then it iterates through all possible pairs of subsequences and calculates the sum of products for each pair. It keeps track of the maximum sum of products and returns it at the end.

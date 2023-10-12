@@ -1,0 +1,18 @@
+It looks like the issue might be with the way you are trying to spy on the useState hook. Instead of spying on the React module, you should spy on the module where the useState hook is defined. Here's an updated test that should work:
+
+```
+import { useState } from 'react';
+
+it('increments counter correctly', () => {
+  const setState = jest.fn();
+  jest.spyOn(React, 'useState').mockImplementation((init) => [init, setState]);
+
+  const wrapper = shallow(<Counter />);
+  const button = wrapper.find('#button');
+  button.simulate('click');
+
+  expect(setState).toHaveBeenCalledWith(1);
+});
+```
+
+In this updated test, we are importing the useState hook from the 'react' module and spying on it using jest.spyOn. We then mock the implementation of the useState hook to return the initial state and the setState function that we can spy on. Finally, we simulate a click on the button and expect that the setState function was called with the expected value.

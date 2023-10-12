@@ -1,0 +1,26 @@
+You can define the typings for the `onChange` event in the `InputProps` interface like this:
+
+```
+export interface InputProps extends React.HTMLProps<Input> {
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+```
+
+Then, in the `Input` component, you can use the `onChange` event like this:
+
+```
+export class Input extends React.Component<InputProps, {}> {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    // do something with the value
+  }
+
+  render() {
+    return (
+      <input {...this.props} onChange={this.handleChange} />
+    );
+  }
+}
+```
+
+This way, you don't need to use `any` and you get proper type checking for the `onChange` event.

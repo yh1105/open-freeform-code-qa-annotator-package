@@ -1,0 +1,38 @@
+The Material-UI theme provider only applies the theme to the components within its scope, not to the entire HTML document. To change the background color of the entire document, you can use the `CssBaseline` component provided by Material-UI.
+
+Here's an example of how you can use `CssBaseline` to set the background color of the entire document based on the theme:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { ThemeProvider } from '@material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+const themeLight = createMuiTheme({
+  palette: {
+    background: {
+      default: "#e4f0e2"
+    }
+  },
+});
+
+const themeDark = createMuiTheme({
+  palette: {
+    background: {
+      default: "#222222",
+    }
+  },
+});
+
+ReactDOM.render(
+  <ThemeProvider theme={themeDark}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root')
+);
+```
+
+By wrapping your app with `ThemeProvider` and `CssBaseline`, the background color of the entire document will be set based on the theme you provide.

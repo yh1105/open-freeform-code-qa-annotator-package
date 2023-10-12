@@ -1,0 +1,32 @@
+In Tailwind CSS, you can use the `last:` variant to target the last child of a container. However, the `:not()` pseudo-class is not directly supported. 
+
+To achieve the effect of `:not(:last-child)`, you can apply the border to all elements and then remove it from the last one. Here's how you can do it:
+
+```html
+<ul>
+    <li
+      v-for="(item, index) in items"
+      :key="`item-${index}`"
+      class="border-solid border-b border-black last:border-b-0"
+    >
+      Item
+    </li>
+</ul>
+```
+
+In this example, `border-b` applies a bottom border to all `<li>` elements, and `last:border-b-0` removes the bottom border from the last `<li>` element. 
+
+Please note that you need to enable the `last` variant in your tailwind.config.js file if it's not already enabled:
+
+```javascript
+module.exports = {
+  variants: {
+    extend: {
+      borderWidth: ['last'],
+    }
+  },
+  // ...
+}
+```
+
+This will allow you to use the `last:` variant with the `borderWidth` utility.

@@ -1,0 +1,30 @@
+You can create a map that maps the string representation of the enum to the actual enum value. Here's an example implementation:
+
+```
+var capabilityMap = map[string]Capability{
+    "read":   Read,
+    "create": Create,
+    "update": Update,
+    "delete": Delete,
+    "list":   List,
+}
+
+func ParseString(s string) (Capability, error) {
+    if c, ok := capabilityMap[strings.ToLower(s)]; ok {
+        return c, nil
+    }
+    return Read, fmt.Errorf("invalid capability: %s", s)
+}
+```
+
+In this implementation, we create a map `capabilityMap` that maps the string representation of the enum to the actual enum value. We then define a function `ParseString` that takes a string and returns the corresponding enum value. If the string is not a valid capability, we return `Read` and an error. 
+
+To use this implementation, you can simply call `ParseString` with a string representation of the enum:
+
+```
+c, err := ParseString("read")
+if err != nil {
+    // handle error
+}
+fmt.Println(c) // Output: Read
+```

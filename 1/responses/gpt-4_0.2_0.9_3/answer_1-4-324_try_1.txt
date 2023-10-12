@@ -1,0 +1,29 @@
+You can use the `strsplit` function in R to split the string, and then use `sapply` to apply the function to each element of the list. Here's an example:
+
+```R
+# Your data
+data <- "name:Michael,Age:31,City:NYC"
+
+# Split the data into a list
+split_data <- strsplit(data, ",")
+
+# Use sapply to apply the function to each element of the list
+df <- data.frame(t(sapply(split_data, function(x) {
+  sapply(strsplit(x, ":"), function(y) y[2])
+})))
+
+# Set the names of the dataframe
+names(df) <- sapply(strsplit(split_data[[1]], ":"), function(x) x[1])
+
+# Print the dataframe
+print(df)
+```
+
+This will output:
+
+```
+     name Age City
+1 Michael  31  NYC
+```
+
+This code first splits the data into a list of strings, each containing a key-value pair (like "name:Michael"). Then it applies a function to each element of the list that splits the string again at the colon and takes the second element (the value). The result is a dataframe with one row and as many columns as there were key-value pairs in the original string. The names of the dataframe are set to the keys from the original string.

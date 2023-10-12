@@ -1,0 +1,25 @@
+You can use the `useEffect` hook to run the second query after the first one is fulfilled. Here's an example:
+
+```
+import { useEffect } from 'react';
+import { useGetUserQuery, useGetUserBioQuery } from 'path/to/queries';
+
+function MyComponent() {
+  const { data: user } = useGetUserQuery();
+  const { data: userBio, refetch } = useGetUserBioQuery(user?.id);
+
+  useEffect(() => {
+    if (user?.id) {
+      refetch();
+    }
+  }, [user?.id, refetch]);
+
+  // Render your component using the user and userBio data
+
+  return (
+    // Your component JSX
+  );
+}
+```
+
+In this example, we use the `useEffect` hook to run the `refetch` function of the `useGetUserBioQuery` hook whenever the `user.id` value changes. This ensures that the second query is only run after the first one is fulfilled and the `user.id` value is available.

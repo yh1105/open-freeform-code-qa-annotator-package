@@ -1,0 +1,7 @@
+The error message would be helpful to identify the exact issue, but based on the code snippet provided, it looks like you are trying to import Bootstrap and jQuery into your React application. 
+
+One possible issue could be that you are missing the jQuery library. Make sure you have installed it using npm or yarn. 
+
+Another possible issue could be that you are importing the jQuery library incorrectly. Try changing `global.jQuery` to `window.jQuery` and see if that resolves the issue. 
+
+If neither of these solutions work, please provide the error message so we can better assist you.

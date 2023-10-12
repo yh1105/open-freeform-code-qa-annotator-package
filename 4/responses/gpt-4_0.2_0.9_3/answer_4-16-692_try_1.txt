@@ -1,0 +1,48 @@
+Sure, you can definitely use Windows Terminal for SSH connections. Here's a step-by-step guide on how to do it:
+
+1. **Install Windows Terminal**: If you haven't already, install Windows Terminal from the Microsoft Store or from the GitHub releases page.
+
+2. **Install OpenSSH Client**: Windows 10 (1809 and later) includes an OpenSSH client, which is used to make SSH connections. You can install it by going to "Settings" > "Apps" > "Apps & Features" > "Optional Features" > "Add a Feature" > "OpenSSH Client".
+
+3. **Configure SSH Connections**: You can configure SSH connections by creating a config file. Open a text editor (like Notepad), and create a new file with the following content:
+
+    ```
+    Host alias
+        HostName server-ip-or-domain
+        User username
+        Port port-number
+    ```
+
+    Replace `alias` with a name you want to use for the connection, `server-ip-or-domain` with the IP address or domain of the server, `username` with your username on the server, and `port-number` with the port number (usually 22 for SSH).
+
+    Save the file as `config` (without any extension) in the `.ssh` directory in your user's home directory (e.g., `C:\Users\YourUsername\.ssh\config`).
+
+4. **Add SSH Connection to Windows Terminal**: Open Windows Terminal, and click on the down arrow in the title bar, then select "Settings". This will open the `settings.json` file in a text editor.
+
+    Add a new profile for the SSH connection in the `profiles` > `list` array:
+
+    ```json
+    {
+        "guid": "{00000000-0000-0000-0000-000000000000}",
+        "hidden": false,
+        "name": "SSH Connection",
+        "commandline": "ssh alias",
+        "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png"
+    }
+    ```
+
+    Replace `00000000-0000-0000-0000-000000000000` with a new GUID (you can generate one online), `SSH Connection` with the name you want to display in Windows Terminal, and `alias` with the alias you used in the SSH config file.
+
+    Save the `settings.json` file and close the text editor.
+
+5. **Use SSH Connection**: Now, when you open Windows Terminal, you can select the SSH connection from the drop-down menu in the title bar, and it will start an SSH session to the server.
+
+Remember, you need to have the private key for the SSH connection in the `.ssh` directory in your user's home directory (the same directory where the `config` file is). If the private key is not there or is not named `id_rsa`, you can specify the path to it in the SSH config file with the `IdentityFile` option:
+
+```
+Host alias
+    HostName server-ip-or-domain
+    User username
+    Port port-number
+    IdentityFile ~/.ssh/your-private-key
+```

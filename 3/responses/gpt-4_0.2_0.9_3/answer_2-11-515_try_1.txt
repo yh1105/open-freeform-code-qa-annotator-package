@@ -1,0 +1,20 @@
+In C++, you can use the `std::transform` function from the `<algorithm>` library to achieve this. Here is an example:
+
+```cpp
+#include <vector>
+#include <algorithm>
+#include <iterator>
+
+std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+std::vector<std::pair<int, int>> goal;
+
+std::transform(origin.begin(), origin.end(), std::back_inserter(goal),
+    [&origin](const int &n) {
+        static int i = -1;
+        return std::make_pair(origin[++i], origin[++i]);
+    });
+```
+
+In this code, `std::transform` applies a lambda function to each element in the `origin` vector. The lambda function uses a static variable `i` to keep track of the current index. For each call, it increments `i` twice and returns a pair of the current and next element.
+
+Please note that this code assumes that the `origin` vector always contains an even number of elements, as you mentioned. If the number of elements can be odd, you should add a check to prevent out-of-bounds access.

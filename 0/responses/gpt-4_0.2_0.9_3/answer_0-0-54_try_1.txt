@@ -1,0 +1,62 @@
+You can create a parent component that will hold the state for both `firstname` and `lastname`. Then, you can pass a function to the `InputField` component that will update the parent component's state. 
+
+Here's how you can do it:
+
+```jsx
+import React, { useState } from 'react';
+import { render } from 'react-dom';
+
+function InputField({name, label, value, handleInputChange}) {
+  return (
+    <div>
+      <label>{label}</label>
+      <input 
+        type="text" 
+        value={value} 
+        name={name}
+        onChange={(e) => handleInputChange(e.target.name, e.target.value)} 
+      />
+    </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState({
+    firstname: '',
+    lastname: ''
+  });
+
+  const handleInputChange = (name, value) => {
+    setState(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleClick = () => {
+    console.log(state);
+  };
+
+  return (
+    <div>
+      <InputField 
+        name="firstname" 
+        label="First Name" 
+        value={state.firstname} 
+        handleInputChange={handleInputChange} 
+      />
+      <InputField 
+        name="lastname" 
+        label="Last Name" 
+        value={state.lastname} 
+        handleInputChange={handleInputChange} 
+      />
+      <button onClick={handleClick}>Click me</button>
+    </div>
+  );
+}
+
+render(<App />, document.getElementById('root'));
+```
+
+In this code, the `App` component holds the state for `firstname` and `lastname`. The `handleInputChange` function updates the state based on the `name` and `value` passed to it. This function is passed to the `InputField` component, which calls it whenever the `onChange` event is fired. The `handleClick` function logs the current state when the button is clicked.

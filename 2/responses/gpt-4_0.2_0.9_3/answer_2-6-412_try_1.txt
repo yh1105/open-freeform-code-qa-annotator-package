@@ -1,0 +1,32 @@
+The issue is that you're trying to add the "Authorization" header to the content headers, but it should be added to the request headers. 
+
+Here's how you can modify your code:
+
+```csharp
+//setup reusable http client
+HttpClient client = new HttpClient();
+Uri baseUri = new Uri(url);
+client.BaseAddress = baseUri;
+client.DefaultRequestHeaders.Clear();
+client.DefaultRequestHeaders.ConnectionClose = true;
+
+//Post body content
+var values = new List<KeyValuePair<string,string>>();
+values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+
+var content = new FormUrlEncodedContent(values);
+
+//Basic Authentication
+var authenticationString = $"{clientId}:{clientSecret}";
+var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
+
+//make the request
+var task = client.PostAsync("/oauth2/token",content);
+var response = task.Result;
+response.EnsureSuccessStatusCode();
+string responseBody = response.Content.ReadAsStringAsync().Result;
+Console.WriteLine(responseBody);
+```
+
+In this modified code, the "Authorization" header is added to the request headers, not the content headers. This is done using the `AuthenticationHeaderValue` class, which is designed specifically for this purpose.

@@ -1,0 +1,33 @@
+The issue you're facing is due to the fact that React's `useMemo` hook is not designed to handle asynchronous operations. It's meant to synchronously return a memoized value.
+
+In your case, you're trying to use `useMemo` to memoize the result of an asynchronous operation, which is why you're getting a promise instead of the actual result.
+
+One possible solution would be to use `useEffect` to handle the asynchronous operation and `useState` to store the result. Here's how you could modify your code:
+
+```jsx
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+
+    React.useEffect(() => {
+        const fetchResult = async () => {
+            const resultObject = await SomeLongRunningApi(arg);
+            setResult(resultObject.interestingProperty);
+        };
+
+        fetchResult();
+    }, [arg]);
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={() => setResult('Not yet calculated')}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>);
+}
+```
+
+In this code, `useEffect` will run whenever `arg` changes. It will then call `SomeLongRunningApi` with the new `arg` value, and store the result in the `result` state. The `Calculate` button now just resets the `result` state to its initial value.
+
+This way, you're not trying to use `useMemo` for something it's not designed to handle, and you're still effectively memoizing the result of the long-running operation.

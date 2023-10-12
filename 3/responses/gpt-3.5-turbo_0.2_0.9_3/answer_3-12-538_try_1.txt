@@ -1,0 +1,29 @@
+To add a new pair to the Map, you can use the `putIfAbsent` method or simply assign a value to a new key. Here's an example:
+
+```
+Map<String, int> someMap = {
+  "a": 1,
+  "b": 2,
+};
+
+// Using putIfAbsent
+someMap.putIfAbsent("c", () => 3);
+
+// Assigning a value to a new key
+someMap["d"] = 4;
+```
+
+To update an existing key-value pair in the Map, you can use the `update` method. Here's an example:
+
+```
+Map<String, int> someMap = {
+  "a": 1,
+  "b": 2,
+};
+
+someMap.update("a", (value) => value + 1);
+
+print(someMap); // Output: {"a": 2, "b": 2}
+```
+
+The `update` method takes two arguments: the key to update and a function that takes the current value as an argument and returns the new value. In the example above, we're updating the value of the key "a" by adding 1 to its current value.

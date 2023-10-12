@@ -1,0 +1,12 @@
+You can use a list comprehension to return the elements that partially match the string. Here's how you can do it:
+
+```python
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+matching = [s for s in l if s.startswith(wanted)]
+```
+
+In this case, `matching` will be `['threes']`. If there are multiple elements that match the condition, they will all be included in the list. If no elements match, `matching` will be an empty list.
+
+This approach can be easily modified to match other conditions. For example, to match elements that end with the string, you can use `s.endswith(wanted)`. To match elements that contain the string anywhere, you can use `wanted in s`.

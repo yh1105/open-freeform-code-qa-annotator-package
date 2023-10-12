@@ -1,0 +1,13 @@
+You can modify your shell script to extract the required value from the SQL query output using text processing tools like `awk`. Here's an example:
+
+```
+size=$(${PATH_TO_CLIENT}sqlplus $IMPUSER/$IMPPWD@$ENDPOINT<< EOF | awk '/XXXX/{print $2}'
+set heading off;
+select owner, sum(bytes)/1024/1024/1024 Size_GB from dba_segments where owner = 'XXXX' group by owner;
+exit;
+EOF
+)
+echo "Total data is ${size} GB"
+```
+
+In this modified script, we are piping the SQL query output to `awk` command which searches for the string 'XXXX' and prints the second field (Size_GB) from that line. This extracted value is then stored in the `size` variable which can be used later.

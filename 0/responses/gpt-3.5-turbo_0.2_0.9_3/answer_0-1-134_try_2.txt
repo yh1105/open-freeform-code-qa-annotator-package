@@ -1,0 +1,11 @@
+It sounds like you may be missing some key steps in your HTML and CSS code. When using the class attribute in HTML, you need to make sure that you have defined the class in your CSS stylesheet. For example, if you have a div with the class "my-class", you would need to have the following code in your CSS stylesheet:
+
+```
+.my-class {
+  /* CSS properties here */
+}
+```
+
+This will allow you to style the div with the "my-class" class. Make sure that your CSS stylesheet is linked correctly in your HTML file as well.
+
+As for switching to Sublime, it's a matter of personal preference. Sublime is a popular code editor among developers, but there are many other options out there as well. It's worth trying out a few different editors to see which one works best for you.

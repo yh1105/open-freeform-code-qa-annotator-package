@@ -1,0 +1,67 @@
+One way to achieve this is by passing a callback function from `RootPage` to `FeedPage` and any other classes that you make. This callback function will be responsible for changing the `currentPage` widget in `RootPage`.
+
+Here's an updated code example:
+
+```
+import 'package:flutter/material.dart';
+
+class RootPage extends StatefulWidget {
+  @override
+  _RootPageState createState() => new _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  Widget currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = FeedPage(
+      changePage: changePage,
+    );
+  }
+
+  void changePage(Widget page) {
+    setState(() {
+      currentPage = page;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: currentPage,
+    );
+  }
+}
+
+class FeedPage extends StatefulWidget {
+  final Function changePage;
+
+  FeedPage({this.changePage});
+
+  @override
+  _FeedPageState createState() => new _FeedPageState();
+}
+
+class _FeedPageState extends State<FeedPage> {
+  @override
+  Widget build(BuildContext context) {
+    return new FlatButton(
+      onPressed: () {
+        widget.changePage(
+          // Replace this with the widget for the new page
+          Container(
+            child: Text('New Page'),
+          ),
+        );
+      },
+      child: new Text('Go to a new page but keep root, just replace this feed part'),
+    );
+  }
+}
+```
+
+In this updated code, `RootPage` now has a `changePage` function that takes a widget as a parameter. This function is passed down to `FeedPage` as a callback through the constructor. When the button in `FeedPage` is pressed, it calls the `changePage` function with the widget for the new page. This updates the `currentPage` widget in `RootPage` and causes the new page to be displayed while keeping the root always in view.
+
+You can use this same pattern to pass the `changePage` function to any other classes that you make, allowing them to change the `currentPage` widget in `RootPage` as well.

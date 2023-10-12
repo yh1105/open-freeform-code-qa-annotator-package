@@ -1,0 +1,59 @@
+The reason why your second button clears both lists is because you are using the `removeRange` method to remove all the elements from `mylist`. Instead of using `removeRange`, you can simply assign an empty list to `mylist` to clear it. Here's how you can modify your code to achieve this:
+
+```
+Expanded(
+  child: FlatButton(
+    onPressed: () {
+      setState(() {
+        print('clicked 2nd');
+        print(mylist.length);
+        print(mynewlist.length);
+        mylist = []; // assign an empty list to clear mylist
+      });
+    },
+    child: Container(
+      child: Column(
+        children: <Widget>[
+          Image.asset(
+            'images/bulb.png',
+            width: 100,
+            height: 100,
+          ),
+          Text('bulb')
+        ],
+      ),
+    ),
+  ),
+),
+```
+
+To copy the values of `mynewlist` to `mylist` without clearing `mynewlist`, you can use the `addAll` method to add all the elements of `mynewlist` to `mylist`. Here's how you can modify your code to achieve this:
+
+```
+Expanded(
+  child: FlatButton(
+    onPressed: () {
+      setState(() {
+        print('clicked 3rd');
+        print(mylist.length);
+        print(mynewlist.length);
+        mylist.addAll(mynewlist); // add all elements of mynewlist to mylist
+      });
+    },
+    child: Container(
+      child: Column(
+        children: <Widget>[
+          Image.asset(
+            'images/bulb.png',
+            width: 100,
+            height: 100,
+          ),
+          Text('bulb')
+        ],
+      ),
+    ),
+  ),
+),
+``` 
+
+With these modifications, your code should work as expected.

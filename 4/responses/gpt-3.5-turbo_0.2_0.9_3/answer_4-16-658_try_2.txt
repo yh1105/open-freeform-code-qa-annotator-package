@@ -1,0 +1,24 @@
+It seems like you are facing multiple issues while trying to run Docker in process isolation mode on Windows Server 2019. Here are some suggestions that might help you:
+
+1. Elevated privileges issue:
+The error message suggests that you need to run the Docker client with elevated privileges to connect to the daemon. You can try running PowerShell as an administrator and then run the Docker command.
+
+2. DockerCli.exe issue:
+As you mentioned, copying files from Docker Desktop does not seem like the right approach. Instead, you can try uninstalling and reinstalling Docker on your Windows Server 2019 machine. To uninstall Docker, you can use the following PowerShell command:
+
+   `uninstall-Package -Name docker`
+
+   After uninstalling, you can install Docker using the following PowerShell command:
+
+   `Install-Package -Name docker -ProviderName DockerMsftProvider`
+
+   This should install the latest version of Docker on your machine.
+
+3. Docker daemon issue:
+When you ran `dockerd` in PowerShell, it started the Docker daemon. However, it seems like you are not sure which container it started. You can use the following command to list all running containers:
+
+   `docker ps`
+
+   This should give you a list of all running containers along with their container IDs, names, and other details.
+
+I hope these suggestions help you resolve your issues and run Docker in process isolation mode on Windows Server 2019.

@@ -1,0 +1,34 @@
+Yes, there is a React hook equivalent to `componentDidCatch` called `useErrorBoundary`. You can use it to create an error boundary component as a function component.
+
+Here's an example of how you can use it:
+
+```
+import React, { useState } from 'react';
+import { useErrorBoundary } from 'react-error-boundary';
+
+export function CatchError({ children, log }) {
+  const [hasError, setHasError] = useState(false);
+  const { ErrorBoundary, didCatch, error } = useErrorBoundary();
+
+  if (didCatch) {
+    log({ error });
+    setHasError(true);
+  }
+
+  const child = typeof children === "function"
+    ? children({ error: hasError })
+    : children;
+
+  return (
+    <ErrorBoundary>
+      {child}
+    </ErrorBoundary>
+  );
+}
+```
+
+In this example, we're using the `useErrorBoundary` hook to create an error boundary component. The `didCatch` variable is a boolean that indicates whether an error has been caught. If an error has been caught, we log it and set the `hasError` state to `true`.
+
+We then render the `ErrorBoundary` component, which will catch any errors thrown by its children. If an error is caught, the `didCatch` variable will be set to `true`, and the `error` variable will contain information about the error.
+
+Finally, we render the child component and pass the `hasError` state as a prop.

@@ -1,0 +1,25 @@
+It seems like the Python interpreter you are using in Atom is not the same as the one you used to install BeautifulSoup. You can try the following steps to resolve the issue:
+
+1. Check which version of Python you are using in Atom. You can do this by opening the terminal in Atom and running the following command:
+
+```
+python --version
+```
+
+This will tell you which version of Python is being used by Atom.
+
+2. Install BeautifulSoup for the version of Python that Atom is using. If Atom is using Python 3, you can install BeautifulSoup by running the following command in the terminal:
+
+```
+pip3 install beautifulsoup4
+```
+
+If Atom is using Python 2, you can install BeautifulSoup by running the following command in the terminal:
+
+```
+pip install beautifulsoup4
+```
+
+3. Make sure that the Python interpreter you are using in Atom is the same as the one you used to install BeautifulSoup. You can check this by going to the Atom menu and selecting "Preferences". Then, go to the "Packages" tab and search for the "Script" package. Click on "Settings" and make sure that the "Interpreter" field is set to the correct Python interpreter.
+
+4. Restart Atom and try running your Python file again. It should now be able to import BeautifulSoup without any errors.

@@ -1,0 +1,13 @@
+It sounds like the issue may be with the button itself. Here are a few things you can try:
+
+1. Delete the button and create a new one. Sometimes buttons can become corrupted and need to be recreated.
+
+2. Check the properties of the button to make sure it is properly linked to the macro. Right-click on the button and select "Assign Macro". Make sure the correct macro is selected.
+
+3. Check the security settings in Excel. If macros are disabled, the button will not work. Go to File > Options > Trust Center > Trust Center Settings. Make sure "Disable all macros without notification" is not selected.
+
+4. Try running the macro from a different workbook. If the macro works in a different workbook, there may be an issue with the original workbook.
+
+5. Check for any updates or changes to your Excel version. Sometimes updates can cause issues with macros and buttons.
+
+Hopefully one of these solutions will help you get your button working again.

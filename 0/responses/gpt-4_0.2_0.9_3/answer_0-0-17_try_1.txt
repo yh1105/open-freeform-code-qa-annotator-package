@@ -1,0 +1,57 @@
+In your case, you can use a keydown event listener to detect when the "Enter" key is pressed. You can add this listener to the editor instance in the `mounted()` lifecycle hook. Here's an example of how you can do this:
+
+```javascript
+mounted() {
+  let editor = new Editor({
+    extensions: [
+      StarterKit,
+      Keymap({
+        "Enter": ({ state, dispatch }) => {
+          // Submit the chat and clear the editor
+          this.submitChat();
+          this.clearEditor();
+          return true;
+        },
+      }),
+    ],
+    content: this.value,
+  });
+
+  editor.on("update", (e) => {
+    console.log(e);
+    this.$emit("input", this.editor.getHTML());
+  });
+
+  this.editor = editor;
+},
+
+methods: {
+  submitChat() {
+    // Submit the chat
+    console.log('Chat submitted: ', this.editor.getHTML());
+  },
+  clearEditor() {
+    // Clear the editor
+    this.editor.clearContent();
+  },
+},
+```
+
+In this code, the `Keymap` extension is used to listen for the "Enter" key press. When the "Enter" key is pressed, the `submitChat` and `clearEditor` methods are called. The `submitChat` method is where you would put your code to submit the chat. The `clearEditor` method is used to clear the editor's content.
+
+Please note that you need to import the `Keymap` extension from `tiptap-extensions`:
+
+```javascript
+import { Keymap } from 'tiptap-extensions'
+```
+
+Also, please note that the `clearContent` method is not a built-in method of tiptap's `Editor` class. You may need to implement it yourself or use the `setContent` method with an empty string to clear the editor's content:
+
+```javascript
+clearEditor() {
+  // Clear the editor
+  this.editor.setContent('');
+},
+```
+
+Please replace the `submitChat` and `clearEditor` methods with your actual implementation.

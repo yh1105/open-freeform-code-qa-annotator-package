@@ -1,0 +1,5 @@
+For the first error, try adding the `ACCESS_FINE_LOCATION` permission to your manifest file as well. Some devices require this permission to be explicitly declared.
+
+For the second error, make sure that your `MainActivity` class is defined in your project and that it is in the correct package. You may need to import the correct package or create the `MainActivity` class if it does not exist.
+
+For the third error, make sure that the icon you are referencing in your manifest file exists in your project's resources. You may need to add the icon to your project's `mipmap` folder or update the icon reference in your manifest file to point to the correct resource.

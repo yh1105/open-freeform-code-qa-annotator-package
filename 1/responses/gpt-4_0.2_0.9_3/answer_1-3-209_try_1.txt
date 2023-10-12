@@ -1,0 +1,21 @@
+You can use `sns.pointplot` to plot the mean of each `method` and set `join=False` to avoid the line joining the points. Here is an example:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+planets = sns.load_dataset("planets")
+
+# Create the strip plot
+sns.stripplot(x="method", y="distance", data=planets, size=4, color=".7")
+plt.xticks(rotation=45, ha="right")
+
+# Add the point plot for the means
+sns.pointplot(x="method", y="distance", data=planets, join=False, estimator=np.mean, color='r', markers='_', ci=None)
+
+plt.show()
+```
+
+In this code, `estimator=np.mean` is used to calculate the mean of `distance` for each `method`. `color='r'` is used to set the color of the mean markers to red. `markers='_'` is used to use horizontal bars as markers. `ci=None` is used to not plot a confidence interval.
+
+Please note that you need to import numpy as np to use `np.mean`.

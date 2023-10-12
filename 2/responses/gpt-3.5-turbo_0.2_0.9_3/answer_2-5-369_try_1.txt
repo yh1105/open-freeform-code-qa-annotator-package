@@ -1,0 +1,8 @@
+It looks like you are missing the "Local Changes" tab in the Git tool window. To enable it, you can follow these steps:
+
+1. Open the Git tool window by clicking on the "Git" tab at the bottom of the screen.
+2. Click on the gear icon in the top-right corner of the Git tool window.
+3. Select "Local Changes" from the dropdown menu.
+4. The "Local Changes" tab should now appear in the Git tool window.
+
+If the "Local Changes" tab still doesn't appear, you can try resetting the tool window layout by clicking on the gear icon and selecting "Restore Default Layout".

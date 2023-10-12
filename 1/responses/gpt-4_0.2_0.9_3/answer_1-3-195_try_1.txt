@@ -1,0 +1,59 @@
+Your code is almost correct. The issue is that you are trying to remove a curve that is not on the plot anymore. When you plot a new curve, the old one is automatically removed. Therefore, you should keep track of the curves that are currently on the plot and only try to remove those. 
+
+For the second issue, you can create a dictionary that maps each checkbox to its corresponding curve and data. This way, you can use a loop to create the checkboxes and connect them to the `todo` function. 
+
+Here is the modified code:
+
+```python
+from PyQt5 import QtWidgets, uic, QtGui
+import matplotlib.pyplot as plt
+from matplotlib.widgets import SpanSelector
+import numpy as np
+import sys
+import string
+import pyqtgraph as pg
+from pyqtgraph.Qt import QtGui, QtCore
+
+app = QtWidgets.QApplication(sys.argv)
+
+x = np.linspace(0, 3.14, 100)
+data = {'A1': np.sin(x), 'A2': np.cos(x)} # dictionary to hold the data
+curves = {} # dictionary to hold the curves
+
+#This function is called whenever the state of checkboxes changes
+def todo():
+    sender = app.sender() # get the checkbox that sent the signal
+    if sender.isChecked():
+        curves[sender.text()] = plot.plot(x, data[sender.text()], pen = 'r')
+    else:
+        plot.removeItem(curves[sender.text()])
+        del curves[sender.text()]
+
+#A widget to hold all of my future widgets
+widget_holder = QtGui.QWidget()
+
+#Making a pyqtgraph plot widget
+plot = pg.PlotWidget()
+
+#Setting the layout
+layout = QtGui.QGridLayout()
+widget_holder.setLayout(layout)
+
+#Adding the widgets to the layout
+for i, key in enumerate(data.keys()):
+    cbx = QtWidgets.QCheckBox()
+    cbx.setText(key)
+    cbx.stateChanged.connect(todo)
+    layout.addWidget(cbx, 0, i)
+
+layout.addWidget(plot, 1,0, 3,1)
+
+widget_holder.adjustSize()
+widget_holder.show()
+
+sys.exit(app.exec_())
+```
+
+In this code, `data` is a dictionary that maps each checkbox text to its corresponding data. `curves` is a dictionary that maps each checkbox text to its corresponding curve. When a checkbox is checked, a new curve is added to the plot and to the `curves` dictionary. When a checkbox is unchecked, the corresponding curve is removed from the plot and from the `curves` dictionary. 
+
+This way, you can easily add more checkboxes and data by simply adding more entries to the `data` dictionary. The checkboxes and their connections are created in a loop, so you don't need to copy the same code for each checkbox.

@@ -1,0 +1,15 @@
+You can use an interface to define the shape of the objects in the array. Here's an example:
+
+```
+interface Product {
+  name: string;
+  price: number;
+  description: string;
+}
+
+bagTotal = (products: Product[]) => {
+  // function does stuff
+}
+```
+
+This way, you can ensure that the objects in the `products` array have the correct properties and types.

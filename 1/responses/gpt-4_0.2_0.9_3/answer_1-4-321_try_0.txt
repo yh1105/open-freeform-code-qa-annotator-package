@@ -1,0 +1,33 @@
+The data in your `segment_stemming` column is currently a string representation of a list of tuples. To split this into rows, you need to first convert this string into a list of tuples, and then unnest this list into separate rows.
+
+Here is a way to do this using the `purrr` and `tidyverse` packages:
+
+```r
+library(data.table)
+library(purrr)
+library(tidyverse)
+library(stringr)
+
+# Your data
+x <- structure(list(id = c("A", "B" ),
+                    segment_stemming = c("[('Brownie', 'Noun'), ('From', 'Josa'), ('Pi', 'Noun')]", 
+                                          "[('Dung-caroon-gye', 'Noun'), ('in', 'Josa'), ('innovation', 'Noun')]" )), 
+               row.names = c(NA, -2L), 
+               class = c("data.table", "data.frame" ))
+
+# Function to convert string to list of tuples
+str_to_tuples <- function(x) {
+  str_extract_all(x, "\\('(.*?)', '(.*?)'\\)") %>% 
+    map(~str_split(.x, "', '")) %>% 
+    map(~paste0("(", .x, ")"))
+}
+
+# Apply function and unnest
+x %>%
+  mutate(segment_stemming = map(segment_stemming, str_to_tuples)) %>%
+  unnest(segment_stemming)
+```
+
+This code first defines a function `str_to_tuples` that uses regular expressions to extract the tuples from the string, and then splits these tuples into separate strings. This function is then applied to the `segment_stemming` column, and the resulting list column is unnested into separate rows.
+
+Please note that this solution assumes that your tuples always have the format "('word', 'tag')". If your data can have different formats, you may need to adjust the regular expression in the `str_to_tuples` function.

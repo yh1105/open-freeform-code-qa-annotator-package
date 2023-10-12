@@ -1,0 +1,42 @@
+I've looked at your code and the video you provided. Here's how you can achieve the desired effect using Tailwind CSS:
+
+First, you need to add a `span` element inside your `a` element. This `span` will serve as the underline for your link. You will animate this underline when the link is hovered.
+
+Here's the modified HTML:
+
+```html
+<a href="#" class="relative block">
+  Hover me
+  <span class="absolute h-1 bg-black bottom-0 left-0 w-0 group-hover:w-full transition-all duration-200"></span>
+</a>
+```
+
+In the above code, the `span` is positioned absolutely at the bottom of the `a` element. It has a height of 1 and a width of 0. When the `a` element is hovered, the width of the `span` is set to `full`, creating the underline effect.
+
+Next, you need to add some CSS to your `a` element to create the group hover effect. You can do this by adding the `group` class to your `a` element:
+
+```html
+<a href="#" class="relative block group">
+  Hover me
+  <span class="absolute h-1 bg-black bottom-0 left-0 w-0 group-hover:w-full transition-all duration-200"></span>
+</a>
+```
+
+In the above code, the `group` class is added to the `a` element. This allows the `group-hover` variant to work on the `span` element.
+
+Finally, you need to enable the `group-hover` variant in your Tailwind CSS configuration. You can do this by adding `group-hover` to the `variants` section of your `tailwind.config.js` file:
+
+```javascript
+module.exports = {
+  variants: {
+    extend: {
+      width: ['group-hover'],
+    }
+  },
+  plugins: [],
+}
+```
+
+In the above code, the `group-hover` variant is enabled for the `width` utility. This allows you to change the width of an element when its parent is hovered.
+
+With these changes, your link should now have the desired hover animation.

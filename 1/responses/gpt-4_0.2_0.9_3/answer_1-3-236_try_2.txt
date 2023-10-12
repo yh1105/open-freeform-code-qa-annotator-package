@@ -1,0 +1,11 @@
+The issue you're experiencing might be due to the fact that Jedi is not only a linter but also an autocompletion library. So, even if you have disabled it as a linter, it might still be running for autocompletion and other features.
+
+Here are a few steps you can take:
+
+1. Check if you have any other extensions installed that might be using Jedi. If you do, disable them and see if the problem persists.
+
+2. Try to disable Jedi completely by adding `"python.jediEnabled": false` to your settings.json file. This will disable all Jedi features, not just linting.
+
+3. If you're using Visual Studio Code, you can switch to the Microsoft Python Language Server or Pylance, which are alternatives to Jedi. You can do this by adding `"python.languageServer": "Microsoft"` or `"python.languageServer": "Pylance"` to your settings.json file.
+
+4. If none of the above works, it might be a bug. In this case, you should report it to the developers of the extension you're using.

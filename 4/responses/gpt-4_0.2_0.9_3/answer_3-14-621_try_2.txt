@@ -1,0 +1,34 @@
+The `@State` property wrapper is designed to be used and modified within the view's body, and SwiftUI doesn't allow it to be modified outside of the body. This is why you're getting the error.
+
+However, you can use a different property wrapper, `@StateObject`, which can be initialized in the `init()` method. Here's how you can do it:
+
+```swift
+class TextModel: ObservableObject {
+    @Published var text: String
+    init(text: String) {
+        self.text = text
+    }
+}
+
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+    
+    @StateObject var textModel: TextModel
+
+    init(letter: String) {
+        _textModel = StateObject(wrappedValue: TextModel(text: list[letter] ?? ""))
+    }
+
+    var body: some View {
+        TextField("Enter text", text: $textModel.text)
+    }
+}
+```
+
+In this code, `TextModel` is a class that conforms to `ObservableObject` and has a `@Published` property `text`. This class is used to initialize `textModel` in the `init()` method of `StateFromOutside`. The `TextField` then uses `textModel.text` as its binding.
+
+This way, you can initialize the text from your dictionary in the `init()` method and use it in the `TextField`.

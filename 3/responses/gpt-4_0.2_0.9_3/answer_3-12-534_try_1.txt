@@ -1,0 +1,49 @@
+Yes, it is possible to use multiple ChangeNotifiers for a single widget. However, it's often more efficient and easier to manage if you have a single ChangeNotifier that manages all the state for a particular widget. 
+
+In your case, you could have a single ChangeNotifier that manages the state of your CurvedNavigationBar. This ChangeNotifier could have a property for the currently selected index, and methods to update this index. 
+
+Here's a simple example:
+
+```dart
+class NavigationBarNotifier extends ChangeNotifier {
+  int _currentIndex = 0;
+
+  int get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
+}
+```
+
+Then, in your widget tree, you can provide this ChangeNotifier:
+
+```dart
+ChangeNotifierProvider(
+  create: (context) => NavigationBarNotifier(),
+  child: YourWidgetTree(),
+)
+```
+
+And in your CurvedNavigationBar widget, you can use a Consumer to listen to changes:
+
+```dart
+Consumer<NavigationBarNotifier>(
+  builder: (context, navigationBarNotifier, child) {
+    return CurvedNavigationBar(
+      index: navigationBarNotifier.currentIndex,
+      items: <Widget>[
+        // your items here
+      ],
+      onTap: (index) {
+        navigationBarNotifier.currentIndex = index;
+      },
+    );
+  },
+)
+```
+
+This way, whenever the user taps on a different index in the navigation bar, the ChangeNotifier will update its state and notify all its listeners. The Consumer widget will rebuild, updating the CurvedNavigationBar with the new index.
+
+This approach keeps all your state management for the navigation bar in one place, making it easier to manage and reason about.

@@ -1,0 +1,25 @@
+In Blazor, the lifecycle method `OnInitializedAsync()` is called when the component is initialized. However, the rendering of the component happens before the `OnInitializedAsync()` method completes its execution. This is why you are seeing the check for null data before the data is fetched.
+
+To avoid this, you can use a boolean flag to check if the data has been loaded. You can set this flag to true after your data has been fetched in `OnInitializedAsync()`. Here's how you can do it:
+
+```csharp
+<Component1>
+  @if (IsDataLoaded)
+  {
+    @foreach (var item in Data) {
+         <Component2>
+    }
+  }
+</Component1>
+
+@code{
+  private bool IsDataLoaded = false;
+
+  protected override async Task OnInitializedAsync() {
+       Data = //data from dataBase
+       IsDataLoaded = true;
+  }
+}
+```
+
+In this code, the `foreach` loop will only execute after the data has been loaded, because `IsDataLoaded` is set to true only after the data is fetched.

@@ -1,0 +1,17 @@
+This issue can occur when Visual Studio or another process is still using the DLL file when you try to build your project. Here are some solutions you can try:
+
+1. **Clean Solution**: Before building your solution, try cleaning it first. Go to `Build > Clean Solution` and then try to build your solution again.
+
+2. **Close Other Applications**: Make sure no other applications are using the DLL file. This includes other instances of Visual Studio, IIS, or any other application that might be using your DLL.
+
+3. **Disable Antivirus Software**: Sometimes, antivirus software can lock files. Try disabling your antivirus software temporarily and see if the problem persists.
+
+4. **Unlock DLL File**: You can use a tool like Process Explorer to find out which process is locking the DLL file. Once you find the process, you can kill it to unlock the DLL file.
+
+5. **Delete obj Folder**: Try deleting the obj folder in your project directory and then rebuild your project.
+
+6. **Update Visual Studio**: Make sure you are using the latest version of Visual Studio. This issue might be a bug that has been fixed in a newer version.
+
+7. **Use MSBuild**: Try using MSBuild from the command line to build your project. This can sometimes avoid issues that occur within the Visual Studio IDE.
+
+Remember to always backup your project before trying these solutions. If none of these solutions work, you might want to consider contacting Microsoft Support for further assistance.

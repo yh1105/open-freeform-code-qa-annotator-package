@@ -1,0 +1,13 @@
+It is not recommended to manually set the commit SHA in Git as it is generated based on various parameters such as the contents of the commit, the parent commit(s), the author and committer information, and the timestamp. Manually setting the SHA can cause conflicts and issues with Git's internal data structures.
+
+Instead, you can use Git's cherry-pick feature to apply a specific commit from the source server to the target server. This will create a new commit with a new SHA, but it will have the same changes as the original commit. You can then use the cherry-picked commit's SHA as the reference for the manual mirror script.
+
+To cherry-pick a commit, you can use the following command:
+
+```
+git cherry-pick <commit-SHA>
+```
+
+Replace `<commit-SHA>` with the SHA of the commit you want to apply to the target server. This will create a new commit with a new SHA, but it will have the same changes as the original commit.
+
+Note that if the commit you are cherry-picking has any conflicts with the target branch, you will need to resolve them manually before the cherry-pick can be completed.

@@ -1,0 +1,37 @@
+The error message you're seeing indicates that Ruby is unable to load the OpenSSL library. This is likely because Ruby was not correctly linked to OpenSSL when it was installed.
+
+Here are the steps you can follow to resolve this issue:
+
+1. First, you need to install the OpenSSL package. If you're using a Mac, you can do this with Homebrew:
+
+   ```
+   brew install openssl
+   ```
+
+   If you're using Ubuntu, you can use apt-get:
+
+   ```
+   sudo apt-get install libssl-dev
+   ```
+
+2. Once OpenSSL is installed, you need to reinstall Ruby with RVM and specify the path to OpenSSL. If you installed OpenSSL with Homebrew, the command would look like this:
+
+   ```
+   rvm reinstall 2.1.2 --with-openssl-dir=`brew --prefix openssl`
+   ```
+
+   If you installed OpenSSL with apt-get, the command would look like this:
+
+   ```
+   rvm reinstall 2.1.2 --with-openssl-dir=/usr/include/openssl
+   ```
+
+3. After Ruby is reinstalled, you should be able to use OpenSSL without any issues. You can verify this by running the command you provided:
+
+   ```
+   ruby -r openssl -e 'puts OpenSSL::OPENSSL_VERSION'
+   ```
+
+   If everything is working correctly, this command should print the version of OpenSSL that Ruby is using.
+
+Please try these steps and let me know if you have any issues.

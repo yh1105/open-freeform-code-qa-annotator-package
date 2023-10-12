@@ -1,0 +1,11 @@
+It seems like you have followed the correct steps to configure authentication with OIDC tokens to access Google Cloud Functions. However, the error message you received indicates that the permission was denied. 
+
+One thing to check is whether the Cloud Scheduler service account has the necessary permissions to invoke the Cloud Function. You can check this by going to the Cloud Function's IAM page and adding the Cloud Scheduler service account with the Cloud Functions Invoker role.
+
+Another thing to check is whether the audience parameter in the Cloud Scheduler job is set correctly. The audience parameter should be set to the URL of the Cloud Function you want to invoke.
+
+If neither of these solutions work, you may want to try creating a new project and following the same steps to see if that resolves the issue. It's possible that there may be some configuration issue with your current project.
+
+Lastly, it's worth noting that the Cloud Scheduler service account may take some time to propagate the necessary permissions and roles. So, you may want to wait a few minutes after making any changes before testing again.
+
+I hope this helps! Let me know if you have any further questions.

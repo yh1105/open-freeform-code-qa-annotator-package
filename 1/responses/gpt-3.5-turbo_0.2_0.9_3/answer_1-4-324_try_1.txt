@@ -1,0 +1,21 @@
+You can use the `separate()` function from the `tidyr` package to split the column into separate columns based on a delimiter. Here's an example code:
+
+```
+library(tidyr)
+
+# create a sample data frame
+df <- data.frame(info = "name:Michael,Age:31,City:NYC")
+
+# separate the column into three columns based on the delimiter ","
+df_split <- separate(df, col = info, into = c("name", "Age", "City"), sep = ",")
+
+# remove the prefix from each column
+df_split$name <- gsub("name:", "", df_split$name)
+df_split$Age <- gsub("Age:", "", df_split$Age)
+df_split$City <- gsub("City:", "", df_split$City)
+
+# display the resulting data frame
+df_split
+```
+
+This should give you a data frame with three separate columns for name, Age, and City.

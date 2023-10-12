@@ -1,0 +1,16 @@
+The `builder` parameter has been deprecated in favor of the `create` parameter. The `create` parameter is a function that creates a new instance of the provided class. Here is how you can update your code:
+
+```dart
+main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Auth()),
+      ],
+      child: App(),
+    ),
+  );
+}
+```
+
+This change was made to make the naming more consistent and intuitive. The `create` function is called when a new instance of the provided class is needed, which is exactly what it does.

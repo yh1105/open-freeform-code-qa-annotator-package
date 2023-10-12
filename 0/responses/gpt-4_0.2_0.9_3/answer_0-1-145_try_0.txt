@@ -1,0 +1,18 @@
+The `truncate` class in Tailwind CSS only works for single line text. It sets `overflow: hidden`, `text-overflow: ellipsis`, and `white-space: nowrap` which makes the text to be truncated with an ellipsis (...) when it overflows its containing element.
+
+For multiline text truncation, you would need to use a different approach as CSS does not natively support multiline text truncation. 
+
+Here is a workaround using line-clamp which is supported in Tailwind CSS v2.0+:
+
+```jsx
+<div className="ml-1 inline-block w-64">
+   <span>Label: </span>
+   <span className="font-semibold overflow-hidden overflow-ellipsis">
+     long texttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+   </span>
+</div>
+```
+
+In this example, `w-64` is used to set a width to the container. You should adjust this value according to your needs. 
+
+Please note that `line-clamp` is not fully supported in all browsers, especially in IE. If you need to support all browsers, you may need to use a JavaScript-based solution.

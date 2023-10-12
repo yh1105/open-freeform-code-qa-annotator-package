@@ -1,0 +1,13 @@
+There are a few things you can try to resolve this issue:
+
+1. Restart Android Studio: Sometimes, simply restarting Android Studio can resolve the issue.
+
+2. Check your internet connection: Make sure you have a stable internet connection. The "Installing Dev tools" message indicates that Android Studio is trying to download the necessary tools from the internet.
+
+3. Check your firewall settings: If you have a firewall enabled, it may be blocking Android Studio from accessing the internet. Try temporarily disabling your firewall and see if that resolves the issue.
+
+4. Clear the cache: Go to File > Invalidate Caches/Restart and select "Invalidate and Restart". This will clear the cache and restart Android Studio.
+
+5. Update Android Studio: Make sure you have the latest version of Android Studio installed. You can check for updates by going to Help > Check for Updates.
+
+If none of these solutions work, you may need to reinstall Android Studio.

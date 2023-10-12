@@ -1,0 +1,17 @@
+The error message "Cannot communicate with zygote" suggests that Chrome is having trouble starting up its sandbox environment. This is a common issue when trying to run Chrome in a Docker container, because the sandbox requires certain system capabilities that aren't available.
+
+You're already using the `--no-sandbox` option, which should disable the sandbox and avoid this issue. However, you're also using the `--single-process` option, which is not recommended. According to the Chromium developers, the `--single-process` option is not well-supported, and can result in undefined behavior. It's possible that this is causing or contributing to the issue.
+
+I would recommend removing the `--single-process` option from your code and trying again. If you're still having trouble, you might want to try using a different base image for your Docker container. The `public.ecr.aws/lambda/python:3.8` image is based on Amazon Linux 2, which might not have all the system libraries that Chrome needs. You could try using a base image that's known to work well with Chrome, such as `debian:buster` or `ubuntu:bionic`.
+
+As for the question about running as root, AWS Lambda does indeed run your code as the root user inside the container. However, this shouldn't be a problem for Chrome, as long as you're using the `--no-sandbox` option. If you want to run your code as a non-root user anyway, you can do so by adding a `USER` directive to your Dockerfile. For example:
+
+```
+# Create a new user
+RUN adduser --disabled-password --gecos '' myuser
+
+# Switch to the new user
+USER myuser
+```
+
+This will cause all subsequent `RUN`, `CMD`, and `ENTRYPOINT` directives to be run as the specified user. However, keep in mind that this user will not have root privileges, so you might need to adjust your Dockerfile and your code accordingly.

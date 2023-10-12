@@ -1,0 +1,39 @@
+To make your widget rebuild on listening to the changes you made using the Provider package, you can follow these steps:
+
+1. First, you need to wrap your widget with a `ChangeNotifierProvider` or `Provider` (depending on your use case). This will provide your widget with the instance of the class where you have defined your state and logic.
+
+```dart
+ChangeNotifierProvider(
+  create: (context) => YourClass(),
+  child: YourWidget(),
+),
+```
+
+2. In your class, you need to extend `ChangeNotifier` and whenever you update your data, you need to call `notifyListeners()`.
+
+```dart
+class YourClass extends ChangeNotifier {
+  // Your data and logic
+
+  void updateData() {
+    // Update your data
+    notifyListeners();
+  }
+}
+```
+
+3. In your widget, you need to listen to the changes in your class. You can do this by using `Provider.of<YourClass>(context)` or `context.watch<YourClass>()` (if you're using Provider 4.1.0 or above).
+
+```dart
+final yourClass = Provider.of<YourClass>(context);
+```
+or
+```dart
+final yourClass = context.watch<YourClass>();
+```
+
+4. Now, whenever you call `updateData()`, your widget will rebuild.
+
+Remember, if you don't want your widget to rebuild, but you still want to access the data, you can use `Provider.of<YourClass>(context, listen: false)` or `context.read<YourClass>()`.
+
+Also, make sure you're not subscribing to the websocket in the build method of your widget, as this will cause a new subscription every time your widget rebuilds. Instead, you should subscribe in the `initState` method of your widget or in your class.

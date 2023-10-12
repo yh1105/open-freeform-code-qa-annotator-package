@@ -1,0 +1,15 @@
+The error message you're seeing usually appears when Excel can't find the macro you're trying to run. This can happen for a few reasons, but given what you've described, it's likely that the issue is related to the location of your macro or the way it's being called.
+
+Here are a few things you can try:
+
+1. **Check the macro name and location:** Make sure that the macro is in a standard module (not a worksheet module or ThisWorkbook) and that the name of the macro is spelled correctly in the button assignment. Also, ensure that the macro is not Private.
+
+2. **Fully qualify the macro name:** When assigning the macro to the button, try using the full name, including the module name. So if your macro is in Module1, you would use `Module1.button_not_working`.
+
+3. **Check your security settings:** Excel's security settings can prevent macros from running. Go to File > Options > Trust Center > Trust Center Settings > Macro Settings and make sure that macros are enabled.
+
+4. **Repair your workbook:** It's possible that your workbook has become corrupted. You can try to repair it by saving it as a .xlsb file, closing Excel, reopening Excel, and then saving the file back to .xlsx or .xlsm format.
+
+5. **Re-register Excel:** This is a more drastic step, but if nothing else works, you can try re-registering Excel. Close Excel, press Win + R to open the Run dialog, type `excel /unregserver` and press Enter. Then open the Run dialog again, type `excel /regserver` and press Enter. This will reset all of Excel's settings to their defaults.
+
+If none of these steps work, it's possible that there's a more serious issue with your Excel installation, and you may need to reinstall Excel.

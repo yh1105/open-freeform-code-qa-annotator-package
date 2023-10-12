@@ -1,0 +1,37 @@
+Yes, you can add text labels to a histogram in Plotly Express. However, it's not as straightforward as with a bar chart because the histogram's values are calculated during the plot creation. 
+
+Here's a workaround using your example:
+
+```python
+import pandas as pd
+import plotly.express as px
+
+# Create the DataFrame
+df = pd.DataFrame({"A":[1,1,1,2,2,3,3,3,4,4,4,5]})
+
+# Create the histogram
+fig = px.histogram(df, x="A")
+
+# Calculate the histogram data
+hist_data = pd.value_counts(df['A']).sort_index()
+
+# Add text annotations
+for i, bin in enumerate(hist_data.index):
+    fig.add_annotation(
+        x=bin, 
+        y=hist_data.iloc[i], 
+        text=str(hist_data.iloc[i]), 
+        showarrow=False,
+        yshift=10)
+
+fig.show()
+```
+
+In this code:
+
+1. We first create the histogram using `px.histogram()`.
+2. Then, we calculate the histogram data manually using `pd.value_counts()`. This gives us a Series where the index is the bin values and the values are the counts.
+3. We then loop through each bin in the histogram data and add a text annotation at that bin's x position and the corresponding count's y position. The `showarrow=False` argument hides the annotation arrow, and `yshift=10` moves the text slightly above the bar.
+4. Finally, we display the plot with `fig.show()`.
+
+This will give you a histogram with the count displayed above each bar.

@@ -1,0 +1,13 @@
+It seems like there is an issue with uninstalling the `wrapt` package. You can try to force uninstall it using the `--nodeps` flag:
+
+```
+sudo yum remove wrapt --nodeps
+```
+
+Then, try installing TensorFlow-GPU again:
+
+```
+pip install tensorflow-gpu~=1.14
+```
+
+Make sure to activate your virtual environment before installing TensorFlow-GPU if you are using one.

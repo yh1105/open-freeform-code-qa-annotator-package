@@ -1,0 +1,7 @@
+This is actually intended behavior. When you use double square brackets `[[ ]]` to select a column, you are creating a DataFrame with a single column. On the other hand, when you use single square brackets `[ ]`, you are creating a Pandas Series.
+
+When you assign a Pandas Series to a DataFrame column, the values are aligned based on the index of the Series and the DataFrame. In your first example, you are assigning a DataFrame with a single column to another DataFrame column. Since the index of the two DataFrames are different, Pandas cannot align the values and assigns NaN to all the rows.
+
+In your second example, you are assigning a Pandas Series to a DataFrame column. Since both have the same index, the values are aligned correctly and you get the expected result.
+
+So, to summarize, if you want to assign a single column of a DataFrame to another column, use single square brackets `[ ]`. If you want to assign a DataFrame with a single column to another column, use double square brackets `[[ ]]`.

@@ -1,0 +1,30 @@
+You can achieve the desired thin plus symbol by using a pseudo-element and adjusting the border width and positioning. Here's the updated CSS code:
+
+```
+.plus {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 1px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+```
+
+Here's the updated [codepen](https://codepen.io/anon/pen/OGZJyJ) for you to check.

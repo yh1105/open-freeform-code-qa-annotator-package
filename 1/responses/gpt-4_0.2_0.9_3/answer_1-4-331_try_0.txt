@@ -1,0 +1,13 @@
+The `dplyr::if_else()` function is type-stable, meaning that it checks the type of the output in both the `true` and `false` conditions to ensure they are the same. This is different from `base::ifelse()`, which does not enforce type stability.
+
+In your example, `min` and `max` are both functions, so you would expect `dplyr::if_else()` to work. However, the issue arises because `dplyr::if_else()` also checks that the output can be subsetted (like a vector), which is not the case for functions in R.
+
+This is indeed intended behavior for `dplyr::if_else()`. If you want to return a function based on a condition, you can use `base::ifelse()`, or use a standard `if` and `else` control structure:
+
+```r
+x <- 2
+if (x == 2) min else max
+#> function (..., na.rm = FALSE)  .Primitive("min")
+```
+
+This will give you the desired output.

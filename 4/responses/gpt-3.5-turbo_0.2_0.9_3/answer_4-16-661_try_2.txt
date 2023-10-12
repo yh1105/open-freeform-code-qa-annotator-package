@@ -1,0 +1,23 @@
+You can modify your shell script to extract the required value from the output of the SQL query. Here's an example:
+
+```
+size=$(${PATH_TO_CLIENT}sqlplus -S $IMPUSER/$IMPPWD@$ENDPOINT << EOF
+set pagesize 0 feedback off verify off heading off echo off;
+select sum(bytes)/1024/1024/1024 Size_GB from dba_segments where owner = 'XXXX';
+exit;
+EOF
+)
+echo "Total data is ${size} GB"
+```
+
+In this modified script, we have added the following SQL*Plus commands to suppress unnecessary output:
+
+- `set pagesize 0` - to remove the page header and footer
+- `feedback off` - to suppress the "X rows selected" message
+- `verify off` - to disable verification of substitution variables
+- `heading off` - to remove the column headings
+- `echo off` - to suppress the SQL query itself
+
+We have also removed the `group by` clause from the SQL query, as we are only interested in the total size. Finally, we have used the `-S` option with `sqlplus` to suppress SQL*Plus commands and output.
+
+The output of the SQL query will now be stored in the `size` variable as a single value (e.g. "12.2345"), which you can use as required.

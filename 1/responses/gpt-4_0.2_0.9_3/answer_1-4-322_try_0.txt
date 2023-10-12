@@ -1,0 +1,26 @@
+Yes, you can accomplish this using the `tidyverse` package. The `split()` function is a base R function that can be used to split a vector into groups determined by another vector. Here's how you can do it:
+
+```r
+library(tidyverse)
+
+my_data <- tibble(list_names = c("Ford", "Chevy", "Ford", "Dodge", "Dodge", "Ford"),
+                  list_values = c("Ranger", "Equinox", "F150", "Caravan", "Ram", "Explorer"))
+
+desired_output <- split(my_data$list_values, my_data$list_names)
+```
+
+This will give you the same output as your `for-loop`:
+
+```r
+> desired_output
+$Chevy
+[1] "Equinox"
+
+$Dodge
+[1] "Caravan" "Ram"    
+
+$Ford
+[1] "Ranger"   "F150"     "Explorer"
+```
+
+The `split()` function is very efficient and should be faster than a `for-loop` for large datasets.

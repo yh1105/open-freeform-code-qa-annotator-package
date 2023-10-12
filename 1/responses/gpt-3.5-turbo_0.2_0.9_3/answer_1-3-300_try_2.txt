@@ -1,0 +1,14 @@
+The issue might be that the newline characters in the PDF file are not actually "\r\n" but some other character sequence. You can try using regular expressions to remove all types of newline characters. Here's an example:
+
+```
+import re
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = re.sub(r'\s+', ' ', content)
+print(content)
+```
+
+This code uses the `re` module to replace all whitespace characters (including newline characters) with a single space. This should remove all types of newline characters from the content.

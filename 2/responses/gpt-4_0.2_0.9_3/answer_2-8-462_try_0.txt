@@ -1,0 +1,7 @@
+1. You're not overlooking something obvious. This is a limitation of the current generics design in Go. The issue arises from the fact that Go's method sets are different for values and pointers. When you define a method on a pointer, it's not part of the method set of the value type. This is why you can't call `Set(v)` on a nil pointer.
+
+2. Yes, this is a limitation of generics in Go as they currently stand. The workaround you've found, using a constructor function, is a common pattern in Go when you need to create instances of a type that satisfies an interface, but you don't know the concrete type at compile time.
+
+3. This limitation is known and is a result of the design decisions made in the Go language. It's always worth raising an issue if you think there's a way to improve the language, but in this case, it's likely that the Go team is already aware of this issue. 
+
+In conclusion, your workaround is currently the best way to handle this situation in Go. It's a bit more verbose, but it's explicit and clear about what's happening, which is a characteristic of Go code.

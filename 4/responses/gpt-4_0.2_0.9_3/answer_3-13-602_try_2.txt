@@ -1,0 +1,17 @@
+The error message is telling you that your `HomeActivity` is trying to use Hilt, but it can't find an `@AndroidEntryPoint` Application class. 
+
+You have annotated your `CoreApplication` with `@HiltAndroidApp`, which is correct. However, it seems like your application is not using `CoreApplication` as the Application class, but instead it's using `androidx.multidex.MultiDexApplication`.
+
+To fix this, you need to specify `CoreApplication` as the application class in your `AndroidManifest.xml` file. Here's how you can do it:
+
+```xml
+<application
+    android:name=".CoreApplication"
+    ...>
+    ...
+</application>
+```
+
+This tells Android to use `CoreApplication` as the application class, which is annotated with `@HiltAndroidApp`, so Hilt should work correctly. 
+
+After making this change, clean and rebuild your project. If the problem persists, please provide more information about your setup.

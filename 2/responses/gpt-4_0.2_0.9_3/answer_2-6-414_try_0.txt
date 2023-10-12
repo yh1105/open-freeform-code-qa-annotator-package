@@ -1,0 +1,52 @@
+The problem is that the JSON contains empty strings and null values, which cannot be converted to integers. 
+
+To solve this, you can use a custom JsonConverter to handle the conversion. This converter will ignore null and empty string values and only add valid integers to the list.
+
+Here is an example of how you can implement this:
+
+```csharp
+public class IgnoreInvalidIntegersConverter : JsonConverter
+{
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(List<int>);
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        var array = JArray.Load(reader);
+        var list = new List<int>();
+        foreach (var item in array)
+        {
+            if (item.Type == JTokenType.Integer)
+            {
+                list.Add(item.Value<int>());
+            }
+        }
+        return list;
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        // Implement this if you need serialization back to JSON
+        throw new NotImplementedException();
+    }
+}
+```
+
+Then, you can apply this converter to your property:
+
+```csharp
+public class Redacted
+{
+    ...
+
+    [JsonProperty("edges")]
+    [JsonConverter(typeof(IgnoreInvalidIntegersConverter))]
+    public List<int> Edges { get; set; } = new();
+
+    ...
+}
+```
+
+This will ignore any non-integer values in the "edges" array when deserializing.

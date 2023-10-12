@@ -1,0 +1,13 @@
+The error message you are seeing suggests that the PostgreSQL database is having trouble finding the "Sequence" column in your CSV file. This could be due to a number of reasons, such as a formatting issue or a mismatch between the column names in the CSV file and the column names in the database schema.
+
+One thing you could try is to explicitly specify the column names in your CSV file when you import it into the database. This can help ensure that the column names in the CSV file match the column names in the database schema. You can do this by using the "HEADER" option when you run the "COPY" command to import the CSV file. For example:
+
+```
+COPY newtable (pk, active, "Sequence", name, "Number", hours, "Start Date", "Stop Date", "Modified When", "Modified By") FROM '/path/to/your/csv/file.csv' DELIMITER ',' CSV HEADER;
+```
+
+Note that the column names in the "COPY" command should match the column names in your database schema, including any capitalization or special characters.
+
+If this doesn't work, you may want to double-check the formatting of your CSV file to make sure there are no hidden characters or other issues that could be causing the problem. You could also try importing the CSV file into a new, empty table to see if that resolves the issue.
+
+Finally, if you are still having trouble, you may want to consider reaching out to the psycopg2 community or PostgreSQL support for further assistance.

@@ -1,0 +1,19 @@
+The Floyd-Warshall algorithm has a time complexity of O(V^3) and space complexity of O(V^2), where V is the number of vertices. When you have a large number of vertices (like 1 million), the algorithm will consume a lot of memory and time. 
+
+In your case, you are trying to store the path information in addition to the distance information. This increases the memory usage significantly, especially when you are dealing with a large graph. 
+
+Your approach of using `List<List<List<Point>>>` to store the path information is a good one, as it avoids the overhead of string concatenation and reduces the memory usage. However, it still consumes a lot of memory when the graph is large.
+
+Here are a few suggestions to further optimize your code:
+
+1. **Use an adjacency list instead of an adjacency matrix**: If your graph is sparse (i.e., the number of edges is much less than V^2), you can use an adjacency list to represent the graph. This can significantly reduce the memory usage.
+
+2. **Store only the next vertex on the shortest path**: Instead of storing the entire path from i to j, you can store only the next vertex on the shortest path from i to j. This reduces the memory usage from O(V^2) to O(V). To retrieve the entire path, you can start from vertex i and follow the next vertices until you reach vertex j.
+
+3. **Use a more memory-efficient data structure**: Instead of `List<List<List<Point>>>`, you can use a more memory-efficient data structure to store the path information. For example, you can use an array of linked lists, where each linked list represents a path.
+
+4. **Use a more efficient algorithm**: If you only need the shortest path between a pair of vertices, you can use Dijkstra's algorithm, which has a lower time complexity (O(V^2) or O(E log V) with a priority queue) and requires less memory.
+
+5. **Increase the memory limit of your application**: If you are running a 32-bit application, it can only use up to 2 GB of memory. By switching to a 64-bit application, you can use more memory. However, this is only a temporary solution and may not be feasible if your graph continues to grow.
+
+6. **Use a database**: If your graph is too large to fit into memory, you can store it in a database and perform the algorithm on the database. This will be slower than performing the algorithm in memory, but it allows you to handle very large graphs.

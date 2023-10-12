@@ -1,0 +1,22 @@
+In Xdebug 3, several configuration settings have been changed or removed. The settings you mentioned have been replaced with the following:
+
+- `xdebug.remote_enable` is replaced by `xdebug.mode=debug`
+- `xdebug.remote_host` is replaced by `xdebug.client_host`
+- `xdebug.remote_mode` is removed, and the default mode is now 'request'
+- `xdebug.remote_port` is replaced by `xdebug.client_port`
+
+You can add these settings in your php.ini file. If you can't find the file, you can create a new one. Here is an example of how you can set these configurations:
+
+```
+zend_extension=xdebug.so
+xdebug.mode=debug
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+xdebug.start_with_request=yes
+```
+
+Please replace `xdebug.so` with the correct path to your Xdebug extension if necessary. The `xdebug.start_with_request=yes` setting means that Xdebug will attempt to connect to the debugging client as soon as the script starts.
+
+After changing the php.ini file, don't forget to restart your web server to apply the changes. 
+
+In PhpStorm, you should also update the Xdebug port to 9003 (File | Settings | Languages & Frameworks | PHP | Debug | Xdebug for Windows/Linux or PhpStorm | Preferences | Languages & Frameworks | PHP | Debug | Xdebug for macOS).

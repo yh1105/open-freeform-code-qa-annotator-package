@@ -1,0 +1,33 @@
+It looks like you are trying to use VBA to load data from a Power Query into a new worksheet. Here is some sample code that you can modify to fit your specific needs:
+
+```
+Sub LoadDataFromPowerQuery()
+
+    ' Define variables
+    Dim myWorkbook As Workbook
+    Dim myWorksheet As Worksheet
+    Dim myQuery As WorkbookQuery
+    
+    ' Set references to workbook and worksheet
+    Set myWorkbook = ThisWorkbook
+    Set myWorksheet = myWorkbook.Sheets("Sheet1")
+    
+    ' Set reference to Power Query
+    Set myQuery = myWorkbook.Queries("MyPowerQuery")
+    
+    ' Refresh the Power Query
+    myQuery.Refresh
+    
+    ' Load the data into a new worksheet
+    myQuery.Result.LoadToWorksheet myWorksheet.Range("A1")
+    
+End Sub
+```
+
+In this code, you first define variables for your workbook, worksheet, and Power Query. Then, you set references to those objects using the `Set` keyword. 
+
+Next, you refresh the Power Query using the `Refresh` method. This ensures that the data is up-to-date before you load it into your worksheet.
+
+Finally, you use the `LoadToWorksheet` method to load the data into a new worksheet. In this example, the data is loaded into cell A1 of Sheet1. You can modify this to fit your specific needs.
+
+Note that this code assumes that you have already created a Power Query and named it "MyPowerQuery". If you have a different name for your query, you will need to modify the code accordingly.

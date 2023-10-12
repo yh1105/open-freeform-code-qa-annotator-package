@@ -1,0 +1,17 @@
+The error message "The issuer is invalid" suggests that the issuer of the token is not recognized or trusted by your API. This typically happens when the `Authority` option in your API configuration does not match the issuer of the token.
+
+Here are a few things you can check:
+
+1. **Check the issuer in the token**: You can decode your JWT token using online tools like [jwt.io](https://jwt.io/). Check the `iss` claim in the token. It should match the `Authority` you have set in your API configuration.
+
+2. **Check the Authority configuration**: Make sure the `Authority` option in your API configuration is set correctly. It should be the URL of the Identity Server that issued the token. 
+
+3. **Check the token validation settings**: If you have any custom token validation settings in your Identity Server or API, make sure they are correct. For example, if you have set the `ValidateIssuer` option to `false`, your API will not validate the issuer of the token, which can lead to this error.
+
+4. **Check the API name**: The `ApiName` option in your API configuration should match the `aud` (audience) claim in the token.
+
+5. **Check the HTTPS settings**: If your Identity Server is running on HTTPS and you have set `RequireHttpsMetadata` to `false`, this can cause issues. Try setting `RequireHttpsMetadata` to `true` if your Identity Server is using HTTPS.
+
+6. **Check the token expiration**: Make sure the token has not expired. You can check the `exp` claim in the token.
+
+If none of these suggestions help, please provide more details about your Identity Server configuration and the token you are using.

@@ -1,0 +1,7 @@
+In C++17, the order of evaluation of the operands in a binary expression like `lhs != rhs` is not specified, meaning that either `lhs` or `rhs` could be evaluated first. However, the standard does specify that the evaluation of operands is sequenced before the operation itself. This means that both `lhs` and `rhs` will be fully evaluated before the comparison is made.
+
+In your specific case, `std::exchange(v, pmap[v])` is an expression that has a side effect: it modifies `v`. According to the standard, the side effect is sequenced before the value computation of the assignment expression, which means that `v` is updated before its value is returned by `std::exchange`.
+
+Therefore, even though the order of evaluation of `v` and `std::exchange(v, pmap[v])` is not specified, the fact that `std::exchange` updates `v` before returning its value guarantees that the comparison `v != std::exchange(v, pmap[v])` will not be tautological.
+
+In other words, the code `v != std::exchange(v, pmap[v])` is guaranteed to first update `v` to `pmap[v]` and then compare the old value of `v` with the new value. This is why your code works as expected.

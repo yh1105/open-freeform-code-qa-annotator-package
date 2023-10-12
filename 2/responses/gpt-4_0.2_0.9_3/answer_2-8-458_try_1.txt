@@ -1,0 +1,17 @@
+The error message you're seeing is because Go is looking for your package in the wrong place. It's looking in the GOROOT directory, which is where the Go standard library is stored, not your own code.
+
+The issue is likely related to the transition from GOPATH to Go modules. Go 1.11 introduced the concept of 'modules', an alternative to GOPATH with integrated versioning. Since Go 1.13, module mode is the default.
+
+Here are some steps to resolve the issue:
+
+1. Move your project outside of the GOPATH. With Go modules, you no longer need to work inside GOPATH. So, you can move your project to another directory, for example `C:\Users\username\myproject`.
+
+2. Initialize a new module in the root directory of your project. Navigate to your project's root directory in the terminal and run `go mod init github.com/username/myproject`. Replace `github.com/username/myproject` with your own module path. This command creates a `go.mod` file in your project's root directory.
+
+3. Open your project in Goland again. Now, Goland should recognize your project as a Go module and build it correctly.
+
+If you still face issues, check the following:
+
+- Make sure you're using a recent version of Go (at least 1.13) and Goland (2019.3 or later) that have good support for Go modules.
+- Check if the Go environment in Goland is correctly set up. Go to `File > Settings > Go > GOPATH` and make sure the `Use GOPATH that's defined in system environment` is checked and the `GOPATH` is correctly set to `C:\Users\username\go`.
+- Check if the Go modules integration is enabled in Goland. Go to `File > Settings > Go > Go Modules (vgo)` and make sure the `Enable Go Modules (vgo) integration` is checked.

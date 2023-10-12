@@ -1,0 +1,27 @@
+It seems like you're looking for a more elegant way to handle background tasks and updating the UI thread in Android using Java. Here are a few suggestions:
+
+1. **Use a Handler**: You can create a new `Handler` object associated with the main thread and use its `post()` method to run code on the UI thread. This is similar to `runOnUiThread()`, but it can be a bit more flexible.
+
+```java
+Handler mainHandler = new Handler(Looper.getMainLooper());
+
+mainHandler.post(new Runnable() {
+    @Override
+    public void run() {
+        // Update UI
+    }
+});
+```
+
+2. **Use an Event Bus**: Libraries like EventBus or RxJava can be used to post events from background threads to the main thread. This can be a cleaner solution if you have a lot of inter-thread communication.
+
+```java
+EventBus.getDefault().post(new UpdateUIEvent(result));
+```
+Then in your UI thread, you can subscribe to `UpdateUIEvent`.
+
+3. **Use LiveData**: You mentioned that you can't refactor all your code to use MVVM and LiveData, but you might consider using it just for the parts of your code that involve background tasks and updating the UI. LiveData is lifecycle-aware, meaning it automatically handles cases where the Activity or Fragment has been destroyed.
+
+4. **Use a Callback**: You can define an interface as a callback, implement it in your UI thread, and then pass it to your background task. When the task is done, it can call a method on the callback to update the UI.
+
+Remember, it's important to always check if the Activity or Fragment is still active before updating the UI to avoid exceptions. You can do this by calling `isFinishing()` for Activity or `isAdded()` for Fragment.

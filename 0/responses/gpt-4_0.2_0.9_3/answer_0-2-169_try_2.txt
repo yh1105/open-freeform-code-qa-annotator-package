@@ -1,0 +1,29 @@
+The XSRF check failed error occurs because Atlassian products use XSRF protection to prevent cross-site request forgery attacks. When you submit a form or make a POST request, the server expects a specific header or request parameter, usually named `atl_token` or `X-Atlassian-Token`, with a value of `no-check`.
+
+However, this token is not included in your form. To include it, you can use AJS to get the token and add it to your form as a hidden input field. Here is how you can do it:
+
+```html
+<form class="aui" action="/rest/scriptrunner/latest/custom/cloneJE2Cube" method="post">
+    <!-- Your existing form fields here -->
+    <input type="hidden" name="atl_token" id="atl_token" value="">
+    <div class="buttons-container">
+        <div class="buttons">
+            <input class="button submit" type="submit" value="Clone" id="clone-button">
+        </div>
+    </div>
+</form>
+```
+
+Then, in a script tag at the end of your HTML, you can set the value of the `atl_token` input to the XSRF token:
+
+```html
+<script>
+    AJS.toInit(function(){
+        document.getElementById('atl_token').value = AJS.Meta.get('atl-token');
+    });
+</script>
+```
+
+This will add the XSRF token to your form, which should prevent the XSRF check failed error.
+
+However, please note that this approach will only work if your form is being loaded in the context of an Atlassian product, as it relies on the AJS library and meta tags provided by Atlassian. If your form is being loaded in a different context, you may need to obtain the XSRF token by other means.

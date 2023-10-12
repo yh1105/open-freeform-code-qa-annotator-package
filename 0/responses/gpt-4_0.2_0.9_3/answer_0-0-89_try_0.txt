@@ -1,0 +1,26 @@
+The issue you're facing is due to the `required: true` property in your prop validation. When you set `required: true`, Vue.js expects a non-null and non-undefined value for that prop. 
+
+The Vue.js documentation comment you mentioned is a bit misleading. It means that if you do not specify `required: true`, then `null` and `undefined` values will pass any type validation. But if you specify `required: true`, then `null` and `undefined` values will not pass the validation.
+
+To fix the issue, you can remove `required: true` from your prop validation:
+
+```javascript
+Vue.component('MyInput', Vue.extend({
+  props: {
+    value: {
+      type: [String, Number, Boolean],
+    },
+  },
+  template: `
+    <select v-model="value">
+      <option value="null">
+        null value
+      </option>
+      <option value="">
+        Empty value
+      </option>
+    </select>`,
+}));
+```
+
+Now, `null` and `undefined` values will pass the type validation.

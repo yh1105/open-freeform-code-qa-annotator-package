@@ -1,0 +1,10 @@
+The error message is telling you that you cannot use a NumPy array as a boolean value in an `if` statement because it is ambiguous. Instead, you should use the `np.array_equal()` function to compare two NumPy arrays element-wise. Here's an example:
+
+```
+if np.array_equal(mask_black, cv2.bitwise_not(mask_black)):
+    # black background, white line
+else:
+    # white background, black line
+```
+
+This will compare each element of `mask_black` with the corresponding element of `cv2.bitwise_not(mask_black)` and return `True` if they are all equal, and `False` otherwise.

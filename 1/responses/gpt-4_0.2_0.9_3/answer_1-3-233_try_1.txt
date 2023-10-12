@@ -1,0 +1,20 @@
+The error message "Can't find target attribute [Sequence]" suggests that the import process is not able to find a column named "Sequence" in the target table where the data from the CSV file is being imported. 
+
+However, from the DDL you provided, it seems that the "Sequence" column does exist in the table. One possible issue could be the case sensitivity in PostgreSQL. PostgreSQL is case-sensitive for column names. If the column name is written in any other form than it was created, it will not be recognized. In your DDL, "Sequence" is written with a capital "S" and is also enclosed in double quotes, which makes it case-sensitive.
+
+Here are a few things you can try:
+
+1. Check the case of the column names in your CSV file. Make sure the case matches exactly with the column names in the table. If the column name in the CSV file is "sequence" (all lowercase), then it will not match with "Sequence" in the table.
+
+2. Remove the double quotes from the column names in the DDL. When you enclose the column names in double quotes, PostgreSQL will treat them as case-sensitive. If you remove the double quotes, PostgreSQL will convert the column names to lowercase and it will not be case-sensitive.
+
+3. If the case of the column names in the CSV file is different from the table, you can use the `AS` keyword in the `COPY` command to map the column names in the CSV file to the column names in the table.
+
+If none of these solutions work, you might want to check if there are any hidden characters or spaces in the column names in the CSV file or in the table. You can use a text editor that shows hidden characters to check the CSV file. For the table, you can use the `pg_attribute` system catalog table to check the column names. Here is a query that you can use:
+
+```sql
+SELECT attname FROM pg_attribute 
+WHERE attrelid = 'your_table_name'::regclass AND attnum > 0;
+```
+
+Replace 'your_table_name' with the name of your table. This query will return the column names in the table as they are stored in the database.

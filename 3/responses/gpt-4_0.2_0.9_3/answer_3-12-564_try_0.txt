@@ -1,0 +1,37 @@
+The error message is quite clear: "Make sure you are not using the same ad object in more than one AdWidget". This means that you are trying to use the same `BannerAd` object in multiple `AdWidget`s, which is not allowed.
+
+In your case, you are using `posts[index] as BannerAd` as your ad object. If the same `BannerAd` object is used in multiple `AdWidget`s, it will cause this error.
+
+To solve this issue, you need to ensure that each `AdWidget` has its own unique `BannerAd` object. You can do this by creating a new `BannerAd` object for each `AdWidget`.
+
+Here is an example of how you can modify your code:
+
+```dart
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if(posts[index] is Post) {
+      return posts[index];
+    } else {
+      // Create a new BannerAd object for each AdWidget
+      final bannerAd = BannerAd(
+        adUnitId: '<your-ad-unit-id>',
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: BannerAdListener(),
+      )..load();
+
+      final Container adContainer = Container(
+        alignment: Alignment.center,
+        child: AdWidget(key: UniqueKey(), ad: bannerAd),
+        height: 50,
+      );
+      return adContainer;
+    }
+  },
+  itemCount: posts.length,
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+);
+```
+
+Please replace `<your-ad-unit-id>` with your actual AdMob ad unit ID. Also, you may need to customize the `BannerAdListener` according to your needs.

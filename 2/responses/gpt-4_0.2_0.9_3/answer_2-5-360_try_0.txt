@@ -1,0 +1,29 @@
+The issue is with the property name you are trying to inject. In your `data.yml` file, the property name is `main.header.info` but in your Java code, you are trying to inject `main.header1.info`. 
+
+The correct way to inject the property is:
+
+```java
+@Component
+@PropertySource("classpath:data.yml")
+public class SomeClass {
+    @Value("${main.header.info}")
+    private long info;
+    ...
+}
+```
+
+Also, make sure you have the `snakeyaml` dependency in your project because Spring uses it to load `.yml` or `.yaml` files. If you are using Maven, add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.yaml</groupId>
+    <artifactId>snakeyaml</artifactId>
+    <version>1.27</version>
+</dependency>
+```
+
+If you are using Gradle, add the following to your `build.gradle`:
+
+```gradle
+implementation 'org.yaml:snakeyaml:1.27'
+```

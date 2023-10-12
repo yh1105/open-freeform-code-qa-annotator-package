@@ -1,0 +1,9 @@
+This behavior is expected in Go's testing framework. By default, Go caches the results of successful tests to speed up subsequent test runs. If you want to force Go to re-run all tests, including those that passed in the previous run, you can use the `-count` flag with a value of 1 or higher.
+
+For example, to run all tests once without using the cache, you can run:
+
+```
+go test -count=1 ./...
+```
+
+This will force Go to re-run all tests, even if they passed in a previous run. Note that this may increase the time it takes to run your tests, especially if you have a large test suite.

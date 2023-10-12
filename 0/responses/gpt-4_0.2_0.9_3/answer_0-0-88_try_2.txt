@@ -1,0 +1,19 @@
+The error you're encountering is because you're trying to create an array with a negative length. This happens when the value of `props.ingredients[igKey]` is less than 0. JavaScript doesn't allow creating arrays with negative lengths, hence the `RangeError: invalid array length` error.
+
+To fix this, you need to ensure that the length of the array you're creating is always 0 or more. You can do this by using the `Math.max()` function to ensure that the length is never less than 0:
+
+```jsx
+const burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients).map(igKey => (
+    // eslint-disable-next-line max-len,react/no-array-index-key
+    [...Array(Math.max(props.ingredients[igKey], 0))].map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />)
+  )).reduce((arr, el) => (
+    arr.concat(el)
+  ), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please add some ingredients!</p>;
+  }
+```
+
+This will ensure that the length of the array is always 0 or more, preventing the `RangeError` from occurring. However, you should also check your code to ensure that the values of `props.ingredients[igKey]` are never less than 0, as this might indicate a logic error in your code.

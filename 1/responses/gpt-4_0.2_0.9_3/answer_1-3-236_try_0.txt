@@ -1,0 +1,19 @@
+The issue you're facing might be due to the fact that Jedi is not only a linter but also an autocompletion library. So, even if you disable it as a linter, it might still be running for autocompletion.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Disable Jedi as an autocompletion library**: You can do this by adding the following line to your settings.json file:
+    ```json
+    "python.jediEnabled": false
+    ```
+2. **Switch to a different autocompletion library**: If you're still having issues with Jedi, you might want to consider switching to a different autocompletion library. Microsoft's Python Language Server or the newer Pylance are both good options. You can switch to the Python Language Server by adding the following line to your settings.json file:
+    ```json
+    "python.languageServer": "Microsoft"
+    ```
+   Or switch to Pylance by first installing the Pylance extension from the Visual Studio Code marketplace and then adding the following line to your settings.json file:
+    ```json
+    "python.languageServer": "Pylance"
+    ```
+3. **Check for conflicting extensions**: If you're still having issues, it might be due to a conflict with another extension. Try disabling other Python-related extensions to see if that resolves the issue.
+
+Remember to reload VS Code after making these changes to ensure they take effect.

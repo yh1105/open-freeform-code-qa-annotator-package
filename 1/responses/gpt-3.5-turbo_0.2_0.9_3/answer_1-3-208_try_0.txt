@@ -1,0 +1,13 @@
+The issue with your code is that you are checking if the entire input string is present in the `correct` string, which is not what you want to do. Instead, you need to check if every character in the input string is present in the `correct` string.
+
+You can do this using a loop and the `all()` function, which returns `True` if all elements in an iterable are true, and `False` otherwise. Here's an updated version of your code that should work:
+
+```
+import string
+text = input("Enter: ")
+correct = string.ascii_letters + string.digits
+if all(char in correct for char in text):
+    print("Success")
+```
+
+This code loops through every character in the input string `text`, and checks if it is present in the `correct` string using the `in` operator. The `all()` function then checks if all of these checks are true, and if so, prints "Success".

@@ -1,0 +1,17 @@
+The error message indicates that Go is unable to find the specified version of the module `github.ibm.com/kms/key-protect-client`. Here are a few things you can try to debug this issue:
+
+1. **Check the Version**: Ensure that the version `v0.1.5` of the module `github.ibm.com/kms/key-protect-client` actually exists. You can check this by visiting the repository on your browser.
+
+2. **Check the Access**: Even though you have access to the domain, it's possible that you might not have access to this specific repository. Try cloning the repository directly to see if you have access.
+
+3. **Check the Go Proxy**: Go uses a module proxy by default (https://proxy.golang.org). If your module is private, you need to tell Go to bypass the proxy for your module. You can do this by setting the `GOPRIVATE` environment variable to match your module path. For example, you can use `export GOPRIVATE=github.ibm.com/kms/*` to bypass the proxy for all modules in the `github.ibm.com/kms` domain.
+
+4. **Check the Git Configuration**: Go uses Git to download modules. Ensure that Git is correctly configured on your machine and that you can clone the repository using Git.
+
+5. **Check the Go Version**: Ensure that you're using the same version of Go on both machines. Different versions of Go might handle modules differently.
+
+6. **Verbose Logging**: You can use the `-v` flag with `go get` to get more verbose output, which might help you debug the issue. For example, `go get -v github.ibm.com/kms/key-protect-client`.
+
+7. **Clear the Go Cache**: Sometimes, the Go cache can cause issues. You can clear the Go cache by running `go clean -modcache`.
+
+Remember to replace `github.ibm.com/kms/*` with your actual module path.

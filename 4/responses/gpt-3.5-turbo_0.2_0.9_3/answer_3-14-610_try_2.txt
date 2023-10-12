@@ -1,0 +1,58 @@
+Yes, you can use `AnimatableData` to animate the text content of a `Text` View. Here's an example implementation:
+
+```
+import SwiftUI
+
+struct AnimatedText: View {
+    var text: String
+    var duration: Double
+    
+    @State private var animatableData: String
+    
+    init(_ text: String, duration: Double) {
+        self.text = text
+        self.duration = duration
+        self._animatableData = State(initialValue: text)
+    }
+    
+    var body: some View {
+        Text(animatableData)
+            .font(.title)
+            .animation(.easeInOut(duration: duration))
+            .onAppear {
+                self.animatableData = self.text
+            }
+    }
+    
+    func animatableData(forSize size: CGSize) -> String {
+        get { animatableData }
+        set { animatableData = newValue }
+    }
+}
+
+struct ContentView: View {
+    @State var shortString = true
+    var body: some View {
+        VStack {
+            AnimatedText(shortString ? "This is short." : "This is considerably longer.", duration: 1.0)
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+In this implementation, we create a new `AnimatedText` View that takes in the text content and the animation duration as parameters. We also define an `@State` variable for the `animatableData` that we will use to animate the text content.
+
+In the `body` of the `AnimatedText` View, we use the `Text` View with the `animatableData` variable as its content. We also add the animation modifier with the given duration and an `onAppear` modifier that sets the `animatableData` to the initial text content.
+
+Finally, we implement the `animatableData(forSize:)` function that returns the `animatableData` variable and sets it to the new value when it changes.
+
+With this implementation, the text content will be animated smoothly without any ellipsis or abrupt changes.

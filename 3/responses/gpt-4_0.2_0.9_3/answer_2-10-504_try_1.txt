@@ -1,0 +1,25 @@
+The second way you've provided is already quite simple and efficient. It uses a `HashSet` to keep track of unique names and filters the original array based on whether the name has been seen before. This is a common and effective way to remove duplicates from a collection in many programming languages.
+
+However, if you want to make it even simpler, you could use the `dedup_by` method provided by Rust's `Vec` type. This method removes consecutive duplicates in-place according to a predicate function. But note that this method only removes consecutive duplicates, so it requires the vector to be sorted first.
+
+Here is how you could use it:
+
+```rust
+fn main() {
+    let mut arr = vec![
+        Person { name: "aaa".to_string(), age: 10 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "ccc".to_string(), age: 30 },
+    ];
+
+    arr.sort_by(|a, b| a.name.cmp(&b.name));
+    arr.dedup_by(|a, b| a.name == b.name);
+
+    dbg!(arr);
+}
+```
+
+This code first sorts the vector by name, and then removes consecutive duplicates with the same name. Note that this modifies the original vector in-place. If you don't want to modify the original vector, you would need to clone it first.
+
+Also note that this method only works if your `Person` struct implements the `PartialEq` and `PartialOrd` traits, which are required for the `==` operator and the `cmp` method, respectively. If your `Person` struct doesn't implement these traits, you'll need to add implementations for them.

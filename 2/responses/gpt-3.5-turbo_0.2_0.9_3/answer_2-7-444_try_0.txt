@@ -1,0 +1,13 @@
+To get the current user's role who is logged in using Spatie/Roles in Laravel, you can use the `auth()->user()` method to get the authenticated user and then use the `hasRole()` method to check if the user has a specific role.
+
+Here's an example:
+
+```
+if(auth()->user()->hasRole('admin')) {
+    // Do something for admin users
+} else {
+    // Do something for non-admin users
+}
+```
+
+Make sure that you have properly set up the Spatie/Roles package in your Laravel application and have assigned roles to your users.

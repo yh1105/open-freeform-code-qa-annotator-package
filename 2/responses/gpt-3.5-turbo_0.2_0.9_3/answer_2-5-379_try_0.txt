@@ -1,0 +1,21 @@
+In Java 8, we can use the `getClass()` method to get the class of an object. We can then use the `getSimpleName()` method to get the name of the class as a string.
+
+Here's an example:
+
+```
+Object obj = "Hello";
+System.out.println(obj.getClass().getSimpleName()); // prints "String"
+
+obj = 123;
+System.out.println(obj.getClass().getSimpleName()); // prints "Integer"
+
+obj = 12.3f;
+System.out.println(obj.getClass().getSimpleName()); // prints "Float"
+```
+
+This approach works for both primitive and reference types. However, it's important to note that this approach only works for objects, not for primitive types. To check the type of a primitive, we can use the wrapper class for that primitive and then use the `getClass()` method. For example:
+
+```
+int i = 10;
+System.out.println(Integer.valueOf(i).getClass().getSimpleName()); // prints "Integer"
+```

@@ -1,0 +1,13 @@
+You can achieve this by using the `trap` command in bash. The `trap` command allows you to catch signals and execute code when they occur. `DEBUG` is a kind of pseudo-signal that is triggered whenever a command is executed.
+
+Here's a simple way to set the terminal title to the currently running command:
+
+```bash
+trap 'echo -ne "\033]0;${PWD} ($BASH_COMMAND)\007"' DEBUG
+```
+
+This will set the terminal title to the current working directory followed by the currently executing command. The `echo -ne "\033]0;${PWD} ($BASH_COMMAND)\007"` part is an escape sequence that sets the terminal title.
+
+You can add this line to your `.bashrc` or `.bash_profile` file to make it permanent for all new bash sessions.
+
+Please note that this will not work perfectly with all commands. For example, if you run a command that takes a long time to execute (like `sleep 10`), the terminal title will be updated immediately, not after the command finishes. This is because the `DEBUG` trap is triggered before a command is executed, not after.

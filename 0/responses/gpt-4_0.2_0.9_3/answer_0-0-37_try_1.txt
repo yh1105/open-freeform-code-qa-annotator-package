@@ -1,0 +1,19 @@
+In NestJS, you can use optional parameters by adding a question mark at the end of the parameter in the route definition. However, optional parameters in the middle of the route are not supported directly. 
+
+To achieve your desired behavior, you can define multiple routes that point to the same handler. Here's an example:
+
+```typescript
+@Controller('route')
+export class YourController {
+  @Get(':param1/config')
+  @Get(':param1/config/:param2')
+  @Get(':param1/config/:param2/:param3')
+  handleRequest(@Param('param1') param1, @Param('param2') param2, @Param('param3') param3) {
+    // your code here
+  }
+}
+```
+
+In this example, `param2` and `param3` will be `undefined` if they are not provided in the URL. You can check if they are `undefined` and handle the request accordingly.
+
+Remember to import `Get`, `Controller`, and `Param` from `@nestjs/common`.

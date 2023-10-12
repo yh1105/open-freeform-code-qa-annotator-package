@@ -1,0 +1,33 @@
+The error message you are seeing is caused by the fact that you are trying to create an array with an invalid length. This can happen if the value of `props.ingredients[igKey]` is not a valid number.
+
+To fix this issue, you can add a check to make sure that the value of `props.ingredients[igKey]` is a valid number before creating the array. Here's an updated version of your code that includes this check:
+
+```
+const burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients).map(igKey => {
+    const ingredientCount = props.ingredients[igKey];
+    if (typeof ingredientCount !== 'number' || ingredientCount <= 0) {
+      return null;
+    }
+    return [...Array(ingredientCount)].map((_, i) => (
+      <BurgerIngredient key={igKey + i} type={igKey} />
+    ));
+  }).reduce((arr, el) => arr.concat(el), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please add some ingredients!</p>;
+  }
+
+  return (
+    <div className={classes.Burger}>
+      <BurgerIngredient type="bread-top" />
+      {transformedIngredients}
+      <BurgerIngredient type="bread-bottom" />
+    </div>
+  );
+};
+```
+
+In this updated code, we first check if `props.ingredients[igKey]` is a valid number and greater than 0. If it's not, we return `null` from the `map` function, which will result in an empty array. This will prevent the `RangeError` from being thrown.
+
+Also, make sure that you are returning the JSX code from the `burger` function.

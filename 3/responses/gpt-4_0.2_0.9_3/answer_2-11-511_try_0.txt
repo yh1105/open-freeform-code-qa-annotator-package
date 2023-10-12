@@ -1,0 +1,47 @@
+There are a few issues with your code:
+
+1. In C++, the size of an array must be a constant expression. This means that you cannot create an array with a size that is determined at runtime, like `int A[N][M];` in your function `my_2d_array`. This is a limitation of C++ arrays.
+
+2. You're trying to assign a string to an integer in the line `A[i][j] = element;`. This is not possible, as the types are incompatible.
+
+3. You're trying to return an array from a function. In C++, you cannot return arrays from functions. However, you can return a pointer to the array, or a reference to the array if it's a static array or a global array.
+
+4. The `main` function should return an `int`, not `void`.
+
+To solve these issues, you can use `std::vector` or `std::array` instead of C++ arrays. Here's how you can do it with `std::vector`:
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+
+std::vector<std::vector<std::string>> my_2d_array(int N, int M) {
+    std::vector<std::vector<std::string>> A(N, std::vector<std::string>(M));
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            A[i][j] = std::to_string(i) + std::to_string(j);
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    std::vector<std::vector<std::string>> A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+This code creates a 2D vector `A` with `N` rows and `M` columns, fills it with strings representing the indices of each element, and then returns it. The `main` function then prints the elements of the 2D vector.

@@ -1,0 +1,23 @@
+Yes, you can get the shape of the list without converting it into a numpy array. Each tensor in your list has a method called `size()` which returns the shape of the tensor. 
+
+Here is how you can do it:
+
+```python
+# assuming your list of tensors is called tensor_list
+shapes = [t.size() for t in tensor_list]
+
+# print the shapes
+for shape in shapes:
+    print(shape)
+```
+
+This will print the shape of each tensor in your list. If you want to get the shape of the entire list (i.e., the number of tensors and the shape of each tensor), you can do something like this:
+
+```python
+# get the number of tensors and the shape of the first tensor
+shape = (len(tensor_list),) + tuple(tensor_list[0].size())
+
+print(shape)
+```
+
+This will give you a tuple where the first element is the number of tensors in the list and the remaining elements are the dimensions of each tensor. Note that this assumes that all tensors in the list have the same shape. If the tensors can have different shapes, you should stick with the first method.

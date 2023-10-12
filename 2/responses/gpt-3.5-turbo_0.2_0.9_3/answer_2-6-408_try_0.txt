@@ -1,0 +1,23 @@
+The issue is that the `OnAfterRenderAsync` method is called after the first render, so when you try to assign the event handler to `tabSet.TabChanged`, `tabSet` is still null. 
+
+To fix this, you can use the `OnInitialized` method to assign the event handler to `tabSet.TabChanged` instead of `OnAfterRenderAsync`. The `OnInitialized` method is called after the component has been initialized and all parameters and properties have been set.
+
+Here's the updated code:
+
+```
+<TabSet @ref="tabSet">
+ ...
+</TabSet>
+
+@code {
+    private TabSet tabSet;   
+    ...
+
+    protected override void OnInitialized()
+    {
+        tabSet.TabChanged += TabChanged;
+    }
+}
+```
+
+This way, the event handler will be assigned to `tabSet.TabChanged` only once, after the component has been initialized.

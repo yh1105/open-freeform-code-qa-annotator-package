@@ -1,0 +1,15 @@
+The error you're encountering is due to the way you're trying to import the icons. The import paths you're using are outdated. 
+
+React Icons has updated their import paths in version 3.0.0 and onwards. You should import icons like this:
+
+```javascript
+import { MdTerrain } from "react-icons/md";
+import { TiSnowflake } from "react-icons/ti";
+import { FaCalendar } from "react-icons/fa";
+```
+
+Please note that the icon names are in PascalCase (each word capitalized), not camelCase. So, it's `MdTerrain` not `Terrain`, `TiSnowflake` not `SnowFlake`, and `FaCalendar` not `Calender`.
+
+Also, make sure the spelling is correct. It's `Calendar`, not `Calender`. 
+
+If you still encounter issues, try deleting your `node_modules` folder and `package-lock.json` file, then run `npm install` again.

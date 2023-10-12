@@ -1,0 +1,38 @@
+To correctly color code the duplicate letters in the guess word, you can modify your code to keep track of the indices of each letter in the guess word and compare them with the indices of the same letter in the choice word. Here's an example implementation:
+
+```
+def wordcolor(self, choice, guess):
+    guesscolor = {}
+    choiceword = list(choice)
+    guesslist = list(guess)
+
+    # Find indices of each letter in guess word
+    guessindices = {}
+    for i, letter in enumerate(guesslist):
+        if letter not in guessindices:
+            guessindices[letter] = [i]
+        else:
+            guessindices[letter].append(i)
+
+    for i, letter in enumerate(choiceword):
+        if letter in guessindices:
+            # Check if letter is in same position in both words
+            if letter == guesslist[i]:
+                guesscolor[i] = "green"
+                guessindices[letter].remove(i)
+            # Check if letter is in a different position in both words
+            elif guessindices[letter]:
+                guesscolor[i] = "orange"
+                guessindices[letter].pop(0)
+            # Letter is a duplicate but already colored
+            else:
+                guesscolor[i] = "red"
+        else:
+            guesscolor[i] = "red"
+
+    print(guesscolor)
+```
+
+In this implementation, we first create a dictionary `guessindices` that maps each letter in the guess word to a list of its indices. We then iterate through each letter in the choice word and check if it is in `guessindices`. If it is, we first check if the letter is in the same position in both words, and color code it green if it is. If not, we check if there are any remaining indices of the letter in the guess word, and color code it orange if there are. If there are no remaining indices, it means the letter has already been colored as a duplicate, so we color code it red. If the letter is not in `guessindices`, we color code it red as well.
+
+This implementation should correctly color code all duplicate letters in the guess word, even if they appear multiple times in the choice word.

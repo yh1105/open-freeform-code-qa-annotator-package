@@ -1,0 +1,15 @@
+The PyQt5-tools package includes a number of tools including the Qt Designer. However, the location of these tools can sometimes be hard to find because pip installs them in a directory that is associated with the specific Python environment you are using.
+
+To find the location of the PyQt5-tools, you can use the following steps:
+
+1. Open a Python interpreter in your terminal or command prompt. You can do this by simply typing `python` and hitting enter.
+
+2. Import the `site` module by typing `import site`.
+
+3. Print the site packages path by typing `print(site.getsitepackages())`.
+
+This will give you a list of paths. The PyQt5-tools are usually located in one of these paths.
+
+Once you have the path, navigate to it in your file explorer. Inside, look for a folder named `PyQt5_tools`. The Qt Designer executable (`designer.exe`) should be located in this folder.
+
+If you still can't find the `designer.exe`, it's possible that the PyQt5-tools package didn't install correctly. In this case, you might want to try reinstalling it.

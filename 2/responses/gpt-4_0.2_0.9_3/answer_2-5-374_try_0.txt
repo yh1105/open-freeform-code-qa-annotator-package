@@ -1,0 +1,13 @@
+The error message indicates that the Java Native Access (JNA) library is unable to link against the C library. This is likely due to the architecture of the M1 chip, which is ARM-based, while the Cassandra and JNA libraries you are trying to use are probably built for x86_64 architecture.
+
+Here are a few steps you can try to resolve this issue:
+
+1. **Try running Cassandra under Rosetta 2**: Rosetta 2 is a technology from Apple that allows apps built for Intel chips to run on Apple Silicon. To open a Terminal under Rosetta, find Terminal in Finder, press Command+I to get info, and then check the box labeled "Open using Rosetta."
+
+2. **Try using a version of Cassandra built for ARM64**: As of now, there is no official support for Cassandra on ARM64, but there are unofficial builds available. You can find them on the Apache Cassandra JIRA or on GitHub.
+
+3. **Try using a Docker container**: Docker has support for M1 chips and you can run an x86_64 Cassandra image under emulation. This might have some performance impact, but it should work.
+
+4. **Try building Cassandra from source for ARM64**: This is a more advanced option and requires some familiarity with building Java applications from source. You can find instructions on how to do this in the BUILD.txt file in the Cassandra source code.
+
+Remember to always backup your data before trying any of these solutions, as they might have unintended side effects.

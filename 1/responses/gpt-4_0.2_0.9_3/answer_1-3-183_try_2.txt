@@ -1,0 +1,35 @@
+You can use the OpenCV library to find the contours of the binary mask. The function `cv2.findContours` returns a list of points on the boundary of the object. Here is an example:
+
+```python
+import cv2
+import numpy as np
+
+# Assuming 'mask' is your binary image
+contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# 'contours' is a list of contours found, each contour is a list of points
+# For a simple rectangle, you should have only one contour
+# Let's take the first contour as an example
+contour = contours[0]
+
+# 'contour' is a numpy array of shape (n, 1, 2), you may want to reshape it into (n, 2)
+contour = contour.reshape(-1, 2)
+
+# Now 'contour' is a list of (x, y) coordinates of the white pixels on the boundary
+# You can plot it using matplotlib
+plt.plot(contour[:, 0], contour[:, 1])
+plt.show()
+```
+
+Note that the y-coordinates in the image are from top to bottom, while the y-coordinates in the plot are from bottom to top. If you want the plot to look the same as the image, you can flip the y-coordinates:
+
+```python
+plt.plot(contour[:, 0], -contour[:, 1])
+plt.show()
+```
+
+Also, the `cv2.findContours` function modifies the input image, so if you want to keep the original image, you should pass a copy of the image to the function:
+
+```python
+contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+```

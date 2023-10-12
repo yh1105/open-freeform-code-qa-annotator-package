@@ -1,0 +1,44 @@
+For allowing only numbers, positive and negative, the pattern should be `^-?\d+$`. This pattern will match any string that starts with an optional negative sign (`-?`) and is followed by one or more digits (`\d+`), and ends with the end of the string (`$`).
+
+For allowing only numbers, positive and negative, optionally with up to 2 decimal places, the pattern should be `^-?\d+(\.\d{1,2})?$`. This pattern will match any string that starts with an optional negative sign (`-?`) and is followed by one or more digits (`\d+`). It then optionally matches a decimal point (`(\.)`) followed by 1 or 2 digits (`\d{1,2}`). The whole pattern ends with the end of the string (`$`).
+
+Here's an example of how to use these patterns with Validators.pattern in Angular 5:
+
+```
+import { Validators } from '@angular/forms';
+
+// Allow only numbers, positive and negative
+const numberPattern = Validators.pattern('^-?\\d+$');
+
+// Allow only numbers, positive and negative, optionally with up to 2 decimal places
+const decimalPattern = Validators.pattern('^-?\\d+(\\.\\d{1,2})?$');
+```
+
+You can then use these patterns in your form controls like this:
+
+```
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-my-form',
+  template: `
+    <form [formGroup]="myForm">
+      <input type="text" formControlName="numberInput">
+      <input type="text" formControlName="decimalInput">
+    </form>
+  `
+})
+export class MyFormComponent {
+  myForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      numberInput: ['', [Validators.required, numberPattern]],
+      decimalInput: ['', [Validators.required, decimalPattern]]
+    });
+  }
+}
+```
+
+I hope this helps! Let me know if you have any further questions.

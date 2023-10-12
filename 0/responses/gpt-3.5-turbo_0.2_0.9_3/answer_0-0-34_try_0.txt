@@ -1,0 +1,99 @@
+The error message indicates that there is an additional property "project" in the root of the .angular.json file which is not recognized by the schema. This could be because you have renamed the file from .angular-cli.json to .angular.json and the schema is not updated accordingly.
+
+To fix this issue, you can try the following steps:
+
+1. Remove the "project" property from the root of the .angular.json file.
+2. Update the "$schema" property to point to the latest schema file. You can find the latest schema file in the "@angular/cli" package under "node_modules/@angular/cli/lib/config/schema.json".
+3. Run "ng serve" again and see if the issue is resolved.
+
+Your updated .angular.json file should look like this:
+
+```
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "apps": [{
+            "root": "src",
+            "outDir": "dist/browser",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.ts",
+            "polyfills": "polyfills.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss",
+                "../node_modules/owl.carousel/dist/assets/owl.carousel.css",
+                "../node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+                "../node_modules/video.js/dist/video-js.css"
+            ],
+            "scripts": [
+                "../node_modules/jquery/dist/jquery.js",
+                "../node_modules/owl.carousel/dist/owl.carousel.js",
+                "../node_modules/video.js/dist/ie8/videojs-ie8.js",
+                "../node_modules/video.js/dist/video.js"
+            ],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        },
+        {
+            "platform": "server",
+            "root": "src",
+            "outDir": "dist/server",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.server.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.server.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        }
+    ],
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
+    },
+    "lint": [{
+            "project": "src/tsconfig.app.json",
+            "exclude": ["**/node_modules/**", "**/UI/**"]
+        },
+        {
+            "project": "src/tsconfig.spec.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "defaults": {
+        "styleExt": "scss",
+        "component": {}
+    }
+}
+```

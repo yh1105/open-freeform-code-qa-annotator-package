@@ -1,0 +1,22 @@
+It seems like you accidentally left out the technology or language you want to use to select these elements. However, I'll provide solutions for both JavaScript and jQuery.
+
+In JavaScript, you can use the `children` property or `querySelector` method:
+
+```javascript
+let section = document.querySelector('.section');
+let children = section.children;
+```
+
+Or:
+
+```javascript
+let children = document.querySelectorAll('.section > div');
+```
+
+In jQuery, you can use the `children` method:
+
+```javascript
+let children = $('.section').children('div');
+```
+
+These will give you the direct child `div` elements of the `div` with class "section".

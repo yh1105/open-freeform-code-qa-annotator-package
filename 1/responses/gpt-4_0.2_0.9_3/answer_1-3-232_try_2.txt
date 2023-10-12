@@ -1,0 +1,60 @@
+The problem is that when you save the model, the custom lambda layer is also saved. However, when you load the model, Keras doesn't know how to handle the custom layer. 
+
+You need to provide a dictionary to the `load_model` function that maps the layer name to the function. Here is how you can do it:
+
+```python
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+def learning(test_samples):
+    model = load_model('my_model.h5', custom_objects={'<lambda>': lambda x: tf.reduce_mean(x, axis=1)})
+    #rest of the code
+```
+
+In the `custom_objects` dictionary, the key should be the name of the layer (in this case `<lambda>`) and the value should be the function that the layer should perform.
+
+However, it's not a good practice to use lambda functions in your model if you plan to save it and load it later. Instead, you should define a custom layer. Here is how you can do it:
+
+```python
+from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM, GRU, Flatten, Dropout, Layer
+from keras.layers.embeddings import Embedding
+import tensorflow as tf
+
+class ReduceMeanLayer(Layer):
+    def __init__(self, **kwargs):
+        super(ReduceMeanLayer, self).__init__(**kwargs)
+
+    def call(self, x):
+        return tf.reduce_mean(x, axis=1)
+
+    def get_config(self):
+        base_config = super(ReduceMeanLayer, self).get_config()
+        return dict(list(base_config.items()))
+
+EMBEDDING_DIM = 100
+
+model = Sequential()
+model.add(Embedding(vocab_size, 300, weights=[embedding_matrix], input_length=max_length, trainable=False))
+model.add(ReduceMeanLayer())
+model.add(Dense(8, input_dim=4, activation='relu'))
+model.add(Dense(3, activation='softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(X_train_pad, y_train, batch_size=128, epochs=25, validation_data=(X_val_pad, y_val), verbose=2)
+model.save('my_model.h5')
+```
+
+And then, when you load the model:
+
+```python
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+def learning(test_samples):
+    model = load_model('my_model.h5', custom_objects={'ReduceMeanLayer': ReduceMeanLayer})
+    #rest of the code
+```
+
+This way, you can avoid using lambda functions and make your model more portable.

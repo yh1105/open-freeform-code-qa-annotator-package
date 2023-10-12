@@ -1,0 +1,26 @@
+In Java, you can use a custom comparator to specify that the priority queue should use the value as the priority instead of the key. Here's an example:
+
+```
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class Test {
+    public static void main(String[] args) {
+        int n = 5;
+
+        PriorityQueue<Pair<Integer, Integer>> l = new PriorityQueue<>(n, Comparator.comparing(Pair::getValue));
+
+        l.add(new Pair<>(1, 90));
+        l.add(new Pair<>(7, 54));
+        l.add(new Pair<>(2, 99));
+        l.add(new Pair<>(4, 88));
+        l.add(new Pair<>(9, 89));
+
+        System.out.println(l.poll().getKey());
+    }
+}
+```
+
+In this example, we're using the `Comparator.comparing` method to create a comparator that compares the values of the pairs. We then pass this comparator to the `PriorityQueue` constructor to create a priority queue that uses the values as the priority.
+
+When we call `l.poll()`, we get the pair with the smallest value, and we can then use `getKey()` to get the corresponding key. The output of this program will be `1`, which is the key corresponding to the pair with the smallest value.

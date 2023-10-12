@@ -1,0 +1,17 @@
+To sort a vector of structs by multiple keys, you can use the `sort_by()` method and provide a closure that compares the two items based on the keys you want to sort by.
+
+Here's an example implementation for your `MyStruct` struct:
+
+```
+my_vector.sort_by(|a, b| {
+    if a.row == b.row {
+        a.column.cmp(&b.column)
+    } else {
+        a.row.cmp(&b.row)
+    }
+});
+```
+
+This closure first compares the `row` field of the two items. If they are equal, it compares the `column` field. This will result in a vector sorted by `row` first, and then by `column`.
+
+You can modify this closure to sort by more fields if needed. Just add more `if` statements to compare additional fields.

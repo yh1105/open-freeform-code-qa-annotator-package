@@ -1,0 +1,30 @@
+On macOS, Docker Desktop uses a different logging driver than on Linux. By default, it uses the `json-file` driver, which only shows a brief overview of the build process.
+
+To see the full log output, you can switch to the `tty` logging driver by adding the `--progress=auto --tty` flags to your `docker build` command. This will show the full log output, including the `ls -la` commands you are expecting.
+
+Here's an example command:
+
+```
+docker build --progress=auto --tty -t myimage .
+```
+
+Alternatively, you can change the default logging driver in Docker Desktop settings. Open Docker Desktop, go to Preferences > Docker Engine, and add the following line to the JSON configuration:
+
+```
+"features": {
+    "buildkit": true
+},
+"registry-mirrors": [],
+"debug": true,
+"experimental": true,
+"metrics-addr": "127.0.0.1:9323",
+"experimental": true,
+"debug": true,
+"log-driver": "local",
+"log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+}
+```
+
+Save the changes and restart Docker Desktop. This will switch the logging driver to `local`, which should show the full log output by default.

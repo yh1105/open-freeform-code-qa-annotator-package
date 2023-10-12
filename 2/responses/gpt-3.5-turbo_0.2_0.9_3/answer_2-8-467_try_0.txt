@@ -1,0 +1,12 @@
+The issue is that the `Name` and `Age` fields in the `User` struct are not exported (i.e., they start with a lowercase letter). Therefore, they cannot be accessed from outside the package where the `User` struct is defined. 
+
+To fix this issue, you can export the fields by starting their names with an uppercase letter, like this:
+
+```
+type User struct {
+    Name string `json:"name"`
+    Age  int64  `json:"age"`
+}
+```
+
+Note that I also added the `json` tags to specify the names of the fields in the JSON output. This is a common practice in Go to control the serialization of structs to JSON.

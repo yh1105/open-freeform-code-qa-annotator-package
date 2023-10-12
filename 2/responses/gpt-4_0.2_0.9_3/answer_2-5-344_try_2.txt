@@ -1,0 +1,37 @@
+The `AbstractMethodError` is thrown when an application tries to call an abstract method. Normally, this error is caught by the compiler; this error can only occur at run time if the definition of some class has incompatibly changed since the currently executing method was last compiled.
+
+In your case, it seems like there's a version mismatch between the libraries you're using. The `hamcrest` library is used by `rest-assured` and it seems like there's a conflict between the versions of `hamcrest` that `rest-assured` and `spring-mock-mvc` are using.
+
+To resolve this issue, you can try to exclude the `hamcrest` library from the `spring-mock-mvc` dependency in your `pom.xml` file like this:
+
+```xml
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>spring-mock-mvc</artifactId>
+    <version>4.3.0</version>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+Then, add the `hamcrest` library as a separate dependency:
+
+```xml
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest</artifactId>
+    <version>2.2</version>
+    <scope>test</scope>
+</dependency>
+```
+
+After making these changes, run `mvn clean install` to clean your project and download the correct dependencies. Then, try running your tests again.

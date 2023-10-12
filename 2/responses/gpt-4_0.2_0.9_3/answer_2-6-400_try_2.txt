@@ -1,0 +1,15 @@
+This issue is usually caused by Visual Studio locking the DLL file during the build process. Here are a few solutions you might want to consider:
+
+1. **Clean Solution**: Before building your solution, try to clean it first. You can do this by right-clicking on the solution in Solution Explorer and selecting "Clean Solution". This will delete all the compiled and temporary files associated with a solution.
+
+2. **Close All Applications**: Make sure that no other applications are using the DLL file. This includes any instances of the application that might be running in the background.
+
+3. **Disable the Hosting Process**: In some cases, the Visual Studio hosting process can cause this issue. You can disable it by going to the project properties (right-click on the project in Solution Explorer and select "Properties"), then go to the "Debug" tab and uncheck the "Enable the Visual Studio hosting process" option.
+
+4. **Unlocker Tool**: There are several third-party tools that can unlock files that are being used by another process. One such tool is Unlocker. Please note that you should use such tools with caution and only if you understand the implications.
+
+5. **Update Visual Studio**: Make sure that your Visual Studio is up to date. Microsoft regularly releases updates that fix known issues.
+
+6. **Switch off the antivirus software**: Sometimes, antivirus software can lock files. Try to switch off your antivirus software temporarily and see if the problem persists.
+
+Remember to always backup your work before trying these solutions.

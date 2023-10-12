@@ -1,0 +1,23 @@
+In Angular, the directives ngShow and ngHide are not available. These are AngularJS (1.x) directives. In Angular 2+, you can use *ngIf or [hidden] to show or hide elements.
+
+Here's how you can use them:
+
+1. *ngIf:
+
+```html
+<input class="txt" type="password" [(ngModel)]="input_pw" *ngIf="!isHidden">
+```
+
+This will remove the element from the DOM when isHidden is true.
+
+2. [hidden]:
+
+```html
+<input class="txt" type="password" [(ngModel)]="input_pw" [hidden]="isHidden">
+```
+
+This will hide the element using CSS (display: none) when isHidden is true.
+
+Please note that [hidden] might not work if you have display set in your CSS. In such cases, *ngIf is a better option.
+
+Also, make sure that you have FormsModule imported in your module to use [(ngModel)].

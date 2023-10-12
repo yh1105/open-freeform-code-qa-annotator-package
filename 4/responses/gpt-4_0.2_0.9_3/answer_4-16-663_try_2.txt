@@ -1,0 +1,39 @@
+Globbing is a feature provided by Unix/Linux shells where wildcard characters are used to match filenames and directories. It is used in various Unix commands to perform operations on multiple files. 
+
+The `**` pattern is used to match files and directories recursively. However, it's not enabled by default in all shells. In bash, you need to enable it with `shopt -s globstar`.
+
+If you want to match all PHP files in the current directory and all subdirectories, you can use the following command:
+
+```bash
+shopt -s globstar
+ls **/*.php
+```
+
+This command will list all PHP files in the current directory and all subdirectories.
+
+If you want to use `grep` to search for a specific string in all PHP files in the current directory and all subdirectories, you can use the following command:
+
+```bash
+shopt -s globstar
+grep -r --include=\*.php "find me" ./
+```
+
+This command will search for the string "find me" in all PHP files in the current directory and all subdirectories.
+
+However, as you mentioned, this might return duplicate results if there are symbolic links that point to the same file. To avoid this, you can use the `-l` option with `grep` which will stop after the first match in a file:
+
+```bash
+shopt -s globstar
+grep -rl --include=\*.php "find me" ./
+```
+
+This command will return the names of the files that contain the string "find me", without duplicates.
+
+As for the other commands you mentioned (`sed`, `cp`, `cat`, `chown`, `rm`), you can use globbing in a similar way. For example, if you want to copy all PHP files from the current directory and all subdirectories to another directory, you can use the following command:
+
+```bash
+shopt -s globstar
+cp **/*.php /path/to/destination/
+```
+
+This command will copy all PHP files from the current directory and all subdirectories to the specified destination directory.

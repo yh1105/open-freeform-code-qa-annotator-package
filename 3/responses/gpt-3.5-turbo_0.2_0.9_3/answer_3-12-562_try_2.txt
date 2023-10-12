@@ -1,0 +1,21 @@
+Yes, you are correct that the `Duration` class in Dart does not have built-in support for adding or subtracting years or months. However, there are a few ways you can work around this issue.
+
+One approach is to use the `DateTime` class in combination with the `Duration` class to perform date arithmetic. For example, to subtract 6 months from a given date, you could do something like this:
+
+```
+DateTime date = DateTime.now();
+DateTime newDate = DateTime(date.year, date.month - 6, date.day);
+```
+
+This creates a new `DateTime` object with the same day and time as the original date, but with the month value decreased by 6.
+
+Another option is to use a third-party library like `date_format` or `time_machine` that provides additional date/time manipulation functionality. For example, `time_machine` has a `LocalDate` class that supports adding and subtracting years and months:
+
+```
+import 'package:time_machine/time_machine.dart';
+
+LocalDate date = LocalDate.today();
+LocalDate newDate = date.addMonths(-6);
+```
+
+Finally, you could also consider creating your own custom `Duration` class that supports years and months. This would require some additional work, but could be a good option if you need to perform a lot of date arithmetic in your code.

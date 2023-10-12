@@ -1,0 +1,22 @@
+The `setx` command overwrites the existing value of the PATH variable. If you want to append a new path to the existing PATH variable, you should include `%PATH%` in your command. Here's how you can do it:
+
+```cmd
+setx PATH "%PATH%;D:\Softwares\MongoDB\bin" /m
+```
+
+This command will append the new path to the existing PATH variable instead of overwriting it.
+
+However, there's a limitation with `setx` command. It can only handle values up to 1024 characters long. If your PATH variable is longer than that, it will be truncated and you might lose some paths.
+
+A safer way to modify your PATH variable is to do it through the System Properties window:
+
+1. Right-click on Computer on the desktop or in Start Menu.
+2. Choose "Properties".
+3. Click on "Advanced system settings".
+4. In the System Properties window that appears, click on the "Environment Variables" button.
+5. In the Environment Variables window, under "System variables", scroll down until you find the "Path" variable, then click on it to highlight it.
+6. Click on the "Edit" button.
+7. In the Edit Environment Variable window that appears, you can add new paths by typing them into the "Variable value" box, each one separated by a semicolon (;). Be careful not to make any other changes.
+8. Click "OK" in each window to close them.
+
+Remember to restart your command prompt or any other applications that use the PATH variable to make sure they pick up the new value.

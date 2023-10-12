@@ -1,0 +1,31 @@
+The issue with your code is that the type union constraint `*A | *B` does not define a new type, but rather a set of types that are allowed to be used as a type argument for the generic function `some[T AB](x T) bool`. 
+
+When you call `x.some()` inside the `some` function, the compiler does not know whether `x` is of type `*A` or `*B`, because `T` can be either of those types. Therefore, it cannot resolve the method call and gives you the error you see.
+
+If you want to restrict the types that can be used as a type argument for `some` to only `*A` and `*B`, you can define a separate interface that both `*A` and `*B` implement, and use that as the type constraint for `T`. For example:
+
+```
+type A struct {
+}
+
+type B struct {
+}
+
+type Someable interface {
+    some() bool
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T Someable](x T) bool {
+    return x.some()
+}
+```
+
+Now, `T` can only be a type that implements the `Someable` interface, which includes both `*A` and `*B`.

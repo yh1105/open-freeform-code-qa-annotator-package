@@ -1,0 +1,7 @@
+It seems like the issue is related to the version of Rails or ActiveSupport that you are using. Devise 4.8.0 requires ActiveSupport 5.0 or higher. You can try updating ActiveSupport by running `bundle update activesupport` and then reinstalling Devise by running `bundle install` again.
+
+If that doesn't work, you can try downgrading Devise to a version that is compatible with your current version of Rails and ActiveSupport. You can check the Devise documentation to find the compatible version for your Rails version.
+
+Another solution could be to update your Rails version to a newer version that is compatible with Devise 4.8.0. You can check the Devise documentation to find the compatible Rails version for Devise 4.8.0.
+
+I hope this helps! Let me know if you have any further questions.

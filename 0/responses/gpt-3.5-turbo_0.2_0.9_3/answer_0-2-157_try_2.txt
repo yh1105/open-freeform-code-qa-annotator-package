@@ -1,0 +1,13 @@
+The correct way to use `::v-deep(<inner-selector>)` is to replace the deprecated `::v-deep` usage as a combinator with the new syntax. 
+
+For example, if you want to target a child element with the class `child` inside a parent element with the class `parent`, you can use the following syntax:
+
+```
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+This will apply the styles to the child element with the class `child` inside the parent element with the class `parent`. 
+
+Note that the `::v-deep(<inner-selector>)` syntax is only available in Vue 3 and later versions. If you are using an earlier version of Vue, you will need to use a different approach to achieve the same result.

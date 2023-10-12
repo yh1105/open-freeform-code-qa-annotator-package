@@ -1,0 +1,55 @@
+The error message you're seeing is because Django is not fully initialized when you're trying to import your models. This is because you're trying to import the models before setting the Django settings module and calling `django.setup()`.
+
+Here's how you can fix this:
+
+Move the import statement for your models inside the `populate` function, after `django.setup()`. This ensures that Django is fully initialized before you try to import your models.
+
+Here's how your `poppulate_first_app.py` should look like:
+
+```python
+import os
+import django
+import random
+from faker import Faker
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'first_django_project.settings')
+django.setup()
+
+from first_app.models import *
+
+# FAKE POP SCRIPT
+fake_gen = Faker()
+topics = ['Search', 'Social', 'Marketplace', 'News', 'Games']
+
+
+def add_topic():
+    t = Topic.objects.get_or_create(top_name=random.choice(topics))[0]
+    t.save()
+    return t
+
+
+def populate(n=5):
+    for entry in range(n):
+        # get the topic for the entry
+        top = add_topic()
+
+        # create the fake data for that entry
+        fake_url = fake_gen.url()
+        fake_date = fake_gen.date()
+        fake_name = fake_gen.company()
+
+        # create the new webpage entry
+        webpg = Webpage.objects.get_or_create(topic=top, url=fake_url, name=fake_name)[0]
+
+        # create a fake access record for that webpage
+        acc_rec = AccessRecord(name=webpg, date=fake_date)
+        acc_rec.save()
+
+
+if __name__ == '__main__':
+    print('Populating script!')
+    populate(20)
+    print('Populating complete!')
+```
+
+Also, note that you had a typo in your `AccessRecord` creation line. It should be `name=webpg`, not `namme=webpg`. I've corrected this in the code above.

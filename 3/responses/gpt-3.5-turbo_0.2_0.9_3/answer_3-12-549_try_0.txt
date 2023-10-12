@@ -1,0 +1,10 @@
+When you assign `mylist = mynewlist`, you are actually assigning the reference of `mynewlist` to `mylist`. So, any changes made to `mylist` will also affect `mynewlist`. That's why when you clear `mylist`, `mynewlist` also gets cleared.
+
+To copy the values of `mynewlist` to `mylist` without affecting `mynewlist`, you can use the `addAll()` method of the `List` class. Here's how you can modify your code:
+
+```
+mylist.clear(); // clear the old values in mylist
+mylist.addAll(mynewlist); // copy the values of mynewlist to mylist
+```
+
+Replace `mylist = mynewlist;` with the above two lines of code in your third button's `onPressed` method. This will clear the old values in `mylist` and copy the values of `mynewlist` to `mylist` without affecting `mynewlist`.

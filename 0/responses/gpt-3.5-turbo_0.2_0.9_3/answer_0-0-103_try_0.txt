@@ -1,0 +1,22 @@
+You can use the `render` function in the `Creation Date` column to format the date as desired. Here's an example:
+
+```
+import moment from 'moment';
+
+export const columns = [
+  { title: `ID`, dataIndex: `invoice_id`},
+  { title: `Invoice Number`, dataIndex: `invoice_number` },
+  { title: `Amount`, dataIndex: `invoice_amount`},
+  { title: `Store Name`, dataIndex: `store_name`},
+  { title: `Supplier Name`, dataIndex: `supplier_name`},
+  { 
+    title: `Creation Date`, 
+    dataIndex: `invoice_date`,
+    render: (date) => moment(date).format('DD-MM-YYYY')
+  },
+];
+
+<Table bordered columns={columns} dataSource={invoices_list} />;
+```
+
+In this example, we're using the `moment` library to format the date. The `render` function takes the `invoice_date` value and formats it using the `moment` function. The `format` function is used to specify the desired date format.

@@ -1,0 +1,13 @@
+The error is occurring because you are trying to create an index on the `Gender` property of the `User` entity, which is actually a navigation property. Navigation properties are not supported as index properties in Entity Framework Core.
+
+To fix the error, remove the following line from your `OnModelCreating` method:
+
+```
+user.HasIndex(x => x.Gender);
+```
+
+If you need to create an index on the `GenderId` property, you can do so by adding the following line:
+
+```
+user.HasIndex(x => x.GenderId);
+```

@@ -1,0 +1,19 @@
+You can use the `uname` command to determine the processor architecture of the machine. On M1 Apple hardware, the processor architecture is `arm64`. Here's an example shell script that checks for the processor architecture and macOS version:
+
+```
+#!/bin/bash
+
+# Get the processor architecture
+arch=$(uname -m)
+
+# Get the macOS version
+os_version=$(sw_vers -productVersion)
+
+# Check if the processor architecture is arm64 and the macOS version is at least 11.0
+if [[ "$arch" == "arm64" && "$(echo "$os_version >= 11.0" | bc)" -eq 1 ]]; then
+    echo "Running on M1 Apple hardware"
+    # Add your commands here that should only be executed on M1 Apple hardware
+fi
+```
+
+This script uses the `sw_vers` command to get the macOS version and the `bc` command to compare the version with 11.0. If the processor architecture is `arm64` and the macOS version is at least 11.0, the `if` statement will be true and the commands inside the `if` block will be executed.

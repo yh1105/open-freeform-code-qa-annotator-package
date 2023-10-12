@@ -1,0 +1,44 @@
+You can achieve this by using the `apply` function in pandas along with a lambda function to concatenate every two columns. Here is a step-by-step guide on how to do this:
+
+First, let's import the pandas library and create the initial DataFrame:
+
+```python
+import pandas as pd
+
+data = {
+    'X1': ['p1', 'p2', 'p3', 'p4'],
+    'X2': ['H', 'H', 'J', 'K'],
+    'X3': ['I', 'K', 'K', 'I'],
+    'X4': ['K', 'J', 'H', 'H'],
+    'X5': ['J', 'K', 'I', 'J'],
+    'X6': ['K', 'I', 'J', 'I'],
+    'X7': ['H', 'J', 'K', 'J']
+}
+
+df = pd.DataFrame(data)
+```
+
+Then, create a new DataFrame with the column `X1` and concatenate every two columns starting from `X2`:
+
+```python
+new_df = df[['X1']].copy()
+
+for i in range(2, df.shape[1], 2):
+    new_df['X'+str(i)] = df.apply(lambda row: row['X'+str(i)] + row['X'+str(i+1)], axis=1)
+```
+
+The `apply` function applies a function along an axis of the DataFrame. In this case, we are applying a lambda function to each row (`axis=1`) of the DataFrame. The lambda function takes a row of the DataFrame and concatenates the values of the current column (`'X'+str(i)`) and the next column (`'X'+str(i+1)`).
+
+The `copy()` function is used to create a new DataFrame that is a copy of the original DataFrame. This is to prevent changes to the new DataFrame from affecting the original DataFrame.
+
+The `range` function is used to generate a sequence of numbers from 2 to the number of columns in the DataFrame (`df.shape[1]`), incrementing by 2 each time. This is to select every two columns starting from `X2`.
+
+Finally, the new DataFrame `new_df` should look like this:
+
+```
+X1   X2   X3   X4
+p1   HI   KJ   KH
+p2   HK   JK   IJ
+p3   JK   HI   JK
+p4   KI   HJ   IJ
+```

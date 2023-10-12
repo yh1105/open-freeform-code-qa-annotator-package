@@ -1,0 +1,14 @@
+You're right that the nested `if let` statements can be hard to read and maintain. One way to simplify the code is to use the `?` operator, which is shorthand for the `match` statement that checks for `Some` and returns the value or `None` and returns early. Here's an example of how you can use it:
+
+```
+let i = func1()?;
+let j = func2(i)?;
+let k = func3(j)?;
+let result = func4(k)?;
+
+// Do something with result
+```
+
+This code does the same thing as your original code, but it's much shorter and easier to read. The `?` operator will return early if any of the functions return `None`, so you don't need to worry about nested `if let` statements.
+
+Note that you need to add a `?` after each function call that returns an `Option`. If you're not familiar with the `?` operator, you can read more about it in the [Rust book](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html#shortcuts-for-panic-on-error-unwrap-and-expect).

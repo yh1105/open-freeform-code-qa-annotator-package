@@ -1,0 +1,15 @@
+Hi Rosalie,
+
+It sounds like you have already created a personal access token for GitHub authentication. However, you may need to update your Git remote URLs to use the token instead of your password.
+
+To do this, you can update your remote URL in the terminal using the following command:
+
+```
+git remote set-url origin https://username:token@github.com/username/repo.git
+```
+
+Replace "username" with your GitHub username and "token" with your personal access token. You can find your personal access token in your GitHub account settings.
+
+Once you have updated your remote URL, you should be able to push commits to GitHub without using your password.
+
+I hope this helps! Let me know if you have any further questions.

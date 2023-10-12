@@ -1,0 +1,41 @@
+It seems like you have already done some research on how to enable SSL/TLS support for Redis. To set the `ca_file`, `cert`, and `key` for `Redis.new#ssl_params`, you can use the following code:
+
+```ruby
+require 'redis'
+require 'redis-namespace'
+
+redis_url = ENV['REDIS_URL']
+redis_namespace = ENV['REDIS_NAMESPACE']
+
+redis_options = {
+  url: redis_url,
+  ssl_params: {
+    ca_file: '/path/to/ca_file.pem',
+    cert: '/path/to/cert.pem',
+    key: '/path/to/key.pem'
+  }
+}
+
+redis = Redis.new(redis_options)
+redis = Redis::Namespace.new(redis_namespace, redis: redis)
+```
+
+Make sure to replace `/path/to/ca_file.pem`, `/path/to/cert.pem`, and `/path/to/key.pem` with the actual paths to your SSL/TLS certificate files.
+
+If you are using Sidekiq on Heroku, you can set the SSL/TLS options in your `config/sidekiq.yml` file:
+
+```yaml
+:concurrency: 5
+:queues:
+  - default
+:redis:
+  url: <%= ENV['REDIS_URL'] %>
+  ssl_params:
+    ca_file: '/path/to/ca_file.pem'
+    cert: '/path/to/cert.pem'
+    key: '/path/to/key.pem'
+```
+
+Again, replace `/path/to/ca_file.pem`, `/path/to/cert.pem`, and `/path/to/key.pem` with the actual paths to your SSL/TLS certificate files.
+
+If you are still having issues connecting to Heroku Redis with SSL/TLS enabled, I would recommend reaching out to Heroku support for further assistance.

@@ -1,0 +1,21 @@
+The error message you're seeing is due to a change in Android 12 (API level 31) where you must explicitly declare if your app's components (activities, services, broadcast receivers) are able to be called from outside the app.
+
+In your case, it seems like you're trying to set the `android:exported` attribute in the wrong place. You're trying to set it in the `<intent-filter>` tag, but it should be set in the `<activity>` tag.
+
+However, since you're using Cordova and you can't directly modify the AndroidManifest.xml file, you need to use the `edit-config` tag in your config.xml file.
+
+Here's an example of how you can do it:
+
+```xml
+<edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application/activity">
+    <activity android:exported="true" />
+</edit-config>
+```
+
+This will add the `android:exported="true"` attribute to the `<activity>` tag in your AndroidManifest.xml file when the app is built.
+
+Please replace `true` with `false` if you don't want your activity to be accessible from outside the app.
+
+Remember to replace `activity` in `target="/manifest/application/activity"` with `service` or `receiver` if you want to set the `android:exported` attribute for a service or a broadcast receiver.
+
+Also, please note that you might need to add multiple `edit-config` tags if you have multiple activities, services, or broadcast receivers in your app.

@@ -1,0 +1,13 @@
+This error is due to Sprockets 4 requiring a manifest file. Sprockets is a Ruby library for compiling and serving web assets. It features declarative dependency management for JavaScript and CSS assets, as well as a powerful preprocessor pipeline that allows you to write assets in languages like CoffeeScript, Sass and SCSS.
+
+To fix this issue, you need to create a new file `app/assets/config/manifest.js` and add the following lines:
+
+```javascript
+//= link_tree ../images
+//= link_directory ../stylesheets .css
+//= link_directory ../javascripts .js
+```
+
+This file is used by Sprockets to understand what files need to be compiled and served. The `link_tree` directive includes all files in the specified directory and its subdirectories, while `link_directory` includes all files in the specified directory.
+
+After creating this file, try to boot your Rails app again. It should work fine now.

@@ -1,0 +1,37 @@
+It seems like you're trying to install Python 3.7 and pip on a clean environment. Here are the steps to do it:
+
+1. First, update the package list by running:
+```
+sudo apt-get update
+```
+2. Install the necessary packages for Python to run:
+```
+sudo apt-get install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
+```
+3. Install Python 3.7:
+```
+sudo apt-get install python3.7
+```
+4. Install pip for Python 3:
+```
+sudo apt-get install python3-pip
+```
+5. Verify the installation by checking the Python and pip versions:
+```
+python3.7 -V
+pip3 -V
+```
+If you want to create a clean environment to test the installation of another application, you can use virtual environments. Python3 comes with the `venv` module to create virtual environments.
+
+Here's how you can create a virtual environment:
+
+1. First, navigate to the directory where you want to create the virtual environment.
+2. Run the following command to create a new virtual environment:
+```
+python3.7 -m venv myenv
+```
+3. Activate the virtual environment:
+```
+source myenv/bin/activate
+```
+Now, you're in a clean environment where you can test the installation of your application. When you're done, you can deactivate the virtual environment by simply typing `deactivate` in your terminal.

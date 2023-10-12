@@ -1,0 +1,21 @@
+The Java version used by Maven can be controlled by setting the `JAVA_HOME` environment variable. The Maven Wrapper is a shell script called `mvnw` (or `mvnw.cmd` on Windows) that automatically detects and downloads the necessary Maven version if it's not already installed. It uses the `JAVA_HOME` environment variable to find the Java installation to use.
+
+Here's how you can set `JAVA_HOME` to point to the correct Java version:
+
+1. Find out where your desired Java version is installed. This is usually in a directory like `/usr/lib/jvm/java-11-openjdk-amd64/` on Linux or `C:\Program Files\Java\jdk-11.0.1` on Windows.
+
+2. Set the `JAVA_HOME` environment variable to point to this directory. On Linux or macOS, you can do this in the terminal with the `export` command:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+```
+
+On Windows, you can do this in the Command Prompt with the `setx` command:
+
+```cmd
+setx JAVA_HOME "C:\Program Files\Java\jdk-11.0.1"
+```
+
+3. Now, when you run the Maven Wrapper with `./mvnw` (or `mvnw.cmd` on Windows), it should use the correct Java version.
+
+Remember that setting an environment variable in this way only affects the current terminal session. If you want to set `JAVA_HOME` permanently, you'll need to add the `export` or `setx` command to your shell's startup script (like `~/.bashrc` or `~/.bash_profile` on Linux/macOS, or the System Properties -> Environment Variables dialog on Windows).

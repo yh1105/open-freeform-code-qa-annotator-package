@@ -1,0 +1,16 @@
+You can optimize your bash script by using awk, which is a powerful text processing tool. Here's how you can do it:
+
+```bash
+awk -F'=' '
+    /^name/ {name=$2; next} 
+    /^value/ && name {print name"="$2; name=""}
+' input.txt > output.txt
+```
+
+This script works as follows:
+
+- `-F'='` sets the field separator to `=`.
+- `/^name/ {name=$2; next}`: If the line starts with `name`, it saves the value (the part after `=`) in the `name` variable and skips to the next line.
+- `/^value/ && name {print name"="$2; name=""}`: If the line starts with `value` and `name` is not empty, it prints `name=value` and then clears the `name` variable.
+
+This script should be significantly faster than your original script because it processes the file line by line and doesn't use any external commands like `grep` or `sed`. It also writes the output to `output.txt` in a single operation, which is more efficient than appending to the file in a loop.

@@ -1,0 +1,20 @@
+The error message indicates that there is a problem with the CMake installation. CMake is a tool that helps in managing the build process of software using compiler-independent methods. It is required for building OpenCV from source.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Check if CMake is installed**: You can do this by running the command `cmake --version` in your terminal. If CMake is installed, this command will return the version of CMake that is currently installed on your system.
+
+2. **Install/Update CMake**: If CMake is not installed or if it's outdated, you can install/update it using the following commands:
+
+   - For Ubuntu: `sudo apt-get install cmake`
+   - For CentOS: `sudo yum install cmake`
+
+3. **Install OpenCV from source**: If the issue persists even after ensuring that CMake is installed and up-to-date, you might want to consider installing OpenCV from source instead of using pip. Here is a general guide on how to do this:
+
+   - First, clone the OpenCV repository: `git clone https://github.com/opencv/opencv.git`
+   - Then, navigate to the cloned directory: `cd opencv`
+   - Create a new directory for the build: `mkdir build && cd build`
+   - Run CMake to configure the build. This might look something like this: `cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..`
+   - Finally, compile and install OpenCV: `make -j4 && sudo make install`
+
+Please note that the above commands are general guidelines and might need to be adapted to your specific situation. Also, building OpenCV from source can take a significant amount of time, especially on devices with limited computational resources like the Jetson Nano.

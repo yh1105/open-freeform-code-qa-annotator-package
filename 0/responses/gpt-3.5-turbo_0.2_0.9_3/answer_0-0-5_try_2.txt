@@ -1,0 +1,15 @@
+It seems like the issue is with the node-sass package which requires Python to be installed. You can try installing a version of node-sass that does not require Python by running the following command:
+
+```
+npm install node-sass@4.14.1
+```
+
+This version of node-sass does not require Python and should work without any issues.
+
+Alternatively, you can install Python on your Jenkins environment and set the PYTHON environment variable to the path of the Python executable. This should resolve the issue with node-gyp.
+
+```
+set PYTHON=C:\Python27\python.exe
+```
+
+You can also try upgrading your Node.js version to the latest stable version as it may have better compatibility with node-sass and other dependencies.

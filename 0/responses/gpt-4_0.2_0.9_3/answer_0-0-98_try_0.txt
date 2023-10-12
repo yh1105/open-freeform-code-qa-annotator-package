@@ -1,0 +1,66 @@
+To achieve this, you can use a versioning system in your React app. Here's a step-by-step guide on how you can do it:
+
+1. **Create a version.js file**: Create a new file in your src directory called version.js. This file will hold your current version number.
+
+```javascript
+export default {
+  major: 0,
+  minor: 0,
+  patch: 1,
+};
+```
+
+2. **Create a versioning script**: Create a new file in your root directory called versioning.js. This script will increment your version number based on the argument you pass to it.
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+const versionPath = path.join(__dirname, 'src', 'version.js');
+const version = require(versionPath);
+
+const incrementVersion = (type) => {
+  version[type]++;
+  if (type === 'major') {
+    version.minor = 0;
+    version.patch = 0;
+  } else if (type === 'minor') {
+    version.patch = 0;
+  }
+
+  return version;
+};
+
+const newVersion = incrementVersion(process.argv[2] || 'patch');
+
+const versionFileContent = `export default {\n  major: ${newVersion.major},\n  minor: ${newVersion.minor},\n  patch: ${newVersion.patch},\n};\n`;
+
+fs.writeFileSync(versionPath, versionFileContent);
+```
+
+3. **Add a versioning script to your package.json**: Add a new script to your package.json file that will run your versioning script.
+
+```json
+"scripts": {
+  "versioning": "node versioning.js"
+}
+```
+
+4. **Display the version in your footer**: Import the version from your version.js file and display it in your footer.
+
+```javascript
+import React from 'react';
+import version from './version';
+
+const Footer = () => (
+  <footer>
+    <p>Version: {version.major}.{version.minor}.{version.patch}</p>
+  </footer>
+);
+
+export default Footer;
+```
+
+5. **Run the versioning script before deploying**: Before you deploy your app, run the versioning script with the argument you want to increment. For example, if you want to increment the minor version, you would run `npm run versioning minor`.
+
+This will increment the version number in your version.js file, and the new version number will be displayed in your footer the next time you deploy your app.

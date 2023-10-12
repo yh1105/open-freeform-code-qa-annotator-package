@@ -1,0 +1,28 @@
+You can use the `pip show` command to get the current version of a package installed, and then use the `pip search` command to get the latest version available. Then you can compare these two versions to see if the package is up-to-date. Here's a Python script that does this:
+
+```python
+import pip
+import re
+import subprocess
+
+def is_package_up_to_date(package):
+    # Get installed version
+    installed_package = subprocess.getoutput('pip show {}'.format(package))
+    installed_version = re.search('Version: (.*)', installed_package).group(1)
+
+    # Get latest version
+    available_package = subprocess.getoutput('pip search {}'.format(package))
+    latest_version = re.search('{} \((.*)\)'.format(package), available_package).group(1)
+
+    # Compare versions
+    return installed_version == latest_version
+
+package='gekko'
+print(is_package_up_to_date(package))
+```
+
+This script will return `True` if the package is up-to-date and `False` otherwise.
+
+Note: This script assumes that the `pip search` command returns the latest version in the format `package (version)`. If the format is different, you may need to adjust the regular expression used to extract the version.
+
+Also, please note that the `pip search` command is currently disabled due to PyPI / pip issues. You may need to use an alternative method to get the latest version of a package, such as scraping the package's PyPI page or using an API like the Libraries.io API for Python.

@@ -1,0 +1,33 @@
+The error message `Error: Unable to extract uploader id` is typically thrown by `youtube_dl` when it's unable to extract the uploader's ID from a YouTube video. This could be due to changes in the YouTube website's structure, which `youtube_dl` is not updated to handle.
+
+However, `youtube_dl` has been discontinued and is no longer maintained. The official repository of `youtube_dl` recommends using `yt-dlp` instead, which is a fork of `youtube_dl` and is actively maintained.
+
+Here's how you can install `yt-dlp`:
+
+```bash
+pip install yt-dlp
+```
+
+And here's how you can use `yt-dlp` in your code:
+
+```python
+import yt_dlp
+
+ytdl_format_options = {
+    'format': 'bestaudio/best',
+    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'restrictfilenames': True,
+    'noplaylist': True,
+    'nocheckcertificate': True,
+    'ignoreerrors': False,
+    'logtostderr': False,
+    'quiet': True,
+    'no_warnings': True,
+    'default_search': 'auto',
+    'source_address': '0.0.0.0',  # bind to ipv4 since ipv6 addresses cause issues sometimes
+}
+
+ytdl = yt_dlp.YoutubeDL(ytdl_format_options)
+```
+
+Please replace `youtube_dl` with `yt_dlp` in your code and try again. This should resolve the issue.

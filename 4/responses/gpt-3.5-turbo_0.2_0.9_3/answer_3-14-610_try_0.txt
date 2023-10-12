@@ -1,0 +1,41 @@
+Yes, you can use `AnimatableData` to animate the text content change smoothly without the ellipsis. Here's how you can do it:
+
+1. Create a custom `TextModifier` that conforms to `AnimatableModifier` and holds the `AnimatableData` for the text content:
+
+```
+struct AnimatableTextModifier: AnimatableModifier {
+    var text: String
+    var animatableData: String {
+        get { text }
+        set { text = newValue }
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(Text(text).opacity(0).fixedSize().hidden())
+    }
+}
+```
+
+2. Use the custom modifier on the `Text` View and pass the text content as the animatable data:
+
+```
+struct ContentView: View {
+    @State var shortString = true
+    var body: some View {
+        VStack {
+            Text(shortString ? "This is short." : "This is considerably longer.")
+                .font(.title)
+                .modifier(AnimatableTextModifier(text: shortString ? "This is short." : "This is considerably longer."))
+                .animation(.easeInOut(duration:1.0))
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+```
+
+3. In the custom modifier, overlay the `Text` View with another `Text` View that has the same text content and is hidden. This will ensure that the text frame is always the same size, regardless of the text content.
+
+With this approach, the text content change will be animated smoothly without the ellipsis.

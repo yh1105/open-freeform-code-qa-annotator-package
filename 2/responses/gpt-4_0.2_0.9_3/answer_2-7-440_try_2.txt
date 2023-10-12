@@ -1,0 +1,15 @@
+The error you're encountering is because the `Input` facade was removed in Laravel 6.0. You should replace any usage of the `Input` facade with a `Request` facade.
+
+So, instead of using `Input::get('key')`, you should use `Request::input('key')`.
+
+If you are using `Input` in many places, you can also add an alias for it in `config/app.php`:
+
+```php
+'aliases' => [
+    ...
+    'Input' => Illuminate\Support\Facades\Request::class,
+    ...
+]
+```
+
+This will allow you to use `Input::get('key')` as before. However, it's recommended to replace `Input` with `Request` to adhere to the changes in Laravel 6.0 and onwards.

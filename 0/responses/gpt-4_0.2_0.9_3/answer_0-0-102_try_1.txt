@@ -1,0 +1,33 @@
+The error you're encountering is due to the fact that the `graphql-upload` package has undergone some significant changes in its latest versions. The `graphqlUploadExpress` middleware has been removed in version 11.0.0 and later. 
+
+You're using version 14.0.0 of `graphql-upload`, so you won't be able to import `graphqlUploadExpress` from it. 
+
+If you want to continue using `graphqlUploadExpress`, you'll need to downgrade your `graphql-upload` package to version 10.0.0 or earlier. You can do this by running:
+
+```bash
+npm uninstall graphql-upload
+npm install graphql-upload@10.0.0
+```
+
+However, please note that using older versions might lack some features or bug fixes provided in the newer versions.
+
+If you want to use the latest version of `graphql-upload`, you'll need to adjust your code to work without `graphqlUploadExpress`. The `graphql-upload` package now provides a `processRequest` function that you can use to process upload requests. Here's an example of how you might use it:
+
+```javascript
+import { processRequest } from 'graphql-upload';
+
+app.use((req, res, next) => {
+  if (req.is('multipart/form-data')) {
+    processRequest(req, res)
+      .then(body => {
+        req.body = body;
+        next();
+      })
+      .catch(next);
+  } else {
+    next();
+  }
+});
+```
+
+This middleware will process multipart form data requests (which are used for file uploads) and add the processed data to `req.body`.

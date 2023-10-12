@@ -1,0 +1,7 @@
+You can use the `conda list --size` command to list all the packages along with their sizes. However, this feature is available only in conda 4.5.0 and later versions. 
+
+If you are using an older version of conda, you might need to manually check the size of the packages. You can do this by navigating to the directory where conda packages are stored. The default location for conda packages is in the pkgs directory in your Anaconda installation location. 
+
+In Windows, it's typically in `C:\Users\YourUserName\Anaconda3\pkgs`. You can check the size of each package folder manually.
+
+Please note that the size of the package folder might not accurately represent the size of the package when it's installed, as the installation might involve uncompressing files or downloading additional data.

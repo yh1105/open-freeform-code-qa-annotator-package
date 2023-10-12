@@ -1,0 +1,45 @@
+You can use the `:input` selector in jQuery to select all form controls, including `input`, `textarea`, `select` and `button` elements. 
+
+Here's how you can modify your code to check all required fields:
+
+```html
+<div id="dynamic-form-fields">
+    <input type="text" name="dff[]" placeholder="Name" required>
+    <input type="text" name="dff[]" placeholder="Date of Birth">
+    <input type="text" name="dff[]" placeholder="Email" required>
+    <input type="radio" name="gender" value="Male" required>
+    <input type="radio" name="gender" value="Female" required>
+    <select name="pet" required>
+        <option value="">Select a pet</option>
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+        <option value="bird">Bird</option>
+    </select>
+    <button id="check">Check</button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    document.getElementById("check").onclick = function () {
+        var isValid = true;
+        $('#dynamic-form-fields :input[required]').each(function() {
+            if ($(this).is(':checkbox') || $(this).is(':radio')) {
+                if (!$('input[name="' + $(this).attr('name') + '"]:checked').length) {
+                    isValid = false;
+                    return false;
+                }
+            } else if ($(this).val().trim() === '') {
+                isValid = false;
+                return false;
+            }
+        });
+        if (!isValid) {
+            alert('error please fill all fields!');
+        }
+    };
+</script>
+```
+
+This code will check all required fields in the `dynamic-form-fields` div. If a required field is empty or no option is selected/checked, it will show an alert. 
+
+Please note that for `select` elements, you should have an empty `option` as the first choice, so that the user has to actively choose an option. For `radio` and `checkbox` inputs, this code checks if at least one option is checked.

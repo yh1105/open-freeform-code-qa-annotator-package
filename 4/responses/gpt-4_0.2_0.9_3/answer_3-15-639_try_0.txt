@@ -1,0 +1,13 @@
+The error message you're seeing typically occurs when Excel can't find the macro you're trying to run. Here are a few things you can try to resolve the issue:
+
+1. **Check the Macro Name**: Make sure the macro name assigned to the button is exactly the same as the macro name in the VBA code module. It's case sensitive.
+
+2. **Check the Macro Location**: If the macro is in a specific sheet or in the 'ThisWorkbook' section of the VBA editor, you may need to specify this when assigning the macro to the button. For example, if the macro is in Sheet1, you would use 'Sheet1.button_not_working' as the macro name.
+
+3. **Check the Macro Security Level**: If your macro security level is set to high, Excel will disable all macros and won't give you the option to enable them. You can check this by going to 'File' > 'Options' > 'Trust Center' > 'Trust Center Settings' > 'Macro Settings'. If the security level is set to high, change it to medium or low.
+
+4. **Repair Excel**: If none of the above solutions work, there might be an issue with your Excel installation. You can try repairing it by going to 'Control Panel' > 'Programs' > 'Programs and Features', selecting Microsoft Office or Excel, and clicking 'Change'. Then select 'Repair' and follow the prompts.
+
+5. **Check for Updates**: Make sure your Excel is up to date. Sometimes, bugs that cause these issues are fixed in updates.
+
+6. **Reinstall Excel**: If all else fails, you may need to uninstall and reinstall Excel. Please make sure to back up all important files before doing so.

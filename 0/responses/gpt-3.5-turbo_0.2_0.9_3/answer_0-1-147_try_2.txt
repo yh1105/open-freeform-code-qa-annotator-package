@@ -1,0 +1,21 @@
+Yes, in Laravel 8, you can install Bootstrap using the following command:
+
+```
+npm install bootstrap
+```
+
+This will install the latest version of Bootstrap in your project. After that, you can include the Bootstrap CSS and JavaScript files in your Laravel application by adding the following lines to your `resources/css/app.css` and `resources/js/app.js` files:
+
+```
+// resources/css/app.css
+
+@import '~bootstrap/dist/css/bootstrap.css';
+```
+
+```
+// resources/js/app.js
+
+import 'bootstrap';
+```
+
+Once you have included the Bootstrap files, you can start using Bootstrap classes and components in your Laravel views.

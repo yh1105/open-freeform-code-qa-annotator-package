@@ -1,0 +1,21 @@
+The issue seems to be with how you're importing the `AuthContext` in your `RegisterRoutes` component. You're trying to import it as a default export, but it's not being exported as default from `authContext.js`.
+
+In `authContext.js`, you're exporting `AuthContext` as a named export:
+
+```javascript
+export { AuthContext };
+```
+
+So, in `RegisterRoutes.js`, you should import it like this:
+
+```javascript
+import { AuthContext } from "../context/authContext";
+```
+
+Instead of:
+
+```javascript
+import AuthContext from "../context/authContext";
+```
+
+This should solve the issue of `isAuthenticated` being `undefined`.

@@ -1,0 +1,22 @@
+The code you're using is more suitable for front-end pages, not for admin pages. In WordPress, you can use `admin_url()` function to get the URL of the admin area.
+
+If you want to get the current page URL in the admin area, you can use the `$_SERVER` superglobal array. Here's an example:
+
+```php
+function get_current_admin_url() {
+    $scheme = 'http';
+    if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ) {
+        $scheme .= 's';
+    }
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = $_SERVER['REQUEST_URI'];
+    $current_url = sprintf( '%s://%s%s', $scheme, $host, $uri );
+    return $current_url;
+}
+
+$current_admin_url = get_current_admin_url();
+```
+
+In this code, `get_current_admin_url()` function constructs the current URL using the `$_SERVER` superglobal. It first checks if HTTPS is enabled, then it gets the host name and the URI, and finally it constructs the URL.
+
+You can then use `$current_admin_url` variable to get the current admin URL.

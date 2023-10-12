@@ -1,0 +1,23 @@
+You can create a map to map the string to the corresponding enum value. Here is how you can do it:
+
+```go
+var strToCapability = map[string]Capability{
+    "read":   Read,
+    "create": Create,
+    "update": Update,
+    "delete": Delete,
+    "list":   List,
+}
+
+func ParseString(s string) (Capability, error) {
+    c, ok := strToCapability[s]
+    if !ok {
+        return 0, fmt.Errorf("invalid capability: %s", s)
+    }
+    return c, nil
+}
+```
+
+In this code, `strToCapability` is a map that maps strings to `Capability` values. The `ParseString` function uses this map to convert a string to a `Capability`. If the string is not a valid `Capability`, it returns an error.
+
+This approach is efficient because it uses a map for lookup, which is a constant time operation. It is also easy to maintain because adding a new `Capability` only requires adding a new entry to the `strToCapability` map and the `capabilityStrs` slice.

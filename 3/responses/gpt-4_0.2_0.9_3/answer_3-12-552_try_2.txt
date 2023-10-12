@@ -1,0 +1,32 @@
+You can achieve this by using a `Row` widget instead of a `Stack` widget. The `Row` widget allows you to place widgets side by side. Here's how you can modify your code:
+
+```dart
+appBar: AppBar(
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      Builder(
+        builder: (context) => IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),
+      ),
+      Text(
+        'Title',
+        style: TextStyle(fontSize: 22.0),
+      ),
+      IconButton(
+        icon: Icon(Icons.search),
+        onPressed: () {
+          // action code
+        },
+      ),
+    ],
+  ),
+  backgroundColor: CustomColors.accentColor,
+),
+```
+
+In this code, we use a `Row` widget to place the menu icon, title, and search icon side by side. We use `mainAxisAlignment: MainAxisAlignment.spaceBetween` to distribute the space evenly between the widgets. The `Builder` widget is used to get the current `BuildContext` which is necessary to open the drawer.
+
+Also, the `backgroundColor` property is moved to the `AppBar` widget to change the color of the entire AppBar.

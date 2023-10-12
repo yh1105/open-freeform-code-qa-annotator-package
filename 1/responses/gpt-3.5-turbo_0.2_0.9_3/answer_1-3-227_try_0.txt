@@ -1,0 +1,69 @@
+One possible solution to improve the performance of your query is to use subqueries instead of multiple joins. You can try using Django's `Subquery` expression to generate subqueries for each filter and then combine them using the `Q` object. Here's an example:
+
+```
+from django.db.models import Subquery, OuterRef, Q
+
+filters = [
+  {'trait': 1, 'class': [2, 3]},
+  {'trait': 2, 'class': [6,]},
+]
+
+queryset = Description.objects.all()
+
+for filter in filters:
+  subquery = Expression.objects.filter(
+    trait_id=filter['trait'],
+    class_id__in=filter['class']
+  ).values('description_id')
+  queryset = queryset.filter(
+    Q(id__in=Subquery(subquery))
+  )
+```
+
+This code generates a subquery for each filter that selects the `description_id` of all expressions that match the filter. Then, it combines all subqueries using the `Q` object and applies the resulting filter to the `Description` queryset.
+
+Another possible solution is to denormalize your data by adding a `TraitClass` model that stores the relationship between a `Trait` and a `Class`. This way, you can avoid the multiple joins and simplify your queries. Here's an example:
+
+```
+class TraitClass(models.Model):
+    """
+    Stores the relationship between a Trait and a Class.
+    """
+
+    trait = models.ForeignKey(Trait)
+    class = models.ForeignKey(Class)
+
+class Description(models.Model):
+    """
+    Stores the Descriptions. A description is a collection of Expressions.
+    """
+
+    name = models.CharField()
+    protocol = models.ForeignKey(
+        Protocol,
+        help_text="reference to the protocol used to make the description;\
+            this will define which Traits will be available",
+    )
+    entity = models.ForeignKey(
+        Entity,
+        help_text="the Entity to which the description refers to",
+    )
+    trait_classes = models.ManyToManyField(TraitClass)
+
+filters = [
+  {'trait': 1, 'class': [2, 3]},
+  {'trait': 2, 'class': [6,]},
+]
+
+queryset = Description.objects.all()
+
+for filter in filters:
+  queryset = queryset.filter(
+    trait_classes__trait_id=filter['trait'],
+    trait_classes__class_id__in=filter['class']
+  )
+```
+
+This code adds a `ManyToManyField` to the `Description` model that stores the relationship between a `Trait` and a `Class`. Then, it uses the `trait_classes` field to filter the `Description` queryset directly, without the need for multiple joins.
+
+Note that denormalizing your data can have some drawbacks, such as increased storage requirements and complexity of updates. You should carefully consider the trade-offs before adopting this approach.

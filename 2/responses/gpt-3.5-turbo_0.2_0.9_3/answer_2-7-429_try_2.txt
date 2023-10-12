@@ -1,0 +1,34 @@
+To filter the input field, you can modify the `SearchData` function to check if the `name` parameter is not empty and filter the rows based on the input value. Here's an updated version of the function:
+
+```
+function SearchData(name, coundivy, age) {
+    if (name.toUpperCase() == '' && coundivy.toUpperCase() == 'ALL' && age.toUpperCase() == 'ALL') {
+        $('#table11 .item').show();
+    } else {
+        $('#table11 .item:has(div)').each(function () {
+            var rowName = $.trim($(this).find('div:eq(0)').text());
+            var rowCoundivy = $.trim($(this).find('div:eq(1)').text());
+            var rowAge = $.trim($(this).find('div:eq(2)').text());
+            if (name.toUpperCase() !='' && coundivy.toUpperCase() != 'ALL' && age.toUpperCase() != 'ALL') {
+                if (rowCoundivy.toUpperCase() == coundivy.toUpperCase() && rowAge == age && rowName == name) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            } else {
+                if (name != '' && rowName.toUpperCase().indexOf(name.toUpperCase()) >= 0) {
+                    $(this).show();
+                } else if (coundivy != 'all' && rowCoundivy.toUpperCase() == coundivy.toUpperCase()) {
+                    $(this).show();
+                } else if (age != 'all' && rowAge == age) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            }
+        });
+    }
+}
+```
+
+In this updated version, we added an `else` block to handle the case where `name` is not empty. We used the `indexOf` method to check if the row name contains the input value. We also simplified the `if` statement to check if any of the filters match instead of checking all three at once.

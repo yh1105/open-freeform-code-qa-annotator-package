@@ -1,0 +1,21 @@
+The error message is telling you that you cannot use a string as an index for a list. In your case, `a` is a list with one element, which is a string containing a JSON object. To access the `id` value of the JSON object, you need to first convert the string to a dictionary using the `json` module, and then access the `id` key of the dictionary.
+
+Here's how you can do it:
+
+```python
+import json
+
+a = ['{"id":9,"name":"Foo"}']
+
+# Convert the string to a dictionary
+d = json.loads(a[0])
+
+# Access the 'id' key of the dictionary
+print(d['id'])
+```
+
+Output:
+
+```
+9
+```

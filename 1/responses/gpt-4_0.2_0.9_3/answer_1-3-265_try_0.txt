@@ -1,0 +1,44 @@
+Yes, you can encrypt your JSON file using a key and then decrypt it in your Python program using the same key. Here's a simple example using the `pycryptodome` library. If you don't have it installed, you can install it using pip:
+
+```bash
+pip install pycryptodome
+```
+
+Here's how you can encrypt and decrypt your JSON file:
+
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
+import json
+
+def encrypt_json(key, json_file):
+    data = json.load(open(json_file))
+    data = json.dumps(data)
+    cipher = AES.new(key, AES.MODE_ECB)
+    encrypted_data = cipher.encrypt(pad(data.encode(), AES.block_size))
+    with open(json_file, 'wb') as f:
+        f.write(encrypted_data)
+
+def decrypt_json(key, json_file):
+    cipher = AES.new(key, AES.MODE_ECB)
+    with open(json_file, 'rb') as f:
+        encrypted_data = f.read()
+    decrypted_data = unpad(cipher.decrypt(encrypted_data), AES.block_size)
+    data = json.loads(decrypted_data.decode())
+    return data
+
+# Generate a random 256-bit key
+key = get_random_bytes(32)
+
+# Encrypt the JSON file
+encrypt_json(key, 'your_json_file.json')
+
+# Decrypt the JSON file
+data = decrypt_json(key, 'your_json_file.json')
+print(data)
+```
+
+This code first loads the JSON data and encrypts it using the provided key and AES encryption in ECB mode. The encrypted data is then written back to the file. When decrypting, the encrypted data is read from the file, decrypted using the same key, and then loaded back into a Python dictionary.
+
+Please note that this is a very basic example. In a real-world scenario, you would want to use a more secure mode of operation (not ECB), securely manage and store your encryption keys, and handle potential errors and exceptions.

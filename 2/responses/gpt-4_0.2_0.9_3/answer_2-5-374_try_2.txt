@@ -1,0 +1,29 @@
+The error message indicates that the Java Native Access (JNA) library is not compatible with the architecture of your MacBook Pro's M1 chip. The JNA library provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is required. This library is not purely Java and relies on native C code, which is likely not compiled for the ARM architecture of the M1 chip.
+
+As of now, Cassandra does not officially support Apple's M1 chip. However, you can try to use a workaround using Rosetta 2, which allows applications compiled for Intel processors to run on Apple Silicon.
+
+Here are the steps:
+
+1. Open Terminal through Rosetta: Find Terminal in Finder (usually in the /Applications/Utilities folder), press Command+I to get info, then check the box labeled "Open using Rosetta."
+
+2. Install Homebrew for Rosetta: In the Terminal, enter the following command to install Homebrew in a different location (/usr/local) that will be compatible with Rosetta:
+
+   ```bash
+   arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+   ```
+
+3. Add the Rosetta Homebrew to your path: Edit your .zshrc or .bash_profile (depending on your shell) to include /usr/local/bin in your PATH environment variable.
+
+4. Install Cassandra through the Rosetta Homebrew: Use the following command:
+
+   ```bash
+   arch -x86_64 brew install cassandra
+   ```
+
+5. Start Cassandra: Use the same command you used before, but prefix it with `arch -x86_64`:
+
+   ```bash
+   arch -x86_64 /opt/homebrew/opt/cassandra/bin/cassandra -f
+   ```
+
+Please note that this is a workaround and may not work perfectly. For a more stable solution, consider running Cassandra in a Docker container or a virtual machine that supports the x86_64 architecture.

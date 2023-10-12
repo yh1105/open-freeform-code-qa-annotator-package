@@ -1,0 +1,30 @@
+Unfortunately, there's no straightforward way to pass environment variables to an elevated process in Windows. This is due to the way Windows handles User Account Control (UAC) and the security context of processes.
+
+However, you can use a workaround to achieve this. You can write the environment variables to a temporary file, then read them in the elevated process. Here's an example of how you can do this:
+
+1. Write the environment variables to a temporary file:
+
+```batch
+setlocal
+set "var1=value1"
+set "var2=value2"
+set "var3=value3"
+...
+set "varN=valueN"
+
+:: Write the environment variables to a temporary file
+set > %TEMP%\env.tmp
+```
+
+2. Read the environment variables in the elevated process:
+
+```batch
+:: Read the environment variables from the temporary file
+for /F "tokens=1* delims==" %%a in (%TEMP%\env.tmp) do (
+    set "%%a=%%b"
+)
+```
+
+This is not an ideal solution, but it should work for your case. Please note that you should delete the temporary file after you're done with it to avoid leaving sensitive information on the disk.
+
+Also, keep in mind that this solution has some limitations. For example, it won't work if the environment variables contain special characters or multiline values. In such cases, you might need to use a more complex method to encode and decode the environment variables.

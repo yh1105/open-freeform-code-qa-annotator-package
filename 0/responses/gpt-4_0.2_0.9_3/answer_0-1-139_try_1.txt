@@ -1,0 +1,48 @@
+In Tailwind CSS, you can define your breakpoints in your tailwind.config.js file. Here's an example:
+
+```javascript
+module.exports = {
+  theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
+    extend: {},
+  },
+  variants: {},
+  plugins: [],
+}
+```
+
+In the above example, 'sm', 'md', 'lg', 'xl', '2xl' are the breakpoints. You can use these breakpoints in your utility classes like `md:text-center`, `lg:w-1/2`, etc.
+
+If you want to create a component with these breakpoints, you can use the `@apply` directive in your CSS. Here's an example:
+
+```css
+.component {
+  @apply text-center;
+}
+
+@media (min-width: 768px) {
+  .component {
+    @apply text-left;
+  }
+}
+```
+
+In the above example, the `.component` class will center the text on small screens and align it to the left on medium and larger screens.
+
+If you want to extract the breakpoints from the Tailwind config file, you can use the `theme()` function. Here's an example:
+
+```css
+@media (min-width: theme('screens.md')) {
+  .component {
+    @apply text-left;
+  }
+}
+```
+
+In the above example, the `theme('screens.md')` function will return the 'md' breakpoint from the Tailwind config file.

@@ -1,0 +1,25 @@
+Sure, you can definitely use Windows Terminal for SSH connections. Here's a step-by-step guide on how to do it:
+
+1. **Install Windows Terminal**: If you haven't already, install Windows Terminal from the Microsoft Store or from the GitHub releases page.
+
+2. **Install OpenSSH Client**: OpenSSH client is a part of Windows 10 (1809 and later) and it's an optional feature. To install it, go to "Manage optional features" from Windows Settings -> Apps & Features -> Optional Features -> Add a feature -> OpenSSH Client -> Install.
+
+3. **Add SSH Connection to Windows Terminal**: Open Windows Terminal and click on the down arrow in title bar, then select "Settings". This will open a JSON file where you can set your preferences for the Terminal.
+
+4. **Add a new profile for your SSH connection**: In the profiles section of the JSON file, you can add a new profile for your SSH connection. Here's an example:
+
+```json
+{
+    "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+    "hidden": false,
+    "name": "My SSH Connection",
+    "commandline": "ssh username@hostname",
+    "icon": "C:/Path/To/Your/Icon.png"
+}
+```
+
+Replace `username@hostname` with your actual username and hostname for the SSH connection. You can also replace the icon path with the path to your preferred icon for this profile.
+
+5. **Save and Restart Windows Terminal**: After you've added your profile, save the JSON file and restart Windows Terminal. You should now see your SSH connection in the drop-down menu of the Terminal.
+
+Now, you can start using Windows Terminal for your SSH connections instead of PuTTY. You can add as many profiles as you want for different SSH connections.

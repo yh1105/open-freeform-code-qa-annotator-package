@@ -1,0 +1,15 @@
+The Heroku Redis premium plan does not work fundamentally different than the basic plan. The main differences are in the amount of available memory, the number of connections, and the availability of certain features like persistence and high availability.
+
+The error you're seeing (`SSL_connect returned=1 errno=0 state=error: certificate verify failed (self signed certificate in certificate chain)`) is related to SSL certificate verification. It seems like the SSL certificate of the Redis server is not being correctly verified.
+
+Here are a few things you could try:
+
+1. **Check the SSL configuration:** Make sure that the SSL configuration for your Redis connection is correctly set up. You might need to explicitly enable SSL when connecting to Redis.
+
+2. **Update your Redis client:** If you're using an older version of the Redis client in your Rails application, it might not correctly support the SSL features required by Heroku Redis. Try updating to the latest version.
+
+3. **Disable SSL certificate verification:** This is generally not recommended for production environments, as it can make your application vulnerable to man-in-the-middle attacks. However, for testing purposes, you could try disabling SSL certificate verification to see if that resolves the issue. If it does, then the problem is likely with the SSL certificate or its configuration.
+
+4. **Contact Heroku Support:** If none of the above solutions work, it might be a good idea to reach out to Heroku support. They might be able to provide more insight into the issue, especially if it's something specific to Heroku Redis.
+
+Remember to never share sensitive information like SSL certificates or private keys in public forums or with untrusted parties.

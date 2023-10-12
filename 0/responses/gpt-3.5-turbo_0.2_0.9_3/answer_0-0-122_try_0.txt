@@ -1,0 +1,19 @@
+To install an older version of `npm`, you can use the following command:
+
+```
+npm install -g npm@<version>
+```
+
+Replace `<version>` with the specific version number you want to install. For example, if you want to install version 6.14.4, you would run:
+
+```
+npm install -g npm@6.14.4
+```
+
+This will install the specified version of `npm` globally on your system. You can then check the version of `npm` by running:
+
+```
+npm -v
+```
+
+Make sure to communicate with your team to ensure everyone is using the same version of `npm` to avoid any compatibility issues.

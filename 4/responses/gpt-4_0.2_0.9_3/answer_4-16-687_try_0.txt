@@ -1,0 +1,25 @@
+You can achieve this by using a programming language. Here's how you can do it in Python:
+
+For converting to camelCase:
+
+```python
+def to_camel_case(text):
+    words = text.split('-')
+    return words[0] + ''.join(word.capitalize() for word in words[1:])
+
+var1 = "my-name-is"
+print(to_camel_case(var1))  # Output: "myNameIs"
+```
+
+For converting to PascalCase:
+
+```python
+def to_pascal_case(text):
+    words = text.split('_')
+    return ''.join(word.capitalize() for word in words)
+
+var2 = "my_Name_is"
+print(to_pascal_case(var2))  # Output: "MyNameIs"
+```
+
+In the first function `to_camel_case`, we split the text by `-` and then capitalize each word except the first one. In the second function `to_pascal_case`, we split the text by `_` and then capitalize each word.

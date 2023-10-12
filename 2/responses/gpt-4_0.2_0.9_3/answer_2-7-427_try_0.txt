@@ -1,0 +1,15 @@
+The error message you're seeing is related to the SSL encryption method you're using to connect to the SMTP server. The error `ssl3_get_record:wrong version number` suggests that the server doesn't support the SSL version you're trying to use.
+
+In your `.env` file, you're using `MAIL_ENCRYPTION=ssl`, but in your `mail.php` configuration file, you're using `'encryption' => env('MAIL_ENCRYPTION', 'tls')`. This means that if `MAIL_ENCRYPTION` is not set in your `.env` file, it will default to `tls`.
+
+Here are a few things you can try:
+
+1. **Change the encryption method to TLS**: In your `.env` file, change `MAIL_ENCRYPTION=ssl` to `MAIL_ENCRYPTION=tls`. Then, clear the configuration cache by running `php artisan config:clear` in your terminal.
+
+2. **Use a different port**: Port 587 is typically used for `tls`, while port 465 is typically used for `ssl`. If you're using `ssl`, try changing `MAIL_PORT=587` to `MAIL_PORT=465` in your `.env` file.
+
+3. **Check with your client**: They may have specific requirements for connecting to their SMTP server, such as a specific SSL version or a different port. They may also require you to add your server's IP address to a whitelist.
+
+4. **Disable SSL verification**: This is not recommended for production environments, as it can make your connections insecure. However, for testing purposes, you can disable SSL verification by adding `'stream' => ['ssl' => ['allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false]]` to your `mail.php` configuration file.
+
+Remember to clear your configuration cache after making any changes to your `.env` or configuration files. You can do this by running `php artisan config:clear` in your terminal.

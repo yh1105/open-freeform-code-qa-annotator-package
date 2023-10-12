@@ -1,0 +1,8 @@
+You can use the `querySelectorAll` method to select the direct children of the `div` with class "section". Here's an example:
+
+```
+const sectionDiv = document.querySelector('.section');
+const directChildren = sectionDiv.querySelectorAll('> div');
+```
+
+This will select all direct children of the `div` with class "section", which in this case are the `div` elements with classes "header" and "content". You can then loop through the `directChildren` NodeList to access each element individually.

@@ -1,0 +1,54 @@
+You can use Python's OpenCV and NumPy libraries to achieve this. Here's a simple way to brighten the dark areas of an image:
+
+```python
+import cv2
+import numpy as np
+
+# Load the image
+img = cv2.imread('image.jpg', 1)
+
+# Convert the image to YUV color space
+img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+
+# Apply histogram equalization on the Y channel
+img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+
+# Convert the image back to RGB color space
+img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+
+# Display the image
+cv2.imshow('Color input image', img)
+cv2.imshow('Histogram equalized', img_output)
+
+cv2.waitKey(0)
+```
+
+This code will brighten the dark areas of the image by applying histogram equalization on the Y channel (luminance) of the image in YUV color space. However, this might still brighten some of the already bright areas.
+
+To have more control over which areas of the image to brighten, you can use adaptive histogram equalization (CLAHE - Contrast Limited Adaptive Histogram Equalization) instead of regular histogram equalization. Here's how you can do it:
+
+```python
+import cv2
+import numpy as np
+
+# Load the image
+img = cv2.imread('image.jpg', 1)
+
+# Convert the image to YUV color space
+img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+
+# Apply CLAHE to Y channel
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+img_yuv[:,:,0] = clahe.apply(img_yuv[:,:,0])
+
+# Convert the image back to RGB color space
+img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+
+# Display the image
+cv2.imshow('Color input image', img)
+cv2.imshow('Histogram equalized', img_output)
+
+cv2.waitKey(0)
+```
+
+This code will apply adaptive histogram equalization to the Y channel of the image, which will brighten the dark areas of the image while preserving the brightness of the already bright areas. You can adjust the `clipLimit` and `tileGridSize` parameters of the `createCLAHE` function to control the amount of brightening and the size of the areas to brighten, respectively.

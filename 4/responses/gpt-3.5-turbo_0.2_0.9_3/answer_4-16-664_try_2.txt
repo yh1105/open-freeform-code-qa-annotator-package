@@ -1,0 +1,11 @@
+You can use the `printenv` command to get a list of environment variables with their values. Here's an example:
+
+```
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ printenv | while IFS== read var value; do
+    [ "$var" == "MYVAR" ] && echo $value
+done
+something\nMYVAR=10
+```
+
+As you can see, the `printenv` command returns the environment variables with their values, including the value of `MYVAR` that was set using the `echo` command. You can then use the `while` loop to extract the value of `MYVAR` correctly.

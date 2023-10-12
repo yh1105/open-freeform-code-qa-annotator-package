@@ -1,0 +1,41 @@
+To check if a `Box` is a null pointer, you can use the `is_none()` method of the `Option` type. `Option<Box<T>>` is a type that represents an optional `Box<T>`. It can either be `Some(Box<T>)` or `None`. If it is `None`, it means that the `Box<T>` is a null pointer. 
+
+Here is an example implementation of a stack using `Option<Box<Node>>`:
+
+```
+struct Node {
+    value: i32,
+    next: Option<Box<Node>>,
+}
+
+struct Stack {
+    top: Option<Box<Node>>,
+}
+
+impl Stack {
+    fn new() -> Stack {
+        Stack { top: None }
+    }
+
+    fn push(&mut self, value: i32) {
+        let new_node = Box::new(Node {
+            value: value,
+            next: self.top.take(),
+        });
+        self.top = Some(new_node);
+    }
+
+    fn pop(&mut self) -> Option<i32> {
+        self.top.take().map(|node| {
+            self.top = node.next;
+            node.value
+        })
+    }
+
+    fn is_empty(&self) -> bool {
+        self.top.is_none()
+    }
+}
+```
+
+In this implementation, the `next` field of `Node` is an `Option<Box<Node>>`. When a new node is pushed onto the stack, its `next` field is set to the current top of the stack, and the new node becomes the new top. When a node is popped from the stack, its `next` field becomes the new top of the stack. The `is_empty()` method checks if the top of the stack is a null pointer (`None`).

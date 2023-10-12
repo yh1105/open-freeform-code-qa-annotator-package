@@ -1,0 +1,33 @@
+Yes, there is a standard-library tool for this. You can use the `std::transform` algorithm with a custom lambda function to create pairs of adjacent elements in the original vector. Here's an example code snippet that does this:
+
+```
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <algorithm>
+
+int main() {
+    std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<std::pair<int, int>> goal;
+
+    std::transform(origin.begin(), origin.end() - 1, origin.begin() + 1, std::back_inserter(goal),
+                   [](int a, int b) { return std::make_pair(a, b); });
+
+    for (const auto& p : goal) {
+        std::cout << "{" << p.first << ", " << p.second << "} ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+The `std::transform` algorithm takes three arguments: the beginning and end iterators of the input range (in this case, `origin.begin()` and `origin.end() - 1`, respectively), and an output iterator that specifies where to store the transformed values. We use `std::back_inserter` to create an output iterator that appends elements to the `goal` vector.
+
+The lambda function that we pass to `std::transform` takes two arguments (`a` and `b`) and returns a pair of those two values using `std::make_pair`. The lambda function is applied to adjacent pairs of elements in the input range, so the resulting `goal` vector will contain pairs of adjacent elements from the `origin` vector.
+
+The output of the above code snippet will be:
+
+```
+{1, 2} {3, 4} {5, 6} {7, 8}
+```

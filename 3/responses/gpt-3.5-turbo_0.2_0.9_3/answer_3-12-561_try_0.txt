@@ -1,0 +1,15 @@
+There could be several reasons why the errorCallback takes a long time to get called on iOS. One possibility is that the iOS device is using a different network connection than the Android device, and there may be network issues or delays on that particular network. Another possibility is that there could be differences in the way the iOS and Android devices handle network requests and responses.
+
+To troubleshoot this issue, you can try the following steps:
+
+1. Check the network connection on the iOS device and ensure that it is stable and has a good signal strength.
+
+2. Try running the same code on a different iOS device or simulator to see if the issue persists.
+
+3. Use a network monitoring tool to analyze the network traffic and see if there are any delays or errors in the request/response cycle.
+
+4. Check the server logs to see if there are any errors or delays on the server side.
+
+5. Try using a different HTTP client library or framework on iOS to see if that resolves the issue.
+
+6. Consider using a different approach to handle network requests and responses, such as using a WebSocket or a REST API.

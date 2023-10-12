@@ -1,0 +1,13 @@
+This error is caused by the Jacoco plugin version you are using. Jacoco 0.8.6 is not compatible with Java 9 or higher, which is required by the Kotlin 1.5.10 version you are using.
+
+To fix this issue, you can either downgrade your Kotlin version to a lower version that is compatible with Jacoco 0.8.6 or upgrade your Jacoco version to a version that is compatible with Java 9 or higher.
+
+If you choose to upgrade your Jacoco version, you can try using Jacoco 0.8.7 or higher, which should be compatible with Java 9 or higher. You can update your build.gradle file with the following code:
+
+```
+jacoco {
+    toolVersion = "0.8.7"
+}
+```
+
+After updating the Jacoco version, try running the test coverage report task again. It should work without any errors.

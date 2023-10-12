@@ -1,0 +1,30 @@
+One possible solution is to use the `ScrollViewReader` and `GeometryReader` views in SwiftUI to manually scroll to a specific item in the list. Here's an example:
+
+```swift
+struct ContentView: View {
+    let items = (1...100).map { "Item \($0)" }
+
+    var body: some View {
+        VStack {
+            Button("Scroll to Item 50") {
+                withAnimation {
+                    scrollToItem(50)
+                }
+            }
+            List(items, id: \.self) { item in
+                Text(item)
+            }
+        }
+    }
+
+    func scrollToItem(_ index: Int) {
+        ScrollViewReader { scrollView in
+            scrollView.scrollTo(items[index], anchor: .top)
+        }
+    }
+}
+```
+
+In this example, we have a list of 100 items and a button that triggers the `scrollToItem` function with the index of the item we want to scroll to. The `ScrollViewReader` is used to access the underlying `UIScrollView` and the `scrollTo` function is used to scroll to the item with the given ID.
+
+Note that this solution requires iOS 14 or later, as `ScrollViewReader` is not available in earlier versions. If you need to support earlier versions, you may need to use a `UIViewRepresentable` or `UIViewControllerRepresentable` to wrap a `UITableView` and implement the scrolling functionality manually.

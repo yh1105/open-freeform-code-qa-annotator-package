@@ -1,0 +1,54 @@
+The error message is indicating that you have a `ListView` (which is a type of `ScrollView`) inside a `Column` without a fixed height. This is causing the `ListView` to try and expand infinitely, which is not allowed.
+
+The `ListView.builder` widget is trying to expand as much as it can (which is infinite in this case), but it can't provide a finite height to its children. 
+
+You can solve this by wrapping your `ListView.builder` in a `Container` with a fixed height or by using `Expanded` widget. 
+
+Here is an example of how you can do it:
+
+```dart
+new Row(
+  children: <Widget>[
+    Expanded(
+      child: new ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return new Text(products[index]);
+        }
+      ),
+    ),
+    new IconButton(
+      icon: Icon(Icons.remove_circle),
+      onPressed: () { },
+    )
+  ],
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+),
+```
+
+In this case, `Expanded` widget will take up the remaining space in the `Row` for the `ListView.builder`.
+
+If you want to give a specific height to the `ListView.builder`, you can use a `Container`:
+
+```dart
+new Row(
+  children: <Widget>[
+    Container(
+      height: 200.0,
+      child: new ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return new Text(products[index]);
+        }
+      ),
+    ),
+    new IconButton(
+      icon: Icon(Icons.remove_circle),
+      onPressed: () { },
+    )
+  ],
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+),
+```
+
+In this case, `ListView.builder` will have a height of 200 pixels.

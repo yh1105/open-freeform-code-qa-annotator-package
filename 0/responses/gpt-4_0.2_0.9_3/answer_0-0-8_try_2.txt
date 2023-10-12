@@ -1,0 +1,45 @@
+You can use a recursive function to traverse the tree and find the object with the specified ID. Here is a JavaScript function that does this:
+
+```javascript
+function findObject(id, obj) {
+    if (obj.id === id) {
+        return obj;
+    }
+    for (let i = 0; i < obj.child.length; i++) {
+        let found = findObject(id, obj.child[i]);
+        if (found) return found;
+    }
+}
+
+// Your JSON object
+let obj = {
+    "id": "A",
+    "name": "Item A",
+    "child": [
+        {
+            "id": "B",
+            "name": "Item B",
+            "child": [
+                {
+                    "id": "C",
+                    "name": "Item C",
+                    "child": []
+                }
+            ]
+        },
+        {
+            "id": "D",
+            "name": "Item D",
+            "child": []
+        }
+    ]
+};
+
+// Calling the function
+let result = findObject("C", obj);
+
+// Logging the result
+console.log(result);
+```
+
+This function works by checking if the current object's ID matches the specified ID. If it does, it returns the object. If it doesn't, it recursively checks each child object. If a match is found in a child object, it returns that object. If no match is found, it continues to the next child. If no match is found in any child, it returns `undefined`.

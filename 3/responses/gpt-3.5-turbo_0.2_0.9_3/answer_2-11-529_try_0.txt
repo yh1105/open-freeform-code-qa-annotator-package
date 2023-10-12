@@ -1,0 +1,32 @@
+You can create a custom function `make_new_from_tuple` that takes a tuple of arguments and returns a pointer to a newly constructed object of type `T`. Here's an example implementation:
+
+```
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<Args...> args)
+{
+    auto deleter = [](void* p) { delete static_cast<T*>(p); };
+    void* ptr = new T(std::make_from_tuple<Args...>(std::move(args)));
+    return new std::unique_ptr<T, decltype(deleter)>(static_cast<T*>(ptr), deleter).release();
+}
+```
+
+This function creates a new object of type `T` using `std::make_from_tuple` and wraps it in a `std::unique_ptr` with a custom deleter that calls `delete` on the object. The function then returns the raw pointer by calling `release()` on the `std::unique_ptr`.
+
+You can use this function to create a new object of type `A` from the tuple `aTuple` like this:
+
+```
+A* aPtr = make_new_from_tuple<A>(aTuple);
+```
+
+If the tuple contains a `std::unique_ptr`, you can use `std::move` to forward it to the constructor of `T` like this:
+
+```
+struct B
+{
+    std::unique_ptr<A> aPtr_;
+    B(std::unique_ptr<A> aPtr) : aPtr_(std::move(aPtr)) {}
+};
+
+auto bTuple = std::make_tuple(std::make_unique<A>(1, 1.5, "Hello"));
+B* bPtr = make_new_from_tuple<B>(bTuple);
+```

@@ -1,0 +1,39 @@
+One possible solution is to use the failsafe plugin's `parallel` parameter to run the slow test classes in a separate forked JVM before running the rest of the tests in parallel. 
+
+Here's an example configuration for your `pom.xml` file:
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+      <version>3.0.0-M5</version>
+      <configuration>
+        <forkCount>4</forkCount>
+        <reuseForks>true</reuseForks>
+        <parallel>classes</parallel>
+        <threadCountClasses>2</threadCountClasses>
+        <runOrder>balanced</runOrder>
+        <includes>
+          <include>**/*SlowTest.java</include>
+        </includes>
+      </configuration>
+      <executions>
+        <execution>
+          <id>slow-tests</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>integration-test</goal>
+            <goal>verify</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+In this example, the `includes` element specifies that only the slow test classes should be run in the first forked JVM. The `parallel` parameter is set to `classes`, which means that each test class will be run in a separate forked JVM. The `threadCountClasses` parameter specifies how many threads should be used to run the test classes in parallel. 
+
+By running the slow test classes in a separate forked JVM before the rest of the tests, you can ensure that they are run first and don't slow down the rest of the test execution.

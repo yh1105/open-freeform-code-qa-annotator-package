@@ -1,0 +1,15 @@
+The error message indicates that the browser process failed to launch because of a permission issue. This could be due to the fact that the user running the command does not have the necessary permissions to execute the file.
+
+To fix this issue, you can try changing the permissions of the file using the following command:
+
+```
+chmod +x /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium
+```
+
+This will give the executable file the necessary permissions to be executed.
+
+Alternatively, you can try using the default executable path for Chrome or Chromium by removing the `executablePath` option from the `puppeteer.launch()` method. This should work as long as Chrome or Chromium is installed on your system and in the default location.
+
+```
+const browser = await puppeteer.launch({headless:false});
+```

@@ -1,0 +1,15 @@
+The error message "The issuer is invalid" suggests that the token's issuer (the "iss" claim) doesn't match the expected issuer. The expected issuer is usually the URL of the Identity Server that issued the token.
+
+Here are a few things you can check:
+
+1. **Check the issuer in the token**: You can decode your JWT token using a tool like [jwt.io](https://jwt.io/). Check the "iss" claim in the payload. It should match the `identityUrl` you have in your configuration.
+
+2. **Check the `identityUrl` configuration**: Make sure that the `identityUrl` in your configuration matches the issuer URL of your Identity Server. This should be the base URL of your Identity Server, without any paths or query strings.
+
+3. **Check the token's signature**: If the issuer seems to be correct, the problem might be with the token's signature. The Identity Server uses a signing key to sign the tokens, and the API needs the same key to validate the tokens. Make sure that the API has the correct signing key.
+
+4. **Check the `ApiName` configuration**: The `ApiName` in your configuration should match one of the audiences ("aud" claim) in the token. You can also check this in the decoded token.
+
+5. **Check the token's lifetime**: Make sure that the token hasn't expired. The "exp" claim in the token contains the expiration time as a Unix timestamp.
+
+If everything seems to be correct and you're still getting the error, you might want to enable more detailed logging in IdentityServer and in your API to get more information about why the token validation fails.

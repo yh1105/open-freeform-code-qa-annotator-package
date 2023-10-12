@@ -1,0 +1,53 @@
+It looks like you've already made some good progress in optimizing your code by switching from strings to lists. Here are a few more suggestions:
+
+1. Use a `Dictionary` instead of a 2D array for your `connections` variable. This will allow you to store the connections for each pair of nodes using a key-value pair, where the key is a tuple of the two node indices and the value is a list of points representing the path between them. This will save memory compared to using a 2D array, especially if your graph is sparse (i.e. there are many pairs of nodes that are not connected).
+
+Here's an example of how you could initialize the dictionary:
+
+```
+Dictionary<(int, int), List<Point>> connections = new Dictionary<(int, int), List<Point>>();
+for (i = 0; i < V; i++){
+  for (j = 0; j < V; j++){
+    dist[i, j] = graph[i, j];
+    connections[(i, j)] = new List<Point>() { new Point(i, j) };
+  }
+}
+```
+
+And here's how you could update the connections when you find a shorter path:
+
+```
+if (dist[i, k] + dist[k, j] < dist[i, j])
+{
+  dist[i, j] = dist[i, k] + dist[k, j];
+  connections[(i, j)] = new List<Point>();
+  connections[(i, j)].AddRange(connections[(i, k)]);
+  connections[(i, j)].AddRange(connections[(k, j)]);
+}
+```
+
+2. Use a `SparseMatrix` class instead of a 2D array for your `dist` variable. This will save memory if your graph is sparse, since it only stores the non-zero elements of the matrix. There are several libraries available for C# that provide sparse matrix classes, such as MathNet.Numerics and Extreme Optimization.
+
+Here's an example of how you could initialize a sparse matrix using MathNet.Numerics:
+
+```
+using MathNet.Numerics.LinearAlgebra.Double;
+
+SparseMatrix dist = new SparseMatrix(V, V);
+for (i = 0; i < V; i++){
+  for (j = 0; j < V; j++){
+    dist[i, j] = graph[i, j];
+  }
+}
+```
+
+And here's how you could update the matrix when you find a shorter path:
+
+```
+if (dist[i, k] + dist[k, j] < dist[i, j])
+{
+  dist[i, j] = dist[i, k] + dist[k, j];
+}
+```
+
+3. Consider using a different algorithm that is more memory-efficient for your specific problem. The Floyd-Warshall algorithm has a space complexity of O(V^2), which can be prohibitively large for very large graphs. There are other algorithms that can find the shortest path between all pairs of nodes in a graph with lower space complexity, such as Johnson's algorithm and the A* algorithm. However, these algorithms may have other trade-offs, such as slower runtime or more complex implementation.

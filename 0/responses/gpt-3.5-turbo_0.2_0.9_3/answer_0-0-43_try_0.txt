@@ -1,0 +1,7 @@
+The reason why you need to specify the `--downlevelIteration` compiler option when targeting ES5 is because the spread operator and `Array.from` method rely on the ES6 iteration protocol, which is not available in ES5. 
+
+When you enable the `--downlevelIteration` option, TypeScript will emit additional code from the `tslib` library to provide the necessary iteration functionality for ES5. This additional code may increase the size of your compiled JavaScript output, but it is necessary to ensure that your code works as expected in ES5 environments.
+
+As for any downsides or limitations of using the `--downlevelIteration` option, there are none that I am aware of. It is a necessary option if you want to use the spread operator or `Array.from` method with iterators in ES5 environments.
+
+Regarding your second example, the error message is caused by the same issue - the `Array.keys()` method returns an iterator, which cannot be directly converted to an array in ES5 without the `--downlevelIteration` option.

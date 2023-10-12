@@ -1,0 +1,15 @@
+To show the current branch name in the VSCode terminal, you can use the following command:
+
+```
+git branch | grep \* | cut -d ' ' -f2
+```
+
+This command will display the current branch name in the terminal. To make it easier to use, you can create an alias in your `.bashrc` file:
+
+```
+alias current_branch="git branch | grep \* | cut -d ' ' -f2"
+```
+
+After adding this alias, you can simply type `current_branch` in the terminal to display the current branch name.
+
+Note: This assumes that you are currently in a Git repository. If you are not in a Git repository, the command will not display anything.

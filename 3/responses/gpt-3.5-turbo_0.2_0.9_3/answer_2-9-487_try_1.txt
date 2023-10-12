@@ -1,0 +1,11 @@
+It's possible that the error you're seeing is related to the SSL certificate on your Redis instance. Heroku Redis Premium uses SSL encryption by default, which means that your Redis client needs to be able to verify the SSL certificate presented by the Redis server.
+
+One thing you can try is to explicitly tell your Redis client to trust the Heroku Redis Premium SSL certificate. You can do this by setting the `ssl_ca_cert` option in your Redis client configuration to the contents of the Heroku Redis Premium SSL certificate. You can find the certificate by running the following command:
+
+```
+heroku redis:info --premium --app your-app-name | grep -A 1 "SSL CA Certificate"
+```
+
+This will output the SSL certificate in PEM format. Copy the contents of the certificate and set the `ssl_ca_cert` option in your Redis client configuration to the certificate contents.
+
+If this doesn't work, you may want to reach out to Heroku support for further assistance. They should be able to help you troubleshoot the issue and determine if there are any other configuration changes you need to make to use Heroku Redis Premium.

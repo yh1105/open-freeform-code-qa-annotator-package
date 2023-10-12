@@ -1,0 +1,26 @@
+In Rust, you can use the `chrono` crate to convert a `SystemTime` to a date string in ISO 8601 format. Here's how you can do it:
+
+First, add the `chrono` crate to your `Cargo.toml`:
+
+```toml
+[dependencies]
+chrono = "0.4"
+```
+
+Then, you can use the following code to convert `SystemTime` to ISO 8601:
+
+```rust
+use std::time::SystemTime;
+use chrono::{DateTime, Utc};
+
+fn main() {
+    let now = SystemTime::now();
+    let datetime: DateTime<Utc> = now.into();
+    let iso8601 = datetime.to_rfc3339();
+    println!("{}", iso8601);
+}
+```
+
+In this code, `SystemTime::now()` is used to get the current system time. This time is then converted into a `DateTime<Utc>` object using the `into()` method. The `to_rfc3339()` method is used to convert the `DateTime<Utc>` object into a string in ISO 8601 format. The result is then printed to the console.
+
+Please note that `to_rfc3339()` returns a string in RFC 3339 format, which is a more specific version of ISO 8601.

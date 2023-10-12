@@ -1,0 +1,19 @@
+It seems like you are trying to reload the current route in Angular. The code you provided looks correct, but there are a few things you can try to make it work.
+
+First, make sure that you have imported the `Router` and `ActivatedRoute` from `@angular/router` in your component.
+
+Second, try using `this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => this.router.navigate([route]));` instead of `this.router.navigate([self]);`. This will navigate to the root URL and then navigate to the current route, effectively reloading it.
+
+Finally, if none of the above works, try using a different approach. Instead of reloading the current route, you can navigate to a dummy route and then navigate back to the current route. For example:
+
+```
+navigateToSelf(route: ActivatedRoute) {
+  this.router.navigate(['/dummy']).then(() => {
+    this.router.navigate([route.routeConfig.path]);
+  });
+}
+```
+
+This will navigate to the `/dummy` route and then navigate back to the current route, effectively reloading it.
+
+I hope this helps! Let me know if you have any further questions.

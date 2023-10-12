@@ -1,0 +1,15 @@
+Eclipse does not have a traditional uninstaller, especially if it was installed by simply unzipping a downloaded package. Here are the steps to manually uninstall Eclipse:
+
+1. **Delete the Eclipse directory**: The first step is to delete the Eclipse installation directory. This is the directory where you extracted Eclipse. If you're not sure where this is, you can right-click on the Eclipse shortcut on your desktop or in your start menu, select "Properties", and look at the "Target" field.
+
+2. **Delete the Eclipse workspace**: This is the directory that you selected as your workspace when you first ran Eclipse. It contains all of your projects and settings. If you want to completely remove Eclipse, you can delete this directory. However, if you want to keep your projects for use in another IDE, you should not delete this directory.
+
+3. **Delete the Eclipse settings directory**: Eclipse also stores some settings in a directory in your home directory. On Windows, this is usually `C:\Users\<Your Username>\.eclipse`. You can delete this directory to remove these settings.
+
+4. **Remove the start menu shortcuts**: You can remove the Eclipse shortcuts from your start menu by right-clicking on them and selecting "Delete".
+
+5. **Clean up the PATH environment variable**: If you added Eclipse to your PATH environment variable, you should remove it. You can do this by right-clicking on "Computer" in the start menu, selecting "Properties", then "Advanced system settings", then "Environment Variables". In the "System variables" section, scroll down to "Path", click "Edit", and remove the entry for Eclipse.
+
+6. **Restart your computer**: After you've done all of this, restart your computer to ensure that all changes have taken effect.
+
+Remember to back up any important files before you start deleting directories.

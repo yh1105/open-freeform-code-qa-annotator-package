@@ -1,0 +1,33 @@
+You can use the `useState` hook to store the memoized result and update it when the promise resolves. Here's an example:
+
+```
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+
+    const getExpensiveResult = React.useCallback(async () => {
+        const expensiveResult = await SomeLongRunningApi(arg);
+        setResult(expensiveResult.interestingProperty);
+    }, [arg]);
+
+    React.useEffect(() => {
+        getExpensiveResult();
+    }, [getExpensiveResult]);
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={getExpensiveResult}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>);
+}
+```
+
+In this example, we use `useCallback` to memoize the `getExpensiveResult` function, which we pass to the `useEffect` hook as a dependency. This ensures that `getExpensiveResult` is only recreated when `arg` changes.
+
+In the `useEffect` hook, we call `getExpensiveResult` to fetch the result and update the state with the memoized value.
+
+When the user clicks the "Calculate" button, we call `getExpensiveResult` again to update the result with the latest value.
+
+This approach avoids the issue with `useMemo` returning a promise and allows us to update the state with the memoized value when the promise resolves.

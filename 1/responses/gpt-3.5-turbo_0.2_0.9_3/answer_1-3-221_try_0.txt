@@ -1,0 +1,15 @@
+It sounds like the issue may be related to the Python extension in VSCode. Here are a few things you can try:
+
+1. Make sure you have the latest version of the Python extension installed. You can check for updates by going to the Extensions tab in VSCode and searching for "Python". If an update is available, click the "Update" button.
+
+2. Try setting the Python path in your `settings.json` file instead of your `launch.json` file. To do this, add the following line to your `settings.json` file:
+
+```
+"python.pythonPath": "/path/to/python"
+```
+
+Replace "/path/to/python" with the actual path to your Python installation.
+
+3. If neither of the above solutions work, try uninstalling and reinstalling the Python extension. To do this, go to the Extensions tab in VSCode, search for "Python", and click the "Uninstall" button. Then, restart VSCode and reinstall the extension.
+
+Hopefully one of these solutions will help you get the debugger running again. If not, feel free to ask for more help!

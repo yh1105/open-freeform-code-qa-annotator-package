@@ -1,0 +1,28 @@
+The issue with your current implementation is that you are defining the styled component inside your component function. This means that a new styled component is created every time your component re-renders, which is inefficient and can lead to performance issues.
+
+To fix this, you should define your styled component outside of your component function and pass the props you need to it. Here's how you can refactor your code:
+
+```jsx
+import React from 'react'
+import styled from 'styled-components'
+
+const TabWrapper = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+    margin: 1px;
+    font-size: 3em;
+    color: ${props => (props.isSelected ? `white` : `black`)};
+    background-color: ${props => (props.isSelected ? `black` : `#C4C4C4`)};
+    cursor: ${props => (props.isSelected ? 'default' : `pointer`)};
+`
+
+const Tab = ({ onClick, isSelected, children }) => {
+    return <TabWrapper onClick={onClick} isSelected={isSelected}>{children}</TabWrapper>
+}
+
+export default Tab
+```
+
+In this refactored code, `TabWrapper` is defined outside of the `Tab` component, so it's not recreated on every render. The `isSelected` prop is passed to `TabWrapper` when it's used in `Tab`, so it can still dynamically adjust its styles based on whether the tab is selected.

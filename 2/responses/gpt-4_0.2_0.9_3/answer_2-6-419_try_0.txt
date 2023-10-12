@@ -1,0 +1,49 @@
+In your code, you are trying to pass multiple arguments from a child component to a parent component in Blazor. The code you provided is almost correct, but you need to define the `ItemClicked` event in the child component and then pass it to the parent component.
+
+Here is the correct way to do it:
+
+Child Component:
+
+```csharp
+@code {
+    [Parameter]
+    public EventCallback<(string, int)> ItemClicked { get; set; }
+
+    private async Task OnClick(string name, int id)
+    {
+        await ItemClicked.InvokeAsync((name, id));
+    }
+}
+```
+
+In the child component, you define an `EventCallback` that takes a tuple as a parameter. The tuple contains the two values you want to pass to the parent component. Then, you define an `OnClick` method that invokes the `ItemClicked` event with the two values as a tuple.
+
+Then, in your `foreach` loop, you call the `OnClick` method:
+
+```csharp
+@foreach( var item in items)
+{
+  @foreach( var score in item.scores)
+  {
+    <span @onclick="() => OnClick(item.name, score.id)"> 
+      @item.name 
+    </span>
+  }
+}
+```
+
+Parent Component:
+
+```csharp
+<Child ItemClicked="ItemClicked"/>
+
+@code{
+    private void ItemClicked((string Name, int Id) data)
+    {
+        Console.WriteLine(data.Name);
+        Console.WriteLine(data.Id);
+    }
+}
+```
+
+In the parent component, you define the `ItemClicked` method that takes a tuple as a parameter. The tuple contains the two values that are passed from the child component. Then, you pass the `ItemClicked` method to the child component as a parameter.

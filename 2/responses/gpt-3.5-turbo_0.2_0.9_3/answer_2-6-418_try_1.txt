@@ -1,0 +1,5 @@
+Yes, C# evaluates an if statement with asynchronous functions in the same way as with synchronous functions. It will short-circuit the evaluation of the condition as soon as it can determine the outcome.
+
+In your example, if `await first_check()` returns `false`, then `await second_check()` will not be called because the `&&` operator cannot be satisfied. Similarly, if `await first_check()` returns `true`, but `await second_check()` returns `false`, then the entire condition will be `false`.
+
+However, it's important to note that the `await` keyword will cause the execution of the method to pause until the asynchronous operation completes. So, if `first_check()` and `second_check()` are both asynchronous operations, the execution of the method will pause twice while waiting for each operation to complete.

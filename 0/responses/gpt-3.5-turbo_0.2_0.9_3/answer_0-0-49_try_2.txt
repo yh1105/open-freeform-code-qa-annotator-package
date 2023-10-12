@@ -1,0 +1,46 @@
+To change the outline color of an outlined variant `TextField`, you can use the `notchedOutline` CSS class. Here's an example of how you can change the outline color to red:
+
+```
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+
+const styles = theme => ({
+  field: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    height: '30px !important',
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'red'
+    }
+  },
+});
+
+class _Field extends React.Component {
+      render() {
+          const { classes, fieldProps } = this.props;
+             return (
+                <TextField
+                {...fieldProps}
+                label={this.props.label || "<Un-labeled>"}
+                InputLabelProps={{ shrink: true }} // stop from animating.
+                inputProps={{ className: classes.fieldInput }}
+                className={classes.field}
+                margin="dense"
+               variant="outlined"
+            />
+        );
+    }
+}
+
+_Field.propTypes = {
+    label: PropTypes.string,
+    fieldProps: PropTypes.object,
+    classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(_Field);
+```
+
+In the `styles` object, we added a new property to the `field` class that targets the `notchedOutline` class and sets its `borderColor` to red. You can replace `red` with any other color you want.

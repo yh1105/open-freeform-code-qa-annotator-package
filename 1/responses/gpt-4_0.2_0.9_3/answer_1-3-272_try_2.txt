@@ -1,0 +1,23 @@
+The issue here is that the YAML parser doesn't know anything about your environment variables. It's just treating `${PATH}` as a string. You'll need to manually replace the `${PATH}` in your YAML file with the actual value of the `PATH` environment variable.
+
+Here's how you can do it:
+
+```python
+import yaml
+import os
+import sys
+
+stream = open("sample.yml", "r")
+docs = yaml.safe_load(stream)  # Use safe_load instead load_all for loading the yaml file
+
+for k, v in docs.items():
+    if isinstance(v, str):  # Check if the value is a string
+        docs[k] = os.path.expandvars(v)  # Replace ${PATH} with the actual value of PATH
+
+for k, v in docs.items():
+    print(k, "->", v)
+```
+
+This script uses the `os.path.expandvars` function, which replaces `${varname}` or `$varname` in a string with the value of the environment variable `varname`. If such a variable does not exist, the function leaves the original string unchanged.
+
+Please note that `yaml.load_all` is replaced with `yaml.safe_load` because `load_all` returns a generator, and `safe_load` is safer to use as it correctly parses the yaml file and also prevents the execution of arbitrary code.

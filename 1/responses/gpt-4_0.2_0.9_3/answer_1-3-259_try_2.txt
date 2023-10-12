@@ -1,0 +1,43 @@
+You can use the Python Imaging Library (PIL) to achieve this. The `ImageEnhance` module contains a number of classes that can be used for image enhancement:
+
+- `Color` enhances or reduces the color in an image.
+- `Contrast` enhances or reduces the contrast in an image.
+- `Brightness` enhances or reduces the brightness in an image.
+- `Sharpness` enhances or reduces the sharpness in an image.
+
+Here is an example of how you can use the `Brightness` class to brighten an image:
+
+```python
+from PIL import Image, ImageEnhance
+
+# Open an image file
+with Image.open('input.jpg') as img:
+    # Create a Brightness enhancer
+    enhancer = ImageEnhance.Brightness(img)
+    
+    # Increase the brightness by a factor of 2
+    brighter_image = enhancer.enhance(2)
+    
+    # Save the brightened image
+    brighter_image.save('output.jpg')
+```
+
+In this example, the `enhance` method is used to brighten the image. The argument to this method is a factor that specifies how much to enhance the brightness. A factor of 1.0 gives the original image. A factor of 2.0 gives a brightened image.
+
+However, this method brightens the whole image, not just the dark areas. If you want to brighten only the dark areas, you might need to use a more advanced technique, such as adaptive histogram equalization (CLAHE - Contrast Limited Adaptive Histogram Equalization), which is available in the OpenCV library. Here is an example:
+
+```python
+import cv2
+import numpy as np
+
+# Load the image
+img = cv2.imread('input.jpg', 0)
+
+# Create a CLAHE object (Arguments are optional)
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+cl1 = clahe.apply(img)
+
+cv2.imwrite('output.jpg',cl1)
+```
+
+In this example, the `createCLAHE` function is used to create a CLAHE object. The `clipLimit` parameter is used to limit the contrast of the image. The `tileGridSize` parameter is used to specify the size of the grid for the histogram equalization. The `apply` method is then used to apply the CLAHE to the image.

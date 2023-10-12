@@ -1,0 +1,43 @@
+To create an animation like the one you described, you can use jQuery to add a class to the line element when the TAB2 is clicked. This class will have a CSS transition property that will animate the movement of the line to the right.
+
+Here's an example code snippet that you can use:
+
+```
+<div class="col-md-12">
+  <div class="col-md-6 tab" id="tab1">
+        <p>TAB1</p>
+  </div>
+  <div class="col-md-6 tab" id="tab2">
+        <p>TAB2</p>
+  </div>
+</div>
+<div class="col-md-6">
+  <span class="line"></span>
+</div>
+
+<style>
+  .line {
+    height: 10px;
+    background-color: blue;
+    transition: transform 0.3s ease-in-out;
+  }
+  .line.move {
+    transform: translateX(50%);
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    $('#tab2').click(function() {
+      $('.line').addClass('move');
+    });
+    $('#tab1').click(function() {
+      $('.line').removeClass('move');
+    });
+  });
+</script>
+```
+
+In this code, we added a class "tab" to both the TAB1 and TAB2 elements. We also added a class "line" to the line element. In the CSS, we added a transition property to the "line" class to animate the movement of the line. We also added a "move" class with a transform property to move the line to the right.
+
+In the jQuery code, we added a click event listener to the TAB2 element. When this element is clicked, we add the "move" class to the line element, which will animate the movement of the line to the right. We also added a click event listener to the TAB1 element to remove the "move" class from the line element, which will move the line back to its original position.

@@ -1,0 +1,22 @@
+Yes, starting from API 30, the `setView` method in `Toast` class has been deprecated. This is because custom toast views are no longer supported in Android 11 (API level 30). 
+
+However, you can create custom toasts using `Snackbar` from the Material Design library, or you can create a custom layout and display it as a dialog or a new activity with a transparent background.
+
+Here's an example of how to use `Snackbar`:
+
+```java
+Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG);
+Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+TextView textView = (TextView) layout.findViewById(com.google.android.material.R.id.snackbar_text);
+textView.setVisibility(View.INVISIBLE);
+
+View snackView = getLayoutInflater().inflate(R.layout.my_snackbar, null);
+layout.setPadding(0, 0, 0, 0);
+layout.addView(snackView, 0);
+
+snackbar.show();
+```
+
+In the above code, `my_snackbar` is the custom layout you want to show.
+
+If you want to stick with `Toast`, you can create a custom layout and display it as a dialog or a new activity with a transparent background. But remember, this is not a toast and it won't behave like a toast. It's just a workaround.

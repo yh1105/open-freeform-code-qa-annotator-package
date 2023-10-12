@@ -1,0 +1,26 @@
+The error you're seeing is because you're trying to create an array with a negative length. In JavaScript, the `Array()` constructor creates an array with a specified length. If the length is a non-integer or negative, it throws a `RangeError: Invalid array length` error.
+
+In your code, `props.ingredients[igKey]` is used as the length for the new array. If `props.ingredients[igKey]` is negative or not an integer, it will throw the error.
+
+To fix this, you can add a check to ensure that `props.ingredients[igKey]` is a positive integer before creating the array. Here's how you can do it:
+
+```javascript
+const burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients)
+    .map(igKey => {
+      let length = props.ingredients[igKey];
+      if (Number.isInteger(length) && length > 0) {
+        return [...Array(length)].map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />);
+      }
+      return [];
+    })
+    .reduce((arr, el) => arr.concat(el), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please add some ingredients!</p>;
+  }
+  // ...
+}
+```
+
+In this code, `Number.isInteger(length) && length > 0` checks if `length` is a positive integer. If it is, it creates the array. If it's not, it returns an empty array. This prevents the `RangeError: Invalid array length` error.

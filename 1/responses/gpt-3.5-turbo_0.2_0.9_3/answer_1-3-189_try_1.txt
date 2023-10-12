@@ -1,0 +1,10 @@
+It seems like the file you are trying to download requires permission to access. You can try changing the sharing settings of the file to "Anyone with the link can view" or "Public" to allow access to the file without requiring permission. 
+
+To change the sharing settings, follow these steps:
+1. Go to your Google Drive and find the file you want to share.
+2. Right-click on the file and select "Share".
+3. In the "Share with people and groups" window, click on "Get link".
+4. In the "Link sharing" window, select "Anyone with the link" or "Public" from the dropdown menu.
+5. Click on "Done" to save the changes.
+
+Once you have changed the sharing settings, try running your code again and see if it works.

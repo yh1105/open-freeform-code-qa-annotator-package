@@ -1,0 +1,18 @@
+You can use the `async/await` syntax to make your code wait for the response to come before executing the next line of code. Here's an example:
+
+```
+async getData() {
+  const response = await this.repository.getById(Ids).toPromise();
+  console.log(response);
+  this.newIds = response.map((id) => {
+    return id;
+  });
+  console.log(this.newIds);
+}
+```
+
+In this example, the `getData()` function is marked as `async`, which allows us to use the `await` keyword inside it. The `await` keyword tells the function to wait for the `getById()` Observable to complete and return a value before continuing with the next line of code.
+
+We also use the `toPromise()` method to convert the Observable to a Promise, which allows us to use the `await` keyword.
+
+You can then call the `getData()` function to get the data and assign it to `this.newIds`.

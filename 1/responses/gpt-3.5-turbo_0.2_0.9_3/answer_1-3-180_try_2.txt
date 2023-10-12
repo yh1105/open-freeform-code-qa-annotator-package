@@ -1,0 +1,15 @@
+To filter the data by `TEST_STATUS` column where the value is "PASS TEST", you can use the following code:
+
+```
+data_useless[data_useless['TEST_STATUS'] == 'PASS TEST']
+```
+
+This will return a new DataFrame that only contains rows where the `TEST_STATUS` column has a value of "PASS TEST".
+
+If you want to group the data by `TEST_STATUS` and count the number of occurrences of each value, you can use the following code:
+
+```
+data_useless.groupby('TEST_STATUS').size()
+```
+
+This will return a Series object that contains the count of each unique value in the `TEST_STATUS` column.

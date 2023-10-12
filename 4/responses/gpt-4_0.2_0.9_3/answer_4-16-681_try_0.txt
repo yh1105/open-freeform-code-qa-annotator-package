@@ -1,0 +1,17 @@
+This error usually means that one of your scripts is returning a non-zero exit code, which is considered a failure by the shell. Even if all your steps pass successfully, if the final exit code is non-zero, GitLab CI will mark the job as failed.
+
+Here are a few things you can try to debug and fix the issue:
+
+1. **Check your scripts:** Make sure all your scripts are returning a zero exit code upon successful execution. You can do this by appending `|| exit 0` at the end of your scripts.
+
+2. **Check for hidden scripts:** Sometimes, the `.gitlab-ci.yml` file might have hidden scripts that are not visible in the pipeline view. Make sure to check those as well.
+
+3. **Use the `after_script` keyword:** If you want to run some cleanup tasks that should not affect the status of your job, you can use the `after_script` keyword. Scripts defined under `after_script` are run after all jobs have finished and their failure will not affect the job status.
+
+4. **Check the GitLab Runner:** If you're using a specific runner for your master branch, there might be some issues with that runner. Try running the job on a different runner to see if the problem persists.
+
+5. **Check the GitLab CI configuration:** There might be some issues with your GitLab CI configuration that are causing the job to fail. You can use the CI Lint tool in GitLab to check your configuration for errors.
+
+6. **Check the logs:** The error message you're seeing is quite generic and might not give you the exact reason for the failure. Check the logs of your GitLab Runner for more detailed error messages.
+
+Remember, the issue is not with the `echo "deployed"` command, but with the script that is running before it. The `echo "deployed"` command is just the last command that is successfully executed before the job fails.

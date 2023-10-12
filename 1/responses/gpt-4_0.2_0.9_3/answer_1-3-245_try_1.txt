@@ -1,0 +1,46 @@
+The error you're seeing is likely due to the structure of your project or the way you're referencing your files in the Dockerfile. 
+
+Here's how you can fix it:
+
+1. Make sure your project structure is as follows:
+
+```
+fastapi/
+    app/
+        main.py
+        language_detector.py
+    Dockerfile
+    docker-compose.yml
+    requirements.txt
+```
+
+2. Update your Dockerfile to reflect the correct structure:
+
+```Dockerfile
+FROM python:3.8
+WORKDIR /app 
+
+COPY requirements.txt .
+RUN pip install --requirement requirements.txt
+
+COPY ./app .
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]
+```
+
+This Dockerfile starts with a Python 3.8 image, sets the working directory to /app, copies your requirements.txt file into the Docker image and installs the Python dependencies, then copies your app directory into the Docker image. It exposes port 8000 and finally runs your FastAPI application using uvicorn.
+
+Remember to build your Docker image from the directory containing the Dockerfile. If you're in the same directory as the Dockerfile, you can build the image using:
+
+```bash
+docker build -t myimage .
+```
+
+And then run it with:
+
+```bash
+docker run -p 8000:8000 myimage
+```
+
+This will make your application available at http://localhost:8000.

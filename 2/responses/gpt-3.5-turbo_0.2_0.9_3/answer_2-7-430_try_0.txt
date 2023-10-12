@@ -1,0 +1,29 @@
+It seems like the EasyAdminBundle routes are not being loaded. 
+
+Please make sure that the `config/bundles.php` file contains the following line:
+
+```
+EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+```
+
+If it's not there, add it and try again. 
+
+Also, make sure that the `config/packages/easy_admin.yaml` file exists and contains the basic configuration for EasyAdminBundle:
+
+```
+# config/packages/easy_admin.yaml
+
+easy_admin:
+    design:
+        brand_color: '#your_brand_color'
+```
+
+If it still doesn't work, try running the following commands:
+
+```
+symfony composer require annotations
+symfony console cache:clear
+symfony console cache:warmup
+```
+
+Then, check if the `/admin` route is available.

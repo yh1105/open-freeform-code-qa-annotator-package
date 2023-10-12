@@ -1,0 +1,28 @@
+It seems like you're having trouble with npm not being installed or recognized in your system. You didn't provide the output of `npm -v` or `whereis` command, but I'll assume that they're not showing the expected results.
+
+Here are a few steps you can follow to solve this issue:
+
+1. Uninstall nodejs and npm:
+```bash
+sudo apt-get purge --auto-remove nodejs
+```
+
+2. Update your system:
+```bash
+sudo apt-get update
+```
+
+3. Reinstall nodejs and npm. The Node.js package is available in the NodeSource repository. You'll need to add it to your system to be able to install the latest Nodejs version.
+```bash
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+This will install Node.js and npm from the NodeSource repository which should include the npm.
+
+4. Verify the installation by checking their versions:
+```bash
+node -v
+npm -v
+```
+
+If you still encounter issues, please provide more details about the error messages you're getting.

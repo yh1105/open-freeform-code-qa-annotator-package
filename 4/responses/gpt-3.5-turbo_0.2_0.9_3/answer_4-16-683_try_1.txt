@@ -1,0 +1,19 @@
+To change the username, hostname, and path color in iTerm2, you can follow these steps:
+
+1. Open iTerm2 and go to Preferences (or press `⌘ + ,`).
+2. Select the Profiles tab and choose the profile you want to modify.
+3. Go to the Colors tab and scroll down to the ANSI Colors section.
+4. Click on the color box next to "Bright Black" and choose a color that you want to use for the username, hostname, and path.
+5. Click on the color box next to "Bold" and choose a color that you want to use for the text that appears after the path.
+6. Click on the color box next to "Background" and choose a color that you want to use for the background of the text.
+7. Click on the color box next to "Foreground" and choose a color that you want to use for the foreground of the text.
+8. Click on the "Save" button to save your changes.
+
+If you're using the Solarized colorscheme, you can use the following colors:
+
+- Username, hostname, and path: Base0
+- Text after path: Base1
+- Background: Base03
+- Foreground: Base0
+
+After making these changes, your iTerm2 window should look similar to the Ubuntu screenshot you provided.

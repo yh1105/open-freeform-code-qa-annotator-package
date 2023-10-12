@@ -1,0 +1,12 @@
+You can use a regular expression to extract the language code from the HTML code. Here's an example using `grep` and `sed`:
+
+```
+curl -Ls stick-it.app | grep -oP '(?<=lang=")[^"]+' | sed -n 1p
+```
+
+Explanation:
+
+- `grep -oP '(?<=lang=")[^"]+'` searches for the string `lang="` and extracts all characters that follow until the next double quote.
+- `sed -n 1p` prints only the first line of the output (in case there are multiple matches).
+
+This should work for both cases where the language code is written as `lang="he-IL"` or `lang="he_IL"`.

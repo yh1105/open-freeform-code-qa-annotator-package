@@ -1,0 +1,9 @@
+The error is because the value '2021.0' is a string representation of a float, not an integer. When you try to convert it to an integer, Python raises a ValueError because it's not a valid integer string.
+
+You should first convert the strings to floats, then convert the floats to integers. Here's how you can do it:
+
+```python
+data_h_df['year'] = data_h_df['year'].astype(float).astype(int)
+```
+
+This code first converts the 'year' column to float, then to int. The float conversion is able to handle the '.0' part of the string, and the int conversion then drops the decimal part.

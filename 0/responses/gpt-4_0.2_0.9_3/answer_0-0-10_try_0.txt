@@ -1,0 +1,15 @@
+The issue you're encountering is due to the fact that Cypress commands are asynchronous and are enqueued to be run later, while jQuery is synchronous and executes immediately. 
+
+In your code, you're trying to use jQuery to get the text of the div, but at the time this code is executed, the div might not be available in the DOM yet. 
+
+Instead, you should use Cypress commands to interact with the DOM. Here's how you can do it:
+
+```javascript
+cy.get('.ibxudA .WildnessText-kRKTej').invoke('text').then((text) => {
+  expect(text).to.eq('Wildness');
+});
+```
+
+In this code, `cy.get` is used to get the div, and `invoke('text')` is used to get its text. The `then` function is used to work with the result once it's available. 
+
+This code will wait for the div to be available in the DOM, get its text, and then compare it to 'Wildness'.

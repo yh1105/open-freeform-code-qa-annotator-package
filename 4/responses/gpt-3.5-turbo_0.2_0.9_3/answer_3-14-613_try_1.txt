@@ -1,0 +1,11 @@
+This error message indicates that the preview cannot be found in any of the targets in your Xcode project. Here are a few things you can try to fix the issue:
+
+1. Check your scheme: Make sure that the scheme you are using to build your project includes the target that contains the preview code. You can check this by going to Product > Scheme > Edit Scheme and making sure that the correct target is selected under the "Build" tab.
+
+2. Clean your project: Try cleaning your project by going to Product > Clean Build Folder. This will delete any cached build artifacts and may help resolve the issue.
+
+3. Restart Xcode: Sometimes Xcode can get into a weird state and restarting it can help resolve issues like this.
+
+4. Check your code: Double-check that your preview code is correct and that there are no syntax errors or other issues that could be causing the preview to fail.
+
+If none of these solutions work, you may need to provide more information about your project setup and the specific error message you are seeing in order to diagnose the issue further.

@@ -1,0 +1,25 @@
+It's good that you're thinking about the readability of your code, but in this case, the empty else-if statement is actually unnecessary and can be removed without affecting the functionality of your code. 
+
+The reason why it's considered bad form is that it can be confusing for other programmers who may read your code in the future. They may assume that there is some code that should be executed in that else-if statement, and spend time trying to figure out what it is. Additionally, if you or someone else were to modify the code later on, it could be easy to accidentally introduce a bug by adding code to that empty else-if statement.
+
+To achieve the same functionality without the empty else-if statement, you can simply combine the first two conditions into a single if statement using the logical AND operator (`&&`). Here's what the updated code would look like:
+
+```
+if (!seesWater(LEFT) && !seesWater(AHEAD))
+{
+    // no water to the left or ahead, so turn left
+    turn(LEFT);
+}
+else if (!seesWater(RIGHT))
+{
+    // water to the left or ahead, but not to the right, so turn right
+    turn(RIGHT);
+}
+else
+{
+    // water on all sides, so turn around
+    turn180();
+}
+```
+
+This code achieves the same functionality as your original code, but without the unnecessary else-if statement.

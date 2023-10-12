@@ -1,0 +1,15 @@
+Yes, you can use the null-safe operator `?.` in combination with the `trim()` method to avoid the NullPointerException. Here's an example:
+
+```
+siteRequest.getName()?.trim();
+```
+
+This code will only call the `trim()` method if `getName()` is not null. If `getName()` is null, the expression will return null without throwing an exception.
+
+Alternatively, you can use the `StringUtils` class from the Apache Commons Lang library, which provides a `trimToNull()` method that trims the string and returns null if the result is an empty string. Here's an example:
+
+```
+StringUtils.trimToNull(siteRequest.getName());
+```
+
+This code will return null if `getName()` is null or contains only whitespace characters after trimming.

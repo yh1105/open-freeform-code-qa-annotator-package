@@ -1,0 +1,13 @@
+The error logs suggest that the Service Fabric Runtime installation is failing due to some leftover files from a previous installation. Here are a few steps you can try to resolve this issue:
+
+1. **Uninstall Service Fabric Runtime and SDK**: If you have any previous versions of Service Fabric Runtime or SDK installed, uninstall them from the Control Panel.
+
+2. **Delete Service Fabric Directories**: Delete the Service Fabric directories manually if they exist. They are usually located at `C:\Program Files\Microsoft Service Fabric` and `C:\ProgramData\Microsoft Service Fabric`.
+
+3. **Clean up Registry**: Open the Registry Editor (type `regedit` in the search bar and press Enter), and navigate to `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Service Fabric`. If this key exists, delete it.
+
+4. **Restart your PC**: After performing the above steps, restart your PC.
+
+5. **Reinstall Service Fabric Runtime and SDK**: Now try to reinstall the Service Fabric Runtime and SDK.
+
+If the issue persists, it could be due to some other software conflict, insufficient user permissions, or a problem with the installation package itself. In such cases, you might want to reach out to Microsoft Support for further assistance.

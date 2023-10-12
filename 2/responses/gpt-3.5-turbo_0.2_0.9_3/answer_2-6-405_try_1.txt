@@ -1,0 +1,23 @@
+The issue seems to be with the `City` model class. The properties of the `City` class are defined as public fields instead of public properties. When the JSON serializer tries to serialize the `City` objects, it only serializes properties and not fields. Therefore, the response contains empty objects.
+
+To fix this issue, you need to change the public fields to public properties in the `City` class. Here's how you can modify the `City` class:
+
+```
+public class City
+{
+    public string CityName { get; set; }
+    public string AssociatedCities { get; set; }
+    public string Province { get; set; }
+    public int Status { get; set; }
+
+    public City(string cityName, string associatedCities, string province, int status)
+    {
+        this.CityName = cityName;
+        this.AssociatedCities = associatedCities;
+        this.Province = province;
+        this.Status = status;
+    }
+}
+```
+
+After making this change, the JSON serializer will be able to serialize the `City` objects properly, and you should get the expected response.

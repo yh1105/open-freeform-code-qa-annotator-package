@@ -1,0 +1,17 @@
+One solution to this problem is to use the `replace` method instead of `push` when navigating from the loading screen to the results screen. The `replace` method replaces the current route in the history stack with the new route, instead of adding it to the stack. This way, when the user clicks the back button from the results screen, they will be taken directly to the main screen, instead of going back to the loading screen.
+
+Here's an example of how you can use the `replace` method:
+
+```
+// Navigate from loading screen to results screen
+this.$router.replace({ path: "/results/xxxx" });
+```
+
+You can also use the `go` method to navigate back to a specific page in the history stack. For example, to go back to the main screen from the results screen, you can use:
+
+```
+// Navigate back to main screen
+this.$router.go(-2);
+```
+
+This will go back two pages in the history stack, skipping the loading screen and going directly to the main screen.

@@ -1,0 +1,29 @@
+You can use the `unnest()` function from the `tidyr` package to split the tuples into separate rows. Here's the code:
+
+```
+library(tidyr)
+
+x %>%
+  mutate(segment_stemming = strsplit(segment_stemming, ", ")) %>%
+  unnest(segment_stemming) %>%
+  mutate(segment_stemming = gsub("[\\[\\]()']", "", segment_stemming)) %>%
+  separate(segment_stemming, c("word", "pos"), sep = ", ") %>%
+  mutate(word = gsub(" ", "", word), pos = gsub(" ", "", pos))
+
+# Output
+#   id             word  pos
+# 1  A          Brownie Noun
+# 2  A             From Josa
+# 3  A               Pi Noun
+# 4  B Dung-caroon-gye Noun
+# 5  B               in Josa
+# 6  B       innovation Noun
+```
+
+Explanation:
+
+1. First, we use `mutate()` to split the `segment_stemming` column into a list of strings, where each string corresponds to a tuple.
+2. Then, we use `unnest()` to convert the list of strings into separate rows.
+3. We use `gsub()` to remove the square brackets, parentheses, and single quotes from the `segment_stemming` column.
+4. We use `separate()` to split the `segment_stemming` column into two separate columns, `word` and `pos`, using `, ` as the separator.
+5. Finally, we use `gsub()` again to remove any remaining spaces in the `word` and `pos` columns.

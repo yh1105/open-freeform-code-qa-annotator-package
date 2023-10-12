@@ -1,0 +1,24 @@
+The error message indicates that there is an issue with resolving an attribute at index 11 in your XML file. This attribute is likely related to the color state list for the Slider component. 
+
+To fix this issue, you can try the following steps:
+
+1. Make sure that you are using the latest version of the Material Components library. You can update the library version in your app's build.gradle file:
+
+```
+implementation 'com.google.android.material:material:1.3.0'
+```
+
+2. Check that your app's theme extends a Material Components theme. In your Theme.xml file, make sure that the parent theme is a Material Components theme:
+
+```
+<style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+```
+
+3. If you are still experiencing the issue, try changing the attribute value for `app:activeTrackColor` and `app:inactiveTrackColor` to a color resource instead of a hex value. For example:
+
+```
+app:activeTrackColor="@color/slider_active_track_color"
+app:inactiveTrackColor="@color/slider_inactive_track_color"
+```
+
+Make sure to define these color resources in your app's colors.xml file.

@@ -1,0 +1,24 @@
+In Go, the dynamic version of an array is called a slice. Slices are more common in Go code than arrays because they are more flexible.
+
+You can create a slice with no elements like this:
+
+```go
+var s []int
+```
+
+You can append elements to the slice using the `append` function:
+
+```go
+s = append(s, 1) // s now has one element
+s = append(s, 2, 3, 4) // s now has four elements
+```
+
+The `append` function creates a new slice and returns it. The original slice is not modified. This is why you need to assign the result of `append` back to `s`.
+
+If you know the capacity that your slice will need, you can make your code more efficient by creating the slice with that capacity from the start:
+
+```go
+s := make([]int, 0, 10) // create a slice with capacity 10
+```
+
+This creates a slice with length 0 and capacity 10. As you append elements to the slice, it will not need to allocate new memory until you append more than 10 elements.

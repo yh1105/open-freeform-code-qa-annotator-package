@@ -1,0 +1,8 @@
+You can use the `source` command to reload your `.bash_profile` without closing and reopening your terminal. Here's how:
+
+1. Open your terminal.
+2. Type `source ~/.bash_profile` and press Enter.
+
+This will apply any new changes you've made to your `.bash_profile` in your current terminal session. 
+
+If you are using zsh (which is default in newer versions of macOS), the command would be `source ~/.zshrc`.

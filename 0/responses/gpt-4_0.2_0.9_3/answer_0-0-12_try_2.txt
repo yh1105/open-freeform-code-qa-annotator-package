@@ -1,0 +1,11 @@
+You didn't mention the specific error you're getting, but I can provide some common issues that might be causing errors:
+
+1. **Less secure apps:** Google may block sign-in attempts from some apps or devices that do not use modern security standards. You need to allow less secure apps to access your account. You can do this by going to your Google Account settings, then to Security, and then turn on Access for less secure apps. 
+
+2. **Two-Step Verification:** If you have Two-Step Verification enabled on your Google account, you'll need to generate an App Password for your application to use. You can do this from your Google Account settings, under the Security tab. Replace your normal password in the code with this App Password.
+
+3. **Nodemailer version:** Ensure you're using a recent version of Nodemailer. Older versions may have compatibility issues.
+
+4. **Internet Connection:** Make sure your server has a proper internet connection and is not behind a firewall that blocks outgoing connections.
+
+If you're still having issues, please provide the specific error message you're seeing for more targeted help.

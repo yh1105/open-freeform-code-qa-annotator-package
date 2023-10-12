@@ -1,0 +1,14 @@
+One solution to this problem is to use the `closeTo` assertion instead of the exact value assertion. The `closeTo` assertion allows you to check if a value is within a certain range of another value. 
+
+For example, instead of checking for `'200px'`, you can check for a value that is within a certain range of `200`. Here's an example:
+
+```
+cy.get('.target').should(($div) => {
+  const width = parseFloat($div.css('width'));
+  expect(width).to.be.closeTo(200, 0.5);
+});
+```
+
+In this example, we're using the `parseFloat` function to convert the string value of `width` to a number. Then, we're using the `closeTo` assertion to check if the value is within 0.5 of `200`. This allows for a small margin of error in case of rounding issues.
+
+You can adjust the range value (0.5 in this example) based on your specific needs and the expected margin of error.

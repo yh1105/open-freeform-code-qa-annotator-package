@@ -1,0 +1,53 @@
+The problem you're facing is due to the fact that the `Row` widget tries to place all its children in a single line. When the text in the last `Text` widget is too long, it overflows and wraps to the next line, but it starts where the `Icon` widget is placed because the `Row` widget doesn't know that it should start a new line.
+
+To solve this, you can use the `Wrap` widget instead of `Row`. The `Wrap` widget automatically adjusts its children along both the horizontal and vertical axis as needed. Here's how you can modify your code:
+
+```dart
+Wrap(
+  crossAxisAlignment: WrapCrossAlignment.start,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Expanded(
+      child: Text(
+        'on the right hand corner to start a new chat.',
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    )
+  ],
+)
+```
+
+However, the `Expanded` widget doesn't work with `Wrap`. So, you need to remove it and use `Flexible` instead. Here's the final code:
+
+```dart
+Wrap(
+  crossAxisAlignment: WrapCrossAlignment.start,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Flexible(
+      child: Text(
+        'on the right hand corner to start a new chat.',
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    )
+  ],
+)
+```
+
+This will ensure that the text wraps correctly and starts a new line below "Tap" when it's too long to fit on the same line.

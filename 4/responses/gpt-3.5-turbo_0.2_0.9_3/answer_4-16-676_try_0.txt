@@ -1,0 +1,23 @@
+One possible solution to this problem is to use the Windows registry to store the required environment variables and then read them back in the elevated instance of the script. Here's how you can do it:
+
+1. In the original instance of the script, save the required environment variables to the registry using the following command:
+```
+reg add HKCU\Environment /v VARNAME /t REG_SZ /d VALUE /f
+```
+Replace VARNAME with the name of the environment variable and VALUE with its value.
+
+2. In the elevated instance of the script, read the environment variables from the registry using the following command:
+```
+$env:VARNAME = (Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name VARNAME).VARNAME
+```
+Replace VARNAME with the name of the environment variable.
+
+3. Use the environment variables as usual in the elevated instance of the script.
+
+4. After the elevated instance of the script has finished, you can remove the environment variables from the registry using the following command:
+```
+reg delete HKCU\Environment /v VARNAME /f
+```
+Replace VARNAME with the name of the environment variable.
+
+This solution has the advantage of not requiring any external tools and not writing sensitive information to a file. However, it does require modifying the Windows registry, which may not be desirable in some situations.

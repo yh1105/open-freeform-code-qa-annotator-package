@@ -1,0 +1,21 @@
+The Docker build output on macOS is a bit different from Linux. The Docker build process on macOS is more abstracted because Docker runs in a virtual machine, not directly on the host OS. This can sometimes lead to differences in behavior.
+
+However, the issue you're facing seems to be related to the Docker build cache. When Docker builds an image, it caches the result of each step. If you run the build again, Docker will use the cached results for steps that haven't changed, which speeds up the build process. This is why you're seeing "CACHED" before each step in your output.
+
+When a step is cached, Docker doesn't show the output of the command. This is why you're not seeing the output of `ls -la`. If you want to see the output of these commands, you need to make sure they're not cached.
+
+One way to do this is to add a dummy argument before the command that changes each time you run the build. For example, you could change your Dockerfile like this:
+
+```
+RUN echo "Build time: `date`" && ls -la
+```
+
+This will print the current date and time before running `ls -la`. Since the date and time change every minute, this will prevent Docker from using the cache for this step, so you'll see the output of `ls -la` each time you run the build.
+
+Another way to avoid using cache is to use the `--no-cache` option when running `docker build`. This will force Docker to run all steps of the build process, even if they haven't changed:
+
+```
+docker build --no-cache -t your-image-name .
+```
+
+Please note that this will slow down your build process, as Docker has to run all steps from scratch.

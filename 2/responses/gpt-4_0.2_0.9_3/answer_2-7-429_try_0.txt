@@ -1,0 +1,49 @@
+It seems like you want to filter the data not only by exact match but also by partial match of the name. You can achieve this by using JavaScript's `indexOf()` method which returns the position of the first occurrence of a specified value in a string. If the specified value is not found, it returns -1.
+
+Here is your updated `SearchData` function:
+
+```javascript
+function SearchData(name, coundivy, age) {
+    if (name.toUpperCase() == '' && coundivy.toUpperCase() == 'ALL' && age.toUpperCase() == 'ALL') {
+        $('#table11 .item').show();
+    } else {
+        $('#table11 .item:has(div)').each(function () {
+            var rowName = $.trim($(this).find('div:eq(0)').text());
+            var rowCoundivy = $.trim($(this).find('div:eq(1)').text());
+            var rowAge = $.trim($(this).find('div:eq(2)').text());
+            if (name.toUpperCase() !='' && coundivy.toUpperCase() != 'ALL' && age.toUpperCase() != 'ALL') {
+                if (rowCoundivy.toUpperCase() == coundivy.toUpperCase() && rowAge == age && rowName.toUpperCase().indexOf(name.toUpperCase()) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            } else if ($(this).find('div:eq(1)').text() != '' || $(this).find('div:eq(1)').text() != '' || $(this).find('div:eq(1)').text() != '') {
+                if (name != '') {
+                    if (rowName.toUpperCase().indexOf(name.toUpperCase()) > -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                }
+                if (coundivy != 'all') {
+                    if (rowCoundivy.toUpperCase() == coundivy.toUpperCase()) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                }
+                if (age != 'all') {
+                    if (rowAge == age) {
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                }
+            }
+        });
+    }
+}
+```
+
+In this code, I replaced `rowName.toUpperCase() == name.toUpperCase()` with `rowName.toUpperCase().indexOf(name.toUpperCase()) > -1`. This will check if the name entered in the input field is a substring of the rowName. If it is, it will return a number greater than -1, and the condition will be true. If it is not a substring, it will return -1, and the condition will be false.

@@ -1,0 +1,17 @@
+On macOS, Docker uses a different logging driver by default, which may not show the full log output. You can try changing the logging driver to `json-file` to see if it shows the full log output. 
+
+To do this, you can add the following flag to your `docker build` command:
+
+```
+--log-driver=json-file
+```
+
+This will output the logs in a JSON format to the console, which should include the full log output.
+
+Alternatively, you can also try running the `docker build` command with the `--no-cache` flag to force Docker to rebuild the layers and show the full log output. 
+
+```
+docker build --no-cache .
+```
+
+This should rebuild all the layers from scratch and show the full log output for each step.

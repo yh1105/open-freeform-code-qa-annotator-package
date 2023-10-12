@@ -1,0 +1,35 @@
+To achieve the desired layout, you can use the `MainAxisAlignment.spaceBetween` property to create space between the widgets and then wrap the left two widgets in a `Row` widget and the right widget in an `Expanded` widget. Here's an example:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Row(
+      children: [
+        Container(
+          child: Icon(Icons.comment),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+        Container(
+          child: Text(
+            snapshot.data![index].comments.toString(),
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+      ],
+    ),
+    Expanded(
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Text(snapshot.data![index].date.toString()),
+      ),
+    ),
+  ],
+),
+```
+
+This will create a row with space between the widgets, and the left two widgets will be aligned to the left while the right widget will be aligned to the right. The `Expanded` widget will take up all the remaining space in the row and push the right widget to the right.

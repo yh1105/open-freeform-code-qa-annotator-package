@@ -1,0 +1,31 @@
+To configure axios to trust the SSL certificate and correctly verify it, you can provide the `ca` option to the `https.Agent` constructor. The `ca` option should be set to an array of trusted certificates.
+
+Here's an example:
+
+```
+const fs = require('fs');
+const https = require('https');
+const axios = require('axios');
+
+const trustedCertificates = [
+  fs.readFileSync('/path/to/trusted/certificate.pem'),
+];
+
+const agent = new https.Agent({
+  ca: trustedCertificates,
+});
+
+const result = await axios.post(
+  `https://${url}/login`,
+  body,
+  {
+    httpsAgent: agent,
+  }
+);
+```
+
+In this example, `trustedCertificates` is an array of trusted certificates. You should replace `/path/to/trusted/certificate.pem` with the path to your trusted certificate.
+
+Then, you create an `https.Agent` instance with the `ca` option set to `trustedCertificates`. Finally, you pass the `httpsAgent` option to the axios request with the `agent` instance you just created.
+
+This should allow axios to verify the SSL certificate using your trusted certificate.

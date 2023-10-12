@@ -1,0 +1,15 @@
+The error you're encountering is due to the fact that `create-react-app` comes pre-configured with its own set of ESLint rules. When you try to add your own ESLint configuration on top of that, it can cause conflicts.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Eject from create-react-app**: This is the most drastic option. When you eject, you'll have full control over the configuration and dependencies of your project. However, this is a one-way operation. Once you eject, you can't go back. If you're comfortable managing your own configuration and dependencies, this might be a good option for you.
+
+2. **Use react-app-rewired**: This is a package that allows you to customize the configuration of create-react-app without ejecting. You can use it to override the ESLint configuration that comes with create-react-app. However, this package is not officially supported by create-react-app, so use it at your own risk.
+
+3. **Use eslint-config-react-app**: This is the ESLint configuration that comes with create-react-app. If you're okay with using this configuration, you can install it in your project and extend it in your `.eslintrc` file. This way, you'll avoid any conflicts with create-react-app.
+
+4. **Disable ESLint in create-react-app**: If you don't want to use the ESLint configuration that comes with create-react-app, you can disable it. To do this, you'll need to eject from create-react-app and then remove the ESLint configuration from the webpack configuration.
+
+Remember to always install the exact version of `babel-eslint` that `react-scripts` is designed to work with to avoid any version conflicts. You can check the exact version in the `package.json` file of the `react-scripts` package.
+
+If you're still having trouble, please provide more information about the exact error message you're seeing and the steps you've taken so far.

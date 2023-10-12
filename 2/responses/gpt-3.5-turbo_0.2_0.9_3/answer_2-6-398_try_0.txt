@@ -1,0 +1,37 @@
+Yes, that's correct. The `ILogger<T>` interface is a generic interface that allows you to specify the type of the class that is using the logger. This is useful because it allows the logging framework to provide more context about where the log message is coming from.
+
+When you register the logging service in the `ServiceCollection`, you can specify the default logger factory and the minimum log level, but you cannot specify the type of the logger. That's why you need to use the `ILogger<T>` interface when injecting the logger into your classes.
+
+If you don't want to repeat the `ILogger<T>` declaration in every class that uses the logger, you can create your own interface that inherits from `ILogger<T>` and use that instead. For example:
+
+```
+public interface IMyLogger<T> : ILogger<T>
+{
+}
+
+public class MyClass
+{
+    private readonly IMyLogger<MyClass> _logger;
+
+    public MyClass(IMyLogger<MyClass> logger)
+    {
+        _logger = logger;
+    }
+
+    public void MyFunc()
+    {
+        _logger.Log(LogLevel.Error, "My Message");
+    }
+}
+```
+
+Then, you can register your custom logger interface in the `ServiceCollection` like this:
+
+```
+var services = new ServiceCollection()
+    .AddLogging(logging => logging.AddConsole())
+    .AddTransient(typeof(IMyLogger<>), typeof(Logger<>))
+    .BuildServiceProvider();
+```
+
+This will allow you to use `IMyLogger<T>` instead of `ILogger<T>` in your classes, while still using the default logging configuration.

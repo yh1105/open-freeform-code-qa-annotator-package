@@ -1,0 +1,16 @@
+The error you're encountering is because you're trying to access a list with a string index, which Python doesn't allow. List indices must be integers or slices, not strings.
+
+In your case, the list `a` contains a single string that is formatted like a JSON object. To access the 'id' value, you need to convert that string into a dictionary first. You can do this using the `json` module in Python.
+
+Here's how you can do it:
+
+```python
+import json
+
+a = ['{"id":9,"name":"Foo"}']
+dict_a = json.loads(a[0])
+
+print(dict_a['id'])
+```
+
+In this code, `json.loads(a[0])` converts the string at index 0 of list `a` into a dictionary. Then, `dict_a['id']` accesses the value of 'id' in the dictionary.

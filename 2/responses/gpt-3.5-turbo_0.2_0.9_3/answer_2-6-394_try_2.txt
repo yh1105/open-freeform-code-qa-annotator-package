@@ -1,0 +1,26 @@
+To make the injection generic, you can use the open generic registration feature of the .NET Core DI container. You can register the `IDatabaseService<T>` interface as an open generic type and then register the concrete implementation of the service for each type `T` that you need to use.
+
+Here's an example of how you can register the open generic type in your `Startup.cs` file:
+
+```
+services.AddScoped(typeof(IDatabaseService<>), typeof(ProjectService));
+services.AddScoped(typeof(IDatabaseService<>), typeof(TaskService));
+```
+
+This registers the `IDatabaseService<T>` interface as an open generic type and maps it to the `ProjectService` and `TaskService` concrete implementations.
+
+Then, in your controller, you can inject the `IDatabaseService<T>` interface with the specific type you need, like this:
+
+```
+public class ProjectController : ControllerBase
+{
+    private readonly IDatabaseService<Project> projectService;
+
+    public ProjectController(IDatabaseService<Project> projectService)
+    {
+        this.projectService = projectService;
+    }
+}
+```
+
+This is a good practice because it allows you to write reusable code that can work with different types of data. It also makes your code more maintainable and easier to test.

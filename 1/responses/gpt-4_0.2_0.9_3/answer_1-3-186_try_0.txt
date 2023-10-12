@@ -1,0 +1,45 @@
+The circular import error is happening because `app.py` is importing `make_layout` from `first_view.py`, and `first_view.py` is importing `app` from `app.py`. This creates a circular dependency.
+
+One way to solve this issue is to use a common pattern in Flask (the web framework that Dash is built on) where the `app` instance is not created in the script that is run to start the application, but is instead created in a function.
+
+Here's how you can modify your code to avoid the circular import:
+
+### app.py
+
+```python
+import dash
+from my_dash_app.views.first_view import make_layout, register_callbacks
+
+def create_app():
+    app = dash.Dash(__name__)
+    app.layout = make_layout()
+    register_callbacks(app)
+    return app
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
+```
+
+### first_view.py
+
+```python
+from dash.dependencies import Input, Output
+import dash_core_components as dcc
+import dash_html_components as html
+
+def make_layout():
+    return html.Div([
+        dcc.Input(id='my-id', value='initial value', type='text'),
+        html.Div(id='my-div')
+    ])
+
+def register_callbacks(app):
+    @app.callback(Output(component_id='my-div', component_property='children'),
+                  [Input(component_id='my-id', component_property='value')])
+    def update_output_div(input_value):
+        return 'You\'ve entered "{}"'.format(input_value)
+```
+
+In this setup, `app.py` imports the `make_layout` and `register_callbacks` functions from `first_view.py`, but `first_view.py` does not import anything from `app.py`, breaking the circular dependency. The `register_callbacks` function takes the `app` instance as an argument, allowing you to register the callbacks with the `app` instance after it has been created.

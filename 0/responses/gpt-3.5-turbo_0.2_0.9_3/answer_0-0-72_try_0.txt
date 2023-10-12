@@ -1,0 +1,17 @@
+The error message indicates that the `jmespath` module is missing. This is likely because the `nodejs10.x` runtime does not include this module by default, while the `nodejs8.10` runtime did.
+
+To fix this issue, you need to add the `jmespath` module to your project's dependencies. You can do this by adding it to your `package.json` file and then running `npm install` to install the module.
+
+Here's an example of how to add the `jmespath` module to your `package.json` file:
+
+```
+{
+  "name": "my-lambda-function",
+  "version": "1.0.0",
+  "dependencies": {
+    "jmespath": "^0.15.0"
+  }
+}
+```
+
+After adding the `jmespath` module to your dependencies, run `npm install` to install it. Then, redeploy your Lambda function and the error should be resolved.

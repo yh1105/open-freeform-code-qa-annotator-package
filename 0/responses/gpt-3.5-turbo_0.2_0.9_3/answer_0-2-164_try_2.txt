@@ -1,0 +1,24 @@
+The `.attrs()` function in styled components allows you to attach additional props to a styled component. This can be useful when you want to provide default values for props or when you want to add props that are not related to styling.
+
+Here's a simple example:
+
+```
+import styled from 'styled-components';
+
+const Button = styled.button.attrs({
+  type: 'button',
+  disabled: props => props.isLoading
+})`
+  background-color: ${props => props.disabled ? 'gray' : 'blue'};
+  color: white;
+  padding: 10px;
+`;
+
+<Button isLoading={true}>Click me</Button>
+```
+
+In this example, we're creating a `Button` component using styled components. We're using the `.attrs()` function to attach two additional props to the component: `type` and `disabled`. The `type` prop is set to `'button'` by default, and the `disabled` prop is set to `true` if the `isLoading` prop is `true`.
+
+In the styling of the component, we're using the `disabled` prop to determine the background color of the button. If `disabled` is `true`, the background color is gray, otherwise it's blue.
+
+So in summary, the `.attrs()` function allows you to attach additional props to a styled component, which can be useful for providing default values or adding props that are not related to styling.

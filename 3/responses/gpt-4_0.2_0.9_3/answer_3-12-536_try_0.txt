@@ -1,0 +1,18 @@
+In Flutter, the `FlatButton` widget does not support border color directly. If you want to create a button with a rounded border and color, you can use the `OutlinedButton` widget instead. Here's how you can do it:
+
+```dart
+OutlinedButton(
+  child: Text("Button text"),
+  onPressed: () {},
+  style: OutlinedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0),
+    ),
+    side: BorderSide(color: Colors.red, width: 2), // Specify border color here
+  ),
+)
+```
+
+In this code, `OutlinedButton.styleFrom` is used to define the button style. The `shape` property is used to set the rounded border and the `side` property is used to set the border color and width.
+
+Please note that `FlatButton` is now deprecated and it's suggested to use `TextButton` or `OutlinedButton` instead.

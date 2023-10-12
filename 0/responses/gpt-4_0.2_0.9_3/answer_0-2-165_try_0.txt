@@ -1,0 +1,31 @@
+The issue seems to be that you are adding the "active" class and then immediately toggling it off again. The line `this.classList.add("active");` adds the "active" class, but then `this.classList.toggle("active");` immediately removes it if it's present, which it is, because you just added it.
+
+Here's the corrected JavaScript:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      const active = document.querySelector(".accordion.active");
+      console.log(active);
+      if (active) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+I've removed the line `this.classList.toggle("active");` because it's not needed. The "active" class is added to the clicked element, and if there's another element with the "active" class, it's removed from that element. This should ensure that only one accordion can be active at a time.
+
+Also, please make sure that the element with the "accordion" class is actually getting the "active" class. If it's not, the `querySelector` won't be able to find it. You can check this by inspecting the element in your browser's developer tools.

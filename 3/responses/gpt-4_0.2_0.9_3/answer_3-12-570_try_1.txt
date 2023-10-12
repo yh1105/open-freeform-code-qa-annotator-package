@@ -1,0 +1,24 @@
+The issue seems to be with the indentation in your `pubspec.yaml` file. YAML files are sensitive to indentation and spaces, so you need to be careful with the structure. 
+
+Here's the corrected version of your `pubspec.yaml` file:
+
+```yaml
+name: jsondata 
+description: A new Flutter application.
+
+dependencies:  
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.0
+
+dev_dependencies:   
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+```
+
+In YAML, lists are denoted by a hyphen (-) and indentation. Make sure that the `assets:` field is indented correctly under `flutter:` and the path to your json file is indented under `assets:`. Also, ensure that there are no trailing spaces after the path to your json file.

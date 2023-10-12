@@ -1,0 +1,26 @@
+To add a custom attribute to a cookie and add an explicit `SameSite: None` to the cookie text, you can use the `SetCookie` method of the `HttpResponse` object in ASP.NET Core.
+
+Here's an example code snippet that demonstrates how to add a custom attribute to a cookie and set the `SameSite` attribute to `None`:
+
+```csharp
+// create a new cookie
+var cookieOptions = new CookieOptions
+{
+    // set the cookie options
+    Path = "/",
+    HttpOnly = true,
+    Secure = true,
+    SameSite = SameSiteMode.None
+};
+
+// add a custom attribute to the cookie
+var cookieValue = "my-cookie-value";
+var cookieText = $"{cookieValue}; SameSite=None";
+
+// set the cookie using the SetCookie method
+Response.Headers.Append("Set-Cookie", cookieText);
+```
+
+In this example, we create a new `CookieOptions` object and set the `Path`, `HttpOnly`, `Secure`, and `SameSite` properties. Then, we add a custom attribute to the cookie by appending `"; SameSite=None"` to the cookie value. Finally, we set the cookie using the `SetCookie` method of the `HttpResponse` object.
+
+Note that we are using the `Headers.Append` method instead of the `Cookies.Append` method to set the cookie. This is because the `Cookies.Append` method does not allow us to add custom attributes to the cookie.

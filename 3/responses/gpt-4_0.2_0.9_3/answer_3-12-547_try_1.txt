@@ -1,0 +1,30 @@
+In Dart, the IDE or the Dart analyzer doesn't currently have a built-in feature to enforce calling the super constructor in a derived class at compile time. However, you can use some workarounds to make sure you don't forget to call the super constructor.
+
+1. **Comments**: You can add comments to your base class constructor to remind anyone who extends the class to call the super constructor.
+
+```dart
+abstract class BaseClass {
+  final String name;
+
+  /// When extending this class, remember to call super(name: ...);
+  BaseClass({
+    @required String name,
+  }) : this.name = name;
+}
+```
+
+2. **Asserts**: You can add an assert in the base class to check if the name is null. This will throw an error at runtime if the super constructor is not called, but it won't prevent the error at compile time.
+
+```dart
+abstract class BaseClass {
+  final String name;
+
+  BaseClass({
+    @required String name,
+  }) : assert(name != null), this.name = name;
+}
+```
+
+3. **Linter rules**: Dart has a linter package that can enforce certain rules in your code. However, there's currently no rule that enforces calling the super constructor in a derived class.
+
+Remember that Dart always calls the default constructor in the superclass if you don't explicitly call a constructor. In your case, since the base class doesn't have a default constructor (a constructor with no arguments), Dart can't call it automatically, and you have to call it manually in the derived class. If you don't, Dart throws an error at runtime.

@@ -1,0 +1,16 @@
+The error you're encountering is because the `graphql-upload` package has undergone some changes in its recent versions. From version 11.0.0 onwards, the `graphqlUploadExpress` middleware has been removed. 
+
+If you want to use `graphqlUploadExpress`, you need to downgrade your `graphql-upload` package to a version below 11.0.0. You can do this by running:
+
+```bash
+npm uninstall graphql-upload
+npm install graphql-upload@10.0.0
+```
+
+Then, you should be able to import `graphqlUploadExpress` as you were trying to do:
+
+```javascript
+import { graphqlUploadExpress } from 'graphql-upload';
+```
+
+However, if you want to stick with the latest version of `graphql-upload`, you'll need to follow the new way of handling file uploads. You can refer to the [official documentation](https://github.com/jaydenseric/graphql-upload) for more information on how to do this.

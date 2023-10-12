@@ -1,0 +1,9 @@
+Yes, you can achieve the same result using the `IF` and `INDEX` functions in Excel. Here's the formula you can use:
+
+`=IFERROR(INDEX(B:B,SMALL(IF(A:A="x",ROW(A:A)),ROW(1:1))),"")`
+
+This is an array formula, so you need to enter it with `Ctrl+Shift+Enter` instead of just pressing Enter.
+
+This formula works by first checking if the value in `Column A` is equal to "x". If it is, it returns the row number of that cell. If it's not, it returns an error. The `SMALL` function then returns the nth smallest value from the resulting array of row numbers (where n is the row number of the cell where the formula is entered). Finally, the `INDEX` function returns the value in `Column B` at that row number.
+
+You can copy this formula down as many rows as you need to get all the values from `Column B` that meet the criteria. If there are no more values to return, the formula will return an empty string ("").

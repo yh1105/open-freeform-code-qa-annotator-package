@@ -1,0 +1,53 @@
+In Angular, the correct way to conditionally hide or show elements is by using the `*ngIf` directive. The `ngHide` and `ngShow` directives are from AngularJS (the first version of Angular) and won't work in Angular 2+.
+
+Here's how you can use `*ngIf` in your case:
+
+```html
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div *ngIf="!isHidden">
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+```
+
+In the above code, the `*ngIf="!isHidden"` directive will remove the `div` from the DOM when `isHidden` is `true`, and will add it back when `isHidden` is `false`.
+
+If you want to hide the element (i.e., keep it in the DOM but not visible), you can use `[hidden]="isHidden"` instead. This will add a `hidden` attribute to the `div` when `isHidden` is `true`, and will remove it when `isHidden` is `false`. Note that this may not work if you have CSS that overrides the `hidden` attribute.
+
+```html
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div [hidden]="isHidden">
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+```

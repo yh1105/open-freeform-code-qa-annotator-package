@@ -1,0 +1,29 @@
+To generate a `HashMap<String, Integer>` that contains prefixes and their occurrences, you can iterate through the list of strings and use the `getAllCommonPrefixesInList` method to get the common prefix of each string with the previous one. If the prefix is not empty and has at least 2 occurrences, you can add it to the `prefixMap` with its count. Here's an example implementation:
+
+```
+HashMap<String, Integer> prefixMap = new HashMap<String, Integer>();
+String prevStr = "";
+for (String str : strList) {
+    String prefix = getAllCommonPrefixesInList(prevStr, str);
+    if (!prefix.isEmpty()) {
+        int count = prefixMap.getOrDefault(prefix, 0);
+        prefixMap.put(prefix, count + 1);
+    }
+    prevStr = str;
+}
+```
+
+Similarly, you can generate a `HashMap<String, Integer>` that contains suffixes and their occurrences by iterating through the list of strings and using the `substring` method to get the suffix of each string with the same length as the suffix of the previous one. If the suffix is not empty and has at least 2 occurrences, you can add it to the `suffixMap` with its count. Here's an example implementation:
+
+```
+HashMap<String, Integer> suffixMap = new HashMap<String, Integer>();
+String prevSuffix = "";
+for (String str : strList) {
+    String suffix = str.substring(str.length() - prevSuffix.length());
+    if (!suffix.isEmpty()) {
+        int count = suffixMap.getOrDefault(suffix, 0);
+        suffixMap.put(suffix, count + 1);
+    }
+    prevSuffix = suffix;
+}
+```

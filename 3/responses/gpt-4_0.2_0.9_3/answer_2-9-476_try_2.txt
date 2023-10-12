@@ -1,0 +1,15 @@
+The error message indicates that the `rbenv` command is not found. This could be because `rbenv` is not installed, or the path to `rbenv` is not correctly set in your `PATH` environment variable.
+
+Here are a few things you can try to resolve this issue:
+
+1. Check if `rbenv` is installed: You can do this by running the command `which rbenv`. If `rbenv` is installed, this command will output the path to the `rbenv` executable. If `rbenv` is not installed, this command will not output anything.
+
+2. Install `rbenv` if it's not installed: If `rbenv` is not installed, you can install it using Homebrew by running the command `brew install rbenv`.
+
+3. Check your `PATH` variable: You can do this by running the command `echo $PATH`. This command will output the directories that are currently in your `PATH` variable. Make sure that the directory containing the `rbenv` executable is in your `PATH`.
+
+4. Modify your `PATH` variable: If the directory containing the `rbenv` executable is not in your `PATH`, you can add it by modifying the `export PATH="$HOME/.rbenv/bin:$PATH"` line in your `~/.zshenv` file. Replace `$HOME/.rbenv/bin` with the actual path to the directory containing the `rbenv` executable.
+
+5. Restart your shell: After making changes to your `~/.zshenv` file, you need to restart your shell for the changes to take effect. You can do this by running the command `exec $SHELL`.
+
+6. Check if the problem is resolved: After restarting your shell, open a new iTerm window and see if you still get the error message. If you do, there might be other issues that need to be addressed.

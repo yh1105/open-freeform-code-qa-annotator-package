@@ -1,0 +1,59 @@
+Based on your description, it seems like you want to split your data into multiple sheets within the same workbook based on a specific column, and you want the data in each sheet to be formatted in a certain way.
+
+Here is a simplified version of your macro that should do what you want:
+
+```vba
+Sub SplitData()
+
+    Dim OriginalWs As Worksheet
+    Dim NewWs As Worksheet
+    Dim CurrentCell As Range
+    Dim ColumnToSplit As Range
+    Dim LastRow As Long
+    Dim UniqueValues As Collection
+    Dim Value As Variant
+    
+    ' Set the original worksheet
+    Set OriginalWs = ThisWorkbook.Sheets("Sheet1")
+    
+    ' Find the last row in the column you want to split by
+    LastRow = OriginalWs.Cells(OriginalWs.Rows.Count, "A").End(xlUp).Row
+    
+    ' Set the range of cells you want to split by
+    Set ColumnToSplit = OriginalWs.Range("A2:A" & LastRow)
+    
+    ' Create a new collection to store unique values in the column
+    Set UniqueValues = New Collection
+    
+    ' Loop through each cell in the column
+    For Each CurrentCell In ColumnToSplit
+        ' Try to add the cell's value to the collection
+        On Error Resume Next
+        UniqueValues.Add CurrentCell.Value, CStr(CurrentCell.Value)
+        On Error GoTo 0
+    Next CurrentCell
+    
+    ' Loop through each unique value in the collection
+    For Each Value In UniqueValues
+        ' Add a new worksheet for the unique value
+        Set NewWs = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
+        NewWs.Name = Value
+        
+        ' Filter the original worksheet by the unique value
+        OriginalWs.Rows(1).AutoFilter Field:=1, Criteria1:=Value
+        
+        ' Copy the visible (filtered) cells to the new worksheet
+        OriginalWs.Cells.Copy Destination:=NewWs.Cells
+        
+        ' Turn off the filter in the original worksheet
+        OriginalWs.AutoFilterMode = False
+    Next Value
+
+End Sub
+```
+
+This macro will create a new worksheet for each unique value in column A of the original worksheet. It will then filter the original worksheet by that value and copy the visible cells to the new worksheet.
+
+Please replace "Sheet1" with the name of your original worksheet and "A" with the column you want to split by.
+
+You can add your formatting code to the end of the loop to format each new worksheet as desired.

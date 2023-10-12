@@ -1,0 +1,14 @@
+To import existing resources listed on a map, you can use the following command:
+```
+terraform import aws_s3_bucket.bucket[<key>] <bucket_name>
+```
+Where `<key>` is the key of the map and `<bucket_name>` is the name of the existing S3 bucket.
+
+In your case, you can use the following commands to import the existing S3 buckets:
+```
+terraform import aws_s3_bucket.bucket["logs"] logs_bucket
+terraform import aws_s3_bucket.bucket["security"] cloudtrail_bucket
+```
+Make sure to replace `cloudtrail_bucket` with the actual name of the security bucket.
+
+After importing the resources, you can apply the configuration to update the resources.

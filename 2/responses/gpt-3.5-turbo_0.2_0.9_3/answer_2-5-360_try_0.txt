@@ -1,0 +1,47 @@
+The issue is with the value of `@Value` annotation. You have used the wrong property key `main.header1.info` instead of `main.header.info`. Also, you need to use the `@ConfigurationProperties` annotation to bind the properties from the YAML file to a Java object.
+
+Here's how you can fix it:
+
+1. Create a Java class to hold the properties:
+
+```
+@Component
+@ConfigurationProperties(prefix = "main.header")
+public class SomeProperties {
+    private long info;
+
+    public long getInfo() {
+        return info;
+    }
+
+    public void setInfo(long info) {
+        this.info = info;
+    }
+}
+```
+
+2. Update the `@Value` annotation to use the `SomeProperties` class:
+
+```
+@Component
+@PropertySource("classpath:data.yml")
+public class SomeClass {
+    @Autowired
+    private SomeProperties someProperties;
+
+    public void someMethod() {
+        long info = someProperties.getInfo();
+        // use the info variable
+    }
+}
+```
+
+3. Update the YAML file to use the correct property key:
+
+```
+main:
+  header:
+    info: 3600L
+```
+
+With these changes, you should be able to inject the `info` property from the YAML file into the `SomeClass` class.

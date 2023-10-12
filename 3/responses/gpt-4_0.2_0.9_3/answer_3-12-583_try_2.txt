@@ -1,0 +1,51 @@
+The error message indicates that the Android Manifest file is not properly configured. Here are some steps to fix the issues:
+
+1. Add the `ACCESS_FINE_LOCATION` permission to your Android Manifest file. Although you have added `ACCESS_COARSE_LOCATION`, the `Geolocator` plugin requires `ACCESS_FINE_LOCATION` permission for better accuracy.
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+2. The `MainActivity` class is not found. Make sure that the `MainActivity` class is present in the correct directory. The default directory is `main/java/com/example/agent/MainActivity.kt` for Kotlin or `main/java/com/example/agent/MainActivity.java` for Java. If it's in a different directory, you need to update the `android:name` attribute in the `<activity>` tag accordingly.
+
+3. The error `Attribute android:icon is not allowed here` is because the `android:icon` attribute is not allowed in the `<application>` tag. You should move it to the `<activity>` tag.
+
+Here is the corrected Android Manifest file:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.agent">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:label="agent">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:icon="@mipmap/ic_launcher"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <meta-data
+              android:name="io.flutter.embedding.android.SplashScreenDrawable"
+              android:resource="@drawable/launch_background"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+</manifest>
+```
+
+After making these changes, clean and rebuild your project. If the problem persists, please provide more details about your project structure and configuration.

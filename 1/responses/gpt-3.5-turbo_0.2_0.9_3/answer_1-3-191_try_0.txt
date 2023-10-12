@@ -1,0 +1,11 @@
+You can use a list comprehension to iterate over the list and check if each element partially matches the `wanted` string using the `in` operator. Then, you can return the first element that matches using the `next()` function with a default value of `None` in case no match is found. Here's an example:
+
+```
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+result = next((s for s in l if wanted in s), None)
+print(result)  # 'threes'
+```
+
+In this example, the list comprehension `(s for s in l if wanted in s)` will return a generator object that yields each element `s` in `l` that contains the `wanted` string. The `next()` function will then return the first element yielded by the generator, or `None` if the generator is empty (i.e. no match is found).

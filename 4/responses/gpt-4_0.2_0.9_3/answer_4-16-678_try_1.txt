@@ -1,0 +1,21 @@
+It seems like your AWS CLI is configured to use `vi` as the default pager. The AWS CLI uses a pager to manage the output of its commands. By default, it uses the pager defined in the `AWS_PAGER` environment variable. If this variable is not set, it will use the pager defined in the `PAGER` environment variable. If neither of these variables are set, it will use `less` as the default pager.
+
+You can disable the pager by setting the `AWS_PAGER` environment variable to an empty string. You can do this in the current terminal session by running:
+
+```bash
+export AWS_PAGER=""
+```
+
+If you want to disable the pager permanently, you can add the above line to your shell's profile script. If you're using `zsh`, you can add it to the `.zshrc` file:
+
+```bash
+echo 'export AWS_PAGER=""' >> ~/.zshrc
+```
+
+Then, source the `.zshrc` file to apply the changes:
+
+```bash
+source ~/.zshrc
+```
+
+After doing this, the output of the `aws` command should be printed directly to the terminal.

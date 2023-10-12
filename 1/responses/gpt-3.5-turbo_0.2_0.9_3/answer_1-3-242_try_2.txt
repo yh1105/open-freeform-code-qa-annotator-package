@@ -1,0 +1,10 @@
+No, you cannot directly convert the entire list to a string using `str(roll)`. This will only convert the list object itself to a string, not the individual elements within the list. 
+
+To convert each element in the list to a string, you will need to iterate over the list and call `str()` on each element. One way to do this is by using a list comprehension:
+
+```
+roll = [1, 2, 3]
+roll = [str(i) for i in roll]
+```
+
+This will create a new list where each element is a string representation of the corresponding element in the original list. The resulting `roll` list will be `['1', '2', '3']`.

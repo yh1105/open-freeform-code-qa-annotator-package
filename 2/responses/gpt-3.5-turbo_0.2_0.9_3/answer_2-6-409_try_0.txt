@@ -1,0 +1,48 @@
+The error message indicates that the `key` parameter in the `ContainsKey` method call is null. This means that the `x` variable that you are using as the key is null. You can add a null check before calling the `ContainsKey` method to avoid this error. Here's an updated version of your code:
+
+```
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class Solution 
+{
+    static void Main(String[] args) 
+    {
+        string number = Console.ReadLine();
+        int n;
+        Int32.TryParse(number, out n);
+
+        var phoneBook = new Dictionary<string, string>();
+
+        for(int i = 0; i < n; i++)
+        {
+            string name = Console.ReadLine();
+            string phoneNumber = Console.ReadLine();
+            phoneBook.Add(name, phoneNumber);
+        }
+
+        foreach (var pair in phoneBook)
+        {
+            string name = pair.Key;
+            string phoneNumber = pair.Value;
+        }
+
+        string x;
+        while ((x = Console.ReadLine()) != null)
+        {
+            if (phoneBook.ContainsKey(x))
+            {
+                string result = phoneBook[x];
+                Console.WriteLine($"{x}={result}");
+            }
+            else
+            {
+                Console.WriteLine("Not Found");
+            }
+        }
+    }
+}
+```
+
+This code reads input from the user until there is no more input. It checks if the key is present in the dictionary and displays the key and its corresponding value if it is present. Otherwise, it displays "Not Found".

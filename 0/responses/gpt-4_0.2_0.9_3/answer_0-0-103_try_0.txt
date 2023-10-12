@@ -1,0 +1,34 @@
+You can use the `render` property in the column definition to format the date. The `render` function is called for each cell in that column and you can return what you want to display in that cell.
+
+First, you need to install and import `moment.js` which is a very popular date library in JavaScript.
+
+```bash
+npm install moment --save
+```
+
+Then, import it in your file:
+
+```javascript
+import moment from 'moment';
+```
+
+Then, you can use it in the `render` function like this:
+
+```javascript
+export const columns = [
+    { title: `ID`, dataIndex: `invoice_id`},
+    { title: `Invoice Number`, dataIndex: `invoice_number` },
+    { title: `Amount`, dataIndex: `invoice_amount`},
+    { title: `Store Name`, dataIndex: `store_name`},
+    { title: `Supplier Name`, dataIndex: `supplier_name`},
+    { 
+      title: `Creation Date`, 
+      dataIndex: `invoice_date`,
+      render: (date) => moment(date).format('DD-MM-YYYY')
+    },
+]
+
+<Table bordered columns={columns} dataSource={invoices_list} />
+```
+
+This will change the display format of the date in the `Creation Date` column to `DD-MM-YYYY`.

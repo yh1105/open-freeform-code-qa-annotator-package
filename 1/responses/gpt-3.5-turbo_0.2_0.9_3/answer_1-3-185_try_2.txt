@@ -1,0 +1,29 @@
+One way to improve the accuracy of the OCR is to preprocess the image before passing it to tesseract. Here are some suggestions:
+
+1. Apply image smoothing: You can use a Gaussian blur or median blur to remove noise and smooth out the image. This can help improve the accuracy of the OCR.
+
+```
+gray_filtered = cv2.inRange(gray_image, 100, 105)
+gray_filtered = cv2.medianBlur(gray_filtered, 3)
+cv2.imwrite("cleaned.png", gray_filtered)
+```
+
+2. Apply image dilation: You can use image dilation to thicken the characters and make them more prominent. This can help improve the accuracy of the OCR.
+
+```
+gray_filtered = cv2.inRange(gray_image, 100, 105)
+gray_filtered = cv2.medianBlur(gray_filtered, 3)
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+gray_filtered = cv2.dilate(gray_filtered, kernel, iterations=1)
+cv2.imwrite("cleaned.png", gray_filtered)
+```
+
+3. Use adaptive thresholding: Instead of using a fixed threshold value, you can use adaptive thresholding to automatically determine the threshold value based on the local pixel intensity. This can help improve the accuracy of the OCR.
+
+```
+gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray_filtered = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+cv2.imwrite("cleaned.png", gray_filtered)
+```
+
+You can try these preprocessing techniques and see if they improve the accuracy of the OCR.

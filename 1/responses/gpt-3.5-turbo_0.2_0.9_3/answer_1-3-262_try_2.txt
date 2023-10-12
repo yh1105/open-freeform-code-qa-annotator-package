@@ -1,0 +1,21 @@
+It looks like there may be an issue with your pip installation. You can try uninstalling and reinstalling pip to see if that resolves the issue. 
+
+To uninstall pip, you can use the following command:
+
+```
+sudo apt-get remove python3-pip
+```
+
+After that, you can reinstall pip using the following command:
+
+```
+sudo apt-get install python3-pip
+```
+
+Once pip is reinstalled, you can try installing Jupyter Notebook again using the following command:
+
+```
+pip3 install jupyter
+```
+
+If you continue to have issues, you may want to try creating a virtual environment and installing Jupyter Notebook within that environment. This can help isolate any issues with your system's Python installation.

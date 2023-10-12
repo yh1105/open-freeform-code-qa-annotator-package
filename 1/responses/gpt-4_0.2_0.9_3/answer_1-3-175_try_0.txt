@@ -1,0 +1,30 @@
+You can achieve this by using a combination of Spark SQL functions without the need for sorting or UDFs. Here is a step-by-step guide:
+
+1. First, rename the columns in the second DataFrame to avoid column name clashes when joining:
+
+```python
+df2 = df2.select([col(c).alias(c + '_df2') for c in df2.columns])
+```
+
+2. Then, join the two DataFrames on the 'id' column:
+
+```python
+df = df1.join(df2, df1.id == df2.id_df2)
+```
+
+3. Now, create a new column 'column_names' that contains the names of the columns that have different values in the two DataFrames:
+
+```python
+from pyspark.sql import functions as F
+
+df = df.withColumn("column_names", 
+                   F.array([F.when(df[c] != df[c + '_df2'], F.lit(c)) for c in df1.columns if c != 'id']).cast("array<string>"))
+```
+
+4. Finally, select the columns you are interested in and rename them back to their original names:
+
+```python
+df = df.select([col(c).alias(c.replace('_df2', '')) for c in df2.columns] + ['column_names'])
+```
+
+This will give you the desired output. The advantage of this approach is that it avoids costly operations like sorting or UDFs, which can be slow on large datasets.

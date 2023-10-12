@@ -1,0 +1,31 @@
+The error message you're seeing indicates that Spring Boot is unable to convert your `Pet` object into XML format. This is because by default, Spring Boot only configures a converter for JSON format.
+
+To enable XML format, you need to add the following dependency to your `build.gradle` file:
+
+```groovy
+implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+```
+
+This will add the Jackson XML data format library to your project, which includes the `MappingJackson2XmlHttpMessageConverter` that can convert your objects into XML format.
+
+After adding this dependency, Spring Boot should automatically configure a converter for XML format, and your XML requests should start working.
+
+If you still encounter issues, you may need to manually configure the XML converter. Here's an example of how to do this:
+
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof MappingJackson2HttpMessageConverter) {
+                MappingJackson2HttpMessageConverter jsonConverter = (MappingJackson2HttpMessageConverter) converter;
+                jsonConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "json"), new MediaType("application", "xml")));
+            }
+        }
+    }
+}
+```
+
+This code checks all the configured message converters, and if it finds the JSON converter, it adds XML as a supported media type. This way, the same converter can be used for both JSON and XML requests.

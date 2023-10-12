@@ -1,0 +1,17 @@
+The error is because you are trying to convert a list-like object (dictionary values) into an integer which is not possible. Also, your dictionary values are strings with a '%' sign, you need to remove that and convert them to float before plotting.
+
+Here is how you can do it:
+
+```python
+import matplotlib.pyplot as plt
+
+my_dict = {'Southampton': '33.7%', 'Cherbourg': '55.36%', 'Queenstown': '38.96%'}
+
+# Remove '%' sign and convert to float
+my_dict = {k: float(v.rstrip('%')) for k, v in my_dict.items()}
+
+plt.bar(my_dict.keys(), my_dict.values())
+plt.show()
+```
+
+This code first converts the dictionary values to float after removing the '%' sign. Then it uses matplotlib's `bar` function to create a bar plot. The keys of the dictionary are used as the x-values and the values of the dictionary are used as the heights of the bars. The `show` function is used to display the plot.

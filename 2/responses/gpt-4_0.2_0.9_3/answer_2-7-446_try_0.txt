@@ -1,0 +1,15 @@
+It seems like you are doing everything correctly according to the Xdebug installation guide. However, the error message in the image you provided is not visible, so I can't provide a specific solution to your problem.
+
+Here are a few general troubleshooting steps you can try:
+
+1. **Check the Xdebug installation**: Run `php -v` in your terminal. If Xdebug is correctly installed, you should see it mentioned in the output.
+
+2. **Check the path of the Xdebug extension**: Make sure the path `/opt/homebrew/lib/php/pecl/20190902/xdebug.so` is correct. You can check this by navigating to the directory and confirming the `xdebug.so` file exists.
+
+3. **Check your PHP version**: Make sure you are using the correct PHP version. You can check your PHP version by running `php -v` in your terminal. The PHP version should match the one in the path of the Xdebug extension.
+
+4. **Check your php.ini file**: Make sure you have edited the correct `php.ini` file. You can find the location of your `php.ini` file by running `php --ini` in your terminal.
+
+5. **Restart your server**: After making changes to your `php.ini` file, make sure to restart your server for the changes to take effect.
+
+If you're still having trouble, please provide the error message you're seeing when you run `php -v`. This will help in diagnosing the issue.

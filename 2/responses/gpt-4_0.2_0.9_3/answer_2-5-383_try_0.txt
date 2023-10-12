@@ -1,0 +1,22 @@
+The error message indicates that the application is unable to create the `entityManagerFactory` bean because it requires a `dataSource` or `dataSourceClassName` or `jdbcUrl`. 
+
+Since you have deleted the `dataSource()` method from `DatabaseConfig.java`, the application is unable to find the required `dataSource` bean. 
+
+The `dataSource()` method in `DatabaseConfig.java` is used to create a `DataSource` bean that is managed by Spring and can be injected wherever it is needed in your application. 
+
+The `DataSource` is a factory for connections to the physical data source that this `DataSource` object represents. An alternative to the `DataSource` interface is to configure your database connectivity by specifying the `jdbcUrl`, `username`, and `password` directly in your application properties.
+
+In your case, you have already specified these properties in your `application.yml`:
+
+```yml
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/test
+    username: test
+    password: 1234
+```
+
+So, you don't need to create a `DataSource` bean manually in `DatabaseConfig.java`. Spring Boot will automatically create a `DataSource` bean using the properties specified in `application.yml`.
+
+If you still encounter the error after removing the `dataSource()` method from `DatabaseConfig.java`, try to clean and rebuild your project. If the problem persists, please provide more details about your project configuration.

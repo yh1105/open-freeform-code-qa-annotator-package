@@ -1,0 +1,27 @@
+Yes, there is a better way to type `previousPieceSelected` in the initial state return. You can use a union type to allow it to be either a `Piece` or `undefined`. Here's how you can update your code:
+
+```
+export const useStore = defineStore("game", {
+  state: () => {
+    return {
+      moves: [],
+      gameBoard:  getInitialBoard(),
+      playerTurn: PieceColor.White,
+      previousPieceSelected: undefined as Piece | undefined
+    }
+  },
+  actions: {
+    changePlayer() {
+      this.playerTurn =
+          this.playerTurn === PieceColor.White
+            ? PieceColor.Black
+            : PieceColor.White;
+    },
+    updatePreviousPieceSelected(piece: Piece | undefined ) {
+      this.previousPieceSelected = piece
+    }
+  }
+})
+```
+
+By using `undefined as Piece | undefined`, you are telling TypeScript that `previousPieceSelected` can be either a `Piece` or `undefined`. This way, you won't get the error you were seeing before.

@@ -1,0 +1,13 @@
+The error message you're seeing is related to the version of Jacoco you're using. The version 0.8.6 of Jacoco does not support Java 15, which is used by Kotlin 1.5.10. 
+
+To fix this issue, you need to upgrade your Jacoco version to 0.8.7 which supports Java 15. 
+
+Here is how you can do it:
+
+```groovy
+jacoco {
+    toolVersion = "0.8.7"
+}
+```
+
+After updating the Jacoco version, try to run the test coverage report task again. If you still encounter issues, please let me know.

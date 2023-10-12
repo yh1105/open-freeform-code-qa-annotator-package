@@ -1,0 +1,16 @@
+You can use the `stringr` package to replace the commas inside the quotes. Here is a solution:
+
+```r
+library(stringr)
+
+string <- c("1, 2, \"something, else\"", "3, 5, \"more, more, more\"", "6, \"commas, are fun\", \"no, they are not\"")
+
+# Replace commas inside quotes
+string <- str_replace_all(string, '(?<=\")([^"]+)(?=\")', function(x) gsub(",", "", x))
+
+print(string)
+```
+
+This uses a regular expression to find all instances of text inside quotes, and then applies a function to replace all commas in that text. The `(?<=\")` and `(?=\")` parts of the regular expression are lookbehinds and lookaheads, respectively, which match the quotes but don't include them in the match. The `([^"]+)` part matches any text that isn't a quote.
+
+Please note that this solution assumes that there are no escaped quotes inside the quoted text. If there are, you would need a more complex solution.

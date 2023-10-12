@@ -1,0 +1,33 @@
+The XSRF check failed error is due to Atlassian's Cross Site Request Forgery (XSRF) protection. When you submit a form in Atlassian products, it expects a specific header (X-Atlassian-Token: no-check) to be present. This is a security measure to prevent CSRF attacks.
+
+In your case, you are submitting a form to a custom REST endpoint, so you need to include this header in your AJAX request.
+
+Here's an example of how you can modify your form submission to include the necessary header:
+
+```html
+<script>
+    AJS.$(document).ready(function() {
+        AJS.$('#your-form-id').submit(function(e) {
+            e.preventDefault();
+            var url = AJS.$(this).attr('action');
+            var data = AJS.$(this).serialize();
+            AJS.$.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-Atlassian-Token', 'no-check');
+                },
+                success: function(response) {
+                    // handle success
+                },
+                error: function(response) {
+                    // handle error
+                }
+            });
+        });
+    });
+</script>
+```
+
+In the above script, replace 'your-form-id' with the id of your form. This script uses jQuery's AJAX method to submit the form data and manually sets the 'X-Atlassian-Token' header to 'no-check'. This should prevent the XSRF check failed error from occurring.

@@ -1,0 +1,17 @@
+It seems like the issue is not with the file permissions or ownership, but with the environment variable `CATALINA_HOME`. The error message indicates that the script is unable to find the `setclasspath.sh` file in the `$CATALINA_HOME/bin` directory.
+
+You can try setting the `CATALINA_HOME` environment variable explicitly in your Dockerfile or in the command used to start the container. For example, you can add the following line to your Dockerfile:
+
+```
+ENV CATALINA_HOME /usr/local/tomcat
+```
+
+Alternatively, you can pass the environment variable as a command-line argument when starting the container:
+
+```
+docker run -e CATALINA_HOME=/usr/local/tomcat tomcat:9-jre11
+```
+
+Make sure to replace `/usr/local/tomcat` with the actual path to the Tomcat installation directory inside your container.
+
+Once you have set the `CATALINA_HOME` environment variable, the `setclasspath.sh` script should be found and sourced correctly by the `catalina.sh` script.

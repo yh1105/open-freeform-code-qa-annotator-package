@@ -1,0 +1,19 @@
+It sounds like you have already tried some of the common solutions for handling 404 errors in IIS, such as configuring custom error pages. One alternative solution you could try is to use a URL rewrite rule to redirect all requests that result in a 404 error to your custom not-found page.
+
+Here are the steps to create a URL rewrite rule in IIS:
+
+1. Open IIS Manager and select your website.
+2. Click on the "URL Rewrite" icon.
+3. Click "Add Rule(s)" in the right-hand pane.
+4. Choose "Blank Rule" and give it a name.
+5. In the "Match URL" section, set "Requested URL" to "Matches the Pattern".
+6. In the "Using" dropdown, choose "Regular Expressions".
+7. In the "Pattern" field, enter `^.*$`.
+8. In the "Conditions" section, click "Add".
+9. Set "Input" to `{RESPONSE_STATUS}` and "Pattern" to `^404$`.
+10. In the "Action" section, choose "Rewrite" and set the "Value" to the URL of your custom not-found page (e.g. `/not-found`).
+11. Click "Apply" to save the rule.
+
+This rule will match any request that results in a 404 error and redirect it to your custom not-found page. Note that this solution requires that your custom not-found page is accessible via a URL within your website, so you may need to adjust your routing configuration accordingly.
+
+I hope this helps! Let me know if you have any further questions.

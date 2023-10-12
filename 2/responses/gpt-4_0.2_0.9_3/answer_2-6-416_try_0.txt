@@ -1,0 +1,19 @@
+The error message you're seeing is due to a mismatch between the version of Entity Framework you're using and the .NET version of your project. Entity Framework 6.4.4 is not compatible with .NET 6.0. 
+
+For .NET 6.0, you should use Entity Framework Core. Entity Framework Core is a modern, lightweight, extensible, and cross-platform version of Entity Framework. 
+
+Here are the steps to install Entity Framework Core:
+
+1. Open your project in Visual Studio 2022.
+
+2. Right-click on your project in Solution Explorer and select "Manage NuGet Packages".
+
+3. In the NuGet Package Manager, click on "Browse" and search for "Microsoft.EntityFrameworkCore".
+
+4. Select the package and install it. Make sure to select a version that is compatible with .NET 6.0 (5.0.0 or later).
+
+5. Repeat the process for "Microsoft.EntityFrameworkCore.Design" and "Microsoft.EntityFrameworkCore.SqlServer" if you're using SQL Server.
+
+6. After installing these packages, you should be able to use Entity Framework Core in your project.
+
+Remember, the APIs of Entity Framework 6 and Entity Framework Core are different, so you may need to adjust your code accordingly.

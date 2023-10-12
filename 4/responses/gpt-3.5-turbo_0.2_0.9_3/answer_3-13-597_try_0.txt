@@ -1,0 +1,9 @@
+In Kotlin, you can use the `ArrayList` constructor that specifies an initial capacity just like in Java. The syntax is the same as in Java:
+
+```kotlin
+val list = ArrayList<Type>(initialCapacity)
+```
+
+So, in your case, you can use this constructor to create a `MutableList` with an initial capacity. This should result in slightly faster code, as you mentioned.
+
+Therefore, the recommended/idiomatic Kotlin solution in this case would be to use the `ArrayList` constructor with an initial capacity.

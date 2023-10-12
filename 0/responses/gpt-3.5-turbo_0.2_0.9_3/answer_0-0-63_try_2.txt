@@ -1,0 +1,41 @@
+The reason you are getting an infinite loop is that you are updating the state inside the component's body, which triggers a re-render, which updates the state again, and so on. To avoid this, you can use the `useEffect` hook to update the state only when the input values change.
+
+Here's an updated version of your code that should work:
+
+```
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        if (firstName.length >= 3 && lastName.length >= 3) {
+            setIsButtonDisabled(false);
+        } else {
+            setIsButtonDisabled(true);
+        }
+    }, [firstName, lastName]);
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    return (
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+        </>
+    );
+}
+
+export default TableFooterPanel;
+```
+
+In this updated version, the `useEffect` hook is used to update the `isButtonDisabled` state whenever the `firstName` or `lastName` values change. The `useState` hook is used to initialize the state to `true` initially.

@@ -1,0 +1,14 @@
+You can use the `cycle` function from the `itertools` module to create an iterator that cycles through the list of names. Then you can use a list comprehension to fill the 'names' column with the values from the iterator.
+
+Here's the code:
+
+```
+import itertools
+
+my_list = ['abc', 'def', 'hig']
+name_iterator = itertools.cycle(my_list)
+
+df['names'] = [next(name_iterator) for i in range(len(df))]
+```
+
+This code creates an iterator that cycles through the list of names, and then uses a list comprehension to fill the 'names' column with the values from the iterator. The `next` function is used to get the next value from the iterator, and the `range` function is used to create a sequence of integers that is the same length as the dataframe.

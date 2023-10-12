@@ -1,0 +1,35 @@
+The error message suggests that the `map-loop` function is expecting a valid CSS value, but it's receiving a map instead. This could be because you're missing a semicolon after defining the `primary` color in your `$theme-colors` map.
+
+Try updating your code to the following:
+
+```
+@import "../../node_modules/bootstrap/scss/variables";
+
+$theme-colors: (
+  "primary": #your-color-here;
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+```
+
+Make sure to replace `#your-color-here` with the actual color value you want to use.
+
+Also, make sure that you have installed the latest version of Sass (currently 1.37.5) and that you're using the correct command to compile your SCSS file. The correct command should be:
+
+```
+sass style.scss custom.css
+```
+
+If you're still having issues, try removing the `!default` flag from the `$theme-colors-rgb` variable in the Bootstrap source code. This flag is used to set a default value if the variable is not already defined, but it can sometimes cause issues when overriding variables. To remove the flag, find the following line in `_variables.scss`:
+
+```
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
+```
+
+And change it to:
+
+```
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+```
+
+Save the file and try compiling your SCSS again.

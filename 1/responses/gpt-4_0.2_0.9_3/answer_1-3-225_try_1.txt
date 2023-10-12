@@ -1,0 +1,16 @@
+The problem with your function is that it returns the result after processing the first word. The `return` statement should be outside the loop to ensure that all words are processed. Also, you need to append the processed words to a list and then join them into a string. Here's the corrected code:
+
+```python
+def pig_latin(text):
+    words = text.split()
+    result = []
+    for word in words:
+        endString = word[1:] + word[0].lower() + 'ay'
+        result.append(endString)
+    return ' '.join(result)
+
+print(pig_latin("hello how are you")) # Should be "ellohay owhay reaay ouyay"
+print(pig_latin("programming in python is fun")) # Should be "rogrammingpay niay ythonpay siay unfay"
+```
+
+This function works by splitting the input text into words, then for each word, it takes the substring from the second character to the end, appends the first character and 'ay', and adds the result to the `result` list. Finally, it joins all the words in the `result` list into a string with spaces in between.

@@ -1,0 +1,11 @@
+There are a few things you can try to resolve this issue:
+
+1. Make sure that your mobile device is connected to the same network as your computer. If they are not on the same network, the installation process may fail.
+
+2. Check if your mobile device has enough storage space to install the app. If there is not enough space, the installation process may fail.
+
+3. Try restarting both your computer and mobile device and then try running the command again.
+
+4. If none of the above solutions work, try uninstalling the app from your mobile device and then try running the command again.
+
+5. If the issue persists, try running the command with the `--verbose` flag to get more detailed information about the installation process. This may help you identify the issue and find a solution.

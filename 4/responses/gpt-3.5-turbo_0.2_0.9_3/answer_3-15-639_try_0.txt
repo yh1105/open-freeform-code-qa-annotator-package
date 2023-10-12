@@ -1,0 +1,11 @@
+It sounds like the issue may be with the button itself. Here are a few things you can try:
+
+1. Check that the button is properly linked to the macro. Right-click on the button and select "Assign Macro". Make sure the correct macro is selected.
+
+2. Check that the button is enabled. Sometimes buttons can become disabled, which would prevent them from running the macro. Right-click on the button and select "Format Control". Under the "Control" tab, make sure the "Enabled" checkbox is selected.
+
+3. Try deleting the button and creating a new one. Sometimes buttons can become corrupted, which would prevent them from running the macro. Delete the existing button and create a new one. Then, assign the macro to the new button.
+
+4. Check that the button is not hidden or obscured. Make sure the button is visible and not covered by any other objects on the sheet.
+
+Hopefully one of these solutions will help you get your macros working again via buttons.

@@ -1,0 +1,11 @@
+The issue is that the import statements are incorrect. The correct syntax for importing icons from `react-icons` is:
+
+```
+import { MdTerrain } from 'react-icons/md';
+import { TiWeatherSnow } from 'react-icons/ti';
+import { FaCalendar } from 'react-icons/fa';
+```
+
+You need to use the correct icon component name and import it from the correct path. The icon component name is a combination of the icon library name and the icon name, separated by a capital letter. For example, `MdTerrain` is the component for the `Terrain` icon from the `md` library.
+
+Also, make sure that you have saved the changes to the file after making the corrections.

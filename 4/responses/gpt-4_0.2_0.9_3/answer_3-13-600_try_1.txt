@@ -1,0 +1,60 @@
+You can achieve this by disabling the smooth scrolling in your ViewPager2. Here's how you can do it:
+
+First, create a custom ViewPager2 class:
+
+```java
+import android.content.Context;
+import androidx.viewpager2.widget.ViewPager2;
+import java.lang.reflect.Field;
+
+public class NonSwipeableViewPager2 extends ViewPager2 {
+
+    public NonSwipeableViewPager2(Context context) {
+        super(context);
+        disableSmoothScrolling();
+    }
+
+    private void disableSmoothScrolling() {
+        try {
+            Field field = ViewPager2.class.getDeclaredField("mRecyclerView");
+            field.setAccessible(true);
+            Object recyclerView = field.get(this);
+
+            Field layout = recyclerView.getClass().getDeclaredField("mLayoutManager");
+            layout.setAccessible(true);
+            Object layoutManager = layout.get(recyclerView);
+
+            Field smoothScroller = layoutManager.getClass().getDeclaredField("mSmoothScroller");
+            smoothScroller.setAccessible(true);
+            smoothScroller.set(layoutManager, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Then, use this custom ViewPager2 in your XML layout:
+
+```xml
+<your.package.name.NonSwipeableViewPager2
+    android:id="@+id/viewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+```
+
+Finally, in your activity or fragment, set up your ViewPager2 and TabLayout:
+
+```java
+NonSwipeableViewPager2 viewPager = findViewById(R.id.viewPager);
+viewPager.setAdapter(new YourFragmentStateAdapter(this));
+TabLayout tabLayout = findViewById(R.id.tabLayout);
+TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
+    tabLayout, viewPager, (tab, position) -> {
+        // set tab text or icon
+    }
+);
+tabLayoutMediator.attach();
+```
+
+Now, when you click on a tab, the ViewPager2 will switch to the corresponding page without any swiping animation.

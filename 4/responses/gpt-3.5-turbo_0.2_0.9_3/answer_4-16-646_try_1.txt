@@ -1,0 +1,9 @@
+The error message you are seeing indicates that the version of pdftk you are trying to use is not compatible with your CPU architecture. This is a common issue on newer versions of MacOS, as pdftk was originally designed for 32-bit systems and newer versions of MacOS only support 64-bit applications.
+
+One solution to this problem is to use a different tool to manipulate PDF files. There are many alternatives to pdftk that are compatible with newer versions of MacOS, such as PDFsam, PDFtk Server, and QPDF.
+
+If you still want to use pdftk, you can try installing a version that is compatible with your CPU architecture. You can check your CPU architecture by opening the Terminal and running the command `uname -m`. If the output is `x86_64`, you have a 64-bit CPU and you should download a 64-bit version of pdftk. If the output is `i386` or `ppc`, you have a 32-bit CPU and you should download a 32-bit version of pdftk.
+
+You can download a compatible version of pdftk from the following website: https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/. Make sure to select the appropriate version for your CPU architecture.
+
+Once you have downloaded the compatible version of pdftk, you can try running it again in the Terminal. If you still encounter issues, you may need to adjust your system settings to allow the application to run. You can do this by going to System Preferences > Security & Privacy > General and clicking the "Allow" button next to the message that says "pdftk was blocked from use because it is not from an identified developer."

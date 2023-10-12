@@ -1,0 +1,15 @@
+The issue might be with the way you are importing `AuthContext` in `RegisterRoutes` component. Instead of importing it as a default export, you should import it as a named export.
+
+Try changing this line:
+
+```
+import AuthContext from "../context/authContext";
+```
+
+to:
+
+```
+import { AuthContext } from "../context/authContext";
+```
+
+This should fix the issue.

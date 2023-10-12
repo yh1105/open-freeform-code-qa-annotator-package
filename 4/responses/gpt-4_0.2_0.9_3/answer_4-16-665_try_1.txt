@@ -1,0 +1,19 @@
+You can achieve this by using the `IFS` (Internal Field Separator) variable in Bash. The `IFS` variable is used in Bash to determine how word splitting will occur after expansions are performed. Here's how you can do it:
+
+```bash
+IFS=","
+echo "${data[*]}"
+```
+
+This will print out the array elements separated by commas. However, this will only change the `IFS` for this specific echo command.
+
+If you want to change `IFS` back to its default value (which is a space), you can do it like this:
+
+```bash
+oldIFS=$IFS
+IFS=","
+echo "${data[*]}"
+IFS=$oldIFS
+```
+
+This will store the old `IFS` value, change it to a comma, print the array, and then change `IFS` back to its original value. This is useful if you have more code that relies on the default `IFS` value after this part of your script.

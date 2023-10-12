@@ -1,0 +1,35 @@
+The issue might be related to the permissions required to write to external storage. Starting from Android 10, you need to request the `MANAGE_EXTERNAL_STORAGE` permission to write to external storage. 
+
+To fix the issue, you can add the following code to your `AndroidManifest.xml` file:
+
+```
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+    android:minSdkVersion="30"
+    tools:ignore="ScopedStorage" />
+```
+
+Also, you can try to use the `MediaStore` API to save the image to the gallery instead of writing to external storage directly. Here is an example:
+
+```
+private fun saveImageToGallery(bitmap: Bitmap): String? {
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, "image.jpg")
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+    }
+    val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+    return try {
+        val outputStream = uri?.let { contentResolver.openOutputStream(it) }
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream?.flush()
+        outputStream?.close()
+        uri?.toString()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+```
+
+This code will save the image to the gallery and return the URI of the saved image.

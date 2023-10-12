@@ -1,0 +1,20 @@
+In Flutter, when you use the `const` keyword before a widget like `Text`, it means you're creating a constant widget, which requires all values inside it to be constant at compile-time. This is why you're getting an "Invalid constant value" error when trying to use a non-constant `var` or `double` for the `fontSize`.
+
+The `const` keyword is used for performance optimization. When Flutter sees a `const` widget, it doesn't need to rebuild that widget in the widget tree when the parent widget changes, because it knows that widget is constant and won't change.
+
+If you want to use a variable for the `fontSize`, you can simply remove the `const` keyword:
+
+```dart
+child: Text('Calculate Client Fees',
+            style: TextStyle(fontSize: textSize),)
+```
+
+In this case, the `Text` widget will be rebuilt whenever the parent widget changes. If `textSize` is not going to change frequently and you want to optimize for performance, you could consider making it a constant:
+
+```dart
+const double textSize = 10.0;
+child: const Text('Calculate Client Fees',
+                  style: TextStyle(fontSize: textSize),)
+```
+
+This way, the `Text` widget won't need to be rebuilt when the parent widget changes.

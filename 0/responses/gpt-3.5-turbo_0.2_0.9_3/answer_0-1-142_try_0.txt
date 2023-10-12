@@ -1,0 +1,7 @@
+You can use the `:first-of-type` selector to select the first element of the four elements. Here's an example code snippet:
+
+```
+const firstElement = cy.get('[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:first-of-type');
+```
+
+This will select the first `span` element within the `offerBreakUpTableHeaderCellRenderer` element.

@@ -1,0 +1,53 @@
+The issue with your code is that you are creating a new `myInterval` variable every time the component renders. This means that when you try to clear the interval using `clearInterval(myInterval)`, it is not referring to the correct interval ID.
+
+To fix this, you can use the `useRef` hook to create a persistent reference to the interval ID. Here's an updated version of your code that should work:
+
+```
+import React, { useState, useEffect, useRef } from "react";
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
+
+  function startCounter() {
+    setIsRunning(true);
+  }
+
+  function pauseCounter() {
+    setIsRunning(false);
+  }
+
+  function resetCounter() {
+    setIsRunning(false);
+    setCounter(0);
+  }
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setCounter((counter) => counter + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning]);
+
+  return (
+    <div>
+      <p>{counter}</p>
+      {isRunning ? (
+        <button onClick={pauseCounter}>Pause</button>
+      ) : (
+        <button onClick={startCounter}>Start</button>
+      )}
+      <button onClick={resetCounter}>Reset</button>
+    </div>
+  );
+}
+```
+
+In this updated code, we use the `useRef` hook to create a reference to the interval ID. We also use the `useEffect` hook to start and stop the interval based on the `isRunning` state. Finally, we use the `return` statement in the `useEffect` hook to clear the interval when the component unmounts.
+
+I hope this helps!

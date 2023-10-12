@@ -1,0 +1,16 @@
+The error you're seeing is because you're trying to parse `scatterSeries` which is an array, not a JSON string. The `JSON.parse()` function is used to parse a JSON string and construct the JavaScript value or object described by the string.
+
+In your case, you don't need to parse `scatterSeries` because it's already an array. You can just push the parsed `ch` directly into `scatterSeries`.
+
+Here's the corrected part of your code:
+
+```javascript
+$.getJSON( "http://localhost:8080/points", function (data) {
+    console.info(data);
+    var ch = '{"name":"graphe1","items":'+JSON.stringify(data.results[1])+ '}';
+    console.info(ch);
+    scatterSeries.push(JSON.parse(ch));
+});
+```
+
+This will push the parsed `ch` object into `scatterSeries` array.

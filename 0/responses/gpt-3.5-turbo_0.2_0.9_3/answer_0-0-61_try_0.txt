@@ -1,0 +1,47 @@
+The Material-UI theme provider only applies the theme to the components within its scope. It does not apply the theme to the root element of the HTML document.
+
+To change the background color of the root element dynamically with React, you can use the `useEffect` hook to update the style of the body element when the theme changes. Here's an example:
+
+```
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const themeLight = createMuiTheme({
+  palette: {
+    background: {
+      default: "#e4f0e2"
+    }
+  },
+});
+
+const themeDark = createMuiTheme({
+  palette: {
+    background: {
+      default: "#222222",
+    }
+  },
+});
+
+function Root() {
+  const [theme, setTheme] = React.useState(themeDark);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = theme.palette.background.default;
+  }, [theme]);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  );
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'));
+```
+
+In this example, we use the `useEffect` hook to update the background color of the body element whenever the theme changes. We pass the `theme` object as a dependency to the `useEffect` hook, so it will run whenever the theme changes.
+
+Note that we're using `document.body.style.backgroundColor` to set the background color of the body element. This is because directly modifying the `body` element with React is not recommended. Instead, we're using the `style` property to modify the inline style of the `body` element.

@@ -1,0 +1,13 @@
+The error you're seeing is due to a security feature introduced in Ruby 3.0 to prevent potential security vulnerabilities when deserializing objects from YAML. By default, only a few safe classes are allowed to be deserialized.
+
+To fix this, you need to specify all the classes that your YAML file might contain in the `permitted_classes` option. In your case, it seems like you also have `Symbol` objects in your YAML file, so you need to add `Symbol` to the `permitted_classes` array.
+
+Here's how you can do it:
+
+```ruby
+hsh = YAML.load_file(some_file_name, permitted_classes: [Matrix, OpenStruct, Symbol])
+```
+
+If you encounter more `Psych::DisallowedClass` errors, you'll need to add those classes to the `permitted_classes` array as well.
+
+However, be aware that allowing arbitrary classes to be deserialized can be a security risk if the YAML data comes from an untrusted source, as it could potentially be used to execute arbitrary code. So, only add classes to the `permitted_classes` array that you trust and expect to be in the YAML data.

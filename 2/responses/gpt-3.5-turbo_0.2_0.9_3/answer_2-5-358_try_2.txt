@@ -1,0 +1,36 @@
+It's great that you are exploring different options for performing background tasks in your Android app. As you have mentioned, `AsyncTask` is a simple and easy-to-use option, but it has been deprecated since Android 11. 
+
+`ThreadPoolExecutor` is a more flexible option, but as you have mentioned, it can be cumbersome to handle communication with the UI thread using `runOnUiThread()`.
+
+One alternative you can consider is using `HandlerThread`. This is a thread that has a looper associated with it, which allows you to post messages to it and handle them on the UI thread. Here's an example of how you can use it:
+
+```
+// Create a HandlerThread
+HandlerThread handlerThread = new HandlerThread("MyHandlerThread");
+handlerThread.start();
+
+// Create a handler associated with the HandlerThread's looper
+Handler handler = new Handler(handlerThread.getLooper());
+
+// Post a message to the handler
+handler.post(new Runnable() {
+    @Override
+    public void run() {
+        // Perform your background task here
+        // ...
+
+        // Post a message to the UI thread
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Update your UI here
+                // ...
+            }
+        });
+    }
+});
+```
+
+Using `HandlerThread` can help you avoid cluttering your code with `runOnUiThread()` calls, and it also ensures that your messages are handled on the correct thread even if the user navigates away from the current activity or fragment.
+
+I hope this helps! Let me know if you have any further questions.

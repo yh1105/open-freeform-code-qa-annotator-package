@@ -1,0 +1,22 @@
+Yes, it is possible to relocate rows in `tidyverse` using the `slice()` function from `dplyr`. Here's how you can achieve the desired output:
+
+```
+library(dplyr)
+
+df %>%
+  slice(-1) %>% # remove row 1
+  bind_rows(df[1,]) # add row 1 at the end
+
+# Output
+  ID var1 var2
+1  2    b    1
+2  3    c    0
+3  4    d    0
+4  5    e    1
+5  1    a    1
+```
+
+Explanation:
+- `slice(-1)` removes the first row from the dataframe.
+- `df[1,]` selects the first row of the dataframe.
+- `bind_rows()` combines the modified dataframe (without the first row) with the first row added at the end.

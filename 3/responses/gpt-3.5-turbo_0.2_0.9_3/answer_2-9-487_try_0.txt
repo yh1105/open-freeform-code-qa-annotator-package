@@ -1,0 +1,19 @@
+It's possible that the error you're seeing is related to the SSL certificate on your Redis instance. The Heroku Redis Premium plan uses SSL encryption by default, which means that your Redis client needs to verify the SSL certificate presented by the Redis server.
+
+One possible cause of the error you're seeing is that your Redis client is not configured to trust the SSL certificate presented by the Redis server. This could be because the certificate is self-signed or because it was signed by a certificate authority that your Redis client doesn't trust.
+
+To fix this issue, you may need to update your Redis client's SSL configuration to trust the certificate presented by the Redis server. The exact steps to do this will depend on the Redis client you're using and how it's configured.
+
+If you're using the Redis gem in your Ruby on Rails application, you can try adding the following code to your `config/initializers/redis.rb` file:
+
+```
+require 'redis'
+require 'redis/connection/hiredis'
+require 'redis-ssl'
+
+Redis.current = Redis.new(url: ENV['REDIS_URL'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_PEER })
+```
+
+This will configure the Redis client to verify the SSL certificate presented by the Redis server.
+
+If this doesn't work, you may need to contact Heroku support for further assistance. They should be able to help you troubleshoot the issue and determine if there's a problem with your Redis instance or your Redis client configuration.

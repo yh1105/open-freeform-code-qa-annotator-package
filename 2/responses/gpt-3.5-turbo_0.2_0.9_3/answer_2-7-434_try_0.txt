@@ -1,0 +1,37 @@
+The `AbstractController::getDoctrine()` method has been deprecated in Symfony 5.1 and will be removed in Symfony 6.0. The recommended alternative is to use dependency injection to inject the `Doctrine\Common\Persistence\ManagerRegistry` service into your controller.
+
+Here's an example of how to do this:
+
+```
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class MyController extends AbstractController
+{
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
+    public function myAction()
+    {
+        $entityManager = $this->doctrine->getManager();
+        // ...
+    }
+}
+```
+
+In this example, we inject the `ManagerRegistry` service into the controller's constructor and store it in a private property. Then, in the `myAction()` method, we retrieve the `EntityManager` from the `ManagerRegistry` and use it as needed.
+
+Note that you'll need to update your service configuration to inject the `ManagerRegistry` service into your controller. Here's an example of how to do this in YAML:
+
+```
+services:
+    App\Controller\MyController:
+        arguments:
+            $doctrine: '@doctrine'
+```
+
+This assumes that you're using the default service name for the `ManagerRegistry` service, which is `doctrine`. If you've customized this name, you'll need to update the service configuration accordingly.

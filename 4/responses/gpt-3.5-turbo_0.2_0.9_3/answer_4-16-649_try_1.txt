@@ -1,0 +1,12 @@
+You can use the following command to calculate the difference between the start time and end time:
+
+```
+start_time="2020-05-21 05:52:47"
+end_time="2020-05-28 19:37:36"
+duration=$(($(date -d "$end_time" +%s) - $(date -d "$start_time" +%s)))
+printf '%d year(s), %d month(s), %d day(s), %02d:%02d:%02d\n' $(($duration/31536000)) $(($duration%31536000/2592000)) $(($duration%2592000/86400)) $(($duration/3600%24)) $(($duration/60%60)) $(($duration%60))
+```
+
+Replace the `start_time` and `end_time` variables with the output you got from the previous command.
+
+This will give you the duration in the format you specified.

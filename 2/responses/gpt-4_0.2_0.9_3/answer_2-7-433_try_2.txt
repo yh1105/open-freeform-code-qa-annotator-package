@@ -1,0 +1,15 @@
+The error message is indicating that the PHP setting `allow_url_fopen` is disabled in your server's `php.ini` configuration file. This setting is required by Composer to download packages from the internet.
+
+Here are the steps to enable `allow_url_fopen`:
+
+1. Login to your cPanel.
+2. Navigate to the "Select PHP Version" section.
+3. Click on the "Switch To PHP Options" link.
+4. Find the `allow_url_fopen` option and change it to "On".
+5. Click the "Save" button to apply the changes.
+
+If you don't have access to change PHP settings via cPanel, you will need to contact your hosting provider and ask them to enable the `allow_url_fopen` setting for you.
+
+After enabling `allow_url_fopen`, try running `composer update` again. If you still encounter issues, make sure that the PHP `curl` extension is installed and enabled, as the warning message suggests. This can also be done in the "Select PHP Version" section of cPanel.
+
+If you're still having trouble after these steps, please provide more details about your server environment and the exact error messages you're seeing.

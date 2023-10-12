@@ -1,0 +1,13 @@
+You can achieve this by checking if the string contains `_` using the `in` keyword. If it does, then split the string and extract the second element onwards. Otherwise, just return the original string.
+
+Here's the code to achieve this:
+```
+if '_' in string:
+    split_string = '_'.join(string.split('_')[1:])
+else:
+    split_string = string
+```
+
+This code first checks if `_` is present in the string using the `in` keyword. If it is present, then it splits the string using `_` as the delimiter and extracts the second element onwards using slicing. Finally, it joins the extracted elements using `_` as the separator to get the desired output.
+
+If `_` is not present in the string, then it simply assigns the original string to the `split_string` variable.

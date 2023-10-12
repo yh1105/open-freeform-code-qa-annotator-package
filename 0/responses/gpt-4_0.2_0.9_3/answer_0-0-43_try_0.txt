@@ -1,0 +1,9 @@
+The `--downlevelIteration` flag is necessary when targeting ES5 and lower because these versions of ECMAScript do not natively support iteration protocols used by the spread operator `...` and other new ECMAScript features.
+
+In ES6 and later, many built-in types have default iterators, which make them compatible with new language features like the spread operator, for-of loops, and destructuring assignment. When you use these features with an iterable object, the TypeScript compiler generates code that uses these default iterators.
+
+However, in ES5 and earlier, these default iterators do not exist. So, if you're targeting ES5 and you use a feature like the spread operator with an iterable object, the TypeScript compiler doesn't know how to handle it. That's why you get the error message.
+
+When you enable `--downlevelIteration`, the TypeScript compiler generates additional code to implement the ES6 iteration protocol in ES5 and earlier. This allows you to use new ECMAScript features like the spread operator with iterable objects, even when targeting older ECMAScript versions.
+
+As for the downsides, as you've mentioned, enabling `--downlevelIteration` can result in more code being generated, which could increase the size of your scripts. It can also potentially introduce performance overhead due to the additional iteration code. However, in many cases, these downsides are likely to be negligible compared to the benefits of being able to use new language features.

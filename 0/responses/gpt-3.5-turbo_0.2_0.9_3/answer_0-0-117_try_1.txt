@@ -1,0 +1,7 @@
+Great question! It's important to keep API keys secure to prevent unauthorized access to your API. One way to handle this is to store the API key on the server-side and make requests to the API through a backend server. This way, the API key is not exposed to the client-side code. 
+
+If you don't have a backend server, you can use environment variables to store the API key on the client-side. This way, the API key is not hard-coded in your code and is not visible in your code repository. You can use a package like dotenv to manage environment variables in your React app. 
+
+Another option is to use a service like AWS Secrets Manager or Google Cloud Secret Manager to securely store and manage your API keys. These services allow you to store and retrieve secrets securely, and you can access them from your code using the appropriate SDK. 
+
+In any case, it's important to keep your API keys secure and not expose them in your code or in public repositories.

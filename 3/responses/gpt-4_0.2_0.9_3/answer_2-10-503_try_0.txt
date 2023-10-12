@@ -1,0 +1,19 @@
+Yes, your solution is correct. The `values()` method of a `HashMap` returns an iterator over the values of the map. Since these values are borrowed, you need to clone them to get owned values that you can store in a `Vec`. 
+
+Here is the correct way to do it:
+
+```rust
+let all_scores: Vec<Score> = score_table.values().cloned().collect();
+```
+
+This will create a new `Vec` containing all the `Score` values in the `HashMap`. The `cloned()` method is used to create a copy of each value, and `collect()` is used to gather these cloned values into a `Vec`.
+
+This is a good way to do it if the `Score` type implements the `Clone` trait and if it's okay to clone the scores. If the `Score` type is large or expensive to clone, you might want to consider using a `Vec<&Score>` to store references to the scores instead of cloning them. 
+
+If you want to avoid cloning and it's okay to consume the `HashMap`, you can use `drain()` method:
+
+```rust
+let all_scores: Vec<Score> = score_table.drain().map(|(_, v)| v).collect();
+```
+
+This will empty the `HashMap` and move the values into a `Vec`.

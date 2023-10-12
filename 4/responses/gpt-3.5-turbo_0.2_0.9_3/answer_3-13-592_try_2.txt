@@ -1,0 +1,26 @@
+In the latest version of androidx library, you need to use `ViewModelProvider(this).get(SheduleViewModel::class.java)` instead of `ViewModelProvider.of(this).get(SheduleViewModel::class.java)`.
+
+Here is the updated code:
+
+```
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+        binding.setLifecycleOwner(this)
+
+        var model = ViewModelProvider(this).get(SheduleViewModel::class.java)
+
+    }
+}
+```
+
+This should resolve the issue.

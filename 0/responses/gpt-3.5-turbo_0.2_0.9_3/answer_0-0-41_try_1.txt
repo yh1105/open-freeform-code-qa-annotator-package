@@ -1,0 +1,27 @@
+The issue is that `getCurrentPosition()` is an asynchronous function, which means that the code inside the `if` block will continue to execute while the browser is asking the user for permission to access their location. If the user denies permission, the code inside the `else` block will not be executed because it is outside of the `getCurrentPosition()` function.
+
+To fix this, you can pass a second function as an argument to `getCurrentPosition()`. This function will be called if the user denies permission or if there is an error getting the location. Here's an updated version of your code:
+
+```
+ngOnInit() {
+  this.getUserLocation();
+}
+
+getUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+      },
+      error => {
+        console.log("Error getting location:", error);
+      }
+    );
+  } else {
+    console.log("Geolocation not supported by browser.");
+  }
+}
+```
+
+Now, if the user denies permission or there is an error getting the location, the code inside the second function will be executed.

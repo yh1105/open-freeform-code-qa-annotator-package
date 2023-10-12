@@ -1,0 +1,46 @@
+To parse the JSON data, you can use the `JSONDecoder` class provided by Swift. You need to define a `Codable` struct that matches the structure of your JSON data. Here is an example of how you can do it:
+
+First, define the `Codable` structs:
+
+```swift
+struct ApiResponse: Codable {
+    let status: String
+    let data: NetworkData
+}
+
+struct NetworkData: Codable {
+    let network: String
+    let prices: [PriceData]
+}
+
+struct PriceData: Codable {
+    let price: String
+    let price_base: String
+    let exchange: String
+    let time: Int
+}
+```
+
+Then, in your `api()` function, you can decode the JSON data like this:
+
+```swift
+func api() {
+    guard let url = URL(string: "https://sochain.com//api/v2/get_price/DOGE/USD") else { return }
+
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+
+        do {
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(ApiResponse.self, from: data)
+            print(response.data.prices[0].price) // prints the price of the first item in the prices array
+        } catch {
+            print("Error: \(error)")
+        }
+    }
+
+    task.resume()
+}
+```
+
+This will print the price of the first item in the `prices` array. If you want to access all prices, you can loop through the `prices` array.

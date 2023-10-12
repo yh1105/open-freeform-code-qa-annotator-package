@@ -1,0 +1,11 @@
+To reference an environment variable in a GitHub Actions workflow, you can use the `${{ env.VARIABLE_NAME }}` syntax. In your case, you can try the following:
+
+```
+- name: Checkout repo  
+  uses: actions/checkout@v2
+  with:
+    repository: 'MyOrg/MyRepo'
+    ref: ${{ env.CURRENT_BRANCH }}
+```
+
+This should evaluate the `CURRENT_BRANCH` environment variable and use its value as the `ref` parameter for the `actions/checkout` action.

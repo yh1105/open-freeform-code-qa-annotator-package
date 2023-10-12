@@ -1,0 +1,48 @@
+To post data to a URL body in Flutter WebView, you can use the `postUrl` method of the `WebView` class. Here's an example:
+
+```dart
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+class MyWebView extends StatefulWidget {
+  final String url;
+  final Map<String, dynamic> postData;
+
+  MyWebView({this.url, this.postData});
+
+  @override
+  _MyWebViewState createState() => _MyWebViewState();
+}
+
+class _MyWebViewState extends State<MyWebView> {
+  WebViewController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WebView(
+        initialUrl: widget.url,
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+          _postFormData();
+        },
+      ),
+    );
+  }
+
+  void _postFormData() async {
+    if (widget.postData != null) {
+      final postData = utf8.encode(json.encode(widget.postData));
+      await _controller.postUrl(Uri.parse(widget.url), body: postData);
+    }
+  }
+}
+```
+
+In this example, we create a `MyWebView` widget that takes a `url` and a `postData` parameter. The `postData` parameter is a map of key-value pairs that we want to post to the URL body.
+
+In the `_MyWebViewState` class, we create a `WebViewController` and use the `postUrl` method to post the `postData` to the URL body. We call the `_postFormData` method in the `onWebViewCreated` callback to ensure that the data is posted as soon as the WebView is created.
+
+Note that we encode the `postData` as JSON and then encode it as UTF-8 before passing it to the `postUrl` method. This is because the `postUrl` method expects the data to be in bytes.

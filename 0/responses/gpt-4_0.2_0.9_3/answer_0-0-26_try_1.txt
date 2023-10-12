@@ -1,0 +1,23 @@
+The ESLint error you're seeing is because the anonymous function you're using for the `render` property in your column definition doesn't have a `displayName` property. This is a requirement from the `react/display-name` rule in ESLint.
+
+The `displayName` string is used in debugging messages. Usually, you don’t need to set it explicitly because it’s inferred from the name of the function or class that defines the component. You might want to set it explicitly if you want to display a different name for debugging purposes or when you create a higher-order component.
+
+In your case, you can fix this by either disabling the rule for that line or by creating a named function and using that for the `render` property. Here's how you can do the latter:
+
+```jsx
+function RenderGroupText(text) {
+  return <span>{getCountForCountry(text)}</span>;
+}
+RenderGroupText.displayName = 'RenderGroupText';
+
+const columns_payment_summary_table = [
+  {
+    title: FooConstants.LABEL_QUANTITY_SELECTED,
+    dataIndex: 'group',
+    key: 'group',
+    render: RenderGroupText,
+  },
+];
+```
+
+This way, you're creating a named function component with a `displayName` and using that for the `render` property. This should satisfy the ESLint rule.

@@ -1,0 +1,16 @@
+The issue with your code is that you are checking if the entire input string is present in the `correct` string, which is not what you want to do. Instead, you should check if each character in the input string is present in the `correct` string. Here's a modified version of your code that should work:
+
+```
+import string
+text = input("Enter: ")
+correct = string.ascii_letters + string.digits
+success = True
+for char in text:
+    if char not in correct:
+        success = False
+        break
+if success:
+    print("Success")
+```
+
+This code loops through each character in the input string and checks if it is present in the `correct` string. If any character is not present, the `success` variable is set to `False` and the loop is broken. If all characters are present, `success` remains `True` and the "Success" message is printed.

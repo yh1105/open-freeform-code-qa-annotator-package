@@ -1,0 +1,54 @@
+The `java.lang.AbstractMethodError` occurs when a class that implements an interface or extends an abstract class does not implement all the abstract methods of the interface or abstract class. In your case, the error is occurring because of a version incompatibility between `rest-assured` and `spring-mock-mvc`.
+
+To resolve this issue, you can try updating the version of `spring-mock-mvc` to `2.2.1.RELEASE`, which is compatible with `rest-assured` version `4.3.0`. You can also remove the `org.hamcrest.Matchers.*` import as it is not needed.
+
+Here's the updated `pom.xml` file:
+
+```
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- JUnit -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>spring-mock-mvc</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-path</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/xml-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>xml-path</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.3.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+After updating the `pom.xml` file, run `mvn clean test` to rebuild and run the test. It should now pass without any errors.

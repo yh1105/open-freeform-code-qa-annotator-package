@@ -1,0 +1,15 @@
+The error message you're seeing is related to the Jacoco plugin. It seems like the Jacoco version you're using is not compatible with the Java version you're using.
+
+The Jacoco version 0.8.6 is not compatible with Java 15 and above. If you're using Java 15 or above, you should upgrade your Jacoco version to 0.8.7 or later.
+
+You can do this by changing the toolVersion in your Jacoco block:
+
+```groovy
+jacoco {
+    toolVersion = "0.8.7"
+}
+```
+
+If you're not using Java 15 or above, then the issue might be related to something else. In that case, you might want to try cleaning your project and rebuilding it. If the problem persists, you might want to try invalidating caches and restarting Android Studio. 
+
+If none of these solutions work, please provide more information about your setup (e.g., Java version, Gradle version, Android Studio version, etc.) so I can give a more accurate solution.

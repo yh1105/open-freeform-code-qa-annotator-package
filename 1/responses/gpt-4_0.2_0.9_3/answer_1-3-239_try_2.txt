@@ -1,0 +1,23 @@
+Homebrew does not provide options to install previous versions of packages directly. However, you can install a specific version of Python using Homebrew with a little workaround.
+
+Here's how you can do it:
+
+1. Tap into the Homebrew versions by running the following command in your terminal:
+
+    ```bash
+    brew tap-new local/old-python
+    ```
+
+2. Create a new formula for the Python version you want. For example, for Python 3.6.5:
+
+    ```bash
+    brew extract --version=3.6.5 python local/old-python
+    ```
+
+3. Now you can install Python 3.6.5 with:
+
+    ```bash
+    brew install local/old-python/python@3.6.5
+    ```
+
+Please note that this is not the recommended way to manage multiple versions of Python on your system. Tools like `pyenv` are designed specifically for this purpose and are generally more reliable and easier to use.

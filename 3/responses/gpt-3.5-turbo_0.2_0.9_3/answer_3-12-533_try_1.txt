@@ -1,0 +1,43 @@
+You can try wrapping the `QQBody` widget with a `Container` and setting its `color` property to `Colors.transparent`. This will make the `Container` clickable and allow the `GestureDetector` to detect taps on the entire screen.
+
+Here's the updated code:
+
+```
+class QQHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('QuoteQuota'),
+        ),
+        body: GestureDetector(
+          onTap: () => print('Tapped'),
+          child: Container(
+            color: Colors.transparent,
+            child: QQBody(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QQBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Hello, World!'
+      ),
+    );
+  }
+}
+``` 
+
+With this change, you should be able to detect taps on the entire screen.

@@ -1,0 +1,13 @@
+Hello Tenttu,
+
+It seems like you've already identified the issue correctly. The error message you're receiving is typically related to permissions, but as you've mentioned, your account is a Global Admin and you haven't made any changes to the roles. 
+
+This, combined with the fact that many others are experiencing the same issue, strongly suggests that the problem is on Microsoft's end. 
+
+The best course of action in this situation is exactly what you've done: open a ticket with Microsoft. They should be able to provide more information and hopefully a resolution. 
+
+In the meantime, you can monitor the status of the issue (EX280152) on the Microsoft 365 Service Health dashboard. 
+
+I hope the issue gets resolved soon. If you have any other questions or need further assistance, feel free to ask.
+
+Best regards.

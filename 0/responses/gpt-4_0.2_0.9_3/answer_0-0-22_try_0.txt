@@ -1,0 +1,37 @@
+In React Navigation v5, you can hide the tab bar by using the `tabBarVisible` option in the `options` prop of the `Tab.Screen` component. 
+
+Here's how you can modify your code to hide the tab bar on the Settings screen:
+
+```jsx
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={ProfileStackScreen} />
+        <Tab.Screen 
+          name="Settings" 
+          component={SettingsStackScreen} 
+          options={{ tabBarVisible: false }} // This line hides the tab bar
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+In this code, `tabBarVisible: false` hides the tab bar on the Settings screen. If you want to hide the tab bar on all screens, you can set `tabBarVisible: false` in the `options` prop of the `Tab.Navigator` component:
+
+```jsx
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{ tabBarVisible: false }}>
+        <Tab.Screen name="Home" component={ProfileStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+In this code, `screenOptions={{ tabBarVisible: false }}` hides the tab bar on all screens.

@@ -1,0 +1,24 @@
+The error message indicates that Gradle is unable to find the Android Gradle plugin with version 7.1.2. This could be due to a few reasons:
+
+1. The Android Gradle plugin version is not compatible with your Gradle version. You need to ensure that your Gradle version is compatible with the Android Gradle plugin version. You can check the compatibility from the official Android Developers website.
+
+2. The Android Gradle plugin version 7.1.2 might not be available yet. As of my knowledge, the latest stable version is 7.0.4. You can try downgrading the version to 7.0.4 or the latest stable version available at your time.
+
+To do this, open your `build.gradle` file (Project level) and change the classpath in the dependencies block to the latest stable version:
+
+```gradle
+dependencies {
+    classpath 'com.android.tools.build:gradle:7.0.4'
+}
+```
+
+Also, make sure that you have the correct repositories in your `build.gradle` file:
+
+```gradle
+repositories {
+    google()
+    mavenCentral()
+}
+```
+
+After making these changes, try to sync your project again. If the problem persists, try invalidating caches and restarting Android Studio (File -> Invalidate Caches / Restart... -> Invalidate and Restart).

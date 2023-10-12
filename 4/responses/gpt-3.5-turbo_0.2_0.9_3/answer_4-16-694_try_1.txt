@@ -1,0 +1,11 @@
+You can use a regular expression to extract the language code from the HTML content. Here's an example using `grep` and `sed`:
+
+```
+curl -Ls stick-it.app | grep -oP 'lang="\K[^"]+' | sed -n '1p'
+```
+
+This command searches for the `lang` attribute in the HTML content using a regular expression. The `-o` option tells `grep` to output only the matched text, and the `-P` option enables Perl-compatible regular expressions. The `\K` escape sequence resets the match start, so that only the language code is captured. The `[^"]+` pattern matches one or more characters that are not a double quote, which corresponds to the language code.
+
+The output of `grep` is then piped to `sed`, which extracts the first line of the output using the `-n` option and the `1p` command. This is necessary because `grep` may match multiple lines, and we only want the first one.
+
+This command should work for most cases, but keep in mind that it relies on the `lang` attribute being present and correctly formatted in the HTML content. If the page uses a different attribute or format to specify the language, this command may not work.

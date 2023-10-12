@@ -1,0 +1,7 @@
+Yes, it is correct to say that the keyword `new` as it is used in a new expression is an operator. In fact, the C++ standard defines `new` as a "new-expression" operator. 
+
+An operator is a symbol or keyword that represents an operation to be performed on one or more operands. In the case of `new`, it is used to allocate memory for an object and construct the object in that memory. This is similar to other operators like `+` which perform addition on operands.
+
+The term "new operator" is often used interchangeably with "new expression" because the `new` keyword is used to create a new object and allocate memory for it. However, it is important to note that `new` is not a standalone operator like `+` or `-`. It is a keyword that is used as part of a new expression to allocate memory and construct an object.
+
+In summary, it is correct to call the `new` keyword an operator when used in a new expression, but it is not a standalone operator like other operators in C++.

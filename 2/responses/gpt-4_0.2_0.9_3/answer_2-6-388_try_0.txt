@@ -1,0 +1,15 @@
+The `[Keyless]` attribute is part of the `Microsoft.EntityFrameworkCore` namespace, not `System.ComponentModel.DataAnnotations`. So, you need to make sure you have the correct using statement at the top of your file:
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+```
+
+Also, ensure that you have the appropriate Entity Framework Core package installed. If you're using .NET Core 3.x, you should have the `Microsoft.EntityFrameworkCore` package version `3.x` installed. If you're using .NET 5, you should have the `Microsoft.EntityFrameworkCore` package version `5.x` installed.
+
+You can check this in your project file (.csproj) or via the NuGet package manager in Visual Studio. If you're not sure, you can always install or update it via the NuGet package manager console:
+
+```shell
+Install-Package Microsoft.EntityFrameworkCore -Version 5.0.0
+```
+
+Replace `5.0.0` with the version that matches your .NET version.

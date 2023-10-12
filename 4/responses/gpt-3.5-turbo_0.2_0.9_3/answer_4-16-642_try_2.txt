@@ -1,0 +1,15 @@
+Yes, I understand your concern. One way to convert the hashtable to a PSCustomObject is to use the `ConvertTo-Json` cmdlet and then `ConvertFrom-Json` cmdlet. Here's an example:
+
+```
+$psdnode = Import-PowerShellDataFile .\nodefile.psd1
+$json = $psdnode | ConvertTo-Json -Depth 10
+$psobject = $json | ConvertFrom-Json
+
+$psobject.GetType()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     False    PSCustomObject                           System.Object
+```
+
+Now you can navigate the data structure using dot notation and it will be much easier to work with.

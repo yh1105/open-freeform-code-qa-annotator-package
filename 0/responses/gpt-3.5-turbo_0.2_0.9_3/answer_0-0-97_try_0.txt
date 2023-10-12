@@ -1,0 +1,42 @@
+To solve the issue of not being able to scroll left when selecting the last tab, you can add some JavaScript code to scroll the tab header container to the left when the last tab is selected. Here's how you can do it:
+
+1. Add a reference to the tab group element in your component:
+
+```
+@ViewChild(MatTabGroup) tabGroup: MatTabGroup;
+```
+
+2. Add an event listener to the tab group's `selectedIndexChange` event:
+
+```
+ngAfterViewInit(): void {
+  // Remove pagination buttons
+  document.getElementsByClassName('mat-tab-header-pagination-before')[0].remove();
+  document.getElementsByClassName('mat-tab-header-pagination-after')[0].remove();
+
+  // Add event listener to selectedIndexChange event
+  this.tabGroup.selectedIndexChange.subscribe(index => {
+    const tabHeaderContainer = document.querySelector('.mat-tab-header-container');
+    const selectedTab = document.querySelector('.mat-tab-label-active');
+    const selectedTabLeft = selectedTab.getBoundingClientRect().left;
+    const tabHeaderContainerLeft = tabHeaderContainer.getBoundingClientRect().left;
+    const tabHeaderContainerScrollLeft = tabHeaderContainer.scrollLeft;
+    const tabHeaderContainerWidth = tabHeaderContainer.offsetWidth;
+    const selectedTabWidth = selectedTab.offsetWidth;
+    const selectedTabRight = selectedTabLeft + selectedTabWidth;
+    const tabHeaderContainerRight = tabHeaderContainerLeft + tabHeaderContainerWidth;
+
+    if (selectedTabRight > tabHeaderContainerRight) {
+      // Scroll tab header container to the right to show selected tab
+      tabHeaderContainer.scrollLeft += (selectedTabRight - tabHeaderContainerRight);
+    } else if (selectedTabLeft < tabHeaderContainerLeft) {
+      // Scroll tab header container to the left to show selected tab
+      tabHeaderContainer.scrollLeft -= (tabHeaderContainerLeft - selectedTabLeft);
+    }
+  });
+}
+```
+
+This code listens for changes to the selected tab index and calculates the position of the selected tab and the tab header container. If the selected tab is outside the visible area of the tab header container, it scrolls the container to show the selected tab.
+
+With this code, you should be able to scroll left and right to see all the tabs, even when selecting the last tab.

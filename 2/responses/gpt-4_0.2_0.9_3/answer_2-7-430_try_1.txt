@@ -1,0 +1,59 @@
+It seems like you have done everything correctly. However, starting from EasyAdmin 3, the configuration has changed a bit. The `/admin` route is no longer automatically configured. You need to create a DashboardController and configure the route manually.
+
+Here's how you can do it:
+
+1. Create a new DashboardController:
+
+```bash
+symfony console make:admin:dashboard
+```
+
+This will create a new `DashboardController.php` file in the `src/Controller/Admin` directory.
+
+2. Open the `DashboardController.php` file and you should see something like this:
+
+```php
+namespace App\Controller\Admin;
+
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class DashboardController extends AbstractDashboardController
+{
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function index(): Response
+    {
+        return parent::index();
+    }
+
+    public function configureDashboard(): Dashboard
+    {
+        return Dashboard::new()
+            // the name visible to end users
+            ->setTitle('Your Project Name')
+            // you can include HTML contents too (e.g. to link to an image)
+            ->setTitle('<img src="..."> ACME <span class="text-small">Corp.</span>')
+            // the path defined in this method is passed to the Twig asset() function
+            ->setFaviconPath('favicon.svg')
+            // the domain used by default is 'messages'
+            ->setTranslationDomain('messages')
+        ;
+    }
+}
+```
+
+3. Now, if you run `symfony console debug:router`, you should see the `/admin` route.
+
+If you still don't see the `/admin` route, make sure that your routes are being imported correctly in the `config/routes.yaml` file. It should look something like this:
+
+```yaml
+easy_admin_bundle:
+    resource: '../src/Controller/'
+    type: annotation
+```
+
+This will import all routes from the controllers in the `src/Controller/` directory.

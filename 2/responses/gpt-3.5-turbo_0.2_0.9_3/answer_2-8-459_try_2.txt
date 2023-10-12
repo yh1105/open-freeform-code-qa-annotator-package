@@ -1,0 +1,31 @@
+It seems like the issue is related to the module cache on computer B. The module cache is where Go stores downloaded modules and their versions. If the module cache is not up-to-date or corrupted, it can cause issues like the one you are experiencing.
+
+Here are some steps you can take to debug the issue:
+
+1. Check the module cache on computer B: You can check the module cache by running the following command:
+
+   ```
+   go env GOMODCACHE
+   ```
+
+   This will print the path to the module cache. Check if the module that is failing to download is present in the cache. If it is not, then the module was not downloaded correctly.
+
+2. Clear the module cache: If the module is not present in the cache or the cache is corrupted, you can clear the cache by running the following command:
+
+   ```
+   go clean -modcache
+   ```
+
+   This will delete the entire module cache. After running this command, try building the program again.
+
+3. Check the network connection: If the module cache is not the issue, then it could be a network issue. Check if computer B has access to the internet and can connect to the private repo. You can try running the following command to download the module manually:
+
+   ```
+   go get github.ibm.com/kms/key-protect-client@v0.1.5
+   ```
+
+   If this command fails, then there is likely an issue with the network connection or access to the private repo.
+
+4. Check the version of Go: Make sure that both computers are running the same version of Go. If one computer is running an older version of Go, it may not be able to download the module correctly.
+
+I hope these steps help you debug the issue. Let me know if you have any further questions or concerns.

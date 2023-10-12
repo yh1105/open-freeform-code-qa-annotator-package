@@ -1,0 +1,31 @@
+The error message you're seeing indicates that Spring Boot is unable to convert your `Pet` object into XML format. This is because, by default, Spring Boot only configures Jackson to convert objects to and from JSON format.
+
+To enable XML format, you need to add the following dependency to your `build.gradle` file:
+
+```groovy
+implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+```
+
+This will add Jackson's dataformat-xml module to your project, which provides the necessary functionality to convert objects to and from XML format.
+
+After adding this dependency, Spring Boot should be able to automatically configure a `MappingJackson2XmlHttpMessageConverter` bean, which can convert objects to XML format.
+
+If you still encounter issues after adding this dependency, you might need to manually configure the `HttpMessageConverter` bean. Here's an example of how to do this:
+
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof MappingJackson2HttpMessageConverter) {
+                MappingJackson2HttpMessageConverter jsonConverter = (MappingJackson2HttpMessageConverter) converter;
+                jsonConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "json"), new MediaType("application", "xml")));
+            }
+        }
+    }
+}
+```
+
+This configuration class extends the `WebMvcConfigurer` interface and overrides the `extendMessageConverters` method. This method is called during startup and allows you to modify the list of `HttpMessageConverter` beans that Spring Boot has configured. In this case, we're adding `application/xml` as a supported media type for the `MappingJackson2HttpMessageConverter` bean.

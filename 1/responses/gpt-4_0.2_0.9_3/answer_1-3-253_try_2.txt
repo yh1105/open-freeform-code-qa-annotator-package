@@ -1,0 +1,33 @@
+The operation you're performing is quite complex, as it involves binning and grouping on multiple columns, and then calculating the mean for each group. This inherently involves a lot of computation, which is why it's taking a significant amount of time.
+
+However, there are a few strategies you can use to speed up this operation:
+
+1. **Use a smaller number of bins**: The number of groups is proportional to the cube of the number of bins (since you're grouping on three columns). Reducing the number of bins will therefore significantly reduce the number of groups, and hence the computation time.
+
+2. **Use categorical data types**: Converting the binned columns to categorical data types can sometimes speed up groupby operations, as pandas can use a more efficient algorithm for categorical data.
+
+3. **Use a more efficient aggregation function**: If you don't need the full flexibility of `agg`, you can use the `mean` method of the GroupBy object directly, which can be faster.
+
+Here's how you can implement these strategies:
+
+```python
+bins = np.arange(-3, 4, 0.1)  # use fewer bins
+
+df['a_bins'] = pd.cut(df['a'], bins=bins).astype('category')
+df['b_bins'] = pd.cut(df['b'], bins=bins).astype('category')
+df['c_bins'] = pd.cut(df['c'], bins=bins).astype('category')
+
+%timeit df.groupby(['a_bins','b_bins','c_bins'])['value'].mean()
+```
+
+As for your second question, you can use the same method to find the mean value for a specific group. Just make sure to convert the input values to the corresponding bins first:
+
+```python
+a_bin = pd.cut([-1.72], bins=bins)[0]
+b_bin = pd.cut([0.32], bins=bins)[0]
+c_bin = pd.cut([1.18], bins=bins)[0]
+
+df.groupby(['a_bins','b_bins','c_bins'])['value'].mean().loc[(a_bin, b_bin, c_bin)]
+```
+
+This will return the mean value for the group that the input values belong to.

@@ -1,0 +1,18 @@
+To convert the date format from `2021-05-10T18:25:00.000+0100` to `10 MAY 2021`, you can use the following command:
+
+```
+date -d "2021-05-10T18:25:00.000+0100" +"%d %b %Y"
+```
+
+To apply this command to each line in the file, you can use a loop in a shell script like this:
+
+```
+while read line
+do
+    date_str=$(echo $line | awk '{print $1}')
+    date=$(date -d "$date_str" +"%d %b %Y")
+    echo $date
+done < filename.txt
+```
+
+This will read each line from the file `filename.txt`, extract the date string, convert it to the desired format using the `date` command, and print the result.

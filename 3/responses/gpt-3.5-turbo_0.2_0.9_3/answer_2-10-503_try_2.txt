@@ -1,0 +1,7 @@
+Yes, using `Vec::from_iter(score_table.values().cloned())` is a good way to collect all the values of a `HashMap` into a `Vec`. 
+
+The `values()` method returns an iterator over the values of the `HashMap`, which is not a `Vec`. However, as you mentioned, the `Values` iterator implements the `ExactSizeIterator` trait, which means that we can use the `from_iter` method from the `std::iter::FromIterator` trait to collect the iterator into a `Vec`.
+
+The `cloned()` method is used to create a new iterator that clones each element of the original iterator. This is necessary because the `HashMap` stores references to the values, not the values themselves. Cloning the values will create new instances of the `Score` struct that can be owned by the `Vec`.
+
+So, `Vec::from_iter(score_table.values().cloned())` is a good way to collect all the values of a `HashMap` into a `Vec`.

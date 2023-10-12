@@ -1,0 +1,5 @@
+1. No, you are not overlooking anything obvious. The behavior you are experiencing is a known limitation of the current implementation of generics in Go.
+
+2. Yes, this is a limitation of the current implementation of generics in Go. The current implementation does not support the instantiation of types with pointer receivers. As a result, the only way to work around this limitation is to use a constructor function to create instances of the type.
+
+3. This limitation is known and has been discussed in the Go community. You can find more information about this limitation and the current state of generics in Go by visiting the Go issue tracker and the Go forums. However, it is always a good idea to raise an issue if you believe that there is a bug or a limitation that needs to be addressed.

@@ -1,0 +1,33 @@
+To set the environment variable permanently, you need to add the export command to the `~/.bash_profile` or `~/.profile` file. Here are the steps to do it:
+
+1. Open the terminal and type the following command to open the `~/.bash_profile` file:
+
+```
+nano ~/.bash_profile
+```
+
+2. Add the following line at the end of the file:
+
+```
+export JBOSS_HOME=/Users/{USERNAME}/Desktop/jboss7
+```
+
+Note: Replace `{USERNAME}` with your actual username.
+
+3. Save the file by pressing `Ctrl+X`, then `Y`, and then `Enter`.
+
+4. Type the following command to reload the `~/.bash_profile` file:
+
+```
+source ~/.bash_profile
+```
+
+5. Verify that the environment variable is set by typing the following command:
+
+```
+echo $JBOSS_HOME
+```
+
+You should see the path to your JBoss installation directory.
+
+If you still can't see the environment variable, try adding the export command to the `~/.profile` file as well and repeat the above steps.

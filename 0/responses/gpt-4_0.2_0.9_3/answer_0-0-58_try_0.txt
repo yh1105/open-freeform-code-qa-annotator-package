@@ -1,0 +1,38 @@
+The EINTEGRITY error is a checksum error that occurs when the package's contents change, but its version number does not. This can happen if a package was published, then unpublished and republished with the same version number but different contents.
+
+Here are a few things you can try:
+
+1. **Update npm**: Your npm version is quite old. Updating npm might solve the issue. You can update npm using the following command:
+
+    ```
+    sudo npm install -g npm
+    ```
+
+2. **Delete node_modules and package-lock.json**: Delete the `node_modules` directory and `package-lock.json` file in your project directory, then try to install the packages again:
+
+    ```
+    rm -rf node_modules
+    rm package-lock.json
+    sudo npm install
+    ```
+
+3. **Clear npm cache**: Clear the npm cache and try to install the packages again:
+
+    ```
+    npm cache verify
+    sudo npm install
+    ```
+
+4. **Use --no-shrinkwrap or --no-package-lock**: If none of the above solutions work, you can try to install the packages with the `--no-shrinkwrap` or `--no-package-lock` option:
+
+    ```
+    sudo npm install --no-shrinkwrap
+    ```
+
+    or
+
+    ```
+    sudo npm install --no-package-lock
+    ```
+
+Remember to always backup your project before making any changes.

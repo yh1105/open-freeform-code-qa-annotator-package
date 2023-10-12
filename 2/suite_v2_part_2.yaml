@@ -137,3 +137,5 @@ cases:
 - cases/eval_2-8-467.yaml
 - cases/eval_2-8-468.yaml
 - cases/eval_2-8-469.yaml
+full_score_per_question: 1.0
+version: suite_v2_part_2.yaml

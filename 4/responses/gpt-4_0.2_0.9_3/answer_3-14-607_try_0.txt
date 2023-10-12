@@ -1,0 +1,19 @@
+You can simplify your code by using a ternary operator to change the color of the image based on the `chatMessageIsValid` condition. This way, you won't need to duplicate your code and it won't kick you out of the text field after typing one character.
+
+Here's how you can do it:
+
+```swift
+Spacer()
+HStack {
+    TextField($chatMessage, placeholder: Text("Reply"))
+        .padding(.leading, 10)
+        .textFieldStyle(.roundedBorder)
+    Button(action: sendMessage) {
+        Image(systemName: "arrow.up.circle")
+            .foregroundColor(chatMessageIsValid ? Color.blue : Color.gray)
+            .padding(.trailing, 10)
+    }.disabled(!chatMessageIsValid)
+}
+```
+
+In this code, the color of the image will be blue if `chatMessageIsValid` is true, otherwise it will be gray. The button will be disabled if `chatMessageIsValid` is false.

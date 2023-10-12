@@ -1,0 +1,25 @@
+It seems like the error is related to the `node-sass` package. The error message suggests that there might be an issue with the `std::remove_cv_t` function in the `v8-internal.h` header file. This could be caused by a version incompatibility between the `node-sass` package and the version of Node.js that you are using.
+
+Here are a few things you can try to resolve the issue:
+
+1. Update the version of `node-sass` to the latest version that is compatible with your version of Node.js. You can check the compatibility matrix on the `node-sass` GitHub page to find the right version.
+
+2. Try downgrading the version of Node.js to a version that is compatible with the `node-sass` package you are using.
+
+3. Remove the `node-sass` package from your dependencies and use a different package for compiling Sass files, such as `sass` or `postcss-sass`.
+
+4. If you are using Yarn, try clearing the cache and reinstalling the dependencies:
+
+```
+yarn cache clean
+yarn install
+```
+
+5. If none of the above solutions work, you can try deleting the `node_modules` folder and reinstalling all the dependencies:
+
+```
+rm -rf node_modules
+yarn install
+```
+
+I hope this helps you resolve the issue. Let me know if you have any further questions or concerns.

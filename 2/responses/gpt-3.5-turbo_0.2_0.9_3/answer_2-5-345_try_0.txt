@@ -1,0 +1,11 @@
+This error occurs because IntelliJ is using an older version of Maven (3.6.3) which is not compatible with the newer version of Spring Boot (2.7). To fix this issue, you can do the following:
+
+1. Update your IntelliJ to the latest version (2021.3 or later) which includes Maven 3.8.1.
+
+2. If you cannot update IntelliJ, you can manually update Maven to version 3.8.1 or later. You can download the latest version of Maven from the official website (https://maven.apache.org/download.cgi).
+
+3. Once you have updated Maven, you can go to IntelliJ's settings and change the Maven home directory to the new version of Maven.
+
+4. Finally, you can re-import your project and the error should be resolved.
+
+If you still face any issues, you can try creating a new project with the latest version of Spring Boot and Maven, and then copy your code into the new project. This should ensure that you are using the latest compatible versions of Spring Boot and Maven.

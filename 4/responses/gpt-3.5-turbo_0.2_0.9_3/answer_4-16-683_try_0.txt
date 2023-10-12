@@ -1,0 +1,16 @@
+To change the username, hostname, and path color in iTerm2, you can follow these steps:
+
+1. Open iTerm2 and go to Preferences > Profiles > Colors.
+2. Select the Solarized Dark or Light preset, depending on which one you are using.
+3. Scroll down to the ANSI Colors section and click on the color box next to "Bright Green" (or any other color you want to change).
+4. In the color picker, select the color you want to use for the username, hostname, and path.
+5. Repeat steps 3 and 4 for the other colors you want to change (e.g. Bright Blue for the path).
+6. Click on the "Save" button to save your changes.
+
+Note that the exact colors used for the username, hostname, and path may vary depending on your shell configuration. If you are using the default Bash shell, you can customize the prompt colors by editing your .bashrc file. Here's an example:
+
+```
+export PS1='\[\e[1;32m\]\u@\h:\[\e[1;34m\]\w\[\e[0m\]\$ '
+```
+
+This will set the username color to bright green (\e[1;32m), the hostname color to the default color (\h), and the path color to bright blue (\e[1;34m). You can customize these colors by changing the color codes.

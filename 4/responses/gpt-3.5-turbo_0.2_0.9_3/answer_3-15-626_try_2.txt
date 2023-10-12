@@ -1,0 +1,30 @@
+It looks like you are trying to load data from a Power Query into a new sheet using VBA. Here is some sample code that you can modify to fit your specific needs:
+
+```
+Sub LoadDataFromPowerQuery()
+
+    ' Define variables
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    Dim qt As QueryTable
+    Dim connString As String
+    Dim queryName As String
+    
+    ' Set variables
+    Set wb = ThisWorkbook
+    Set ws = wb.Sheets("Sheet1") ' Change to the name of your source sheet
+    queryName = "Query - Sheet1" ' Change to the name of your Power Query
+    
+    ' Build connection string
+    connString = "OLEDB;Provider=Microsoft.Mashup.OleDb.1;Data Source=" & wb.FullName & ";Location=" & queryName
+    
+    ' Add QueryTable to new sheet
+    Set qt = ws.ListObjects.Add(SourceType:=xlSrcExternal, Source:=Array(connString), Destination:=Range("A1")).QueryTable
+    
+    ' Refresh QueryTable
+    qt.Refresh BackgroundQuery:=False
+    
+End Sub
+```
+
+This code assumes that your Power Query is named "Query - Sheet1" and that you want to load the data into a new sheet. You can modify the code to fit your specific needs by changing the sheet names and query names.

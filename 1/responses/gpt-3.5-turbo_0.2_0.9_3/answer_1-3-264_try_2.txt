@@ -1,0 +1,13 @@
+The error message "Expected 2D array, got 1D array instead" is because the input to the `predict` method should be a 2D array. You can fix this by wrapping the input in double square brackets like this:
+
+```
+print(clf.predict([[0.58,0.76]]))
+```
+
+Also, the line `X.reshape(1, -1)` does not actually modify the `X` array. Instead, you can assign the result of the reshape operation to `X` like this:
+
+```
+X = X.reshape(1, -1)
+```
+
+However, this is not necessary for the code to work correctly.

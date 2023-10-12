@@ -1,0 +1,11 @@
+The `#[allow(dead_code)]` attribute is used to disable the lint that checks for unused code. However, it doesn't work for local variables. It's typically used for functions, structs, enums, etc., that are not used in the code to avoid compiler warnings.
+
+In your case, you're trying to apply it to a local variable `x` which is not used anywhere. The Rust compiler doesn't support this. If you don't want to get a warning for an unused variable, you can prefix the variable name with an underscore:
+
+```rust
+fn main() {
+    let _x = 0;
+}
+```
+
+This tells the Rust compiler that you intentionally did not use the variable.

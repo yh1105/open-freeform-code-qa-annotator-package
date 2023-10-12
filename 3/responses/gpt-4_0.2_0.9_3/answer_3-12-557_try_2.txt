@@ -1,0 +1,59 @@
+You can use the shared_preferences package in Flutter to save the user's login details. Here's how you can do it:
+
+1. First, add the shared_preferences package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.6
+```
+
+2. Then, import the package in your login.dart file:
+
+```dart
+import 'package:shared_preferences/shared_preferences.dart';
+```
+
+3. After the user successfully logs in, save the user's details to SharedPreferences:
+
+```dart
+if (response.statusCode == 200) {
+    _saveUserDetails(body['token']);
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+}
+```
+
+Here's the _saveUserDetails method:
+
+```dart
+_saveUserDetails(String token) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', token);
+}
+```
+
+4. In the _fetchSessionAndNavigate method, check if the user's details exist in SharedPreferences. If they do, navigate to the home page:
+
+```dart
+_fetchSessionAndNavigate() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String token = prefs.getString('token');
+  if(token != null) {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+  }
+}
+```
+
+5. Finally, when the user logs out, remove the user's details from SharedPreferences:
+
+```dart
+_logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('token');
+}
+```
+
+This way, the user's login details are saved and the user will stay logged in even if the app is restarted.

@@ -1,0 +1,23 @@
+You can add multiple paths to the PATH variable by separating them with a semicolon (;). 
+
+However, the `setx` command you're using overwrites the existing PATH. If you want to append a new path to the existing ones, you should include the existing PATH in your command. 
+
+Here's how you can do it:
+
+```cmd
+setx /M PATH "%PATH%;D:\Softwares\MongoDB\bin"
+```
+
+This command gets the current PATH (`%PATH%`), appends the new path (`;D:\Softwares\MongoDB\bin`), and sets the result as the new PATH.
+
+Please note that `setx` command has a character limit of 1024 characters. If your PATH is longer than this, you may encounter issues. In such cases, you should edit the PATH variable directly from the System Properties window.
+
+To add a new path from System Properties:
+
+1. Open System Properties (Right-click on This PC -> Properties -> Advanced system settings).
+2. Click on Environment Variables.
+3. Under System variables, find and select the PATH variable, then click on Edit.
+4. In the Edit Environment Variable window, click on New, then enter the new path.
+5. Click OK to close all windows.
+
+Remember, each path should be on a new line or separated by a semicolon (;) if you're entering them in a single line.

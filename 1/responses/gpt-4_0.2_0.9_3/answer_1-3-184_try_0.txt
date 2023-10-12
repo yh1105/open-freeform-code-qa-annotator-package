@@ -1,0 +1,40 @@
+Here's a simple way to do it using `openpyxl`. This script will open your workbook, go through each row in `Sheet1`, and if it finds the string 'ABC' in any cell in that row, it will store the entire row's values in a list.
+
+```python
+from openpyxl import load_workbook
+
+# Load the workbook
+wb = load_workbook('your_file.xlsx')
+
+# Select the sheet
+sheet = wb['Sheet1']
+
+# This list will hold all rows that contain 'ABC'
+rows_with_abc = []
+
+# Go through each row
+for row in sheet.iter_rows(values_only=True):
+    # If 'ABC' is in the row, add it to the list
+    if 'ABC' in row:
+        rows_with_abc.append(row)
+
+# Now rows_with_abc contains all rows with 'ABC'
+for row in rows_with_abc:
+    print(row)
+```
+
+In this script, replace `'your_file.xlsx'` with the path to your Excel file. The `iter_rows` method returns a generator that iterates over the rows in the sheet. The `values_only=True` argument makes it return only the cell values, not the cell objects themselves.
+
+The `if 'ABC' in row:` line checks if the string 'ABC' is in any cell in the row. If it is, it adds the entire row (which is a tuple of cell values) to the `rows_with_abc` list.
+
+After running this script, `rows_with_abc` will be a list of tuples, where each tuple represents a row from the sheet, and only rows that contain 'ABC' will be included.
+
+If you want to assign each cell to a variable, you can do so by unpacking the tuples. However, this would only be practical if you know the number of columns in the sheet. For example, if there are three columns, you could do:
+
+```python
+for row in rows_with_abc:
+    cell1, cell2, cell3 = row
+    print(cell1, cell2, cell3)
+```
+
+This will assign the value of each cell in the row to a separate variable.

@@ -1,0 +1,15 @@
+The error message suggests that there is an issue with the `ConfigurationPropertiesBeans` class from the `spring-cloud-context` library. This could be due to a version incompatibility between the `spring-cloud-context` library and the `openfeign` library.
+
+You are using `spring-cloud-context` version `Hoxton.SR8`, which is compatible with `openfeign` version `2.2.3.RELEASE`. However, you are using `openfeign` version `2.2.5.RELEASE`, which may not be compatible with `spring-cloud-context` version `Hoxton.SR8`.
+
+To fix this issue, you can try downgrading the `openfeign` version to `2.2.3.RELEASE`. You can do this by updating the `openfeign` dependency in your `pom.xml` file to the following:
+
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.2.3.RELEASE</version>
+</dependency>
+```
+
+After making this change, try running your Spring Boot application again and see if the issue is resolved.

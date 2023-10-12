@@ -1,0 +1,32 @@
+To achieve this behavior, you can set up your TabLayout to listen for tab selection events and then manually set the current item of your ViewPager2 to the selected tab's position. Here's an example:
+
+```
+// Disable user input for the ViewPager2
+viewPager2.setUserInputEnabled(false);
+
+// Set up the TabLayout to listen for tab selection events
+tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        // Manually set the current item of the ViewPager2 to the selected tab's position
+        viewPager2.setCurrentItem(tab.getPosition(), false);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+        // Not used
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        // Not used
+    }
+});
+
+// Set the adapter for the ViewPager2
+viewPager2.setAdapter(adapter);
+```
+
+In this example, we first disable user input for the ViewPager2 to prevent the fast swiping animation. Then, we set up the TabLayout to listen for tab selection events using an `OnTabSelectedListener`. When a tab is selected, we manually set the current item of the ViewPager2 to the selected tab's position using `setCurrentItem()`. Finally, we set the adapter for the ViewPager2 as usual.
+
+By setting the second argument of `setCurrentItem()` to `false`, we disable the smooth scrolling animation between fragments and achieve the desired behavior of just showing the new fragment.

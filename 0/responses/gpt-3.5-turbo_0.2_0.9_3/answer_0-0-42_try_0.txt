@@ -1,0 +1,11 @@
+The error message is indicating that the `MongoStore` constructor needs to be invoked with the `new` keyword. This means that you need to use `new MongoStore()` instead of just `MongoStore()`.
+
+In your `app.use` code, you are passing an instance of `MongoStore` to the `store` option. To fix the error, you should change the line to:
+
+```
+store: new MongoStore({ mongooseConnection: mongoose.connection })
+```
+
+This will create a new instance of `MongoStore` with the `mongooseConnection` option set to `mongoose.connection`.
+
+I hope this helps! Let me know if you have any other questions.

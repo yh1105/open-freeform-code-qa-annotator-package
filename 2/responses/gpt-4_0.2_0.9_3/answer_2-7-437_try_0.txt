@@ -1,0 +1,22 @@
+The settings you mentioned have been renamed in Xdebug 3.0.0. Here are the new names for these settings:
+
+- `xdebug.remote_enable` is now `xdebug.mode`
+- `xdebug.remote_host` is now `xdebug.client_host`
+- `xdebug.remote_mode` is now removed in Xdebug 3.0.0
+- `xdebug.remote_port` is now `xdebug.client_port`
+
+You should add these settings to your php.ini file. Here's an example of how you can set them:
+
+```
+xdebug.mode=debug
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+```
+
+The `xdebug.mode` setting accepts different values. If you want to use Xdebug for step debugging, you should set it to `debug`. If you want to use it for development aids, you should set it to `develop`. If you want to use it for both, you should set it to `debug,develop`.
+
+The `xdebug.client_host` setting should be set to the IP address of the machine where your IDE is running. If your IDE is running on the same machine as your web server, you can set it to `127.0.0.1`.
+
+The `xdebug.client_port` setting should be set to the port number that your IDE is listening on for Xdebug connections. The default port number for Xdebug 3.0.0 is `9003`.
+
+After you have added these settings to your php.ini file, you should restart your web server for the changes to take effect.

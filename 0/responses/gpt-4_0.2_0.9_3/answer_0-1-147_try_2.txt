@@ -1,0 +1,41 @@
+Yes, in Laravel 8, the `laravel/ui` package has been replaced by the `laravel/breeze` and `laravel/jetstream` packages. These packages provide a simple starting point for building a Laravel application with authentication, powered by Bootstrap, Tailwind CSS, and Vue.js.
+
+Here is how you can install Bootstrap in Laravel 8:
+
+1. First, you need to install the `laravel/breeze` package. You can do this by running the following command in your terminal:
+
+```bash
+composer require laravel/breeze --dev
+```
+
+2. After the package is installed, you can use the `breeze:install` Artisan command to install the authentication scaffolding:
+
+```bash
+php artisan breeze:install
+```
+
+By default, this command will install the views and routes for login, registration, password reset, and email verification. It will also install a dashboard view and route.
+
+3. If you want to use Bootstrap, you can specify it as an option when running the `breeze:install` command:
+
+```bash
+php artisan breeze:install bootstrap
+```
+
+4. After running the `breeze:install` command, you should compile your assets using the `npm install && npm run dev` command:
+
+```bash
+npm install && npm run dev
+```
+
+This will install all necessary npm packages and compile your CSS and JavaScript assets.
+
+5. Finally, you need to run the migrations with the `migrate` Artisan command:
+
+```bash
+php artisan migrate
+```
+
+This will create the necessary tables in your database.
+
+Now, you should have a Laravel 8 application with Bootstrap installed.

@@ -1,0 +1,24 @@
+The error message you're seeing indicates that the Flutter SDK is not added to your system path, hence the terminal cannot recognize `flutter` as a command. Here's how you can add it:
+
+1. **Find your Flutter Directory**: You need to know where you have downloaded and stored your Flutter SDK. The folder name is usually `flutter`.
+
+2. **Update System Variables**: 
+
+   - **For Windows**:
+     - Search for 'Environment Variables' on your computer (you can use Windows Search for this).
+     - Click on 'Edit the system environment variables'.
+     - In the System Properties window that pops up, click on 'Environment Variables'.
+     - In the Environment Variables window, under 'System Variables', find the `Path` variable, select it and click on 'Edit'.
+     - In the Edit Environment Variable window, click on 'New' and then add the full path of your `flutter/bin` directory.
+     - Click 'OK' on all windows to save the changes.
+
+   - **For macOS/Linux**:
+     - Open Terminal.
+     - Enter `vi ~/.bash_profile` for macOS or `vi ~/.bashrc` for Linux.
+     - Press 'i' to enter insert mode.
+     - Add the following line to the file: `export PATH="$PATH:`<path to your flutter directory>`/flutter/bin"`.
+     - Press 'ESC', type `:wq`, and press 'Enter' to save and exit.
+
+3. **Verify Installation**: Open a new terminal window and run the `flutter doctor` command. If the Flutter SDK has been added successfully, you should see a summary of any issues found, or a message saying no issues were found.
+
+Remember to replace `<path to your flutter directory>` with your actual Flutter directory path.

@@ -1,0 +1,41 @@
+Yes, you can add a logo and a title on top of the page navigation in your Streamlit app. You can use the `st.sidebar.image` function to display the logo and `st.sidebar.title` or `st.sidebar.header` to display the title. Here's an example:
+
+```python
+import streamlit as st
+from pages import Page_1, Page_2
+
+PAGES = {
+    "Page 1": Page_1,
+    "Page 2": Page_2
+}
+
+st.sidebar.image("logo.png")  # Add your logo here
+st.sidebar.title("My App")  # Add your title here
+
+selection = st.sidebar.radio("Go to", list(PAGES.keys()))
+page = PAGES[selection]
+
+page.app()
+```
+
+In this example, replace `"logo.png"` with the path to your logo image. The `st.sidebar.image` function will display the logo in the sidebar. The `st.sidebar.title` function will display the title below the logo. The `st.sidebar.radio` function will display the page navigation below the title.
+
+The `Page_1` and `Page_2` modules should have an `app` function that contains the code for the page. For example, `Page_1.py` could look like this:
+
+```python
+import streamlit as st
+
+def app():
+    st.markdown("Page 1")
+```
+
+And `Page_2.py` could look like this:
+
+```python
+import streamlit as st
+
+def app():
+    st.markdown("Page 2")
+```
+
+When you run your `Home.py` script, Streamlit will display the logo and the title in the sidebar, and the page navigation below them. When you select a page in the navigation, Streamlit will run the `app` function from the corresponding module and display the page.

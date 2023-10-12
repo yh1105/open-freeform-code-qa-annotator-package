@@ -1,0 +1,25 @@
+You can define an inline type for your array of objects like this:
+
+```typescript
+bagTotal = (products: {name: string, price: number, description: string}[]) => {
+ // function does stuff
+}
+```
+
+This tells TypeScript that `products` is an array of objects, where each object has a `name` property of type `string`, a `price` property of type `number`, and a `description` property of type `string`.
+
+However, it's generally a good practice to define a type or an interface for your objects, especially if you're going to use them in multiple places. Here's how you can do it:
+
+```typescript
+type Product = {
+  name: string;
+  price: number;
+  description: string;
+};
+
+bagTotal = (products: Product[]) => {
+ // function does stuff
+}
+```
+
+This way, you can reuse the `Product` type wherever you need it, and if the structure of your product objects changes in the future, you only need to update it in one place.

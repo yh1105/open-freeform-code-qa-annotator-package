@@ -1,0 +1,7 @@
+It seems like you are facing two different issues. 
+
+For Scenario #1, you can try downgrading your numpy version to < 1.20.0 as suggested by the error message. You can do this by running `pip install numpy==1.19.5` in your terminal.
+
+For Scenario #2, you can try upgrading your numpy version to >= 1.20.0 as suggested by the error message. You can do this by running `pip install numpy==1.20.1` in your terminal.
+
+Regarding the CUDA error message, it seems like you do not have a GPU set up on your machine. If you do have a GPU, you may need to install the appropriate CUDA toolkit and cuDNN library. If you do not have a GPU, you can ignore this error message.

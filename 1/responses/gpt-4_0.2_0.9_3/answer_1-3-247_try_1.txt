@@ -1,0 +1,24 @@
+The error message is indicating that Django is trying to reverse the URL for 'profile' with an empty string as the argument, but it can't find a match because your URL pattern expects a string.
+
+This is happening because `post.author.username` is empty for at least one of your `NewPost` objects. When Django tries to create the URL for the profile link, it's passing an empty string as the argument, which doesn't match your URL pattern.
+
+To fix this, you could add a check in your template to only create the link if `post.author.username` exists:
+
+```html
+{% for post in posts %}
+    <div class="card">
+        <div class="card-body"> Title: {{post.title}} </div>
+        <div class="card-body"> Description: {{post.description}}</div>
+        <p> {{post.author.username}} </p>
+        <div class="card-body">
+            {% if post.author.username %}
+                <a href="{% url 'profile' post.author.username %}">
+                    @{{post.author.username}}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+```
+
+This will prevent the error from occurring, but you might want to investigate why `post.author.username` is empty. It could be that you have `NewPost` objects that were created without an associated `User`, or `User` objects that were created without a username.

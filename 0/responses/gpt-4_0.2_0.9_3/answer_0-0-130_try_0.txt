@@ -1,0 +1,36 @@
+The error you're seeing is because the `TextEncoder` class is not available in the Node.js environment by default. It's a global class in the browser, but not in Node.js. 
+
+The `text-encoding` package you mentioned is a good solution. You can import it at the top of your test file, before any other imports, to ensure that `TextEncoder` is defined before any other code runs.
+
+However, since Node.js version 11.0.0, `TextEncoder` and `TextDecoder` are built-in but they are not global, they are part of the `util` module.
+
+Here's how you can use it:
+
+```javascript
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+```
+
+You can add this code to a setup file and then specify this file in your Jest configuration, so it runs before any tests:
+
+```javascript
+// jest.setup.js
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+```
+
+Then, in your Jest configuration (which might be in your `package.json` or in a `jest.config.js` file), add:
+
+```javascript
+// jest.config.js
+module.exports = {
+  // your other config settings
+  setupFiles: ['<rootDir>/jest.setup.js'],
+};
+```
+
+This will make `TextEncoder` and `TextDecoder` available globally in your tests, just like they are in the browser.
+
+As for the `document is not defined` error, this is because `document` is a browser-specific global variable, and it's not available in Node.js. If you're running tests that need to manipulate the DOM, you should use a library like `jsdom`, which emulates the browser environment in Node.js. You're already using `--env=jsdom`, so Jest should be using `jsdom` to emulate the browser environment. If you're still getting this error, make sure you're importing `jsdom` correctly and that it's installed as a dependency in your project.

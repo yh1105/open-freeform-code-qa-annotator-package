@@ -1,0 +1,53 @@
+To create a `Signer` object using the solana-wallet adapter, you can use the `getSigner` function provided by the adapter. Here's an updated version of your code that includes this:
+
+```
+const SendTransaction: React.FC<Props> = ({ children }) => {
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction, getSigner } = useWallet()
+
+    const onSendSPLTransaction = useCallback(
+        async (toPubkey: string, amount: number) => {
+            if (!toPubkey || !amount) return
+            const toastId = toast.loading('Processing transaction...')
+
+            try {
+                if (!publicKey) throw new WalletNotConnectedError()
+                const toPublicKey = new PublicKey(toPubkey)
+                const mint = new PublicKey('Mint address')
+                const payer = await getSigner() // get the signer from the wallet
+                const token = new Token(connection, mint, TOKEN_PROGRAM_ID, payer)
+                const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+
+                const transaction = new Transaction().add(
+                    Token.createTransferInstruction(
+                        TOKEN_PROGRAM_ID,
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        [],
+                        amount // use the amount passed in as the transfer amount
+                    )
+                )
+
+                const signature = await sendTransaction(transaction, connection)
+
+                const response = await connection.confirmTransaction(signature, 'processed')
+                console.log('response', response)
+                toast.success('Transaction sent', {
+                    id: toastId,
+                })
+            } catch (error) {
+                toast.error(`Transaction failed: ${error.message}`, {
+                    id: toastId,
+                })
+            }
+        },
+        [publicKey, sendTransaction, connection, getSigner]
+    )
+
+    return <>{children(onSendSPLTransaction)}</>
+}
+```
+
+Note that I also updated the `amount` parameter in the `Token.createTransferInstruction` call to use the `amount` passed in to the `onSendSPLTransaction` function.

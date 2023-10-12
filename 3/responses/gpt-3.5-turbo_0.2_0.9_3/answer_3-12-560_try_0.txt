@@ -1,0 +1,14 @@
+`MaterialStateProperty` is a type of property in `ButtonStyle` that allows you to define different values for a button's style based on its current state. For example, you can define a different background color for a button when it is pressed or disabled. 
+
+In the code snippet you provided, `backgroundColor` is a `MaterialStateProperty<Color>` that defines the background color of a `TextButton`. You can set different colors for different states of the button by using the `resolve` method of the `MaterialStateProperty` class. For example, to set a different color for when the button is pressed, you can use the following code:
+
+```
+backgroundColor: MaterialStateProperty.resolveWith((states) {
+  if (states.contains(MaterialState.pressed)) {
+    return Colors.red;
+  }
+  return Colors.blue;
+}),
+``` 
+
+This will set the background color to red when the button is pressed, and blue for all other states.

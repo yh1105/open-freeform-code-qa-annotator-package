@@ -1,0 +1,21 @@
+The syntax you've used for variable expansion in the `GIT_BRANCH` variable is correct. However, the issue you're experiencing might be due to the fact that the variables `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`, `CI_COMMIT_BRANCH`, and `CI_DEFAULT_BRANCH` are not defined or not available in the context where you're trying to use them.
+
+Here are a few things you can check:
+
+1. Ensure that the variables are defined in the environment where your script is running. You can check this by echoing the variables in your script:
+
+```bash
+job1:
+  script:
+    - echo $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+    - echo $CI_COMMIT_BRANCH
+    - echo $CI_DEFAULT_BRANCH
+```
+
+2. If you're using these variables in a Merge Request pipeline, make sure that the pipeline is running in the context of a Merge Request. The `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME` variable is only available in Merge Request pipelines.
+
+3. If you're using these variables in a regular pipeline, ensure that the pipeline is running in the context of a branch. The `CI_COMMIT_BRANCH` variable is only available in branch pipelines.
+
+4. The `CI_DEFAULT_BRANCH` variable is available in all pipelines and represents the default branch of your project.
+
+If none of these variables are available in your pipeline, the `GIT_BRANCH` variable will not be set, and trying to echo it will result in an empty output.

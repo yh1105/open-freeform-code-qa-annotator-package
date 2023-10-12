@@ -1,0 +1,13 @@
+This error occurs when the required `node-sass` module is not installed in your project. To fix this error, you need to install the `node-sass` module using the following command:
+
+```
+npm install node-sass
+```
+
+If you are using Angular version 8 or above, you can use the `sass` package instead of `node-sass`. You can install it using the following command:
+
+```
+npm install sass
+```
+
+After installing the required package, try running the `ng serve` command again and it should work without any errors.

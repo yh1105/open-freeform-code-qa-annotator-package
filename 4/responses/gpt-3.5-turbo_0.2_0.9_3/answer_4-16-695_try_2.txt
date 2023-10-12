@@ -1,0 +1,11 @@
+On macOS, Docker Desktop uses a different logging driver than on Linux. By default, Docker Desktop uses the `json-file` logging driver, which does not show the full output of the build process. 
+
+To see the full output of the build process, you can switch to the `tty` logging driver by adding the `--progress=auto --tty` flags to your `docker build` command. This will enable the full output of the build process to be displayed in your terminal.
+
+Here's an example command:
+
+```
+docker build --progress=auto --tty -t myimage .
+```
+
+This should show you the full output of the build process, including the `ls -la` commands you were missing.

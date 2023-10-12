@@ -1,0 +1,40 @@
+It looks like you have a typo in your code. Instead of calling `.navigationBarItem`, you should be calling `.navigationBarItems` (with an "s" at the end). 
+
+Here's the corrected code:
+
+```
+import SwiftUI
+
+struct LandmarkList : View {
+    var body: some View {
+        NavigationView {
+            List(landmarkData) { landmark in
+                LandmarkRow(landmark: landmark)
+            }
+            .navigationBarTitle(Text("Landmarks"))
+            .navigationBarItems(trailing:
+                Button(action: {
+                    print("Filter button tapped")
+                }) {
+                    Image(systemName: "slider.horizontal.3")
+                        .imageScale(.large)
+                        .accessibility(label: Text("Filter"))
+                        .padding()
+                }
+            )
+        }
+    }
+}
+
+#if DEBUG
+struct LandmarkList_Previews : PreviewProvider {
+    static var previews: some View {
+        LandmarkList()
+    }
+}
+#endif
+```
+
+You can see that I've moved the `.navigationBarTitle` modifier to be directly on the `List` view, and added a `.navigationBarItems` modifier to add a filter button to the navigation bar. 
+
+I hope this helps! Let me know if you have any other questions.

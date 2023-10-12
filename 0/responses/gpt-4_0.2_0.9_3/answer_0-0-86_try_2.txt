@@ -1,0 +1,13 @@
+The error you're encountering is because the import paths you're using are incorrect. The import paths have changed in the newer versions of `react-icons`.
+
+In the version 3.0.0 and above, the import path should be like this:
+
+```jsx
+import { MdTerrain } from "react-icons/md";
+import { TiSnowflake } from "react-icons/ti";
+import { FaCalendar } from "react-icons/fa";
+```
+
+Please note that the icon names are in PascalCase (first letter of each word is capitalized) and the import path is directly from `"react-icons/<library>"`.
+
+If you still encounter issues, please ensure you have the correct version of `react-icons` installed. You can check this by running `npm list react-icons`. If you're not on a version 3.0.0 or above, you may need to update your package. You can do this by running `npm install react-icons@latest`.

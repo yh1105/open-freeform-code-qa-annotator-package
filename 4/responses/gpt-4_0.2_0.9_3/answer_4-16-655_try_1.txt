@@ -1,0 +1,25 @@
+The syntax you're using seems correct for GitLab CI/CD pipelines. However, the issue you're experiencing might be due to a couple of reasons:
+
+1. The variables `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`, `CI_COMMIT_BRANCH`, and `CI_DEFAULT_BRANCH` might not be defined in your pipeline. Make sure these variables are defined and accessible in the scope of your job.
+
+2. There might be an issue with your GitLab version. There have been some bugs related to variable expansion in the past, so it might be worth checking if your version of GitLab has any known issues related to this.
+
+3. It's also possible that there's an issue with the runner you're using. If you're using an older version of GitLab Runner, it might not support this kind of variable expansion. Try updating your runner to the latest version.
+
+If none of these solutions work, you might want to consider using a script to set the `GIT_BRANCH` variable instead. Here's an example:
+
+```yaml
+job1:
+  script:
+    - >
+      if [ -n "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" ]; then
+        GIT_BRANCH=$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
+      elif [ -n "$CI_COMMIT_BRANCH" ]; then
+        GIT_BRANCH=$CI_COMMIT_BRANCH
+      else
+        GIT_BRANCH=$CI_DEFAULT_BRANCH
+      fi
+    - echo $GIT_BRANCH
+```
+
+This script does essentially the same thing as your variable expansion, but it might work better if there's an issue with the runner or GitLab version you're using.

@@ -1,0 +1,21 @@
+The error message you're seeing is saying that `req.logout()` requires a callback function. However, according to the Passport.js documentation, `req.logout()` does not require a callback function. 
+
+The error might be due to a version mismatch or some other issue. 
+
+Here are a few things you can try:
+
+1. Update your Passport.js to the latest version. You can do this by running `npm update passport` in your terminal.
+
+2. Make sure you're not calling `req.logout()` twice in your code. I noticed that you have two `app.get("/logout", (req, res) => {...})` in your code. If the first one is called and the user is logged out, the second one will throw an error because the user is already logged out.
+
+3. Try to add a callback function to `req.logout()` to see if it solves the problem, even though it shouldn't be necessary according to the documentation. Here's how you can do it:
+
+```javascript
+app.get("/logout", (req, res) => {
+    req.logout(() => {
+        res.redirect("/");
+    });
+});
+```
+
+4. If none of the above solutions work, try to delete your `node_modules` folder and `package-lock.json` file, and then run `npm install` again to reinstall your packages. Sometimes, this can solve issues caused by package version mismatches or corrupted packages.

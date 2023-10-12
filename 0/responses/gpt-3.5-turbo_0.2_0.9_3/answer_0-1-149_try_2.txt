@@ -1,0 +1,32 @@
+To achieve the animation effect in the video using Tailwind-CSS, you can use the `transition` and `transform` properties. Here's how you can modify your code to achieve the desired effect:
+
+1. Add the `transition` property to the `.link` class to specify the duration and easing of the animation:
+
+```
+.link {
+  ...
+  transition: transform 0.2s ease-in-out;
+}
+```
+
+2. Add the `transform` property to the `:hover` pseudo-class of the `.link` class to specify the transformation that should occur when the link is hovered over:
+
+```
+.link:hover::after {
+  ...
+  transform: scaleX(1);
+}
+```
+
+3. Modify the `::after` pseudo-element to have a `transform` property that scales the element horizontally to 0:
+
+```
+.link::after {
+  ...
+  transform: scaleX(0);
+}
+```
+
+Here's the modified codepen with the changes: [https://codepen.io/anon/pen/zeQvJv](https://codepen.io/anon/pen/zeQvJv)
+
+With these changes, the link will have the desired animation effect when hovered over.

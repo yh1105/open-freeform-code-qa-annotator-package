@@ -1,0 +1,9 @@
+This is not a bug, but rather a feature of how pandas handles DataFrame indexing. 
+
+When you use double brackets `[[ ]]` around the column name, pandas returns a DataFrame. When you use single brackets `[ ]`, it returns a Series. 
+
+The `df.loc[:, ['name']] = df.loc[:, ['age']]` command is trying to assign a DataFrame (the right-hand side) to a DataFrame (the left-hand side). However, because the 'name' and 'age' columns are not the same, pandas cannot align the DataFrames correctly, resulting in NaN values.
+
+On the other hand, `df.loc[:, 'name'] = df.loc[:, 'age']` is assigning a Series (the right-hand side) to a Series (the left-hand side). In this case, pandas can align the Series correctly because it's based on the index, not the column names.
+
+So, it's not a bug, but rather a consequence of how pandas handles DataFrame vs Series assignment.

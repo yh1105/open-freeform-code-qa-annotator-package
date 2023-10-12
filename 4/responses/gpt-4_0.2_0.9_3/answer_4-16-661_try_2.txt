@@ -1,0 +1,14 @@
+The output you're seeing is the standard output from the SQL*Plus client, which includes the connection messages, SQL prompt, and other information. If you want to capture only the result of the SQL query, you can modify your SQL*Plus command to use the `-s` (silent) option, which suppresses the SQL*Plus banner and prompts. Also, you can use `SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF` to suppress other unnecessary output.
+
+Here's how you can modify your script:
+
+```bash
+size=`${PATH_TO_CLIENT}sqlplus -s $IMPUSER/$IMPPWD@$ENDPOINT << EOF
+SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF
+select sum(bytes)/1024/1024/1024 from dba_segments where owner = 'XXXX';
+exit;
+EOF`
+echo "Total data is ${size}"
+```
+
+This will suppress all the SQL*Plus messages and prompts, and the `SET` command will suppress other unnecessary output. The result of the SQL query will be the only thing printed to standard output, so it will be the only thing captured in the `size` variable.

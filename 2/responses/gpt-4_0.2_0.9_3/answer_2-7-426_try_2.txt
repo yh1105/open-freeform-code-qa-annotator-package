@@ -1,0 +1,19 @@
+The "CSRF token mismatch" error can be caused by several reasons. Here are a few things you can check:
+
+1. **Domain Configuration**: Make sure your domain is correctly configured. If you have a www version and a non-www version of your domain, Laravel may treat them as separate sessions. Ensure you are redirecting to one version.
+
+2. **Cookie Configuration**: Check your `config/session.php` file. The `domain` parameter in this file should match the domain of your application. If it's set to `null`, Laravel will try to guess the domain. You can try setting it to your domain.
+
+3. **Secure Cookies**: If your `config/session.php` file has `secure` set to `true`, it means that Laravel will only send the cookie over a HTTPS connection. If your domain is not using HTTPS, this could be causing the issue. You can set it to `false` or `env('SESSION_SECURE_COOKIE', false)` to allow sending cookies over HTTP.
+
+4. **SameSite Cookies**: The `same_site` parameter in `config/session.php` file determines whether the browser should send a cookie along with cross-site requests. The possible values are `lax` (default), `strict`, `none`, or `null`. If you're making requests to different sites, you might need to adjust this setting.
+
+5. **Session Driver**: You mentioned that you changed the `SESSION_DRIVER` to `file`. Make sure the `storage/framework/sessions` directory is writable by the server.
+
+6. **Clearing Cookies and Cache**: Sometimes, old cookies can cause issues. Try clearing your browser's cookies and cache.
+
+7. **Middleware**: Ensure that the `VerifyCsrfToken` middleware is applied to the routes where you're having this issue.
+
+8. **Hosting Provider Settings**: Some hosting providers have specific settings that might interfere with session handling. Check with your hosting provider if they have any special requirements for session handling.
+
+Remember to clear your config cache (`php artisan config:cache`) after making changes to the configuration files.

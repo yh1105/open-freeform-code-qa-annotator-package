@@ -1,0 +1,9 @@
+You are on the right track with using the `container` parameter to limit the search to a specific area of the DOM. However, the order of the parameters for `getByText` is actually the opposite of what you tried. The correct order is:
+
+```
+expect(getByText('some text', { container })).toBeTruthy();
+```
+
+Notice that the `container` parameter is passed as an object with a key of `container`. This is because `getByText` also accepts additional options as a second parameter, and passing the `container` as an object allows you to specify those options if needed.
+
+Also, make sure that the `container` you are passing is actually the correct element that contains the text you are looking for. If you are still getting the error `Found multiple elements with the text: some text`, it means that there are multiple elements in the `container` that match the text you are searching for. In this case, you can use a more specific query to narrow down the search, such as `getByRole` or `getByLabelText`.

@@ -1,0 +1,30 @@
+The error you're encountering is likely due to the fact that TensorBoard is trying to access a local file system (your computer's file system) from Google Colab, which is a cloud-based environment. 
+
+Here are the steps to solve this issue:
+
+1. Upload your tfevent files to Google Drive.
+
+2. Mount your Google Drive in your Google Colab notebook. You can do this with the following code:
+
+```python
+from google.colab import drive
+drive.mount('/content/gdrive')
+```
+
+3. After running this code, you'll be provided with a link to get an authorization code. Click on the link, allow access, and then copy the authorization code that is provided.
+
+4. Paste the authorization code into the input box in your Google Colab notebook and press Enter.
+
+5. Now your Google Drive is mounted, and you can access your files from Google Colab. You can check the files in your Google Drive with the following code:
+
+```python
+!ls "/content/gdrive/My Drive"
+```
+
+6. Now, you can run TensorBoard with the path to the logs in your Google Drive. Replace `path/to/logs` with the actual path to your tfevent files in your Google Drive.
+
+```python
+%tensorboard --logdir="/content/gdrive/My Drive/path/to/logs"
+```
+
+This should solve your issue. If you still encounter problems, please let me know.

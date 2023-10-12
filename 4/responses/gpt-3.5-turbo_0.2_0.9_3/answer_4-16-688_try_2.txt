@@ -1,0 +1,19 @@
+To prevent variable expansion in the `echo` command, you can use single quotes around the entire string, like this:
+
+```
+echo 'Running this cmd: ls -1 "$HOME/temp/some folder with spaces"'
+```
+
+To wrap this up into a function, you can modify your existing function to use `printf` instead of `echo`, and to use `eval` to execute the command:
+
+```
+print_and_run_cmd() {
+    local -n array_reference="$1"
+    printf 'Running cmd: %s\n' "${array_reference[*]}"
+    eval "${array_reference[*]}"
+}
+```
+
+The `${array_reference[*]}` syntax expands the array into a single string, with each element separated by a space. This ensures that any quotes or other special characters in the command are preserved.
+
+Note that using `eval` can be dangerous if you're not careful about how you construct the command array. Make sure you don't include any user input in the array without properly sanitizing it first.

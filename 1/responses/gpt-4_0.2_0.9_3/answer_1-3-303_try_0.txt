@@ -1,0 +1,29 @@
+The error message you're seeing is because the `wrapt` package was installed by a system package manager (`yum`, `apt`, etc.), and `pip` is trying to uninstall it to install a different version. This is a common issue when using system Python.
+
+Here's how you can fix it:
+
+1. Create a new Python virtual environment. This is a good practice to isolate your Python environment from the system Python and avoid conflicts with system packages. You can use `venv` (built-in since Python 3.3) or `conda` since you seem to be using Anaconda.
+
+   For `venv`, you can do:
+
+   ```
+   python3 -m venv myenv
+   source myenv/bin/activate
+   ```
+
+   For `conda`, you can do:
+
+   ```
+   conda create -n myenv python=3.6
+   conda activate myenv
+   ```
+
+   Replace `myenv` with whatever you want to name your environment.
+
+2. Once you're in the virtual environment, try installing TensorFlow again:
+
+   ```
+   pip install tensorflow-gpu~=1.14
+   ```
+
+This should install TensorFlow and its dependencies in the virtual environment without conflicting with system packages.

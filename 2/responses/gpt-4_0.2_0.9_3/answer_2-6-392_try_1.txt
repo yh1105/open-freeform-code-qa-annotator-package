@@ -1,0 +1,9 @@
+Having separate pipelines for different requests is not necessarily a bad practice. In fact, it can be a good idea if the logic for handling each request is significantly different. This approach can lead to more maintainable and understandable code, as each pipeline is responsible for a specific type of request and response.
+
+The Mediator pattern and CQRS are all about decoupling and separation of concerns. If `RequestOne` and `RequestTwo` have different concerns, then it makes sense to handle them in separate pipelines. 
+
+However, you should be careful not to overuse this approach. If you find yourself creating a new pipeline for every new request, it might be a sign that your design is becoming too granular and complex. In this case, you might want to consider other ways to handle the variation in logic, such as using strategy or template method patterns.
+
+Also, keep in mind that each pipeline comes with a certain overhead, both in terms of performance and complexity. If the logic differences are minor, it might be more efficient to handle them in the same pipeline, using conditional logic or polymorphism.
+
+In conclusion, whether to use separate pipelines or not depends on the specific requirements and constraints of your project. It's a trade-off between maintainability, understandability, and performance.

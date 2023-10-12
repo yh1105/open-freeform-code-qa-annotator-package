@@ -1,0 +1,42 @@
+It looks like the issue is with the `node` configuration in your webpack configuration file. The error message indicates that the `node` configuration object has unknown properties such as `module`, `net`, and `fs`. 
+
+In Webpack 5, the `node` configuration object has been updated to be more restrictive. It now only allows the properties `__dirname`, `__filename`, and `global`. 
+
+To fix this issue, you can update your `node` configuration to only include these properties. Here's an updated version of your webpack configuration file with the `node` configuration updated:
+
+```
+const path = require('path');
+
+module.exports = {
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
+  devServer: {
+    contentBase: './dist',
+  },
+  node: {
+    __dirname: false,
+    __filename: false,
+    global: true,
+  },
+};
+```
+
+This should resolve the error you're seeing and allow you to use the `antlr4` library with Webpack 5.

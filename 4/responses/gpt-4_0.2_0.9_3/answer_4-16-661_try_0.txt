@@ -1,0 +1,19 @@
+The output you're getting is because the SQLPlus command is returning all the output including the connection details, SQL prompt, and the query result. 
+
+To get only the result of the query, you can use the `-s` option in SQLPlus which stands for silent mode. This will suppress the display of SQLPlus banner, prompts, and echoing of commands.
+
+Also, you need to set the `feedback off` and `heading off` to avoid column names and other feedback messages.
+
+Here is the updated script:
+
+```bash
+size=`${PATH_TO_CLIENT}sqlplus -s $IMPUSER/$IMPPWD@$ENDPOINT<< EOF
+set feedback off;
+set heading off;
+select sum(bytes)/1024/1024/1024 from dba_segments where owner = 'XXXX';
+exit;
+EOF`
+echo "Total data is ${size}"
+```
+
+This script will return only the result of the query. Please replace `'XXXX'` with the actual owner name.

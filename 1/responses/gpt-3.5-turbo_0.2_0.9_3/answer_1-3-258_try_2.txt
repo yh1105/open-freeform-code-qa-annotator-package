@@ -1,0 +1,93 @@
+To solve the problem of multiple workers having their own `meta` object, you can use a shared memory object like Redis or Memcached to store the `meta` object. This way, all workers can access and modify the same object.
+
+Here's an example of how you can use Redis to store the `meta` object:
+
+```
+import redis
+from fastapi import FastAPI, status
+
+class Meta:
+   def __init__(self, count):
+      self.count = count  
+
+app = FastAPI()
+
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+# initialize the meta object in Redis
+if not redis_client.exists('meta'):
+    meta = Meta(0)
+    redis_client.set('meta', pickle.dumps(meta))
+
+# increases the count variable in the meta object by 1
+@app.get("/increment")
+async def increment():
+    meta = pickle.loads(redis_client.get('meta'))
+    meta.count += 1
+    redis_client.set('meta', pickle.dumps(meta))
+    return status.HTTP_200_OK
+
+# returns a json containing the current count from the meta object
+@app.get("/report")
+async def report():
+    meta = pickle.loads(redis_client.get('meta'))
+    return {'count':meta.count}
+
+# resets the count in the meta object to 0
+@app.get("/reset")
+async def reset():
+    meta = Meta(0)
+    redis_client.set('meta', pickle.dumps(meta))
+    return status.HTTP_200_OK
+```
+
+In this example, we use the `redis` Python package to connect to a Redis server running on `localhost` and port `6379`. We initialize the `meta` object in Redis if it doesn't exist yet. Then, in each endpoint, we load the `meta` object from Redis, modify it, and store it back in Redis.
+
+As for your side question, there's no built-in way to force all workers to respond to a single call on an endpoint. However, you can use a distributed lock to ensure that only one worker can execute the reset operation at a time. Redis provides a distributed lock implementation that you can use. Here's an example:
+
+```
+import redis
+from fastapi import FastAPI, status
+
+class Meta:
+   def __init__(self, count):
+      self.count = count  
+
+app = FastAPI()
+
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+# initialize the meta object in Redis
+if not redis_client.exists('meta'):
+    meta = Meta(0)
+    redis_client.set('meta', pickle.dumps(meta))
+
+# increases the count variable in the meta object by 1
+@app.get("/increment")
+async def increment():
+    meta = pickle.loads(redis_client.get('meta'))
+    meta.count += 1
+    redis_client.set('meta', pickle.dumps(meta))
+    return status.HTTP_200_OK
+
+# returns a json containing the current count from the meta object
+@app.get("/report")
+async def report():
+    meta = pickle.loads(redis_client.get('meta'))
+    return {'count':meta.count}
+
+# resets the count in the meta object to 0
+@app.get("/reset")
+async def reset():
+    # acquire a distributed lock
+    lock = redis_client.lock('reset_lock', timeout=10)
+    if lock.acquire(blocking=False):
+        meta = Meta(0)
+        redis_client.set('meta', pickle.dumps(meta))
+        lock.release()
+        return status.HTTP_200_OK
+    else:
+        return status.HTTP_503_SERVICE_UNAVAILABLE
+```
+
+In this example, we use the `redis.lock` method to acquire a lock named `reset_lock`. If the lock is acquired successfully, we reset the `meta` object and release the lock. If the lock cannot be acquired (i.e., another worker already has the lock), we return a 503 Service Unavailable status code.

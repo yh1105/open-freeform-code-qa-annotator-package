@@ -1,0 +1,63 @@
+To create a reference plane using a selected face and point, you can use the following steps:
+
+1. Get the handle for the selected face and point objects.
+2. Create a reference point on the selected face using the AddRefPoint method.
+3. Use the SelectByID2 method to select the reference point and the selected edge.
+4. Use the InsertRefPlane method to create the reference plane.
+
+Here's an example code snippet that demonstrates this approach:
+
+```
+Dim swApp As SldWorks.SldWorks
+Dim swModel As SldWorks.ModelDoc2
+Dim swSelMgr As SldWorks.SelectionMgr
+Dim swModelDocExt As SldWorks.ModelDocExtension
+Dim swFeatMgr As SldWorks.FeatureManager
+
+Sub main()
+
+    Set swApp = Application.SldWorks
+    Set swModel = swApp.ActiveDoc
+    Set swModelDocExt = swModel.Extension
+    Set swSelMgr = swModel.SelectionManager
+    Set swFeatMgr = swModel.FeatureManager
+
+    ' Get the selected face and point objects
+    Dim faceObj As SldWorks.Face2
+    Dim pointObj As SldWorks.RefPoint
+    Set faceObj = swSelMgr.GetSelectedObject6(1, -1)
+    Set pointObj = swSelMgr.GetSelectedObject6(2, -1)
+
+    ' Create a reference point on the selected face
+    Dim refPointObj As SldWorks.RefPoint
+    Set refPointObj = swFeatMgr.CreateRefPoint(faceObj)
+
+    ' Select the reference point and the selected edge
+    Dim selObjName As String
+    Dim selObjType As Long
+    Dim selX As Double
+    Dim selY As Double
+    Dim selZ As Double
+    Dim selAppend As Boolean
+    Dim selMark As Long
+    Dim selCallout As SldWorks.Callout
+    Dim selOption As SldWorks.swSelectOption_e
+    selObjName = refPointObj.GetNameForSelection()
+    selObjType = swSelMgr.GetSelectedObjectType3(2, -1)
+    selX = pointObj.X
+    selY = pointObj.Y
+    selZ = pointObj.Z
+    selAppend = True
+    selMark = 0
+    selCallout = Nothing
+    selOption = swSelOptions_e.swSelOptionsDefault
+    swModel.Extension.SelectByID2 selObjName, selObjType, selX, selY, selZ, selAppend, selMark, selCallout, selOption
+
+    ' Create the reference plane
+    Dim refPlaneObj As SldWorks.Feature
+    Set refPlaneObj = swFeatMgr.InsertRefPlane(Nothing, Nothing, Nothing, Nothing)
+
+End Sub
+```
+
+Note that this approach assumes that the selected point is on the selected edge. If this is not the case, you may need to use a different method to select the edge, such as SelectByRay.

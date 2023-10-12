@@ -1,0 +1,28 @@
+It looks like you are trying to create a file on the external storage directory, which requires the `WRITE_EXTERNAL_STORAGE` permission. Starting from Android 10, you need to use scoped storage to access external storage. 
+
+To create a file in the external storage directory, you can add the following code to your `AndroidManifest.xml` file:
+
+```
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+If you are targeting Android 10 or higher, you need to use the `MediaStore` API to create a file in the external storage directory. Here's an example:
+
+```
+private fun createImageFile(): File? {
+    // Create a unique file name
+    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+    val fileName = "JPEG_${timeStamp}_"
+
+    // Get the external storage directory
+    val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+    // Create the file
+    val imageFile = File.createTempFile(fileName, ".jpg", storageDir)
+
+    // Return the file
+    return imageFile
+}
+```
+
+This code creates a unique file name using the current date and time, gets the external storage directory using `getExternalFilesDir()`, and creates a temporary file with the specified file name and extension.

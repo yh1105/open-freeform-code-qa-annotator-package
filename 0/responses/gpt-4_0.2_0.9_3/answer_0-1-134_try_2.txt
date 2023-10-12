@@ -1,0 +1,5 @@
+The feature you're referring to is called "Emmet" which is a web development tool for faster HTML and CSS coding. It works based on abbreviations that expand to valid HTML tags. For example, if you type `.classname` and press `Tab`, it should expand to `<div class="classname"></div>`.
+
+If this isn't working for you, it's possible that the text editor you're using doesn't support Emmet, or you haven't installed or enabled it. Emmet is built-in in many popular text editors like VS Code, Sublime Text, Atom, and Brackets. If you're using one of these, make sure you have the latest version and that Emmet is enabled in the settings.
+
+As for switching to Sublime, it's a matter of personal preference. Sublime Text is a very popular text editor due to its speed, functionality, and customization options. However, other text editors like VS Code or Atom also offer great features and might be more user-friendly for beginners. I would recommend trying out different text editors and see which one you like best. They all have their strengths and weaknesses, and the best one for you depends on your personal needs and preferences.

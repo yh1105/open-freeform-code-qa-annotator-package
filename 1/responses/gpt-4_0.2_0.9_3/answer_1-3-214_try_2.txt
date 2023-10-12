@@ -1,0 +1,15 @@
+It seems like you've already solved your problem, but for future reference or for anyone else who might encounter the same issue, here's a bit more detail:
+
+The error message `TypeError: concat() got an unexpected keyword argument 'join_axes'` is due to a change in the pandas library. The `join_axes` parameter was deprecated in pandas version 0.25.0 and removed in version 1.0.0.
+
+The `pandas_profiling` library uses this parameter, so if you're using a version of `pandas_profiling` that hasn't been updated to reflect this change in pandas, you'll get this error.
+
+The solution, as you've found, is to update `pandas_profiling` to a version that's compatible with your version of pandas. You can do this in conda with the following command:
+
+```
+conda install -c conda-forge pandas-profiling
+```
+
+This will install the latest version of `pandas_profiling` from the conda-forge channel.
+
+As for the `AttributeError: 'DataFrame' object has no attribute 'profile_report'` error, this is because the `profile_report()` method is added to the DataFrame class by `pandas_profiling`, so if there's an issue with your `pandas_profiling` installation, you'll get this error. Updating `pandas_profiling` should also resolve this issue.

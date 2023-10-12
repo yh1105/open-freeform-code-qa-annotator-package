@@ -1,0 +1,15 @@
+You can use the `futures::future::join_all` function to achieve this. It takes a vector of futures and returns a future that resolves to a vector of their results. Here's how you can modify your code to use `join_all`:
+
+```
+use futures::future::join_all;
+
+async fn start_consumers(&self) {
+    let mut futures = Vec::new();
+    for consumer in &self.consumers {
+        futures.push(consumer.consume());
+    }
+    join_all(futures).await;
+}
+```
+
+This will execute all the `consume` functions concurrently and wait for all of them to finish before returning. The `join_all` function returns a future that resolves to a vector of the results of each future in the same order as the input vector. If you don't need the results, you can simply discard the return value of `join_all`.

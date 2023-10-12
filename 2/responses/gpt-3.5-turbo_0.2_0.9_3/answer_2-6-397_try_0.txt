@@ -1,0 +1,24 @@
+It is possible that the Browser Link middleware is being added automatically by Visual Studio or IIS Express. You can try disabling it by adding the following code to your `Startup.cs` file:
+
+```
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Remove("X-AspNet-Version");
+    await next();
+});
+```
+
+This code removes the `X-AspNet-Version` header, which is added by the Browser Link middleware. If this header is not present in the response, the Browser Link middleware will not be able to connect to the browser.
+
+If this does not work, you can try disabling the Browser Link middleware explicitly by adding the following code to your `Startup.cs` file:
+
+```
+app.UseBrowserLink(options =>
+{
+    options.Enabled = false;
+});
+```
+
+This code disables the Browser Link middleware explicitly, even if it is being added automatically by Visual Studio or IIS Express.
+
+If neither of these solutions work, you can try disabling the Browser Link feature in Visual Studio itself. To do this, go to `Tools > Options > Projects and Solutions > ASP.NET Core` and uncheck the `Enable Browser Link` option.

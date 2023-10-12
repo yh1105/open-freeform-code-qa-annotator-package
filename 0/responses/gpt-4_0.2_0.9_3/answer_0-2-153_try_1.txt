@@ -1,0 +1,35 @@
+In Tailwind CSS, you can apply a border to a specific side of an element by using the border-width utilities. The border-width utilities control the width of an element's border.
+
+For example, if you want to apply a border to the top side of an element, you can use the `border-t` utility. If you want to apply a border to the right side of an element, you can use the `border-r` utility. Similarly, you can use the `border-b` and `border-l` utilities to apply a border to the bottom and left sides of an element, respectively.
+
+However, if you want to apply a border to only one side of an element and you find the class string too long, you can create a custom utility class in your Tailwind CSS configuration file.
+
+Here's an example of how you can create a custom utility class for a top border:
+
+```javascript
+module.exports = {
+  theme: {
+    extend: {
+      borderWidth: {
+        '1t': '1px 0 0 0',
+      },
+      borderColor: theme => ({
+        ...theme('colors'),
+         'blue-900': '#2c3e50',
+      }),
+    },
+  },
+  variants: {},
+  plugins: [],
+}
+```
+
+Then, you can use this custom utility class in your HTML like this:
+
+```html
+<div class="border-1t border-blue-900">foo</div>
+```
+
+This will apply a 1px border to the top side of the element and color it with the color `blue-900`.
+
+As for your question about JIT, you can use the `@apply` directive to create a new utility class that applies a set of existing utility classes. However, this feature is currently experimental and may not work as expected in all situations.

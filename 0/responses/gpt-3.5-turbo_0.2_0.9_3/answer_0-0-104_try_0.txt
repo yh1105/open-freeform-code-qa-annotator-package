@@ -1,0 +1,46 @@
+You can use the `TouchableWithoutFeedback` component to achieve this functionality. Here is an example code snippet:
+
+```
+import React, { useState } from 'react';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
+
+const MyButton = () => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  return (
+    <TouchableWithoutFeedback
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onPress={() => console.log('Button pressed')}
+    >
+      <View
+        style={{
+          backgroundColor: isFocused ? 'blue' : 'red',
+          padding: 10,
+          borderRadius: 5,
+        }}
+      >
+        <Text style={{ color: 'white' }}>My Button</Text>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
+
+export default MyButton;
+```
+
+In this example, we are using the `TouchableWithoutFeedback` component to wrap our button content. We are also using the `useState` hook to keep track of whether the button is currently focused or not.
+
+We then use the `onFocus` and `onBlur` props of the `TouchableWithoutFeedback` component to update the `isFocused` state when the button gains or loses focus.
+
+Finally, we use the `isFocused` state to conditionally style the button with a blue background color when it is focused and a red background color when it is not focused.
+
+You can customize this code to fit your specific use case.

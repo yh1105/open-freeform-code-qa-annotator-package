@@ -1,0 +1,11 @@
+The error message you're seeing is typically caused by an in-place operation that modifies a tensor that is needed for gradient computation during backpropagation. This can happen when you use in-place operations like `+=`, `-=`, `*=`, `/=`, or `tensor1.copy_(tensor2)`.
+
+Looking at your code, I don't see any obvious in-place operations. However, the error message suggests that the problem might be related to the `torch.cuda.LongTensor [128, 1]` tensor. 
+
+One thing that stands out is the use of `dec_tensor[:, i+1] = chosen` in your `predict_captions` function. This line modifies `dec_tensor` in-place. If `dec_tensor` is needed for gradient computation, this could be the source of your problem. 
+
+You could try replacing this line with something like `dec_tensor = torch.cat((dec_tensor[:, :i+1], chosen.unsqueeze(1), dec_tensor[:, i+2:]), dim=1)` to avoid the in-place operation.
+
+If this doesn't solve your problem, you might need to look more closely at the operations involving `torch.cuda.LongTensor [128, 1]` in your code. 
+
+Also, please note that the error message suggests looking at the backtrace to see the operation that failed to compute its gradient. This might give you more information about the source of the problem.

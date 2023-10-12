@@ -1,0 +1,34 @@
+To store multiple arrays with separate attributes in the database as a collection, you can use a loop to iterate through the arrays and create a new Bet model for each set of attributes. Here's an example of how you can do it in your Laravel controller:
+
+```
+public function store(Request $request)
+{
+    $tw_names = $request->input('tw_name');
+    $tw_prices = $request->input('tw_price');
+
+    $bets = collect();
+
+    foreach ($tw_names as $index => $tw_name) {
+        $bet = new Bet([
+            'name' => $tw_name,
+            'price' => $tw_prices[$index],
+        ]);
+
+        $bets->push($bet);
+    }
+
+    Bet::insert($bets->toArray());
+
+    return redirect()->back()->with('success', 'Bets saved successfully.');
+}
+```
+
+In this example, we first retrieve the `tw_name` and `tw_price` arrays from the request. We then create an empty collection to hold our Bet models.
+
+Next, we loop through each element of the `tw_names` array and create a new Bet model for each set of attributes. We use the `$index` variable to access the corresponding element in the `tw_prices` array.
+
+We then add each Bet model to our collection using the `push()` method.
+
+Finally, we insert all the Bet models in the collection into the database using the `insert()` method.
+
+This approach allows you to handle any number of form submissions and store them as a collection in the database.

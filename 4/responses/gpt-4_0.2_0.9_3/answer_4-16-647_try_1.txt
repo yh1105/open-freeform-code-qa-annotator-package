@@ -1,0 +1,13 @@
+Unfortunately, there is no direct way to trigger a Power Automate flow using a keyboard shortcut or a command line script. However, there are some workarounds that you can consider:
+
+1. **Using Power Automate Desktop**: You can create a flow in Power Automate Desktop that uses the UI automation to open Power Automate and run the specific flow. You can then create a shortcut for this desktop flow and assign a keyboard shortcut to it.
+
+2. **Using HTTP Request Trigger**: You can create a new flow with an HTTP Request trigger. This flow can then call your original flow. You can then use a PowerShell script to make a POST request to the HTTP Request URL of the new flow. Here is a sample script:
+
+```powershell
+Invoke-RestMethod -Uri "Your Flow's HTTP Request URL" -Method Post
+```
+
+3. **Using Third-Party Tools**: There are third-party tools like AutoHotkey that allow you to automate tasks in Windows. You can create a script that opens Power Automate and runs the specific flow. You can then assign a keyboard shortcut to this script.
+
+Please note that these are workarounds and might not work perfectly in all scenarios. Microsoft might add the feature to trigger flows using keyboard shortcuts or command line scripts in the future.

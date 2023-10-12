@@ -1,0 +1,49 @@
+You can achieve this layout using CSS Grid and media queries. Here's a simple example of how you can do it:
+
+HTML:
+```html
+<div class="container">
+  <div class="sidebar-top">Sidebar Top</div>
+  <div class="main-content">Main Content</div>
+  <div class="sidebar-bottom">Sidebar Bottom</div>
+</div>
+```
+
+CSS:
+```css
+.container {
+  display: grid;
+  grid-template-areas: 
+    "sidebar-top main-content"
+    "sidebar-bottom main-content";
+  grid-template-columns: 1fr 3fr;
+}
+
+.sidebar-top {
+  grid-area: sidebar-top;
+}
+
+.main-content {
+  grid-area: main-content;
+}
+
+.sidebar-bottom {
+  grid-area: sidebar-bottom;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-areas: 
+      "sidebar-top"
+      "main-content"
+      "sidebar-bottom";
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+In this example, the `.container` div is set to display as a grid. The `grid-template-areas` property is used to define a grid template by referencing the names of the grid areas which are specified with the `grid-area` property.
+
+In the media query, when the viewport is 768px or less, the grid template changes to a single column layout, and the sidebar top, main content, and sidebar bottom are stacked on top of each other.
+
+Please note that you need to replace "sidebar-top", "main-content", and "sidebar-bottom" with the actual class names of your elements. Also, adjust the `max-width` in the media query to the point where you want the layout to change.

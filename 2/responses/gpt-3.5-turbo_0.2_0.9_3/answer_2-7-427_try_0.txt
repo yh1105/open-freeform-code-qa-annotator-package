@@ -1,0 +1,22 @@
+The error message you are receiving suggests that there is an issue with the SSL certificate on the mail server. It could be that the server is using an outdated SSL version that is not supported by your email client.
+
+To resolve this issue, you can try changing the encryption method from "ssl" to "tls" in your `.env` file and in the `mail.php` configuration file. TLS is a more secure and up-to-date encryption protocol that is widely supported by email clients and servers.
+
+Here's how you can update your `.env` file:
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=mail.propnex.sg
+MAIL_PORT=587
+MAIL_USERNAME=xx.xxxxx@propnex.sg
+MAIL_PASSWORD=xxxxxxxx
+MAIL_ENCRYPTION=tls
+```
+
+And here's how you can update your `mail.php` configuration file:
+
+```
+'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+```
+
+After making these changes, try sending the email again and see if the issue is resolved. If you still encounter the same error, you may need to contact your client's IT department or email service provider for further assistance.

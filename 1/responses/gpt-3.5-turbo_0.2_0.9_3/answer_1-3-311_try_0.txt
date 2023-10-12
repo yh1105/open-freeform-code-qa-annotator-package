@@ -1,0 +1,7 @@
+You can use the `applymap` method to apply a function to each element of the dataframe. Here's how you can modify your code to apply the condition to the entire dataframe:
+
+```
+df = df.applymap(lambda x: 1 if x >= 25 else 0)
+```
+
+This will replace all values greater than or equal to 25 with 1, and all other values with 0.

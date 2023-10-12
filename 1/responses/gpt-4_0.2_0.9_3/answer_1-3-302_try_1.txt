@@ -1,0 +1,29 @@
+The error you're seeing is due to pip not being able to verify the SSL certificate of the server it's trying to connect to. This is not necessarily an issue with your `_ssl.c` file. 
+
+The `--trusted-host` option you're using is supposed to tell pip to trust the specified host, but it doesn't always work as expected. 
+
+Here are a few things you can try:
+
+1. Upgrade pip: Sometimes these issues can be resolved by upgrading pip to the latest version. You can do this with the following command:
+
+    ```
+    python -m pip install --upgrade pip
+    ```
+
+2. Use a different index URL: You can tell pip to use a different index URL that might not have the same SSL issues. For example:
+
+    ```
+    pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org dedupe
+    ```
+
+3. Disable SSL verification: This is generally not recommended because it makes your connection insecure, but if you're just trying to get something installed and you trust the source, you can tell pip to ignore SSL errors:
+
+    ```
+    pip install --trusted-host pypi.python.org --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org dedupe
+    ```
+
+4. Check your system time: SSL verification relies on your system time being correct. If your system time is significantly off, it could cause SSL verification to fail.
+
+5. If you're behind a corporate firewall or proxy, it might be interfering with pip's ability to connect to the server. You might need to configure pip to use a proxy, or talk to your network administrator about how to get around this issue.
+
+Remember, bypassing SSL verification can expose you to security risks, so it's generally better to try to fix the underlying issue rather than just ignoring the error.

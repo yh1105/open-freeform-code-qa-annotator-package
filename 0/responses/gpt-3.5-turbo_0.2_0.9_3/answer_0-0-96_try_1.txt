@@ -1,0 +1,35 @@
+Here are the recommended `tsconfig.json` settings for outputting code that's going to be run on Node.js 12:
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "lib": ["es2019"],
+    "esModuleInterop": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
+```
+
+Here's a brief explanation of each setting:
+
+- `target`: The version of ECMAScript to compile to. Node.js 12 supports ES2019, so we set this to `es2019`.
+- `module`: The module system to use. Node.js uses CommonJS, so we set this to `commonjs`.
+- `lib`: The library files to include. We only need the ES2019 library, so we set this to `["es2019"]`.
+- `esModuleInterop`: Allows for interoperability between CommonJS and ES modules.
+- `strict`: Enables strict type-checking options.
+- `moduleResolution`: Specifies how modules are resolved. We set this to `node` to use Node.js's module resolution algorithm.
+- `resolveJsonModule`: Allows importing JSON files as modules.
+- `declaration`: Generates corresponding `.d.ts` files.
+- `outDir`: The output directory for compiled files.
+- `sourceMap`: Generates source maps for easier debugging.
+
+The `include` and `exclude` settings specify which files to include and exclude from compilation. In this example, we include all files in the `src` directory and exclude any files in `node_modules` or any `.spec.ts` files.

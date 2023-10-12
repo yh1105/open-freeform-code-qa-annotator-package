@@ -1,0 +1,7 @@
+It is not recommended to manually set the commit SHA in Git as it is generated based on various parameters such as the commit message, author, timestamp, and parent commit SHA. Changing any of these parameters will result in a different commit SHA. 
+
+If you want to keep the same commit SHA in both the source and target servers, you can use the `git cherry-pick` command to apply the changes from the source server to the target server. This will create a new commit with a different SHA but with the same changes as the original commit. 
+
+Alternatively, you can use a Git tool like `git filter-branch` to rewrite the commit history and change the commit SHA. However, this is a complex and risky operation that can cause issues with the repository's history and should only be done with caution. 
+
+In summary, it is not recommended to manually set the commit SHA in Git. Instead, you can use Git tools like `git cherry-pick` or `git filter-branch` to achieve your desired outcome.

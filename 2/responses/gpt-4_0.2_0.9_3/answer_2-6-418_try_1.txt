@@ -1,0 +1,24 @@
+In C#, the `&&` operator is a short-circuit operator, meaning that if the first condition is `false`, the second condition will not be evaluated. This is true even when using `await` in the conditions.
+
+However, the way you've written your `if` statement with `await` in each condition is not valid in C#. The `await` keyword can only be used with a task, and the `&&` operator cannot be applied to two tasks. 
+
+If you want to use `await` in an `if` statement with two conditions, you would need to await each task separately before the `if` statement, like this:
+
+```csharp
+bool firstCheck = await first_check();
+bool secondCheck = await second_check();
+
+if(firstCheck && secondCheck)
+    // do something
+```
+
+In this case, both `first_check()` and `second_check()` will be awaited before the `if` statement is evaluated, regardless of the results of the checks. This means that the short-circuit behavior of the `&&` operator does not apply in this case, because both tasks are awaited before the `if` statement.
+
+If you want to take advantage of the short-circuit behavior with asynchronous methods, you would need to structure your code like this:
+
+```csharp
+if(await first_check() && await second_check())
+    // do something
+```
+
+In this case, if `first_check()` returns `false`, `second_check()` will not be awaited. This is because the `&&` operator short-circuits and does not evaluate the second condition if the first condition is `false`.

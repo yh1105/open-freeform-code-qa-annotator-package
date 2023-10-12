@@ -116,3 +116,5 @@ cases:
 - cases/eval_3-12-583.yaml
 - cases/eval_3-12-584.yaml
 - cases/eval_3-12-585.yaml
+full_score_per_question: 1.0
+version: suite_v2_part_3.yaml

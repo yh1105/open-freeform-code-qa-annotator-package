@@ -1,0 +1,12 @@
+It seems like you are missing the vendor folder in your project directory. The vendor folder is usually created by Composer when you run the `composer install` or `composer update` command. 
+
+To fix this issue, you can try the following steps:
+
+1. Open the command prompt or terminal and navigate to your project directory.
+2. Run the command `composer install` to install all the required dependencies for your project.
+3. After the installation is complete, check if the vendor folder is created in your project directory.
+4. If the vendor folder is created, try running your code again.
+
+If the issue still persists, you can try deleting the vendor folder and running the `composer install` command again. This will reinstall all the dependencies and create a new vendor folder.
+
+Also, make sure that you are including the correct path to the autoload.php file in your code. The path should be relative to your project directory.

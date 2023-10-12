@@ -1,0 +1,20 @@
+You can use the `pivot_longer` function from the `tidyverse` package to reshape your data from wide to long format. The `names_pattern` argument allows you to specify a regular expression that will be used to split the column names. 
+
+Here's how you can do it:
+
+```r
+library(tidyverse)
+
+dat_long <- dat %>%
+  pivot_longer(
+    cols = -group,
+    names_to = c(".value", "names"),
+    names_pattern = "(lower|upper|)(.*)"
+  )
+
+dat_long
+```
+
+In the `names_pattern`, we use a regular expression to match either "lower", "upper", or nothing (indicated by `|`), followed by any characters (indicated by `.*`). The parentheses `()` create capture groups, which are used to fill the `names_to` vector. The `.value` in `names_to` indicates that the part of the column name matched by the corresponding capture group in `names_pattern` should be used as the name of the column in the output.
+
+This will give you a long format data frame where the "BP", "HS", and "BB" values are in a single column, and the "lower" and "upper" values are in separate columns.

@@ -1,0 +1,20 @@
+The convention for character names used in Zsh is to use the name of the character preceded by "self-insert-". For example, the character "a" would be named "self-insert-a". 
+
+In the case of the tab character, it is named "self-insert-tab". Therefore, you can replace "tab-char" with "self-insert-tab" in your config to set the tab key as an accept widget for the Zsh autosuggest plugin. 
+
+Here's the updated code:
+
+```
+# Widgets that accept the entire suggestion
+(( ! ${+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS} )) && {
+        typeset -ga ZSH_AUTOSUGGEST_ACCEPT_WIDGETS
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+                forward-char
+                end-of-line
+                self-insert-tab // updated line
+                vi-forward-char
+                vi-end-of-line
+                vi-add-eol
+        )
+}
+```

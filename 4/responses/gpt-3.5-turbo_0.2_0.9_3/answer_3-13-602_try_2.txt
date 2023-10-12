@@ -1,0 +1,7 @@
+The error message suggests that the `HomeActivity` is not attached to the `CoreApplication` annotated with `@HiltAndroidApp`. 
+
+Make sure that the `CoreApplication` class is declared in the `AndroidManifest.xml` file as the `android:name` attribute of the `<application>` tag. 
+
+Also, check that the `build.gradle` file of the app module includes the `kapt` plugin and the necessary dependencies for Hilt. 
+
+If the issue persists, try cleaning and rebuilding the project.

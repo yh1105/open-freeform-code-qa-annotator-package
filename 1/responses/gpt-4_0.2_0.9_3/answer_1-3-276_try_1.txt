@@ -1,0 +1,19 @@
+The error message you're seeing is typically caused by an in-place operation that modifies a tensor that's needed for gradient computation during backpropagation. In your case, it's hard to pinpoint the exact location of the error without more information, but I can provide some general advice on how to debug this issue.
+
+Here are some things you can try:
+
+1. Check if you're using any in-place operations (like `+=`, `-=`, `*=`, `/=`, or any operation that mutates tensor in-place) in your code. If you are, try replacing them with out-of-place operations. For example, replace `x += y` with `x = x + y`.
+
+2. Check if you're using any in-place functions (like `.zero_()`, `.fill_()`, `.copy_()`, etc.) on any tensor that's involved in the computation graph. If you are, try to avoid these operations.
+
+3. Check if you're reusing any tensors in your computation graph. If you are, try to avoid this.
+
+4. Check if you're modifying the data of any tensor with `.data` or `.detach()`. If you are, try to avoid this.
+
+5. If you're using any custom PyTorch functions (i.e., you're implementing `forward` and `backward` methods yourself), make sure you're not doing any in-place operations there.
+
+6. If you're using any third-party libraries that could be performing in-place operations under the hood, try to identify these operations and see if they can be avoided.
+
+7. If all else fails, you can use `torch.autograd.set_detect_anomaly(True)` at the beginning of your training loop to get more detailed information about where the error is occurring. This will make your code run slower, but it can be helpful for debugging.
+
+In your case, I would start by checking the `predict_captions` function and the forward methods of your `Encoder_s2s` and `DecoderAttn` classes, as these are the parts of your code where the tensors involved in the computation graph are being manipulated.

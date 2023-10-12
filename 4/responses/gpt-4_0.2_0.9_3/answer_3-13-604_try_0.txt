@@ -1,0 +1,34 @@
+From your code, it seems you are inflating the layout twice, once for the binding and once for the view. This could be the cause of your issue. 
+
+When you use View Binding, you don't need to inflate the layout again. The binding object already contains all the views in the layout. 
+
+Here's how you should do it:
+
+```kotlin
+override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        binding.exercise.setText("This is an exceptionally hardcoded string")
+
+        binding.btnNewExercise.setOnClickListener {
+            Toast.makeText(requireContext(), "New exercise will be generated", Toast.LENGTH_SHORT).show()
+            println("Generated a new exercise")
+        }
+
+        return root
+}
+```
+
+In this code, `binding.exercise` and `binding.btnNewExercise` are the views in your layout. You can access them directly from the binding object. 
+
+Also, make sure that the IDs of the views in your layout file match the ones you are using in your Kotlin file. 
+
+If you still encounter a NullPointerException, it might be because the views are not yet created when you are trying to access them. In that case, you should move the code that accesses the views to `onViewCreated()` method.

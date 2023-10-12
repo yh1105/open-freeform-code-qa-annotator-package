@@ -1,0 +1,17 @@
+The error message you're seeing is usually due to a mismatch between the encryption type specified in your configuration and what the SMTP server actually supports. 
+
+In your `.env` file, you've specified `MAIL_ENCRYPTION=ssl`, but in your `mail.php` configuration file, you've specified `'encryption' => env('MAIL_ENCRYPTION', 'tls')`. This means that if `MAIL_ENCRYPTION` is not set in your `.env` file, it will default to `'tls'`.
+
+The port number you're using, 587, is typically used for TLS encryption, not SSL. 
+
+Here are a few things you can try:
+
+1. Change `MAIL_ENCRYPTION=ssl` in your `.env` file to `MAIL_ENCRYPTION=tls` and see if that resolves the issue.
+
+2. If that doesn't work, try changing `MAIL_PORT=587` in your `.env` file to `MAIL_PORT=465`, which is the port typically used for SSL encryption.
+
+3. If neither of those work, it's possible that the SMTP server doesn't support encryption at all. In that case, you can try setting `MAIL_ENCRYPTION=null` in your `.env` file.
+
+Remember to clear your config cache each time you make a change to your `.env` file by running `php artisan config:cache` in your terminal.
+
+If none of these suggestions work, you may need to contact the administrator of the SMTP server to find out what settings you should be using.

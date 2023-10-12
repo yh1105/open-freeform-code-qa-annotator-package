@@ -1,0 +1,69 @@
+The issue seems to be with the way you have set up your project structure and the paths you are using in your configuration files. 
+
+Here's a step-by-step guide on how to set up absolute imports in your project:
+
+1. **Set up `tsconfig.json`**
+
+   In your `tsconfig.json` file, set the `baseUrl` and `paths` options like this:
+
+   ```json
+   {
+     "compilerOptions": {
+       "baseUrl": "src",
+       "paths": {
+         "*": ["src/*"]
+       }
+       // other options...
+     },
+     "include": ["src"]
+   }
+   ```
+
+   This tells TypeScript to use the `src` directory as the base for module resolution.
+
+2. **Set up `.env` file**
+
+   In your `.env` file, set the `NODE_PATH` environment variable like this:
+
+   ```
+   NODE_PATH=src/
+   ```
+
+   This tells Node.js to use the `src` directory as the base for module resolution.
+
+3. **Set up Babel**
+
+   Install the `babel-plugin-module-resolver` package:
+
+   ```
+   yarn add -D babel-plugin-module-resolver
+   ```
+
+   Then, in your `babel.config.js` file, set up the plugin like this:
+
+   ```javascript
+   module.exports = {
+     // other options...
+     plugins: [
+       [
+         'module-resolver',
+         {
+           root: ['./src'],
+           extensions: ['.js', '.jsx', '.ts', '.tsx'],
+         },
+       ],
+     ],
+   };
+   ```
+
+   This tells Babel to use the `src` directory as the base for module resolution.
+
+4. **Restart your development server**
+
+   After making these changes, you need to restart your development server for the changes to take effect.
+
+   ```
+   yarn start
+   ```
+
+Please note that you need to replace `src` with `client` in the above steps if you want to use the `client` directory as the base for module resolution. Also, make sure that your `client` directory is at the root of your project, not inside the `assets` directory.

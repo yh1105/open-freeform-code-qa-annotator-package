@@ -1,0 +1,26 @@
+The `getByText` function from Testing Library does indeed take a `container` parameter, but it's not passed as an argument to the function. Instead, it's used as the context on which to call the function. 
+
+Here's how you can use it:
+
+```jsx
+const container = getByTestId('my-test-id');
+expect(getByText(container, 'some text')).toBeInTheDocument();
+```
+
+In this case, `getByText` is called on the `container` object, and 'some text' is passed as the argument. This will search for the text within the specified container.
+
+Also, note that I've used `toBeInTheDocument()` instead of `toBeTruthy()`. The `toBeInTheDocument()` function is a more accurate way to check if an element is in the document. It's part of the `jest-dom` library, which provides custom jest matchers to test the state of the DOM.
+
+If you're not already using `jest-dom`, you can install it with npm:
+
+```bash
+npm install --save @testing-library/jest-dom
+```
+
+And then import it in your test file:
+
+```jsx
+import '@testing-library/jest-dom';
+```
+
+This will give you access to additional matchers like `toBeInTheDocument()`.

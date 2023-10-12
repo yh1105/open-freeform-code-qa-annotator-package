@@ -1,0 +1,11 @@
+One way to optimize this task is to use awk instead of bash. Awk is a powerful tool for text processing and can handle this task much faster than bash.
+
+Here's an example awk script that should do what you need:
+
+```
+awk '/name=/ {name=$2} /value=/ {if (name) print name "=" $2; name=""}' input.txt > output.txt
+```
+
+This script uses two regular expressions to match lines that start with "name=" and "value=". When it finds a line that starts with "name=", it saves the name in a variable. When it finds a line that starts with "value=", it prints the name and value as a pair, and then resets the name variable.
+
+This script should be much faster than your bash script, even for large input files.

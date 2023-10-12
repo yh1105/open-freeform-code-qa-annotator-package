@@ -1,0 +1,9 @@
+The issue is that the syntax for importing icons from `react-icons` has changed in version 3.0.0. Instead of importing from `react-icons/lib`, you should import directly from the icon's package. For example:
+
+```
+import { MdTerrain } from 'react-icons/md';
+import { TiSnowflake } from 'react-icons/ti';
+import { FaCalendar } from 'react-icons/fa';
+```
+
+Make sure to update your imports accordingly and the error should be resolved.

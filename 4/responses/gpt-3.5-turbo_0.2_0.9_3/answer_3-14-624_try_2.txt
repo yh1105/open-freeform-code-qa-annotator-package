@@ -1,0 +1,13 @@
+The error message you provided indicates that there is a problem with the script `swift_lint_check.sh`. This script is likely being executed as part of a build phase in your Xcode project.
+
+Here are some steps you can take to troubleshoot this issue:
+
+1. Check the script for errors: Open the script `swift_lint_check.sh` and make sure there are no syntax errors or other issues. You can also try running the script manually from the command line to see if it produces any errors.
+
+2. Check the build phase: Make sure that the build phase that is running the script is configured correctly. Check the input and output files, as well as any other settings that may be relevant.
+
+3. Check the environment: Make sure that the environment in which the script is running is set up correctly. Check that any required dependencies are installed and that the correct version of Swift is being used.
+
+4. Try running the script outside of Xcode: If you are still having trouble, try running the script outside of Xcode to see if it produces any errors. This can help you isolate the problem and determine if it is related to Xcode or the script itself.
+
+5. Contact the script author: If you are still unable to resolve the issue, consider contacting the author of the script for assistance. They may be able to provide additional guidance or help you troubleshoot the problem.

@@ -1,0 +1,10 @@
+To set the selected values in the multiselect dropdown, you need to pass an array of selected values to the `formControlName` of the multiselect. You can do this by using the `setValue` method of the form control.
+
+Here's an example code snippet that you can use:
+
+```
+// Assuming you have the converted array of excludeDays as excludeDaysArray
+this.form.controls['excludeDays'].setValue(excludeDaysArray);
+```
+
+This will set the selected values in the multiselect dropdown based on the values in the `excludeDaysArray`. Make sure to call this code after the form has been initialized and the `excludeDays` options have been loaded.

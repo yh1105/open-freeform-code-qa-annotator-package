@@ -1,0 +1,27 @@
+You can achieve the desired output by using nested loops to iterate through the 3-D list and then flattening the nested lists into a single list. Here's an example code snippet that does this:
+
+```
+import numpy as np
+
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+
+# Convert the list to a numpy array for easier manipulation
+a = np.array(a)
+
+# Flatten the array and print the output
+for item in a.flatten():
+    print(item)
+```
+
+This will output:
+
+```
+[0 0]
+[3 0]
+[1 0]
+[4 0]
+[2 0]
+[6 0]
+```
+
+Note that the output is a numpy array, but you can easily convert it back to a regular list using the `tolist()` method if needed.

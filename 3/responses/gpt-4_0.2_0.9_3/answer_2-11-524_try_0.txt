@@ -1,0 +1,15 @@
+You should stick with `std::string` for UTF-8. The reason is that UTF-8 is a variable-length encoding, meaning that a single Unicode character can be represented by 1 to 4 bytes. `std::string` is a byte-oriented container, which is suitable for UTF-8.
+
+However, as you've noticed, this can cause problems when you use functions like `std::string::size()`, `std::string::operator[]`, `std::string::find_first_of()`, and `std::regex`, because these functions operate on bytes, not on Unicode characters.
+
+Here are some tips to handle these problems:
+
+1. **String Length**: If you want to get the number of Unicode characters in a string, you can't use `std::string::size()`. Instead, you need to iterate over the string and count the number of Unicode characters. There are libraries that can help with this, such as the ICU library.
+
+2. **Accessing Characters**: Similarly, you can't use `std::string::operator[]` to access a Unicode character by its index. You need to iterate over the string to find the character. Again, libraries like ICU can help with this.
+
+3. **Searching and Regular Expressions**: For searching and regular expressions, you need to use a library that supports Unicode. The standard `std::regex` does not support Unicode well. You can use libraries like Boost.Regex with the `boost::locale::generator` and `boost::locale::utf8` for this purpose.
+
+4. **Conversion**: If you need to convert between different encodings, use a library like ICU or Boost.Locale.
+
+In general, dealing with Unicode in C++ can be tricky, and it's usually a good idea to use a library that handles the complexities for you.

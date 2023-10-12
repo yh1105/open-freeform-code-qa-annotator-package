@@ -1,0 +1,9 @@
+The error message indicates that the module `jmespath` cannot be found. This is likely because the module was installed for the previous runtime version (`nodejs8.10`) but not for the new runtime version (`nodejs10.x`).
+
+To fix this issue, you can try running the following command in your project directory:
+
+```
+npm install jmespath
+```
+
+This will install the `jmespath` module for the current runtime version. Once the installation is complete, you can redeploy your serverless application and the error should be resolved.

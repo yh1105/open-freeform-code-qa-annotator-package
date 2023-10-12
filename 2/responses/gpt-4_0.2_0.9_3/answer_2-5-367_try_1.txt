@@ -1,0 +1,62 @@
+You can use the `runOrder` parameter of the Maven Failsafe plugin to control the order in which tests are run. However, as you mentioned, the `balanced` option is not compatible with forked JVMs.
+
+One possible solution is to use the `groups` or `categories` feature of JUnit to separate your slow tests from the faster ones. You can then configure the Failsafe plugin to run the slow tests first.
+
+Here's how you can do it:
+
+1. Create a marker interface for your slow tests:
+
+```java
+public interface SlowTests {}
+```
+
+2. Annotate your slow test classes with `@Category(SlowTests.class)`:
+
+```java
+import org.junit.experimental.categories.Category;
+
+@Category(SlowTests.class)
+public class SlowTest {
+    // ...
+}
+```
+
+3. Configure the Failsafe plugin in your `pom.xml` to run the slow tests first:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-failsafe-plugin</artifactId>
+    <version>2.22.2</version>
+    <configuration>
+        <groups>com.example.SlowTests</groups>
+    </configuration>
+    <executions>
+        <execution>
+            <id>slow-tests</id>
+            <goals>
+                <goal>integration-test</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>other-tests</id>
+            <goals>
+                <goal>integration-test</goal>
+            </goals>
+            <configuration>
+                <excludedGroups>com.example.SlowTests</excludedGroups>
+            </configuration>
+        </execution>
+        <execution>
+            <id>verify</id>
+            <goals>
+                <goal>verify</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+```
+
+This configuration will first run the tests marked as slow, then the rest of the tests. The `verify` goal is still run at the end to fail the build if any test failed.
+
+Please note that this solution requires JUnit 4.12 or later. If you're using an older version of JUnit, you might need to upgrade or find a different solution.

@@ -1,0 +1,35 @@
+The error you're seeing is because you're trying to access a `@State` variable outside of the `body` property. `@State` variables are designed to be used within the SwiftUI view's `body` property, and SwiftUI doesn't allow them to be accessed elsewhere.
+
+However, you can use a different property wrapper, `@StateObject`, to achieve your goal. `@StateObject` is designed to be initialized in the `init()` method and can be used to store complex data that will survive for the lifetime of your view.
+
+Here's how you can modify your code:
+
+```swift
+class TextModel: ObservableObject {
+    @Published var fullText: String
+    
+    init(letter: String) {
+        self.fullText = letter
+    }
+}
+
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+    
+    @StateObject var textModel: TextModel
+
+    init(letter: String) {
+        _textModel = StateObject(wrappedValue: TextModel(letter: list[letter]!))
+    }
+
+    var body: some View {
+        TextField("Enter text", text: $textModel.fullText)
+    }
+}
+```
+
+In this code, `TextModel` is a class that conforms to `ObservableObject` and has a `@Published` property `fullText`. This property will automatically notify the view to update whenever it changes. We initialize `TextModel` with the desired letter in the `init()` method of `StateFromOutside` and store it in a `@StateObject` property. Then we bind `TextField` to `textModel.fullText` so that it displays and updates the text.

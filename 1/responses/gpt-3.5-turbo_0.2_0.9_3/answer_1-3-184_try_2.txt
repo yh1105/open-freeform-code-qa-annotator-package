@@ -1,0 +1,54 @@
+No worries, I can help you with that. Here's some code that should do what you're looking for:
+
+```python
+import openpyxl
+
+# Load the workbook
+workbook = openpyxl.load_workbook('example.xlsx')
+
+# Select the sheet
+sheet = workbook['Sheet1']
+
+# Define the product name to search for
+product_name = 'ABC'
+
+# Create a list to store the rows that contain the product name
+rows_with_product = []
+
+# Loop through all the rows in the sheet
+for row in sheet.iter_rows():
+
+    # Loop through all the cells in the row
+    for cell in row:
+
+        # Check if the cell contains the product name
+        if cell.value == product_name:
+
+            # If it does, add the row to the list
+            rows_with_product.append(row)
+
+# Create a dictionary to store the cell values
+cell_values = {}
+
+# Loop through all the rows that contain the product name
+for row in rows_with_product:
+
+    # Loop through all the cells in the row
+    for cell in row:
+
+        # Get the column letter for the cell
+        column_letter = openpyxl.utils.get_column_letter(cell.column)
+
+        # Create a key for the cell in the dictionary
+        key = f'{column_letter}{cell.row}'
+
+        # Add the cell value to the dictionary
+        cell_values[key] = cell.value
+
+# Print the cell values
+print(cell_values)
+```
+
+This code should search for the product name 'ABC' in all cells in the sheet, and then copy the contents of every cell in the rows that contain the product name. The cell values are stored in a dictionary, where the keys are the cell references (e.g. 'A2', 'B2', 'C2', etc.) and the values are the cell values.
+
+You'll need to replace 'example.xlsx' with the name of your Excel file. Let me know if you have any questions or if there's anything else I can help you with!

@@ -1,0 +1,21 @@
+Yes, you can create a function to handle this conversion. This function will take a nullable string as an argument and return an integer. If the string is not null, it will parse the string to an integer. If the string is null, it will return a default value (like 0 or null). Here is an example:
+
+```dart
+int parseStringToInt(String? value, [int defaultValue = 0]) {
+  if (value != null) {
+    return int.parse(value);
+  } else {
+    return defaultValue;
+  }
+}
+```
+
+You can use this function in your code like this:
+
+```dart
+final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
+int id = parseStringToInt(routeArgs["id"]);
+```
+
+This way, you don't need to check for null every time you want to parse a string to an integer. The function will handle it for you.

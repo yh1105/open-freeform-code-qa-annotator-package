@@ -1,0 +1,44 @@
+One way to solve this problem is to use generics. You can modify the `M` class to take a type parameter that specifies the return type of the methods that modify the object. Here's an example:
+
+```
+from typing import TypeVar, Generic
+
+T = TypeVar('T', bound='M')
+
+class M(Generic[T]):
+    def set_width(self, width: int) -> T:
+        self.width = width
+        return self
+
+    def set_height(self, height: int) -> T:
+        self.height = height
+        return self
+```
+
+Now you can use `M` and `M3D` like this:
+
+```
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+This works because `M3D` is a subclass of `M[T]`, where `T` is `M3D` itself. So when you call `set_width()` on an `M3D` object, it returns an `M3D` object, not an `M` object. The same goes for `set_height()` and `set_depth()`.
+
+This approach also works for special methods like `__enter__`. Here's an example:
+
+```
+class MyContextManager(Generic[T]):
+    def __enter__(self) -> T:
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass
+```
+
+Now you can subclass `MyContextManager` and specify the return type of `__enter__`:
+
+```
+class MySubclass(MyContextManager['MySubclass']):
+    pass
+```
+
+This way, `MySubclass().__enter__()` returns a `MySubclass` object, not a `MyContextManager` object.

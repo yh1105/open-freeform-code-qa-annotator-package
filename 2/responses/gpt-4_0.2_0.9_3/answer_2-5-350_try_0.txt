@@ -1,0 +1,13 @@
+The error message suggests that the Gradle process is unable to access a file because it's being used by another process. This could be due to several reasons such as an antivirus program scanning the file, another instance of Gradle running in the background, or the file being open in another program.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Close any other instances of Gradle or VS Code**: Make sure you don't have any other instances of Gradle or VS Code running in the background. You can check this in your Task Manager (Ctrl+Shift+Esc on Windows).
+
+2. **Disable your antivirus temporarily**: Sometimes, antivirus software can lock files while scanning them. Try disabling your antivirus software temporarily and see if the problem persists.
+
+3. **Delete the .gradle directory**: If the above steps don't work, you can try deleting the .gradle directory and then re-running your project. The .gradle directory is usually located in your user home directory. In your case, it's `C:\Users\sanjay\.gradle`. Please note that this will force Gradle to download all dependencies again.
+
+4. **Update Gradle**: If none of the above solutions work, you might want to consider updating Gradle to the latest version. You can do this by changing the version in your `gradle-wrapper.properties` file.
+
+Remember to restart your VS Code after performing these steps. If the problem persists, it might be a good idea to reinstall VS Code and Flutter.

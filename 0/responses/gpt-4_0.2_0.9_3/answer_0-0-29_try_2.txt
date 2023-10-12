@@ -1,0 +1,31 @@
+You can use the useEffect hook to run the second query after the first one has returned the user data. Here's an example of how you can do it:
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function YourComponent() {
+  const { data: user } = useGetUserQuery();
+  const [userId, setUserId] = useState(null);
+  const { data: userBio, refetch: refetchUserBio } = useGetUserBioQuery(userId, {
+    skip: !userId, // Skip the query initially
+  });
+
+  useEffect(() => {
+    if (user && user.id) {
+      setUserId(user.id); // This will trigger the second query
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userId) {
+      refetchUserBio(); // Refetch the second query when userId changes
+    }
+  }, [userId, refetchUserBio]);
+
+  // Your component rendering...
+}
+```
+
+In this example, the second query is skipped initially using the `skip` option. When the user data is available, the user's ID is set to the state, which triggers the second useEffect hook to refetch the second query.
+
+Please note that the actual implementation might vary depending on the library you're using for data fetching. The above example assumes that you're using Apollo Client, which provides the `skip` option and the `refetch` function. If you're using a different library, please refer to its documentation for similar functionalities.

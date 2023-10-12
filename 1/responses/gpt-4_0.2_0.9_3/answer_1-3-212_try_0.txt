@@ -1,0 +1,34 @@
+In Python, you can use the `Self` type hint to refer to the instance of the current class. This is useful when you want to type hint methods that return the instance of the current class, such as in method chaining or the builder pattern.
+
+However, as of Python 3.10, the `Self` type hint is not officially supported. There is a proposal (PEP 673) to add it to the language, but it has not been accepted yet.
+
+In the meantime, you can use a workaround with generics to achieve a similar effect. Here's how you can do it:
+
+```python
+from __future__ import annotations
+from typing import TypeVar, Generic
+
+T = TypeVar('T', bound='M')
+
+class M(Generic[T]):
+    def set_width(self, width: int) -> T:
+        self.width = width
+        return self
+
+    def set_height(self, height: int) -> T:
+        self.height = height
+        return self
+
+class M3D(M['M3D']):
+    def set_depth(self, depth: int) -> M3D:
+        self.depth = depth
+        return self
+```
+
+Now you can do this without any type errors:
+
+```python
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+This works because `M` is now a generic class that takes a type parameter `T`, which is used as the return type of `set_width` and `set_height`. When you subclass `M` with `M3D`, you specify that `T` is `M3D`, so `set_width` and `set_height` now return `M3D` in the context of the `M3D` class.

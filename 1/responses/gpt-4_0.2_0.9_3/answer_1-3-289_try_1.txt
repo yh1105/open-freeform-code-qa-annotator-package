@@ -1,0 +1,22 @@
+Your code is almost correct. The only thing you need to change is the order of your loops. You are currently iterating over the outermost list first, then the inner lists. However, you want to iterate over the inner lists first, then the outer list. Here's how you can do it:
+
+```python
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+
+for i in range(len(a[0])): # iterate over the first inner list
+    for z in range(len(a)): # then iterate over the outer list
+        print(a[z][i])
+```
+
+This will give you the desired output:
+
+```
+[0, 0]
+[1, 0]
+[2, 0]
+[3, 0]
+[4, 0]
+[6, 0]
+```
+
+This works because you are first iterating over the elements of the inner lists (i.e., the pairs of numbers), then iterating over the outer list to get each inner list in turn. This way, you get the pairs of numbers in the order you want.

@@ -1,0 +1,52 @@
+Yes, you can achieve this by using React's `ref` feature. Here's how you can do it:
+
+First, create a reference to your form in the `CustomForm` component. Then, expose a method to submit the form. Finally, use this method in the `App` component.
+
+Here's the updated code:
+
+```jsx
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
+class CustomForm extends Component {
+  formRef = React.createRef(); // Create a reference
+
+  submitForm = () => { // Expose a method to submit the form
+    if (this.formRef.current) {
+      this.formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  };
+
+  render() {
+    return (
+      <form ref={this.formRef} onSubmit={(e) => {e.preventDefault(); alert('Form submitted!')}}>
+        <button type='submit'>Inside Custom</button>
+      </form>
+    );
+  }
+}
+
+class App extends Component {
+  formRef = React.createRef(); // Create a reference
+
+  submitForm = () => { // Use the exposed method to submit the form
+    if (this.formRef.current) {
+      this.formRef.current.submitForm();
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <CustomForm ref={this.formRef} />
+        <button onClick={this.submitForm}>In Root</button>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+In this code, the `CustomForm` component creates a reference to the form element and exposes a `submitForm` method. The `App` component creates a reference to the `CustomForm` component and uses the `submitForm` method when the 'In Root' button is clicked.

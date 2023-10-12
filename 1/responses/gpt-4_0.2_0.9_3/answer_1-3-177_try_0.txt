@@ -1,0 +1,22 @@
+The PyQt5-tools package includes the PyQt5 designer, but it's not added to the PATH by default, so you have to find it manually. 
+
+The location of the designer.exe file depends on your Python version and the location of your Python installation. 
+
+Here is a general way to find it:
+
+1. Open Python in your terminal or command prompt.
+2. Import the `site` module.
+3. Print the site packages path.
+
+Here is the code:
+
+```python
+import site
+print(site.getsitepackages())
+```
+
+This will print out the path to your site-packages folder. 
+
+The `designer.exe` should be in a path similar to this: `Lib\site-packages\pyqt5_tools\Qt\bin\designer.exe` inside your Python installation directory.
+
+If you still can't find it, it's possible that the PyQt5-tools package didn't install correctly. In that case, you might want to try reinstalling it.

@@ -1,0 +1,32 @@
+In Go, you can use a dynamic data structure called a "slice" which is similar to an array but it can grow and shrink in size. 
+
+Here is how you can declare a slice:
+
+```go
+var mySlice []int
+```
+
+You can add elements to a slice using the `append` function:
+
+```go
+mySlice = append(mySlice, 1) // mySlice is now: [1]
+mySlice = append(mySlice, 2) // mySlice is now: [1, 2]
+mySlice = append(mySlice, 3) // mySlice is now: [1, 2, 3]
+```
+
+You can also append multiple items at once:
+
+```go
+mySlice = append(mySlice, 4, 5, 6) // mySlice is now: [1, 2, 3, 4, 5, 6]
+```
+
+And you can even append another slice to a slice:
+
+```go
+anotherSlice := []int{7, 8, 9}
+mySlice = append(mySlice, anotherSlice...) // mySlice is now: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+Note the `...` after `anotherSlice` in the `append` function. This is called the ellipsis operator and it is used to pass the elements of a slice to a variadic function.
+
+Remember that slices in Go are reference types. This means that when you pass a slice to a function, the function can modify the elements of the slice. If you come from a programming language where arrays are value types (like C++), this can be a source of confusion.

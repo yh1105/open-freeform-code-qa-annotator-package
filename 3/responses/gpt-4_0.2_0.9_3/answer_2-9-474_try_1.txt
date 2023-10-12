@@ -1,0 +1,15 @@
+The error message you're seeing is:
+
+```
+superclass mismatch for class StringIO (TypeError)
+```
+
+This error typically occurs when a class is being defined with the same name but with different parent classes. In your case, it seems like `StringIO` is being redefined somewhere in your code or in one of your dependencies.
+
+The `StringIO` class is a built-in Ruby class and it should not be redefined. If you have a class with the same name in your code, consider renaming it.
+
+If the error is not in your code, it might be in one of your dependencies. You can try to update your gems to the latest versions with `bundle update` and see if the error persists.
+
+Also, it's worth noting that you're using Ruby 2.7.1, which is not the latest version. The latest version as of now is 3.1.0. The error might be due to some incompatibility between your Ruby version and one of your gems. If possible, consider updating Ruby to the latest version.
+
+Lastly, you can try to find out which gem is causing the error by removing them one by one and seeing if the error persists. This can be a bit time-consuming, but it might be necessary if the above suggestions don't work.

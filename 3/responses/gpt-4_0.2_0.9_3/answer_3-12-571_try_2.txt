@@ -1,0 +1,70 @@
+In order to change the `currentPage` from other classes, you can use a callback function. Here's an example of how you can do it:
+
+```dart
+import 'package:flutter/material.dart';
+
+class RootPage extends StatefulWidget {
+  @override
+  _RootPageState createState() => new _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  Widget currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = FeedPage(onPageChange: changePage);
+  }
+
+  void changePage(Widget page) {
+    setState(() {
+      currentPage = page;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: currentPage,
+    );
+  }
+}
+
+class FeedPage extends StatefulWidget {
+  final Function onPageChange;
+
+  FeedPage({this.onPageChange});
+
+  @override
+  _FeedPageState createState() => new _FeedPageState();
+}
+
+class _FeedPageState extends State<FeedPage> {
+  @override
+  Widget build(BuildContext context) {
+    return new FlatButton(
+      onPressed: () {
+        widget.onPageChange(NewPage(onPageChange: widget.onPageChange));
+      },
+      child: new Text('Go to a new page but keep root, just replace this feed part'),
+    );
+  }
+}
+
+class NewPage extends StatelessWidget {
+  final Function onPageChange;
+
+  NewPage({this.onPageChange});
+
+  @override
+  Widget build(BuildContext context) {
+    // your new page content here
+    return Container();
+  }
+}
+```
+
+In this example, `FeedPage` and `NewPage` take a callback function `onPageChange` as a parameter. When the button in `FeedPage` is pressed, it calls `onPageChange` with a new instance of `NewPage`, which causes `RootPage` to rebuild with `NewPage` as the `currentPage`. 
+
+You can pass the `onPageChange` callback to any new page you create, allowing you to change the `currentPage` from anywhere.

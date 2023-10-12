@@ -1,0 +1,51 @@
+The `payer` in your code is the account that will pay for the transaction fee. When you are using a wallet, the wallet itself is the payer. You don't need to get the secret key of the wallet, you just need to sign the transaction with the wallet.
+
+Here is how you can do it:
+
+1. Create a `@solana/web3.js` Transaction object and add instructions to it:
+
+```javascript
+const transaction = new Transaction().add(
+    Token.createTransferInstruction(
+        TOKEN_PROGRAM_ID,
+        fromTokenAccount.address,
+        toTokenAccount.address,
+        publicKey,
+        [],
+        amount
+    )
+);
+```
+
+2. Sign the transaction with the wallet:
+
+```javascript
+const { blockhash } = await connection.getRecentBlockhash();
+transaction.recentBlockhash = blockhash;
+transaction.feePayer = publicKey; // the wallet is the fee payer
+
+// Sign transaction with wallet
+let signedTransaction = await wallet.signTransaction(transaction);
+```
+
+3. Send the transaction over a Connection:
+
+```javascript
+const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+```
+
+Please note that the `wallet` object in the code above is the wallet instance you get from the `solana-wallet-adapter`. You can get it from the `useWallet` hook:
+
+```javascript
+const { wallet } = useWallet();
+```
+
+Also, please make sure to handle the case when the wallet is not connected. You can check if the wallet is connected by checking `wallet.connected`:
+
+```javascript
+if (!wallet.connected) {
+    throw new WalletNotConnectedError();
+}
+```
+
+And don't forget to handle the promise rejections for the async functions.

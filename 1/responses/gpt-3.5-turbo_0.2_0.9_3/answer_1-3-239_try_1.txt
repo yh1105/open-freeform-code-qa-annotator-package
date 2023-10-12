@@ -1,0 +1,8 @@
+You can use the `brew install` command with a specific version number to install a previous version of Python 3. Here's how to install Python 3.6.5:
+
+1. Open a terminal window.
+2. Run the command `brew search python` to see the available versions of Python.
+3. Find the version number for Python 3.6.5 in the list.
+4. Run the command `brew install python@3.6.5` to install that version of Python.
+
+After the installation is complete, you can verify that you have the correct version of Python by running the command `python3 --version`. It should display "Python 3.6.5" if the installation was successful.

@@ -1,0 +1,34 @@
+The data you have in the `segment_stemming` column is a string representation of a list of tuples. To achieve your desired outcome, you need to convert this string back into a list of tuples, and then unnest the list into separate rows.
+
+Here is a way to do it using the `purrr` and `tidyverse` packages:
+
+```r
+library(purrr)
+library(tidyverse)
+
+# Convert the string representation of a list of tuples into a list
+x$segment_stemming <- str_replace_all(x$segment_stemming, "\\[|\\]", "") %>%
+  str_split(", ") %>%
+  map(~str_c("(", ., ")"))
+
+# Unnest the list into separate rows
+x <- x %>%
+  mutate(segment_stemming = map(segment_stemming, ~str_split(., ", "))) %>%
+  unnest(segment_stemming)
+
+x
+```
+
+This will give you the desired output:
+
+```
+# id             segment_stemming
+# A              ('Brownie', 'Noun')
+# A              ('From', 'Josa')
+# A              ('Pi', 'Noun')
+# B              ('Dung-caroon-gye', 'Noun')
+# B              ('in', 'Josa')
+# B              ('innovation', 'Noun')
+```
+
+Note: This solution assumes that the tuples in your `segment_stemming` column are always of the form `('word', 'tag')`. If the tuples can have different formats, you may need to adjust the code accordingly.

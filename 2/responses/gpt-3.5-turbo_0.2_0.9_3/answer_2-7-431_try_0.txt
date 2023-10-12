@@ -1,0 +1,11 @@
+You can try using the `dump()` function instead of `dd()`. The `dump()` function will output the data to the browser console instead of stopping the execution of the script like `dd()` does. This way, you can view the data in the console and expand/collapse the nested relationships as needed.
+
+To use `dump()`, simply replace `dd()` with `dump()` in your code. For example:
+
+```
+dump($user->with('posts.comments')->get());
+```
+
+This will output the data to the browser console, where you can expand/collapse the nested relationships as needed.
+
+Alternatively, you can use a third-party package like Laravel Debugbar or Clockwork to view the data in a more organized and user-friendly way. These packages provide a toolbar that displays information about the current request, including database queries, HTTP requests, and more. They also allow you to view the data in a structured way, with the ability to expand/collapse nested relationships.

@@ -1,0 +1,472 @@
+answer_paths:
+  cases/eval_3-13-586.yaml:
+  - answer_3-13-586_try_0.txt
+  - answer_3-13-586_try_1.txt
+  - answer_3-13-586_try_2.txt
+  cases/eval_3-13-587.yaml:
+  - answer_3-13-587_try_0.txt
+  - answer_3-13-587_try_1.txt
+  - answer_3-13-587_try_2.txt
+  cases/eval_3-13-588.yaml:
+  - answer_3-13-588_try_0.txt
+  - answer_3-13-588_try_1.txt
+  - answer_3-13-588_try_2.txt
+  cases/eval_3-13-589.yaml:
+  - answer_3-13-589_try_0.txt
+  - answer_3-13-589_try_1.txt
+  - answer_3-13-589_try_2.txt
+  cases/eval_3-13-590.yaml:
+  - answer_3-13-590_try_0.txt
+  - answer_3-13-590_try_1.txt
+  - answer_3-13-590_try_2.txt
+  cases/eval_3-13-591.yaml:
+  - answer_3-13-591_try_0.txt
+  - answer_3-13-591_try_1.txt
+  - answer_3-13-591_try_2.txt
+  cases/eval_3-13-592.yaml:
+  - answer_3-13-592_try_0.txt
+  - answer_3-13-592_try_1.txt
+  - answer_3-13-592_try_2.txt
+  cases/eval_3-13-593.yaml:
+  - answer_3-13-593_try_0.txt
+  - answer_3-13-593_try_1.txt
+  - answer_3-13-593_try_2.txt
+  cases/eval_3-13-594.yaml:
+  - answer_3-13-594_try_0.txt
+  - answer_3-13-594_try_1.txt
+  - answer_3-13-594_try_2.txt
+  cases/eval_3-13-595.yaml:
+  - answer_3-13-595_try_0.txt
+  - answer_3-13-595_try_1.txt
+  - answer_3-13-595_try_2.txt
+  cases/eval_3-13-596.yaml:
+  - answer_3-13-596_try_0.txt
+  - answer_3-13-596_try_1.txt
+  - answer_3-13-596_try_2.txt
+  cases/eval_3-13-597.yaml:
+  - answer_3-13-597_try_0.txt
+  - answer_3-13-597_try_1.txt
+  - answer_3-13-597_try_2.txt
+  cases/eval_3-13-598.yaml:
+  - answer_3-13-598_try_0.txt
+  - answer_3-13-598_try_1.txt
+  - answer_3-13-598_try_2.txt
+  cases/eval_3-13-599.yaml:
+  - answer_3-13-599_try_0.txt
+  - answer_3-13-599_try_1.txt
+  - answer_3-13-599_try_2.txt
+  cases/eval_3-13-600.yaml:
+  - answer_3-13-600_try_0.txt
+  - answer_3-13-600_try_1.txt
+  - answer_3-13-600_try_2.txt
+  cases/eval_3-13-601.yaml:
+  - answer_3-13-601_try_0.txt
+  - answer_3-13-601_try_1.txt
+  - answer_3-13-601_try_2.txt
+  cases/eval_3-13-602.yaml:
+  - answer_3-13-602_try_0.txt
+  - answer_3-13-602_try_1.txt
+  - answer_3-13-602_try_2.txt
+  cases/eval_3-13-603.yaml:
+  - answer_3-13-603_try_0.txt
+  - answer_3-13-603_try_1.txt
+  - answer_3-13-603_try_2.txt
+  cases/eval_3-13-604.yaml:
+  - answer_3-13-604_try_0.txt
+  - answer_3-13-604_try_1.txt
+  - answer_3-13-604_try_2.txt
+  cases/eval_3-13-605.yaml:
+  - answer_3-13-605_try_0.txt
+  - answer_3-13-605_try_1.txt
+  - answer_3-13-605_try_2.txt
+  cases/eval_3-14-606.yaml:
+  - answer_3-14-606_try_0.txt
+  - answer_3-14-606_try_1.txt
+  - answer_3-14-606_try_2.txt
+  cases/eval_3-14-607.yaml:
+  - answer_3-14-607_try_0.txt
+  - answer_3-14-607_try_1.txt
+  - answer_3-14-607_try_2.txt
+  cases/eval_3-14-608.yaml:
+  - answer_3-14-608_try_0.txt
+  - answer_3-14-608_try_1.txt
+  - answer_3-14-608_try_2.txt
+  cases/eval_3-14-609.yaml:
+  - answer_3-14-609_try_0.txt
+  - answer_3-14-609_try_1.txt
+  - answer_3-14-609_try_2.txt
+  cases/eval_3-14-610.yaml:
+  - answer_3-14-610_try_0.txt
+  - answer_3-14-610_try_1.txt
+  - answer_3-14-610_try_2.txt
+  cases/eval_3-14-611.yaml:
+  - answer_3-14-611_try_0.txt
+  - answer_3-14-611_try_1.txt
+  - answer_3-14-611_try_2.txt
+  cases/eval_3-14-612.yaml:
+  - answer_3-14-612_try_0.txt
+  - answer_3-14-612_try_1.txt
+  - answer_3-14-612_try_2.txt
+  cases/eval_3-14-613.yaml:
+  - answer_3-14-613_try_0.txt
+  - answer_3-14-613_try_1.txt
+  - answer_3-14-613_try_2.txt
+  cases/eval_3-14-614.yaml:
+  - answer_3-14-614_try_0.txt
+  - answer_3-14-614_try_1.txt
+  - answer_3-14-614_try_2.txt
+  cases/eval_3-14-615.yaml:
+  - answer_3-14-615_try_0.txt
+  - answer_3-14-615_try_1.txt
+  - answer_3-14-615_try_2.txt
+  cases/eval_3-14-616.yaml:
+  - answer_3-14-616_try_0.txt
+  - answer_3-14-616_try_1.txt
+  - answer_3-14-616_try_2.txt
+  cases/eval_3-14-617.yaml:
+  - answer_3-14-617_try_0.txt
+  - answer_3-14-617_try_1.txt
+  - answer_3-14-617_try_2.txt
+  cases/eval_3-14-618.yaml:
+  - answer_3-14-618_try_0.txt
+  - answer_3-14-618_try_1.txt
+  - answer_3-14-618_try_2.txt
+  cases/eval_3-14-619.yaml:
+  - answer_3-14-619_try_0.txt
+  - answer_3-14-619_try_1.txt
+  - answer_3-14-619_try_2.txt
+  cases/eval_3-14-620.yaml:
+  - answer_3-14-620_try_0.txt
+  - answer_3-14-620_try_1.txt
+  - answer_3-14-620_try_2.txt
+  cases/eval_3-14-621.yaml:
+  - answer_3-14-621_try_0.txt
+  - answer_3-14-621_try_1.txt
+  - answer_3-14-621_try_2.txt
+  cases/eval_3-14-622.yaml:
+  - answer_3-14-622_try_0.txt
+  - answer_3-14-622_try_1.txt
+  - answer_3-14-622_try_2.txt
+  cases/eval_3-14-623.yaml:
+  - answer_3-14-623_try_0.txt
+  - answer_3-14-623_try_1.txt
+  - answer_3-14-623_try_2.txt
+  cases/eval_3-14-624.yaml:
+  - answer_3-14-624_try_0.txt
+  - answer_3-14-624_try_1.txt
+  - answer_3-14-624_try_2.txt
+  cases/eval_3-14-625.yaml:
+  - answer_3-14-625_try_0.txt
+  - answer_3-14-625_try_1.txt
+  - answer_3-14-625_try_2.txt
+  cases/eval_3-15-626.yaml:
+  - answer_3-15-626_try_0.txt
+  - answer_3-15-626_try_1.txt
+  - answer_3-15-626_try_2.txt
+  cases/eval_3-15-627.yaml:
+  - answer_3-15-627_try_0.txt
+  - answer_3-15-627_try_1.txt
+  - answer_3-15-627_try_2.txt
+  cases/eval_3-15-628.yaml:
+  - answer_3-15-628_try_0.txt
+  - answer_3-15-628_try_1.txt
+  - answer_3-15-628_try_2.txt
+  cases/eval_3-15-629.yaml:
+  - answer_3-15-629_try_0.txt
+  - answer_3-15-629_try_1.txt
+  - answer_3-15-629_try_2.txt
+  cases/eval_3-15-630.yaml:
+  - answer_3-15-630_try_0.txt
+  - answer_3-15-630_try_1.txt
+  - answer_3-15-630_try_2.txt
+  cases/eval_3-15-631.yaml:
+  - answer_3-15-631_try_0.txt
+  - answer_3-15-631_try_1.txt
+  - answer_3-15-631_try_2.txt
+  cases/eval_3-15-632.yaml:
+  - answer_3-15-632_try_0.txt
+  - answer_3-15-632_try_1.txt
+  - answer_3-15-632_try_2.txt
+  cases/eval_3-15-633.yaml:
+  - answer_3-15-633_try_0.txt
+  - answer_3-15-633_try_1.txt
+  - answer_3-15-633_try_2.txt
+  cases/eval_3-15-634.yaml:
+  - answer_3-15-634_try_0.txt
+  - answer_3-15-634_try_1.txt
+  - answer_3-15-634_try_2.txt
+  cases/eval_3-15-635.yaml:
+  - answer_3-15-635_try_0.txt
+  - answer_3-15-635_try_1.txt
+  - answer_3-15-635_try_2.txt
+  cases/eval_3-15-636.yaml:
+  - answer_3-15-636_try_0.txt
+  - answer_3-15-636_try_1.txt
+  - answer_3-15-636_try_2.txt
+  cases/eval_3-15-637.yaml:
+  - answer_3-15-637_try_0.txt
+  - answer_3-15-637_try_1.txt
+  - answer_3-15-637_try_2.txt
+  cases/eval_3-15-638.yaml:
+  - answer_3-15-638_try_0.txt
+  - answer_3-15-638_try_1.txt
+  - answer_3-15-638_try_2.txt
+  cases/eval_3-15-639.yaml:
+  - answer_3-15-639_try_0.txt
+  - answer_3-15-639_try_1.txt
+  - answer_3-15-639_try_2.txt
+  cases/eval_3-15-640.yaml:
+  - answer_3-15-640_try_0.txt
+  - answer_3-15-640_try_1.txt
+  - answer_3-15-640_try_2.txt
+  cases/eval_3-15-641.yaml:
+  - answer_3-15-641_try_0.txt
+  - answer_3-15-641_try_1.txt
+  - answer_3-15-641_try_2.txt
+  cases/eval_4-16-642.yaml:
+  - answer_4-16-642_try_0.txt
+  - answer_4-16-642_try_1.txt
+  - answer_4-16-642_try_2.txt
+  cases/eval_4-16-643.yaml:
+  - answer_4-16-643_try_0.txt
+  - answer_4-16-643_try_1.txt
+  - answer_4-16-643_try_2.txt
+  cases/eval_4-16-644.yaml:
+  - answer_4-16-644_try_0.txt
+  - answer_4-16-644_try_1.txt
+  - answer_4-16-644_try_2.txt
+  cases/eval_4-16-645.yaml:
+  - answer_4-16-645_try_0.txt
+  - answer_4-16-645_try_1.txt
+  - answer_4-16-645_try_2.txt
+  cases/eval_4-16-646.yaml:
+  - answer_4-16-646_try_0.txt
+  - answer_4-16-646_try_1.txt
+  - answer_4-16-646_try_2.txt
+  cases/eval_4-16-647.yaml:
+  - answer_4-16-647_try_0.txt
+  - answer_4-16-647_try_1.txt
+  - answer_4-16-647_try_2.txt
+  cases/eval_4-16-648.yaml:
+  - answer_4-16-648_try_0.txt
+  - answer_4-16-648_try_1.txt
+  - answer_4-16-648_try_2.txt
+  cases/eval_4-16-649.yaml:
+  - answer_4-16-649_try_0.txt
+  - answer_4-16-649_try_1.txt
+  - answer_4-16-649_try_2.txt
+  cases/eval_4-16-650.yaml:
+  - answer_4-16-650_try_0.txt
+  - answer_4-16-650_try_1.txt
+  - answer_4-16-650_try_2.txt
+  cases/eval_4-16-651.yaml:
+  - answer_4-16-651_try_0.txt
+  - answer_4-16-651_try_1.txt
+  - answer_4-16-651_try_2.txt
+  cases/eval_4-16-652.yaml:
+  - answer_4-16-652_try_0.txt
+  - answer_4-16-652_try_1.txt
+  - answer_4-16-652_try_2.txt
+  cases/eval_4-16-653.yaml:
+  - answer_4-16-653_try_0.txt
+  - answer_4-16-653_try_1.txt
+  - answer_4-16-653_try_2.txt
+  cases/eval_4-16-654.yaml:
+  - answer_4-16-654_try_0.txt
+  - answer_4-16-654_try_1.txt
+  - answer_4-16-654_try_2.txt
+  cases/eval_4-16-655.yaml:
+  - answer_4-16-655_try_0.txt
+  - answer_4-16-655_try_1.txt
+  - answer_4-16-655_try_2.txt
+  cases/eval_4-16-656.yaml:
+  - answer_4-16-656_try_0.txt
+  - answer_4-16-656_try_1.txt
+  - answer_4-16-656_try_2.txt
+  cases/eval_4-16-657.yaml:
+  - answer_4-16-657_try_0.txt
+  - answer_4-16-657_try_1.txt
+  - answer_4-16-657_try_2.txt
+  cases/eval_4-16-658.yaml:
+  - answer_4-16-658_try_0.txt
+  - answer_4-16-658_try_1.txt
+  - answer_4-16-658_try_2.txt
+  cases/eval_4-16-659.yaml:
+  - answer_4-16-659_try_0.txt
+  - answer_4-16-659_try_1.txt
+  - answer_4-16-659_try_2.txt
+  cases/eval_4-16-660.yaml:
+  - answer_4-16-660_try_0.txt
+  - answer_4-16-660_try_1.txt
+  - answer_4-16-660_try_2.txt
+  cases/eval_4-16-661.yaml:
+  - answer_4-16-661_try_0.txt
+  - answer_4-16-661_try_1.txt
+  - answer_4-16-661_try_2.txt
+  cases/eval_4-16-662.yaml:
+  - answer_4-16-662_try_0.txt
+  - answer_4-16-662_try_1.txt
+  - answer_4-16-662_try_2.txt
+  cases/eval_4-16-663.yaml:
+  - answer_4-16-663_try_0.txt
+  - answer_4-16-663_try_1.txt
+  - answer_4-16-663_try_2.txt
+  cases/eval_4-16-664.yaml:
+  - answer_4-16-664_try_0.txt
+  - answer_4-16-664_try_1.txt
+  - answer_4-16-664_try_2.txt
+  cases/eval_4-16-665.yaml:
+  - answer_4-16-665_try_0.txt
+  - answer_4-16-665_try_1.txt
+  - answer_4-16-665_try_2.txt
+  cases/eval_4-16-666.yaml:
+  - answer_4-16-666_try_0.txt
+  - answer_4-16-666_try_1.txt
+  - answer_4-16-666_try_2.txt
+  cases/eval_4-16-667.yaml:
+  - answer_4-16-667_try_0.txt
+  - answer_4-16-667_try_1.txt
+  - answer_4-16-667_try_2.txt
+  cases/eval_4-16-668.yaml:
+  - answer_4-16-668_try_0.txt
+  - answer_4-16-668_try_1.txt
+  - answer_4-16-668_try_2.txt
+  cases/eval_4-16-669.yaml:
+  - answer_4-16-669_try_0.txt
+  - answer_4-16-669_try_1.txt
+  - answer_4-16-669_try_2.txt
+  cases/eval_4-16-670.yaml:
+  - answer_4-16-670_try_0.txt
+  - answer_4-16-670_try_1.txt
+  - answer_4-16-670_try_2.txt
+  cases/eval_4-16-671.yaml:
+  - answer_4-16-671_try_0.txt
+  - answer_4-16-671_try_1.txt
+  - answer_4-16-671_try_2.txt
+  cases/eval_4-16-672.yaml:
+  - answer_4-16-672_try_0.txt
+  - answer_4-16-672_try_1.txt
+  - answer_4-16-672_try_2.txt
+  cases/eval_4-16-673.yaml:
+  - answer_4-16-673_try_0.txt
+  - answer_4-16-673_try_1.txt
+  - answer_4-16-673_try_2.txt
+  cases/eval_4-16-674.yaml:
+  - answer_4-16-674_try_0.txt
+  - answer_4-16-674_try_1.txt
+  - answer_4-16-674_try_2.txt
+  cases/eval_4-16-675.yaml:
+  - answer_4-16-675_try_0.txt
+  - answer_4-16-675_try_1.txt
+  - answer_4-16-675_try_2.txt
+  cases/eval_4-16-676.yaml:
+  - answer_4-16-676_try_0.txt
+  - answer_4-16-676_try_1.txt
+  - answer_4-16-676_try_2.txt
+  cases/eval_4-16-677.yaml:
+  - answer_4-16-677_try_0.txt
+  - answer_4-16-677_try_1.txt
+  - answer_4-16-677_try_2.txt
+  cases/eval_4-16-678.yaml:
+  - answer_4-16-678_try_0.txt
+  - answer_4-16-678_try_1.txt
+  - answer_4-16-678_try_2.txt
+  cases/eval_4-16-679.yaml:
+  - answer_4-16-679_try_0.txt
+  - answer_4-16-679_try_1.txt
+  - answer_4-16-679_try_2.txt
+  cases/eval_4-16-680.yaml:
+  - answer_4-16-680_try_0.txt
+  - answer_4-16-680_try_1.txt
+  - answer_4-16-680_try_2.txt
+  cases/eval_4-16-681.yaml:
+  - answer_4-16-681_try_0.txt
+  - answer_4-16-681_try_1.txt
+  - answer_4-16-681_try_2.txt
+  cases/eval_4-16-682.yaml:
+  - answer_4-16-682_try_0.txt
+  - answer_4-16-682_try_1.txt
+  - answer_4-16-682_try_2.txt
+  cases/eval_4-16-683.yaml:
+  - answer_4-16-683_try_0.txt
+  - answer_4-16-683_try_1.txt
+  - answer_4-16-683_try_2.txt
+  cases/eval_4-16-684.yaml:
+  - answer_4-16-684_try_0.txt
+  - answer_4-16-684_try_1.txt
+  - answer_4-16-684_try_2.txt
+  cases/eval_4-16-685.yaml:
+  - answer_4-16-685_try_0.txt
+  - answer_4-16-685_try_1.txt
+  - answer_4-16-685_try_2.txt
+  cases/eval_4-16-686.yaml:
+  - answer_4-16-686_try_0.txt
+  - answer_4-16-686_try_1.txt
+  - answer_4-16-686_try_2.txt
+  cases/eval_4-16-687.yaml:
+  - answer_4-16-687_try_0.txt
+  - answer_4-16-687_try_1.txt
+  - answer_4-16-687_try_2.txt
+  cases/eval_4-16-688.yaml:
+  - answer_4-16-688_try_0.txt
+  - answer_4-16-688_try_1.txt
+  - answer_4-16-688_try_2.txt
+  cases/eval_4-16-689.yaml:
+  - answer_4-16-689_try_0.txt
+  - answer_4-16-689_try_1.txt
+  - answer_4-16-689_try_2.txt
+  cases/eval_4-16-690.yaml:
+  - answer_4-16-690_try_0.txt
+  - answer_4-16-690_try_1.txt
+  - answer_4-16-690_try_2.txt
+  cases/eval_4-16-691.yaml:
+  - answer_4-16-691_try_0.txt
+  - answer_4-16-691_try_1.txt
+  - answer_4-16-691_try_2.txt
+  cases/eval_4-16-692.yaml:
+  - answer_4-16-692_try_0.txt
+  - answer_4-16-692_try_1.txt
+  - answer_4-16-692_try_2.txt
+  cases/eval_4-16-693.yaml:
+  - answer_4-16-693_try_0.txt
+  - answer_4-16-693_try_1.txt
+  - answer_4-16-693_try_2.txt
+  cases/eval_4-16-694.yaml:
+  - answer_4-16-694_try_0.txt
+  - answer_4-16-694_try_1.txt
+  - answer_4-16-694_try_2.txt
+  cases/eval_4-16-695.yaml:
+  - answer_4-16-695_try_0.txt
+  - answer_4-16-695_try_1.txt
+  - answer_4-16-695_try_2.txt
+  cases/eval_4-16-696.yaml:
+  - answer_4-16-696_try_0.txt
+  - answer_4-16-696_try_1.txt
+  - answer_4-16-696_try_2.txt
+  cases/eval_4-16-697.yaml:
+  - answer_4-16-697_try_0.txt
+  - answer_4-16-697_try_1.txt
+  - answer_4-16-697_try_2.txt
+  cases/eval_4-16-698.yaml:
+  - answer_4-16-698_try_0.txt
+  - answer_4-16-698_try_1.txt
+  - answer_4-16-698_try_2.txt
+  cases/eval_4-16-699.yaml:
+  - answer_4-16-699_try_0.txt
+  - answer_4-16-699_try_1.txt
+  - answer_4-16-699_try_2.txt
+  cases/eval_4-16-700.yaml:
+  - answer_4-16-700_try_0.txt
+  - answer_4-16-700_try_1.txt
+  - answer_4-16-700_try_2.txt
+  cases/eval_4-16-701.yaml:
+  - answer_4-16-701_try_0.txt
+  - answer_4-16-701_try_1.txt
+  - answer_4-16-701_try_2.txt
+max_tokens: null
+model_name: gpt-4
+qa_system_prompt: You are a professional assistant for programmers.
+sample_n: 3
+system_prompt: You are a professional assistant for programmers.
+temp: 0.2
+top_p: 0.9

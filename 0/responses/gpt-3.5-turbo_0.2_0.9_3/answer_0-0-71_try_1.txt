@@ -1,0 +1,25 @@
+The error message you are seeing is because TypeScript does not allow importing type declarations directly. Instead, you should import the module that exports the type declaration.
+
+In your case, it seems that you have defined the type declaration in a file located at `src/@types/app.d.ts`. This file is not a module, but rather a type declaration file that provides type information for other modules in your project.
+
+To use the `AuthKeyT` type in your React component, you need to make sure that the type declaration file is included in your project's TypeScript configuration. You can do this by adding the following line to your `tsconfig.json` file:
+
+```
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": [
+    "src/**/*",
+    "src/@types/*" // Add this line to include the type declaration file
+  ]
+}
+```
+
+Once you have done this, you should be able to import the `AuthKeyT` type in your React component like this:
+
+```
+import { AuthKeyT } from 'app'
+```
+
+If you are still seeing the "Cannot find module 'app'" error, make sure that the module that exports the `AuthKeyT` type is actually named `app`. You may need to adjust the import statement to match the actual name of the module.

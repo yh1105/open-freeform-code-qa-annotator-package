@@ -1,0 +1,25 @@
+Both `fireEvent.click(element)` and `userEvent.click(element)` are used to simulate user interactions in your tests. However, they have some differences in how they simulate these interactions.
+
+`fireEvent.click(element)` is a part of the `@testing-library/dom` package. It directly triggers the click event on the element. This is a lower-level method of simulating user interactions and doesn't take into account certain behaviors that real users would have. For example, it won't call the `mousedown`, `mouseup`, or `click` events in order.
+
+On the other hand, `userEvent.click(element)` is a part of the `@testing-library/user-event` package. It provides a more realistic simulation of user interactions. When you call `userEvent.click(element)`, it will simulate the `mousedown`, `mouseup`, and `click` events in order, just like a real user would do. This makes it a better choice for most situations, as it provides a more accurate simulation of user behavior.
+
+In your example, both methods are being used correctly. However, `userEvent.click(element)` would be the recommended method to use, as it provides a more realistic simulation of user interactions.
+
+Here is the corrected code:
+
+```jsx
+const mockFunction = jest.fn(() => console.info('button clicked'));
+const { getByTestId } = render(<MyAwesomeButton onClick={mockFunction} />);
+const myAwesomeButton = getByTestId('my-awesome-button');
+
+// Solution A
+fireEvent.click(myAwesomeButton); // You missed to call click method in your example
+expect(mockFunction).toHaveBeenCalledTimes(1); // You missed closing parenthesis in your example
+
+// Solution B
+userEvent.click(myAwesomeButton);
+expect(mockFunction).toHaveBeenCalledTimes(1);
+```
+
+Remember to install `@testing-library/user-event` if you haven't done so already, as it's not included in the core `@testing-library/react` package. You can install it with `npm install --save @testing-library/user-event`.

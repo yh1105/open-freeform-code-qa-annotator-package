@@ -1,0 +1,34 @@
+To select an option from a dropdown list using Playwright for Python, you can use the `selectOption` method on the `page` object. Here's an example:
+
+```
+from playwright import sync_playwright
+import time
+
+URL = '<my url>'
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.newPage()
+    page.goto(URL)
+
+    # identify the select element by ID. Wait for it first
+    select_selector = 'id=name-fruit'
+    page.waitForSelector(select_selector)
+    select_element = page.querySelector(select_selector)
+
+    # select the option by its text
+    option_text = 'Banana'
+    page.selectOption(select_selector, value=option_text)
+
+    # wait for the page to update
+    time.sleep(1)
+
+    # verify that the selected option is displayed
+    selected_option = select_element.getProperty('value').jsonValue()
+    assert selected_option == option_text
+
+    # close the browser
+    browser.close()
+```
+
+In this example, we first wait for the select element to be available using `waitForSelector`. Then we use `selectOption` to select the option with the specified text. We then wait for the page to update (you may need to adjust the sleep time depending on how long it takes for the page to update). Finally, we verify that the selected option is displayed by getting the `value` property of the select element and comparing it to the expected option text.

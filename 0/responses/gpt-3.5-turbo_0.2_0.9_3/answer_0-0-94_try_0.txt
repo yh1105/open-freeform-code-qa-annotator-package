@@ -1,0 +1,14 @@
+The issue with your code is that `Math.max()` and `Math.min()` functions expect individual arguments, not an array. Therefore, you need to use the spread operator (`...`) to pass the array elements as individual arguments. Here's the corrected code:
+
+```
+function getMinMax(arr){
+  let maximum = Math.max(...arr);
+  let minimum = Math.min(...arr);
+  let result = [maximum, minimum]; 
+  return result;
+};
+
+getMinMax([10,3,8,1,33]);
+```
+
+This should return `[33, 1]`, which are the maximum and minimum values in the array.

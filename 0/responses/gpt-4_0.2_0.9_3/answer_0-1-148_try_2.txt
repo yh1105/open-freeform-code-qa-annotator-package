@@ -1,0 +1,39 @@
+You can use the `space-y-*` utility classes from Tailwind CSS to add space between your elements, which will also add a border between them. Here's how you can do it:
+
+```html
+<ul class="space-y-1">
+    <li
+      v-for="(item, index) in items"
+      :key="`item-${index}`"
+      class="border-solid border-b border-black"
+    >
+      Item
+    </li>
+</ul>
+```
+
+In this example, `space-y-1` adds a 0.25rem space between each `<li>`. The border will appear in this space, effectively creating a border between each item, but not after the last one.
+
+If you want to use the `:not(:last-child)` pseudo-class, you would need to write custom CSS because Tailwind does not support this pseudo-class directly. Here's how you can do it:
+
+```css
+li:not(:last-child) {
+  @apply border-solid border-b border-black;
+}
+```
+
+Then, you can use this class in your HTML:
+
+```html
+<ul>
+    <li
+      v-for="(item, index) in items"
+      :key="`item-${index}`"
+      class="not-last-border"
+    >
+      Item
+    </li>
+</ul>
+```
+
+This will apply the border to all `<li>` elements except the last one.

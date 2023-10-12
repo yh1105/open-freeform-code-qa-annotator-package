@@ -1,0 +1,22 @@
+The issue you're facing is due to the use of fixed pixel values for margins and widths in your button styles. When you zoom in or out, or change the screen size, these fixed pixel values do not adjust accordingly, causing the buttons to disorient.
+
+To solve this issue, you can use relative units such as percentages (%) or viewport units (vw for viewport width, vh for viewport height) instead of fixed pixel values. These units are relative to the size of the viewport (the browser window size), so they will adjust automatically when the viewport size changes.
+
+Here's an example of how you can modify your button styles to use relative units:
+
+```python
+dbc.Button(children='HOME',
+           style={
+               'display': 'inline-block',
+               'align': 'center',
+               'color': 'white', 
+               'marginLeft': '5%',  # use percentage for left margin
+               'fontSize': '15px ',
+               'backgroundColor': '#101820',
+               'width': '15%',  # use percentage for width
+               'height': '50px',
+               'marginRight': '5%'  # use percentage for right margin
+           }, className='lg'),
+```
+
+You would need to adjust the percentages according to your layout requirements. Also, note that using percentages might not work perfectly for all situations, especially if you have a complex layout or if you need precise control over the sizes and positions of elements. In such cases, you might need to use a combination of different units or use CSS media queries to adjust styles based on the viewport size.

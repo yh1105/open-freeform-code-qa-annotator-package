@@ -1,0 +1,28 @@
+In order to chain queries and ensure that the second query runs only after the first one is fulfilled, you can use the useEffect hook from React. The useEffect hook allows you to perform side effects in function components.
+
+Here is how you can do it:
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function YourComponent() {
+  const [userId, setUserId] = useState(null);
+  const { data: user } = useGetUserQuery();
+
+  useEffect(() => {
+    if (user && user.id) {
+      setUserId(user.id);
+    }
+  }, [user]);
+
+  const { data: userBio } = useGetUserBioQuery(userId);
+
+  // rest of your component
+}
+```
+
+In this code, useEffect is used to watch the `user` object. When `user` changes (i.e., when the first query is fulfilled and the user object is populated), the effect runs and updates `userId` state with the new `user.id`. The second query then uses this `userId` to fetch the user bio.
+
+Please note that `useGetUserBioQuery` should be able to handle `null` as `userId` because initially `userId` will be `null` until the first query is fulfilled and `userId` is set.
+
+Also, you may want to add a loading state to your component to handle the time between when the component mounts and when the data is returned from the queries.

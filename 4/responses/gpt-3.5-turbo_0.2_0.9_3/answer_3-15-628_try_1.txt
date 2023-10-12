@@ -1,0 +1,58 @@
+To achieve your desired result, you can modify the code as follows:
+
+```
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim rngDV As Range
+    Dim oldVal As String
+    Dim newVal As String
+    
+    On Error Resume Next
+    
+    If Target.Count > 1 Then GoTo Exitsub
+    
+    Set rngDV = Target.SpecialCells(xlCellTypeAllValidation)
+    
+    If rngDV Is Nothing Then GoTo Exitsub
+    
+    If Not Intersect(Target, Range("B14")) Is Nothing Then
+        If Target.Value = "list1" Then
+            Target.Offset(1, 0).ClearContents
+            Target.Offset(1, 0).Validation.Delete
+            Target.Offset(1, 0).Validation.Add xlValidateList, xlValidAlertStop, xlBetween, "=list1"
+            Target.Offset(1, 0).Validation.InCellDropdown = True
+            Target.Offset(1, 0).Validation.ShowError = False
+            Target.Offset(1, 0).Select
+            Exit Sub
+        End If
+    End If
+    
+    Application.EnableEvents = False
+    newVal = Target.Value
+    
+    Application.Undo
+    oldVal = Target.Value
+    Target.Value = newVal
+    
+    If Target.Column = 4 And Target.Row > 13 Then
+        If Evaluate(Target.Validation.Formula1) = "=list1" Then
+            Target.Validation.Delete
+            Target.Validation.Add xlValidateList, xlValidAlertStop, xlBetween, "=list1"
+            Target.Validation.InCellDropdown = True
+            Target.Validation.ShowError = False
+            Target.Select
+            Target.Value = oldVal
+        End If
+    End If
+    
+    Application.EnableEvents = True
+    
+    Exitsub:
+        Application.EnableEvents = True
+End Sub
+```
+
+In this modified code, we first check if the changed cell is B14 and its value is "list1". If it is, we clear the cell below it (D15 in your example), delete its validation, and add a new validation with the source "=list1" and InCellDropdown set to True. This will make the cell a multiple selection drop-down list.
+
+If the changed cell is not B14 or its value is not "list1", we proceed with the rest of the code as before. However, we add an additional check to see if the validation formula of the changed cell is "=list1". If it is, we delete its validation, add a new validation with the source "=list1" and InCellDropdown set to True, and restore its old value. This will make the cell a multiple selection drop-down list.
+
+I hope this helps! Let me know if you have any further questions.

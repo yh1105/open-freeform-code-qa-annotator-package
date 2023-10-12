@@ -1,0 +1,28 @@
+The issue you're experiencing is likely due to the way the Kotlin `random()` function is implemented. It uses a pseudo-random number generator, which means it generates a sequence of numbers that approximates the properties of random numbers. The sequence is determined by a seed value; if the seed value is not changed, the same sequence of "random" numbers will be generated.
+
+In your case, it seems like the seed value is not being changed when you restart your app, which is why you're seeing the same sequence of "random" numbers. This might be due to the way your device or the Android version you're using handles the Kotlin `random()` function.
+
+To fix this issue, you can use the `java.util.Random` class to generate random numbers instead of the Kotlin `random()` function. Here's how you can modify your `getNextChoice()` and `getNextImage()` functions:
+
+```kotlin
+import java.util.Random
+
+private fun getNextChoice(): Int {
+    val random = Random()
+    return random.nextInt(2)
+}
+
+private fun getNextImage(imageList: Array<Image>): Int {
+    val listSize = imageList.size
+    var imageId: Int
+    val random = Random()
+    do {
+        imageId = random.nextInt(listSize)
+    } while (imageList[imageId].played)
+
+    imageList[imageId].played = true
+    return imageList[imageId].image
+}
+```
+
+In this code, `Random().nextInt(n)` generates a random integer between 0 (inclusive) and `n` (exclusive). This should give you a different sequence of random numbers each time you restart your app, regardless of your device or Android version.

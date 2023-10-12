@@ -1,0 +1,25 @@
+It sounds like there may be an issue with the Python extension in VSCode. Here are a few things you can try:
+
+1. Make sure you have the latest version of the Python extension installed. You can check for updates by going to the Extensions tab in VSCode and searching for "Python".
+
+2. Try specifying the path to your Python interpreter directly in your `launch.json` file, rather than using the `${command:python.interpreterPath}` variable. For example:
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "pythonPath": "/path/to/python/interpreter"
+        }
+    ]
+}
+```
+
+3. If neither of the above solutions work, you can try uninstalling and reinstalling the Python extension in VSCode.
+
+Hopefully one of these solutions will help you get your debugger working again!

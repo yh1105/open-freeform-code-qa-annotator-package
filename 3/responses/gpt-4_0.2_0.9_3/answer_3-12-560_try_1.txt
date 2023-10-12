@@ -1,0 +1,25 @@
+`MaterialStateProperty` is a class in Flutter that represents a property (like color, padding, size, etc.) which can have different values depending on the state of the widget. For example, a button's color might be different when it's pressed, hovered, focused, or disabled.
+
+In your case, you want to set the `backgroundColor` property of a `ButtonStyle`. You can use `MaterialStateProperty.resolveWith` to provide a callback that returns a different color based on the button's state.
+
+Here's an example:
+
+```dart
+ThemeData(
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed))
+            return Colors.blue; // color when button is pressed
+          else if (states.contains(MaterialState.disabled))
+            return Colors.grey; // color when button is disabled
+          return Colors.red; // default color
+        },
+      ),
+    ),
+  ),
+),
+```
+
+In this example, the button's background color will be blue when it's pressed, grey when it's disabled, and red otherwise.

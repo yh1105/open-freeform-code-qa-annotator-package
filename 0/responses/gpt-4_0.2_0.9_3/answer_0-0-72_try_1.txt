@@ -1,0 +1,15 @@
+The error message "Cannot find module 'jmespath'" indicates that the 'jmespath' module is not found in your project dependencies. This module is a dependency of the AWS SDK, which is used by AWS Lambda.
+
+Here are some steps to resolve this issue:
+
+1. **Install the missing module**: Run `npm install jmespath --save` in your project root directory. This will install the 'jmespath' module and add it to your project dependencies in the package.json file.
+
+2. **Check your package.json file**: Ensure that 'jmespath' is listed in the dependencies section of your package.json file. If it's not, add it manually and run `npm install` again.
+
+3. **Check your node_modules folder**: Ensure that the 'jmespath' folder is present in your node_modules folder. If it's not, it means the module has not been installed correctly.
+
+4. **Re-deploy your AWS Lambda function**: After ensuring that 'jmespath' is installed correctly, re-deploy your AWS Lambda function using the Serverless Framework. The command to do this is `sls deploy`.
+
+5. **Use AWS SDK**: If you are using AWS SDK in your lambda function, AWS provides a version of the SDK for JavaScript in Node.js that is compatible with AWS Lambda. You don't need to include it in your deployment package. AWS Lambda includes the AWS SDK for JavaScript in Node.js in the execution environment.
+
+If you still face the issue, try deleting the node_modules folder and package-lock.json file, then run `npm install` again. This will re-install all your dependencies.

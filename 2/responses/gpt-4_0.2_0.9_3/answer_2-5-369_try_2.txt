@@ -1,0 +1,15 @@
+In IntelliJ IDEA, local changes are now shown in a dedicated tab in the Git tool window. However, in the latest version (2020.1), the tab's name has been changed from "Local Changes" to "Commit".
+
+To view your local changes, follow these steps:
+
+1. Open the Git tool window. You can do this by going to "View" > "Tool Windows" > "Git", or by pressing Alt + 9 on Windows/Linux or Command + 9 on macOS.
+
+2. In the Git tool window, click on the "Commit" tab. This tab shows all your local changes, grouped by the change type (Unversioned Files, Modifications, etc.).
+
+3. If you want to see the diff for a file, just double-click on the file name.
+
+4. If you can't see the "Commit" tab, make sure you have a Git repository in your project. If you don't, you can add one by going to "VCS" > "Import into Version Control" > "Create Git Repository".
+
+5. If you still can't see the "Commit" tab, it might be hidden. You can unhide it by clicking on the gear icon in the Git tool window and making sure "Commit" is checked.
+
+Remember, the "Commit" tab not only shows your local changes, but also allows you to commit them directly from there.

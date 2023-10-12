@@ -1,0 +1,15 @@
+The error message you're seeing is indicating that the `Authority` URL you're using for your JWT Bearer authentication is not using HTTPS. This is a requirement unless you've set the `RequireHttpsMetadata` property to `false`.
+
+You mentioned that you've set the `AzureAd:Authority` to `https://login.microsoftonline.com/` in your app service configurations. However, the error suggests that this URL is not being used or not being used correctly.
+
+Here are a few things you can check:
+
+1. **Check your configuration settings:** Make sure that the `AzureAd:Authority` setting in your Azure App Service configuration matches exactly with what you're expecting. Remember that configuration settings in Azure are case-sensitive.
+
+2. **Check your `authSettings` object:** Ensure that the `authSettings` object in your `Startup.cs` file is correctly reading the `Authority` and `TenantId` values from your configuration. You can add some logging to your application to confirm this.
+
+3. **Check the `Authority` URL:** The `Authority` URL should be in the format `https://login.microsoftonline.com/{TenantId}`. Make sure that the `TenantId` is being appended correctly to the `Authority` URL.
+
+4. **Check for network issues:** There could be a network issue preventing your application from connecting to the `Authority` URL. You can test this by trying to access the `Authority` URL from your local machine or another network.
+
+If you've checked all of these and you're still seeing the issue, you may need to do some more in-depth debugging to figure out what's going wrong.

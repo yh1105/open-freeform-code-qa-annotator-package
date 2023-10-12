@@ -1,0 +1,80 @@
+It is generally not recommended to create a ViewModel instance in the constructor parameters of a Composable function. This is because Composable functions can be called multiple times during the lifetime of a screen, and creating a new ViewModel instance every time can lead to unexpected behavior and memory leaks.
+
+In your case, since you have multiple Composable functions that require access to the same ViewModel, it is better to pass the ViewModel instance as a parameter to each Composable function. This way, you can ensure that all the functions are using the same instance of the ViewModel.
+
+Here's an example of how you can pass the ViewModel instance as a parameter to your Composable functions:
+
+```
+class InputActivity : ComponentActivity() {
+
+    private val viewModel by viewModel<InputViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupViewModel()
+        setContent {
+            Theme {
+                AppBarScaffold(
+                    displayHomeAsUpEnabled = true,
+                    titleId = R.string.personal_health
+                ) {
+                    viewModel.OptionData?.let {
+                        Input(it, viewModel)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel.optionData = intent.getParcelableExtra("optiondata")
+    }
+}
+
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel) {
+    var value by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        InputItem(viewModel)
+        Spacer()
+        OnSubmitPulse(viewModel)
+    }
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    Image()
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    Column {
+        InputWithUnitContainer(viewModel)
+        InputWithUnitContainer(viewModel)
+    }
+}
+
+@Composable
+fun InputWithUnitContainer(viewModel: InputViewModel) {
+    Row() {
+        Text()
+        TextField(value = "")
+        Text()
+    }
+}
+
+@Composable
+fun OnSubmitPulse(viewModel: InputViewModel) {
+    // Submit button logic using ViewModel
+}
+```
+
+By passing the ViewModel instance as a parameter to each Composable function, you can ensure that all the functions are using the same instance of the ViewModel.

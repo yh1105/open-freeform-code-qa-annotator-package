@@ -1,0 +1,61 @@
+The error message suggests that there is a problem with the converter used to convert the response from the server into the `JConfig` object. 
+
+One possible solution is to check if the `JConfig` class is properly annotated with `@JsonClass(generateAdapter = true)` and all the fields of the `Config` class are annotated with `@Json(name = "fieldName")` where `fieldName` is the name of the corresponding field in the JSON response.
+
+Another possible solution is to check if the `MoshiConverterFactory` is properly configured. Make sure that the `MoshiConverterFactory` is created with the `Moshi` instance that has the necessary adapters for the `JConfig` and `Config` classes. You can create a `Moshi` instance with the necessary adapters like this:
+
+```
+val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+```
+
+Then, pass this `Moshi` instance to the `MoshiConverterFactory` like this:
+
+```
+@Singleton
+@Provides
+fun provideConverterFactory(): MoshiConverterFactory {
+    val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+    return MoshiConverterFactory.create(moshi)
+}
+```
+
+Also, make sure that the `MoshiConverterFactory` is added to the `Retrofit` instance like this:
+
+```
+@Singleton
+@Provides
+fun provideRetrofit(
+    okHttpClient: OkHttpClient,
+    moshiConverterFactory: MoshiConverterFactory
+): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(moshiConverterFactory)
+        .build()
+}
+```
+
+If the above solutions do not work, you can try to add logging to the `OkHttpClient` to see the actual response from the server and debug the issue. You can add logging to the `OkHttpClient` like this:
+
+```
+@Singleton
+@Provides
+fun provideHttpClient(): OkHttpClient {
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    return OkHttpClient
+        .Builder()
+        .readTimeout(15, TimeUnit.SECONDS)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .addInterceptor(loggingInterceptor)
+        .build()
+}
+```
+
+This will log the HTTP request and response to the console, which can help you identify the issue.

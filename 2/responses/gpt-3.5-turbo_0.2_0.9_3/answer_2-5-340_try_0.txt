@@ -1,0 +1,27 @@
+It's good that you're thinking about the readability of your code, but it's also important to follow best practices to ensure that your code is maintainable and free of potential errors.
+
+In this case, the empty else-if statement is considered bad form because it can be confusing to other developers who may be reading your code. They may wonder why the statement is there if it doesn't do anything, and it could lead to mistakes or misunderstandings in the future.
+
+To avoid this issue, you can simply remove the empty else-if statement and combine the conditions of the first two if statements like this:
+
+```
+if (! seesWater(LEFT) || ! seesWater(AHEAD))
+{
+    if (! seesWater(LEFT))
+    {
+        turn(LEFT);
+    }
+    else
+    {
+        turn(RIGHT);
+    }
+}
+else
+{
+    turn180();
+}
+```
+
+This way, if the condition `! seesWater(AHEAD)` is true, the code will skip the second if statement and move on to the else block. This achieves the same result as your original code, but without the empty else-if statement.
+
+I hope this helps! Let me know if you have any other questions.

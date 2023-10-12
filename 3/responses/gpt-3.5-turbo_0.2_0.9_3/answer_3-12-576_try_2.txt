@@ -1,0 +1,11 @@
+You can use the `substring` method of the `String` class to achieve this. Here's an example:
+
+```dart
+String str = "one.two";
+String newStr = str.substring(0, str.indexOf('.'));
+print(newStr); // Output: "one"
+```
+
+In the above code, `str.indexOf('.')` returns the index of the first occurrence of the dot character in the string. Then, we use the `substring` method to extract the substring from the beginning of the original string up to the index of the dot character.
+
+This will give you the desired output of `"one"`.

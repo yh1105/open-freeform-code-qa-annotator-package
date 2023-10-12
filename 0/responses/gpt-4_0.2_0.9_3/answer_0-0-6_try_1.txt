@@ -1,0 +1,46 @@
+It seems like you have solved your problem correctly. Using the useHistory hook from react-router-dom is a common way to programmatically navigate in a React application. 
+
+Just a few things to note:
+
+1. You are still using `withRouter` HOC while exporting your component, but since you are using hooks, you don't need to wrap your component with `withRouter` anymore. You can simply export your component like this: `export default CustomerLoginPage;`
+
+2. It's not recommended to directly manipulate the DOM in React. Instead of using `document.getElementById`, you should use the state to handle the form data. Here's how you can do it:
+
+```jsx
+import { useState } from 'react';
+
+function CustomerLoginPage () {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // ...
+
+  const handleSubmit = () => {
+    if (username !== 'customer' || password !== 'customer') {
+      alert("Wrong username or password!");
+    } else {
+      loginButtonClicked();
+    }
+  }
+
+  return (
+    <div class="App-header">
+      <button id="backButton" onClick={backButtonClicked}>Go Back</button>
+      <h4>Login with your customer account</h4>
+      <br />
+      <input id="customerLoginUsername" placeholder=" Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+      <input id="customerLoginPassword" type="password" placeholder=" Password" value={password} onChange={e => setPassword(e.target.value)}></input>
+      <br />
+      <button id="customerLoginButton" onClick={handleSubmit}> 
+        Login
+      </button>
+      <div className="content"></div>
+    </div>
+  );
+}
+
+export default CustomerLoginPage;
+```
+
+This way, you are keeping your component fully controlled and in the React way of doing things.

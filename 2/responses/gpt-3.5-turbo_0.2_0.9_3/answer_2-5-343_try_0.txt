@@ -1,0 +1,49 @@
+The approach you have used in your code is not correct for the given problem. The problem requires finding two contiguous subsequences of the same size such that the summation of the product of the boxes is maximum. However, your code is finding the maximum sum of two non-overlapping subarrays of different sizes.
+
+To solve the given problem, you can use dynamic programming. You can maintain two arrays, left and right, where left[i] represents the maximum product of a contiguous subsequence of size i starting from the left end of the array, and right[i] represents the maximum product of a contiguous subsequence of size i starting from the right end of the array.
+
+You can fill these arrays using the following recurrence:
+
+left[i] = max(arr[j] * left[i-1], arr[j+1] * left[i-2], ..., arr[i-1] * left[1]), where j = i-1, i-2, ..., i-(i-1)
+
+right[i] = max(arr[j] * right[i-1], arr[j-1] * right[i-2], ..., arr[0] * right[1]), where j = 0, 1, ..., i-1
+
+Once you have filled these arrays, you can iterate over all possible sizes of the two contiguous subsequences and compute their product sum using the left and right arrays. The maximum product sum over all such pairs of subsequences will be the answer to the problem.
+
+Here's the modified code that implements this approach:
+
+```
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Compute left and right arrays
+        long[] left = new long[n+1];
+        long[] right = new long[n+1];
+        left[0] = right[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            left[i] = Math.max(arr[i-1], arr[i-1] * left[i-1]);
+            right[i] = Math.max(arr[n-i], arr[n-i] * right[i-1]);
+        }
+
+        // Compute maximum product sum
+        long maxSum = Long.MIN_VALUE;
+        for (int i = 1; i <= n/2; i++) {
+            for (int j = i; j <= n-i; j++) {
+                long prod = left[i] * right[i] + left[j-i+1] * right[n-j];
+                maxSum = Math.max(maxSum, prod);
+            }
+        }
+
+        System.out.println(maxSum);
+    }
+}
+```

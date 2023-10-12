@@ -1,0 +1,18 @@
+One approach to solve this problem is to use the `exceptAll` method of DataFrame API which returns a new DataFrame containing rows in `df2` that are not present in `df1`. We can then use the `columns` method to get the list of columns in the resulting DataFrame and add it as a new column to `df2`.
+
+Here's the code to implement this approach:
+
+```
+from pyspark.sql.functions import array, col, lit
+
+# Get the columns that are different in df2 compared to df1
+diff_cols = df2.exceptAll(df1).columns
+
+# Add the diff_cols as a new column to df2
+df3 = df2.withColumn("column_names", array([lit(c) for c in diff_cols]))
+
+# Replace empty arrays with null values
+df3 = df3.withColumn("column_names", col("column_names").isNull(), lit(None))
+```
+
+This should give you the desired output DataFrame `df3`. Note that we are using the `array` function to create an array of column names and the `lit` function to convert each column name to a literal value. We are also replacing empty arrays with null values using the `isNull` and `lit` functions.

@@ -1,0 +1,32 @@
+You can configure axios to trust the certificate by providing the certificate to the https agent. 
+
+First, you need to download the certificate from the server. You can do this by visiting the server in your browser, clicking on the padlock icon in the address bar, and then clicking on "Certificate". There should be an option to download the certificate. Save it as a .pem file.
+
+Next, you need to read the certificate file in your Node.js application and provide it to the https agent. Here's how you can do it:
+
+```javascript
+const fs = require('fs');
+const https = require('https');
+const axios = require('axios');
+
+// Read the certificate file
+const cert = fs.readFileSync('path/to/your/certificate.pem');
+
+const agent = new https.Agent({
+  ca: cert
+});
+
+const result = await axios.post(
+  `https://${url}/login`,
+  body,
+  {
+    httpsAgent: agent
+  }
+);
+```
+
+This will tell axios to trust the certificate when making requests to the server. 
+
+Please replace `'path/to/your/certificate.pem'` with the actual path to your certificate file.
+
+Remember to keep your certificate file secure, as anyone with access to it could potentially use it to impersonate the server.

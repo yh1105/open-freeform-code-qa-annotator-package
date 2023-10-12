@@ -1,0 +1,31 @@
+To make your widget rebuild on listening to the changes made using the provider package, you need to use a `Consumer` widget. The `Consumer` widget listens to changes in the state of the provider and rebuilds the widget tree whenever there is a change in the state.
+
+Here's an example of how you can use the `Consumer` widget:
+
+```
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyProvider>(
+      builder: (context, myProvider, child) {
+        return Text(myProvider.data);
+      },
+    );
+  }
+}
+```
+
+In the above example, `MyProvider` is the provider that you are using to manage the state of your application. The `Consumer` widget listens to changes in the `MyProvider` state and rebuilds the `Text` widget whenever there is a change in the state.
+
+To update the state of the provider, you can use the `setState` method of the provider. Here's an example:
+
+```
+Provider.of<MyProvider>(context, listen: false).setState('New Data');
+```
+
+In the above example, `setState` is a method of the `MyProvider` class that updates the state of the provider with the new data. The `listen: false` parameter is used to prevent the widget from rebuilding when the state is updated.
+
+By using the `Consumer` widget and the `setState` method of the provider, you can easily manage the state of your application and reflect changes in the UI automatically.

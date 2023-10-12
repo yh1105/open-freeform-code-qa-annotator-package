@@ -1,0 +1,25 @@
+The error message you are seeing is related to a problem with the Kotlin module descriptor. This can happen when there is a mismatch between the version of Kotlin used by your project and the version used by a library or plugin.
+
+In your case, it looks like you are using Kotlin version 1.5.0 in your project, but you are also using the Safe Args plugin for navigation, which has a dependency on a different version of Kotlin. To fix this issue, you can try updating the version of the Safe Args plugin to match the version of Kotlin used by your project.
+
+In your top-level build.gradle file, change the version of the Safe Args plugin to match the version of Kotlin used by your project:
+
+```
+buildscript {
+    ext.kotlin_version = "1.5.0"
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.2.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        def nav_version = "2.3.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    }
+}
+```
+
+In this example, the version of the Safe Args plugin has been set to 2.3.2, which is the same version used by the navigation dependencies in your app module.
+
+After making this change, try rebuilding your project and see if the error goes away. If you still see the error, you may need to check for other dependencies or plugins that may be causing a version mismatch with Kotlin.

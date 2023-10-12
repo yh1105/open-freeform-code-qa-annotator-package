@@ -1,0 +1,11 @@
+It seems like there might be some leftover files from a previous installation of Service Fabric that are causing the issue. Even though you have manually removed the `C:\Program Files\ServiceFabric` folder, there might be other files or registry entries that are causing the problem.
+
+One thing you could try is using the Service Fabric Cleanup Tool, which is designed to remove all traces of Service Fabric from your system. You can download it from the Microsoft Download Center here: https://www.microsoft.com/en-us/download/details.aspx?id=54989
+
+Once you have downloaded and run the cleanup tool, try installing Service Fabric again and see if that resolves the issue.
+
+If that doesn't work, you could try manually removing any remaining Service Fabric files and registry entries. Microsoft has provided instructions for doing this here: https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-troubleshoot-deployment-issues#clean-up-service-fabric-installation
+
+Be sure to follow the instructions carefully and make a backup of your registry before making any changes.
+
+If none of these solutions work, you could try reaching out to Microsoft support for further assistance.

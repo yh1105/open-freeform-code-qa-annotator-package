@@ -1,0 +1,23 @@
+The error message you're seeing suggests that the `%tensorboard` line magic function is not found. This is likely because the TensorBoard magic is not available in your current environment.
+
+The TensorBoard magic was added in TensorBoard 1.14.0, and you're using TensorBoard 1.13.1. Therefore, you need to upgrade your TensorBoard to a newer version. You can do this by running the following command:
+
+```python
+!pip install --upgrade tensorboard
+```
+
+After upgrading TensorBoard, you should be able to use the `%tensorboard` line magic in your Jupyter notebook.
+
+If you still encounter issues after upgrading, you can try loading the TensorBoard notebook extension explicitly with the following command:
+
+```python
+%load_ext tensorboard
+```
+
+Then you should be able to start TensorBoard with the `%tensorboard` command:
+
+```python
+%tensorboard --logdir {logs_base_dir}
+```
+
+Remember to replace `{logs_base_dir}` with the actual path to your logs directory.

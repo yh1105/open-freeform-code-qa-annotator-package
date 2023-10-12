@@ -1,0 +1,21 @@
+In order to chain queries where the second query depends on the result of the first, you can use a conditional statement to check if the data from the first query is available before running the second query. Here's an example of how you can do this:
+
+```javascript
+const { data: user, isLoading: isUserLoading } = useGetUserQuery();
+
+if (isUserLoading) {
+  return <div>Loading...</div>; // or your loading component
+}
+
+const { data: userBio, isLoading: isBioLoading } = useGetUserBioQuery(user.id);
+
+if (isBioLoading) {
+  return <div>Loading...</div>; // or your loading component
+}
+
+// Now you can use both user and userBio data
+```
+
+This code first checks if the user data is loading. If it is, it returns a loading component. Once the user data is available, it then runs the second query to get the user bio. If the bio data is loading, it returns a loading component. Once both data are available, you can use them in your component.
+
+Please note that this is a simplified example. In a real-world application, you would likely want to handle errors and possibly use more complex loading states.

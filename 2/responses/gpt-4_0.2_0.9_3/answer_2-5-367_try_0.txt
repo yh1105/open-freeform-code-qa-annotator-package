@@ -1,0 +1,69 @@
+You can use the `runOrder` parameter of the Maven Failsafe plugin to control the order in which tests are run. By default, this parameter is set to `filesystem`, which means that tests are run in the order they are discovered on the file system. However, you can set this parameter to `random`, `hourly`, `alphabetical`, `reversealphabetical`, `failedfirst`, or `balanced`.
+
+Since you can't use `balanced` and renaming or moving test classes is not an option, you might want to consider using `failedfirst`. This option will run tests that failed during the previous run before other tests. This could potentially speed up your CI process by failing faster if a previously failed test is still failing.
+
+Another option could be to split your tests into different profiles based on their execution time and run the profiles containing the slower tests first.
+
+Here is an example of how to set the `runOrder` parameter in your `pom.xml`:
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.22.2</version>
+            <configuration>
+                <runOrder>failedfirst</runOrder>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+And here is an example of how to define profiles:
+
+```xml
+<profiles>
+    <profile>
+        <id>slow-tests</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*SlowTest.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>fast-tests</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*FastTest.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+```
+
+You can then run the profiles in the order you want:
+
+```bash
+mvn verify -P slow-tests,fast-tests
+```

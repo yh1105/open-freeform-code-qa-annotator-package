@@ -1,0 +1,13 @@
+The error message you're seeing is related to the `swift_lint_check.sh` script, which is failing with a segmentation fault. This script is likely used to perform some sort of linting or style checking on your Swift code.
+
+Here are some steps you can take to troubleshoot this issue:
+
+1. **Check the script**: Open the `swift_lint_check.sh` script and check if there's anything in the script that could be causing the segmentation fault. If you're not familiar with shell scripting, you might want to ask for help from someone who is.
+
+2. **Run the script manually**: Try running the `swift_lint_check.sh` script manually from the command line. This might give you more detailed error messages that can help you figure out what's going wrong.
+
+3. **Check the SwiftLint version**: If the `swift_lint_check.sh` script is using SwiftLint to check your code, make sure you're using a version of SwiftLint that's compatible with your version of Swift and Xcode.
+
+4. **Disable the script**: As a last resort, if you can't figure out what's wrong with the script and you don't actually need the linting/style checking it provides, you could disable the script. To do this, go to the "Build Phases" tab in your Xcode project settings, find the "Run Script" phase that's running `swift_lint_check.sh`, and delete it. Be aware, though, that this will disable whatever functionality the script was providing.
+
+Remember to always backup your project before making any major changes.

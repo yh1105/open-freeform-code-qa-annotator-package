@@ -1,0 +1,9 @@
+Having two separate pipelines for two very specific requests is not necessarily a bad practice. It depends on the context and the specific requirements of your application. 
+
+If the logic for `RequestOne` and `RequestTwo` are significantly different and do not share any common behavior, it might make sense to have separate pipelines. This can make your code more modular, easier to understand, and easier to maintain. It also adheres to the Single Responsibility Principle, which states that a class should have only one reason to change.
+
+However, if there is some common behavior between the two requests, you might want to consider having a single pipeline and using some kind of strategy pattern to handle the differences. This can reduce code duplication and make your code more flexible and easier to extend in the future.
+
+In general, it's a trade-off between code duplication and complexity. If having two separate pipelines makes your code simpler and easier to understand, then it's probably the right choice. But if it leads to a lot of duplicated code, you might want to consider other options.
+
+Remember, the ultimate goal is to write code that is easy to understand, easy to maintain, and easy to extend. The specific design patterns you use are just tools to help you achieve that goal.

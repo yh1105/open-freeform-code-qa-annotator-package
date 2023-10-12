@@ -1,0 +1,46 @@
+The performance difference you're seeing is due to the way you're using pandas. Pandas is not designed to be used in a row-wise manner, and doing so can lead to significant performance penalties. Instead, pandas is designed to be used with vectorized operations, which are operations that are performed on entire arrays at once. This is in contrast to R's data.frame, which is designed to be used in a row-wise manner.
+
+Here's how you can rewrite your Python code to use vectorized operations:
+
+```python
+import pandas as pd
+from timeit import default_timer as timer
+
+code = 145896
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+start = timer()
+desired = df.loc[df['code1']==code, 'code2'].values[0]
+print(timer() - start) # significantly faster
+```
+
+In this code, `df.loc[df['code1']==code, 'code2'].values[0]` is a vectorized operation that performs the filtering operation on the entire array at once, rather than row by row.
+
+However, if you need to perform this operation many times for different codes, it would be more efficient to set 'code1' as the index of the DataFrame and then use the `loc` function to access the rows. This is because the `loc` function can be much faster when using an index.
+
+```python
+import pandas as pd
+from timeit import default_timer as timer
+
+codes = [145896, 800175, 633974, 774521, 416109]
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': codes,
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    ).set_index('code1')
+
+start = timer()
+for code in codes:
+    desired = df.loc[code, 'code2']
+print(timer() - start) # significantly faster
+```
+
+In this code, `df.set_index('code1')` sets 'code1' as the index of the DataFrame, and `df.loc[code, 'code2']` uses the `loc` function to access the row for the given code. This is much faster than the previous approach, especially when the DataFrame is large.

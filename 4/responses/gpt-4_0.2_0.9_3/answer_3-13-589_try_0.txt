@@ -1,0 +1,13 @@
+The error message `Unable to create converter for class com.example.kvn.data.model.JConfig for method ApiClient.getApiConfig` means that Retrofit is unable to convert the JSON response from the server into your `JConfig` data class. This is likely due to a mismatch between the JSON structure and your data class.
+
+Here are a few things you can check:
+
+1. **Check the JSON structure**: Make sure the JSON response from the server matches the structure of your `JConfig` and `Config` data classes. You can use a tool like Postman to manually send a request to the server and inspect the JSON response.
+
+2. **Check your data classes**: Make sure your `JConfig` and `Config` data classes are correctly annotated with `@JsonClass(generateAdapter = true)` and `@Json(name = "field_name")`. The `@Json` annotation should match the exact field name in the JSON response.
+
+3. **Check your Retrofit setup**: Make sure you're using the `MoshiConverterFactory` when setting up Retrofit. It seems like you're doing this correctly in your `AppModule.kt` file, but it's worth double-checking.
+
+4. **Check your Moshi setup**: Make sure you're using the `moshi-kotlin-codegen` dependency to generate the JSON adapters for your data classes. It seems like you're doing this correctly in your Gradle file, but again, it's worth double-checking.
+
+If you're still having trouble, you might want to try using a different JSON library like Gson to see if that resolves the issue. You can do this by replacing the `MoshiConverterFactory` with `GsonConverterFactory` in your `AppModule.kt` file, and replacing the Moshi dependencies with Gson in your Gradle file.

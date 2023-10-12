@@ -1,0 +1,22 @@
+This error message indicates that there is an issue with loading the `asmjit.dll` file or one of its dependencies. Here are some steps you can try to resolve the issue:
+
+1. Check if your system meets the PyTorch installation requirements. PyTorch requires a 64-bit version of Python 3.6, 3.7, or 3.8, and a compatible version of CUDA if you plan to use GPU acceleration.
+
+2. Try reinstalling PyTorch using the following command:
+```
+conda install pytorch torchvision torchaudio cpuonly -c pytorch
+```
+This command installs the latest version of PyTorch along with its dependencies.
+
+3. Check if the `asmjit.dll` file is present in the `C:\Users\chunc\anaconda3\lib\site-packages\torch\lib` directory. If it is missing, try reinstalling PyTorch as mentioned in step 2.
+
+4. Check if the `asmjit.dll` file is being blocked by your antivirus software. If so, try disabling the antivirus temporarily and then reinstall PyTorch.
+
+5. Try installing the Microsoft Visual C++ Redistributable for Visual Studio 2019. You can download it from the Microsoft website.
+
+6. If none of the above steps work, try installing PyTorch using the pip package manager instead of conda. You can use the following command:
+```
+pip install torch torchvision torchaudio
+```
+
+I hope one of these steps helps you resolve the issue and use PyTorch successfully.

@@ -1,0 +1,23 @@
+The issue you're experiencing is likely due to the Python interpreter path not being set correctly in your settings. Here's how you can fix it:
+
+1. Open the Command Palette in VSCode by pressing `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS).
+2. Type `Python: Select Interpreter` and select it.
+3. A list of discovered Python interpreters will be displayed. Select the one you want to use.
+
+If your interpreter is not listed, you can manually enter the path. Click on `Enter interpreter path` and then `Find...`. Navigate to the location of your Python interpreter and select it.
+
+The path you select will be set in your workspace settings (`settings.json`), which will be used by the Python extension for VSCode.
+
+If you're still having issues, you can manually set the Python interpreter path in your `settings.json` file. Here's how:
+
+1. Open the Command Palette in VSCode by pressing `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS).
+2. Type `Preferences: Open Workspace Settings` and select it.
+3. In the `settings.json` file, add the following line:
+
+```json
+"python.pythonPath": "/path/to/your/python"
+```
+
+Replace `"/path/to/your/python"` with the actual path to your Python interpreter. For example, if you're using Python 3.8 installed via Anaconda on Windows, the path might be `"C:\\Users\\YourUsername\\Anaconda3\\python.exe"`.
+
+Save the `settings.json` file and try running your Python program again. The debugger should now be able to find and use your Python interpreter.

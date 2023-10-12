@@ -1,0 +1,25 @@
+The error message suggests that there is no serializer found for the `java.io.ByteArrayInputStream` class. This is because the `CommonsMultipartFile` class, which is used by Spring to represent uploaded files, contains a `fileItem` field that is of type `org.apache.commons.fileupload.disk.DiskFileItem`, which in turn contains an `inputStream` field of type `java.io.ByteArrayInputStream`.
+
+To solve this issue, you can configure the `RestTemplate` to use a different message converter that can handle multipart requests. One such converter is the `org.springframework.http.converter.FormHttpMessageConverter`, which can handle both form data and multipart requests.
+
+To use this converter, you can modify your code as follows:
+
+```
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+body.add("circularAttachment", new ByteArrayResource(souqBean.getCircularAttachment().getBytes()));
+body.add("circularEntryId", souqBean.getCircularEntryId());
+body.add("circularTitle", souqBean.getCircularTitle());
+
+HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
+
+RestTemplate restTemplate = new RestTemplate();
+restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
+
+ResponseEntity<Boolean> response = restTemplate.postForEntity("http://localhost:8081/circular-save", entity, Boolean.class);
+status = response.getBody();
+```
+
+In this modified code, we are using the `ByteArrayResource` class to wrap the bytes of the uploaded file, which can be handled by the `FormHttpMessageConverter`. We are also adding the `FormHttpMessageConverter` to the list of message converters used by the `RestTemplate`.

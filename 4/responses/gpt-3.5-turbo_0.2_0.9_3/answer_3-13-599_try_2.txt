@@ -1,0 +1,113 @@
+Jetpack Compose provides a built-in `NumberPicker` component that you can use to create a widget similar to the one in the image you provided. Here's an example of how you can create a `NumberPicker` widget in Jetpack Compose:
+
+```kotlin
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonConstants
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+
+@Composable
+fun NumberPicker(
+    value: Int,
+    onValueChange: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.buttonColors(
+        backgroundColor = Color.Transparent,
+        contentColor = MaterialTheme.colors.onSurface
+    )
+) {
+    Row(modifier = modifier) {
+        Button(
+            onClick = { onValueChange(value - 1) },
+            colors = colors,
+            enabled = value > 0,
+            contentPadding = ButtonConstants.DefaultContentPadding.copy(
+                start = 0.dp,
+                end = 0.dp
+            )
+        ) {
+            Text(text = "-")
+        }
+        Text(
+            text = value.toString(),
+            modifier = Modifier.padding(horizontal = 16.dp),
+            style = MaterialTheme.typography.h6
+        )
+        Button(
+            onClick = { onValueChange(value + 1) },
+            colors = colors,
+            contentPadding = ButtonConstants.DefaultContentPadding.copy(
+                start = 0.dp,
+                end = 0.dp
+            )
+        ) {
+            Text(text = "+")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun NumberPickerPreview() {
+    val (value, setValue) = remember { mutableStateOf(0) }
+    NumberPicker(value = value, onValueChange = setValue)
+}
+```
+
+In this example, the `NumberPicker` composable takes three parameters:
+
+- `value`: the current value of the number picker.
+- `onValueChange`: a callback function that will be called when the user changes the value of the number picker.
+- `modifier`: an optional modifier that can be used to customize the layout of the number picker.
+
+The `NumberPicker` composable uses three `Button` components to allow the user to increment or decrement the value of the number picker. The `Button` components are styled to look like a number picker, with a transparent background and no border.
+
+You can use this `NumberPicker` composable in your app like any other composable. For example:
+
+```kotlin
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+
+@Preview
+@Composable
+fun MyScreen() {
+    val (value1, setValue1) = remember { mutableStateOf(0) }
+    val (value2, setValue2) = remember { mutableStateOf(0) }
+    val (value3, setValue3) = remember { mutableStateOf(0) }
+
+    Column {
+        NumberPicker(
+            value = value1,
+            onValueChange = setValue1,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        NumberPicker(
+            value = value2,
+            onValueChange = setValue2,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        NumberPicker(
+            value = value3,
+            onValueChange = setValue3,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+    }
+}
+```
+
+In this example, the `MyScreen` composable uses three `NumberPicker` components to allow the user to select three different values. The `NumberPicker` components are wrapped in a `Column` layout to stack them vertically.

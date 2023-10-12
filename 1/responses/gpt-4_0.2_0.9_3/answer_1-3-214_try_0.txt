@@ -1,0 +1,22 @@
+It seems like you have already figured out the solution to your problem. The issue was due to an outdated version of pandas-profiling. 
+
+For the benefit of others who might encounter the same problem, here's how to update pandas-profiling in conda:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type the following command to update pandas-profiling:
+
+```
+conda update pandas-profiling
+```
+
+If the package is not found, you might need to install it first using:
+
+```
+conda install -c conda-forge pandas-profiling
+```
+
+Remember to restart your Jupyter notebook after updating the package. Your code should work as expected after the update. 
+
+Also, the 'profile_report' is a method in pandas-profiling, so you need to make sure that pandas-profiling is correctly installed and imported. 
+
+If you still encounter issues, please provide the full error message for further assistance.

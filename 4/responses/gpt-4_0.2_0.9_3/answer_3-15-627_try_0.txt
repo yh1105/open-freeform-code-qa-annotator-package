@@ -1,0 +1,9 @@
+It seems like you're trying to explain how to create a calendar in VBA that doesn't rely on any ocx or 32bit/64bit and can be freely distributed with your project. However, your text seems to be missing some key information. Here's a more complete explanation:
+
+In VBA, you can use three main kinds of date time controls, provided certain OCX files have been registered with administrator rights. These controls are from VB6 and are not native to the VBA environment. To install these controls, you need to set a reference to them, which can only be done by registering the OCX files with elevated privileges. However, depending on your Windows and Office versions (32 bit or 64 bit), it can be challenging to register these OCX files.
+
+The three controls are DTPicker, MonthView, and Calendar. If you include them in your project and distribute it, the application may or may not work depending on whether the recipient has those OCX files installed. Therefore, it's not recommended to use these controls in your project.
+
+Instead, you can create a calendar using a Userform and Worksheet, which is a more basic but reliable method. This calendar can be freely distributed with your project and isn't dependent on any OCX files or specific Windows/Office versions.
+
+You can design this calendar to look and function like the Windows 10 calendar that pops up when you click on the date and time from the system tray. This way, users will have a familiar and intuitive interface to interact with.

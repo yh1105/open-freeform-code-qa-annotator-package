@@ -1,0 +1,29 @@
+Your code for adding a new pair to the Map is correct. The error messages you're seeing might be related to other parts of your code. Here's how you can add a new pair to a Map in Dart:
+
+```dart
+Map<String, int> someMap = {
+  "a": 1,
+  "b": 2,
+};
+
+someMap["c"] = 3; // This will add a new pair with key "c" and value 3 to the Map
+```
+
+As for the `Map.update` method, it's used to update the value for a given key in the Map. It takes two parameters: the key of the value to update, and a function that takes the old value and returns the new value. Here's an example:
+
+```dart
+Map<String, int> someMap = {
+  "a": 1,
+  "b": 2,
+};
+
+someMap.update("a", (oldValue) => oldValue + 1); // This will increase the value for key "a" by 1
+```
+
+In this example, the `update` method will find the value for the key "a" in the Map (which is 1), pass it to the provided function (which increases it by 1), and then update the value in the Map with the result (which is 2). If the key isn't in the Map, the `update` method will throw an exception. If you want to avoid this, you can use the `update` method with an optional `ifAbsent` parameter:
+
+```dart
+someMap.update("c", (oldValue) => oldValue + 1, ifAbsent: () => 1); // This will set the value for key "c" to 1 if it's not in the Map
+```
+
+In this case, if the key "c" isn't in the Map, the `ifAbsent` function will be called, and its result will be used as the new value for the key.

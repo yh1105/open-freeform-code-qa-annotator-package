@@ -1,0 +1,13 @@
+In Dart, if you have a class that extends another class and the superclass doesn't have a default constructor (a constructor without parameters), then you must call super in the subclass constructor, passing the necessary parameters. If you don't do this, you will get a compile-time error.
+
+In your case, the `BaseClass` has a constructor that requires a `name` parameter. So, when you create a `ChildClass` that extends `BaseClass`, you must call the superclass constructor in the `ChildClass` constructor:
+
+```dart
+class ChildClass extends BaseClass {
+  ChildClass(String name) : super(name: name);
+}
+```
+
+If you try to compile the code without calling the superclass constructor, you will get a compile-time error. This is enforced by the Dart language itself, so you don't need to do anything special in your IDE to get this behavior.
+
+However, if you want your IDE to show a warning or error before you try to compile the code, you can use a linter like `dartanalyzer` or `flutter analyze`. These tools can analyze your code and show warnings and errors directly in your IDE. You just need to make sure that your IDE is configured to use these tools. For example, in Visual Studio Code, you can enable Dart linting by opening the settings and setting `dart.analyze` to `true`.

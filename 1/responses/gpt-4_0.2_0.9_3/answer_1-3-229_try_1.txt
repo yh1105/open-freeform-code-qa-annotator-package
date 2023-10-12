@@ -1,0 +1,9 @@
+As of now, the Jupyter extension in Visual Studio Code does not support find and replace within a single cell. The find and replace functionality (Ctrl+H) applies to the entire notebook.
+
+However, you can use the following workaround:
+
+1. Copy the content of the cell to a new Python file.
+2. Use the find and replace functionality (Ctrl+H) in the Python file.
+3. Copy the content back to the Jupyter cell.
+
+Remember to provide feedback to the Visual Studio Code team about this feature. They are constantly improving the product and they might consider adding this functionality in the future.

@@ -1,0 +1,7 @@
+It seems like the issue is related to the way the API class is being exported and imported. 
+
+When you use `export default API`, you are exporting the entire API class as the default export. This means that when you import it using `import API from "utils/API"`, you need to use `new API()` to create a new instance of the class.
+
+However, when you use a named export like `export class API`, you are exporting the class itself as a named export. This means that when you import it using `import { API } from "utils/API"`, you can create a new instance of the class using `new API()`.
+
+So, to fix the issue, you can either change the export statement to `export class API` and import it using `import { API } from "utils/API"`, or you can keep the current export statement and create a new instance of the class using `new API.default()`.

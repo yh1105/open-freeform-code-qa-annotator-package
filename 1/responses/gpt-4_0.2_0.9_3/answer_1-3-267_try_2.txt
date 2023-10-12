@@ -1,0 +1,18 @@
+The message "Not creating XLA devices, tf_xla_enable_xla_devices not set" is not an error but a warning message from TensorFlow 2.4.1. It's informing you that TensorFlow is not creating XLA (Accelerated Linear Algebra) devices because the environment variable `tf_xla_enable_xla_devices` is not set. 
+
+XLA is a domain-specific compiler for linear algebra that can further optimize TensorFlow computations. If you don't specifically need it, you can ignore this warning.
+
+If you want to enable XLA devices, you can set the environment variable by adding the following line to your code:
+
+```python
+os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
+```
+
+You need to import the `os` module before setting the environment variable:
+
+```python
+import os
+os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
+```
+
+However, this warning is likely not the cause of your issue with the drive.py program. If you're not seeing anything at http://0.0.0.0:4567/, it could be a problem with the server setup or the network connection. You might want to check the server logs for any error messages or warnings.

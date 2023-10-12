@@ -1,0 +1,53 @@
+Yes, it is possible to create a function that takes multiple parameters of the same type using variadic templates in C++. Variadic templates are a feature of C++ that allows for functions to take an arbitrary number of arguments in a type-safe way and have all argument handling logic resolved at compile-time, rather than run-time.
+
+Here is an example of how you can do this in C++14:
+
+```cpp
+#include <array>
+#include <cstdint>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <typename T, std::size_t... Is>
+auto make_array(std::index_sequence<Is...>, const T& value) {
+    return std::array<T, sizeof...(Is)>{{((void)Is, value)...}};
+}
+
+template <std::size_t N, typename T, typename... Ts>
+auto fun(T t, Ts... ts) {
+    static_assert(sizeof...(Ts) + 1 == N, "Wrong number of arguments");
+    return make_array(std::make_index_sequence<N>{}, t);
+}
+
+int main()
+{
+    auto arr = fun<3>(Foo{1, 2, 3}, Foo{4, 5, 6}, Foo{7, 8, 9});
+    return 0;
+}
+```
+
+In this code, `fun` is a function template that takes an arbitrary number of arguments of type `T`. The `static_assert` ensures that the number of arguments passed to `fun` matches the template parameter `N`.
+
+The `make_array` function is a helper function that creates a `std::array` from the arguments passed to `fun`. It uses `std::index_sequence` and `std::make_index_sequence` to generate an array of the correct size at compile-time.
+
+This code will work in C++14 and later versions. In C++17 and later, you can simplify the `make_array` function using `std::apply` and fold expressions:
+
+```cpp
+template <typename T, std::size_t... Is>
+auto make_array(std::index_sequence<Is...>, const T& value) {
+    return std::array<T, sizeof...(Is)>{{((void)Is, value)...}};
+}
+
+template <std::size_t N, typename... Ts>
+auto fun(Ts... ts) {
+    static_assert(sizeof...(Ts) == N, "Wrong number of arguments");
+    return std::apply([&](auto&&... args) {
+        return std::array{args...};
+    }, std::make_tuple(ts...));
+}
+```
+
+In this version, `std::apply` is used to unpack the arguments from a `std::tuple` into the `std::array`. The fold expression `args...` expands the arguments into the array initializer.

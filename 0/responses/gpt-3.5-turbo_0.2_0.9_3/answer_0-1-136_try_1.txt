@@ -1,0 +1,51 @@
+The issue with your code is that the `parent` element has a `row` class, which is not defined in your CSS. You need to define the `row` class with `display: flex` to make the `parent` element a flex container and allow the child `section` elements to be aligned vertically. Here's the updated CSS code:
+
+```
+.parent {
+  height: 100vh;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+  display: flex; /* add this line */
+  flex-direction: column; /* add this line */
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+
+And here's the updated HTML code:
+
+```
+<div class="parent">
+  <section class="one">
+  </section>
+  <section class="two">
+  </section>
+  <section class="three">
+  </section>
+  <section class="four">
+  </section>
+</div>
+```
+
+With these changes, the vertical snap scrolling should work as expected.

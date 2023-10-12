@@ -1,0 +1,66 @@
+The code you provided seems to be trying to create a QueryTable from a Power Query, but there are a few issues with it:
+
+1. You're trying to assign a value to `query` and `currentSheet` without declaring them as variables. You should declare them at the start of your subroutine.
+
+2. The `query` variable is supposed to be a `WorkbookQuery` object, but you're assigning it a value from a cell. This won't work because a `WorkbookQuery` object represents a Power Query in your workbook, not a string.
+
+3. The `currentSheet` variable is supposed to be a `Worksheet` object, but you're assigning it the name of the active sheet. This won't work because the name of a sheet is a string, not a `Worksheet` object.
+
+4. You're trying to use `query.Name` in your connection string and SQL command text, but `query` is not a `WorkbookQuery` object, so it doesn't have a `Name` property.
+
+Unfortunately, Power Query is not fully exposed to VBA, so you can't create or modify Power Queries using VBA. However, you can refresh existing Power Queries using VBA. Here's an example:
+
+```vba
+Sub RefreshPowerQuery()
+    Dim query As WorkbookQuery
+
+    ' Get the first Power Query in the workbook
+    Set query = ThisWorkbook.Queries(1)
+
+    ' Refresh the Power Query
+    query.Refresh
+End Sub
+```
+
+This will refresh the first Power Query in your workbook. If you have multiple Power Queries and you want to refresh a specific one, you can do so by replacing `1` with the name of your Power Query:
+
+```vba
+Set query = ThisWorkbook.Queries("MyQuery")
+```
+
+After refreshing your Power Query, you can copy the data from the table it loads to and paste it into your target sheet:
+
+```vba
+Sub RefreshPowerQueryAndCopyData()
+    Dim query As WorkbookQuery
+    Dim sourceSheet As Worksheet, targetSheet As Worksheet
+    Dim sourceRange As Range, targetRange As Range
+
+    ' Get the first Power Query in the workbook
+    Set query = ThisWorkbook.Queries(1)
+
+    ' Refresh the Power Query
+    query.Refresh
+
+    ' Set the source and target sheets
+    Set sourceSheet = ThisWorkbook.Sheets("Sheet1")
+    Set targetSheet = ThisWorkbook.Sheets("Sheet2")
+
+    ' Set the source range (the table the Power Query loads to)
+    Set sourceRange = sourceSheet.ListObjects(1).Range
+
+    ' Set the target range (the top-left cell where you want to paste the data)
+    Set targetRange = targetSheet.Range("A1")
+
+    ' Copy the data from the source range to the target range
+    sourceRange.Copy Destination:=targetRange
+End Sub
+```
+
+This will copy the entire table, including the headers. If you don't want to copy the headers, you can adjust the source range like this:
+
+```vba
+Set sourceRange = sourceSheet.ListObjects(1).DataBodyRange
+```
+
+This will only copy the data rows, not the headers.

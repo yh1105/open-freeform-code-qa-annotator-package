@@ -1,0 +1,32 @@
+The issue you're facing is due to word splitting in bash. When you use `${cmd_array[@]}`, bash splits the array elements into words. This is why your path with spaces is being split into multiple arguments.
+
+To solve this, you can use the `printf` function to print the command without expanding variables and use `eval` to execute the command. Here is a modified version of your function:
+
+```bash
+print_and_run_cmd() {
+    local -n array_reference="$1"
+    printf "Running cmd: %s\n" "${array_reference[*]}"
+    eval "${array_reference[*]}"
+}
+```
+
+In this function, `printf` is used to print the command. The `%s` format specifier is used to print the string as is, without expanding variables. The `[*]` index is used to join all array elements into a single string with spaces.
+
+Then, `eval` is used to execute the command. `eval` takes a string as argument and evaluates it as a command. This allows you to execute commands that are stored in a string, with all variables and quotes preserved.
+
+Here is how you can use this function:
+
+```bash
+cmd_array=('ls -1 "$HOME/temp/some folder with spaces"')
+print_and_run_cmd cmd_array
+```
+
+This will print:
+
+```
+Running cmd: ls -1 "$HOME/temp/some folder with spaces"
+```
+
+And then execute the command.
+
+Please note that `eval` can be dangerous if used with untrusted input, as it executes any code it is given. Make sure to only use it with trusted commands.

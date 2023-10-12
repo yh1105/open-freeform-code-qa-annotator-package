@@ -1,0 +1,21 @@
+It seems that the issue is related to the lack of a proper message converter for XML in your Spring Boot application. By default, Spring Boot includes the Jackson message converter for JSON, but not for XML.
+
+To fix this issue, you can add the necessary dependencies to your Gradle build file:
+```
+dependencies {
+    // ...
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations'
+}
+```
+
+Then, you can configure Spring Boot to use the Jackson XML message converter by adding the following bean to your application configuration:
+```
+@Bean
+public MappingJackson2XmlHttpMessageConverter mappingJackson2XmlHttpMessageConverter() {
+    ObjectMapper mapper = new XmlMapper();
+    return new MappingJackson2XmlHttpMessageConverter(mapper);
+}
+```
+
+This should enable your Spring Boot application to properly handle XML requests and responses.

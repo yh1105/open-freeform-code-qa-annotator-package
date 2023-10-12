@@ -1,0 +1,18 @@
+It seems like some of the images in your dataset are not in the expected format (JPEG, PNG, GIF, BMP). You can try to use the `tf.io.decode_image` function to decode the images and specify the expected image format as an argument. Here's an example:
+
+```
+def decode_image(image):
+    image = tf.image.decode_jpeg(image, channels=3)
+    return image
+
+dataset = keras.preprocessing.image_dataset_from_directory(
+  '/content/drive/MyDrive/fi_dataset/train', 
+  batch_size=64, 
+  image_size=(200, 200),
+  label_mode='binary',
+  preprocessing_function=decode_image)
+```
+
+In this example, the `decode_image` function is used as a preprocessing function to decode the images in the dataset. The `tf.image.decode_jpeg` function is used to decode the images in JPEG format. You can replace this with `tf.image.decode_png`, `tf.image.decode_gif`, or `tf.image.decode_bmp` depending on the expected format of your images.
+
+Also, make sure that the file extensions of all the images in your dataset match the actual image format.

@@ -1,0 +1,35 @@
+The `err113` linter rule is suggesting that you should use static errors, or errors that are defined once and used multiple times, instead of dynamic errors, which are created every time they're used. This is because dynamic errors can be harder to test and debug.
+
+To fix this, you can define your errors at the package level and then use them in your code. Here's an example of how you can do this:
+
+```go
+var (
+    ErrRepo = errors.New("repo gave err")
+    ErrOops = errors.New("oops")
+)
+
+// Then in your code, you can use these errors like this:
+
+foo_test.go:55:61: err113: do not define dynamic errors, use wrapped static errors instead: "errors.New(\"repo gave err\")" (goerr113)
+        repoMock.EXPECT().Save(gomock.Eq(&foooBarBar)).Return(nil, ErrRepo),
+                                                                  ^
+
+foo_test.go:22:42: err113: do not define dynamic errors, use wrapped static errors instead: "errors.New(\"oops\")" (goerr113)
+    repoMock.EXPECT().FindAll().Return(nil, ErrOops)
+                                            ^
+```
+
+This way, you're using static errors that are defined once and can be used multiple times, which is more efficient and easier to debug.
+
+If you want to include dynamic information in your errors, you can use `fmt.Errorf()` with `%w` to wrap your static error:
+
+```go
+var ErrRepo = errors.New("repo gave err")
+
+func someFunction() error {
+    // some code...
+    return fmt.Errorf("additional information: %w", ErrRepo)
+}
+```
+
+This will create a new error that includes the additional information and wraps the original `ErrRepo` error, allowing you to check for `ErrRepo` using `errors.Is()`.

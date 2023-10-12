@@ -1,0 +1,32 @@
+You can use the pandas library to manipulate your data and matplotlib to plot it. Here's an example of how you can do it:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming your dataframe is named df
+df = pd.DataFrame({
+    'Sex': ['Male', 'Female', 'Male', 'Female'],
+    'Var1': ['Yes', 'No', 'No', 'Yes'],
+    'Var2': ['No', 'Yes', 'No', 'Yes'],
+    'Var3': ['Yes', 'No', 'Yes', 'No']
+})
+
+# Melt your dataframe to have one row for each observation
+df_melt = df.melt(id_vars='Sex')
+
+# Count the number of "Yes" for each variable and sex
+df_yes = df_melt[df_melt['value'] == 'Yes'].groupby(['Sex', 'variable']).count().reset_index()
+
+# Plot the data
+fig, ax = plt.subplots()
+
+for sex, group in df_yes.groupby('Sex'):
+    ax.bar(group['variable'], group['value'], label=sex)
+
+ax.legend()
+
+plt.show()
+```
+
+This script first reshapes your data to have one row for each observation (one row for each combination of Sex and Variable). Then it counts the number of "Yes" for each combination of Sex and Variable. Finally, it plots the data using a bar plot, with one bar for each combination of Sex and Variable.

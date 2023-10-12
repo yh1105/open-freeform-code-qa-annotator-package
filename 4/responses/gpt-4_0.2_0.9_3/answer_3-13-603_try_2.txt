@@ -1,0 +1,54 @@
+In Jetpack Compose, it's recommended to use `ViewModel` as a state holder and pass it down to the composable functions that need it. However, creating a new instance of `ViewModel` in each composable function is not a good practice. Instead, you should create a single instance of `ViewModel` in your activity or fragment and pass it down to the composable functions that need it.
+
+Here's how you can do it:
+
+```kotlin
+class InputActivity : ComponentActivity() {
+
+    private val viewModel by viewModel<InputViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupViewModel()
+        setContent {
+            Theme {
+                AppBarScaffold(
+                    displayHomeAsUpEnabled = true,
+                    titleId = R.string.personal_health
+                ) {
+                    viewModel.OptionData?.let {
+                        Input(it, viewModel)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel.optionData = intent.getParcelableExtra("optiondata")
+    }
+}
+```
+
+Then in your composable functions:
+
+```kotlin
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel) {
+    InputItem(viewModel)
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    // more function call
+}
+```
+
+This way, you're ensuring that all your composable functions are using the same instance of `ViewModel`, and any changes made to the `ViewModel` will be reflected across all composable functions that use it.
+
+Also, remember to use `observeAsState` function in your composable functions to observe the data in your `ViewModel`. This function automatically subscribes the composable to the `LiveData` emissions, and recomposes whenever the data changes.

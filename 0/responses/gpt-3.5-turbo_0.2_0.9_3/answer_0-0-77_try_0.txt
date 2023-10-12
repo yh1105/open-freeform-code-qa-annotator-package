@@ -1,0 +1,22 @@
+To automatically send cookies in all Axios requests, you can use Axios interceptors. 
+
+Here's an example:
+
+```
+import axios from 'axios';
+
+axios.interceptors.request.use(
+  config => {
+    const cookie = document.cookie;
+    if (cookie) {
+      config.headers.Cookie = cookie;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
+```
+
+This code intercepts all Axios requests and adds the `Cookie` header to the request if there is a cookie set in the browser. 
+
+Note that this code assumes that the cookie is set on the domain where the Axios requests are being made. If the cookie is set on a different domain, you may need to configure CORS on your server to allow the cookie to be sent with the request.

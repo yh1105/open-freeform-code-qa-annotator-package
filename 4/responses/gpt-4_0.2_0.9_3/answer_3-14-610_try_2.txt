@@ -1,0 +1,53 @@
+Yes, you're right. A creative use of `AnimatableData` can solve this problem. You can create a custom `Text` view that uses `AnimatableModifier` to animate the change in the text.
+
+Here's an example of how you can do it:
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    @State var shortString = true
+    var body: some View {
+        VStack {
+            AnimatedText(text: shortString ? "This is short." : "This is considerably longer.")
+                .font(.title)
+                .animation(.easeInOut(duration:1.0))
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+
+struct AnimatedText: View {
+    var text: String
+
+    var body: some View {
+        Text(text)
+            .modifier(AnimatedTextModifier())
+    }
+}
+
+struct AnimatedTextModifier: AnimatableModifier {
+    var pct: CGFloat = 0
+
+    var animatableData: CGFloat {
+        get { pct }
+        set { pct = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content.opacity(Double(1 - pct))
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+In this example, `AnimatedText` is a custom `Text` view that uses `AnimatedTextModifier` to animate the change in the text. The `AnimatedTextModifier` uses `AnimatableModifier` to animate the opacity of the text. When the text changes, the opacity of the old text decreases from 1 to 0, and the opacity of the new text increases from 0 to 1. This creates a cross-fade effect between the old and new text.
+
+Please note that this is a simple example and might not cover all your needs. You might need to adjust it according to your specific requirements.

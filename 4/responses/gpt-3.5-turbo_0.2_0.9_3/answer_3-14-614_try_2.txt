@@ -1,0 +1,11 @@
+It looks like you have the correct code for previewing your `ContentView` in the canvas. However, there are a few things you can try to troubleshoot why the preview canvas is not showing:
+
+1. Make sure you have selected the preview canvas by clicking on the "Resume" button in the Xcode toolbar. The preview canvas should appear on the right side of the Xcode window.
+
+2. Check that you have the latest version of Xcode installed. Sometimes, Xcode updates can fix issues with the preview canvas.
+
+3. Try cleaning your project by going to "Product" in the Xcode menu bar and selecting "Clean Build Folder". Then, try running the preview canvas again.
+
+4. If none of the above solutions work, try restarting Xcode or your computer.
+
+Hopefully, one of these solutions will help you get the preview canvas working again.

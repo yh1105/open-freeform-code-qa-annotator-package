@@ -1,0 +1,23 @@
+The issue you're experiencing might be due to the fact that the new environment's kernel isn't being registered with Jupyter. Here's a more convenient way to add a new environment as a kernel:
+
+1. First, activate your new environment:
+   ```
+   conda activate myenv
+   ```
+2. Then, install the `ipykernel` module in your new environment:
+   ```
+   conda install ipykernel
+   ```
+3. Now, you need to add your new environment to Jupyter:
+   ```
+   python -m ipykernel install --user --name=myenv
+   ```
+   Replace `myenv` with the name of your environment. This command adds your environment to the list of available kernels.
+
+4. Finally, deactivate your environment:
+   ```
+   conda deactivate
+   ```
+Now, when you start Jupyter Lab from your base environment, you should see your new environment listed as an available kernel.
+
+Remember, you need to install the necessary packages in your new environment to be able to use them in Jupyter Lab. If you want to use a package like numpy, for example, you need to install it in your new environment while it's activated (`conda install numpy`).

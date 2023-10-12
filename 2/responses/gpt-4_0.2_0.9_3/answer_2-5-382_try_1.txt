@@ -1,0 +1,19 @@
+The error message indicates that the problem is related to the `com.google.android.material.slider.Slider` class. This class is part of the Material Components for Android library. 
+
+The error message `Failed to resolve attribute at index 11: TypedValue{t=0x2/d=0x7f0300b4 a=3}` suggests that there is a problem with a color attribute. 
+
+Looking at your XML layout file, I see that you are using `app:activeTrackColor="#ff4500"` and `app:inactiveTrackColor="#fbb999"`. These are color attributes for the Slider.
+
+The problem might be related to the version of the Material Components for Android library that you are using. You mentioned that you are using version `1.2.0-alpha02`. This is a pre-release version and might contain bugs or missing features.
+
+I suggest you try the following steps:
+
+1. Update the Material Components for Android library to the latest stable version. At the time of writing, the latest stable version is `1.4.0`. You can do this by changing the line in your `build.gradle` file to `implementation 'com.google.android.material:material:1.4.0'`.
+
+2. Clean and rebuild your project. You can do this by selecting `Build > Clean Project` and then `Build > Rebuild Project` from the Android Studio menu.
+
+3. If the problem persists, try removing the `app:activeTrackColor` and `app:inactiveTrackColor` attributes from your XML layout file to see if they are causing the problem.
+
+4. If the problem still persists, try creating a new project with the same `Slider` in the layout to see if the problem is specific to your current project or if it is a more general problem.
+
+If none of these steps solve your problem, please provide more information about your project setup, such as the version of Android Studio you are using, the version of the Android SDK you are targeting, and the full stack trace of the error.

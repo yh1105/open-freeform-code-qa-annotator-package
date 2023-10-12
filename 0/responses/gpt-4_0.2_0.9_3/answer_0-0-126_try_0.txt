@@ -1,0 +1,17 @@
+The error message you're seeing is due to a change in Next.js 13. The "target" configuration option has been deprecated and is no longer supported.
+
+However, from the `next.config.js` you've shared, it seems like you're not using the "target" property. This could mean that AWS Amplify is using an old version of your `next.config.js` file or there's a cache issue.
+
+Here are a few steps you can try:
+
+1. **Clear AWS Amplify Cache**: AWS Amplify might be using a cached version of your `next.config.js` file. You can try clearing the cache in AWS Amplify and then re-deploy your application.
+
+2. **Check Your Branches**: Make sure that the branch you're pushing to AWS Amplify is the correct one and it has the updated `next.config.js` file.
+
+3. **Check Your next.config.js Locally**: Double-check your `next.config.js` file in your local environment to make sure it doesn't have the "target" property.
+
+4. **Re-clone Your Repository**: Sometimes, git can hold onto old versions of files. Try deleting your local repository and re-cloning it from the remote repository.
+
+5. **Check Your Build Settings**: In AWS Amplify, check your build settings to make sure it's not using an old version of your `next.config.js` file.
+
+If none of these steps work, there might be an issue with Next.js 13 and AWS Amplify. You might want to consider downgrading to a previous version of Next.js until the issue is resolved.

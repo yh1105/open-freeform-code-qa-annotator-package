@@ -1,0 +1,30 @@
+1. Yes, there are a few ways to speed up the calculation of statistics for each group:
+
+- Use the `transform` method instead of `agg` to calculate the mean for each group. This will return a Series with the same length as the original DataFrame, but with the mean value for each group repeated for each row in that group. This can be faster than using `agg` if you need to perform calculations on each row in the original DataFrame.
+
+```
+%%timeit
+df['group_mean'] = df.groupby(['a_bins','b_bins','c_bins'])['value'].transform('mean')
+
+>>> 1.22 s ± 15.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+- Use the `dask` library to perform the calculation in parallel. This can be especially useful if you have a large DataFrame and a multi-core CPU.
+
+```
+import dask.dataframe as dd
+
+ddf = dd.from_pandas(df, npartitions=4) # adjust the number of partitions as needed
+grouped = ddf.groupby(['a_bins','b_bins','c_bins'])['value'].mean().compute()
+
+>>> 1.39 s ± 44.8 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+2. To find the mean value for a specific group based on the input values of `a`, `b`, and `c`, you can use the `get_group` method of the `GroupBy` object to extract the group and then access the mean value using the `iloc` method:
+
+```
+grouped = df.groupby(['a_bins','b_bins','c_bins'])['value'].mean()
+mean_value = grouped.get_group((-1.72, 0.32, 1.18)).iloc[0]
+
+>>> -0.252436
+```

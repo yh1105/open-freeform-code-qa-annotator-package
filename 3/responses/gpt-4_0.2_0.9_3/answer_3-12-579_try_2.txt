@@ -1,0 +1,60 @@
+The error message you're seeing is because you're trying to show a dialog before the `Navigator` is available in the widget tree. The `Navigator` is used for routing and is created by the `MaterialApp` or `CupertinoApp` widget.
+
+To show a dialog based on a condition, you can use a `Future.delayed` in the `initState` method of your widget. This will ensure that the widget is built before the dialog is shown.
+
+Here's an example:
+
+```dart
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool showDialogFlag = true; // your condition flag
+
+  @override
+  void initState() {
+    super.initState();
+    if (showDialogFlag) {
+      Future.delayed(Duration.zero, () => _showDialog());
+    }
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+        ),
+        body: Center(
+          child: Text('Hello World'),
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this example, the `showDialogFlag` is the condition that determines whether the dialog should be shown. If it's `true`, the dialog will be shown as soon as the widget is built. If it's `false`, the dialog will not be shown. You can replace `showDialogFlag` with your actual condition.

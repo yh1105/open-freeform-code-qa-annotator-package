@@ -1,0 +1,65 @@
+To post data to the URL body in Flutter WebView, you can use the `postUrl` method provided by the `webview_flutter` package. However, this method is currently only supported on Android.
+
+Here is an example of how you can use it:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: WebViewExample(),
+    );
+  }
+}
+
+class WebViewExample extends StatefulWidget {
+  @override
+  WebViewExampleState createState() => WebViewExampleState();
+}
+
+class WebViewExampleState extends State<WebViewExample> {
+  WebViewController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: WebView(
+        initialUrl: '',
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+          _loadHtmlFromAssets();
+        },
+      ),
+    );
+  }
+
+  _loadHtmlFromAssets() async {
+    String url = 'https://your-url.com';
+    String postData = "key1=value1&key2=value2"; // Your URL parameters
+    _controller.postUrl(
+        url: Uri.parse(url),
+        postData: Uint8List.fromList(utf8.encode(postData)));
+  }
+}
+```
+
+In this example, `postData` is the data you want to post to the URL. You can replace "key1=value1&key2=value2" with your actual data.
+
+Please note that `postUrl` is not yet supported on iOS. If you need to support both Android and iOS, you may need to use a different approach, such as using a `javascript` function to submit a form with method POST.
+
+Also, remember to add the `webview_flutter` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^2.0.13
+```
+
+Then, run `flutter pub get` to fetch the package.

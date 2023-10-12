@@ -161,3 +161,5 @@ cases:
 - cases/eval_1-4-330.yaml
 - cases/eval_1-4-331.yaml
 - cases/eval_1-4-332.yaml
+full_score_per_question: 1.0
+version: suite_v2_part_1.yaml

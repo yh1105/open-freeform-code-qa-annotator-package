@@ -1,0 +1,28 @@
+In Flutter, the `FlatButton` widget doesn't support the border color directly. However, you can use the `OutlineButton` widget instead, which supports border color. Here's how you can do it:
+
+```dart
+new OutlineButton(
+  child: new Text("Button text"),
+  onPressed: null,
+  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+  borderSide: BorderSide(color: Colors.red, style: BorderStyle.solid, width: 1),
+)
+```
+
+In the code above, `OutlineButton` is used instead of `FlatButton`. The `borderSide` property is used to set the border color, style, and width.
+
+If you want to fill the button with a color, you can use the `RaisedButton` widget with `color` property:
+
+```dart
+new RaisedButton(
+  color: Colors.blue,
+  child: new Text("Button text"),
+  onPressed: null,
+  shape: new RoundedRectangleBorder(
+    borderRadius: new BorderRadius.circular(30.0),
+    side: BorderSide(color: Colors.red)
+  ),
+)
+```
+
+In the code above, `RaisedButton` is used instead of `FlatButton`. The `color` property is used to set the button color, and the `side` property inside `RoundedRectangleBorder` is used to set the border color.

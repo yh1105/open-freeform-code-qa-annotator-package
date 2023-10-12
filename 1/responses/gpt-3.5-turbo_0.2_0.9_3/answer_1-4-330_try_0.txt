@@ -1,0 +1,27 @@
+Hi Rosalie,
+
+It sounds like you have already created a personal access token for GitHub authentication, which is great! However, you may need to update your Git configuration to use the access token instead of your password.
+
+Here are the steps to update your Git configuration:
+
+1. Open Terminal on your Mac.
+2. Navigate to the repository where you want to update the Git configuration.
+3. Run the following command to update the Git configuration:
+
+```
+git config --global credential.helper osxkeychain
+```
+
+This command tells Git to use the macOS Keychain to store your access token.
+
+4. Run the following command to remove any existing credentials:
+
+```
+git credential-osxkeychain erase
+host=github.com
+protocol=https
+```
+
+5. Push a commit to GitHub. You will be prompted to enter your access token instead of your password.
+
+I hope this helps! Let me know if you have any further questions.

@@ -1,0 +1,43 @@
+To change the default primary color for PrimeNG's saga-blue theme, you can try the following steps:
+
+1. Create a new CSS file in your project and import it after the PrimeNG theme CSS file.
+
+2. In your new CSS file, define a new CSS variable for the primary color using the `--primary-color` variable name. For example:
+
+```
+:root {
+  --primary-color: #ff0000; /* replace with your desired color */
+}
+```
+
+3. Override the styles for the elements that use the primary color by targeting them specifically. For example, if you want to change the primary color for buttons, you can add the following CSS:
+
+```
+.ui-button {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ui-button:hover {
+  background-color: #ff3333; /* replace with your desired hover color */
+  border-color: #ff3333;
+}
+
+.ui-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5); /* replace with your desired focus color */
+}
+```
+
+4. Repeat step 3 for any other elements that use the primary color.
+
+Note that some elements may have different shades of the primary color for hover and focus states. In those cases, you can use the `var(--primary-color)` variable as a base and adjust the shade as needed. For example:
+
+```
+.ui-menuitem-link:hover {
+  background-color: #ff6666; /* replace with your desired hover color */
+}
+
+.ui-menuitem-link:focus {
+  background-color: #ff9999; /* replace with your desired focus color */
+}
+```

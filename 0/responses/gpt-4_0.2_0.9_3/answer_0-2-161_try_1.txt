@@ -1,0 +1,23 @@
+PrimeNG uses the CSS variables for its theming which makes it easier to customize the theme. However, if you're using a pre-built theme like saga-blue, the colors are already compiled into CSS and changing the CSS variable won't have any effect.
+
+To change the primary color, you can follow these steps:
+
+1. Clone the PrimeNG GitHub repository: https://github.com/primefaces/primeng
+
+2. Navigate to the `src/assets/components/themes` folder. Here you will find the saga-blue theme folder.
+
+3. Inside the saga-blue folder, you will find a file named `saga-blue.scss`. This is the file where the primary color is defined.
+
+4. Open the `saga-blue.scss` file and find the line where the primary color is defined. It should look something like this: `$primaryColor: #1976d2;`
+
+5. Change the color value to the color you want.
+
+6. After you've made the changes, you need to compile the SCSS to CSS. You can do this by running the following command in the terminal: `npm run build:styles`.
+
+7. The compiled CSS will be in the `dist` folder. Replace the old CSS file in your project with the new one.
+
+8. Now your theme should have the new primary color.
+
+Remember, you need to have Node.js and npm installed on your computer to run the build command. Also, every time you want to change the color, you need to recompile the SCSS to CSS.
+
+If you want to change the hover and focus colors, you can find them in the `saga-blue.scss` file as well. They are usually defined with the lighten and darken functions. For example, `lighten($primaryColor, 10%)` or `darken($primaryColor, 10%)`. You can adjust the percentage to get the shade you want.

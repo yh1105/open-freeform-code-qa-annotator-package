@@ -1,0 +1,26 @@
+To use `@Parcelize` instead of `annotation class Parcelize` from `kotlinx.android.parcel`, you need to do the following:
+
+1. Add the following dependency to your app-level `build.gradle` file:
+
+```
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.0"
+}
+```
+
+2. Add the `kotlin-parcelize` plugin to your app-level `build.gradle` file:
+
+```
+plugins {
+    id 'kotlin-parcelize'
+}
+```
+
+3. Replace `annotation class Parcelize` with `@Parcelize` in your data class:
+
+```
+@Parcelize
+data class MyDataClass(val name: String, val age: Int) : Parcelable
+```
+
+Note: `@Parcelize` is only available for classes that implement the `Parcelable` interface.

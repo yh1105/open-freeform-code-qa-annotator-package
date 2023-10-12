@@ -1,0 +1,57 @@
+To solve your issues, you can do the following:
+
+1- The problem with your current implementation is that when you call `plot.plot()`, it adds a new plot item to the graph, but it doesn't remove the old one. To fix this, you should keep track of the plot items and remove them before adding a new one.
+
+2- To handle multiple checkboxes, you can use a dictionary to map each checkbox to its corresponding data and plot item. This way, you don't need to copy the same code for each checkbox.
+
+Here is the modified code:
+
+```python
+from PyQt5 import QtWidgets, QtGui
+import numpy as np
+import sys
+import pyqtgraph as pg
+
+app = QtWidgets.QApplication(sys.argv)
+
+x = np.linspace(0, 3.14, 100)
+data = {
+    'A1': {'y': np.sin(x), 'plot': None, 'pen': 'r'},
+    'A2': {'y': np.cos(x), 'plot': None, 'pen': 'y'},
+    # Add more data here...
+}
+
+def todo():
+    cbx = app.sender()
+    key = cbx.text()
+    if cbx.isChecked():
+        if data[key]['plot'] is not None:
+            plot.removeItem(data[key]['plot'])
+        data[key]['plot'] = plot.plot(x, data[key]['y'], pen=data[key]['pen'])
+    else:
+        if data[key]['plot'] is not None:
+            plot.removeItem(data[key]['plot'])
+            data[key]['plot'] = None
+
+widget_holder = QtGui.QWidget()
+
+plot = pg.PlotWidget()
+
+layout = QtGui.QGridLayout()
+widget_holder.setLayout(layout)
+
+for i, key in enumerate(data.keys()):
+    cbx = QtWidgets.QCheckBox()
+    cbx.setText(key)
+    cbx.stateChanged.connect(todo)
+    layout.addWidget(cbx, 0, i)
+
+layout.addWidget(plot, 1, 0, 3, 1)
+
+widget_holder.adjustSize()
+widget_holder.show()
+
+sys.exit(app.exec_())
+```
+
+In this code, `data` is a dictionary where each key is the text of a checkbox, and the value is another dictionary that contains the y-values of the data, the plot item (initialized as `None`), and the color of the plot. The `todo` function is modified to get the checkbox that emitted the signal using `app.sender()`, and then it uses the text of the checkbox to access the corresponding data and plot item.

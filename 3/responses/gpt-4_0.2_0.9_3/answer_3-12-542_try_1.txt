@@ -1,0 +1,101 @@
+You can wrap your `Scaffold` widget with `GestureDetector` and set the `behavior` property to `HitTestBehavior.opaque`. This will ensure that the bottom navigation bar does not move up when the keyboard is opened.
+
+Here is how you can do it:
+
+```dart
+class _AppHomeViewState extends State<AppHomeView>
+    with TickerProviderStateMixin {
+
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    tabController.addListener(handleTabSelection);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Scaffold(
+        body: SafeArea(child: _buildBody(context)),
+        bottomNavigationBar: Container(
+          height: 48,
+          decoration: BoxDecoration(
+            color: StyledColors.BACKGROUND_COLOR,
+            boxShadow: [
+              BoxShadow(
+                color: StyledColors.FORGROUND_COLOR.withOpacity(0.16),
+                blurRadius: 12,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            child: _buildTabBar(context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return TabBarView(
+      physics: NeverScrollableScrollPhysics(),
+      controller: tabController,
+      children: <Widget>[
+        HomeView(),
+        SearchView(),
+        OrdersView(),
+        ProfileView(),
+      ],
+    );
+  }
+
+  Widget _buildTabBar(BuildContext context) {
+    return TabBar(
+      controller: tabController,
+      tabs: <Widget>[
+        Tab(
+          icon: Icon(
+            Icons.store,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.search,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.receipt,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.person,
+            size: 28,
+          ),
+        )
+      ],
+      indicatorColor: Colors.transparent,
+      unselectedLabelColor: StyledColors.MEDIUM_GREY,
+      labelColor: StyledColors.PRIMARY_COLOR,
+    );
+  }
+
+  void handleTabSelection() {
+    setState(() {});
+  }
+}
+```
+
+In the above code, `GestureDetector` is used to detect when the user taps outside the keyboard. When this happens, the keyboard is closed by requesting focus on a new `FocusNode`. This ensures that the bottom navigation bar stays in place when the keyboard is opened.

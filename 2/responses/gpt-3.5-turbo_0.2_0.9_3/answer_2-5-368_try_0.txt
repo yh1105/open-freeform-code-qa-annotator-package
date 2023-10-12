@@ -1,0 +1,16 @@
+Sure, I can help you with that. Here are the steps to enable Dev Tools project on IntelliJ 2021.2:
+
+1. Open your project in IntelliJ 2021.2.
+2. Click on the "File" menu and select "Settings".
+3. In the Settings window, expand the "Build, Execution, Deployment" option and select "Compiler".
+4. Check the "Build project automatically" option.
+5. Click on the "Build Tools" option and select "Maven".
+6. Check the "Delegate IDE build/run actions to Maven" option.
+7. Click on the "Build, Execution, Deployment" option and select "Debugger".
+8. Check the "Allow parallel run" option.
+9. Click on the "Build, Execution, Deployment" option and select "Application Servers".
+10. Select your Tomcat server and click on the "Configuration" tab.
+11. Check the "Enable JRebel agent" option.
+12. Click on the "OK" button to save the changes.
+
+Now, you can observe the changes in your code without having to restart the Tomcat server. Whenever you make changes to your code, IntelliJ will automatically compile and deploy the changes to the Tomcat server.

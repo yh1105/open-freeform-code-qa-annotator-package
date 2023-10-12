@@ -1,0 +1,41 @@
+In Go, you can define multiple methods in an interface. If a type provides implementations for all the methods in an interface, then it is said to implement that interface. 
+
+In your case, you can create another interface that embeds the `Card` interface and also includes the `String()` method. This way, you can use the `Stringer` interface wherever you need to call both `Card` methods and `String()`. Here's how you can do it:
+
+```go
+type Stringer interface {
+    Card
+    String() string
+}
+```
+
+Now, you can use the `Stringer` interface in your test function:
+
+```go
+func TestString(t *testing.T) {
+    card := NewCard(0)
+    stringerCard, ok := card.(Stringer)
+    if !ok {
+        t.Fatal("Card does not implement Stringer interface")
+    }
+    assert.EqualValues(t, "AceHearts ", stringerCard.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```
+
+In this way, you can use the `Stringer` interface wherever you need to call both `Card` methods and `String()`. This is a common pattern in Go and is used in the standard library as well. For example, the `io.ReadWriter` interface embeds both `io.Reader` and `io.Writer`.
+
+Also, you should modify your `NewCard` function to return `Stringer` instead of `Card`:
+
+```go
+func NewCard(num int) Stringer {
+    newCard := card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+
+    return &newCard
+}
+```
+
+This way, you ensure that the returned value implements both `Card` and `Stringer` interfaces.

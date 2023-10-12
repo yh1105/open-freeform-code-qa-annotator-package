@@ -1,0 +1,12 @@
+It looks like the error is caused by the fact that you are trying to import a local file using a relative path, but Node.js is unable to resolve the path correctly. 
+
+To fix this, you can try using an absolute path instead of a relative path. For example, you can use the `__dirname` global variable to get the absolute path of the current module and then append the path to the `api.js` file. 
+
+Here's an example:
+
+```
+import path from 'path';
+import apis from path.join(__dirname, 'src', 'server', 'api');
+```
+
+This should resolve the path correctly and allow you to import the `api.js` file without any issues.

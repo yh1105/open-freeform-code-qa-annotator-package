@@ -1,0 +1,21 @@
+Unfortunately, the behavior you're experiencing is by design. When you run a process with elevated permissions, it's essentially a new login session, and it doesn't inherit the environment variables from the parent process.
+
+Here are a few workarounds you might consider:
+
+1. **Registry**: You could temporarily store your environment variables in the registry, then read them back in your elevated script. This is similar to writing to a file, but might be more secure if you're worried about sensitive information being written to disk.
+
+2. **Named Pipes**: You could use named pipes to communicate between your two scripts. This would allow you to pass data (including environment variables) between them. This is a bit more complex, but it's very secure and doesn't involve writing anything to disk.
+
+3. **WMI**: You could use WMI to launch your elevated process and pass environment variables to it. This is a bit more complex than the other options, but it's very flexible and powerful.
+
+Here's an example of how you might do this:
+
+```powershell
+$envVars = [System.Environment]::GetEnvironmentVariables()
+
+$process = ([WMIClass]"\\.\ROOT\CIMv2:Win32_Process").Create("cmd.exe /c your_script.bat", null, $envVars, $null)
+```
+
+This will create a new process and pass your current environment variables to it. Note that this will only work if your script is running with administrative privileges.
+
+4. **Passing as arguments**: Although you've mentioned this as an unappealing solution, it might be the most straightforward way to achieve your goal. You could write a wrapper script that collects the necessary environment variables and passes them as arguments to your elevated script. This would avoid the need to write anything to disk or use any external tools.

@@ -1,0 +1,26 @@
+You can use the `window.history` object to get the previous URL. Here's an example:
+
+```
+componentDidMount() {
+  // Save the current URL to local storage
+  localStorage.setItem('previousUrl', window.location.href);
+}
+
+login() {
+  // Perform login logic here
+  // ...
+
+  // Get the previous URL from local storage
+  const previousUrl = localStorage.getItem('previousUrl');
+
+  // If there is a previous URL, go back to it
+  if (previousUrl) {
+    router.push(previousUrl);
+  } else {
+    // Otherwise, go to the home page
+    router.push('/');
+  }
+}
+```
+
+In this example, we save the current URL to local storage when the component mounts. Then, when the user logs in, we get the previous URL from local storage and use `router.push` to go back to it. If there is no previous URL, we go to the home page instead.

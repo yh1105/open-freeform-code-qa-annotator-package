@@ -1,0 +1,43 @@
+The error you're seeing is because the Elasticsearch client in Node.js is trying to connect to Elasticsearch over HTTPS, but it's not trusting the self-signed certificate that Elasticsearch is using.
+
+The Elasticsearch operator for Kubernetes automatically generates a self-signed certificate for the HTTP layer of Elasticsearch, which is what's causing the issue. 
+
+You have a couple of options to fix this:
+
+1. **Disable SSL verification in the Elasticsearch client**: This is the easiest solution, but it's not recommended for production environments because it disables SSL verification and makes your application vulnerable to man-in-the-middle attacks. Here's how you can do it:
+
+```javascript
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+```
+
+2. **Use the generated certificate in your Node.js application**: The Elasticsearch operator generates a certificate that you can use in your application to trust the Elasticsearch server. Here's how you can do it:
+
+First, you need to extract the certificate from the Kubernetes secret:
+
+```bash
+kubectl get secret <elasticsearch-name>-es-http-certs-public -o=jsonpath='{.data.tls\.crt}' | base64 --decode > tls.crt
+```
+
+Then, you can use the certificate in your Node.js application:
+
+```javascript
+const fs = require('fs');
+const https = require('https');
+
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  ssl: {
+    ca: fs.readFileSync('/path/to/tls.crt'),
+    rejectUnauthorized: true
+  }
+});
+```
+
+Remember to replace `<elasticsearch-name>` with the name of your Elasticsearch deployment and `/path/to/tls.crt` with the path to the certificate file.
+
+3. **Use your own certificate**: If you have your own certificate that's trusted by your Node.js application, you can use it in Elasticsearch. The Elasticsearch operator allows you to specify your own certificate in the Elasticsearch custom resource. You can find more information about this in the [Elasticsearch operator documentation](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-tls-certificates.html).

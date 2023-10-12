@@ -1,0 +1,13 @@
+The issue you are experiencing might be due to the fact that the `componentWillUnmount` method is not being called when you expect it to be. This could happen if the modal component is not actually being unmounted when it is closed, but just hidden. If this is the case, the `componentWillUnmount` method will not be called and the overflow style will not be reset.
+
+Instead of using `componentDidMount` and `componentWillUnmount`, you could use `componentDidUpdate` to check if the `show` prop has changed and then set the overflow style accordingly. Here is how you could do it:
+
+```jsx
+componentDidUpdate(prevProps) {
+    if (this.props.show !== prevProps.show) {
+        document.body.style.overflow = this.props.show ? 'hidden' : 'unset';
+    }
+}
+```
+
+This way, whenever the `show` prop changes, the overflow style of the body will be updated. When the modal is shown, the overflow will be set to 'hidden' and when it is hidden, the overflow will be set to 'unset'. This should ensure that the overflow style is always correct, regardless of whether the modal component is actually unmounted or not.

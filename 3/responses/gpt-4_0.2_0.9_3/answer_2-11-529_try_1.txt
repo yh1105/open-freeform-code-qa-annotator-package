@@ -1,0 +1,34 @@
+You can use `std::apply` to create an object from a tuple of arguments. `std::apply` takes a callable and a tuple, and applies the callable to the elements of the tuple.
+
+Here's how you can use it to create a new object on the heap:
+
+```cpp
+#include <tuple>
+#include <memory>
+
+template <typename T, typename Tuple>
+T* make_new_from_tuple(Tuple&& t)
+{
+    return std::apply([](auto&&... args){
+        return new T(std::forward<decltype(args)>(args)...);
+    }, std::forward<Tuple>(t));
+}
+
+struct A
+{
+    int i_; double d_; std::string s_;
+
+    A( int i, double d, const std::string& s ) : i_(i), d_(d), s_(s) {}
+};
+
+int main()
+{
+    auto aTuple = std::make_tuple( 1, 1.5, std::string("Hello") );
+    A* a = make_new_from_tuple<A>(std::move(aTuple));
+    // don't forget to delete a when you're done with it
+}
+```
+
+This will work with any tuple, as long as its elements can be used as arguments to the constructor of `T`. If the tuple contains a `unique_ptr`, it will be moved into the new object.
+
+Note that this function returns a raw pointer. You are responsible for deleting the object when you're done with it. If you forget, you will have a memory leak. Consider using a smart pointer like `std::unique_ptr` or `std::shared_ptr` to manage the memory automatically.

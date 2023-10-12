@@ -1,0 +1,43 @@
+To trigger a client-side reload, you can use the `window.location.reload()` method in JavaScript. This will reload the current page in the browser and call the `getInitialProps` function on the client-side.
+
+Here's an example of how you can use it in your code:
+
+```javascript
+import { useState } from 'react';
+
+function IndexPage({ data }) {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleCreateData = async () => {
+    // code to create new data
+    // ...
+
+    // reload the page
+    window.location.reload();
+  };
+
+  return (
+    <div>
+      {/* code for index page */}
+      {/* ... */}
+
+      {/* code for dialog */}
+      {showDialog && (
+        <div>
+          {/* ... */}
+          <button onClick={handleCreateData}>Create Data</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+IndexPage.getInitialProps = async () => {
+  // code to load data
+  // ...
+};
+
+export default IndexPage;
+```
+
+In this example, when the user clicks the "Create Data" button in the dialog, the `handleCreateData` function is called. This function creates the new data and then triggers a client-side reload using `window.location.reload()`. This will reload the page and call the `getInitialProps` function on the client-side, which will load the updated data.

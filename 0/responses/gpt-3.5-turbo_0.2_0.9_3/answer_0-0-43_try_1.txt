@@ -1,0 +1,7 @@
+The reason why you need to specify the `--downlevelIteration` compiler option when targeting ES5 is because the spread operator and other ES6 features that work with iterables (such as `for...of` loops) rely on the `Symbol.iterator` property that is not available in ES5. 
+
+When you enable the `--downlevelIteration` option, TypeScript will generate additional code using the `tslib` library to emulate the behavior of `Symbol.iterator` and allow the spread operator and other iterable features to work with ES5 targets.
+
+The downside of enabling `--downlevelIteration` is that it adds more emitted generated code from `tslib`, which may increase the size of your compiled JavaScript files. However, this is usually a small trade-off compared to the benefits of being able to use modern JavaScript features in older environments.
+
+In the case of your example `[...Array(3).keys()]`, the error message is telling you that the `keys()` method returns an `IterableIterator<number>`, which is not an array or a string. To convert it to an array using the spread operator, you need to enable the `--downlevelIteration` option.

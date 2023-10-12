@@ -1,0 +1,26 @@
+Webpack 5 removed the Node.js polyfills that were automatically included with Webpack 4. This is likely the cause of the error you're seeing. 
+
+In your configuration, you're trying to set `node: { fs: 'empty', net: 'empty', module: 'empty' }`, but these properties are no longer valid in Webpack 5. 
+
+To resolve this issue, you can use the `resolve.fallback` option to provide alternative packages for when a certain package is imported. 
+
+Here's how you can modify your Webpack configuration:
+
+```javascript
+module.exports = {
+  //...
+  resolve: {
+    fallback: {
+      "fs": false,
+      "net": false,
+      "module": false
+    }
+  }
+};
+```
+
+This configuration tells Webpack to return `false` when `fs`, `net`, or `module` are imported, effectively mocking these modules with an empty module.
+
+Please note that this might not be the best solution depending on your use case. If the library you're using needs to use these modules, you might need to find a way to provide a browser-compatible version of these modules. 
+
+You can also consider using a different build tool or bundler that includes Node.js polyfills, or stick with Webpack 4 if that's an option.

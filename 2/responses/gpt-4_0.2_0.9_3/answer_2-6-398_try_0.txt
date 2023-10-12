@@ -1,0 +1,39 @@
+The `ILogger<T>` interface is a generic interface that allows you to associate the logger with a specific class. This is useful for filtering logs based on the class that produced them. 
+
+When you register the logger service with `AddLogging()`, it only registers the non-generic `ILoggerFactory` and `ILogger` interfaces. The `ILogger<T>` interface is not directly registered, but it can be resolved because the `ILoggerFactory` can create an instance of `ILogger<T>`.
+
+If you want to inject `ILogger` instead of `ILogger<T>`, you can do so by creating a factory that creates `ILogger` instances:
+
+```csharp
+public static class ServiceCollectionExtensions
+{
+    public static IServiceCollection AddLogger(this IServiceCollection services)
+    {
+        return services.AddSingleton<ILogger>(provider =>
+        {
+            var factory = provider.GetRequiredService<ILoggerFactory>();
+            return factory.CreateLogger("MyLogger");
+        });
+    }
+}
+```
+
+Then you can use this extension method to register the `ILogger` service:
+
+```csharp
+var services = new ServiceCollection()
+    .AddLogging(logging => logging.AddConsole())
+    .AddLogger()
+    .BuildServiceProvider();
+```
+
+Now you can inject `ILogger` into your classes:
+
+```csharp
+public MyClass(ILogger logger)
+{
+    _logger = logger;
+}
+```
+
+However, keep in mind that this will give you a single logger instance for the entire application. If you want to have different loggers for different classes, you should stick with `ILogger<T>`.

@@ -1,0 +1,107 @@
+To make the checkboxes and dropdown menu work, you need to convert your `DetailPage` widget from a `StatelessWidget` to a `StatefulWidget`. Here's how you can do it:
+
+1. Create a new file called `detail_page.dart` and move your `DetailPage` widget into it.
+
+2. Change the class definition from `class DetailPage extends StatelessWidget` to `class DetailPage extends StatefulWidget`.
+
+3. Add a new class called `_DetailPageState` that extends `State<DetailPage>`. This is where you will manage the state of your checkboxes and dropdown menu.
+
+4. Move all the code inside the `build` method of `DetailPage` into the `build` method of `_DetailPageState`.
+
+5. Replace `DetailPage` with `_DetailPageState` in the `Scaffold` widget.
+
+6. Add the following code to `_DetailPageState`:
+
+```
+bool _mapped = false;
+bool _realTimeTracking = false;
+String _scheduledFor = 'Now (Default)';
+
+void _onMappedChanged(bool newValue) {
+  setState(() {
+    _mapped = newValue;
+  });
+}
+
+void _onRealTimeTrackingChanged(bool newValue) {
+  setState(() {
+    _realTimeTracking = newValue;
+  });
+}
+
+void _onScheduledForChanged(String newValue) {
+  setState(() {
+    _scheduledFor = newValue;
+  });
+}
+```
+
+7. Replace the `CheckboxListTile` widgets with the following code:
+
+```
+CheckboxListTile(
+  title: Text("Mapped"),
+  value: _mapped,
+  onChanged: _onMappedChanged,
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Real-time Tracking"),
+  value: _realTimeTracking,
+  onChanged: _onRealTimeTrackingChanged,
+  controlAffinity: ListTileControlAffinity.leading,
+),
+```
+
+8. Replace the `DropdownButton` widget with the following code:
+
+```
+DropdownButton<String>(
+  value: _scheduledFor,
+  items: <String>['Now (Default)', 'B', 'C', 'D'].map((String value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value),
+    );
+  }).toList(),
+  onChanged: _onScheduledForChanged,
+),
+```
+
+9. Update the `TextFormField` widget to use a `TextEditingController` to manage the state of the text field. Here's how you can do it:
+
+```
+final _descriptionController = TextEditingController();
+
+@override
+void dispose() {
+  _descriptionController.dispose();
+  super.dispose();
+}
+
+...
+
+TextFormField(
+  controller: _descriptionController,
+  decoration: InputDecoration(
+    hintText: 'Enter an activity description',
+  ),
+),
+```
+
+10. Update the `onPressed` callback of the `RaisedButton` widget to use the state of the checkboxes and dropdown menu. Here's an example:
+
+```
+RaisedButton(
+  onPressed: () {
+    print('Mapped: $_mapped');
+    print('Real-time Tracking: $_realTimeTracking');
+    print('Scheduled for: $_scheduledFor');
+    print('Description: ${_descriptionController.text}');
+  },
+  color: Colors.lightBlue,
+  child: Text("Start", style: TextStyle(color: Colors.white, fontSize: 20)),
+),
+```
+
+With these changes, your checkboxes and dropdown menu should now work as expected.

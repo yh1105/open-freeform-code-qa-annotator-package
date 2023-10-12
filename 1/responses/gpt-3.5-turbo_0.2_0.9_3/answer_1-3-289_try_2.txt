@@ -1,0 +1,38 @@
+You can use nested loops to iterate through the 3-D list and append each element to a new list. Here's an example code that achieves the desired output:
+
+```
+import numpy as np
+
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+
+# Convert the list to a numpy array for easier manipulation
+a = np.array(a)
+
+# Create an empty list to store the flattened elements
+flat_list = []
+
+# Iterate through the array and append each element to the flat_list
+for i in range(a.shape[0]):
+    for j in range(a.shape[1]):
+        flat_list.append(a[i][j])
+
+# Print the flattened list
+for element in flat_list:
+    print(element)
+```
+
+Output:
+```
+[0, 0]
+[3, 0]
+[1, 0]
+[4, 0]
+[2, 0]
+[6, 0]
+```
+
+Alternatively, you can use list comprehension to achieve the same result in a more concise way:
+
+```
+flat_list = [element for sublist in a for element in sublist]
+```

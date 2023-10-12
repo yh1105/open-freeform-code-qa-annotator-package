@@ -1,0 +1,16 @@
+To create a triangle with Tailwind CSS, you can use the border utility classes to create a border triangle. Here's an example of how to create a triangle with a black border and transparent background:
+
+```
+<div class="border-b-30 border-l-30 border-solid border-black w-0 h-0">
+</div>
+```
+
+To add a tail to the triangle, you can nest another div inside the first one and apply the border utility classes to it:
+
+```
+<div class="w-16 h-16 border-b-30 border-l-30 border-solid border-black">
+    <div class="h-16 w-16 border-t-30 border-r-30 bg-transparent"></div>
+</div>
+```
+
+This will create a triangle with a tail on the bottom left corner. You can adjust the size and position of the triangle by changing the values of the border utility classes.

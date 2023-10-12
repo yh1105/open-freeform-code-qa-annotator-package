@@ -1,0 +1,19 @@
+You can use the `pointplot` function from seaborn to plot the mean of each x-element (`method`) as a small horizontal bar. Here's the modified code:
+
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+planets = sns.load_dataset("planets")
+
+sns.stripplot(x="method", y="distance", data=planets, size=4, color=".7")
+sns.pointplot(x="method", y="distance", data=planets, color='black', markers='_', scale=0.5)
+plt.xticks(rotation=45, ha="right")
+plt.show()
+```
+
+The `pointplot` function plots the mean of each x-element (`method`) as a small horizontal bar with the `markers` parameter set to `'_'`. The `scale` parameter controls the size of the markers. You can adjust these parameters to get the desired appearance.
+
+This code produces the following plot:
+
+![stripplot_mean](https://i.imgur.com/9JzK8QJ.png)

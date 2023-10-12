@@ -1,0 +1,10 @@
+It seems like IntelliJ is still using the old JDK version to compile your application. You can try the following steps to make sure IntelliJ is using the correct JDK version:
+
+1. Go to File > Project Structure > Project and make sure the Project SDK is set to JDK 11.
+2. Go to File > Project Structure > Modules and make sure the Language level is set to 11.
+3. Go to Run > Edit Configurations and make sure the JRE is set to JDK 11.
+4. If none of the above steps work, you can try invalidating the cache and restarting IntelliJ. Go to File > Invalidate Caches / Restart and select Invalidate and Restart.
+
+If you still encounter the same error, you can try checking the compiler settings in IntelliJ. Go to File > Settings > Build, Execution, Deployment > Compiler > Java Compiler and make sure the Target bytecode version is set to 11. 
+
+If none of these steps work, you can try reinstalling JDK 11 and making sure it is properly configured in your system environment variables.

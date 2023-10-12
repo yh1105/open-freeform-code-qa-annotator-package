@@ -1,0 +1,15 @@
+There could be several reasons why your Live Server extension is not updating your browser after saving HTML or other files. Here are a few potential issues and their solutions:
+
+1. **Browser Cache**: Sometimes, the browser cache can prevent the updated content from being displayed. Try clearing your browser cache or use the incognito/private mode of your browser.
+
+2. **Auto Save**: Make sure that the Auto Save feature is enabled in your code editor. In Visual Studio Code, you can enable it by going to File > Auto Save.
+
+3. **Live Server Settings**: Check your Live Server settings. Make sure that the "liveServer.settings.reload" is set to true. This can be found in the settings.json file in VS Code.
+
+4. **File Path**: Ensure that the file path is correct. If the file path is incorrect, the Live Server may not be able to detect the changes.
+
+5. **Firewall or Antivirus Software**: Sometimes, firewall or antivirus software can interfere with the Live Server. Try disabling them temporarily to see if that solves the problem.
+
+6. **Reinstall Live Server**: If none of the above solutions work, try uninstalling and reinstalling the Live Server extension. There might be a problem with the installation.
+
+Remember, always save your work before trying to refresh it in the browser. If you're still having trouble, it might be helpful to look at the developer console in your browser for any error messages.

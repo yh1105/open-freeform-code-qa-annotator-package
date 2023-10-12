@@ -1,0 +1,36 @@
+The problem you're facing is a common one in the field of Optical Character Recognition (OCR). The background noise in the images is interfering with the OCR's ability to accurately recognize the characters. 
+
+Here are some steps you can take to improve the accuracy:
+
+1. **Image Binarization**: This is a process of converting an image to black and white. This can help to remove some of the noise in the image. You can use Otsu's Binarization method which automatically calculates a threshold value from image histogram for a bimodal image. 
+
+2. **Morphological Operations**: You can apply morphological operations like dilation and erosion to remove small noise - the operations like Dilation expands the object area and Erosion shrinks it. 
+
+3. **Smoothing**: You can apply a Gaussian blur to the image to reduce high frequency noise, helping in the extraction of meaningful data. 
+
+4. **Rescaling**: Tesseract works best on images that are 300 dpi or higher, so you might get better results if you rescale your images before processing them.
+
+Here's an example of how you might implement these steps:
+
+```python
+import cv2
+import pytesseract
+
+def preprocess_for_ocr(img, enhance=1):
+    """
+    @param img: image to which the pre-processing steps being applied
+    """
+    if enhance > 1:
+        img = cv2.resize(img, None, fx=enhance, fy=enhance, interpolation=cv2.INTER_LINEAR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+    img = cv2.medianBlur(img, 3)
+    return img
+
+pytesseract.pytesseract.tesseract_cmd = r"C:\Users\HPO2KOR\AppData\Local\Tesseract-OCR\tesseract.exe"
+img = cv2.imread("untitled.png")
+processed_img = preprocess_for_ocr(img, enhance=2)
+cv2.imwrite("cleaned.png", processed_img)
+```
+
+Remember that OCR is not always 100% accurate, and the accuracy can depend on the quality of the original image. You might need to experiment with different pre-processing steps to find the best results for your specific images.

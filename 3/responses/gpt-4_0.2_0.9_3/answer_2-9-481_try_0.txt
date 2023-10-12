@@ -1,0 +1,13 @@
+This error is because Sprockets 4 requires you to have a manifest file. The manifest file is used to list the files and assets that you want to precompile in production.
+
+You can fix this issue by creating a new file `app/assets/config/manifest.js` and adding the following lines:
+
+```javascript
+//= link_tree ../images
+//= link_directory ../stylesheets .css
+//= link_directory ../javascripts .js
+```
+
+This will include all your images, stylesheets, and JavaScript files in the asset pipeline.
+
+Remember to restart your server after making these changes.

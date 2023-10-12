@@ -1,0 +1,5 @@
+While it is possible that `pip` may continue to work for Python 2.7 after its end of life, it is not guaranteed. The `pip` team has already announced that they will no longer support Python 2.7 after January 1st, 2020. This means that any issues or bugs with `pip` that arise after that date will not be fixed for Python 2.7.
+
+Additionally, many third-party packages may also stop supporting Python 2.7 after its end of life, which could make it difficult to install or use certain packages with `pip`.
+
+It is highly recommended to migrate to Python 3 before the end of life for Python 2.7 to ensure continued support and access to the latest features and updates.

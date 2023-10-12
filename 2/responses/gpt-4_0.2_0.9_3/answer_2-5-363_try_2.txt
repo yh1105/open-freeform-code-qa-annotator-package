@@ -1,0 +1,9 @@
+`@RequiredArgsConstructor` and `@RequiredArgsConstructor(onConstructor = @__(@Inject))` both are annotations provided by Project Lombok to reduce boilerplate code in Java. They generate a constructor with required arguments.
+
+1. `@RequiredArgsConstructor`: This Lombok annotation generates a constructor with required parameters. Required parameters are final fields and fields with constraints such as @NonNull that need to be initialized.
+
+2. `@RequiredArgsConstructor(onConstructor = @__(@Inject))`: This is a special case of `@RequiredArgsConstructor` where you are instructing Lombok to generate a constructor with required parameters and also annotate that constructor with `@Inject`. 
+
+The `@Inject` annotation is used for dependency injection. This means that the class dependencies are not created by the class itself but are provided by external means, often through a constructor. 
+
+So, the difference between the two is that the latter one is used when you want to use dependency injection (usually in Spring or Java EE applications) to provide the required parameters, while the former one is used when you want to provide the required parameters by yourself.

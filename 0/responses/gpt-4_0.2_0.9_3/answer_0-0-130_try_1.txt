@@ -1,0 +1,31 @@
+The issue you're facing is because the `TextEncoder` class is not available in the Node.js environment by default. It's a global class in browsers, but not in Node.js. 
+
+Starting from Node.js v11.0.0, `TextEncoder` and `TextDecoder` are available as a global object, so you might not face this issue if you upgrade your Node.js version.
+
+However, if you're using a version of Node.js where it's not available, you can use the `util` module to create an instance of `TextEncoder`. 
+
+You can add the following lines at the top of your test file:
+
+```javascript
+const util = require('util');
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
+```
+
+This will define `TextEncoder` and `TextDecoder` in the global scope for your tests.
+
+If you're using a version of Node.js where `TextEncoder` and `TextDecoder` are not available in the `util` module, you can use the `text-encoding` npm package. First, install the package:
+
+```bash
+npm install --save text-encoding
+```
+
+Then, add the following lines at the top of your test file:
+
+```javascript
+const { TextEncoder, TextDecoder } = require('text-encoding');
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+```
+
+This should solve your issue.

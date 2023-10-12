@@ -1,0 +1,19 @@
+Yes, you can calculate the total number of days in a year given a datetime format of YYYY-MM-DD in Pandas. You can use the `is_leap_year` property of the `dt` accessor to check if the year is a leap year or not. Here is an example:
+
+```python
+import pandas as pd
+
+# Create a pandas series with your dates
+dates = pd.Series(pd.to_datetime(['2020-03-30', '2019-03-30']))
+
+# Use the is_leap_year property to get a boolean series
+# where True indicates a leap year and False a non-leap year
+leap_years = dates.dt.is_leap_year
+
+# Use the boolean series to select the number of days in the year
+days_in_year = leap_years.replace({True: 366, False: 365})
+
+print(days_in_year)
+```
+
+In this code, `dates.dt.is_leap_year` returns a series with the same index as `dates` where each value is `True` if the corresponding date is in a leap year and `False` otherwise. Then, `leap_years.replace({True: 366, False: 365})` replaces `True` with 366 and `False` with 365, giving the number of days in the year for each date.

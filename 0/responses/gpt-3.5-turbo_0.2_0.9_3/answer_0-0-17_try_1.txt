@@ -1,0 +1,29 @@
+You can add an event listener for the "keydown" event on the editor's view. Here's an example code snippet that listens for the "Enter" key press and emits an event to submit the chat and clear the editor:
+
+```
+mounted() {
+  let editor = new Editor({
+    extensions: [StarterKit],
+    content: this.value
+  });
+
+  editor.on("update", e => {
+    console.log(e);
+    this.$emit("input", this.editor.getHTML());
+  });
+
+  editor.view.dom.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // prevent default behavior of adding a new line
+      this.$emit("submitChat", this.editor.getHTML());
+      this.editor.commands.setContent("");
+    }
+  });
+
+  this.editor = editor;
+}
+```
+
+In this code, we added an event listener for the "keydown" event on the editor's view. When the "Enter" key is pressed, we prevent the default behavior of adding a new line, emit an event to submit the chat with the current HTML content of the editor, and then clear the editor's content using the `setContent` command. 
+
+Note that we also added a new event called "submitChat" that you can use to handle the submission of the chat outside of this component. You can listen for this event in the parent component and handle the submission logic there.

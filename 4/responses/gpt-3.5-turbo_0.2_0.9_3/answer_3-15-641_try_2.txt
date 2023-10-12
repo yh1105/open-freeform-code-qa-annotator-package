@@ -1,0 +1,45 @@
+It sounds like you are trying to automate the process of creating folders and files on SharePoint using VBA. Unfortunately, this is not a straightforward task as SharePoint is a web-based platform and VBA is designed to work with local files and folders.
+
+One possible solution is to use the SharePoint REST API to create folders and files on SharePoint. The REST API allows you to interact with SharePoint using HTTP requests and responses, which can be generated using VBA.
+
+Here is an example of how you can use the SharePoint REST API to create a folder on SharePoint:
+
+1. Construct the URL for the REST API endpoint that creates a folder. The URL should include the site URL, the library name, and the folder name.
+
+```
+https://<site_url>/_api/web/lists/getbytitle('<library_name>')/rootfolder/folders/add(url='<folder_name>')
+```
+
+2. Create an HTTP request using VBA. The request should include the URL, the HTTP method (POST), and the authentication token.
+
+```
+Dim request As Object
+Set request = CreateObject("MSXML2.XMLHTTP")
+request.Open "POST", <url>, False
+request.setRequestHeader "Authorization", "Bearer " & <authentication_token>
+request.setRequestHeader "Content-Type", "application/json;odata=verbose"
+```
+
+3. Send the HTTP request and check the response status code to ensure that the folder was created successfully.
+
+```
+request.send
+If request.Status = 201 Then
+    MsgBox "Folder created successfully"
+Else
+    MsgBox "Error creating folder"
+End If
+```
+
+You can use a similar approach to create files on SharePoint using the REST API.
+
+As for retrieving the local path of the SharePoint file, you can use the following VBA code to get the local path of the active workbook:
+
+```
+Dim path As String
+path = ThisWorkbook.Path
+```
+
+This will return the local path of the folder that contains the active workbook. You can then use this path to construct the local path of the SharePoint folder and create the necessary subfolders and files.
+
+I hope this helps! Let me know if you have any further questions.

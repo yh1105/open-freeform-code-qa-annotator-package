@@ -1,0 +1,24 @@
+To restrict the user from viewing inner pages of the app after they have logged out and have been redirected to the login page, you can use a combination of `Navigator.pushReplacement()` and `Navigator.pushAndRemoveUntil()` methods.
+
+Here's how you can implement it:
+
+1. After the user logs out, use `Navigator.pushReplacement()` to replace the current page with the login page. This will ensure that the user cannot go back to the previous page using the back button.
+
+```dart
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => LoginPage()),
+);
+```
+
+2. Once the user is logged in, use `Navigator.pushAndRemoveUntil()` to remove all the previous pages from the stack and add the new page to the stack. This will ensure that the user cannot go back to the login page using the back button.
+
+```dart
+Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => HomePage()),
+  (Route<dynamic> route) => false,
+);
+```
+
+With this approach, the user will not be able to view any inner pages of the app after they have logged out and have been redirected to the login page.

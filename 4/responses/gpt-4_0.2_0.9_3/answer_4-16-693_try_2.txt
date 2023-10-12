@@ -1,0 +1,24 @@
+You can use awk to parse the lines and extract the request_id and fwd values. Here is how you can modify your script:
+
+```bash
+#!/bin/bash
+curl -s https://coderbyte.com/api/challenges/logs/web-logs-raw -O > /dev/null
+
+grep -F "coderbyte heroku/router" web-logs-raw | awk '{
+    for(i=1;i<=NF;i++) {
+        if($i ~ /request_id=/) {
+            printf "%s", substr($i,12)
+        }
+        if($i ~ /fwd=/) {
+            if(substr($i,5) == "\"MASKED\"") {
+                printf " [M]"
+            }
+        }
+    }
+    printf "\n"
+}' > output.txt
+
+cat output.txt
+```
+
+This script first uses grep to filter the lines that contain "coderbyte heroku/router". Then it pipes the output to awk, which loops through each field in the line. If the field contains "request_id=", it prints the value of request_id (which starts from the 12th character of the field). If the field contains "fwd=" and its value is "MASKED", it prints " [M]". After processing each line, it prints a newline character to separate the output of different lines. The output is redirected to a file named output.txt. Finally, it uses cat to display the content of output.txt.

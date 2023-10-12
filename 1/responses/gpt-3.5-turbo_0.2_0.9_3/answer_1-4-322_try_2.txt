@@ -1,0 +1,34 @@
+You can use `tidyr` and `dplyr` functions to achieve the desired output. Here's how:
+
+```
+library(tidyr)
+library(dplyr)
+
+desired_output <- my_data %>%
+  group_by(list_names) %>%
+  summarise(list_values = list(list_values)) %>%
+  ungroup() %>%
+  deframe()
+
+desired_output
+```
+
+This will give you the following output:
+
+```
+$Ford
+[1] "Ranger"   "F150"     "Explorer"
+
+$Chevy
+[1] "Equinox"
+
+$Dodge
+[1] "Caravan" "Ram"
+```
+
+Explanation:
+
+- `group_by(list_names)` groups the data by the `list_names` column.
+- `summarise(list_values = list(list_values))` creates a new column `list_values` which contains a list of all the values in the `list_values` column for each group.
+- `ungroup()` removes the grouping.
+- `deframe()` converts the resulting tibble into a named list where the names are taken from the `list_names` column and the values are taken from the `list_values` column.

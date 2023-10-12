@@ -1,0 +1,35 @@
+The error you're seeing is because the `connect-mongo` package has been updated and the way you use it has changed. The code you're using is for an older version of `connect-mongo`.
+
+In the latest versions of `connect-mongo`, you don't need to pass `session` when requiring the package. Instead, you should create a new instance of `MongoStore` and pass your session configuration to it.
+
+Here's how you should update your code:
+
+```javascript
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/test-app' }) // replace with your MongoDB connection string
+}));
+```
+
+In this code, `MongoStore.create()` is used to create a new instance of `MongoStore`. You should replace `'mongodb://localhost/test-app'` with your MongoDB connection string.
+
+If you want to use the `mongoose.connection` object, you can do it like this:
+
+```javascript
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ client: mongoose.connection.getClient() })
+}));
+```
+
+This will use the existing Mongoose connection to MongoDB.

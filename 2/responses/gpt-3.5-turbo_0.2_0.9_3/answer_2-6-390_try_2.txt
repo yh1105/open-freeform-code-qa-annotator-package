@@ -1,0 +1,28 @@
+The error message "Bearer error='invalid_token', error_description='The issuer is invalid'" indicates that the token you are using is not valid for the specified API. This could be due to a few reasons:
+
+1. The token was issued by a different authorization server than the one specified in your API's configuration. Make sure that the `Authority` property in your `AddIdentityServerAuthentication` options matches the URL of the authorization server that issued the token.
+
+2. The token was issued for a different audience than the one specified in your API's configuration. Make sure that the `ApiName` property in your `AddIdentityServerAuthentication` options matches the `aud` claim in the token.
+
+3. The token has expired or has been revoked. Check the expiration time (`exp` claim) and revocation status of the token.
+
+4. There is a mismatch between the signing key used by the authorization server to sign the token and the one used by your API to validate it. Make sure that the `SigningCredential` property in your authorization server's configuration and the `IssuerSigningKey` property in your API's `AddIdentityServerAuthentication` options are using the same key.
+
+You can also try enabling logging in your API to get more information about the error. Add the following code to your `Configure` method in `Startup.cs`:
+
+```
+app.Use(async (context, next) =>
+{
+    await next();
+
+    if (context.Response.StatusCode == 401)
+    {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Startup>>();
+        logger.LogInformation("Unauthorized request: {url}", context.Request.Path);
+    }
+});
+
+app.UseAuthentication();
+```
+
+This will log any unauthorized requests and their URLs, which can help you diagnose the issue.

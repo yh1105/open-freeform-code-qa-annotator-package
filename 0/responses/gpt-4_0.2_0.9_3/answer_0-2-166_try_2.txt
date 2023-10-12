@@ -1,0 +1,25 @@
+It seems like you accidentally left out the method or technology you want to use to select these elements. However, I'll provide solutions for both JavaScript and jQuery:
+
+1. JavaScript:
+```javascript
+let children = document.querySelector('.section').children;
+```
+This will give you a HTMLCollection of direct children of the div with class "section".
+
+2. jQuery:
+```javascript
+let children = $('.section').children();
+```
+This will give you a jQuery object containing all direct children of the div with class "section".
+
+Remember, both of these methods will give you all direct children, not just divs. If you want to select only divs, you can modify the selectors like this:
+
+JavaScript:
+```javascript
+let divChildren = document.querySelectorAll('.section > div');
+```
+
+jQuery:
+```javascript
+let divChildren = $('.section > div');
+```

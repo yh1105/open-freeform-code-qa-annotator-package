@@ -1,0 +1,23 @@
+The error message you're seeing is because the Excel file format does not support timezone-aware datetimes. 
+
+You've mentioned that you've tried several methods to remove the timezone information from your datetime objects, but without seeing the exact code it's hard to say why they might not be working.
+
+Here's a method that should work:
+
+```python
+df['your_datetime_column'] = df['your_datetime_column'].dt.tz_localize(None)
+```
+
+This will remove the timezone information from the datetime objects in the specified column of your DataFrame. You'll need to do this for each column that contains timezone-aware datetimes.
+
+If you have multiple datetime columns, you can use a loop:
+
+```python
+for col in df.columns:
+    if df[col].dtype == 'datetime64[ns, UTC]':
+        df[col] = df[col].dt.tz_localize(None)
+```
+
+After running this code, you should be able to write your DataFrame to an Excel file without encountering the ValueError.
+
+If the error persists, it might be due to differences in the versions of the packages you're using. You mentioned that the code runs without problems on your personal computer and your colleague's machine. If they're using different versions of pandas, xlsxwriter, or Python itself, that could explain the discrepancy. Try to make sure that the versions of these packages are the same across all machines.

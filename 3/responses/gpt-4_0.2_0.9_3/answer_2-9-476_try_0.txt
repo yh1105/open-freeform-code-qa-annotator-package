@@ -1,0 +1,22 @@
+The error message you're seeing indicates that the `rbenv` command is not found. This could be due to a few reasons:
+
+1. `rbenv` is not installed. You can check this by typing `which rbenv` in your terminal. If it returns a path, then `rbenv` is installed. If it doesn't return anything, you need to install `rbenv`.
+
+2. The `PATH` environment variable is not correctly set. The `PATH` variable is a list of directories that your shell searches through when you enter a command. If the directory containing `rbenv` is not in your `PATH`, your shell won't be able to find it. 
+
+The commands you ran should have added the necessary lines to your `.zshenv` file to set the `PATH` correctly. However, it's possible that there's a problem with these lines. 
+
+You can check the contents of your `.zshenv` file by typing `cat ~/.zshenv` in your terminal. The output should include these lines:
+
+```
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+```
+
+If these lines are not present, or if they're not correct, you can add or modify them. To do this, open the `.zshenv` file in a text editor, add or modify the lines, and then save and close the file. 
+
+If the lines are present and correct, try running `source ~/.zshenv` in your terminal. This will execute the commands in the `.zshenv` file in your current shell. If this resolves the issue, it means that the `.zshenv` file is not being sourced when you start a new shell. 
+
+To fix this, you can add the line `source ~/.zshenv` to your `.zshrc` file. This will ensure that the `.zshenv` file is sourced every time you start a new shell. 
+
+If none of these steps resolve the issue, it's possible that there's a problem with your `rbenv` installation. In this case, you might need to reinstall `rbenv`.

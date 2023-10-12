@@ -1,0 +1,9 @@
+The @Configuration annotation is used to define a configuration class in Spring. This class is used to define beans that can be used throughout the application. The main benefit of using @Configuration over @Service/@Controller/@Repository is that it provides a way to define beans that are not tied to a specific layer of the application. 
+
+For example, if you have a service that depends on a repository, you could define both the service and repository as beans using @Service and @Repository annotations respectively. However, if you want to define a bean that is used by both the service and repository, you would need to duplicate the bean definition in both classes. This can lead to code duplication and maintenance issues.
+
+With @Configuration, you can define the bean once and use it throughout the application. Additionally, @Configuration provides more flexibility in defining beans. You can use @Bean annotations to define beans that are not tied to a specific class, and you can also use @Value annotations to inject properties into the bean definitions.
+
+Another benefit of using @Configuration is that it allows you to use the @Import annotation to import other configuration classes. This can be useful for modularizing your application configuration and making it easier to manage.
+
+In summary, while @Service/@Controller/@Repository are useful for defining beans tied to specific layers of the application, @Configuration provides more flexibility and modularity in defining beans that can be used throughout the application.

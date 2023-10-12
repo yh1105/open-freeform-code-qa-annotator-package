@@ -1,0 +1,9 @@
+Great question! It's important to keep API keys secure to prevent unauthorized access to your API. One common approach is to store the API key on the server-side and make requests to the API from the server. This way, the API key is not exposed to the client-side code.
+
+However, since you mentioned that you don't have a backend part, another approach is to use environment variables. You can create a `.env` file in your project's root directory and store the API key as an environment variable. Then, you can access the environment variable in your client-side code using `process.env.API_KEY`.
+
+Note that this approach is not completely secure as the API key is still visible in the client-side code. However, it's better than hardcoding the API key in your code. Additionally, you can use tools like webpack or create-react-app to obfuscate your code and make it harder for someone to find the API key.
+
+Another option is to use a service like AWS Lambda or Google Cloud Functions to create a serverless backend that can handle API requests and store the API key securely. This approach requires more setup but provides a more secure solution.
+
+Overall, it's important to consider the security implications of storing API keys and choose an approach that best fits your needs.

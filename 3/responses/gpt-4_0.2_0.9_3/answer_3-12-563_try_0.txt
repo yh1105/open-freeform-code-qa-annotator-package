@@ -1,0 +1,31 @@
+In Flutter, if a string overflows, it will automatically wrap and create a new line if the parent widget allows it. In your case, you are using a `Text` widget inside a `Card` widget. The `Text` widget will try to expand as much as it can, but the `Card` widget is limiting it.
+
+You can control the overflow behavior of the `Text` widget using the `overflow` property. If you want the text to wrap and create a new line, you can set `overflow` to `TextOverflow.visible`. However, this will not work if the parent widget does not allow the `Text` widget to expand.
+
+Here is how you can modify your `Text` widget:
+
+```dart
+Container(
+  child: Card(
+    child: Text(
+      "${text[1]}",
+      style: TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w300
+      ),
+      textAlign: TextAlign.right,
+      overflow: TextOverflow.visible, // Add this line
+    )
+  ),
+),
+```
+
+If this does not solve your problem, then the issue might be with the parent widget. You might need to wrap your `Card` widget with a `Flexible` or `Expanded` widget to allow it to expand.
+
+If you want to manually insert a line break in a string, you can do so using the `\n` character. For example:
+
+```dart
+String myString = 'This is a very long string that I want to break into multiple lines.\nThis is the second line.';
+```
+
+This will create a new line at the specified position. However, this might not be the best solution if your text is dynamic and you don't know where to insert the line breaks.

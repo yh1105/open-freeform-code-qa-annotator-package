@@ -1,0 +1,33 @@
+To initialize a `@Binding` variable, you need to pass in a reference to a `Bool` variable that will be used as the source of truth for the binding. Here's an example:
+
+```
+struct ContentView: View {
+    @State var isDismissed = false
+    
+    var body: some View {
+        LoggedInView(dismissView: $isDismissed)
+    }
+}
+
+struct LoggedInView : View {
+    @Binding var dismissView: Bool
+    
+    var body: some View {
+        VStack {
+            Text("Hello World")
+        }
+    }
+}
+
+#if DEBUG
+struct LoggedInView_Previews : PreviewProvider {
+    static var previews: some View {
+        LoggedInView(dismissView: .constant(false))
+    }
+}
+#endif
+```
+
+In the above example, we initialize the `isDismissed` variable as a `@State` variable in the `ContentView`. We then pass in a reference to this variable using the `$` symbol to create a binding to it in the `LoggedInView`. 
+
+In the preview code, we use the `.constant` method to create a constant binding to `false`. This is because we cannot use a `@State` variable in the preview code.

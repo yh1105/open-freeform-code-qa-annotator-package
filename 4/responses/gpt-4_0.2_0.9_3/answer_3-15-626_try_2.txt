@@ -1,0 +1,56 @@
+The code you provided seems to be trying to create a new query table in the active sheet using the Power Query query stored in cell A1 of Sheet6. However, there are a few issues with the code:
+
+1. You are trying to use the `query` and `currentSheet` as objects, but you are assigning them string values. You need to declare them as appropriate object types (like `Range` or `Worksheet`) and set them accordingly.
+
+2. The `query` variable is being assigned the value of a cell, but later in the code you are trying to use it as if it were a `WorkbookQuery` object. If you want to use the text from the Power Query Advanced Editor, you will need to create a new `WorkbookQuery` object and set its `Formula` property to the text from the cell.
+
+3. The `Location` property in the connection string should be the name of the query, not the name of the sheet or range where the query text is stored.
+
+4. The `Destination` property in the `ListObjects.Add` method should be a `Range` object that represents the top-left cell where you want the query results to be placed.
+
+Here is a revised version of your code that should work:
+
+```vba
+Sub LoadToWorksheetOnly()
+
+    Dim query As String
+    Dim currentSheet As Worksheet
+    Dim destination As Range
+    Dim queryTable As QueryTable
+
+    ' Get the query text from Sheet6
+    query = Sheets("Sheet6").Range("A1").Value
+
+    ' Set the current sheet
+    Set currentSheet = ActiveSheet
+
+    ' Set the destination range
+    Set destination = Sheets("Sheet2").Range("A1")
+
+    ' Create a new query table in the current sheet
+    Set queryTable = currentSheet.ListObjects.Add(SourceType:=0, Source:= _
+        "OLEDB;Provider=Microsoft.Mashup.OleDb.1;Data Source=$Workbook$;Location=" & query _
+        , Destination:=destination).QueryTable
+
+    ' Set the properties of the query table
+    With queryTable
+        .CommandType = xlCmdDefault
+        .CommandText = Array("SELECT * FROM [" & query & "]")
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = True
+        .RefreshOnFileOpen = False
+        .BackgroundQuery = True
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .AdjustColumnWidth = True
+        .RefreshPeriod = 0
+        .PreserveColumnInfo = False
+        .Refresh BackgroundQuery:=False
+    End With
+
+End Sub
+```
+
+Please note that this code assumes that the text in cell A1 of Sheet6 is a valid Power Query query. If it's not, you will need to modify the code to create a valid `WorkbookQuery` object.

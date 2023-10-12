@@ -1,0 +1,21 @@
+The problem you're facing might be due to the changes in the way Android 10 (API level 29) and above handle file storage. In Android 10 and above, an app cannot directly access files in any external storage directory, outside of its own app-specific directory.
+
+This is due to the introduction of Scoped Storage in Android 10. With Scoped Storage, apps have their own isolated storage sandboxes into which they can read and write without needing any permissions. However, accessing shared external storage requires the user to grant permissions to the app.
+
+In your case, you're trying to access the external storage directory, which might not be allowed in Android 10 and above. 
+
+To solve this issue, you can use the app-specific directory to store your files. You can get the app-specific directory using `context.getExternalFilesDir(null)`. Here's how you can modify your `getTempFolder()` function:
+
+```kotlin
+private fun getTempFolder(): File {
+    val directoryFolder = File(context.getExternalFilesDir(null), "sample-take-image")
+    directoryFolder.mkdirs()
+    return directoryFolder
+}
+```
+
+Remember to replace `context` with your own Context object.
+
+If you still want to use the shared external storage, you'll need to request the `READ_EXTERNAL_STORAGE` or `WRITE_EXTERNAL_STORAGE` permissions, and also handle the file URIs using the Storage Access Framework.
+
+Also, please note that `Environment.getExternalStorageDirectory()` is deprecated in API 29. It's recommended to use `Context#getExternalFilesDir(String)`, `Context#getExternalCacheDir()`, or `MediaStore`.

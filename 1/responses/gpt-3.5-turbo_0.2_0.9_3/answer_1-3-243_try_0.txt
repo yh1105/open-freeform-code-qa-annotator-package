@@ -1,0 +1,32 @@
+The error message you are receiving indicates that youtube_dl is unable to extract the uploader id from the video. This could be caused by a change in the structure of the video's metadata on YouTube, or it could be a bug in youtube_dl.
+
+One thing you can try is to update youtube_dl to the latest version. You can do this by running the following command in your terminal:
+
+```
+pip install --upgrade youtube_dl
+```
+
+If updating youtube_dl does not solve the problem, you can try passing the `--verbose` flag to youtube_dl when you extract the video information. This will give you more detailed information about what youtube_dl is doing and may help you identify the problem.
+
+To pass the `--verbose` flag, you can modify the `ytdl_format_options` dictionary like this:
+
+```
+ytdl_format_options = {
+    'format': 'bestaudio/best',
+    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'restrictfilenames': True,
+    'noplaylist': True,
+    'nocheckcertificate': True,
+    'ignoreerrors': False,
+    'logtostderr': False,
+    'quiet': True,
+    'no_warnings': True,
+    'default_search': 'auto',
+    'source_address': '0.0.0.0',  # bind to ipv4 since ipv6 addresses cause issues sometimes
+    'verbose': True,  # add this line to enable verbose logging
+}
+```
+
+With verbose logging enabled, you should be able to see more detailed information about what youtube_dl is doing and where it is encountering the error.
+
+If you are still unable to solve the problem, you may need to reach out to the developers of youtube_dl for assistance. They may be able to provide more information about the error and help you find a solution.

@@ -1,0 +1,26 @@
+The issue you are facing is related to the fact that the `TextEncoder` class is not available in the Node.js environment, which is used by the Jest test runner. One way to solve this issue is to mock the `TextEncoder` class in your test file.
+
+Here's an example of how you can do this:
+
+```
+// Import the TextEncoder class from the 'util' module
+import { TextEncoder } from 'util';
+
+// Mock the TextEncoder class
+global.TextEncoder = TextEncoder;
+
+// Import the rest of your dependencies
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+
+In this example, we're importing the `TextEncoder` class from the `util` module, which is available in Node.js. We then set the `TextEncoder` property on the global object to the imported class. This makes the `TextEncoder` class available in the Jest test environment.
+
+You can add this code to the top of your test file and it should solve the `TextEncoder is not defined` error.

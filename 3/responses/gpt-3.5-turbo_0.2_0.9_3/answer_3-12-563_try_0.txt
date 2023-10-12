@@ -1,0 +1,20 @@
+To create a new line manually with a string variable, you can use the "\n" character in your string. For example, you can modify your code like this:
+
+```
+var text = "This is a long text that needs to be split into multiple lines. " +
+           "We can use the \\n character to create a new line manually.";
+
+return Container(
+  child: Column(
+    children: <Widget>[
+      Text(
+        "${text}",
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  ),
+);
+```
+
+In this example, the "\n" character is used to split the long text into two lines. When the text is displayed, it will automatically create a new line at the position of the "\n" character. You can modify the text and add more "\n" characters to create more lines as needed.

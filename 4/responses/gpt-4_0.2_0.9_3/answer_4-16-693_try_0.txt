@@ -1,0 +1,18 @@
+You can use `awk` to extract the `request_id` and check if `fwd` is `MASKED`. Here is a modified version of your script:
+
+```bash
+#!/bin/bash
+curl -s https://coderbyte.com/api/challenges/logs/web-logs-raw -O > /dev/null
+
+grep -F "coderbyte heroku/router" web-logs-raw | awk -F' ' '{for(i=1;i<=NF;i++) if ($i ~ /request_id/) print substr($i,12) ($NF ~ /MASKED/ ? " [M]" : "")}' > test
+cat test
+```
+
+Here's what the `awk` command does:
+
+- `-F' '` sets the field separator to a space.
+- `for(i=1;i<=NF;i++) if ($i ~ /request_id/)` loops through each field in the line and checks if it contains `request_id`.
+- `print substr($i,12)` prints the `request_id` value, which starts from the 12th character of the field.
+- `($NF ~ /MASKED/ ? " [M]" : "")` checks if the last field (`$NF`) contains `MASKED`. If it does, it prints ` [M]`. If it doesn't, it prints nothing.
+
+This script assumes that `request_id` and `fwd` are always in the same positions in the line. If they can be in different positions, you'll need a more complex script.

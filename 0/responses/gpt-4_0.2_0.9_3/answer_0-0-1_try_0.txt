@@ -1,0 +1,15 @@
+The issue seems to be related to the way Vercel handles deployments. Here are a few things you can try:
+
+1. **Check your Vercel settings:** Make sure you have set up your Vercel project correctly. The "Build Command" should be `yarn build` or `npm run build` and the "Output Directory" should be `.next`.
+
+2. **Inspect the build logs:** Check the build logs in Vercel to see if there are any errors or warnings that could be causing the issue.
+
+3. **Check your package.json scripts:** Make sure your `build` script in `package.json` is set to `next build`.
+
+4. **Check your dynamic routes:** Make sure your dynamic routes are correctly configured. In your case, the file `[id].tsx` should be inside a `pages` directory.
+
+5. **Try a clean deployment:** Sometimes, cached files can cause issues. Try to make a clean deployment by removing the `.next` and `node_modules` directories, then reinstalling the dependencies and building the project again.
+
+6. **Check your dependencies:** Make sure all your dependencies are correctly installed and up-to-date. You can do this by running `yarn install` or `npm install`.
+
+If none of these suggestions work, you might want to consider reaching out to Vercel support or asking for help in the Next.js community.

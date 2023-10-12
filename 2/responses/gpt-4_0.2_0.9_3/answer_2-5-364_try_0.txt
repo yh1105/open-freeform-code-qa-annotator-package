@@ -1,0 +1,33 @@
+It seems like you're trying to use a specific version of Java with Maven. If you're using the Maven Wrapper, you can specify the Java version in the `pom.xml` file. 
+
+Here's how you can do it:
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+In this example, Maven will use Java 1.8. You can replace `1.8` with the version you want to use.
+
+If you want to specify the JDK for the Maven Wrapper, you can do so in the `mvnw` or `mvnw.cmd` script (depending on your OS). There should be a line that looks like this:
+
+```bash
+JAVA_HOME=...
+```
+
+You can replace the value with the path to the JDK you want to use.
+
+If you're using a continuous integration system, there might be a way to specify the JDK version in the configuration. For example, in Jenkins, you can specify the JDK in the "Global Tool Configuration" section.
+
+If none of these options work for you, please provide more details about your setup, and I'll try to give a more specific answer.

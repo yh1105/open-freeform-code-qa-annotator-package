@@ -1,0 +1,21 @@
+Yes, it seems that `libc6 (>= 2.29)` is not available for Ubuntu 18.04. You can either upgrade to Ubuntu 19.04 or 20.04 to install R 4.0, or you can try to install an older version of R that is compatible with Ubuntu 18.04. 
+
+To install an older version of R, you can try the following command:
+
+```
+sudo apt-get install r-base
+```
+
+This should install the latest version of R that is compatible with Ubuntu 18.04. If you need a specific version of R, you can check the available versions by running the following command:
+
+```
+apt-cache showpkg r-base
+```
+
+This will show you a list of available versions of R that you can install. You can then install a specific version by specifying the version number in the command, for example:
+
+```
+sudo apt-get install r-base=3.6.3-1bionic
+```
+
+This will install R version 3.6.3 on Ubuntu 18.04.

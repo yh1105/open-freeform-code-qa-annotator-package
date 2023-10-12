@@ -1,0 +1,33 @@
+The issue you're facing is related to how TypeScript handles type declaration files. TypeScript treats `.d.ts` files differently from regular `.ts` files. You cannot import types from a `.d.ts` file the same way you would from a `.ts` file.
+
+To solve this issue, you should use TypeScript's triple-slash directive to reference the type declaration file. This directive will tell TypeScript to include your `app.d.ts` file in the compilation context.
+
+Here's how you can do it:
+
+1. At the top of your `.tsx` file, add the following line:
+
+```tsx
+/// <reference types="@types/app" />
+```
+
+2. Then you can use your `AuthKeyT` type in your `.tsx` file like this:
+
+```tsx
+let myVar: AuthKeyT;
+```
+
+Please note that the path in the `types` attribute should be relative to the `tsx` file.
+
+Alternatively, you can include the type declaration file in your `tsconfig.json` file:
+
+```json
+{
+  "include": [
+    "src/@types/app.d.ts"
+  ]
+}
+```
+
+Then you can use your `AuthKeyT` type in your `.tsx` file without importing it.
+
+If you still face issues, please ensure that your `tsconfig.json` file is set up correctly. Specifically, check the `typeRoots` and `types` options.

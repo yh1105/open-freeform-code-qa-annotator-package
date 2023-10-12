@@ -1,0 +1,9 @@
+You can define an inline type for the array of objects in TypeScript like this:
+
+```typescript
+bagTotal = (products: {name: string, price: number, description: string}[]) => {
+ // function does stuff
+}
+```
+
+This will ensure that the `products` parameter is an array of objects, where each object has a `name` property of type `string`, a `price` property of type `number`, and a `description` property of type `string`.

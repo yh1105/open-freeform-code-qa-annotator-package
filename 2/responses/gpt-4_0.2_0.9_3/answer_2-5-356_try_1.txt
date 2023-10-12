@@ -1,0 +1,15 @@
+You can use `Comparator.thenComparing()` to specify a secondary sort order when the primary sort order results in a tie. In your case, you want to sort primarily by description length, and secondarily by alphabetical order of the description. Here's how you can do it:
+
+```java
+public List<Article> sortAsc() {
+    removeNull();
+    return articles.stream()
+            .sorted(Comparator.comparingInt((Article a) -> a.getDescription().length())
+                    .thenComparing(Article::getDescription))
+            .collect(Collectors.toList());
+}
+```
+
+In this code, `Comparator.comparingInt((Article a) -> a.getDescription().length())` sorts the articles by description length. If two articles have the same description length, `.thenComparing(Article::getDescription)` sorts them alphabetically by description.
+
+You don't need the `ComparatorAppController` class in this case, because you can define the sorting behavior directly in the `sorted()` method call.

@@ -1,0 +1,41 @@
+Yes, Laravel 8 has deprecated the `laravel/ui` package and introduced the `laravel/breeze` package for authentication scaffolding. However, if you want to install Bootstrap without any authentication scaffolding, you can use the `laravel/ui` package even in Laravel 8. 
+
+But if you want to follow the Laravel 8 way, you can use Laravel Jetstream which provides a beautiful, robust starting point for all your Laravel applications, including login, registration, email verification, two-factor authentication, session management, API support via Laravel Sanctum, and optional team management.
+
+Here's how you can install Laravel Jetstream with Bootstrap:
+
+1. Install Laravel Jetstream via Composer:
+
+```bash
+composer require laravel/jetstream
+```
+
+2. After installing Jetstream, you may create a new Laravel project using the desired stack:
+
+```bash
+php artisan jetstream:install inertia
+```
+or
+```bash
+php artisan jetstream:install livewire
+```
+
+3. Since Jetstream is designed using Tailwind CSS, you may need to install and configure Laravel Mix to compile your CSS if you want to use Bootstrap. You can install Bootstrap via npm:
+
+```bash
+npm install bootstrap
+```
+
+4. Then, you can import Bootstrap in your `resources/css/app.css`:
+
+```css
+@import '~bootstrap/dist/css/bootstrap.css';
+```
+
+5. Finally, compile your CSS:
+
+```bash
+npm run dev
+```
+
+Remember, Laravel Jetstream and Laravel Breeze are designed to use Tailwind CSS, not Bootstrap. If you want to use Bootstrap, you may need to customize the views and styles yourself.

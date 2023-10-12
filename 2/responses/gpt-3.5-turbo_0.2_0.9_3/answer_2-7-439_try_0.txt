@@ -1,0 +1,11 @@
+It seems like the `ext-zip` extension is not available or installed on your system. 
+
+You can try installing the extension manually by following the steps below:
+
+1. Find out which version of PHP you are using by running the command `php -v` in your terminal.
+2. Download the appropriate version of the `ext-zip` extension from the official PHP website. Make sure to download the version that matches your PHP version.
+3. Extract the downloaded file and copy the `zip.so` file to the PHP extensions directory. You can find the location of the extensions directory by running the command `php --ini` in your terminal. Look for the line that says "Loaded Configuration File" and then find the "extension_dir" value in that file.
+4. Add the `zip.so` extension to your `php.ini` file. You can do this by adding the following line to your `php.ini` file: `extension=zip.so`
+5. Restart your web server or PHP-FPM service.
+
+After completing these steps, try running the `composer require ext-zip` command again and see if it works.

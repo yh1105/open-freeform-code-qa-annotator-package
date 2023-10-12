@@ -1,0 +1,9 @@
+You can use the `DateFormat` class to format the `DateTime` object and extract the name of the day of the week. Here's an example:
+
+```
+DateTime date = DateTime.now();
+String dayOfWeek = DateFormat('EEEE').format(date);
+print(dayOfWeek); // Output: Friday
+```
+
+In this example, the `DateFormat` pattern `'EEEE'` is used to extract the full name of the day of the week. You can also use other patterns to extract different formats of the day of the week. For example, `'E'` will give you the abbreviated name of the day of the week (e.g. "Fri"), and `'EEEEE'` will give you a narrow format (e.g. "F").

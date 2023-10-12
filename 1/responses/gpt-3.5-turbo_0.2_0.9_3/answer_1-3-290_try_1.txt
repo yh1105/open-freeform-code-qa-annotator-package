@@ -1,0 +1,21 @@
+To get the mean SHAP values for each feature, you can use the `shap.TreeExplainer(model).shap_values(X_test)` function to get the SHAP values for each test sample, and then take the mean across all samples using `np.mean()`. Here's an example:
+
+```
+import numpy as np
+
+shap_values = shap.TreeExplainer(model).shap_values(X_test)
+mean_shap_values = np.mean(shap_values, axis=0)
+shap.summary_plot(mean_shap_values, X_test)
+```
+
+This will give you a summary plot of the mean SHAP values for each feature.
+
+Regarding the class labels, the `shap.summary_plot()` function uses the order of the `class_names` argument to label the classes. So if you pass `class_names=['a', 'b', 'c']`, the first class (0) will be labeled as 'a', the second class (1) will be labeled as 'b', and the third class (2) will be labeled as 'c'. If you pass `class_names=['b', 'c', 'a']`, the first class (0) will be labeled as 'b', the second class (1) will be labeled as 'c', and the third class (2) will be labeled as 'a'. 
+
+To know which class corresponds to which label, you can print the unique values of the `class` column in your original dataframe:
+
+```
+print(foo['class'].unique())
+```
+
+This will give you the unique values of the `class` column, which should correspond to the labels in your SHAP summary plot.

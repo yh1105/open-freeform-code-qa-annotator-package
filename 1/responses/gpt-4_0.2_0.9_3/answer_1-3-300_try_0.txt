@@ -1,0 +1,17 @@
+The issue might be due to the fact that the newline characters in your PDF are not exactly "\r\n". They could be just "\n" or "\r" or even a combination of these.
+
+You can try replacing each of them separately. Here's how you can do it:
+
+```python
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = content.replace("\r", "").replace("\n", "")
+print(content)
+```
+
+This code will replace both "\r" and "\n" characters separately. If the newline characters in your PDF are either of these, they will be removed.
+
+If this still doesn't work, it's possible that there are other invisible characters that appear like newlines. You might need to inspect your data more closely to find out what those characters are.

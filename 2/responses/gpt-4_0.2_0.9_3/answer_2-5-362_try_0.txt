@@ -1,0 +1,28 @@
+The error you're seeing is because the Spring Cloud Config Client is on the classpath, and it's trying to connect to a Config Server. This is a new behavior in Spring Cloud 2020.0.2 (part of the changes in Spring Boot 2.4.x and Spring Cloud 2020.0.x).
+
+Since you're not using a Config Server, you can remove the dependency on the Config Client from your `build.gradle` file. 
+
+Replace this line:
+```groovy
+implementation('org.springframework.cloud:spring-cloud-starter-config')
+```
+with this:
+```groovy
+implementation('org.springframework.cloud:spring-cloud-starter-bootstrap')
+```
+The `spring-cloud-starter-bootstrap` dependency includes the parts of the old `spring-cloud-starter-config` that are not related to the Config Server.
+
+If you still encounter the issue, you can disable the Config Data property source locator by setting the following property in your `application.properties` or `application.yml` file:
+
+```properties
+spring.cloud.config.enabled=false
+```
+or
+```yaml
+spring:
+  cloud:
+    config:
+      enabled: false
+```
+
+This will tell Spring Cloud not to use the Config Server for configuration.

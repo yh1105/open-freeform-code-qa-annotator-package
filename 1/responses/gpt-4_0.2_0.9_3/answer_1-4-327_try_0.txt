@@ -1,0 +1,23 @@
+In R, when you have two columns with the same name, you can select the second one by using its index. However, it's not a good practice to have two columns with the same name in a data frame. It can lead to confusion and errors in your code.
+
+If you still want to select the second column named 'a', you can do it like this:
+
+```R
+d3[,2]
+```
+
+This will select the second column of the data frame `d3`.
+
+If you want to select the second column by name, you can rename the columns first:
+
+```R
+names(d3) <- c("a1", "a2")
+```
+
+Then you can select the second column by its new name:
+
+```R
+d3$a2
+```
+
+This will select the column 'a2' from the data frame `d3`.

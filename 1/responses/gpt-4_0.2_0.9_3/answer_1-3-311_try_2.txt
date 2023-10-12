@@ -1,0 +1,7 @@
+You can use the `applymap()` function in pandas to apply a function to every single element of the dataframe. Here is how you can do it:
+
+```python
+df = df.applymap(lambda x: 1 if x >= 25 else 0)
+```
+
+This will replace all values in your dataframe that are greater than or equal to 25 with 1, and all other values with 0.

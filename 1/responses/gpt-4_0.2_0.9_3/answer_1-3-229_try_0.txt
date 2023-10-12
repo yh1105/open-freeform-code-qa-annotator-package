@@ -1,0 +1,32 @@
+Unfortunately, as of now, the Visual Studio Code Jupyter extension does not support find and replace within a single cell. The Ctrl+H shortcut will indeed replace all occurrences in the entire Jupyter notebook file.
+
+However, you can use Python's built-in string methods to replace text within a string. For example, you can use the `str.replace()` method to replace all occurrences of a substring within a string.
+
+Here's an example:
+
+```python
+text = "Hello, world!"
+new_text = text.replace("world", "VS Code")
+print(new_text)  # Outputs: "Hello, VS Code!"
+```
+
+In this example, all occurrences of "world" in the `text` string are replaced with "VS Code".
+
+If you're working with a pandas DataFrame, you can use the `df.replace()` method to replace values.
+
+Here's an example:
+
+```python
+import pandas as pd
+
+data = {'A': [1, 2, 3], 'B': [4, 5, 6]}
+df = pd.DataFrame(data)
+
+df = df.replace(1, 100)
+
+print(df)
+```
+
+In this example, all occurrences of 1 in the DataFrame are replaced with 100.
+
+I understand this might not be the exact solution you're looking for, but I hope it helps until the feature you're looking for is implemented in the VS Code Jupyter extension.

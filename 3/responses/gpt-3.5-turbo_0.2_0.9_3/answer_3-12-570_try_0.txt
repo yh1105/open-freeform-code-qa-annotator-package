@@ -1,0 +1,12 @@
+It looks like there is a formatting mistake in your `pubspec.yaml` file. The `assets` section should be indented under the `flutter` section, like this:
+
+```
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+```
+
+Make sure there are no extra spaces or tabs in this section. Also, make sure that the path to your JSON file is correct and that the file is located in the `loadjson` directory in your project.
+
+If you are still having issues, try running `flutter clean` and then `flutter pub get` in your terminal to clear any cached dependencies and rebuild your project.

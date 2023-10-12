@@ -1,0 +1,26 @@
+The error message is indicating that Django is trying to reverse the URL for 'profile' with an empty string as the argument, but it can't find a match in your URL patterns.
+
+This is happening because you are trying to access `post.author.username` in your template, but `post.author` is `None` for at least one of your `NewPost` instances. This is because you have set `null=True` on the `author` field in your `NewPost` model, which means it's possible to create a `NewPost` without an author.
+
+To fix this, you should ensure that every `NewPost` has an author before it is saved. If a `NewPost` can be created without a user being logged in, you should handle this case in your template. Here's an example of how you can do this:
+
+```html
+{% for post in posts %}
+    <div class="card">
+        <div class="card-body"> Title: {{post.title}} </div>
+        <div class="card-body"> Description: {{post.description}}</div>
+        {% if post.author %}
+            <p> {{post.author.username}} </p>
+            <div class="card-body">
+                <a href="{% url 'profile' post.author.username %}">
+                    @{{post.author.username}}
+                </a>
+            </div>
+        {% else %}
+            <p> No author </p>
+        {% endif %}
+    </div>
+{% endfor %}
+```
+
+In this example, the template checks if `post.author` is `None` before trying to access `post.author.username`. If `post.author` is `None`, it simply displays "No author".

@@ -1,0 +1,62 @@
+You can use a factory pattern to create multiple instances of `ServiceBusClient` with different queue names. Here's an example of how you can do it:
+
+First, define an interface for your factory:
+
+```csharp
+public interface IServiceBusClientFactory
+{
+    ServiceBusSender CreateSender(string queueName);
+}
+```
+
+Then, implement this interface:
+
+```csharp
+public class ServiceBusClientFactory : IServiceBusClientFactory
+{
+    private readonly string _connectionString;
+
+    public ServiceBusClientFactory(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
+
+    public ServiceBusSender CreateSender(string queueName)
+    {
+        var client = new ServiceBusClient(_connectionString);
+        return client.CreateSender(queueName);
+    }
+}
+```
+
+Now, you can register your factory in your DI container:
+
+```csharp
+_services.AddSingleton<IServiceBusClientFactory>(provider =>
+{
+    var serviceBusConfiguration = provider.GetRequiredService<IOptions<UserEventConsumerSetting>>().Value;
+    return new ServiceBusClientFactory(serviceBusConfiguration.ServiceBusConnectionString);
+});
+```
+
+And finally, you can inject your factory into your service and use it to create `ServiceBusSender` instances:
+
+```csharp
+public class CarReservationMessagingService
+{
+    private readonly IServiceBusClientFactory _factory;
+
+    public CarReservationMessagingService(IServiceBusClientFactory factory)
+    {
+        _factory = factory;
+    }
+
+    public async Task PublishNewCarReservationMessageAsync(CarReservation carReservation, string queueName)
+    {
+        var serviceBusSender = _factory.CreateSender(queueName);
+        // ...
+    }
+}
+```
+
+In this way, you can create multiple `ServiceBusSender` instances with the same connection string but different queue names.

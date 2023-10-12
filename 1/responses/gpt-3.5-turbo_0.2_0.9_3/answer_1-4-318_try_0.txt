@@ -1,0 +1,7 @@
+The "No FontName. Skipping." issue occurs when the font file does not contain a FontName property. This property is required for the font to be imported into R using `extrafont`. 
+
+To overcome this issue, you can try renaming the font files to include the FontName property. For example, you can rename "arista-light.ttf" to "Arista-Light-Regular.ttf". This should allow `extrafont` to recognize the font and import it successfully.
+
+Regarding the warning messages, they indicate that the `ttf2pt1` utility, which is used by `extrafont` to extract font metrics, encountered an error while processing the font files. This could be due to various reasons such as invalid font files or issues with the `ttf2pt1` installation.
+
+You can try reinstalling `extrafont` and its dependencies, or manually installing `ttf2pt1` and ensuring that it is in your system's PATH. Alternatively, you can try using a different font import method such as `font_import()` from the `showtext` package.

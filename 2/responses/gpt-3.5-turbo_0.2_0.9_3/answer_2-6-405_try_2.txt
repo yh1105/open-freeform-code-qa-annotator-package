@@ -1,0 +1,23 @@
+The issue here is that the properties in the `City` class are defined as fields instead of properties. Fields are not serialized by default in ASP.NET Core, so the response is returning empty objects.
+
+To fix this, you need to change the fields to properties by adding getters and setters to each property in the `City` class:
+
+```
+public class City
+{
+    public string CityName { get; set; }
+    public string AssociatedCities { get; set; }
+    public string Province { get; set; }
+    public int Status { get; set; }
+
+    public City(string cityName, string associatedCities, string province, int status)
+    {
+        this.CityName = cityName;
+        this.AssociatedCities = associatedCities;
+        this.Province = province;
+        this.Status = status;
+    }
+}
+```
+
+After making this change, the response should contain the expected data.

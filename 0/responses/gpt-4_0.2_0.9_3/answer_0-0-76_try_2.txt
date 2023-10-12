@@ -1,0 +1,34 @@
+You can configure axios to trust the certificate by providing the certificate to the https agent. Here's how you can do it:
+
+1. First, you need to download the certificate from the server. You can do this by visiting the server in your browser, clicking on the lock icon in the address bar, and then clicking on "Certificate". Then, you can download the certificate.
+
+2. Save the certificate in your project directory.
+
+3. Then, you can read the certificate in your code and provide it to the https agent. Here's how you can do it:
+
+```javascript
+const fs = require('fs');
+const https = require('https');
+const axios = require('axios');
+
+// Read the certificate
+const cert = fs.readFileSync('./path-to-your-certificate.pem');
+
+const agent = new https.Agent({
+  ca: cert
+});
+
+const result = await axios.post(
+  `https://${url}/login`,
+  body,
+  {
+    httpsAgent: agent
+  }
+);
+```
+
+This way, the https module will trust the certificate provided by the server, and you won't get the `unable to verify the first certificate` error.
+
+Please replace `'./path-to-your-certificate.pem'` with the actual path to your certificate file.
+
+Remember that this solution is only applicable if you're communicating with a server that you trust. If you're communicating with a server that you don't trust, you should not add their certificate to your trusted certificates.

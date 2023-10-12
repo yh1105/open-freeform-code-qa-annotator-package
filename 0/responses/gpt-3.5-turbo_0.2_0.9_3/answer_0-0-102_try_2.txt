@@ -1,0 +1,15 @@
+This error occurs when the package you are trying to import does not have a main export defined in its package.json file. 
+
+To fix this issue, you can try the following steps:
+
+1. Check if there is a newer version of graphql-upload available. If so, update your package.json file to use the latest version and run `npm install` again.
+
+2. If updating the package does not work, you can try importing the package using a different syntax. Instead of using the named import, try using the default import like this:
+
+```
+const { default: graphqlUploadExpress } = require('graphql-upload');
+```
+
+3. If none of the above solutions work, you can try using a different package for handling file uploads in GraphQL, such as `apollo-upload-server` or `graphql-multipart-request-spec`.
+
+I hope this helps! Let me know if you have any further questions.

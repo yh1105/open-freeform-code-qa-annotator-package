@@ -1,0 +1,27 @@
+You can achieve this by wrapping the second and third Text widgets in a Flexible widget instead of Expanded widget. Here's the updated code:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.start,
+  mainAxisSize: MainAxisSize.min,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Flexible(
+      child: Text(
+        'on the right hand corner to start a new chat.',
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    )
+  ],
+)
+```
+
+By using Flexible widget, the second and third Text widgets will take up as much space as they need and will not overflow the Row widget. This will ensure that all the widgets are aligned correctly and appear in a single line.

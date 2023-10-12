@@ -1,0 +1,26 @@
+You can use the `data.table` join operation to replace the values in `big` with the corresponding values from `new_big`. However, you need to specify that you want to update the `col` column in `big` with the `col` values from `new_big`. Here is how you can do it:
+
+```r
+big[new_big, col := i.col, on = .(id)]
+```
+
+This command will join `big` and `new_big` on the `id` column and replace the `col` values in `big` with the corresponding `col` values from `new_big` (referred to as `i.col` in the join operation). 
+
+After running this command, `big` will be updated as follows:
+
+```r
+> big
+    id col
+ 1:  B   1
+ 2:  C 103
+ 3:  D 102
+ 4:  E  11
+ 5:  F 104
+ 6:  G 111
+ 7:  H 104
+ 8:  I 104
+ 9:  J 104
+10:  K 103
+```
+
+This is exactly the output you wanted.

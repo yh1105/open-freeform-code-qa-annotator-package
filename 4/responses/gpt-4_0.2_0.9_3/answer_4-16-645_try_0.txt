@@ -1,0 +1,29 @@
+A NuGet provider for PowerShell is not just the `nuget.exe`. It's a specific package that allows PowerShell to interact with NuGet-based repositories. This provider is necessary for the `Install-Module` cmdlet to work with NuGet packages.
+
+Since your computer is not connected to the internet, you need to manually download the NuGet provider package from another computer that has internet access, then transfer it to your computer.
+
+Here are the steps:
+
+1. On a computer with internet access, open PowerShell and run the following command to download the NuGet provider:
+
+    ```powershell
+    Save-Package -Name NuGet -ProviderName NuGet -Path Path\To\Save\To -Force -RequiredVersion 2.8.5.201
+    ```
+
+    Replace `Path\To\Save\To` with the path where you want to save the NuGet provider package.
+
+2. This command will download a `.nupkg` file (which is the NuGet provider package) to the specified path.
+
+3. Transfer this `.nupkg` file to your offline computer.
+
+4. On your offline computer, you need to manually install the NuGet provider. Navigate to the directory where you saved the `.nupkg` file and run:
+
+    ```powershell
+    Install-Package -Name Path\To\NuGet\nupkg\File -ProviderName NuGet -Force
+    ```
+
+    Replace `Path\To\NuGet\nupkg\File` with the path to the `.nupkg` file you transferred.
+
+5. After the NuGet provider is installed, you should be able to install your `pswindowsupdate.2.0.0.4.nupkg` package with the `Install-Module` cmdlet.
+
+Please note that the `Save-Package` cmdlet is available in PowerShellGet module version 1.6.0 or newer. If you don't have this version, you'll need to update your PowerShellGet module first.

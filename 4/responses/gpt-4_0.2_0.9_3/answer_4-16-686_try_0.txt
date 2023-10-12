@@ -1,0 +1,21 @@
+The error message you're seeing is likely due to trying to update an immutable field in a Kubernetes object. Once a Kubernetes object is created, some fields are immutable and cannot be changed. If you try to change these fields, you will get an error message like the one you're seeing.
+
+In your case, it seems like you're trying to update the `args` field of a Kubernetes Job. This field is immutable once the Job has been created. If you need to change the `args` field, you will need to delete the existing Job and create a new one with the updated `args`.
+
+However, the issue you're facing might be due to the way you're formatting your bash script in the `args` field. Kubernetes expects the `args` field to be a list of strings, not a single string containing a bash script. 
+
+You can try to split your bash script into separate strings like this:
+
+```yaml
+args:
+  - "/bin/bash"
+  - "-c"
+  - |
+    /cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+    CHILD_PID=$!
+    (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill $CHILD_PID; echo "Killed $CHILD_PID as the main container terminated."; fi; sleep 1; done) &
+    wait $CHILD_PID
+    if [[ -f "/tmp/pod/main-terminated" ]]; then exit 0; echo "Job completed. Exiting..."; fi
+```
+
+This way, the bash script is passed as a single argument to the `/bin/bash -c` command, which should be able to execute it correctly.

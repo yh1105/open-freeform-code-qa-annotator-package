@@ -1,0 +1,16 @@
+The error message you're seeing is indicating that the code is trying to use async functionality outside of an async runtime. The Tokio runtime is not being initialized properly.
+
+The issue is likely due to the version of `tokio` you're using. The `mdns` crate requires `tokio` version 0.2.x, but you're using version 0.3.3. 
+
+Try changing your `tokio` dependency in your `Cargo.toml` to use version 0.2.x with the full feature set:
+
+```toml
+[dependencies]
+mdns = "1.1.0"
+futures-util = "0.3.8"
+tokio = { version = "0.2", features = ["full"] }
+```
+
+Then run `cargo update` to update your dependencies, and try running your code again. This should resolve the issue. 
+
+If you still encounter the same error after making these changes, please let me know so I can help you troubleshoot further.

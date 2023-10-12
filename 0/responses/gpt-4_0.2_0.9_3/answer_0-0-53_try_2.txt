@@ -1,0 +1,60 @@
+In your code, you are trying to use a traditional JavaScript function inside a React component which is not the correct way. In React, you should use event handlers and state to manage such interactions.
+
+Here's how you can modify your code to show an alert when the upload button is clicked:
+
+```jsx
+import React, { Component } from 'react'
+
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageURL: '',
+    };
+
+    this.handleUploadImage = this.handleUploadImage.bind(this);
+  }
+
+  handleUploadImage(ev) {
+    ev.preventDefault();
+
+    alert("Your file is being uploaded!");
+
+    const data = new FormData();
+    data.append('file', this.uploadInput.files[0]);
+    data.append('filename', this.fileName.value);
+
+    fetch('http://localhost:8000/upload', {
+      method: 'POST',
+      body: data,
+    }).then((response) => {
+      response.json().then((body) => {
+        this.setState({ imageURL: `http://localhost:8000/${body.file}` });
+      });
+    });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleUploadImage}>
+        <div>
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+        </div>
+        <div>
+          <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+        </div>
+        <br />
+        <div>
+          <button type="submit">Upload</button>
+        </div>
+        <img src={this.state.imageURL} alt="img" />
+      </form>
+    );
+  }
+}
+
+export default Main;
+```
+
+In this code, I've moved the alert function into the `handleUploadImage` method, which is triggered when the form is submitted. The `type="submit"` attribute on the button ensures that the form submission (and thus the `handleUploadImage` method) is triggered when the button is clicked.

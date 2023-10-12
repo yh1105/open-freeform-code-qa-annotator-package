@@ -1,0 +1,45 @@
+In Java, you can use the `getClass()` method to get the class of an object. However, this method is not applicable to primitive types. Here's how you can use it:
+
+```java
+Integer a = 12;
+System.out.println(a.getClass().getName()); // java.lang.Integer
+
+String s = "Hello";
+System.out.println(s.getClass().getName()); // java.lang.String
+
+Float f = 12.3f;
+System.out.println(f.getClass().getName()); // java.lang.Float
+```
+
+For primitive types, you can use wrapper classes and then use the `getClass()` method. But if you want to directly get the type of a primitive, you can use `instanceof` with the wrapper classes:
+
+```java
+int a = 12;
+System.out.println(Integer.valueOf(a) instanceof Integer); // true
+
+float f = 12.3f;
+System.out.println(Float.valueOf(f) instanceof Float); // true
+```
+
+Another approach is to create a generic method that will return the type of the variable:
+
+```java
+public static <T> String getType(T variable) {
+    return variable.getClass().getName();
+}
+```
+
+You can then use this method like this:
+
+```java
+Integer a = 12;
+System.out.println(getType(a)); // java.lang.Integer
+
+String s = "Hello";
+System.out.println(getType(s)); // java.lang.String
+
+Float f = 12.3f;
+System.out.println(getType(f)); // java.lang.Float
+```
+
+This method will not work with primitives, you will need to use their wrapper classes.

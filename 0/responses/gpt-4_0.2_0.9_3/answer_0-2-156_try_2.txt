@@ -1,0 +1,36 @@
+1) To move the stop button at the top to properly align with the begin button, you can use the `top` property in CSS. Replace `down: 10px;` with `top: 10px;` in your `#StopBtn` CSS rule.
+
+2) To slightly move the bottom arrows up so they would display properly, you can use the `margin-bottom` property in CSS. Add `margin-bottom: 20px;` (or any other value that suits your needs) to your `#controls` CSS rule.
+
+3) To add color on the text "Points Earned" and "Click to start the game", you can use the `color` property in CSS. Add a new CSS rule for `.Status` and `.Points` and set the `color` property to your desired color.
+
+Here are the changes:
+
+```css
+#StopBtn{
+    position: fixed;
+    left: 500px;
+    top: 10px; /* changed from down: 10px; */
+    border-radius: 4px;
+    border: medium solid #000000;
+    background-color:rgb(92, 250, 246);
+    font-family: "Arial", Impact, Charcoal, sans-serif;
+    font-weight: bold;
+    font-size:20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px black;
+    padding: 5px 30px;
+    margin:8px 70px;
+}
+
+#controls {
+    padding-left: 350px;
+    margin-bottom: 20px; /* added this line */
+}
+
+.Status, .Points {
+    color: #ff0000; /* change to your desired color */
+}
+```
+
+Remember to refresh your browser after saving your changes to see the effect.

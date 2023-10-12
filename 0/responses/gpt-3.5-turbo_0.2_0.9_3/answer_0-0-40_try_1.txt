@@ -1,0 +1,27 @@
+Based on the information you provided, it seems like `npm` is not installed on your system. You can try installing it using the following command:
+
+```
+sudo apt-get install -y npm
+```
+
+Once the installation is complete, you can check the version of `npm` using the command:
+
+```
+npm -v
+```
+
+If you still face issues, you can try uninstalling and reinstalling `nodejs` and `npm` using the following commands:
+
+```
+sudo apt-get remove nodejs npm
+sudo apt-get install -y nodejs npm
+```
+
+After the installation is complete, you can check the versions of `nodejs` and `npm` using the commands:
+
+```
+node -v
+npm -v
+```
+
+I hope this helps! Let me know if you have any further questions.

@@ -1,0 +1,19 @@
+The error message you're seeing typically indicates that the application you're trying to run is not compatible with the architecture of your CPU. In this case, it seems like pdftk is not compatible with your version of MacOS.
+
+Apple has been transitioning their new Macs to use their own Apple Silicon (M1 chip), which uses an architecture called ARM64, while older Macs use an architecture called x86_64. Some applications that were built for x86_64 do not yet have versions that are compatible with ARM64, which can cause this issue.
+
+However, MacOS has a feature called Rosetta 2 that allows applications built for x86_64 to run on ARM64. If your Mac has an M1 chip, you might need to install Rosetta 2 to run pdftk. You can do this by trying to open a x86_64 application, which should prompt MacOS to install Rosetta 2.
+
+If you're still having trouble, you might want to consider using a different tool that has similar functionality to pdftk but is compatible with your version of MacOS. For example, you could use qpdf or poppler-utils, both of which can be installed via Homebrew:
+
+```bash
+brew install qpdf
+```
+
+or
+
+```bash
+brew install poppler
+```
+
+Both of these tools can do many of the same things as pdftk, such as merging, splitting, and rotating PDF files.

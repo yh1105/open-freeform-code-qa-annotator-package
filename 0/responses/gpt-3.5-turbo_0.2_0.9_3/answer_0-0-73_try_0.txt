@@ -1,0 +1,18 @@
+It's possible that the issue is related to Tailwind's JIT compiler, which dynamically generates CSS classes based on the classes used in your HTML or JSX. When you added the HTML from the Tailwind tutorial, it's possible that the JIT compiler generated the necessary CSS classes for your Button component to work correctly.
+
+To test this theory, you could try running your code with the JIT compiler disabled. You can do this by adding the following line to your `tailwind.config.js` file:
+
+```
+module.exports = {
+  mode: 'jit',
+  purge: [],
+  // ...
+  corePlugins: {
+    preflight: false,
+  },
+};
+```
+
+This will disable the JIT compiler and use the pre-compiled CSS instead. If the issue goes away with the JIT compiler disabled, then it's likely that the issue is related to the JIT compiler not generating the necessary CSS classes for your Button component.
+
+If that's the case, you could try adding the necessary CSS classes manually to your `tailwind.config.js` file, or you could try using a different approach to styling your components, such as CSS modules or styled components.

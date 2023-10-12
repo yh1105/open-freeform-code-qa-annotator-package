@@ -1,0 +1,13 @@
+The variable expansion in the `GIT_BRANCH` definition looks correct. However, the issue might be with the `bash` runner interpreting the `${}` syntax differently than expected.
+
+Try changing the variable expansion syntax to use `$()` instead of `${}`:
+```
+variables:
+  GIT_BRANCH: "$(echo ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME:-${CI_COMMIT_BRANCH:-$CI_DEFAULT_BRANCH}})"
+
+job1:
+  script:
+    - echo $GIT_BRANCH
+```
+
+This should ensure that the variable expansion is evaluated correctly by the `bash` runner.

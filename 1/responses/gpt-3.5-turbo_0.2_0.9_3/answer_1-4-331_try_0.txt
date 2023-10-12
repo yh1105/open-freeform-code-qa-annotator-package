@@ -1,0 +1,15 @@
+The issue with using `if_else()` to return a function is that it is designed to return a vector of the same length and type as the inputs. In your example, `min` and `max` are functions, not vectors, so `if_else()` throws an error.
+
+To achieve the desired behavior, you can use `if()` and `else()` instead of `if_else()`. Here's an example:
+
+```
+x <- 2
+if (x == 2) {
+  min
+} else {
+  max
+}
+#> function (..., na.rm = FALSE)  .Primitive("min")
+```
+
+This code checks if `x` is equal to 2, and if so, returns the `min` function. Otherwise, it returns the `max` function.

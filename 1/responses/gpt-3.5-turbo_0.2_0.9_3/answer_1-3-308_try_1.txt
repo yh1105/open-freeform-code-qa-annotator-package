@@ -1,0 +1,29 @@
+It seems like there is a conflict with the `llvmlite` package that is preventing `librosa` from being installed. One solution you can try is to uninstall `llvmlite` using the following command:
+
+```
+pip uninstall llvmlite
+```
+
+After that, try installing `librosa` again using `pip install librosa`. If the installation is successful, you can then reinstall `llvmlite` using `pip install llvmlite`.
+
+If this doesn't work, you can try creating a new virtual environment and installing `librosa` there. Sometimes, conflicts between packages can be resolved by isolating them in a separate environment. Here's how you can create a new virtual environment:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type the following command to create a new environment:
+
+   ```
+   conda create --name myenv
+   ```
+
+   Replace `myenv` with the name you want to give your environment.
+3. Activate the new environment by typing:
+
+   ```
+   conda activate myenv
+   ```
+
+   Again, replace `myenv` with the name of your environment.
+4. Install `librosa` using `pip install librosa`.
+5. If the installation is successful, you can then use `conda install` to install any other packages you need in this environment.
+
+I hope this helps! Let me know if you have any other questions.

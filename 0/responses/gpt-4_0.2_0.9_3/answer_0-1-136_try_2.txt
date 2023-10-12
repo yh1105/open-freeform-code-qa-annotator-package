@@ -1,0 +1,54 @@
+The issue is that you're using the class "row" in your parent div. This class is commonly used in CSS frameworks like Bootstrap and it applies a flexbox layout, making the children elements arrange in a row (horizontal) instead of a column (vertical). 
+
+If you want to use scroll snapping vertically, you should make sure the children elements are arranged in a column. So, you should remove the "row" class from the parent div, or if you need it for other styling purposes, override the flexbox layout by adding `flex-direction: column;` to your `.parent` class.
+
+Here's the corrected CSS:
+
+```css
+.parent {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+
+And the HTML:
+
+```html
+<div class="parent">
+  <section class="one">
+  </section>
+  <section class="two">
+  </section>
+  <section class="three">
+  </section>
+  <section class="four">
+  </section>
+</div>
+```
+
+This should make your scroll snapping work as expected.

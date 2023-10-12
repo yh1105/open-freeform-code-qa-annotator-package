@@ -1,0 +1,15 @@
+I understand your concern. One way to convert the hashtable to a PSCustomObject is to use the `ConvertTo-Json` and `ConvertFrom-Json` cmdlets. Here's an example:
+
+```
+$psdnode = Import-PowerShellDataFile .\nodefile.psd1
+
+$json = $psdnode | ConvertTo-Json -Depth 10
+
+$obj = $json | ConvertFrom-Json
+
+$obj.AllNodes[0].NodeName
+```
+
+This will output `SRV1`, which is the value of the `NodeName` property of the first object in the `AllNodes` array.
+
+By converting the hashtable to a PSCustomObject, you can navigate the data structure using dot notation, which is much easier to read and understand.

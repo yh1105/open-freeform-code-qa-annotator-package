@@ -1,0 +1,21 @@
+The warning message you're seeing is because Elasticsearch 7.13.1 has built-in security features that are not enabled by default. While it's true that for a development machine, security may not be as critical, it's still a good practice to follow the security guidelines.
+
+However, if you want to suppress this warning, you can do so by adding the following line to your `elasticsearch.yml` configuration file:
+
+```yml
+xpack.security.enabled: false
+```
+
+The `elasticsearch.yml` file is typically located in the `/usr/local/etc/elasticsearch` directory if you installed Elasticsearch with Homebrew. If you can't find it there, you can use the `locate` command to find it:
+
+```bash
+locate elasticsearch.yml
+```
+
+After adding this line, you'll need to restart Elasticsearch for the changes to take effect:
+
+```bash
+brew services restart elasticsearch
+```
+
+If you want to enable the security features, the `elasticsearch-setup-passwords` utility is part of the Elasticsearch package, but it's not included in the Homebrew package. You would need to download Elasticsearch directly from the Elastic website and follow the instructions there to enable security.

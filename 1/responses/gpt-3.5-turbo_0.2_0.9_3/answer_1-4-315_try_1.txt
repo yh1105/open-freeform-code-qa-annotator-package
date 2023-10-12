@@ -1,0 +1,35 @@
+You can use the `apply` function to concatenate every two columns starting from `X2`. Here's the code to achieve this:
+
+```python
+import pandas as pd
+
+# create the original data frame
+df = pd.DataFrame({
+    'X1': ['p1', 'p2', 'p3', 'p4'],
+    'X2': ['H', 'H', 'J', 'K'],
+    'X3': ['I', 'K', 'K', 'I'],
+    'X4': ['K', 'J', 'H', 'H'],
+    'X5': ['J', 'K', 'I', 'J'],
+    'X6': ['K', 'I', 'J', 'I'],
+    'X7': ['H', 'J', 'K', 'J']
+})
+
+# concatenate every two columns starting from X2
+new_df = pd.DataFrame({
+    'X1': df['X1']
+})
+for i in range(2, len(df.columns), 2):
+    new_df[df.columns[i-1]+df.columns[i]] = df.apply(lambda row: row[i-1]+row[i], axis=1)
+
+print(new_df)
+```
+
+This will output:
+
+```
+   X1  X2X3  X4X5  X6X7
+0  p1    HI    KJ    KH
+1  p2    HK    JK    IJ
+2  p3    JK    HI    JK
+3  p4    KI    HJ    IJ
+```

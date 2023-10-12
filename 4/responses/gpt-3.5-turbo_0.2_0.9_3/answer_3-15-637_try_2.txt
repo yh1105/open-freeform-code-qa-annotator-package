@@ -1,0 +1,7 @@
+It's possible that the issue is related to the version of the Selenium WebDriver you are using. Excel 2019 may require a newer version of the WebDriver than what you were using with Excel 2013.
+
+You can try updating the Selenium WebDriver to the latest version and see if that resolves the issue. You can download the latest version of the WebDriver from the Selenium website.
+
+Another thing to check is whether the Selenium add-in is enabled in Excel 2019. You can check this by going to the Excel Options menu, selecting Add-ins, and then checking if the Selenium add-in is listed and enabled.
+
+If neither of these solutions work, you may need to provide more information about the specific error message you are receiving in order to troubleshoot further.

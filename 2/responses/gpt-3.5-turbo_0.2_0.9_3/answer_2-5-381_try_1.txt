@@ -1,0 +1,15 @@
+It looks like the issue might be with the import statement in your `column_metadata.proto` file. Try changing the import statement to:
+
+```
+import "tech/tablesaw/service/common/column_type.proto";
+```
+
+This should work assuming that the `column_type.proto` file is located in the same directory as the `column_metadata.proto` file. If it's located in a different directory, you'll need to adjust the import statement accordingly.
+
+Also, make sure that the package name in the `column_type.proto` file matches the directory structure where the file is located. In this case, it should be:
+
+```
+package tech.tablesaw.service.common;
+```
+
+If the package name is different, you'll need to adjust it to match the directory structure.

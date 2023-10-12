@@ -1,0 +1,16 @@
+The error message you received indicates that the configuration settings for Xdebug have changed in version 3.0.0beta1. You will need to update your configuration settings in order to use Xdebug with PhpStorm 2020.1.
+
+To update your configuration settings, you will need to add the following lines to your php.ini file:
+
+```
+xdebug.mode=debug
+xdebug.start_with_request=yes
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+```
+
+These settings will enable Xdebug to connect to PhpStorm and allow you to debug your PHP code.
+
+If you do not have an existing php.ini file, you can create one by copying the php.ini-development file that is included with your PHP installation. You can then add the above lines to the end of the file.
+
+Once you have updated your configuration settings, you should be able to use Xdebug with PhpStorm 2020.1.

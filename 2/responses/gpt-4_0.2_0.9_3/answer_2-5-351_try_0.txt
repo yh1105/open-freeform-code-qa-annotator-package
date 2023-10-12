@@ -1,0 +1,47 @@
+The error message you're seeing is because the OpenAPI Generator does not support `resttemplate` as a library option for the `spring` generator.
+
+The `spring` generator in OpenAPI Generator supports the following libraries:
+
+- `spring-boot`
+- `spring-mvc`
+- `spring-cloud`
+
+The `resttemplate` library is not a valid option for the `spring` generator. 
+
+If you want to use `RestTemplate`, you would need to manually create a `RestTemplate` bean in your configuration and use it in your service classes. Here is an example of how you can define a `RestTemplate` bean:
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+public class RestTemplateConfig {
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+Then, you can `@Autowire` the `RestTemplate` in your service classes and use it to make HTTP requests.
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class MyService {
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public MyService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    // Use restTemplate to make HTTP requests
+}
+```
+
+Please note that as of Spring 5, `RestTemplate` is in maintenance mode and the Spring team suggests using the `WebClient` from `spring-webflux` for new projects.

@@ -1,0 +1,17 @@
+The error message "Uncaught SyntaxError: Unexpected end of JSON input" indicates that the JSON string you are trying to parse is incomplete. This can happen if the JSON data is not properly formatted or if there is an error in the data itself.
+
+In your code, you are trying to parse the `scatterSeries` variable, which is an empty array at the time of parsing. Instead, you should be parsing the `ch` variable, which contains the JSON string that you want to convert to an object.
+
+Try changing this line:
+
+```
+console.info(JSON.parse(scatterSeries));
+```
+
+to this:
+
+```
+console.info(JSON.parse(ch));
+```
+
+This should parse the JSON string correctly and allow you to push it into the `scatterSeries` array.

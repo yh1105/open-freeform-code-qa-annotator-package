@@ -1,0 +1,46 @@
+In SwiftUI, you can use the `List` view to create a list of items. However, if you want to have more control over the spacing between items, you might want to use a `ForEach` inside a `ScrollView` instead. This allows you to use the `padding` modifier to control the spacing between items.
+
+Here's how you could modify your code:
+
+```swift
+struct ContentView: View {
+    
+    @ObservedObject var ratesVM = RatesViewModel()
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        UITableView.appearance().backgroundColor = UIColor.init(named: "midnight blue")
+        UITableViewCell.appearance().backgroundColor = .green
+        UITableView.appearance().separatorStyle = .none
+    }
+    
+    var body: some View {
+        
+        NavigationView {
+            ScrollView {
+                VStack {
+                    ForEach(ratesVM.ratesList, id: \.self) { rate in
+                        HStack {
+                            Image(systemName: "plus")
+                            Button(action: {print("pressed")}) {
+                                Text(rate.hebrewCurrencyName)
+                            }
+                        }
+                        .padding(.bottom) // Add space below each item
+                    }
+                }
+            }
+            .navigationBarTitle("המרות מטבע")
+            .navigationBarItems(leading:
+                Button(action: {
+                    print("button pressed")
+                    self.ratesVM.callService()
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color.orange)})
+        }.environment(\.layoutDirection, .rightToLeft)
+    }
+}
+```
+
+In this code, I replaced the `List` with a `ScrollView` and a `VStack`. Inside the `VStack`, I used a `ForEach` to create each item. I also added a `padding(.bottom)` modifier to each item to create space below it. You can adjust the amount of space by passing a value to the `padding` modifier, like `padding(.bottom, 20)`.

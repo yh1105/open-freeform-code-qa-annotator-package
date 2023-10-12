@@ -1,0 +1,16 @@
+The error message indicates that the `dataSource` property is missing or not properly configured. In your `DatabaseConfig.java` file, you are creating a `DataSource` bean using `DataSourceBuilder.create().build()`. This method relies on the `spring.datasource` properties in your `application.yml` file to create the `DataSource` object. 
+
+Make sure that the `spring.datasource` properties are properly configured in your `application.yml` file. If they are, try changing your `dataSource()` method to the following:
+
+```
+@Bean
+@Primary
+@ConfigurationProperties(prefix = "spring.datasource")
+public DataSource dataSource() {
+    return DataSourceBuilder.create().type(HikariDataSource.class).build();
+}
+```
+
+This explicitly sets the `DataSource` type to `HikariDataSource`, which is the default `DataSource` implementation used by Spring Boot 2.0.0. 
+
+If this still doesn't work, try removing the `@Primary` annotation from the `dataSource()` method and see if that resolves the issue.

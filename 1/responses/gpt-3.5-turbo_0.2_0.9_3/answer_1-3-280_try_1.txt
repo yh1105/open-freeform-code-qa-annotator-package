@@ -1,0 +1,5 @@
+`@property` is a Python decorator that allows you to define a method as a property of an object. When you use `@property` decorator, you can access the method like an attribute, without calling it as a method. 
+
+In the example you provided, `full_name` is a property of the `Person` model that returns the full name of the person. Without `@property`, `full_name` would be a regular method that you would need to call like `person.full_name()`. But with `@property`, you can access it like an attribute, like `person.full_name`.
+
+Using `@property` can make your code more readable and easier to use. It can also help you avoid naming conflicts with other methods or attributes in your class.

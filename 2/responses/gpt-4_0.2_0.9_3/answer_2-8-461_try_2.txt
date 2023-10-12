@@ -1,0 +1,22 @@
+The error message `pq: column "com2" is of type integer but expression is of type text` indicates that you are trying to insert a text value into a column that is of integer type.
+
+In your bulk insert statement, you are using placeholders ($1, $2, etc.) to represent the values you want to insert. However, it seems that the data type of the value you are trying to insert does not match the data type of the column.
+
+To fix this issue, you need to ensure that the data types of the values you are inserting match the data types of the columns. If `com2` is an integer column, you should only insert integer values into it.
+
+If `result.Com2` is a string and you are sure that it contains an integer value, you can convert it to an integer before inserting it into the database. In Go, you can use the `strconv.Atoi` function to convert a string to an integer:
+
+```go
+com2, err := strconv.Atoi(result.Com2)
+if err != nil {
+    // handle error
+}
+```
+
+Then, you can use `com2` in your insert statement:
+
+```go
+tx.MustExec(queryInsert,result.Com1,com2,result.Path,result.Time)
+```
+
+Similarly, you need to ensure that the data types of the values you are using in your update statement match the data types of the columns.

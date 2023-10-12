@@ -1,0 +1,36 @@
+The error message indicates that synchronous reads are not supported, which means that the `Read` method of the `BrowserFileStream` class is not allowed to be called synchronously. 
+
+To fix this issue, you can try to use the `CopyToAsync` method instead of `CopyTo` method to copy the content of the `file.OpenReadStream()` to the `MemoryStream`. 
+
+Here is the updated code:
+
+```
+public async Task<byte[]> ConvertFileToByteArrayAsync(IBrowserFile file)
+{
+    using var image = Image.Load(await file.OpenReadStreamAsync());
+    image.Mutate(x => x.Resize(new ResizeOptions
+    {
+        Mode = ResizeMode.Min,
+        Size = new Size(128)
+    }));
+
+    MemoryStream memoryStream = new MemoryStream();
+    if (file.ContentType == "image/png")
+    {
+        await image.SaveAsPngAsync(memoryStream);
+    }
+    else
+    {
+        await image.SaveAsJpegAsync(memoryStream);
+    }
+    var byteFile = memoryStream.ToArray();
+    memoryStream.Close();
+    memoryStream.Dispose();
+
+    return byteFile;
+}
+```
+
+In this updated code, `await file.OpenReadStreamAsync()` is used to asynchronously read the stream from the `IBrowserFile` object. The `CopyToAsync` method is not used because the `MemoryStream` class does not support it. Instead, the `await` keyword is used to asynchronously write the image to the `MemoryStream`. 
+
+Also, you don't need to explicitly close or dispose the `MemoryStream` because the `using` statement will automatically dispose it when it goes out of scope.

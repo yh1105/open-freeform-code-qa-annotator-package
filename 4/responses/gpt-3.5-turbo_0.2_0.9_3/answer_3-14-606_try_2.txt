@@ -1,0 +1,11 @@
+This alert usually appears when you try to run an app that has been signed with a development provisioning profile on a device that is not registered as a development device. 
+
+To resolve this issue, you need to enable the developer mode on your device. Here are the steps to enable developer mode on iOS 16.0:
+
+1. Open the Settings app on your device.
+2. Tap on "General".
+3. Scroll down and tap on "About".
+4. Scroll down to the bottom of the page and tap on "Developer".
+5. Toggle the switch next to "Developer Mode" to the on position.
+
+Once you have enabled developer mode, you should be able to run the app on your device without any issues. If you continue to experience issues, you may need to check the provisioning profile and make sure it is properly configured.

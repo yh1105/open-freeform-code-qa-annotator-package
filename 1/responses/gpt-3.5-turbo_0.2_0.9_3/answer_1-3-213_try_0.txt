@@ -1,0 +1,16 @@
+It seems like the issue is related to the timezone information in your datetime objects. Excel does not support timezone-aware datetimes, so you need to convert them to timezone-naive datetimes before writing to Excel.
+
+Here's a possible solution:
+
+```
+# Convert datetime columns to timezone-naive datetimes
+df['datetime_column'] = df['datetime_column'].dt.tz_localize(None)
+
+# Write to Excel
+writer = pd.ExcelWriter(arquivo+'.xlsx', engine='xlsxwriter', options={'remove_timezone': True})
+df.to_excel(writer, header=True, index=True)
+```
+
+This code uses the `dt.tz_localize(None)` method to convert the datetime column to timezone-naive datetimes. This should remove the timezone information and allow you to write to Excel without errors.
+
+Make sure to apply this conversion to all datetime columns in your DataFrame before writing to Excel.

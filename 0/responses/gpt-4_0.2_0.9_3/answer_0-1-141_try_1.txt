@@ -1,0 +1,50 @@
+To achieve this layout, you can use CSS Grid instead of Bootstrap's grid system. CSS Grid gives you more control over the placement of items at different screen sizes. Here's a basic example of how you can do it:
+
+HTML:
+```html
+<div class="container">
+  <div class="item1">Sidebar 1</div>
+  <div class="item2">Main Content</div>
+  <div class="item3">Sidebar 2</div>
+</div>
+```
+
+CSS:
+```css
+.container {
+  display: grid;
+  grid-template-areas: 
+    "item1 item2"
+    "item3 item2";
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.item1 { grid-area: item1; }
+.item2 { grid-area: item2; }
+.item3 { grid-area: item3; }
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-areas: 
+      "item1"
+      "item2"
+      "item3";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+```
+
+In this example, the `grid-template-areas` property is used to create a grid template. The names specified in this property are associated with the `grid-area` property in the grid items. 
+
+In the media query, the grid template is changed to stack all items on top of each other when the viewport width is 768px or less. This is the point at which the layout will switch to the mobile view. 
+
+You can adjust the values in the `grid-template-columns`, `grid-template-rows`, and `gap` properties as needed to fit your design. 
+
+Remember to include the viewport meta tag in your HTML to ensure your media queries work as expected:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```

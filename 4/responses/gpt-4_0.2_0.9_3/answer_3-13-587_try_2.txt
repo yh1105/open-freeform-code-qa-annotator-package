@@ -1,0 +1,26 @@
+The error message suggests that the Java version being used is not compatible with the Gradle version. Gradle 7.0.2 requires Java 11 or later to run. 
+
+You can check your Java version by running the following command in your terminal:
+
+```bash
+java -version
+```
+
+If your Java version is less than 11, you need to update it. 
+
+If you are using multiple versions of Java in your system, you can specify which one to use for your project in the `gradle.properties` file:
+
+```properties
+org.gradle.java.home=/path/to/your/jdk
+```
+
+Replace `/path/to/your/jdk` with the actual path to your JDK 11 or later.
+
+If you are using the Gradle Wrapper, you can specify the Java version in the `build.gradle` file:
+
+```groovy
+sourceCompatibility = '11'
+targetCompatibility = '11'
+```
+
+After updating the Java version, try running the test coverage report task again. If the problem persists, please provide more details about your project configuration.

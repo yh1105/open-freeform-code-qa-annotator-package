@@ -1,0 +1,9 @@
+You can use the `sort_by` method to sort by multiple keys. This method takes a closure that returns an `Ordering` for two elements. You can use the `cmp` method on tuples to compare both the `row` and `column` fields.
+
+Here is an example:
+
+```rust
+my_vector.sort_by(|a, b| (a.row, a.column).cmp(&(b.row, b.column)));
+```
+
+This will sort your vector first by `row` and then by `column`. If two elements have the same `row`, they will be sorted by `column`. If they also have the same `column`, they will be considered equal for the purposes of sorting.

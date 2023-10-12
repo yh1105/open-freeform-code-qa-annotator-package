@@ -1,0 +1,77 @@
+The issue you're facing is because `create-react-app` doesn't support the `paths` option out of the box. This is because the underlying tool, `react-scripts`, uses Babel to transpile the code, and Babel doesn't understand TypeScript's `paths` option.
+
+Here are a few workarounds:
+
+1. **Use `react-app-rewired` and `customize-cra` to override the webpack configuration.**
+
+   Install these packages:
+
+   ```bash
+   npm install --save-dev react-app-rewired customize-cra
+   ```
+
+   Then, create a `config-overrides.js` file in your project root:
+
+   ```javascript
+   const { alias, configPaths } = require('react-app-rewire-alias');
+   const { paths } = require('./tsconfig.json');
+
+   module.exports = function override(config, env) {
+     return alias(configPaths('./tsconfig.paths.json'))(config, env);
+   };
+   ```
+
+   And modify your `package.json` scripts to use `react-app-rewired` instead of `react-scripts`:
+
+   ```json
+   "scripts": {
+     "start": "react-app-rewired start",
+     "build": "react-app-rewired build",
+     "test": "react-app-rewired test",
+     "eject": "react-scripts eject"
+   }
+   ```
+
+2. **Use `craco` (Create React App Configuration Override).**
+
+   Install `craco`:
+
+   ```bash
+   npm install @craco/craco
+   ```
+
+   Then, create a `craco.config.js` file in your project root:
+
+   ```javascript
+   const path = require('path');
+   const { paths } = require('./tsconfig.json');
+
+   module.exports = {
+     webpack: {
+       alias: {
+         '@store': path.resolve(__dirname, paths.compilerOptions.baseUrl, 'store'),
+       },
+     },
+   };
+   ```
+
+   And modify your `package.json` scripts to use `craco` instead of `react-scripts`:
+
+   ```json
+   "scripts": {
+     "start": "craco start",
+     "build": "craco build",
+     "test": "craco test",
+     "eject": "react-scripts eject"
+   }
+   ```
+
+3. **Eject from `create-react-app`.**
+
+   This is a more drastic option, but it gives you full control over your build configuration. You can then modify the webpack configuration directly to support the `paths` option. However, this is a one-way operation and you can't go back to using `react-scripts` after ejecting.
+
+   ```bash
+   npm run eject
+   ```
+
+Please note that these methods involve overriding the default configuration of `create-react-app`, which may lead to unexpected issues. Always make sure to backup your project before making these changes.

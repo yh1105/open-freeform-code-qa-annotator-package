@@ -1,0 +1,11 @@
+The error message you're seeing suggests that TensorFlow is encountering an image file that it doesn't recognize as a valid format (JPEG, PNG, GIF, BMP). Even though you've ensured all your images are in JPEG format, there might be some corrupted or improperly formatted images in your dataset.
+
+Here are a few steps you can take to troubleshoot this issue:
+
+1. **Check for hidden files**: If you're using a Unix-based system (like Linux or MacOS), directories often contain a hidden file called `.DS_Store`. This file is not an image and will cause errors if TensorFlow tries to read it as one. You can remove these files using the command `find . -name ".DS_Store" -delete` in your terminal.
+
+2. **Check for corrupted files**: Even if a file has the correct extension, it might be corrupted or improperly formatted. You can use a tool like `jpeginfo` to check for and remove corrupted JPEG files. Here's a command that will find corrupted JPEGs: `find /path/to/images -name "*.jpg" -exec jpeginfo -c {} \; | grep -E "WARNING|ERROR"`
+
+3. **Check for non-JPEG files**: It's possible that some non-JPEG files have been given a `.jpg` extension. You can use the `file` command in a Unix-based system to check the actual type of a file. Here's a command that will find non-JPEG files with a `.jpg` extension: `find /path/to/images -name "*.jpg" -exec file {} \; | grep -v JPEG`
+
+After ensuring that all the images in your dataset are valid, uncorrupted JPEG files, try running your code again. If you're still encountering the same error, there might be an issue with the way you're loading or processing your images in TensorFlow.

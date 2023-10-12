@@ -1,0 +1,44 @@
+You can use the `keydown` event to detect when the "enter" key is pressed. The `keydown` event is fired when a key is pressed down, and it can be used to detect which key is pressed. 
+
+Here's how you can modify your code to listen for the "enter" key:
+
+```javascript
+mounted() {
+  let editor = new Editor({
+    extensions: [StarterKit],
+    content: this.value
+  });
+
+  editor.on("update", e => {
+    console.log(e);
+    this.$emit("input", this.editor.getHTML());
+  });
+
+  // Listen for the 'keydown' event
+  editor.on("keydown", ({ event }) => {
+    // Check if the 'enter' key was pressed
+    if (event.key === "Enter") {
+      // Prevent the default action of the 'enter' key
+      event.preventDefault();
+
+      // Submit the chat and clear the editor
+      this.submitChat();
+      this.editor.clearContent();
+    }
+  });
+
+  this.editor = editor;
+}
+
+methods: {
+  submitChat() {
+    // Your code to submit the chat goes here
+  }
+}
+```
+
+In this code, we're listening for the `keydown` event and checking if the key that was pressed is the "enter" key. If it is, we prevent the default action of the "enter" key (which is to insert a new line), submit the chat, and clear the editor.
+
+Please note that the `clearContent` method is not a built-in method in tiptap. You might need to implement it yourself or find a way to clear the editor's content.
+
+Also, please note that this code is assuming that you have a `submitChat` method that handles the chat submission. You'll need to replace `this.submitChat();` with your actual code to submit the chat.

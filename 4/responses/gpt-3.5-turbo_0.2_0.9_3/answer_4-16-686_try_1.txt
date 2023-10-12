@@ -1,0 +1,17 @@
+It seems like the issue is with the way you are defining the command in your YAML file. When you enclose the command in quotes, Kubernetes treats it as a single string and tries to set it as an immutable field. To fix this, you can define the command as an array of strings instead of a single string. Here's an example:
+
+```
+args:
+  - /bin/bash
+  - -c
+  - |
+    /cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+    CHILD_PID=$!
+    (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill ; echo "Killed  as the main container terminated."; fi; sleep 1; done) &
+    wait 
+    if [[ -f "/tmp/pod/main-terminated" ]]; then exit 0; echo "Job completed. Exiting..."; fi
+```
+
+In this example, we define the command as an array of strings, where the first element is the path to the shell (`/bin/bash`), the second element (`-c`) tells the shell to execute the command that follows, and the third element is the actual command that you want to execute. 
+
+Try updating your YAML file with this format and see if it resolves the issue.

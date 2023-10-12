@@ -1,0 +1,43 @@
+Yes, you can use the `it.only()` function in Cypress to run only one test. 
+
+Here's an example:
+
+```javascript
+describe('My test suite', () => {
+  it.only('should run only this test', () => {
+    // test code here
+  })
+
+  it('should not run this test', () => {
+    // test code here
+  })
+
+  it('should also not run this test', () => {
+    // test code here
+  })
+})
+```
+
+In this example, only the first test with `it.only()` will run, and the other two tests will be skipped. 
+
+You can also use the `describe.only()` function to run only a specific test suite. 
+
+```javascript
+describe.only('My test suite', () => {
+  it('should run this test', () => {
+    // test code here
+  })
+
+  it('should also run this test', () => {
+    // test code here
+  })
+})
+
+describe('Another test suite', () => {
+  it('should not run this test', () => {
+    // test code here
+  })
+})
+```
+
+In this example, only the tests in the first `describe` block will run, and the test in the second `describe` block will be skipped.

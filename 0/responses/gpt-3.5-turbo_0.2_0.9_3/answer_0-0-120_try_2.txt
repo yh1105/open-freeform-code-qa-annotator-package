@@ -1,0 +1,18 @@
+This error occurs when the version of the Java compiler used to compile the code is not compatible with the version of the Java Virtual Machine (JVM) used to run the code. In this case, the error message indicates that the class file major version 57 is not supported.
+
+Class file major version 57 corresponds to Java 13, which is not supported by Android. To fix this issue, you need to update the Java version used to compile the code to a version that is compatible with Android.
+
+You can update the Java version by adding the following lines to your build.gradle file:
+
+```
+android {
+    ...
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    ...
+}
+```
+
+This will set the source and target compatibility to Java 8, which is the version supported by Android. After making this change, try building your project again.

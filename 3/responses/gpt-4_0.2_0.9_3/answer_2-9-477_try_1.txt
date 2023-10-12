@@ -1,0 +1,16 @@
+The error message you're seeing is due to a change in macOS 11 Big Sur. The system no longer includes certain header files that Ruby versions prior to 2.7.2 require to build.
+
+You have two options to resolve this issue:
+
+1. Upgrade to a newer version of Ruby that supports macOS Big Sur. Ruby 2.7.2 and later versions have been patched to build on macOS Big Sur. You can install it with `rbenv install 2.7.2`.
+
+2. If you need to use an older version of Ruby, you can patch the Ruby source code to work with macOS Big Sur. Here's how you can do it:
+
+- First, download the Ruby source code for the version you want to install. For example, for Ruby 2.5.3, you can download it from https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.3.tar.bz2.
+- Extract the tarball and open the file `ruby-2.5.3/thread_pthread.c` in a text editor.
+- Find the line `#  include "/usr/include/pthread/pthread.h"` and comment it out by adding a `//` at the beginning of the line.
+- Save the file and compress the Ruby source code back into a tarball.
+- Move the tarball to the directory `~/.rbenv/cache/`.
+- Now you can install Ruby with `rbenv install 2.5.3`.
+
+Please note that the second option is a workaround and may not work for all older versions of Ruby. It's generally recommended to use a version of Ruby that officially supports your operating system.

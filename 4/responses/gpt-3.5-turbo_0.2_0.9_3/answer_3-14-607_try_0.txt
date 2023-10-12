@@ -1,0 +1,33 @@
+Yes, there is a better way to achieve this behavior without using the `disabled` modifier. You can use the `@State` property wrapper to keep track of whether the text field is empty or not, and then use a computed property to set the foreground color of the image based on the state.
+
+Here's an example implementation:
+
+```
+@State private var chatMessage: String = ""
+
+private var chatMessageIsValid: Bool {
+    !chatMessage.isEmpty
+}
+
+private var sendButtonForegroundColor: Color {
+    chatMessageIsValid ? .blue : .gray
+}
+
+var body: some View {
+    Spacer()
+    HStack {
+        TextField($chatMessage, placeholder: Text("Reply"))
+            .padding(.leading, 10)
+            .textFieldStyle(.roundedBorder)
+        Button(action: sendMessage) {
+            Image(systemName: "arrow.up.circle")
+                .foregroundColor(sendButtonForegroundColor)
+                .padding(.trailing, 10)
+        }
+    }
+}
+```
+
+In this implementation, the `chatMessageIsValid` property is a computed property that returns `true` if the `chatMessage` string is not empty. The `sendButtonForegroundColor` property is also a computed property that returns `.blue` if `chatMessageIsValid` is `true`, and `.gray` otherwise.
+
+By using this approach, the foreground color of the image will update automatically as the user types in the text field, without any need to use the `disabled` modifier.

@@ -1,0 +1,37 @@
+The `diff` object you're trying to save as a CSV is a dictionary, not a DataFrame. The `to_csv` method is a method of pandas DataFrame objects, not dictionaries. 
+
+You can convert the dictionary to a DataFrame and then save it as a CSV. However, since your dictionary has lists of dictionaries as values, you'll need to handle each key-value pair separately.
+
+Here's how you can do it:
+
+```python
+import pandas as pd
+
+# Convert each list of dictionaries to a DataFrame and save as a CSV
+for key in diff.keys():
+    if isinstance(diff[key], list):
+        df = pd.DataFrame(diff[key])
+        df['status'] = key  # Add a column indicating the status
+        df.to_csv(f'{key}.csv', index=False)
+```
+
+This will create a separate CSV file for each key in your dictionary (`added.csv`, `removed.csv`, etc.). Each CSV file will have an extra column named `status` indicating whether the row was added, removed, or changed.
+
+If you want to combine all these into a single CSV file, you can do it like this:
+
+```python
+# Create an empty DataFrame to store all data
+all_data = pd.DataFrame()
+
+# Convert each list of dictionaries to a DataFrame and append to all_data
+for key in diff.keys():
+    if isinstance(diff[key], list):
+        df = pd.DataFrame(diff[key])
+        df['status'] = key  # Add a column indicating the status
+        all_data = all_data.append(df, ignore_index=True)
+
+# Save all_data as a CSV
+all_data.to_csv('diff.csv', index=False)
+```
+
+This will create a single CSV file named `diff.csv` containing all the data, with an extra column named `status` indicating whether each row was added, removed, or changed.

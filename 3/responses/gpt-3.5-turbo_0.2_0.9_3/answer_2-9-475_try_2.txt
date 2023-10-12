@@ -1,0 +1,27 @@
+It seems like the issue is related to the missing `ruby/config.h` file. You can try the following steps to resolve the issue:
+
+1. Make sure you have Xcode and its command-line tools installed on your system. You can install them by running the following command in the terminal:
+
+   ```
+   xcode-select --install
+   ```
+
+2. Try installing the `ffi` gem separately by running the following command:
+
+   ```
+   gem install ffi
+   ```
+
+3. If the above step doesn't work, try installing the `ffi` gem with the `-- --with-system-ffi` option:
+
+   ```
+   gem install ffi -- --with-system-ffi
+   ```
+
+4. Once the `ffi` gem is installed, try installing the `travis` gem again:
+
+   ```
+   gem install travis
+   ```
+
+If the above steps don't work, you can try updating your Ruby version or reinstalling it. You can also try using a Ruby version manager like RVM or rbenv to manage your Ruby installations.

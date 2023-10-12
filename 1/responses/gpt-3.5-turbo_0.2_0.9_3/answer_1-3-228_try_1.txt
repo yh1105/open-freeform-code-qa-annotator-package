@@ -1,0 +1,23 @@
+The error message indicates that TensorFlow is unable to find the shared object file `libcublas.so.10.0`. This file is part of the CUDA toolkit and is required by TensorFlow to run on GPU.
+
+To resolve this issue, you can try the following steps:
+
+1. Check if the `libcublas.so.10.0` file is present in your system by running the following command:
+```
+$ find /usr/local -name libcublas.so.10.0
+```
+If the file is not found, it means that the CUDA toolkit is not installed properly or the installation directory is not added to the system path.
+
+2. If the file is found, you can add the path to the CUDA toolkit to the `LD_LIBRARY_PATH` environment variable by running the following command:
+```
+$ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+This will add the CUDA library path to the system path.
+
+3. Try importing TensorFlow again and see if the issue is resolved:
+```
+$ python3
+>>> import tensorflow as tf
+```
+
+If the issue persists, you can try reinstalling the CUDA toolkit and TensorFlow. Make sure to follow the installation instructions carefully and verify that all dependencies are installed properly.

@@ -1,0 +1,10 @@
+This error message indicates that the Entity Framework runtime assemblies are not included in your project's target framework. To resolve this issue, you need to update your project's target framework to include the Entity Framework runtime assemblies.
+
+Here are the steps to update your project's target framework:
+
+1. Right-click on your project in the Solution Explorer and select "Properties".
+2. In the "Application" tab, locate the "Target framework" dropdown menu.
+3. Select a target framework that includes the Entity Framework runtime assemblies. For example, you can select ".NET Framework 4.6.1" or higher.
+4. Click "OK" to save the changes.
+
+After updating your project's target framework, you should be able to create an Entity Framework model without encountering the error message.

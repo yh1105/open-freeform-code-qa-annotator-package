@@ -1,0 +1,9 @@
+The error you're encountering is likely due to a null safety issue. Flutter 2.0 and above have null safety enabled by default, which means that you need to ensure that all variables are initialized before they're used.
+
+The error message "Expected a value of type 'SkDeletable', but got one of type 'Null'" suggests that you're trying to use a variable of type 'SkDeletable' that hasn't been initialized yet.
+
+To fix this issue, you need to ensure that all variables are properly initialized before they're used. If a variable can be null, you should mark it as nullable by adding a '?' after the type name, like so: `SkDeletable?`.
+
+If you're not sure where the error is coming from, you can try running the Dart analyzer, which can help you find potential null safety issues in your code. You can run the analyzer by opening the terminal in your IDE and typing `flutter analyze`.
+
+If the error persists, it might be helpful to see the part of your code where you're encountering this issue.

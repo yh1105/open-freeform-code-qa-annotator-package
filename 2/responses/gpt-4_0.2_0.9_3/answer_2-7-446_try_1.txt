@@ -1,0 +1,33 @@
+It seems like you're having trouble installing Xdebug on your Mac M1. The steps you've followed seem correct, but there might be some issues that need to be addressed. 
+
+Firstly, ensure that you have the correct path to the xdebug.so file. The path you've mentioned (`/opt/homebrew/lib/php/pecl/20190902/xdebug.so`) might be different on your system. You can find the correct path by running the command `find / -name 'xdebug.so' 2>/dev/null` in your terminal. This will search your entire system for the file 'xdebug.so' and output its location.
+
+Secondly, the error message in the image you've provided suggests that the Xdebug extension cannot be loaded because it was compiled with a different API version. This typically happens when there's a mismatch between the PHP version used to compile the Xdebug extension and the PHP version currently running on your system.
+
+You can check your PHP version by running `php -v` in your terminal. If the version doesn't match the one used to compile Xdebug (as indicated in the error message), you'll need to either upgrade/downgrade your PHP version or compile Xdebug with your current PHP version.
+
+If you're still having trouble, you might want to consider using a package manager like Homebrew to install Xdebug. This can help to avoid version mismatches and other potential issues. Here's how you can do it:
+
+1. If you haven't installed Homebrew yet, install it by running the following command in your terminal:
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Once Homebrew is installed, you can install Xdebug by running:
+```
+brew install php@7.4
+brew install php@7.4-xdebug
+```
+(Note: Replace 7.4 with your PHP version)
+
+3. Then, add the following lines to your php.ini file:
+```
+zend_extension="xdebug.so"
+xdebug.mode=debug
+xdebug.client_host=127.0.0.1
+xdebug.client_port="9003"
+```
+
+4. Finally, restart your server for the changes to take effect.
+
+I hope this helps! Let me know if you have any other questions.

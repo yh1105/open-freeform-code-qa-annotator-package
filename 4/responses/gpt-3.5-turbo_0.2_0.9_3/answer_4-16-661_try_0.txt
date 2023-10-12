@@ -1,0 +1,23 @@
+You can modify your script to extract only the required value from the SQL query output using the `grep` and `awk` commands. Here's an example:
+
+```
+size=$(${PATH_TO_CLIENT}sqlplus -S $IMPUSER/$IMPPWD@$ENDPOINT<< EOF
+set feedback off
+set heading off
+select sum(bytes)/1024/1024/1024 Size_GB from dba_segments where owner = 'XXXX';
+exit;
+EOF
+)
+size=$(echo $size | grep -o '[0-9]*\.[0-9]*')
+echo "Total data is ${size} GB"
+```
+
+In this modified script, we have added the following changes:
+
+- We have added the `-S` option to `sqlplus` command to suppress unnecessary output.
+- We have added `set feedback off` and `set heading off` commands to suppress SQL*Plus output.
+- We have modified the SQL query to directly select the required value without the owner column.
+- We have used `grep` command to extract the floating-point number from the SQL query output.
+- We have assigned the extracted value to the `size` variable and used it in the output message.
+
+This should give you the desired output with only the value of the SQL query output stored in the `size` variable.

@@ -1,0 +1,19 @@
+The error message you're seeing suggests that the `%tensorboard` line magic function isn't available in your current environment. This could be due to a few reasons:
+
+1. TensorBoard's Jupyter magic was not available until TensorBoard 1.14. So, you might need to upgrade your TensorBoard to a later version. You can do this using pip:
+
+    ```
+    pip install --upgrade tensorboard
+    ```
+
+2. The TensorBoard Jupyter magic is not automatically loaded when you start Jupyter. You need to load it manually using the `%load_ext` command:
+
+    ```
+    %load_ext tensorboard
+    ```
+
+    After running this command, you should be able to use the `%tensorboard` line magic.
+
+3. If you're using a Jupyter notebook, ensure that you're running the `%tensorboard` command in a code cell, not in a markdown cell or in the terminal.
+
+If you've checked all of these and you're still having issues, it might be worth checking whether there are any known issues with the specific versions of TensorBoard, TensorFlow, and Jupyter that you're using.

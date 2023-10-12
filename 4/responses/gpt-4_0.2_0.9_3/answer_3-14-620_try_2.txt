@@ -1,0 +1,33 @@
+You can use a ScrollView and ForEach instead of List. This way you can use the ScrollViewReader and .scrollTo() function which are available in SwiftUI. Here's a simple example:
+
+```swift
+struct ContentView: View {
+    @State private var selection: Int? = nil
+
+    var body: some View {
+        VStack {
+            Button("Scroll to #50") {
+                withAnimation {
+                    self.selection = 50
+                }
+            }
+
+            ScrollView {
+                ScrollViewReader { value in
+                    ForEach(0..<100) { i in
+                        Text("Example \(i)")
+                            .id(i)
+                    }
+                    .onChange(of: selection) { target in
+                        value.scrollTo(target, anchor: .top)
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+In this example, pressing the button will scroll to the item with the id 50.
+
+However, please note that ScrollViewReader and .scrollTo() are only available in iOS 14.0 and newer. If you need to support iOS 13.0, you might need to use UIViewRepresentable or UIViewControllerRepresentable to wrap UIScrollView or UITableView.

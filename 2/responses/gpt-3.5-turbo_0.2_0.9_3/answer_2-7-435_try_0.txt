@@ -1,0 +1,25 @@
+It seems like the `mysql-client` package is not available in the repository that your Dockerfile is using. You can try using a different repository or installing the package from a different source.
+
+One solution could be to use the `mariadb-client` package instead of `mysql-client`. You can replace the following line in your Dockerfile:
+
+```
+apt-get install -y mysql-client \
+```
+
+with:
+
+```
+apt-get install -y mariadb-client \
+```
+
+This should install the necessary package and resolve the error you are seeing.
+
+Alternatively, you can try updating your repository by adding the following line before the `apt-get update` command:
+
+```
+RUN echo "deb http://deb.debian.org/debian buster main" >> /etc/apt/sources.list
+```
+
+This will add the Debian Buster repository to your sources list, which should include the `mysql-client` package.
+
+I hope this helps! Let me know if you have any further questions.

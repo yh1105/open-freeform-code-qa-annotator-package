@@ -1,0 +1,15 @@
+The error you're encountering is related to the version of Maven bundled with IntelliJ IDEA. It seems that the version of Maven bundled with IntelliJ IDEA is not compatible with the version of Spring Boot you're using.
+
+Here are some steps you can take to resolve this issue:
+
+1. **Update IntelliJ IDEA**: Make sure you're using the latest version of IntelliJ IDEA. JetBrains, the company that develops IntelliJ IDEA, regularly releases updates that include bug fixes and compatibility improvements.
+
+2. **Use an External Maven**: Instead of using the bundled Maven, you can configure IntelliJ IDEA to use an external Maven installation. You can download the latest version of Maven from the official website. After installing Maven, you can configure IntelliJ IDEA to use it by going to `File -> Settings -> Build, Execution, Deployment -> Build Tools -> Maven`. In the `Maven home directory` field, enter the path to your Maven installation.
+
+3. **Re-import the Project**: After changing the Maven settings, you should re-import your project. You can do this by right-clicking on the project in the Project tool window and selecting `Maven -> Reimport`.
+
+4. **Check Your Project's pom.xml**: Make sure your project's `pom.xml` file is correctly configured. The `pom.xml` file should include the correct version of Spring Boot and any other dependencies your project needs.
+
+5. **Clean and Rebuild the Project**: Sometimes, cleaning and rebuilding the project can resolve issues. You can clean the project by running `mvn clean` in the Terminal tool window. After cleaning the project, you can rebuild it by running `mvn install`.
+
+If none of these steps resolve the issue, it might be a bug in IntelliJ IDEA or in the Spring Boot starter. In that case, you should report the issue to JetBrains or to the Spring Boot team.

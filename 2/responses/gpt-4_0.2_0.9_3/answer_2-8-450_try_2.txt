@@ -1,0 +1,44 @@
+In Go, you can create a struct to represent the client data and then use the `encoding/json` package to convert the struct to JSON. Here's how you can do it:
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
+
+type Client struct {
+	Hostname string `json:"Hostname"`
+	IP       string `json:"IP"`
+	MacAddr  string `json:"MacAddr"`
+}
+
+type Clients struct {
+	Clients []Client `json:"Clients"`
+}
+
+func parselines(line string) {
+	clients := []Client{}
+	for _, line := range strings.Split(line, "\n") {
+		if line != "" {
+			s := strings.Split(line, " ")
+			host, ip, mac := s[0], s[1], s[2]
+			clients = append(clients, Client{Hostname: host, IP: ip, MacAddr: mac})
+		}
+	}
+	c := Clients{Clients: clients}
+	jsonData, err := json.Marshal(c)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(jsonData))
+}
+
+func main() {
+	parselines("example.com 127.0.0.1 mactonight\nfoo.biz 0.0.0.0 12:34:56:78")
+}
+```
+
+This code creates a `Client` struct and a `Clients` struct which contains a slice of `Client` structs. It then parses the input string, creates a `Client` struct for each line, and appends it to the `clients` slice. Finally, it creates a `Clients` struct with the `clients` slice and converts it to JSON using the `json.Marshal` function.

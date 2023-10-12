@@ -1,0 +1,37 @@
+You can achieve this by using the `:before` and `:after` pseudo-elements to create the horizontal and vertical lines of the plus symbol. Here is an example:
+
+```css
+.plus {
+  position: relative;
+  height: 20px;
+  width: 20px;
+}
+
+.plus:before, .plus:after {
+  content: '';
+  position: absolute;
+  background-color: black;
+}
+
+.plus:before {
+  top: 50%;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  margin-top: -1px;
+}
+
+.plus:after {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  margin-left: -1px;
+}
+```
+
+```html
+<div class="plus"></div>
+```
+
+In this example, the `:before` pseudo-element creates the horizontal line and the `:after` pseudo-element creates the vertical line. The `top: 50%` and `left: 50%` properties center the lines, and the `margin-top: -1px` and `margin-left: -1px` properties offset the lines by half their thickness to ensure they are perfectly centered. The `height` and `width` properties control the length and thickness of the lines.

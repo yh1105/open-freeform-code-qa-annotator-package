@@ -1,0 +1,49 @@
+The error message you're seeing is due to the presence of a Byte Order Mark (BOM) in the response from your PHP script. The BOM is a Unicode character used to signal the endianness (byte order) of a text. It's invisible and doesn't affect the rendering of the text, but it can cause problems for programs that don't expect it.
+
+In your case, the BOM is being included in the JSON response, which is causing the `json.decode()` function to fail because it's not valid JSON.
+
+To fix this, you need to make sure your PHP script is not outputting a BOM. This can be caused by:
+
+- The PHP file itself being saved with a BOM. Make sure to save your PHP files as UTF-8 without BOM.
+- The `echo` function outputting a BOM. You can prevent this by using `ob_start()` at the beginning of your script and `ob_end_flush()` at the end.
+
+Here's how you can modify your PHP script:
+
+```php
+<?php
+ob_start(); // Start output buffering
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+include_once "Clases/conexion.php";
+
+$usuario = $_POST['usuario'];
+$password = $_POST['password'];
+
+$consulta = "select usu_nombre
+FROM usu_usuarios
+WHERE usu_nusuario='$usuario'and usu_password='$password' and  usu_activo='SI'";
+
+$mysql_obj = new Conectar();
+$mysqli = $mysql_obj->crearConexion();
+
+if($result = $mysqli->query($consulta)) {
+if ($mysqli->affected_rows > 0) {
+    while($row = $result->fetch_array()) {
+        $myArray[] = $row;
+    }
+    header('Content-type: application/json');
+    echo json_encode($myArray);
+}else {
+    header("HTTP/1.0 401 Datos Incorrectos");
+    header('Content-type: application/json');
+    $data = array("mensaje" => "Datos Incorrectos");
+    echo json_encode($data);
+}}
+
+ob_end_flush(); // End output buffering
+?>
+```
+
+This should prevent the BOM from being included in the output, and your `json.decode()` function should then work as expected.

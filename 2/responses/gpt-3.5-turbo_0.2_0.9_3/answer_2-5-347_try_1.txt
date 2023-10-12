@@ -1,0 +1,9 @@
+The conflict shown in the image is related to a file that already exists in the installation area and cannot be overwritten by the patch. The best solution is to follow the instructions given in the message and download the latest version of IntelliJ IDEA from the developer's website and reinstall it from scratch. 
+
+Before doing so, you can try to uninstall the current version of IntelliJ IDEA and then install the new version. To uninstall IntelliJ IDEA, you can use the following command in the terminal:
+
+```
+sudo snap remove intellij-idea-community
+```
+
+After uninstalling, download the latest version of IntelliJ IDEA from the developer's website and follow the installation instructions. This should resolve the conflict and allow you to update to the latest version of IntelliJ IDEA.

@@ -1,0 +1,11 @@
+It's true that `std::string` is a good choice for handling UTF-8 strings in C++. However, you need to be aware of some caveats when using it.
+
+Firstly, `std::string` is a container of bytes, not characters. This means that `str[i]` will return the i-th byte of the string, not the i-th character. To properly handle UTF-8 strings, you need to use a library that can handle multi-byte characters, such as ICU or Boost.Locale.
+
+Secondly, `std::string::size()` returns the number of bytes in the string, not the number of characters. To get the number of characters in the string, you need to use a library that can handle multi-byte characters.
+
+Thirdly, `std::string::find_first_of()` and `std::regex` may not work as expected when dealing with UTF-8 strings. Again, you need to use a library that can handle multi-byte characters.
+
+If you want to avoid these issues, you can use `std::wstring` instead of `std::string`. `std::wstring` is a container of wide characters, which can handle UTF-8, UTF-16, and UTF-32. However, you need to be aware that `std::wstring` may not be as efficient as `std::string` when dealing with UTF-8 strings.
+
+In summary, if you want to use `std::string` for handling UTF-8 strings, you need to use a library that can handle multi-byte characters and be aware of the caveats mentioned above. If you want to avoid these issues, you can use `std::wstring` instead.

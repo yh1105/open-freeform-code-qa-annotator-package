@@ -1,0 +1,7 @@
+Including the banner.png file in the Docker image during the build process is a common practice and is recommended. This ensures that the file is available in the container when it is deployed, and it simplifies the deployment process.
+
+You can copy the banner.png file to the container during the build process using the Dockerfile. You have already done that in your Dockerfile by copying the Assets directory to the final image. This is a good approach.
+
+Another approach is to store the banner.png file in a separate location, such as an S3 bucket or a shared network drive, and then download it during the container startup. This approach can be useful if the file is large and you don't want to include it in the Docker image. However, it adds complexity to the deployment process and requires additional configuration.
+
+Overall, including the banner.png file in the Docker image during the build process is a good practice and simplifies the deployment process.

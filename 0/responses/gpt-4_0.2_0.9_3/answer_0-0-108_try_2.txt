@@ -1,0 +1,43 @@
+The problem is that you are not binding your form inputs to any model or form control. Therefore, when you try to log the result, it returns undefined because no data is being passed from the form to the dialog close event.
+
+To fix this, you should use Angular's reactive forms or template-driven forms to bind your form inputs to a model or form control. Here's an example using reactive forms:
+
+First, import `ReactiveFormsModule` and `FormControl` in your module and component respectively:
+
+```javascript
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+```
+
+Then, declare form controls in your component:
+
+```javascript
+export class DialogContentComponent implements OnInit {
+  name = new FormControl('');
+  start = new FormControl('');
+  end = new FormControl('');
+  //...
+}
+```
+
+Next, bind these form controls to your form inputs:
+
+```html
+<mat-form-field class="input4">
+  <input matInput placeholder="Shift name" [formControl]="name">
+</mat-form-field>
+<mat-form-field class="input input2">
+  <input matInput placeholder="Start" atp-time-picker [formControl]="start">
+</mat-form-field>
+<mat-form-field class="input input2">
+  <input matInput placeholder="End" atp-time-picker [formControl]="end">
+</mat-form-field>
+```
+
+Finally, pass the form data when closing the dialog:
+
+```html
+<button class="mat-button" mat-button [mat-dialog-close]="{name: name.value, start: start.value, end: end.value}" cdkFocusInitial color="primary">Create</button>
+```
+
+Now, when you log the result in your `afterClosed()` subscription, it should display the form data.

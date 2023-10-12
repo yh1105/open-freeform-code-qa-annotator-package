@@ -1,0 +1,37 @@
+You can add your SSH key to Git Bash by following these steps:
+
+1. Open Git Bash.
+
+2. If you haven't already, you should first set up a `ssh-agent` to manage your SSH keys for you.
+
+   Start the ssh-agent in the background by typing:
+
+   ```bash
+   eval "$(ssh-agent -s)"
+   ```
+
+   You should see something like `Agent pid 59566`.
+
+3. Now you need to add your SSH private key to the ssh-agent. If you created your key with a different name, or if you are adding an existing key that has a different name, replace `id_rsa` in the command with the name of your private key file.
+
+   ```bash
+   ssh-add ~/path/to/your/key
+   ```
+
+   In your case, the command would be:
+
+   ```bash
+   ssh-add /d/keys\ folder/id_rsa
+   ```
+
+   Replace `id_rsa` with the name of your private key if it's different.
+
+4. Now your SSH key has been added to Git Bash and you can use it to clone a repository from remote.
+
+Please note that the path to the key file in the `ssh-add` command should be the exact path where your private key is located. If the path or filename contains spaces, you should enclose it in double quotes. For example:
+
+```bash
+ssh-add "/d/keys folder/id_rsa"
+```
+
+Also, please note that the private key file should be in OpenSSH format to be used with Git Bash. If you have generated your key pair with PuTTYgen, you might have a key in a PuTTY-specific format (.ppk). In that case, you need to convert it to the OpenSSH format. You can do this using PuTTYgen: load your .ppk file and then go to Conversions > Export OpenSSH key.

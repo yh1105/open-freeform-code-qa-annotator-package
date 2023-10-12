@@ -1,0 +1,15 @@
+The error message you are receiving indicates that there is an issue with the extraction of the uploader ID from the video. This could be caused by changes to the YouTube API or a bug in the youtube_dl library.
+
+One thing you can try is to update your youtube_dl library to the latest version. You can do this by running the following command in your terminal:
+
+```
+pip install --upgrade youtube_dl
+```
+
+If updating the library does not solve the issue, you can try passing the `--no-cache-dir` flag when installing the library to ensure that any cached files are not causing the issue:
+
+```
+pip install --upgrade --no-cache-dir youtube_dl
+```
+
+If neither of these solutions work, you may need to wait for a new update to the youtube_dl library that addresses the issue. In the meantime, you can try using a different library for downloading YouTube videos, such as pytube.

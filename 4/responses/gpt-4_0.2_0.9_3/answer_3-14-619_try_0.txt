@@ -1,0 +1,17 @@
+The code you've posted is correct in terms of using `@Binding` and `@State` in SwiftUI. However, the issue you're facing is likely due to how you're using the `ContentView` in your app. 
+
+The `ContentView_Previews` struct is only used for SwiftUI's Preview feature in Xcode, and won't actually run when you launch your app. This means that the `@State` variable `selected` is not actually being used when you run your app, only when you're previewing the `ContentView` in Xcode.
+
+To fix this, you need to create a `@State` variable in the parent view that uses `ContentView`, and pass it as a `@Binding` to `ContentView`. Here's an example:
+
+```swift
+struct ParentView: View {
+    @State private var isSelected: Bool = false
+
+    var body: some View {
+        ContentView(isSelected: $isSelected)
+    }
+}
+```
+
+In this example, `ParentView` is the parent view that uses `ContentView`. It has a `@State` variable `isSelected`, which it passes as a `@Binding` to `ContentView`. When `isSelected` changes in `ContentView`, it will also change in `ParentView`, causing both views to update.

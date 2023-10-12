@@ -1,0 +1,25 @@
+You can use regular expressions to replace the commas inside the quoted portions of the string with a different character (e.g. underscore), and then use `separate_rows()` with `sep==","`. Here's an example code that achieves this:
+
+```
+library(tidyr)
+
+string <- c("1, 2, \"something, else\"", "3, 5, \"more, more, more\"", "6, \"commas, are fun\", \"no, they are not\"")
+
+# Replace commas inside quotes with underscores
+string_clean <- gsub("(\"[^\"]*),([^\".]*\")", "\\1_\\2", string)
+
+# Separate rows using commas
+string_separated <- separate_rows(string_clean, sep = ",")
+
+# Replace underscores back to commas inside quotes
+string_final <- gsub("(\"[^\"]*)_([^\".]*\")", "\\1,\\2", string_separated)
+
+string_final
+#[1] "1, 2, \"something else\""                  
+#[2] "3, 5, \"more more more\""                  
+#[3] "6, \"commas are fun\", \"no they are not\""
+```
+
+The regular expression `"(\"[^\"]*),([^\".]*\")"` matches a quote, followed by any number of non-quote characters, followed by a comma, followed by any number of non-quote and non-period characters, followed by a quote. The replacement string `"\\1_\\2"` replaces the comma with an underscore, while keeping the quotes intact. 
+
+After separating the rows using `separate_rows()`, we use another regular expression `"(\"[^\"]*)_([^\".]*\")"` to match a quote, followed by any number of non-quote characters, followed by an underscore, followed by any number of non-quote and non-period characters, followed by a quote. The replacement string `"\\1,\\2"` replaces the underscore with a comma, while keeping the quotes intact.

@@ -1,0 +1,29 @@
+You can achieve this by first converting the 'Date' column to datetime format and then extracting the date. After that, you can group by 'ID' and 'Date' and use the first valid observation per group.
+
+Here is how you can do it:
+
+```python
+import pandas as pd
+import numpy as np
+
+NaN = np.nan
+data = {'ID':['A', 'A', 'A', 'B','B','B'],
+    'Date':['2021-09-20 04:34:57', '2021-09-20 04:37:25', '2021-09-20 04:38:26', '2021-09-01 00:12:29','2021-09-01 11:20:58','2021-09-02 09:20:58'],
+    'Name':['xx',NaN,NaN,'yy',NaN,NaN],
+    'Height':[174,NaN,NaN,160,NaN,NaN],
+    'Weight':[74,NaN,NaN,58,NaN,NaN],
+    'Gender':[NaN,'Male',NaN,NaN,'Female',NaN],
+    'Interests':[NaN,NaN,'Hiking,Sports',NaN,NaN,'Singing']}
+
+df1 = pd.DataFrame(data)
+
+# Convert 'Date' to datetime format and extract the date
+df1['Date'] = pd.to_datetime(df1['Date']).dt.date
+
+# Group by 'ID' and 'Date' and use the first valid observation per group
+df1 = df1.groupby(['ID', 'Date'], as_index=False).first()
+
+print(df1)
+```
+
+This will give you the desired output. Please note that the 'Date' column will be in 'yyyy-mm-dd' format. If you want to keep the original datetime format, you can skip the step of extracting the date. However, this might not give you the desired output if the timestamps are not exactly the same.

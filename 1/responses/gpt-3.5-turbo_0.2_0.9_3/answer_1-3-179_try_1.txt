@@ -1,0 +1,8 @@
+To achieve the desired output, you can use the following code:
+
+```
+latest = df.query('Value==1').groupby("ID").agg({"Date": "max"}).reset_index().rename(columns={"Date": "Latest"})
+df = pd.merge(df, latest, how="left").fillna("")
+```
+
+This code first filters the dataframe to only include rows where `Value` is 1. It then groups the resulting dataframe by `ID` and finds the maximum `Date` for each group. The resulting dataframe is then merged back into the original dataframe using a left join, and any missing values are filled with an empty string. The resulting dataframe should have the desired output.

@@ -1,0 +1,49 @@
+In ASP.NET Core, you can use the built-in dependency injection system to create a service that can be used to store and retrieve global data. Here's a simple example:
+
+1. First, create a class that will hold your global data:
+
+```csharp
+public class GlobalData
+{
+    public string MyData { get; set; }
+}
+```
+
+2. Then, in your `Startup.cs` file, add a singleton service for your `GlobalData` class in the `ConfigureServices` method:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<GlobalData>();
+    // ...
+}
+```
+
+3. Now you can inject `GlobalData` into your controllers and use it to store and retrieve data:
+
+```csharp
+[Route("api/[controller]")]
+public class MyController : Controller
+{
+    private readonly GlobalData _globalData;
+
+    public MyController(GlobalData globalData)
+    {
+        _globalData = globalData;
+    }
+
+    [HttpGet]
+    public string Get()
+    {
+        return _globalData.MyData;
+    }
+
+    [HttpPost]
+    public void Post([FromBody] string value)
+    {
+        _globalData.MyData = value;
+    }
+}
+```
+
+In this example, `GlobalData` is a singleton service, which means that the same instance is used throughout the application. Therefore, when you set a value in one controller, it will be available in all other controllers as well.

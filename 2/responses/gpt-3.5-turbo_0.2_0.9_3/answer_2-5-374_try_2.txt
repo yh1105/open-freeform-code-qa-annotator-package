@@ -1,0 +1,7 @@
+The error message suggests that the native library for JNA could not be loaded properly. This could be due to a mismatch between the architecture of the library and the architecture of your M1 chip.
+
+One possible solution is to try installing the latest version of JNA (currently 5.9.0) and see if that resolves the issue. You can download the JNA jar file from the official website (https://github.com/java-native-access/jna) and add it to your classpath.
+
+Another solution is to try running Cassandra in compatibility mode using Rosetta. To do this, right-click on the Cassandra executable and select "Get Info". Check the box that says "Open using Rosetta" and then try running Cassandra again.
+
+If neither of these solutions work, you may need to wait for a new version of Cassandra that is compatible with the M1 chip.

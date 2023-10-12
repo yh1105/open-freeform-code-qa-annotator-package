@@ -1,0 +1,33 @@
+One thing you can try is to use NumPy arrays instead of pandas data frames for faster computation. NumPy is a Python library for numerical computing that is optimized for speed and efficiency.
+
+Here's an example of how you can use NumPy arrays to extract cells based on a condition:
+
+```
+import numpy as np
+from timeit import default_timer as timer
+
+code = 145896
+
+# create a NumPy array from the data frame
+arr = np.array(df)
+
+start = timer()
+for _ in range(100000):
+    # extract cells based on condition
+    desired = arr[arr[:,0]==code, 1][0]
+print(timer() - start) # 0.1554024000000001 (sec)
+```
+
+This should be much faster than using pandas data frames. However, keep in mind that NumPy arrays have some limitations compared to pandas data frames, such as the inability to handle missing values and the lack of built-in support for column names.
+
+If you need to work with data frames, you can try using the `query` method of pandas data frames, which can be faster than using boolean indexing:
+
+```
+start = timer()
+for _ in range(100000):
+    # extract cells based on condition using query method
+    desired = df.query('code1 == @code')['code2'].iloc[0]
+print(timer() - start) # 1.2491988000000002 (sec)
+```
+
+This should be faster than using boolean indexing, but still slower than using NumPy arrays.

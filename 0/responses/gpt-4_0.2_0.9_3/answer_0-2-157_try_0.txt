@@ -1,0 +1,19 @@
+The warning message you're seeing is due to a change in how `::v-deep` is used in Vue 3. The new syntax is `::v-deep(<inner-selector>)`. 
+
+So, you should change your CSS from:
+
+```css
+.parent ::v-deep .child {
+   ...
+}
+```
+
+To:
+
+```css
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+This new syntax is more explicit and helps to avoid potential parsing ambiguity.

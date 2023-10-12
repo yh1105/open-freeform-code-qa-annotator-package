@@ -1,0 +1,13 @@
+It sounds like the issue may be with the button itself. Here are a few things you can try:
+
+1. Check the button properties: Right-click on the button and select "Format Control". Make sure the "Control" tab has the correct macro name in the "Cell link" field.
+
+2. Check the button shape: Make sure the button shape is not grouped with other shapes or objects. If it is, ungroup it and try assigning the macro again.
+
+3. Check the button location: Make sure the button is not located in a protected area of the worksheet. If it is, unprotect the worksheet and try again.
+
+4. Check the button name: Make sure the button name does not conflict with any other object or variable names in your code.
+
+5. Try recreating the button: Delete the existing button and create a new one. Assign the macro to the new button and see if it works.
+
+If none of these solutions work, it may be a more complex issue with your spreadsheet or VBA environment. In that case, you may want to seek assistance from a VBA expert or Microsoft support.

@@ -1,0 +1,24 @@
+JUnit 5 provides a built-in way to read test data from a CSV file using the `@CsvFileSource` annotation. This annotation is used in conjunction with `@ParameterizedTest`. 
+
+Here's how you can use it:
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+public class Test {
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/test-data.csv", numLinesToSkip = 1)
+    public void shouldCalculateDiscount(String column1, long column2, double column3) {
+        assertEquals(5, column1.length());
+        assertEquals(column3, column2, 0.0001);
+    }
+}
+```
+
+In the above code, `@CsvFileSource` reads the CSV file from the classpath. The `resources` attribute specifies the path to the CSV file. The `numLinesToSkip` attribute is used to skip the header row.
+
+The CSV file (`test-data.csv`) should be located in the `resources` folder in your project.
+
+This approach allows you to easily parameterize your tests with different sets of data from a CSV file. The parameters for each test case are derived from the lines in the CSV file. Each line in the CSV file corresponds to a single invocation of the parameterized test, and the comma-separated values in each line will be used as arguments for the test method.

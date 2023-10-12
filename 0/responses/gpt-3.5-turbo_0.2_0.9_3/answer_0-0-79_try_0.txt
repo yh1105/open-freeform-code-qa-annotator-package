@@ -1,0 +1,18 @@
+It looks like the error is caused by the fact that you are trying to import a local file using a relative path, but the path is incorrect. 
+
+Make sure that the path to the `api.js` file is correct and that it is relative to the `server.js` file. 
+
+Also, try adding the file extension to the import statement like this:
+
+```
+import apis from './src/server/api.js'
+``` 
+
+If the issue persists, you can try using the `path` module to resolve the correct path to the file. 
+
+```
+import path from 'path';
+import apis from path.resolve(__dirname, './src/server/api.js');
+``` 
+
+This should resolve the correct path to the `api.js` file.

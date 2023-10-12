@@ -1,0 +1,13 @@
+Yes, it is possible to create similar scope functions in JavaScript/TypeScript. There are several libraries available that provide similar functionality. Some of the popular ones are:
+
+1. Lodash: Lodash provides a `_.tap` function that allows you to pass a value to a function and then return the value. This is similar to Kotlin's `apply` function.
+
+2. Ramda: Ramda provides a `tap` function that allows you to perform side effects on a value and then return the value. This is similar to Kotlin's `also` function.
+
+3. Underscore.js: Underscore.js provides a `tap` function that allows you to perform side effects on a value and then return the value. This is similar to Kotlin's `also` function.
+
+4. RxJS: RxJS provides a `tap` operator that allows you to perform side effects on a value and then return the value. This is similar to Kotlin's `also` function.
+
+5. jQuery: jQuery provides a `$.fn.tap` function that allows you to perform side effects on a jQuery object and then return the object. This is similar to Kotlin's `apply` function.
+
+These libraries provide similar functionality to Kotlin's scope functions, but they may have slightly different syntax and behavior.

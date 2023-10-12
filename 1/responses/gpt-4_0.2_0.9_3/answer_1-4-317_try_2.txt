@@ -1,0 +1,33 @@
+The issue with your code is that you are not specifying which column to update in the `big` data.table. You can use the `:=` operator to update the `col` column in `big` with the corresponding values from `new_big` where the `id` matches.
+
+Here is the correct code:
+
+```r
+big[new_big, col := i.col, on = .(id)]
+```
+
+This code performs a join on `id` and updates the `col` column in `big` with the corresponding values from `new_big`.
+
+Let's break it down:
+
+- `big[new_big, on = .(id)]`: This part performs a join on `id`. It matches rows in `big` with rows in `new_big` where the `id` is the same.
+- `col := i.col`: This part updates the `col` column in `big` with the corresponding values from `new_big`. The `i.` prefix is used to refer to the columns of `new_big` in the join.
+
+After running the code, `big` will be updated as follows:
+
+```r
+> big
+    id col
+ 1:  B   1
+ 2:  C 103
+ 3:  D 102
+ 4:  E  11
+ 5:  F 104
+ 6:  G 111
+ 7:  H 104
+ 8:  I 104
+ 9:  J 104
+10:  K 103
+```
+
+This is exactly the output you wanted.

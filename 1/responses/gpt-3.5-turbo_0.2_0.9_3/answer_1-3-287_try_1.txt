@@ -1,0 +1,23 @@
+The issue with the code you provided is that the `dataclass_json` decorator only adds methods to serialize and deserialize the dataclass to and from JSON, but it does not actually register the class with the JSON encoder. Therefore, when you try to serialize a list of `Prod` objects, the JSON encoder does not know how to handle them.
+
+To solve this issue, you can create a custom JSON encoder that checks if an object is a dataclass and serializes it using the `asdict` function from the `dataclasses` module. Here's an example:
+
+```
+import json
+from dataclasses import asdict, is_dataclass
+
+class DataclassEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if is_dataclass(obj):
+            return asdict(obj)
+        return super().default(obj)
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+pjson = json.dumps(prods, cls=DataclassEncoder)
+```
+
+In this example, we define a custom JSON encoder called `DataclassEncoder` that inherits from `json.JSONEncoder`. We override the `default` method, which is called by the encoder when it encounters an object it does not know how to serialize.
+
+In our implementation of `default`, we first check if the object is a dataclass using the `is_dataclass` function. If it is, we serialize it using the `asdict` function from the `dataclasses` module. Otherwise, we call the `default` method of the parent class to handle the serialization.
+
+Finally, we pass an instance of `DataclassEncoder` to the `cls` parameter of the `json.dumps` function to use our custom encoder for serialization.

@@ -1,0 +1,11 @@
+This error message suggests that the preview code is not associated with any target in the current Xcode scheme. Here are a few things you can try to fix the issue:
+
+1. Check the scheme settings: Make sure that the scheme for your project is set up correctly. Go to Product > Scheme > Edit Scheme and make sure that the correct target is selected for the scheme.
+
+2. Clean the build folder: Sometimes Xcode can get confused and fail to build the preview. Try cleaning the build folder by going to Product > Clean Build Folder and then try running the preview again.
+
+3. Restart Xcode: If all else fails, try restarting Xcode. This can sometimes fix issues with previews not working.
+
+4. Check for updates: Make sure that you have the latest version of Xcode installed. If not, try updating to the latest version and see if that fixes the issue.
+
+Hopefully, one of these solutions will help you get your SwiftUI previews working again.

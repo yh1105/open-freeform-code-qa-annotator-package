@@ -1,0 +1,22 @@
+The problem with your code is that SFINAE only works when the substitution failure happens in the immediate context of the template instantiation. In your case, the substitution failure is not in the immediate context because it's in the base template, not in the template argument list.
+
+Here's how you can fix it:
+
+```cpp
+namespace detail {
+    template <typename T, typename = void>
+    struct BaseType {
+        using Type = std::decay_t<T>;
+    };
+
+    template <typename T>
+    struct BaseType<T, std::enable_if_t<std::is_enum_v<T>>> {
+        using Type = std::underlying_type_t<T>;
+    };
+}
+
+template <class T>
+using base_type_t = typename detail::BaseType<T>::Type;
+```
+
+In this version, the `std::enable_if_t` is part of the template argument list, so if `std::is_enum_v<T>` is `false`, the substitution failure happens in the immediate context, and SFINAE kicks in to remove the second specialization from consideration. If `std::is_enum_v<T>` is `true`, the second specialization is a better match, so it's chosen over the first one.

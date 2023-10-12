@@ -1,0 +1,25 @@
+The error message you're seeing is because TypeScript is unable to find a declaration for `process.env`. This is because `process.env` is a Node.js global variable, and TypeScript does not include Node.js type definitions by default.
+
+To fix this issue, you need to install the Node.js type definitions. You can do this by running the following command in your terminal:
+
+```bash
+npm install --save-dev @types/node
+```
+
+After you've installed the type definitions, you should be able to use `process.env` without any issues.
+
+However, if you're using Vue CLI, you should note that all environment variables that start with `VUE_APP_` will be automatically loaded into your Vue application. So, you could use `process.env.VUE_APP_APP_ENV` instead of `process.env.APP_ENV`.
+
+Also, remember to define your environment variables in a `.env` file at the root of your project. For example:
+
+```
+VUE_APP_APP_ENV=prod
+```
+
+And then in your code, you can access this variable like this:
+
+```typescript
+const isProduct = process.env.VUE_APP_APP_ENV === "prod";
+```
+
+This way, you are following the Vue CLI's convention for environment variables, and you don't need to worry about the TypeScript error.

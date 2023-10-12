@@ -1,0 +1,36 @@
+It seems like you are facing dependency conflicts while updating your Angular project. Here are some steps you can try to resolve the issue:
+
+1. Clear the npm cache by running the following command:
+```
+npm cache clean --force
+```
+
+2. Delete the `node_modules` folder and `package-lock.json` file.
+
+3. Install the latest version of `@angular/cli` globally by running the following command:
+```
+npm install -g @angular/cli@latest
+```
+
+4. Install the packages in the following order:
+```
+npm install @angular/compiler-cli@11.0.0
+npm install @angular-devkit/build-angular@0.1100.1
+npm install @angular/core@11.0.0
+npm install @angular/cdk@11.0.0
+npm install @angular/material@11.0.0
+```
+
+5. If you still face dependency conflicts, try updating the conflicting packages individually by running the following commands:
+```
+ng update @angular/cli @angular/core
+ng update @angular-devkit/build-angular
+ng update @angular/cdk
+ng update @angular/material
+```
+
+6. If the issue persists, try updating to a lower version of Angular and then updating to the desired version.
+
+7. If none of the above steps work, you can try creating a new Angular project with the desired version and copying over your code and dependencies.
+
+I hope these steps help you resolve the issue. Let me know if you have any further questions.

@@ -1,0 +1,22 @@
+The data in the `segment_stemming` column is currently stored as a string, not as a list of tuples. Therefore, you need to convert this string into a list of tuples first. Then, you can use the `unnest` function from the `tidyverse` package to split the list of tuples into separate rows.
+
+Here is a way to do this:
+
+```r
+library(data.table)
+library(tidyverse)
+library(stringr)
+
+# Convert the string into a list of tuples
+x[, segment_stemming := str_match_all(segment_stemming, "\\('(.*?)', '(.*?)'\\)")]
+
+# Split the list of tuples into separate rows
+x <- x %>% unnest(segment_stemming)
+
+# Combine the tuples back into a string
+x[, segment_stemming := paste0("('", segment_stemming[,1], "', '", segment_stemming[,2], "')")]
+
+x
+```
+
+This will give you the desired output. However, please note that the tuples are still stored as strings. If you want to work with the individual elements of the tuples, you might want to keep them separated instead of combining them back into a string.

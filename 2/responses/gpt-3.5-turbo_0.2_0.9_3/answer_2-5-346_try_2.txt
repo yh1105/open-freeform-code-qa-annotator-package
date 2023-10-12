@@ -1,0 +1,21 @@
+It seems like you have set up everything correctly. However, there might be a possibility that the Gradle build is not picking up the correct JDK version. 
+
+You can try adding the following lines to your `build.gradle` file:
+
+```
+compileJava {
+    options.release = 17
+}
+```
+
+This will explicitly set the Java version to 17 for the compilation process.
+
+If that doesn't work, you can try running the following command in your terminal:
+
+```
+./gradlew clean build --refresh-dependencies
+```
+
+This will clean your Gradle build and refresh the dependencies, which might help in picking up the correct JDK version.
+
+If none of the above solutions work, you can try checking your system's environment variables to ensure that the correct JDK version is being used. You can also try reinstalling the JDK and restarting IntelliJ to see if that resolves the issue.

@@ -1,0 +1,13 @@
+You can use the `IFS` (Internal Field Separator) variable to set the delimiter to a comma and then use the `echo` command to print the array elements separated by a comma. Here's an example:
+
+```
+IFS=','; echo "${data[*]}"
+```
+
+This will set the delimiter to a comma and then print the array elements separated by a comma. The output will be:
+
+```
+/QE-CI-RUN-71/workspace/QE-AU/57/testng-results_1.xml,/QE-CI-RUN-71/workspace/QE-AU/57/testng-results_2.xml
+```
+
+Note that the `IFS` variable is set only for the `echo` command and will not affect the rest of your script.

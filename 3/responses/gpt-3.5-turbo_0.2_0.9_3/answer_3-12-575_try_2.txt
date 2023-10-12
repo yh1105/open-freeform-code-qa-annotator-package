@@ -1,0 +1,77 @@
+To post data to the URL body in Flutter WebView, you can use the `postUrl` method of the `WebView` class. Here's an example:
+
+```dart
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+class MyWebView extends StatefulWidget {
+  @override
+  _MyWebViewState createState() => _MyWebViewState();
+}
+
+class _MyWebViewState extends State<MyWebView> {
+  final _webViewKey = GlobalKey<WebViewContainerState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My WebView'),
+      ),
+      body: WebViewContainer(
+        key: _webViewKey,
+        initialUrl: 'https://example.com',
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _postData();
+        },
+        child: Icon(Icons.send),
+      ),
+    );
+  }
+
+  void _postData() async {
+    final postData = {'name': 'John', 'age': 30};
+    final postDataJson = json.encode(postData);
+    final postDataBytes = utf8.encode(postDataJson);
+    final webView = _webViewKey.currentState?.webView;
+    if (webView != null) {
+      await webView.postUrl('https://example.com', postDataBytes);
+    }
+  }
+}
+
+class WebViewContainer extends StatefulWidget {
+  final String initialUrl;
+
+  const WebViewContainer({Key? key, required this.initialUrl}) : super(key: key);
+
+  @override
+  WebViewContainerState createState() => WebViewContainerState();
+}
+
+class WebViewContainerState extends State<WebViewContainer> {
+  late WebViewController _controller;
+
+  WebViewController get webView => _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      initialUrl: widget.initialUrl,
+      javascriptMode: JavascriptMode.unrestricted,
+      onWebViewCreated: (controller) {
+        _controller = controller;
+      },
+    );
+  }
+}
+```
+
+In this example, we create a `MyWebView` widget that contains a `WebViewContainer` widget. The `WebViewContainer` widget is responsible for creating the `WebView` and providing a reference to its `WebViewController`. We also create a floating action button that calls the `_postData` method when pressed.
+
+The `_postData` method creates a `Map` of data to be posted, converts it to JSON, and then to bytes using the `utf8` encoding. It then calls the `postUrl` method of the `WebViewController` to post the data to the URL body.
+
+Note that the `postUrl` method is an asynchronous method, so we need to use the `await` keyword to wait for the response. Also, make sure to import the `dart:convert` package to use the `json` and `utf8` classes.

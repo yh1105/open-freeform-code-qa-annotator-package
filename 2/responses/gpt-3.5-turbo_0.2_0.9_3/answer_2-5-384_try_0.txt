@@ -1,0 +1,25 @@
+To mock the `SomeProperties` class with properties from `application-test.properties` file, you can use the `@TestPropertySource` annotation in your test class. 
+
+Here's an example:
+
+```
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SomeService.class)
+@ActiveProfiles("test")
+@EnableConfigurationProperties
+@TestPropertySource(locations="classpath:application-test.properties")
+public class SomeServiceTest {
+
+    @Autowired
+    private SomeService someService;
+
+    @MockBean
+    private SomeProperties someProperties;
+
+    // your test methods
+}
+```
+
+In the above example, the `@TestPropertySource` annotation is used to specify the location of the `application-test.properties` file. This file should contain the properties that you want to use for testing.
+
+Also, note that I have used `@MockBean` instead of `@Mock` to mock the `SomeProperties` class. This is because `@MockBean` is a Spring Boot annotation that creates a mock instance of the bean and registers it in the Spring application context. This allows the mock to be injected into the `SomeService` class during testing.

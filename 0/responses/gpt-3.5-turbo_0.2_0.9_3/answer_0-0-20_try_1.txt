@@ -1,0 +1,28 @@
+The issue with the current implementation is that the `styled.li` component is being created inside the functional component `Tab`. This means that every time `Tab` is rendered, a new `styled.li` component is created, which can lead to performance issues.
+
+To refactor the code and use the required props to create a dynamic style, you can move the `styled.li` component outside of the `Tab` component and pass the required props as arguments to the styled component. Here's an example:
+
+```
+import React from 'react'
+import styled from 'styled-components'
+
+const TabWrapper = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px;
+  margin: 1px;
+  font-size: 3em;
+  color: ${props => (props.isSelected ? `white` : `black`)};
+  background-color: ${props => (props.isSelected ? `black` : `#C4C4C4`)};
+  cursor: ${props => (props.isSelected ? 'default' : `pointer`)};
+`
+
+const Tab = ({ onClick, isSelected, children }) => {
+  return <TabWrapper onClick={onClick} isSelected={isSelected}>{children}</TabWrapper>
+}
+
+export default Tab
+```
+
+In this refactored code, the `TabWrapper` component is defined outside of the `Tab` component, and the required props (`isSelected`) are passed as arguments to the styled component. In the `Tab` component, the `TabWrapper` component is used and the `isSelected` prop is passed to it. This way, the `styled.li` component is only created once and the required props are used to create a dynamic style.

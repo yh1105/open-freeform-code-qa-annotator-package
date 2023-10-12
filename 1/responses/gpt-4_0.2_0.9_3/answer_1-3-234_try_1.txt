@@ -1,0 +1,43 @@
+The errors you are encountering are due to the incompatibility between TensorFlow and NumPy versions. TensorFlow 2.2.0 requires NumPy version >= 1.19.2 but < 1.20.0. However, the latest versions of some other packages may require NumPy version >= 1.20.0.
+
+Here are some steps you can try to resolve the issue:
+
+1. Create a new Python virtual environment. This is to ensure that the changes you make do not affect your other projects. You can use `venv` module which is included in standard Python library to create a virtual environment:
+
+    ```
+    python -m venv myenv
+    ```
+
+    To activate the virtual environment:
+
+    - On Windows:
+
+        ```
+        .\myenv\Scripts\activate
+        ```
+
+    - On Unix or MacOS:
+
+        ```
+        source myenv/bin/activate
+        ```
+
+2. Install TensorFlow 2.2.0 in the virtual environment:
+
+    ```
+    pip install tensorflow==2.2.0
+    ```
+
+3. Install the correct version of NumPy:
+
+    ```
+    pip install numpy==1.19.5
+    ```
+
+    This version should work with TensorFlow 2.2.0 and also resolve the `numpy.ndarray size changed` error.
+
+4. Install other required packages. Make sure to install the versions that are compatible with TensorFlow 2.2.0 and NumPy 1.19.5.
+
+5. Run your script again.
+
+Remember to activate the virtual environment every time you work on this project. If you still encounter errors, they might be due to other packages. In that case, you will need to find the versions that are compatible with both TensorFlow 2.2.0 and NumPy 1.19.5.

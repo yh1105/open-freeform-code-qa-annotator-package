@@ -1,0 +1,31 @@
+The error message suggests that `expressJwt` is not a function, which means it is not being imported correctly. 
+
+Make sure that you have installed the `express-jwt` package and that you are importing it correctly. You can try changing your import statement to:
+
+```
+const expressJwt = require('express-jwt').default;
+```
+
+This should import the default export of the `express-jwt` module, which should be the `expressJwt` function.
+
+If this doesn't work, you can try importing the `jsonwebtoken` package and using it directly to verify the JWT token. Here's an example:
+
+```
+const jwt = require('jsonwebtoken');
+
+exports.requireSignin = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Authorization failed: No token provided' });
+  }
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.auth = decodedToken;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Authorization failed: Invalid token' });
+  }
+};
+```
+
+This middleware function checks for the JWT token in the `Authorization` header of the request, verifies it using the `jsonwebtoken` package, and sets the decoded token in the `auth` property of the request object.

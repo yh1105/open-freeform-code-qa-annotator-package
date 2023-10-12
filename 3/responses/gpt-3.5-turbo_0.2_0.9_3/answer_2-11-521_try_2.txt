@@ -1,0 +1,7 @@
+Yes, the comment is correct. A constructor is a special type of function that is automatically called when an object is created. The purpose of a constructor is to initialize the object's properties and set its initial state.
+
+While a constructor may look like a regular function, it is not considered a function in the traditional sense. This is because a constructor is not called directly like a regular function. Instead, it is called implicitly when an object is created using the `new` keyword.
+
+Additionally, constructors have some special rules and restrictions that regular functions do not have. For example, constructors must have the same name as the class they belong to, and they cannot have a return type.
+
+So while a constructor may look and behave like a function in some ways, it is a unique type of function that serves a specific purpose in object-oriented programming.

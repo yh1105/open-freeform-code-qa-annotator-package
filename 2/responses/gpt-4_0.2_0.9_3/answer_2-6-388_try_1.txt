@@ -1,0 +1,17 @@
+The `[Keyless]` attribute is not part of `System.ComponentModel.DataAnnotations`, it's part of `Microsoft.EntityFrameworkCore`. So, you need to make sure you have the correct using directive at the top of your file:
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+```
+
+Also, ensure that you have the correct version of Entity Framework Core installed that supports keyless entity types. This feature was introduced in EF Core 3.0, so you need to have at least this version or a later one.
+
+You can check your EF Core version in your .csproj file. If you're using a version older than 3.0, you'll need to update it. You can do this through the NuGet package manager in Visual Studio, or by manually editing the .csproj file to include the correct version:
+
+```xml
+<ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+</ItemGroup>
+```
+
+Remember to restore the packages after updating the version.

@@ -1,0 +1,11 @@
+The `permitted_classes` option in YAML.load_file only allows the specified classes to be loaded, but it does not allow any other classes that may be used as part of the specified classes. In your case, `Matrix` and `OpenStruct` may use other classes such as `Symbol` that are not permitted by default.
+
+To fix this, you can add the `Symbol` class to the `permitted_classes` list as well. You can also use the `permitted_symbols` option to allow specific symbols to be loaded. Here's an example:
+
+```
+hsh = YAML.load_file some_file_name, permitted_classes: [Matrix, OpenStruct, Symbol], permitted_symbols: [:some_symbol]
+```
+
+This will allow the `Matrix`, `OpenStruct`, and `Symbol` classes to be loaded, as well as the `some_symbol` symbol. You can add more symbols to the `permitted_symbols` list as needed.
+
+Note that allowing arbitrary classes and symbols to be loaded from YAML files can be a security risk, so it's important to only allow the classes and symbols that are necessary for your application to function properly.

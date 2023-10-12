@@ -1,0 +1,8 @@
+It sounds like the VBA project may have become corrupted. Here are a few steps you can try to fix the issue:
+
+1. Make a backup copy of your workbook before proceeding.
+2. Try opening the workbook on a different computer to see if the issue persists.
+3. Open a new workbook and import the modules from the corrupted workbook. To do this, go to the VBE, right-click on the project, and select "Import File." Select the module you want to import and repeat for all modules.
+4. If the above steps don't work, you can try exporting all the modules to a text file, then deleting the VBA project and re-importing the modules. To export the modules, go to the VBE, select the project, and go to File > Export. Save the file as a text file. Then, delete the VBA project by right-clicking on it and selecting "Remove." Finally, re-import the modules by going to File > Import File and selecting the text file you exported earlier.
+
+Hopefully one of these steps will help you fix the issue.

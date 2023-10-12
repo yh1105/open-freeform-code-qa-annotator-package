@@ -1,0 +1,79 @@
+The `java.lang.AbstractMethodError` occurs when a class that implements an interface or extends an abstract class does not implement all the abstract methods of the interface or abstract class. 
+
+In your case, the error is occurring because `ResponseSpecificationImpl` class from `REST Assured` library is missing an implementation for the `getProperty` method. This could be due to a version mismatch between `REST Assured` and other dependencies in your project.
+
+To resolve this issue, you can try the following steps:
+
+1. Update the `REST Assured` version to the latest version (currently 4.4.0) in your `pom.xml` file.
+
+2. Remove the `io.rest-assured/spring-mock-mvc` dependency from your `pom.xml` file. This is not needed as `REST Assured` already includes this dependency.
+
+3. Replace `org.hamcrest.Matchers.*` with `org.hamcrest.CoreMatchers.*` in your `SampleControllerTest.java` file.
+
+Here's the updated `pom.xml` file:
+
+```
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- JUnit -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.4.0</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-path</artifactId>
+        <version>4.4.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/xml-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>xml-path</artifactId>
+        <version>4.4.0</version>
+    </dependency>
+</dependencies>
+```
+
+And here's the updated `SampleControllerTest.java` file:
+
+```
+package org.example;
+
+import org.junit.Test;
+
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+public class SampleControllerTest {
+    @Test
+    public void testGetSample() {
+        given()
+            .standaloneSetup(new SampleController())
+            .when()
+            .get("/sample")
+            .then()
+            .assertThat(status().isOk())
+            .body(equalTo("success"));
+    }
+}
+```
+
+After making these changes, run `mvn clean test` to run the test again. This should resolve the `java.lang.AbstractMethodError` issue.

@@ -1,0 +1,31 @@
+You can achieve this by using the `groupby` function in pandas along with the `first` function. The `first` function will return the first non-null value in each group. 
+
+Before that, you need to convert the 'Date' column into date format (without time) because you want to group the data by date.
+
+Here is how you can do it:
+
+```python
+import pandas as pd
+import numpy as np
+
+NaN = np.nan
+data = {'ID':['A', 'A', 'A', 'B','B','B'],
+    'Date':['2021-09-20 04:34:57', '2021-09-20 04:37:25', '2021-09-20 04:38:26', '2021-09-01 00:12:29','2021-09-01 11:20:58','2021-09-02 09:20:58'],
+    'Name':['xx',NaN,NaN,'yy',NaN,NaN],
+    'Height':[174,NaN,NaN,160,NaN,NaN],
+    'Weight':[74,NaN,NaN,58,NaN,NaN],
+    'Gender':[NaN,'Male',NaN,NaN,'Female',NaN],
+    'Interests':[NaN,NaN,'Hiking,Sports',NaN,NaN,'Singing']}
+
+df1 = pd.DataFrame(data)
+
+# Convert 'Date' to datetime and then to date (without time)
+df1['Date'] = pd.to_datetime(df1['Date']).dt.date
+
+# Group by 'ID' and 'Date' and get the first non-null value in each group
+df1 = df1.groupby(['ID', 'Date'], as_index=False).first()
+
+print(df1)
+```
+
+This will give you the desired output.

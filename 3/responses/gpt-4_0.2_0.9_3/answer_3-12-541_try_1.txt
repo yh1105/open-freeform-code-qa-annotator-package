@@ -1,0 +1,62 @@
+The issue you're experiencing is due to the fact that the `RaisedButton` color is not being updated after the `setState` call. This is because the `_makeZoneList` function is not being called again after `setState`, so the new color is not being applied to the `RaisedButton`.
+
+To fix this, you need to ensure that the `_makeZoneList` function is called again after `setState`. You can do this by moving the creation of the buttons into the `build` method, or by using a `StatefulWidget` and calling `setState` in the `onPressed` method.
+
+Here's an example of how you can modify your `_makeZoneList` function to be a `StatefulWidget`:
+
+```dart
+class ZoneList extends StatefulWidget {
+  final List<Zone> zones;
+
+  ZoneList({this.zones});
+
+  @override
+  _ZoneListState createState() => _ZoneListState();
+}
+
+class _ZoneListState extends State<ZoneList> {
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 6.0,
+      children: widget.zones.map((zone) {
+        return RaisedButton(
+          color: zone.isSelected ? AppColors.primaryColor : AppColors.white,
+          onPressed: () {
+            setState(() {
+              zone.isSelected = !zone.isSelected;
+            });
+          },
+          child: Text(zone.text),
+        );
+      }).toList(),
+    );
+  }
+}
+```
+
+And then in your `_zoneBody` function, you can use the `ZoneList` widget like this:
+
+```dart
+Widget _zoneBody() {
+  return Padding(
+    padding: EdgeInsets.all(32),
+    child: StreamBuilder<List<Zone>>(
+      stream: GetterBloc.zonesStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return new Container();
+        } else {
+          if (snapshot.hasData) {
+            return ZoneList(zones: snapshot.data);
+          } else {
+            return new Container();
+          }
+        }
+      },
+    ),
+  );
+}
+```
+
+This way, every time a button is pressed, `setState` is called, which triggers a rebuild of the `ZoneList` widget, updating the colors of the buttons.

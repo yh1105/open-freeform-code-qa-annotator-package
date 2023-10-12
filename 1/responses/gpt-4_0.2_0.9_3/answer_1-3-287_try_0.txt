@@ -1,0 +1,36 @@
+The issue you're encountering is due to the fact that `json.dumps()` doesn't know how to serialize your custom `Prod` dataclass. You need to provide a way to convert your `Prod` objects into a serializable format.
+
+The `dataclass_json` decorator should provide this functionality, but you need to use the `.to_json()` method it provides on your dataclass instances. However, this won't work directly with a list of `Prod` objects, as the list itself doesn't have a `.to_json()` method.
+
+Here's a way to serialize a list of `Prod` objects:
+
+```python
+import json
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+@dataclass_json
+@dataclass
+class Prod:
+    id: int
+    name: str
+    price: float
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+
+# Convert each Prod object to JSON, then load it back into a Python dict
+prods_dict = [json.loads(prod.to_json()) for prod in prods]
+
+# Now you can serialize the list of dicts
+pjson = json.dumps(prods_dict)
+
+print(pjson)
+```
+
+This will output:
+
+```json
+[{"id": 1, "name": "A", "price": 25.3}, {"id": 2, "name": "B", "price": 79.95}]
+```
+
+This is a bit of a workaround, but it should solve your issue. If you find yourself doing this often, you might want to create a helper function to automate this process.

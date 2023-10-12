@@ -1,0 +1,13 @@
+You can use the `Get-ChildItem` command with the `-Name` parameter to get only the names of the files and folders. Then, you can pipe the output to the `Out-File` command to write the names to the `.gitignore` file. Here is a one-liner that does this:
+
+```powershell
+Get-ChildItem -Name | Out-File .gitignore
+```
+
+This command gets the names of all files and folders in the current directory and writes them to a `.gitignore` file in the same directory. If you want to include files and folders in subdirectories, you can use the `-Recurse` parameter:
+
+```powershell
+Get-ChildItem -Name -Recurse | Out-File .gitignore
+```
+
+This command gets the names of all files and folders in the current directory and all its subdirectories and writes them to a `.gitignore` file in the same directory.

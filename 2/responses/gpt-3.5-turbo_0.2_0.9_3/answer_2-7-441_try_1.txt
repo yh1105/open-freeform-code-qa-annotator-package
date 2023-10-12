@@ -1,0 +1,11 @@
+This issue seems to be related to Laravel Telescope, which is trying to record queries during the test and causing the error. One possible solution is to disable Telescope during testing by adding the following line to your `phpunit.xml` file:
+
+```
+<env name="TELESCOPE_ENABLED" value="false"/>
+```
+
+This will prevent Telescope from running during testing and should resolve the error. 
+
+Alternatively, you can try updating Laravel Telescope to the latest version, as this issue may have been fixed in a more recent release. 
+
+If neither of these solutions work, downgrading to PHP 7.3 may be necessary, as this error has been reported to occur with PHP 7.4 in some cases.

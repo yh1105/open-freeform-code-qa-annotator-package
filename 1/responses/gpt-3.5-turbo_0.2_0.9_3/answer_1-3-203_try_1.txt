@@ -1,0 +1,7 @@
+It's possible that the slow performance you're experiencing is due to compatibility issues with the M1 Max chip. While many software packages have been updated to support the new chip architecture, there may still be some that are not fully optimized yet. 
+
+One thing you could try is using the `pip` package manager instead of `conda` to install your Python packages. `pip` is generally more lightweight and may be better suited for the M1 Max chip. You could also try using the `--use-feature=2020-resolver` flag when installing packages with `pip`, as this can sometimes help resolve compatibility issues.
+
+Another thing to consider is using a virtual environment to isolate your Python installation and packages. This can help ensure that you're using the correct versions of packages and avoid conflicts between different versions of Python.
+
+Finally, it's worth noting that performance can vary depending on the specific task you're trying to perform. While your test code is a good benchmark, it may not be representative of the performance you'll see in your actual work. It's always a good idea to test your code on your specific hardware and see how it performs before making any decisions about optimization.

@@ -1,0 +1,7 @@
+You can use Optional in Java 8 and above to handle null values in a cleaner way. Here's how you can do it:
+
+```java
+Optional.ofNullable(siteRequest.getName()).map(String::trim).orElse(null);
+```
+
+This code will return the trimmed string if `siteRequest.getName()` is not null, and null otherwise. This way, you avoid the NullPointerException that would be thrown if you tried to call `trim()` on a null value.

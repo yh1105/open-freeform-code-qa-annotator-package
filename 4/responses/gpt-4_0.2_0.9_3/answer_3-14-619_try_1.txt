@@ -1,0 +1,40 @@
+The code you provided is correct, but it seems like you're trying to use it in a standalone way. The `@Binding` property wrapper is used to create a two-way connection between a property that stores data, and a view that displays and changes the data. 
+
+In your case, `isSelected` is a binding variable in `ContentView` which means it doesn't own the data but it can read and write it. The owner of the data is the `selected` state property in `ContentView_Previews`.
+
+The problem is that you're trying to use `ContentView` alone. It needs to be used as a part of another view which provides the binding. Here is an example of how you can use it:
+
+```swift
+import SwiftUI
+
+struct ParentView: View {
+    @State private var selected: Bool = false
+
+    var body: some View {
+        VStack {
+            ContentView(isSelected: $selected)
+            Text("Current selection: \(selected ? "Selected" : "Not Selected")")
+        }
+    }
+}
+
+struct ContentView: View {
+    @Binding var isSelected: Bool
+
+    var body: some View {
+        Button(action: {
+            self.isSelected.toggle()
+        }) {
+            Text(isSelected ? "Selected" : "Not Selected")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ParentView()
+    }
+}
+```
+
+In this example, `ParentView` is the owner of the data and it passes a binding to this data to `ContentView`. When you click the button in `ContentView`, it updates the `selected` state in `ParentView` and the text in `ParentView` changes accordingly.

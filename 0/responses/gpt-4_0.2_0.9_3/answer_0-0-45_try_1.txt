@@ -1,0 +1,27 @@
+Yes, you can type `previousPieceSelected` directly in the initial state return. TypeScript allows you to specify the type of a variable directly. Here's how you can do it:
+
+```typescript
+export const useStore = defineStore("game", {
+  state: () => {
+    return {
+      moves: [],
+      gameBoard:  getInitialBoard(),
+      playerTurn: PieceColor.White,
+      previousPieceSelected: undefined as Piece | undefined
+    }
+  },
+  actions: {
+    changePlayer() {
+      this.playerTurn =
+          this.playerTurn === PieceColor.White
+            ? PieceColor.Black
+            : PieceColor.White;
+    },
+    updatePreviousPieceSelected(piece: Piece | undefined ) {
+      this.previousPieceSelected = piece
+    }
+  }
+})
+```
+
+In the above code, `previousPieceSelected` is typed as `Piece | undefined` directly in the initial state return. This should solve your problem without the need for the `getInitialPreviousPieceSelected` function.

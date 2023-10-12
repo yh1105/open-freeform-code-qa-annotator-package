@@ -1,0 +1,11 @@
+In Ruby 3.1, the YAML parser has been updated to only allow a whitelist of permitted classes to be loaded. This is a security feature to prevent arbitrary code execution when loading YAML files.
+
+To fix the error, you need to add the `Symbol` class to the `permitted_classes` list. You can do this by modifying your code to:
+
+```
+hsh = YAML.safe_load(File.read(some_file_name), permitted_classes: [Matrix, OpenStruct, Symbol])
+```
+
+Note that `safe_load` is used instead of `load_file` to avoid loading the file from the filesystem directly. Instead, the file is read into memory using `File.read` and then passed to `safe_load`.
+
+Also, make sure that you only add classes to the `permitted_classes` list that you trust and are safe to load from the YAML file.

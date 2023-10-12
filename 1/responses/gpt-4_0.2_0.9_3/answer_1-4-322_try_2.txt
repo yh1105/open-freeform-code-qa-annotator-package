@@ -1,0 +1,18 @@
+You can use the `split()` function in base R to achieve this. The `split()` function divides the data into subsets according to the factor levels. Here is how you can do it:
+
+```r
+desired_output <- split(my_data$list_values, my_data$list_names)
+```
+
+If you want to use `tidyverse`, you can use `nest()` function from `tidyr` package:
+
+```r
+library(tidyverse)
+
+desired_output <- my_data %>%
+  group_by(list_names) %>%
+  summarise(list_values = list(list_values)) %>%
+  deframe()
+```
+
+The `deframe()` function is used to convert the data frame to a named list.

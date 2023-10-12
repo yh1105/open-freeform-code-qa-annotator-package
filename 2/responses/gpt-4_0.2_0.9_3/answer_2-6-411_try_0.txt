@@ -1,0 +1,26 @@
+In your case, where you don't have any synchronous cleanup to do, you can leave the `Dispose(bool disposing)` method empty. The purpose of this method is to clean up managed and unmanaged resources in a synchronous way. If you don't have any such resources, there's no need to put anything in there.
+
+However, it's important to note that if you have a class that implements `IAsyncDisposable`, and if there's a chance that it might be used in a context where the async disposal isn't used (for example, if it's used with a using statement instead of a using declaration), you should provide a synchronous fallback in the `Dispose()` method. This is to ensure that your cleanup code is always called, even if the consumer of your class doesn't use it in an async context.
+
+In your case, if the cleanup code can only be called asynchronously (like an async database cleanup call), and if you're sure that your class will only be used in an async context, you can leave the `Dispose()` method empty. But if there's a chance it might be used in a non-async context, you should consider providing a synchronous fallback, even if it's less efficient.
+
+Here's an example of how you might do that:
+
+```csharp
+protected virtual void Dispose(bool disposing)
+{
+    if (!disposed)
+    {
+        if (disposing)
+        {
+            // Synchronous cleanup code here, if necessary.
+            // For example, you might block on the async cleanup call:
+            // Database.CleanupAsync().GetAwaiter().GetResult();
+        }
+
+        disposed = true;
+    }
+}
+```
+
+This will block until the async cleanup call is complete, which is not ideal, but it ensures that the cleanup code is always called. Again, this is only necessary if there's a chance your class might be used in a non-async context. If you're sure it won't be, you can leave the `Dispose()` method empty.

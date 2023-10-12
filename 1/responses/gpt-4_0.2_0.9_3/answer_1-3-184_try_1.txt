@@ -1,0 +1,42 @@
+Sure, I can help you with that. Here's a simple example of how you can achieve this using `openpyxl`. 
+
+Firstly, you need to install the `openpyxl` module. You can do this by running the following command in your terminal:
+
+```bash
+pip install openpyxl
+```
+
+Then, you can use the following code to read your excel file and search for the specific string:
+
+```python
+from openpyxl import load_workbook
+
+# Load the workbook
+wb = load_workbook(filename='your_file.xlsx')
+
+# Select the sheet
+ws = wb['Sheet1']
+
+# The string you are looking for
+search_string = 'ABC'
+
+# List to hold rows with the search string
+rows_with_search_string = []
+
+# Iterate over the rows
+for row in ws.iter_rows(values_only=True):
+    # If the search string is in the row
+    if search_string in row:
+        # Add the row to the list
+        rows_with_search_string.append(row)
+
+# Now rows_with_search_string holds all rows with 'ABC'
+# You can access individual cells in a row like this:
+for row in rows_with_search_string:
+    for cell in row:
+        print(cell)
+```
+
+In this code, `rows_with_search_string` is a list of tuples, where each tuple represents a row in the Excel sheet. Each element in the tuple is a cell in that row. You can access the value of each cell by iterating over the rows and cells as shown in the last part of the code.
+
+Remember to replace `'your_file.xlsx'` with the path to your Excel file.

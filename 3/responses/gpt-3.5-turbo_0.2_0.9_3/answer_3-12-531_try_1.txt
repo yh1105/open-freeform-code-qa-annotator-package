@@ -1,0 +1,10 @@
+The warning is still being generated because the analyzer is not able to determine that the `containsKey` check ensures that the value is not null. To resolve the warning, you can use the null-aware operator `?` to indicate that the variable may be null, or use the null-aware assignment operator `??=` to assign a default value if the value is null. Here's an example using the null-aware operator:
+
+```
+void foo(Map<int, String> myMap) {
+  if (myMap.containsKey(1)) {
+    String? s = myMap[1];
+    print(s?.toUpperCase()); // Use null-aware operator to safely access s
+  }
+}
+```

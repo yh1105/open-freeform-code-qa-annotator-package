@@ -1,0 +1,9 @@
+The error message indicates that Python is not found in the PATH. Node-gyp, which is a dependency of node-sass, requires Python to be installed. 
+
+There are two ways to solve this:
+
+1. Install Python in your Jenkins environment and add it to the PATH. Node-gyp requires Python 2.7, so make sure to install that version. After installing Python, you can set the PYTHON environment variable to the path of the Python executable.
+
+2. If you want to bypass the Python requirement, you can use a version of node-sass that doesn't require node-gyp. Node-sass v4.14.1 and later provide pre-built binaries for popular platforms, so they don't require node-gyp and Python. You can install it with `npm install node-sass@4.14.1`.
+
+Remember to clean the npm cache with `npm cache clean` before installing the new version of node-sass.

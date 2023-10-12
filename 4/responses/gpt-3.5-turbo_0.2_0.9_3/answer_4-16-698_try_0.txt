@@ -1,0 +1,15 @@
+In MacOS, you can restart your current terminal session by using the following command:
+
+```
+source ~/.bash_profile
+```
+
+This will reload your updated `.bash_profile` file and apply any changes you have made to it. You can also use this command to reload any other configuration files that you have modified.
+
+Alternatively, you can use the `exec bash` command in MacOS terminal as well, but you need to use it slightly differently. Instead of typing `exec bash` directly into the terminal, you need to type:
+
+```
+exec $SHELL
+```
+
+This will restart your current terminal session and reload your updated `.bash_profile` file.

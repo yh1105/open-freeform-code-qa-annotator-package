@@ -1,0 +1,15 @@
+In Vue.js, when you use `reactive()`, you are creating a reactive object. If you want to reset this object, you can't just assign a new object to the variable that holds the reactive object. This is because the variable is just a reference to the reactive object, and changing the reference doesn't change the original object.
+
+Instead, you need to mutate the properties of the reactive object. If you want to reset the object to its initial state, you can create a function that returns the initial state, and then use `Object.assign()` to overwrite the properties of the reactive object with the properties of the initial state.
+
+Here is how you can modify your `pageRefresh` method to reset `view` and `config`:
+
+```javascript
+const pageRefresh = () => {
+  Object.assign(view, resetViewState());
+  Object.assign(config, resetPreRegisterConfig());
+  fetchProfilelist();
+};
+```
+
+In this code, `Object.assign(view, resetViewState())` will mutate all properties of `view` to match the properties of the object returned by `resetViewState()`. The same goes for `config` and `resetPreRegisterConfig()`.

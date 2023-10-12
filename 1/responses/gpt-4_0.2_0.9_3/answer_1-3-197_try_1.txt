@@ -1,0 +1,12 @@
+You can achieve this by using the itertools.cycle function. This function returns an iterator that produces elements from the iterable until it is exhausted. Then it repeats the sequence indefinitely.
+
+Here is how you can do it:
+
+```python
+import itertools
+
+my_list = ['abc','def','hig']
+df['names'] = list(itertools.islice(itertools.cycle(my_list), len(df)))
+```
+
+In this code, itertools.cycle(my_list) creates an infinite iterator cycling over my_list. itertools.islice(itertools.cycle(my_list), len(df)) takes the first len(df) elements from this infinite iterator, effectively repeating the list until it fills the dataframe.

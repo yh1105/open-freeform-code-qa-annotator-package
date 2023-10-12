@@ -1,0 +1,49 @@
+You can use the shared_preferences package to save the user's login details. Here's how you can do it:
+
+First, add the shared_preferences package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.6
+```
+
+Then, import the package in your login.dart file:
+
+```dart
+import 'package:shared_preferences/shared_preferences.dart';
+```
+
+Next, you can save the user's login details in SharedPreferences after a successful login:
+
+```dart
+if (response.statusCode == 200) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
+    loading = false;
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+}
+```
+
+Finally, you can retrieve the user's login details from SharedPreferences in your _fetchSessionAndNavigate() function:
+
+```dart
+_fetchSessionAndNavigate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username');
+    String password = prefs.getString('password');
+
+    if (username != null && password != null) {
+        // The user is logged in
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+    }
+}
+```
+
+Please note that storing sensitive data like passwords in SharedPreferences is not secure and not recommended. SharedPreferences data is not encrypted and can be easily read once the device is rooted. You should consider using a more secure storage solution for sensitive data, such as the flutter_secure_storage package.
+
+Also, it's better to store the authentication token instead of the username and password. The token is usually used to keep the user logged in. When the user logs in, the server should return a token, and you can store this token in SharedPreferences. When you need to authenticate a request, you just send this token in the request header. If the token is valid, the server will process the request. If the token is not valid (for example, if it has expired), the server will return an error, and you can prompt the user to log in again.

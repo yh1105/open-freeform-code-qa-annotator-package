@@ -1,0 +1,15 @@
+Yes, you've got the process mostly correct. Here's a bit more detail:
+
+1. Create a modular project: This means your project should have a `module-info.java` file that describes the modules it requires and the packages it exports.
+
+2. Package the project in a .jar format: This is the standard way to distribute Java applications. You can use IntelliJ's built-in artifact creation tool to create the .jar file, or you can use a build tool like Maven or Gradle, which might be more flexible and powerful.
+
+3. Use the tool Jlink to create a customized run-time image: This step is optional, but it can significantly reduce the size of your application by including only the necessary parts of the Java runtime.
+
+4. Use the tool jpackage: This tool takes the .jar file and the custom runtime image (if you created one) and packages them into a native application bundle (like an .exe file on Windows, .dmg on macOS, or .deb on Linux).
+
+As for your question about dependencies, it depends on how you're building your .jar file. If you're using a tool like Maven or Gradle, you can configure it to include all dependencies in the .jar file (this is called a "fat jar" or "uber jar"). If you're using IntelliJ's artifact creation tool, you'll need to manually add all necessary libraries to the artifact.
+
+However, when you create a custom runtime image with Jlink, it only includes the modules that are required by your application, not the entire Java runtime. So if your application depends on libraries that are not part of the Java runtime, you'll need to include them in your .jar file.
+
+In summary, you should include all dependencies in your .jar file, unless they are part of the Java runtime and you're creating a custom runtime image with Jlink.

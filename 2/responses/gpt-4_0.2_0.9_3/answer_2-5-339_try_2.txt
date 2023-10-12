@@ -1,0 +1,25 @@
+The error you're encountering is likely due to a compatibility issue between the Gradle version and the Android Gradle plugin version. 
+
+To resolve this issue, you should try the following steps:
+
+1. Update your Android Studio to the latest version. You can do this by going to `Help -> Check for Updates...` in Android Studio.
+
+2. Update your Android Gradle plugin to the latest version. You can do this by changing the version in your project-level `build.gradle` file:
+
+```gradle
+dependencies {
+    classpath 'com.android.tools.build:gradle:3.5.0'
+}
+```
+
+3. Update your Gradle version to the latest version. You can do this by changing the version in your `gradle/wrapper/gradle-wrapper.properties` file:
+
+```properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-5.6.4-all.zip
+```
+
+4. Sync your project with Gradle files. You can do this by clicking on `File -> Sync Project with Gradle Files` in Android Studio.
+
+5. If the problem persists, try invalidating the caches and restarting Android Studio. You can do this by clicking on `File -> Invalidate Caches / Restart... -> Invalidate and Restart` in Android Studio.
+
+Remember to replace the versions in the above examples with the latest versions of the Android Gradle plugin and Gradle at the time you're reading this. You can check the latest versions on the official Gradle and Android Gradle plugin websites.

@@ -1,0 +1,25 @@
+Yes, you can do a nested omit with TypeScript, but it's a bit more complex than the standard `Omit` utility type. You'll need to create a custom utility type that can handle nested properties. Here's an example of how you could do it:
+
+```typescript
+type DeepOmit<T, K extends string> = {
+  [P in keyof T]: P extends K ? never : T[P] extends infer R ? R extends object ? DeepOmit<R, K> : R : never;
+};
+
+type CampaignFormValues = DeepOmit<Campaign, 'optionalAttributes' | 'mandatoryAttributes'>;
+```
+
+This `DeepOmit` type will recursively traverse the properties of `T` and omit any properties that match `K`. Note that this will omit the properties from all levels of the object, not just the first level.
+
+If you want to omit properties from a specific path, you'll need to create a more complex utility type. Here's an example of how you could do it:
+
+```typescript
+type OmitNested<T, K extends string> = {
+  [P in keyof T]: P extends K ? never : T[P] extends infer R ? R extends object ? OmitNested<R, K> : R : never;
+};
+
+type CampaignFormValues = Omit<Campaign, 'attributeValues'> & {
+  attributeValues: OmitNested<Campaign['attributeValues'], 'optionalAttributes' | 'mandatoryAttributes'>
+};
+```
+
+In this example, `OmitNested` is similar to `DeepOmit`, but it only omits properties from nested objects, not from the top level object. Then, we use the `&` operator to combine the original `Campaign` type (with `attributeValues` omitted) with a new type that includes `attributeValues` but with `optionalAttributes` and `mandatoryAttributes` omitted.

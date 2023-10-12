@@ -172,3 +172,5 @@ cases:
 - cases/eval_0-2-169.yaml
 - cases/eval_0-2-170.yaml
 - cases/eval_0-2-171.yaml
+full_score_per_question: 1.0
+version: suite_v2_part_0.yaml

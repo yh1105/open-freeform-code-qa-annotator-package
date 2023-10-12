@@ -1,0 +1,27 @@
+Absolutely, you can use Windows Terminal to manage your SSH connections. Here's a step-by-step guide on how to do it:
+
+1. **Install Windows Terminal**: You can download and install Windows Terminal from the Microsoft Store or from the GitHub releases page.
+
+2. **Install OpenSSH Client**: OpenSSH client is a part of Windows 10 (1809 and later) and it's installed by default. If you don't have it installed, you can add it manually. Go to Settings -> Apps -> Apps & Features -> Optional Features -> Add a Feature -> OpenSSH Client -> Install.
+
+3. **Create SSH Connection**: Open your terminal and test your SSH connection by typing `ssh user@hostname` (replace "user" with your username and "hostname" with the IP address or hostname of the SSH server you want to connect to).
+
+4. **Add SSH Connection to Windows Terminal Profile**: Windows Terminal uses a file called `settings.json` to store its settings. You can access this file by opening Windows Terminal and clicking on the down arrow in the title bar, then select "Settings". This will open the `settings.json` file in your default JSON editor.
+
+5. In the `settings.json` file, you'll see a list of profiles for each terminal shell. You can add a new profile for your SSH connection in the "list" array. Here's an example:
+
+```json
+{
+    "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+    "hidden": false,
+    "name": "My SSH Connection",
+    "commandline": "ssh user@hostname",
+    "icon": "path-to-your-icon"
+}
+```
+
+Replace "user" and "hostname" with your SSH username and hostname. Replace "path-to-your-icon" with the path to the icon you want to use for this profile. The "guid" is a unique identifier for the profile, you can generate a new one using an online GUID generator.
+
+6. Save the `settings.json` file and close it. Now, when you open Windows Terminal, you'll see "My SSH Connection" in the dropdown menu. Click on it to start an SSH session.
+
+Remember, you'll need to replace "user@hostname" with your actual username and the hostname of the machine you're trying to connect to. If you need to connect to different machines, you can create multiple profiles, each with their own unique GUID and commandline.

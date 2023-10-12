@@ -1,0 +1,41 @@
+To implement the learning rate schedule described in the "Attention is All You Need" paper with the Adam optimizer in PyTorch, you can create a custom learning rate scheduler. Here is a simple example:
+
+```python
+import math
+import torch
+from torch.optim import Adam
+
+class CustomLR:
+    def __init__(self, model_size, factor=1, warmup=4000):
+        self.model_size = model_size
+        self.factor = factor
+        self.warmup = warmup
+        self.step_num = 0
+
+    def step(self):
+        self.step_num += 1
+        return self.factor * (self.model_size ** (-0.5) * min(self.step_num ** (-0.5), self.step_num * self.warmup ** (-1.5)))
+
+# Initialize your model
+model = ...
+
+# Initialize your optimizer
+optimizer = Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9)
+
+# Initialize your learning rate scheduler
+scheduler = CustomLR(model_size=512)
+
+for epoch in range(num_epochs):
+    for batch in dataloader:
+        optimizer.zero_grad()
+        output = model(batch)
+        loss = criterion(output, target)
+        loss.backward()
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = scheduler.step()
+        optimizer.step()
+```
+
+In this example, `CustomLR` is a custom learning rate scheduler that calculates the learning rate based on the current step number. The learning rate is updated before each optimization step by setting `param_group['lr']` to the value returned by `scheduler.step()`. 
+
+Please note that the learning rate is initialized to 0 in the Adam optimizer, as it will be updated by the scheduler at each step. The model size, warmup steps, and other parameters can be adjusted according to your specific use case.

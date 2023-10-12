@@ -1,0 +1,15 @@
+The error message indicates that Chrome failed to start and crashed. This could be due to a number of reasons, such as incompatible versions of Chrome and Chromedriver, missing dependencies, or permission issues.
+
+One thing to check is whether the Lambda function is running as root or as a non-root user. Running Chrome as root is not recommended and could cause issues. You can try running the container as a non-root user by adding the following line to your Dockerfile:
+
+```
+USER nobody
+```
+
+This will switch the user to the "nobody" user, which has limited permissions. You can also specify a different user if needed.
+
+Another thing to check is whether all the necessary dependencies are installed in the Lambda container. You can try installing additional dependencies and see if that resolves the issue.
+
+Finally, you can try running the Lambda function with increased verbosity to get more detailed error messages. You can do this by setting the `LOG_LEVEL` environment variable to `DEBUG` or `INFO`. This will output more detailed logs that can help diagnose the issue.
+
+Overall, troubleshooting issues with Lambda containers can be challenging, but by checking permissions, dependencies, and logs, you should be able to narrow down the issue and find a solution.

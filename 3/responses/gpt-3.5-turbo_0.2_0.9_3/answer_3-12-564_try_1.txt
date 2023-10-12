@@ -1,0 +1,34 @@
+The error message suggests that you are using the same ad object in more than one AdWidget. To solve this, you need to create a new instance of the ad object for each AdWidget. 
+
+One way to do this is to create a list of ad objects and use the index of the list to get the corresponding ad object for each AdWidget. Here's an example:
+
+```
+List<BannerAd> bannerAds = [];
+
+// create a list of banner ads
+for (int i = 0; i < 10; i++) {
+  bannerAds.add(AdmobService.createBannerAd()..load());
+}
+
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if (index % 2 == 0) {
+      // return a post
+      return PostWidget(post: posts[index ~/ 2]);
+    } else {
+      // return an ad
+      int adIndex = (index ~/ 2) % bannerAds.length;
+      return Container(
+        alignment: Alignment.center,
+        child: AdWidget(key: UniqueKey(), ad: bannerAds[adIndex]),
+        height: 50,
+      );
+    }
+  },
+  itemCount: posts.length * 2 - 1, // account for ads
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+);
+```
+
+In this example, we create a list of banner ads and use the index of the list to get the corresponding ad object for each AdWidget. We also use the index to determine whether to return a post or an ad. Note that we need to subtract 1 from the itemCount to account for the ads.

@@ -1,0 +1,28 @@
+In Spring Boot 2.4.0, the way that the `spring.profiles.include` property works has changed. Now, profiles specified in `spring.profiles.include` are added to the already active profiles rather than being used to create a new set of active profiles.
+
+To get the same behavior as before, you can use the `spring.config.activate.on-profile` property. This property activates a group of properties when a specific profile is active.
+
+Here is how you can use it in your `application-dev.properties` file:
+
+```properties
+# Profiles
+spring.config.activate.on-profile=dev
+
+# Properties for 'dev' profile
+# Add your properties here
+```
+
+And then in your `application.properties` file:
+
+```properties
+# Default profile
+spring.profiles.active=dev
+
+# Properties for 'auth' profile
+spring.config.activate.on-profile=auth
+# Add your properties here
+```
+
+This way, when the `dev` profile is active, the properties under `spring.config.activate.on-profile=dev` will be activated. Similarly, when the `auth` profile is active, the properties under `spring.config.activate.on-profile=auth` will be activated.
+
+Remember to replace `# Add your properties here` with the actual properties that you want to use for each profile.

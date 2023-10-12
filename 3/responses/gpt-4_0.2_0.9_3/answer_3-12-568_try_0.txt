@@ -1,0 +1,15 @@
+Running background tasks in Flutter is a bit tricky due to the nature of the Dart runtime. When a Flutter app goes to the background, the Dart runtime usually suspends execution until the app is brought back to the foreground. This is why you're having trouble finding a solution that works out-of-the-box.
+
+However, there are a few ways you can achieve this:
+
+1. **WorkManager for Android and BackgroundTasks for iOS**: These are native solutions for running background tasks in Android and iOS respectively. You can write native code in Kotlin/Swift and use platform channels to communicate with your Flutter code. This is the most reliable way to run background tasks as these APIs are designed to work with the operating system's background execution limits. However, this requires knowledge of native programming and is more complex.
+
+2. **Flutter Background Service Plugin**: This plugin allows you to run Dart code in the background. It's a simpler solution than writing native code, but it's not as reliable as the native solutions. There are also some limitations to what you can do in the background Dart code.
+
+3. **Flutter Foreground Service Plugin**: This plugin allows you to run a foreground service in Android. A foreground service is a service that the user is actively aware of and is not subject to the same background execution limits as regular background services. This is a good solution if you need to run tasks that require user awareness, such as a music player. However, it's Android only and not suitable for tasks that should run without user awareness.
+
+4. **Flutter Isolate**: Dart's version of threads. You can run long-running tasks in an isolate. However, isolates don't share memory and communication between them is based on message passing. Also, isolates are paused when the app is not in the foreground.
+
+In your case, since you need to run a sort of "always on" background service, I would recommend using the native solutions (WorkManager for Android and BackgroundTasks for iOS) despite the complexity. This is because they are the most reliable and are designed to work with the operating system's background execution limits. You can use platform channels to communicate between your native code and Flutter code.
+
+If you want to stick with Flutter, you can try the Flutter Background Service Plugin or the Flutter Foreground Service Plugin, but keep in mind the limitations and reliability issues.

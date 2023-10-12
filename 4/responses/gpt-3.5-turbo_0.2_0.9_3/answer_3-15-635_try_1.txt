@@ -1,0 +1,46 @@
+One possible solution is to use a PHP library like PHPExcel or PHPSpreadsheet to read the Excel file and extract the formatted text. Then, you can use a HTML parser like DOMDocument to convert the formatted text into HTML code.
+
+Here's an example code snippet that demonstrates this approach:
+
+```php
+// Load the Excel file
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+$spreadsheet = $reader->load('path/to/excel/file.xlsx');
+
+// Get the worksheet and iterate over the rows
+$worksheet = $spreadsheet->getActiveSheet();
+foreach ($worksheet->getRowIterator() as $row) {
+    // Get the cell value and convert it to HTML
+    $cellValue = $worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
+    $html = convertFormattedTextToHtml($cellValue);
+
+    // Save the HTML to the database
+    // ...
+}
+
+// Function to convert formatted text to HTML
+function convertFormattedTextToHtml($text) {
+    // Load the text into a DOMDocument
+    $doc = new DOMDocument();
+    $doc->loadHTML('<html><body>' . $text . '</body></html>');
+
+    // Convert the formatting tags to HTML
+    $doc->getElementsByTagName('strong')->item(0)->tagName = 'b';
+    $doc->getElementsByTagName('em')->item(0)->tagName = 'i';
+
+    // Convert line breaks to <br> tags
+    $xpath = new DOMXPath($doc);
+    foreach ($xpath->query('//text()[normalize-space(.)=""]') as $node) {
+        $node->parentNode->removeChild($node);
+    }
+    foreach ($xpath->query('//br') as $node) {
+        $node->parentNode->replaceChild($doc->createTextNode("\n"), $node);
+    }
+    $html = $doc->saveHTML();
+    $html = str_replace(array('<html>', '</html>', '<body>', '</body>', "\n"), '', $html);
+
+    return $html;
+}
+```
+
+This code assumes that the formatted text is in the first column of the Excel file. You may need to adjust it to match your specific Excel file format.

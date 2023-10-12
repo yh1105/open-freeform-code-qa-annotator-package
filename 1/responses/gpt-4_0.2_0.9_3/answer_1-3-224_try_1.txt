@@ -1,0 +1,17 @@
+Your last attempt is almost correct. The `filter` function in Python returns a filter object which is an iterator and can be converted to a list or iterated over in a loop to get its elements. 
+
+Here is how you can modify your last attempt to get the desired result:
+
+```python
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = list(filter(lambda x:x.endswith("USDT"), my_set))
+print(my_final_set)
+```
+
+This will output:
+
+```python
+['LUNAUSDT', 'BTCUSDT']
+```
+
+This code works by using the `filter` function to filter out the elements in `my_set` that end with "USDT". The `lambda` function is used to check if each element ends with "USDT". The `filter` function returns a filter object, which is then converted to a list using the `list` function.

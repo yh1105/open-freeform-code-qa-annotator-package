@@ -1,0 +1,27 @@
+The error message you're seeing is due to a change in Android 12 (API level 31). Starting from this version, you must explicitly declare if your app's components (activities, services, broadcast receivers) are able to be called from outside the app, using the `android:exported` attribute in your manifest file.
+
+In your case, the error is related to the `MainActivity` activity. You're trying to set `android:exported="false"` for it, but it seems like it's not being applied correctly.
+
+The problem is that you're trying to set `android:exported` attribute in the `config.xml` file of your Cordova project, but this attribute should be set in the `AndroidManifest.xml` file of your Android project.
+
+Here's how you can solve this issue:
+
+1. Create a custom plugin for Cordova that will modify the `AndroidManifest.xml` file during the build process. This plugin will add the `android:exported` attribute to the `MainActivity` activity.
+
+2. In the `plugin.xml` file of your custom plugin, add the following code:
+
+```xml
+<platform name="android">
+    <config-file parent="/manifest/application/activity[@android:name='MainActivity']" target="AndroidManifest.xml">
+        <activity android:exported="false" />
+    </config-file>
+</platform>
+```
+
+This code will add the `android:exported="false"` attribute to the `MainActivity` activity in the `AndroidManifest.xml` file.
+
+3. Add your custom plugin to your Cordova project using the `cordova plugin add` command.
+
+4. Build your project again. The `android:exported` attribute should now be correctly set in the `AndroidManifest.xml` file, and the error should be gone.
+
+Please note that setting `android:exported="false"` means that the `MainActivity` activity will not be able to be started from outside your app. If you need to start this activity from outside your app, you should set `android:exported="true"` instead.

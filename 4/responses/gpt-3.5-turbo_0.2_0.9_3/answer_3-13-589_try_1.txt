@@ -1,0 +1,25 @@
+The error message suggests that there is a problem with the converter used to convert the response from the server into the `JConfig` object. 
+
+One possible cause of this error is that the `MoshiConverterFactory` is not properly configured. Make sure that you have added the `@JsonClass(generateAdapter = true)` annotation to your `JConfig` and `Config` classes, as this is required for Moshi to generate the necessary adapter code.
+
+Another possible cause of this error is that the server is returning a response that cannot be converted into the `JConfig` object. Check the response from the server to make sure that it is in the expected format.
+
+You can also try adding a logging interceptor to your `OkHttpClient` to see the actual response from the server and debug the problem. To do this, add the following code to your `provideHttpClient` function:
+
+```
+@Singleton
+@Provides
+fun provideHttpClient(): OkHttpClient {
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    return OkHttpClient
+        .Builder()
+        .readTimeout(15, TimeUnit.SECONDS)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .addInterceptor(loggingInterceptor)
+        .build()
+}
+```
+
+This will log the response from the server to the console, which can help you identify the problem.

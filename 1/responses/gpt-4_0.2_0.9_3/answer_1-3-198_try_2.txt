@@ -1,0 +1,20 @@
+The problem is that the URL you're using is a Google Drive's web interface URL, not a direct link to the file. To read a CSV file from Google Drive into a pandas DataFrame, you need to get the file's ID from the URL and modify it to be read by pandas.
+
+Here's how you can do it:
+
+```python
+import pandas as pd
+
+# This is the id of your file
+file_id = '0B6GhBwm5vaB2ekdlZW5WZnppb28'
+
+# Create the new URL
+url = 'https://drive.google.com/uc?export=download&id=' + file_id
+
+# Then read it as usual
+df = pd.read_csv(url)
+```
+
+This will create a direct download link for the file. The `export=download` part tells Google Drive to download the file and the `id` part specifies which file to download.
+
+Please note that this method only works for files that have been shared publicly. If the file is private, you'll need to use the Google Drive API to authenticate and download the file.

@@ -1,0 +1,20 @@
+You can use `pivot_longer` with `names_pattern` to achieve this. `names_pattern` allows you to specify a regular expression that will be used to separate the column names into multiple variables. In your case, you can use a regular expression that separates the column names into the variable name and the type of value (value, lower, upper).
+
+Here is how you can do it:
+
+```r
+library(tidyr)
+
+dat_long <- dat %>%
+  pivot_longer(
+    cols = -group, 
+    names_to = c(".value", "names"), 
+    names_pattern = "(lower|upper)?(.*)"
+  )
+
+dat_long
+```
+
+In the `names_pattern`, `(lower|upper)?(.*)` is a regular expression that matches either "lower" or "upper" at the start of the column name (the `?` makes this optional, so it also matches column names that start with neither), and then any characters after that. The parentheses `()` create groups that are used to fill the `names_to` variables: the first group (matching "lower" or "upper") fills `.value`, and the second group (matching any characters after "lower" or "upper") fills "names".
+
+This will create a long format of your data where each row represents one observation, with separate columns for the group, the variable name (BP, HS, BB), and the type of value (value, lower, upper).

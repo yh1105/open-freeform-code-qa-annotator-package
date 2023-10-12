@@ -1,0 +1,11 @@
+It sounds like you are facing a complex issue with the change in the file path protocol for SharePoint. Unfortunately, there is no straightforward solution to this problem, but there are a few things you can try.
+
+Firstly, you could try using the SharePoint REST API to create folders and files on SharePoint using VBA. This would require some knowledge of programming and the SharePoint API, but it may be a viable solution.
+
+Secondly, you could try using the OneDrive API to interact with the local path of the file. This would require some programming knowledge as well, but it may be a more straightforward solution than using the SharePoint API.
+
+Lastly, you could try using a third-party tool or add-in that is designed to work with SharePoint and Excel. There are many tools available that can help with file management and collaboration on SharePoint, and some of them may have the functionality you need.
+
+As for retrieving the local path of the file, unfortunately, there is no built-in function or method in Excel that can do this. The "Open File Location" button in the File Info menu is a Windows Explorer function and is not accessible through VBA.
+
+I hope this helps, and good luck with finding a solution to your problem.

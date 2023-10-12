@@ -1,0 +1,42 @@
+To solve the incompatible error, you need to make sure that all the Kotlin dependencies in your project are using the same version. In this case, it seems like the `kotlin-stdlib-common` library is using a different version than the rest of your project. You can try adding the following code to your app-level `build.gradle` file to force all Kotlin dependencies to use the same version:
+
+```
+configurations.all {
+    resolutionStrategy {
+        force "org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0"
+    }
+}
+```
+
+This will force all Kotlin dependencies to use version 1.5.0 of `kotlin-stdlib-common`.
+
+To add the email and cardholder name in Stripe, you can use the `CardInputWidget` instead of `CardMultilineWidget`. The `CardInputWidget` allows you to add custom fields, including email and cardholder name. Here's an example of how to use it:
+
+```
+<com.stripe.android.view.CardInputWidget
+    android:id="@+id/card_input_widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shouldShowPostalCode="false"
+    app:customStripeFields="@array/custom_stripe_fields" />
+```
+
+In your `strings.xml` file, you can define the custom fields:
+
+```
+<string-array name="custom_stripe_fields">
+    <item>cardholderName</item>
+    <item>email</item>
+</string-array>
+```
+
+Then, in your code, you can retrieve the values of these fields like this:
+
+```
+val cardInputWidget = findViewById<CardInputWidget>(R.id.card_input_widget)
+val card = cardInputWidget.card
+val cardholderName = card.cardholderName
+val email = card.email
+```
+
+Note that you will also need to update your Stripe API calls to include the email and cardholder name fields.

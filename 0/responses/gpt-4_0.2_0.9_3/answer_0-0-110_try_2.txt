@@ -1,0 +1,7 @@
+As of now, React does not provide a hook equivalent to `componentDidCatch` or `getDerivedStateFromError`. Error boundaries, as of the current version of React (17.x), can only be class components.
+
+The React team has mentioned that they are considering adding this in the future, but as of now, there is no hook for catching errors in function components.
+
+You can follow this issue on the official React GitHub repository for updates: https://github.com/facebook/react/issues/11334
+
+So, for now, you'll have to stick with class components for error boundaries.

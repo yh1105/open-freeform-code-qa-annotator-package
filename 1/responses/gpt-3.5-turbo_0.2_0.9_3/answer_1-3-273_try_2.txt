@@ -1,0 +1,13 @@
+There are a few things you can try to make sure that your conda environments are properly recognized in Jupyter Lab:
+
+1. Make sure that `nb_conda_kernels` is installed in your base environment, as well as any other environments you want to use as kernels.
+
+2. Activate the environment you want to use as a kernel before launching Jupyter Lab. You can do this by running `conda activate <env_name>` in your terminal.
+
+3. Check that the kernel is properly installed by running `jupyter kernelspec list` in your terminal. This should show a list of all the available kernels, including any conda environments you have installed.
+
+4. If the kernel is not showing up in Jupyter Lab, try running `jupyter lab build` in your terminal to rebuild the Jupyter Lab environment.
+
+5. If none of these steps work, you can try manually adding the kernel to Jupyter Lab by running `python -m ipykernel install --user --name <env_name> --display-name "<display_name>"`. This will create a new kernel specification file that Jupyter Lab should recognize.
+
+I hope one of these solutions works for you! Let me know if you have any further questions.

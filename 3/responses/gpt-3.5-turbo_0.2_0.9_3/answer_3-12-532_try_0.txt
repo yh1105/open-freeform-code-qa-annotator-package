@@ -1,0 +1,21 @@
+The error message indicates that there is an unexpected character at the beginning of the JSON string. The character sequence `ï»¿` is a byte order mark (BOM) that is sometimes added to the beginning of a file by certain text editors or tools.
+
+To fix this issue, you can try removing the BOM from the PHP file. You can do this by opening the file in a text editor that supports encoding detection and saving the file with a different encoding that does not include the BOM, such as UTF-8 without BOM.
+
+Alternatively, you can modify your Dart code to handle the BOM by skipping the first three bytes of the response body before decoding the JSON string. Here's an example:
+
+```
+var response = await http.post(
+    url,
+    headers:{ "Accept": "application/json" } ,
+    body: { "usuario": '$usuario',"password": '$password'},
+    encoding: Encoding.getByName("utf-8")
+);
+var responseBody = response.bodyBytes;
+if (responseBody.length >= 3 && responseBody[0] == 0xEF && responseBody[1] == 0xBB && responseBody[2] == 0xBF) {
+  responseBody = responseBody.sublist(3);
+}
+List data = json.decode(utf8.decode(responseBody));
+``` 
+
+This code checks if the first three bytes of the response body match the UTF-8 BOM and removes them if they do. Then it decodes the remaining bytes as a UTF-8 string and parses the JSON data.

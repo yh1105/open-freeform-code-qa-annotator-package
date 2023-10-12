@@ -1,0 +1,9 @@
+It looks like you have followed the correct steps to set up authentication for your Cloud Scheduler job to access your Cloud Function. However, the error message you received indicates that the job does not have the necessary permissions to access the function.
+
+One thing to check is whether the Cloud Scheduler service account has the necessary permissions to invoke the Cloud Function. You can check this by going to the IAM & Admin section of the Cloud Console and searching for the service account named "service-[PROJECT_NUMBER]@gcp-sa-cloudscheduler.iam.gserviceaccount.com". Make sure that this service account has the "Cloud Functions Invoker" role.
+
+Another thing to check is whether the audience parameter in your Cloud Scheduler job is set correctly. The audience parameter should be set to the URL of your Cloud Function. Make sure that the URL is correct and that it matches the URL of your deployed function.
+
+If you have already checked these things and are still experiencing issues, you may want to try creating a new project and setting up the Cloud Scheduler job and Cloud Function in that project. This can sometimes help to isolate and resolve issues with permissions and authentication.
+
+I hope this helps! Let me know if you have any further questions.

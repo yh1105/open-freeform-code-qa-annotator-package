@@ -1,0 +1,49 @@
+To create an animation like the one you described, you can use jQuery to add a class to the line under the tabs when a tab is clicked. This class will contain a CSS transition property that will animate the movement of the line.
+
+Here's an example code snippet that you can use:
+
+```
+<div class="col-md-12">
+  <div class="col-md-6 tab" data-tab="tab1">
+        <p>TAB1</p>
+  </div>
+  <div class="col-md-6 tab" data-tab="tab2">
+        <p>TAB2</p>
+  </div>
+</div>
+<div class="col-md-6">
+    <span class="line"></span>
+</div>
+
+<style>
+    .line {
+        height: 10px;
+        background-color: blue;
+        display: block;
+        transition: transform 0.3s ease-in-out;
+    }
+    .tab.active[data-tab="tab1"] ~ .col-md-6 .line {
+        transform: translateX(0%);
+    }
+    .tab.active[data-tab="tab2"] ~ .col-md-6 .line {
+        transform: translateX(100%);
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('.tab').click(function() {
+            $('.tab').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
+```
+
+In this code, we added a `data-tab` attribute to each tab to identify them. We also added a `line` class to the span element that represents the line under the tabs.
+
+We then added some CSS to the `line` class to set its height, background color, and transition property. We also added two more CSS rules that will move the line to the left or right depending on which tab is active.
+
+Finally, we added a jQuery click event listener to each tab that will remove the `active` class from all tabs and add it to the clicked tab. This will trigger the CSS rules we added earlier and animate the movement of the line.
+
+Note that this code assumes that you have included jQuery in your project. If you haven't, you can download it from the jQuery website or use a CDN.

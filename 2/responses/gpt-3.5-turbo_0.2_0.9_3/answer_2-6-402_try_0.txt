@@ -1,0 +1,17 @@
+To add a custom attribute to a cookie in ASP.NET Core, you can use the `SetCookie` method of the `HttpResponse` object. Here's an example:
+
+```
+Response.Cookies.Append("cookieName", "cookieValue");
+
+// Get the cookie and add the SameSite attribute
+var cookie = Response.Cookies.Get("cookieName");
+cookie.SameSite = SameSiteMode.None;
+Response.Cookies.Append("cookieName", cookie.Value, new CookieOptions
+{
+    SameSite = cookie.SameSite
+});
+```
+
+In this example, we first append the cookie to the response using the `Append` method. Then, we retrieve the cookie using the `Get` method and add the `SameSite` attribute to it. Finally, we append the cookie again, this time passing in a `CookieOptions` object that specifies the `SameSite` attribute.
+
+Note that the `SameSite` attribute is only supported in Chrome 76 and later versions, so be sure to test your code in different browsers to ensure compatibility.

@@ -1,0 +1,39 @@
+To check if the value of a key is empty, you can use the `length` filter in jq. Here's an example:
+
+```
+if $(cat $my_json | jq 'has("key1")'); then
+  values=$(jq -r ".key1" "$my_json")
+
+  if [[ $(echo "$values" | jq 'length') -gt 0 ]]; then
+    for item in $values
+    do
+      echo "Item : $item"
+    done
+  fi
+fi
+```
+
+This checks if the length of the `values` array is greater than 0 before iterating over it.
+
+To get the output you want, you can use the `join` and `map` filters in jq. Here's an example:
+
+```
+if $(cat $my_json | jq 'has("key2")'); then
+  values=$(jq -r ".key2" "$my_json")
+
+  if [[ $(echo "$values" | jq 'length') -gt 0 ]]; then
+    echo "key2:"
+    echo "$values" | jq -r 'map("- " + .) | join("\n")'
+  fi
+fi
+```
+
+This will output:
+
+```
+key2:
+- first_value
+- second_value
+```
+
+if the `key2` key exists and has non-empty values. If the `key2` key is empty or doesn't exist, nothing will be output.

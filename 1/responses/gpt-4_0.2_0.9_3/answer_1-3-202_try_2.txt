@@ -1,0 +1,13 @@
+The error message indicates that the environment file you're trying to use is attempting to remove or downgrade the 'requests' and 'setuptools' packages, which are dependencies of conda and cannot be removed.
+
+Here are a few things you can try:
+
+1. **Update Conda**: Make sure your conda is up-to-date. You can update it using the command `conda update conda`.
+
+2. **Check the Environment File**: Open the `python3.6-environment-windows.yml` file and check if 'requests' and 'setuptools' are listed there. If they are, try removing them or setting them to the version that is currently installed in your base environment. You can check the version using `conda list`.
+
+3. **Create a New Environment Without the File**: Try creating a new environment without using the environment file, and then manually install the packages you need. You can create a new environment with Python 3.6 using `conda create -n myenv python=3.6`, then activate it with `conda activate myenv`, and then install the packages using `conda install package-name`.
+
+4. **Use a Different Method to Install Catalyst**: If you're trying to install Catalyst, you might want to try a different installation method. For example, you can install it with pip using `pip install enigma-catalyst`.
+
+Remember to always activate the appropriate environment before installing packages or running your programs.

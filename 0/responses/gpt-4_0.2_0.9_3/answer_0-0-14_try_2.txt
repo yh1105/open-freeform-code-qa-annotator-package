@@ -1,0 +1,21 @@
+The code you posted seems to be correct. The `Switch` component is inside a `Form.Item` and its value should be included in the `values` object when the form is submitted.
+
+However, you might want to check a few things:
+
+1. Make sure that the `onCreate` function is correctly receiving the form values. You can do this by logging the `values` object to the console:
+
+```javascript
+const onCreate = (values) => {
+  console.log(values);
+}
+```
+
+2. Check if the `Switch` component is correctly updating its value when toggled. You can do this by adding an `onChange` handler to the `Switch` component:
+
+```javascript
+<Switch checkedChildren="Yes" unCheckedChildren="No" onChange={(checked) => console.log(checked)} />
+```
+
+3. Make sure that the `name` prop of the `Form.Item` that wraps the `Switch` component is unique and not used by any other form item.
+
+If you've checked all of these and the problem still persists, it might be a good idea to create a minimal, reproducible example and ask for help on a platform like StackOverflow.

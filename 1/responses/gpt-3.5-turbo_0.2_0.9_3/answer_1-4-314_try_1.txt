@@ -1,0 +1,30 @@
+Sure, I can help you with that. Here's some code that should do the trick:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# create the dataframe
+df = pd.DataFrame({
+    'Sex': ['Male', 'Female', 'Male', 'Female'],
+    'Var1': ['Yes', 'No', 'No', 'Yes'],
+    'Var2': ['No', 'Yes', 'No', 'Yes'],
+    'Var3': ['Yes', 'No', 'Yes', 'No']
+})
+
+# group the dataframe by sex and count the number of "Yes" values for each variable
+counts = df.groupby('Sex').sum()
+
+# create the bar plot
+counts.plot(kind='bar')
+
+# set the title and axis labels
+plt.title('Counts of "Yes" by Sex and Variable')
+plt.xlabel('Variable')
+plt.ylabel('Count of "Yes"')
+
+# show the plot
+plt.show()
+```
+
+This code first creates the dataframe with the data you provided. Then, it groups the dataframe by sex and counts the number of "Yes" values for each variable using the `sum()` method. Finally, it creates a bar plot using the `plot()` method, sets the title and axis labels using the `title()`, `xlabel()`, and `ylabel()` methods, and shows the plot using the `show()` method.

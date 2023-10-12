@@ -1,0 +1,10 @@
+The error you are getting might be related to the security settings of your Gmail account. Gmail has strict security measures in place to prevent unauthorized access to your account. You need to enable "Less secure app access" in your Gmail account settings to allow nodemailer to access your account.
+
+To enable "Less secure app access", follow these steps:
+
+1. Go to your Google Account settings.
+2. Click on "Security" in the left-hand menu.
+3. Scroll down to the "Less secure app access" section.
+4. Turn on the "Allow less secure apps" toggle.
+
+After enabling "Less secure app access", try running your code again. It should work without any errors.

@@ -1,0 +1,19 @@
+The error message `ERR_MODULE_NOT_FOUND` indicates that Node.js is unable to locate the module you're trying to import. This could be due to a few reasons:
+
+1. The path to the file is incorrect.
+2. The file does not exist.
+3. The file is not in the correct format to be recognized as a module.
+
+Here are a few things you can try to fix the issue:
+
+1. **Check the file path**: Make sure that the path to the file is correct. In your case, you're trying to import the `api.js` file from `./src/server/api`. This means that the `api.js` file should be in the `src/server/` directory relative to the `server.js` file. If the `api.js` file is not in this location, you'll need to update the import statement with the correct path.
+
+2. **Check the file existence**: Make sure that the `api.js` file actually exists. You can do this by navigating to the `src/server/` directory and checking if the `api.js` file is there.
+
+3. **Check the file format**: Make sure that the `api.js` file is in the correct format to be recognized as a module. In your case, the `api.js` file should be an ES module, which means it should have `export` statements. If the `api.js` file does not have `export` statements, you'll need to add them.
+
+4. **Use the .js extension in your import**: Node.js is very particular about file extensions. Try changing your import statement to `import apis from './src/server/api.js'`.
+
+5. **Check your Node.js version**: The `--experimental-modules` flag is only necessary if you're using a version of Node.js that does not fully support ES modules. If you're using Node.js version 14 or later, you should be able to use ES modules without the `--experimental-modules` flag. If you're using an older version of Node.js, you might consider updating to a newer version.
+
+6. **Use require instead of import**: If none of the above solutions work, you can try using `require` instead of `import`. This would look like `const apis = require('./src/server/api')`. However, this is not recommended as it is not the ES6 way of importing modules.

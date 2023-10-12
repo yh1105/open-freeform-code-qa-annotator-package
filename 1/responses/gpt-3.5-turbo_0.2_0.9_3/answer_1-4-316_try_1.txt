@@ -1,0 +1,17 @@
+To sort a list of characters alphabetically, you can use the `sort()` function directly on the vector of characters, without converting it to a list. Here's the corrected code:
+
+```
+# Creating a random vector of letters
+random_text_data = sample(letters, 10)
+random_text_data
+
+# Sort vector alphabetically
+sorted_data = sort(random_text_data)
+sorted_data
+```
+
+This will give you the sorted list of characters:
+
+```
+[1] "a" "b" "c" "d" "e" "f" "h" "j" "n" "t"
+```

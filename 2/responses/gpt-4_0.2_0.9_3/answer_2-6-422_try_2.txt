@@ -1,0 +1,22 @@
+The error message you're seeing is because the migration is trying to create a table that already exists in your database. This can happen if the database is not in sync with the migrations.
+
+Here are some steps you can take to resolve this:
+
+1. **Revert to the previous migration**: You can use the `Update-Database` command with the `-Migration` parameter to revert to the previous migration. For example, if your previous migration was called `InitialCreate`, you would use the command `Update-Database -Migration InitialCreate`.
+
+2. **Remove the problematic migration**: Use the `Remove-Migration` command to remove the migration that's causing the problem.
+
+3. **Recreate the migration**: After you've removed the problematic migration, you can use the `Add-Migration` command to create a new migration. This new migration should include the changes you made in the `ToDoItemDescription` model.
+
+4. **Update the database**: Finally, use the `Update-Database` command to apply the new migration to the database.
+
+Here's how you can do it:
+
+```bash
+Update-Database -Migration TodoItems_Initial -Context TodoItemsContext
+Remove-Migration -Context TodoItemsContext
+Add-Migration AddDescription -Context TodoItemsContext
+Update-Database -Context TodoItemsContext
+```
+
+If this doesn't work, you might need to manually delete the `TodoItems` table from your database and then run the `Update-Database` command again. However, be aware that this will delete all data in the `TodoItems` table.

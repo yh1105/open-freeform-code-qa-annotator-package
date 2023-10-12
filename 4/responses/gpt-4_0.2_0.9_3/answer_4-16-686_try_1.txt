@@ -1,0 +1,19 @@
+The error message `the job spec is invalid ... the field is immutable` usually means that you're trying to update a field in a Kubernetes object that cannot be updated once the object is created. 
+
+In your case, it seems like you're trying to update the `args` field of a container in a Job. Once a Job is created, the `args` field is immutable, meaning it cannot be updated. If you need to change the `args`, you will need to delete the Job and create a new one.
+
+As for the issue with the command being enclosed in quotes, it's likely because the YAML parser is interpreting the entire command as a single string. To fix this, you can try splitting the command into multiple strings like this:
+
+```yaml
+args:
+  - /bin/bash
+  - -c
+  - |
+    /cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+    CHILD_PID=$!
+    (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill $CHILD_PID; echo "Killed $CHILD_PID as the main container terminated."; fi; sleep 1; done) &
+    wait $CHILD_PID
+    if [[ -f "/tmp/pod/main-terminated" ]]; then exit 0; echo "Job completed. Exiting..."; fi
+```
+
+This way, the command is split into multiple strings, each of which is passed as a separate argument to the container's entrypoint. The `-c` flag tells bash to read commands from the following string, which is the rest of your script.

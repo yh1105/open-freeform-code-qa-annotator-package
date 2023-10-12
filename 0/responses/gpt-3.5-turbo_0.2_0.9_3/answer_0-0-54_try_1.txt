@@ -1,0 +1,36 @@
+Sure, here's how you can get the `firstName` and `lastName` values on button click using React hooks:
+
+```
+import React, { useState } from 'react';
+
+export default function InputField({ name, label }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  const handleClick = () => {
+    console.log('First Name:', firstName);
+    console.log('Last Name:', lastName);
+  };
+
+  return (
+    <div>
+      <label>{label}</label>
+      <input
+        type="text"
+        value={firstName}
+        name={`${name}-firstName`}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <input
+        type="text"
+        value={lastName}
+        name={`${name}-lastName`}
+        onChange={(e) => setLastName(e.target.value)}
+      />
+      <button onClick={handleClick}>Submit</button>
+    </div>
+  );
+}
+```
+
+In this code, we've added a `handleClick` function that logs the `firstName` and `lastName` values to the console. We've also added a `name` attribute to each input field with the format `${name}-firstName` and `${name}-lastName` so that we can easily identify them in the `handleClick` function. Finally, we've added a button with an `onClick` event that calls the `handleClick` function when clicked.

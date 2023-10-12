@@ -1,0 +1,30 @@
+One solution to this problem is to use generics. You can modify the `M` class to take a type parameter that specifies the return type of the methods that return `self`. Here's an example:
+
+```
+from __future__ import annotations
+from typing import TypeVar, Generic
+
+T = TypeVar('T', bound='M')
+
+class M(Generic[T]):
+    def set_width(self, width: int) -> T:
+        self.width = width
+        return self
+
+    def set_height(self, height: int) -> T:
+        self.height = height
+        return self
+```
+
+Now you can use the `M` class like this:
+
+```
+box = M().set_width(5).set_height(10)
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+And mypy will correctly infer the types of `box` and `cube`.
+
+Note that you need to use `Generic[T]` to specify that `M` is a generic class that takes a type parameter `T`. You also need to use `T` as the return type of the methods that return `self`. Finally, you need to use `bound='M'` to specify that `T` must be a subclass of `M`.
+
+This solution works for any class hierarchy, not just for method chaining. You can use generics to specify the return types of any methods that return `self`.

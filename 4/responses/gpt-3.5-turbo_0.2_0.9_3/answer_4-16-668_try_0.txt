@@ -1,0 +1,7 @@
+You can use the `-i` option with `grep` to make the search case-insensitive. Here's the modified command:
+
+```
+cat file1 | grep -i "success\.\.\."
+```
+
+This will match both `Success...` and `success...`. The `-i` option tells `grep` to ignore case when searching.

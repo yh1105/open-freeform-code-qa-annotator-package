@@ -1,0 +1,20 @@
+The error message you're seeing is due to changes in Webpack 5. In Webpack 4, you could use the `node` configuration to mock or polyfill Node.js core modules, but in Webpack 5, this is no longer allowed by default. 
+
+Here is the updated configuration for Webpack 5 according to the Antlr JavaScript documentation:
+
+```javascript
+module.exports = {
+  //...
+  resolve: {
+    fallback: {
+      "fs": false,
+      "path": false,
+      "os": false
+    }
+  }
+};
+```
+
+In this configuration, `fallback` is used to provide replacements for built-in Node.js modules. Setting a module to `false` will tell Webpack to not provide any fallback.
+
+Please replace your `node` configuration with the `resolve.fallback` configuration above and try again. This should resolve the error you're seeing.

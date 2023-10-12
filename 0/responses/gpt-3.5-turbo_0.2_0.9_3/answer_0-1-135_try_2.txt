@@ -1,0 +1,13 @@
+This is a known issue in Safari where it doesn't properly calculate the height of images with `height: auto` inside nested flexbox containers. One workaround is to set a fixed height on the parent container of the image. 
+
+In your case, you can add a fixed height to the `section` element that contains the image, like this:
+
+```
+.container section:first-child {
+  display: flex;
+  margin-bottom: 25px;
+  height: 125px; /* add a fixed height */
+}
+```
+
+This will ensure that the image maintains its aspect ratio and doesn't get stretched in Safari.

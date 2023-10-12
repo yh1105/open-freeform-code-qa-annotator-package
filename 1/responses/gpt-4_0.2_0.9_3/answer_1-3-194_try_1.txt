@@ -1,0 +1,30 @@
+You can use the `openpyxl` or `pandas` library in Python to write a list of lists into an Excel file. Here is an example using `openpyxl`:
+
+```python
+from openpyxl import Workbook
+
+new_list = [["first", "second"], ["third", "fourth"]]
+
+wb = Workbook()
+ws = wb.active
+
+for i in range(len(new_list)):
+    for j in range(len(new_list[i])):
+        ws.cell(row=i+1, column=j+1, value=new_list[i][j])
+
+wb.save("file_name.xlsx")
+```
+
+And here is an example using `pandas`:
+
+```python
+import pandas as pd
+
+new_list = [["first", "second"], ["third", "fourth"]]
+
+df = pd.DataFrame(new_list)
+
+df.to_excel('file_name.xlsx', index=False, header=False)
+```
+
+Both of these scripts will create a new Excel file named `file_name.xlsx` and write the data from `new_list` into it. The `pandas` method is generally simpler and more powerful, but requires that you have the `pandas` and `openpyxl` or `xlsxwriter` libraries installed. The `openpyxl` method only requires the `openpyxl` library.

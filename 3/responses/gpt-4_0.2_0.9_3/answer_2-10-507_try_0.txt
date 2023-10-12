@@ -1,0 +1,16 @@
+You can use `futures::future::join_all` function which is equivalent to `Promise.all()` in JavaScript. It takes an iterator over futures and returns a future that resolves to a vector of the results of those futures.
+
+Here is how you can use it:
+
+```rust
+use futures::future::join_all;
+
+async fn start_consumers(&self) {
+    let futures: Vec<_> = self.consumers.iter().map(|consumer| consumer.consume()).collect();
+    let results = join_all(futures).await;
+}
+```
+
+In this code, we create a vector of futures by calling `consume` on each consumer and then we pass this vector to `join_all`. The `join_all` function returns a new future that we `await`. When this future resolves, it gives us a vector of the results of all the futures.
+
+Please note that `join_all` does not guarantee the order of execution of the futures. They are executed concurrently, not in the order they are specified. The results vector, however, is in the same order as the input futures.

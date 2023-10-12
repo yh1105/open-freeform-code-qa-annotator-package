@@ -1,0 +1,27 @@
+The error message indicates that there is an unexpected character at the beginning of the JSON string. This character is likely a byte order mark (BOM) that is added by the PHP file. 
+
+To fix this issue, you can try removing the BOM from the PHP file. You can do this by saving the file with UTF-8 encoding without BOM. 
+
+Alternatively, you can modify your Dart code to handle the BOM. You can use the `utf8.decode` function from the `dart:convert` library to remove the BOM before decoding the JSON string. Here's an example:
+
+```
+import 'dart:convert';
+
+// ...
+
+var response = await http.post(
+    url,
+    headers:{ "Accept": "application/json" } ,
+    body: { "usuario": '$usuario',"password": '$password'},
+    encoding: Encoding.getByName("utf-8")
+);
+
+var jsonStr = utf8.decode(response.bodyBytes);
+if (jsonStr.startsWith('\uFEFF')) {
+  jsonStr = jsonStr.substring(1);
+}
+
+List data = json.decode(jsonStr);
+``` 
+
+This code uses the `utf8.decode` function to convert the response body bytes to a string, and then checks if the string starts with the BOM character (`\uFEFF`). If it does, the code removes the first character before decoding the JSON string.

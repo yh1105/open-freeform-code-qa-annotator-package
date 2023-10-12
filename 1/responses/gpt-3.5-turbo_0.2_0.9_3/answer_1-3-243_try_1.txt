@@ -1,0 +1,44 @@
+The error message you are getting indicates that there is an issue with the extraction of the uploader ID from the YouTube video. This could be caused by changes to the YouTube API or the video itself.
+
+One possible solution is to update your youtube-dl library to the latest version. You can do this by running the following command in your terminal:
+
+```
+pip install --upgrade youtube-dl
+```
+
+If this does not solve the issue, you can try adding the `--no-cache-dir` option to the command to ensure that the latest version is downloaded.
+
+Another possible solution is to use a different library for downloading YouTube videos, such as `pytube`. You can install it using the following command:
+
+```
+pip install pytube
+```
+
+Then, you can modify your code to use `pytube` instead of `youtube_dl`. Here is an example:
+
+```
+from pytube import YouTube
+
+class YTDLSource(discord.PCMVolumeTransformer):
+    def __init__(self, source, *, data, volume=0.5):
+        super().__init__(source, volume)
+
+        self.data = data
+
+        self.title = data.get('title')
+        self.url = data.get('url')
+        self.duration = data.get('duration')
+        self.image = data.get("thumbnails")[0]["url"]
+
+    @classmethod
+    async def from_url(cls, url, *, loop=None, stream=False):
+        loop = loop or asyncio.get_event_loop()
+        yt = YouTube(url)
+        yt.streams.filter(only_audio=True).first().download()
+        filename = yt.default_filename
+        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=yt)
+```
+
+This code uses `pytube` to download the audio stream of the YouTube video and save it to a file. Then, it uses `discord.FFmpegPCMAudio` to load the audio file and play it in the voice channel.
+
+I hope this helps! Let me know if you have any further questions.

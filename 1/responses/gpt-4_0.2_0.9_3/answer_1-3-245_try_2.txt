@@ -1,0 +1,42 @@
+The error message "ModuleNotFoundError: No module named 'app'" means that Python can't find the module 'app' in the directories it's looking in. This error is usually due to a problem with the Python path or the location of your files.
+
+In your Dockerfile, you are copying the contents of your local `app` directory to the `/app` directory in the Docker image:
+
+```dockerfile
+COPY ./app /app
+```
+
+Then, you are trying to run the command `uvicorn app.main:app`:
+
+```dockerfile
+CMD ["uvicorn", "app.main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]
+```
+
+This command is looking for a Python module named `app` in the current working directory, which is `/app` in the Docker image. But if your `app` directory doesn't contain an `__init__.py` file, Python won't recognize it as a package, and you'll get a `ModuleNotFoundError`.
+
+To fix this issue, you can try one of the following solutions:
+
+1. Add an `__init__.py` file to your `app` directory if it doesn't already have one. This file can be empty; its presence tells Python to treat the directory as a package.
+
+2. Change your `WORKDIR` to `/` and adjust the `COPY` and `CMD` commands accordingly:
+
+```dockerfile
+FROM python:3.8
+WORKDIR / 
+
+COPY requirements.txt /
+RUN pip install --requirement /requirements.txt
+
+COPY ./app /app
+
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]
+```
+
+3. If your `main.py` file is in the root directory and not in the `app` directory, adjust the `CMD` command to point to the correct location:
+
+```dockerfile
+CMD ["uvicorn", "main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]
+```
+
+Remember to rebuild your Docker image after making these changes.

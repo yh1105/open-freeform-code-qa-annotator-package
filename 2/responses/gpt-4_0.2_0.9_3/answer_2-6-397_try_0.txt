@@ -1,0 +1,12 @@
+The behavior you're experiencing is likely due to the new Hot Reload feature in .NET 6 and Visual Studio 2022. This feature is designed to improve the development experience by automatically refreshing your application when changes are made to the code.
+
+If you want to disable this feature, you can do so by following these steps:
+
+1. Go to `Tools` > `Options` in Visual Studio.
+2. Navigate to `Projects and Solutions` > `.NET Hot Reload`.
+3. Uncheck the box that says `Enable .NET Hot Reload on file save`.
+4. Click `OK` to save your changes.
+
+This should prevent Visual Studio from automatically refreshing your application when you save changes to your code.
+
+If you're still experiencing the issue after following these steps, it's possible that there's a bug or some other issue causing the behavior. In that case, you might want to consider reporting the issue to Microsoft through the Visual Studio feedback tool.

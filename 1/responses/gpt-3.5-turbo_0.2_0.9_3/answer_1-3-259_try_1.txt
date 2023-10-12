@@ -1,0 +1,25 @@
+One way to brighten the dark areas of an image in Python is to use the OpenCV library. Here is an example code that you can use:
+
+```python
+import cv2
+
+# Load the image
+img = cv2.imread('input_image.jpg')
+
+# Convert the image to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Apply adaptive thresholding to the grayscale image
+thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+
+# Apply a bilateral filter to smooth the image
+smooth = cv2.bilateralFilter(img, 9, 75, 75)
+
+# Combine the thresholded image and the smoothed image
+result = cv2.bitwise_and(smooth, smooth, mask=thresh)
+
+# Save the result
+cv2.imwrite('output_image.jpg', result)
+```
+
+In this code, we first load the input image and convert it to grayscale. We then apply adaptive thresholding to the grayscale image to separate the dark and bright areas. Next, we apply a bilateral filter to smooth the image while preserving the edges. Finally, we combine the thresholded image and the smoothed image using a bitwise AND operation to obtain the final result. The output image will have the dark areas brightened while preserving the bright areas.

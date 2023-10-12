@@ -1,0 +1,17 @@
+The variable expansion in the `GIT_BRANCH` variable looks correct. However, the issue might be with the shell used by the `bash` runner. 
+
+Try modifying the `script` section to explicitly use the `bash` shell and see if that resolves the issue:
+```
+job1:
+  script:
+    - /bin/bash -c 'echo $GIT_BRANCH'
+```
+
+If that doesn't work, try using double quotes instead of single quotes:
+```
+job1:
+  script:
+    - /bin/bash -c "echo $GIT_BRANCH"
+```
+
+If neither of these solutions work, it's possible that there is an issue with the GitLab runner or environment variables. In that case, you may need to reach out to GitLab support for further assistance.

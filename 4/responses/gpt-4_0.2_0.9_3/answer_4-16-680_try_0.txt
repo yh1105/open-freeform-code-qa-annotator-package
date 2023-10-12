@@ -1,0 +1,29 @@
+The issue you're encountering is due to the fact that Microsoft Edge is not a COM object and cannot be controlled in the way you're attempting. PowerShell doesn't have the ability to control the UI of other applications in the way you're trying to do.
+
+However, you can open Microsoft Edge in fullscreen mode using PowerShell by sending the F11 key after starting the process. Here's how you can do it:
+
+```powershell
+# Start Microsoft Edge
+$edge = Start-Process -FilePath "shell:Appsfolder\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge"
+
+# Wait for a bit to make sure Edge is open
+Start-Sleep -Seconds 2
+
+# Send F11 to go to full screen
+Add-Type -TypeDefinition '
+    using System;
+    using System.Runtime.InteropServices;
+
+    public class Keyboard {
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+    }
+'
+[Keyboard]::keybd_event(0x7A, 0, 0, 0) # Key down
+Start-Sleep -Milliseconds 50
+[Keyboard]::keybd_event(0x7A, 0, 2, 0) # Key up
+```
+
+This script will open Microsoft Edge and then simulate pressing the F11 key, which is the shortcut for fullscreen mode in most browsers, including Edge.
+
+Please note that this solution is a bit of a hack and may not work perfectly in all situations. For example, if the user interacts with the computer while the script is running, the F11 key press might not go to Edge. Also, the sleep times may need to be adjusted depending on the speed of the computer.

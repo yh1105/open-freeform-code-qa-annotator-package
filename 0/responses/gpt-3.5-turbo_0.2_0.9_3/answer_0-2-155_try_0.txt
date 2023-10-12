@@ -1,0 +1,26 @@
+You can change the height of the `mat-form-field` with `appearance="outline"` by adding custom CSS to your component. Here's an example:
+
+1. Add a class to your `mat-form-field` element:
+
+```
+<mat-form-field class="custom-form-field" appearance="outline">
+  <mat-label>Input</mat-label>
+  <input matInput placeholder="Placeholder">
+</mat-form-field>
+```
+
+2. Add the following CSS to your component's stylesheet:
+
+```
+.custom-form-field .mat-form-field-outline {
+  height: 30px; /* Change this value to adjust the height */
+}
+
+.custom-form-field .mat-form-field-outline-start,
+.custom-form-field .mat-form-field-outline-end {
+  height: 30px; /* Change this value to adjust the height */
+  margin-top: -15px; /* Change this value to adjust the vertical alignment */
+}
+```
+
+This will reduce the height of the `mat-form-field` and adjust the vertical alignment of the outline. You can adjust the `height` and `margin-top` values to achieve the desired result.

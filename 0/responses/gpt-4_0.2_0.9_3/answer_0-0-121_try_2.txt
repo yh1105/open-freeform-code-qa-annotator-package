@@ -1,0 +1,45 @@
+The error message you're seeing is a TypeScript error. TypeScript is complaining because it doesn't know what `process.env.APP_ENV` is. TypeScript is a statically typed language, so it needs to know the types of all objects at compile time.
+
+In Node.js, `process.env` is an object that exposes environment variables as properties. However, TypeScript doesn't know this by default. You can solve this issue by declaring the type of `process.env` or the specific environment variable you're trying to access.
+
+Here are a few ways to solve this:
+
+1. **Declare the type of `process.env` globally:**
+
+You can add a declaration for `process.env` in a `.d.ts` file in your project:
+
+```typescript
+declare namespace NodeJS {
+  export interface ProcessEnv {
+    APP_ENV: string;
+    // define other variables here as necessary
+  }
+}
+```
+
+2. **Declare the type of `APP_ENV` locally:**
+
+If you only need to use `APP_ENV` in one place, you can declare its type locally:
+
+```typescript
+const isProduct = (process.env as any).APP_ENV === "prod";
+```
+
+3. **Use a type assertion:**
+
+You can also use a type assertion to tell TypeScript that `process.env.APP_ENV` is a string:
+
+```typescript
+const isProduct = (<any>process.env).APP_ENV === "prod";
+```
+
+Remember to set the environment variable `APP_ENV` in your production or development environment. If you're using Node.js, you can do this in your `package.json` scripts:
+
+```json
+"scripts": {
+  "start": "APP_ENV=prod node server.js",
+  "dev": "APP_ENV=dev node server.js"
+}
+```
+
+Or you can use a package like `dotenv` to load environment variables from a `.env` file.

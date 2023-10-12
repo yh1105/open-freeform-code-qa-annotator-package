@@ -1,0 +1,7 @@
+The issue seems to be with how you are importing `AuthContext` in `RegisterRoutes`. You are using a default import, but you have exported `AuthContext` as a named export. You should change the import statement to:
+
+```
+import { AuthContext } from "../context/authContext";
+```
+
+This should fix the issue and allow you to access the `isAuthenticated` property from the context.

@@ -1,0 +1,11 @@
+The error message you provided indicates that there is a problem with the script `swift_lint_check.sh`. This script is likely being called during the build process and is causing the build to fail.
+
+Here are a few things you can try to resolve the issue:
+
+1. Check the script for errors: Open the script `swift_lint_check.sh` and check for any syntax errors or other issues. Fix any errors you find and try building again.
+
+2. Update your dependencies: It's possible that the issue is caused by a dependency that is out of date or incompatible with your current setup. Try updating your dependencies and see if that resolves the issue.
+
+3. Disable the script: If you are not using the script `swift_lint_check.sh`, you can try disabling it. To do this, go to your project settings, select the target that is failing to build, and go to the "Build Phases" tab. Look for the script in the list of build phases and uncheck the box next to it to disable it.
+
+4. Contact the script author: If none of the above solutions work, you may need to contact the author of the script `swift_lint_check.sh` for further assistance. They may be able to help you identify and resolve the issue.

@@ -1,0 +1,57 @@
+The error you're seeing is because you're trying to parse `scatterSeries` which is an array, not a JSON string. 
+
+The `JSON.parse()` function is used to parse a JSON string and construct the JavaScript value or object described by the string. 
+
+In your case, you don't need to parse `scatterSeries` because it's already an array. You can directly push the parsed `ch` into `scatterSeries` like this:
+
+```javascript
+scatterSeries.push(JSON.parse(ch));
+```
+
+But actually, you don't even need to parse `ch` because it's already a JSON string. You can directly push it into `scatterSeries` like this:
+
+```javascript
+scatterSeries.push(ch);
+```
+
+But if you want `scatterSeries` to contain JavaScript objects, not JSON strings, you should parse `ch` before pushing it:
+
+```javascript
+scatterSeries.push(JSON.parse(ch));
+```
+
+So, your corrected code should look like this:
+
+```javascript
+function DashboardViewModel() {
+  
+    var self = this;
+    self.lineTypeValue = ko.observable('curved');
+    var scatterSeries = []; 
+    
+    $.getJSON( "http://localhost:8080/points", function (data) {
+               console.info(data);
+               var ch = '{"name":"graphe1","items":'+JSON.stringify(data.results[1])+ '}';
+               console.info(ch);
+               scatterSeries.push(JSON.parse(ch));
+               
+        });
+    
+    
+    /* chart data */
+    
+    this.scatterSeriesValue = ko.observableArray(scatterSeries);
+    
+    self.lineTypeOptions = [
+        {id: 'straight', label: 'straight'},
+        {id: 'curved', label: 'curved'},
+        {id: 'stepped', label: 'stepped'},
+        {id: 'segmented', label: 'segmented'},
+        {id: 'none', label: 'none'}
+    ];
+  
+  
+}
+```
+
+This should resolve the error you're seeing.

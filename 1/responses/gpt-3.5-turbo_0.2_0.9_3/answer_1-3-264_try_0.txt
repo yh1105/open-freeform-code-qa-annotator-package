@@ -1,0 +1,16 @@
+The error "Expected 2D array, got 1D array instead" is because the `predict` method expects a 2D array as input. You can reshape the input to a 2D array using the `reshape` method as you have tried, but you need to assign the result back to `X` for it to take effect:
+
+```
+X = X.reshape(-1, 2)
+```
+
+This will reshape `X` to a 2D array with 6 rows and 2 columns. Then you can fit the model and make predictions:
+
+```
+clf = svm.SVC(kernel='linear', C=1.0)
+clf.fit(X, y)
+
+print(clf.predict([[0.58, 0.76]]))
+```
+
+Note that you need to pass the input to `predict` as a 2D array with one row and two columns.

@@ -1,0 +1,43 @@
+Yes, you can customize these messages. The Blazor framework provides a JavaScript object `Blazor.defaultReconnectionHandler` that you can use to customize the UI during the reconnection process.
+
+Here's an example of how you can override the default behavior:
+
+```javascript
+Blazor.defaultReconnectionHandler = new Blazor.ReconnectionHandler(
+    function () {
+        console.log('Reconnection started');
+    },
+    function (retryCount) {
+        console.log(`Reconnection attempt number ${retryCount}`);
+    },
+    function (error) {
+        console.log('Could not reconnect to the server', error);
+    },
+    function () {
+        console.log('Reconnection succeeded');
+    }
+);
+```
+
+You can place this code in your `_Host.cshtml` or `index.html` file, inside a `<script>` tag after the `_framework/blazor.server.js` script reference.
+
+To translate the messages, you can simply replace the `console.log` messages with your own messages in your desired language. For example:
+
+```javascript
+Blazor.defaultReconnectionHandler = new Blazor.ReconnectionHandler(
+    function () {
+        console.log('Reconnection started in Spanish');
+    },
+    function (retryCount) {
+        console.log(`Reconnection attempt number ${retryCount} in Spanish`);
+    },
+    function (error) {
+        console.log('Could not reconnect to the server in Spanish', error);
+    },
+    function () {
+        console.log('Reconnection succeeded in Spanish');
+    }
+);
+```
+
+Please note that this is just a console log example, you can replace it with your own UI logic to display the messages to the user.

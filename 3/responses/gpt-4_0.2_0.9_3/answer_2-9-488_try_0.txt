@@ -1,0 +1,22 @@
+The error message you're seeing is related to the Psych library, which is a YAML parser and emitter. The error is being triggered when the library encounters an alias (default) that it doesn't recognize.
+
+The error seems to be originating from the `webpacker` gem, as indicated by these lines in your stack trace:
+
+```
+from /Users/st/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/webpacker-4.3.0/lib/webpacker/env.rb:30:in `available_environments'
+from /Users/st/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/webpacker-4.3.0/lib/webpacker/env.rb:21:in `current'
+```
+
+It appears that `webpacker` is trying to load some YAML configuration files and is encountering an issue with an alias.
+
+Here are a few things you can try:
+
+1. **Check your YAML files**: Look for any YAML files in your project that may be loaded by `webpacker`. This could be a `webpacker.yml` file or any other YAML files in your project. Check these files for any aliases (indicated by `&` and `*` in YAML) and make sure they are defined correctly.
+
+2. **Update `webpacker`**: You're currently using `webpacker` version 4.3.0. There may be a compatibility issue with Ruby 3.1.1. Try updating `webpacker` to the latest version by running `bundle update webpacker`.
+
+3. **Check your environment variables**: `webpacker` is trying to load the available environments. Make sure your environment variables are set correctly, especially any that are used by `webpacker`.
+
+4. **Create a new Rails project**: If you're still having issues, try creating a new Rails project with Ruby 3.1.1 and see if you encounter the same issue. This can help you determine if the issue is specific to your current project or if it's a more general issue with Ruby 3.1.1 and `webpacker`.
+
+Remember to always backup your project before making any major changes.

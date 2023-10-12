@@ -1,0 +1,13 @@
+`::ng-deep` is a deprecated feature in Angular 4 and is not recommended to be used. Instead, you can use the `::ng-deep` equivalent, which is the `::ng-deep` combinator. 
+
+To use the `::ng-deep` combinator, you can add it to the parent component's CSS file and then target the child component's CSS class or element. For example:
+
+```
+.parent-component ::ng-deep .child-component {
+  /* CSS properties to overwrite */
+}
+```
+
+Note that the `::ng-deep` combinator is also deprecated and may be removed in future versions of Angular. It is recommended to use component styles and the `::ng-deep` combinator sparingly.
+
+Regarding IE11 support, `::ng-deep` and `::ng-deep` combinator are not supported in IE11. If you need to support IE11, you can use other techniques such as encapsulating styles using ViewEncapsulation or using a global stylesheet.

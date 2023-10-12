@@ -1,0 +1,9 @@
+It seems like there might be a conflict with other packages in your environment. You can try creating a new environment and installing nodejs in that environment using the following commands:
+
+```
+conda create -n myenv
+conda activate myenv
+conda install -c conda-forge nodejs==14.4.0
+```
+
+This will create a new environment called `myenv`, activate it, and then install nodejs version 14.4.0 in that environment. If this works, it might indicate that there are conflicts with other packages in your original environment. You can then try to troubleshoot the conflicts or continue using the new environment for your nodejs development.

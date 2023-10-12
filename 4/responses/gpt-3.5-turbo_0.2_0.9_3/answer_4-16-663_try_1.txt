@@ -1,0 +1,15 @@
+It seems like you are looking for a way to use globbing to match specific files or directories for various commands. While globbing can be a powerful tool for pattern matching, it may not always be the best solution for more complex tasks.
+
+For example, if you want to copy all PHP files in a directory and its subdirectories to a new location, you can use the `find` command with the `-name` option to match only PHP files, and then pipe the output to `xargs` to copy the files:
+
+```
+find . -name "*.php" | xargs -I {} cp {} /path/to/new/location/
+```
+
+Similarly, if you want to search for a specific string in all PHP files in a directory and its subdirectories, you can use `find` with `grep`:
+
+```
+find . -name "*.php" -exec grep "find me" {} \;
+```
+
+These commands may be more verbose than using globbing, but they offer more control and flexibility for complex tasks.

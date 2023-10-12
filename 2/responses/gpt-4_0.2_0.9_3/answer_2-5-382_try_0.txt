@@ -1,0 +1,21 @@
+The error message `Failed to resolve attribute at index 11: TypedValue{t=0x2/d=0x7f0300b4 a=3}` indicates that there is an attribute in your XML layout that the `Slider` class is unable to resolve. 
+
+The issue is likely due to the version of the Material Components library you are using. The `Slider` class was introduced in version `1.2.0-alpha05` of the Material Components library. However, you are using version `1.2.0-alpha02`, which may not have the `Slider` class or may have an incomplete or buggy implementation of it.
+
+To fix this issue, you should update the Material Components library to a stable version that includes the `Slider` class. The latest stable version at the time of writing is `1.3.0`.
+
+Change this line in your `build.gradle` file:
+
+```gradle
+implementation 'com.google.android.material:material:1.2.0-alpha02'
+```
+
+to:
+
+```gradle
+implementation 'com.google.android.material:material:1.3.0'
+```
+
+Then sync your project with Gradle files.
+
+If you still encounter the rendering problem with the Navigation Drawer Layout, you should try to fix that problem separately, instead of downgrading the Material Components library to a version that does not include the `Slider` class.

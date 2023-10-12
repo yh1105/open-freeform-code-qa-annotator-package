@@ -1,0 +1,18 @@
+You can achieve this by using the `group` feature in Tailwind CSS. Here's how you can modify your code to add a border-bottom to all of the `<li>` except the last one:
+
+```
+<ul class="border-solid border-b border-black">
+  <template v-for="(item, index) in items">
+    <li
+      :key="`item-${index}`"
+      class="group last:border-b-0"
+    >
+      Item
+    </li>
+  </template>
+</ul>
+```
+
+In this code, we added the `border-b` class to the `<ul>` element to give it a border-bottom. Then, we used a `v-for` loop to iterate over the `items` array and create a `<li>` element for each item. We added the `group` class to the `<ul>` element to enable the use of the `last` pseudo-class variant. Finally, we added the `last:border-b-0` class to the `<li>` element to remove the border-bottom from the last item.
+
+I hope this helps! Let me know if you have any further questions.

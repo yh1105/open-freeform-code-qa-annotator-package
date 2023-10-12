@@ -1,0 +1,55 @@
+You can achieve this functionality by using the `TouchableWithoutFeedback` component instead of the `Button` component. The `TouchableWithoutFeedback` component allows you to handle touch events and focus events separately. Here's an example code snippet:
+
+```
+import React, { useState } from 'react';
+import { TouchableWithoutFeedback, Text, View } from 'react-native';
+
+const MyButton = (props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  return (
+    <TouchableWithoutFeedback
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onPress={props.onPress}
+    >
+      <View style={[styles.button, isFocused && styles.focusedButton]}>
+        <Text>{props.title}</Text>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
+
+const styles = {
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+  },
+  focusedButton: {
+    backgroundColor: 'red',
+  },
+};
+
+export default MyButton;
+```
+
+In this example, we're using the `TouchableWithoutFeedback` component to wrap our custom button component. We're also using the `useState` hook to keep track of whether the button is currently focused or not. When the button is focused, we set the `isFocused` state to `true`, and when it loses focus, we set the state to `false`. 
+
+We're also using the `styles` object to define the styles for our button and the focused button. When the button is focused, we apply the `focusedButton` style to change the background color to red.
+
+You can use this `MyButton` component in your code like this:
+
+```
+<MyButton title="1" onPress={() => {props.addNumber(1)}}/>
+```
+
+I hope this helps! Let me know if you have any further questions.

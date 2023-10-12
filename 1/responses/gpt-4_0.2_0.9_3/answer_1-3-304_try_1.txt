@@ -1,0 +1,24 @@
+The issue with your current code is that it doesn't handle the last two elements of the array correctly. The loop stops two elements before the end of the array, so the last two elements of the output array are not being set correctly. They are just the default values that numpy.empty() fills the array with.
+
+Here's how you can modify your code to get the desired output:
+
+```python
+import numpy as np
+
+load = np.array([10, 12, 9, 13, 17, 23, 25, 28, 26, 24, 22, 20, 18, 20, 22, 24, 26, 28, 23, 24, 21, 18, 16, 13])
+
+output = np.empty(len(load), dtype=int)  # specify dtype=int to get integer values
+for i in range(len(output)):
+    output[i] = sum(load[i:i+3])  # sum the slice of the array from i to i+3
+print(output)
+```
+
+This code uses a slice of the array from i to i+3, which will automatically handle the last two elements correctly. If i+3 is beyond the end of the array, it will just take the elements up to the end of the array. Also, by specifying dtype=int when creating the output array, you ensure that the values are integers.
+
+The output of this code is:
+
+```python
+[31 34 39 53 65 76 79 78 72 66 60 58 60 66 72 78 77 75 68 63 55 47 29 13]
+```
+
+which matches your desired output.

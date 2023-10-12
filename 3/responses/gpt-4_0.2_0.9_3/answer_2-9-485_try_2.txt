@@ -1,0 +1,34 @@
+The error message you're seeing is related to SSL certificate verification. When you're trying to connect to Heroku Redis with SSL, the client needs to verify the server's SSL certificate. If the certificate is self-signed or not trusted, you'll see this error.
+
+To resolve this issue, you need to configure your Redis client to use SSL and trust the server's certificate. Here's how you can do this in Ruby with the redis-rb gem:
+
+```ruby
+uri = URI.parse(ENV["REDIS_URL"])
+redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :ssl => :true, :ssl_params => { verify_mode: OpenSSL::SSL::VERIFY_NONE })
+```
+
+In this code, we're parsing the `REDIS_URL` environment variable provided by Heroku to get the host, port, and password for the Redis server. We're then creating a new Redis client with these details and enabling SSL.
+
+The `ssl_params` option is used to configure the SSL context. In this case, we're setting `verify_mode` to `OpenSSL::SSL::VERIFY_NONE` to disable certificate verification. This should resolve the error you're seeing.
+
+However, please note that disabling certificate verification can make your application vulnerable to man-in-the-middle attacks. It's generally recommended to use `OpenSSL::SSL::VERIFY_PEER` and provide the path to a trusted certificate file with the `ca_file` option:
+
+```ruby
+redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :ssl => :true, :ssl_params => { verify_mode: OpenSSL::SSL::VERIFY_PEER, ca_file: '/path/to/ca_file' })
+```
+
+In the case of Heroku, the trusted certificate file is typically provided by the platform and can be found in the `/usr/lib/ssl/certs` directory.
+
+For Sidekiq, you can configure the Redis client in the Sidekiq configuration file:
+
+```ruby
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV['REDIS_URL'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['REDIS_URL'], ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }
+end
+```
+
+Again, it's recommended to use `OpenSSL::SSL::VERIFY_PEER` and provide the path to a trusted certificate file if possible.

@@ -1,0 +1,19 @@
+You were on the right track with your last attempt using `filter` and `endswith`. The `filter` function in Python returns a filter object which is an iterator and you can convert it to a list using the `list` function. Here is how you can do it:
+
+```python
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = list(filter(lambda x:x.endswith("USDT"), my_set))
+print(my_final_set)
+```
+
+This will give you the desired output: `['LUNAUSDT', 'BTCUSDT']`
+
+Alternatively, you can use list comprehension to achieve the same result:
+
+```python
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = [x for x in my_set if x.endswith("USDT")]
+print(my_final_set)
+```
+
+This will also give you the desired output: `['LUNAUSDT', 'BTCUSDT']`

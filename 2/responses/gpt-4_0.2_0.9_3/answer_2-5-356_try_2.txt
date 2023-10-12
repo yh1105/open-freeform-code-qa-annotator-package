@@ -1,0 +1,15 @@
+You can use the `thenComparing` method of the `Comparator` interface to chain multiple conditions. In your case, you want to sort by the length of the description first, and then by the description itself (alphabetically) if the lengths are equal. Here's how you can do it:
+
+```java
+public List<Article> sortAsc() {
+    removeNull();
+    return articles.stream()
+            .sorted(Comparator.comparingInt((Article a) -> a.getDescription().length())
+                    .thenComparing(Article::getDescription))
+            .collect(Collectors.toList());
+}
+```
+
+In this code, `Comparator.comparingInt((Article a) -> a.getDescription().length())` sorts the articles by the length of their descriptions. If two articles have descriptions of the same length, `.thenComparing(Article::getDescription)` sorts them alphabetically.
+
+You don't need your `ComparatorAppController` class for this, as the `Comparator` interface provides all the functionality you need.

@@ -1,0 +1,11 @@
+It seems like there is an issue with the command prompt (cmd) on your system. You can try the following steps to resolve the issue:
+
+1. Check if the "cmd" program is available on your system by opening the command prompt and typing "cmd". If it is not available, you may need to reinstall it.
+
+2. If "cmd" is available, try running the command prompt as an administrator and then running the build command again.
+
+3. If the issue persists, try modifying the build command to use a different shell program. For example, you can replace "cmd" with "powershell" or "bash" depending on your system.
+
+4. You can also try reinstalling NetBeans and/or Maven to ensure that all the necessary components are properly installed.
+
+Hopefully, one of these steps will help you resolve the issue and successfully build your project.

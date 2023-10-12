@@ -1,0 +1,26 @@
+The Anchor framework currently does not support direct transfers of native SOL within a smart contract. The `anchor_spl::token::transfer` function you're referring to is used for transferring SPL tokens, not native SOL.
+
+To handle native SOL, you would typically use the System Program's `transfer` instruction. However, this is not currently supported within Anchor smart contracts. 
+
+A common workaround for this is to wrap SOL in an SPL token (like WSOL), which can then be transferred using the `anchor_spl::token::transfer` function. 
+
+Here's a rough example of how you might do this:
+
+```rust
+let wsol_mint = anchor_spl::token::Mint::wsol();
+
+let cpi_accounts = Transfer {
+    from: source_user_info,
+    to: destination_user_info,
+    authority: source_user_info,
+};
+
+let cpi_program = wsol_mint;
+let cpi_context = CpiContext::new(cpi_program, cpi_accounts);
+
+token::transfer(cpi_context, amount)?;
+```
+
+In this example, `source_user_info` and `destination_user_info` would be the WSOL accounts of the source user and the destination user, respectively. The `authority` is the account that has the authority to transfer tokens from the source account.
+
+Remember that the user will need to convert their SOL to WSOL before depositing it into the event account, and then convert it back to SOL when they want to withdraw it.

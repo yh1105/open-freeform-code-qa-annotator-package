@@ -1,0 +1,31 @@
+The issue you're facing is due to the fact that `Evaluate(Target.Validation.Formula1)` is trying to evaluate the formula `=INDIRECT(B14)`, which is a reference to a cell, not a value. 
+
+To solve this, you need to first evaluate the cell reference `B14` to get the value it contains, and then compare that value to `"list1"`. Here's how you can do it:
+
+```vba
+Dim rng As Range
+Set rng = Evaluate(Target.Validation.Formula1)
+
+If rng.Value = "list1" Then
+    ' Your code here
+End If
+```
+
+This code first evaluates the formula `=INDIRECT(B14)` to get the range it refers to, then gets the value of that range, and finally compares it to `"list1"`.
+
+However, you should be aware that this code will only work if `B14` contains a valid cell reference. If `B14` contains an error value or a value that is not a valid cell reference, `Evaluate(Target.Validation.Formula1)` will raise an error. To handle this, you can use error handling code like this:
+
+```vba
+On Error Resume Next
+Dim rng As Range
+Set rng = Evaluate(Target.Validation.Formula1)
+On Error GoTo 0
+
+If Not rng Is Nothing Then
+    If rng.Value = "list1" Then
+        ' Your code here
+    End If
+End If
+```
+
+This code will ignore any errors raised by `Evaluate(Target.Validation.Formula1)`, and if no error is raised, it will proceed to compare the value of the range to `"list1"`. If an error is raised, `rng` will be `Nothing`, and the comparison will be skipped.

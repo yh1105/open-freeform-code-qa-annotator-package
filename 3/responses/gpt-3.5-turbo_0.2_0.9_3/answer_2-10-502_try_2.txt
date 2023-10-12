@@ -1,0 +1,13 @@
+It seems like the linker is unable to find the `libpq.lib` library file. This library is required for the `diesel_cli` crate to work with PostgreSQL.
+
+Here are a few things you can try:
+
+1. Make sure that you have installed the PostgreSQL development files on your system. These files include the necessary libraries and header files required for building applications that use PostgreSQL. You can download the development files from the PostgreSQL website.
+
+2. Check if the `libpq.lib` file is present in the `lib` directory of your PostgreSQL installation. If it is not present, you may need to reinstall PostgreSQL and make sure to select the option to install the development files.
+
+3. Check if the `libpq.lib` file is present in any other directory on your system. If it is, you can add the directory to the `LIB` environment variable so that the linker can find it.
+
+4. Try running the `cargo` command with the `--verbose` flag to get more information about the build process. This may help you identify any other issues that are causing the build to fail.
+
+5. If none of the above solutions work, you can try building the `diesel_cli` crate from source. Clone the `diesel` repository from GitHub and run `cargo build --release --features postgres --bin diesel_cli`. This will build the `diesel_cli` binary with PostgreSQL support.

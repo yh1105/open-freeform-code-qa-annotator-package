@@ -1,0 +1,57 @@
+Yes, that's correct. When you register the logging service in the `ServiceCollection`, you need to specify the type of logger you want to use. In your case, you want to use a logger for `MyClass`, so you need to specify `ILogger<MyClass>` instead of just `ILogger`. 
+
+If you want to avoid repeating this every time you want to use the logger, you can create your own `ILogger` implementation that automatically resolves the correct logger type based on the class it's being used in. Here's an example implementation:
+
+```
+public class ClassLogger<T> : ILogger<T>
+{
+    private readonly ILogger _logger;
+
+    public ClassLogger(ILoggerFactory factory)
+    {
+        _logger = factory.CreateLogger(typeof(T).FullName);
+    }
+
+    public IDisposable BeginScope<TState>(TState state)
+    {
+        return _logger.BeginScope(state);
+    }
+
+    public bool IsEnabled(LogLevel logLevel)
+    {
+        return _logger.IsEnabled(logLevel);
+    }
+
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    {
+        _logger.Log(logLevel, eventId, state, exception, formatter);
+    }
+}
+```
+
+You can then register this logger implementation in the `ServiceCollection` like so:
+
+```
+var services = new ServiceCollection()
+    .AddLogging(logging => logging.AddConsole())
+    .AddTransient(typeof(ILogger<>), typeof(ClassLogger<>))
+    .BuildServiceProvider();
+```
+
+With this implementation, you can now use the logger in your classes like this:
+
+```
+private readonly ILogger<MyClass> _logger;
+
+public MyClass(ILogger<MyClass> logger)
+{
+    _logger = logger;
+}
+
+public void MyFunc()
+{
+    _logger.Log(LogLevel.Error, "My Message");
+}
+```
+
+And you don't need to specify the logger type every time you use it.

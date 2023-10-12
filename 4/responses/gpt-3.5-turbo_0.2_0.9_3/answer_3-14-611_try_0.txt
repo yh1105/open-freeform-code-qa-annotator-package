@@ -1,0 +1,12 @@
+You can add spacing between `List` items by using the `.listRowBackground()` modifier and setting a background color with a padding. Here's an example:
+
+```
+List (ratesVM.ratesList, id: \.self) { rate in
+    Button(action: {print("pressed")}) {
+        Text(rate.hebrewCurrencyName)
+    }
+    .listRowBackground(Color.green.padding(.vertical, 8))
+}
+```
+
+This will add 8 points of vertical padding between each `List` item and set the background color to green. You can adjust the padding value to your liking.

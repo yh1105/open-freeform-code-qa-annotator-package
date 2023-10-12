@@ -1,0 +1,13 @@
+This alert is indicating that the app you are trying to open requires Developer Mode to be enabled on your device. Developer Mode is a setting that allows developers to test and debug their apps on their devices.
+
+To enable Developer Mode on your iOS device, follow these steps:
+
+1. Go to Settings on your device
+2. Tap on "General"
+3. Scroll down and tap on "About"
+4. Tap on "Software Information"
+5. Tap on "More Info"
+6. Tap on "Developer Mode"
+7. Toggle the switch to enable Developer Mode
+
+Once Developer Mode is enabled, you should be able to open the app without any issues. If you continue to experience issues, you may need to contact the app developer for further assistance.

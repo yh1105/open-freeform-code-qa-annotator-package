@@ -1,0 +1,26 @@
+Yes, starting from API 30, the `setView` method in Toast has been deprecated. This is because custom toast views are no longer supported in Android 11 (API level 30). 
+
+You can use a `Snackbar` instead, which also allows for custom views and is more flexible in terms of placement and functionality. Here is an example of how to use it:
+
+```java
+Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG);
+Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+TextView textView = (TextView) layout.findViewById(com.google.android.material.R.id.snackbar_text);
+textView.setVisibility(View.INVISIBLE);
+
+View snackView = getLayoutInflater().inflate(R.layout.my_snackbar, null);
+layout.setPadding(0, 0, 0, 0);
+layout.addView(snackView, 0);
+
+snackbar.show();
+```
+
+In this example, `R.layout.my_snackbar` is your custom layout. You can design it as you wish.
+
+If you still want to use Toast, you can use the new `Toast.makeText` method which allows you to pass a `CharSequence` as the text for the toast:
+
+```java
+Toast.makeText(context, "This is a toast", Toast.LENGTH_LONG).show();
+```
+
+But remember, you can't customize the view of Toast anymore in API 30 and above.

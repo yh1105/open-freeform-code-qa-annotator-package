@@ -1,0 +1,41 @@
+The error message indicates that there are incompatible peer dependencies when trying to update Angular core. 
+
+The first error is related to the `@angular/flex-layout` package, which requires `rxjs` version `^5.5.0`, but the update would install `rxjs` version `6.2.0`.
+
+The second error is related to the `@angular/compiler-cli` package, which requires `typescript` version `>=2.7.2 <2.8`, but the update would install `typescript` version `2.6.2`.
+
+Here are the steps to resolve these issues:
+
+1. Update `rxjs` to version `6.x` using the following command:
+
+    ```
+    npm install --save rxjs@6
+    ```
+
+    Angular 6 uses `rxjs` version `6.x`. However, if you have code that uses `rxjs` version `5.x`, you might need to refactor your code or use `rxjs-compat`, which provides a compatibility layer between `rxjs` version `5.x` and `6.x`.
+
+    ```
+    npm install --save rxjs-compat
+    ```
+
+2. Update `typescript` to version `2.7.2` using the following command:
+
+    ```
+    npm install --save-dev typescript@2.7.2
+    ```
+
+    Angular 6 is compatible with `typescript` version `2.7.x`.
+
+3. Update `@angular/flex-layout` to a version that is compatible with Angular 6:
+
+    ```
+    npm install --save @angular/flex-layout@6.0.0-beta.15
+    ```
+
+4. Now, you should be able to update Angular core:
+
+    ```
+    ng update @angular/core
+    ```
+
+Remember to test your application thoroughly after the update to ensure everything works as expected.

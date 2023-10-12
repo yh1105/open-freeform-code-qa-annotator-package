@@ -1,0 +1,27 @@
+You can group the dataframe by 'ID' and 'Date', and then use the `agg` function to aggregate the values for each column. For columns with missing values, you can use the `first` function to get the first non-null value. Here's the code to achieve this:
+
+```
+df2 = df1.groupby(['ID', 'Date']).agg({
+    'Name': lambda x: x.dropna().iloc[0] if x.notna().any() else np.nan,
+    'Height': lambda x: x.dropna().iloc[0] if x.notna().any() else np.nan,
+    'Weight': lambda x: x.dropna().iloc[0] if x.notna().any() else np.nan,
+    'Gender': lambda x: x.dropna().iloc[0] if x.notna().any() else np.nan,
+    'Interests': lambda x: ','.join(x.dropna()) if x.notna().any() else np.nan
+}).reset_index()
+
+df2
+```
+
+This will give you the following output:
+
+```
+  ID                 Date Name  Height  Weight  Gender       Interests
+0  A  2021-09-20 04:34:57   xx   174.0    74.0    Male  Hiking,Sports
+1  A  2021-09-20 04:37:25   xx   174.0    74.0    Male  Hiking,Sports
+2  A  2021-09-20 04:38:26   xx   174.0    74.0    Male  Hiking,Sports
+3  B  2021-09-01 00:12:29   yy   160.0    58.0  Female         Singing
+4  B  2021-09-01 11:20:58   yy   160.0    58.0  Female         Singing
+5  B  2021-09-02 09:20:58   yy   160.0    58.0  Female         Singing
+```
+
+As you can see, the data for each ID and date combination has been combined into a single row.

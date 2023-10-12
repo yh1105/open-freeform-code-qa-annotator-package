@@ -1,0 +1,30 @@
+It is possible that the Browser Link and Browser Refresh middleware are being added automatically by Visual Studio or IIS Express. To disable them completely, you can try the following steps:
+
+1. In your project's `Startup.cs` file, remove any references to `app.UseBrowserLink()` and `app.UseBrowserRefresh()`.
+
+2. In your project's `launchSettings.json` file, add the following lines to the `profiles` section:
+
+```
+"IIS Express": {
+  "environmentVariables": {
+    "ASPNETCORE_BROWSERLINK_ENABLED": "false",
+    "ASPNETCORE_BROWSERSYNC_ENABLED": "false"
+  }
+}
+```
+
+This will disable both Browser Link and Browser Refresh for the IIS Express profile.
+
+3. If you are using the Visual Studio Development Server, you can add the following lines to your project's `.csproj` file:
+
+```
+<PropertyGroup>
+  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  <AspNetCoreBrowserLinkEnabled>false</AspNetCoreBrowserLinkEnabled>
+  <AspNetCoreBrowserRefreshEnabled>false</AspNetCoreBrowserRefreshEnabled>
+</PropertyGroup>
+```
+
+This will disable both Browser Link and Browser Refresh for the Visual Studio Development Server.
+
+After making these changes, rebuild your project and try running it again. The Browser Link and Browser Refresh middleware should no longer be present in the request pipeline, and the browser should no longer automatically refresh when you save a file.

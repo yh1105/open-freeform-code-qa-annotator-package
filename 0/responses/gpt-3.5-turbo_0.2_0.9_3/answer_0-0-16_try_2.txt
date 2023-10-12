@@ -1,0 +1,15 @@
+The error message is indicating that you need to specify an explicit value for `android:exported` in your AndroidManifest.xml file for any component that has an intent filter defined. In your case, it looks like you have an intent filter defined for your MainActivity.
+
+To fix this issue, you can add `android:exported="false"` to the MainActivity declaration in your AndroidManifest.xml file. Here's an example:
+
+```
+<activity android:name=".MainActivity"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+```
+
+Make sure to replace `.MainActivity` with the actual name of your activity. Once you've made this change, try building your APK again and see if the error goes away.

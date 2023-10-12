@@ -1,0 +1,24 @@
+The error message you're seeing is because TypeScript doesn't allow you to declare two mapped types within the same type declaration. In other words, you can't have two `[key in ...]` in the same type.
+
+When you write:
+
+```typescript
+type FruitsAndColors = {
+  [key in fruit]: number;
+  [key in color]: boolean
+}
+```
+
+TypeScript is trying to create a type where each key can be either a fruit or a color, and the value can be either a number or a boolean. This is not possible because TypeScript doesn't allow a key to have two different types of values.
+
+The workaround you provided is the correct way to achieve what you want. By using the intersection operator (`&`), you're creating a type that combines the properties of two different types:
+
+```typescript
+type FruitsAndColors = {
+  [key in fruit]: number;
+} & {
+  [key in color]: boolean
+}
+```
+
+This type will have a numeric property for each fruit and a boolean property for each color, which is what you wanted.

@@ -1,0 +1,56 @@
+Yes, you can achieve this by using React's `ref` feature to create a reference to the form in the `CustomForm` component, and then pass a function to the `CustomForm` component from the `App` component that can be used to submit the form. Here's how you can do it:
+
+```jsx
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
+class CustomForm extends Component {
+  formRef = React.createRef();
+
+  submitForm = () => {
+    if (this.formRef.current) {
+      this.formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(undefined);
+  }
+
+  render() {
+    return (
+      <form ref={this.formRef} onSubmit={(e) => {e.preventDefault(); alert('Form submitted!')}}>
+        <button type='submit'>Inside Custom</button>
+      </form>
+    );
+  }
+}
+
+class App extends Component {
+  submitForm = () => {
+    if (this.child) {
+      this.child.submitForm();
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <CustomForm onRef={ref => (this.child = ref)} />
+        <button onClick={this.submitForm}>In Root</button>
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+In this code, the `CustomForm` component creates a `ref` to the form and a `submitForm` method that submits the form. The `componentDidMount` and `componentWillUnmount` lifecycle methods are used to pass a reference to the `CustomForm` instance to the `App` component.
+
+The `App` component then uses this reference to call the `submitForm` method of the `CustomForm` component when the 'In Root' button is clicked.

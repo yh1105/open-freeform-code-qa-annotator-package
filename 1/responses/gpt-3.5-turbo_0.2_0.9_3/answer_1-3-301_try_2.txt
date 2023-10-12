@@ -1,0 +1,11 @@
+The error message suggests that the `INSTALLED_APPS` setting is not configured. You can try adding the following code at the beginning of your `poppulate_first_app.py` file to configure the Django settings:
+
+```
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'first_django_project.settings')
+django.setup()
+```
+
+Make sure to replace `first_django_project` with the name of your Django project. This should set up the Django environment and allow you to access the `INSTALLED_APPS` setting.

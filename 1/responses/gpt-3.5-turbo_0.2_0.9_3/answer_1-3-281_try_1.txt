@@ -1,0 +1,46 @@
+One way to handle the duplicate letters is to keep track of the indices of each occurrence of the letter in both the choice word and the guess word. You can then compare the indices to determine if the letter is in the same place or not. Here's an updated version of your `wordcolor` method that implements this approach:
+
+```
+def wordcolor(self, choice, guess):
+    guesscolor = {}
+    choiceword = list(choice)
+    guesslist = list(guess)
+
+    # Find indices of each letter in choice word
+    choicedict = {}
+    for idx, letter in enumerate(choiceword):
+        if letter not in choicedict:
+            choicedict[letter] = []
+        choicedict[letter].append(idx)
+
+    # Find indices of each letter in guess word
+    guessdict = {}
+    for idx, letter in enumerate(guesslist):
+        if letter not in guessdict:
+            guessdict[letter] = []
+        guessdict[letter].append(idx)
+
+    # Color code each letter in guess word
+    for idx, letter in enumerate(guesslist):
+        if letter in choicedict:
+            indices = choicedict[letter]
+            if idx in indices:
+                guesscolor[idx] = "green"
+            else:
+                for i in indices:
+                    if i not in guesscolor:
+                        guesscolor[i] = "orange"
+        else:
+            guesscolor[idx] = "red"
+
+    print(guesscolor)
+
+    # Count number of duplicate characters and number of characters in same place
+    totalsame = sum(1 for idx in guesscolor if guesscolor[idx] == "green")
+    sameword = sum(1 for idx in guesscolor if guesscolor[idx] == "green" and guesslist[idx] == choiceword[idx])
+    print(f"There are {totalsame} duplicate characters. {sameword} of them are in the same place")
+
+Game(0).wordcolor("rotas", "share")
+```
+
+This should correctly color code all occurrences of each letter in the guess word, and count the number of duplicate characters and characters in the same place.

@@ -1,0 +1,11 @@
+The error message indicates that the user running the Django application does not have permission to create the `/media/artists` directory. You can fix this issue by changing the ownership of the `/media` directory to the user running the Django application.
+
+You can use the following command to change the ownership of the `/media` directory to the user running the Django application:
+
+```
+sudo chown -R <username>:<username> /media
+```
+
+Replace `<username>` with the username of the user running the Django application.
+
+After changing the ownership of the `/media` directory, you can try uploading the media files again.

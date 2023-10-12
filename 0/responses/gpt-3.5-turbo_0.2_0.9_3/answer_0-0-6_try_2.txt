@@ -1,0 +1,70 @@
+Glad to hear that you were able to fix the issue! Switching to a function component and using `useHistory` is a good approach. Here are a few additional suggestions to improve your code:
+
+1. Avoid using `document.getElementById` to access form inputs. Instead, use React's `useState` hook to store the input values and update them when the user types. This way, you can avoid manipulating the DOM directly and keep your code more declarative.
+
+2. Use the `NavLink` component from `react-router-dom` instead of a regular `button` to navigate between pages. This will give you better control over the navigation behavior and allow you to style the links more easily.
+
+3. Consider using a form element instead of separate input and button elements. This will allow you to handle the form submission more easily and provide better accessibility for users who rely on keyboard navigation.
+
+Here's an example of how you could implement these suggestions:
+
+```
+import { useState } from 'react';
+import { useHistory, NavLink } from 'react-router-dom';
+
+function CustomerLoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (username === 'customer' && password === 'customer') {
+      history.push('/customerhomepage');
+    } else {
+      alert('Wrong username or password!');
+    }
+  };
+
+  return (
+    <div className="App-header">
+      <NavLink to="/main">
+        <button id="backButton">Go Back</button>
+      </NavLink>
+      <h4>Login with your customer account</h4>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+      <div className="content"></div>
+    </div>
+  );
+}
+
+export default CustomerLoginPage;
+```
+
+I hope this helps! Let me know if you have any further questions.

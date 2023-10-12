@@ -1,0 +1,28 @@
+Yes, you can customize these messages. The Blazor framework provides a JavaScript object named `Blazor.defaultReconnectionHandler` that you can use to customize the UI during the reconnection process.
+
+Here's an example of how you can customize these messages:
+
+```html
+<script src="_framework/blazor.server.js"></script>
+<script>
+    Blazor.defaultReconnectionHandler._reconnectCallback = function(d) {
+        document.getElementById('components-reconnect-modal').style.display = 'none';
+        document.getElementById('components-reconnect-failed').style.display = 'none';
+        document.getElementById('components-reconnect').style.display = 'block';
+        // Add your custom message here
+        document.getElementById('components-reconnect').innerText = 'Attempting to reconnect to the server...';
+    };
+
+    Blazor.defaultReconnectionHandler._reconnectFailedCallback = function() {
+        document.getElementById('components-reconnect').style.display = 'none';
+        document.getElementById('components-reconnect-modal').style.display = 'none';
+        document.getElementById('components-reconnect-failed').style.display = 'block';
+        // Add your custom message here
+        document.getElementById('components-reconnect-failed').innerText = 'Disconnected from server. Reload page...';
+    };
+</script>
+```
+
+You can place this script in your `_Host.cshtml` or `wwwroot/index.html` file, after the `blazor.server.js` script reference.
+
+This script will replace the default reconnection messages with your custom messages. You can replace the text inside the `innerText` property with your own messages, and they can be in any language you prefer.

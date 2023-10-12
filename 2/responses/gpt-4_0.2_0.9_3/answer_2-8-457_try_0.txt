@@ -1,0 +1,15 @@
+The error message you're seeing suggests that the Go debugger (dlv) is trying to run under Rosetta, which is Apple's technology for translating software compiled for Intel processors to run on Apple Silicon. However, dlv cannot run under Rosetta.
+
+This issue might be due to the Go extension for VSCode not being fully compatible with Apple M1 chips yet. Here are a few things you can try:
+
+1. **Check your PATH**: Make sure that the Go and dlv binaries you're using are the correct ones for your architecture. You can check this by running `which go` and `which dlv` in your terminal. The output should point to the arm64 versions of these binaries.
+
+2. **Check your Go extension settings in VSCode**: Make sure that the "Use Language Server" option is checked. You can find this in the settings (Code > Preferences > Settings > Extensions > Go).
+
+3. **Update your Go extension for VSCode**: Make sure you're using the latest version of the Go extension for VSCode. You can check for updates in the Extensions view in VSCode.
+
+4. **Try using the beta version of the Go extension**: The Go team at Google has a beta version of the Go extension for VSCode that includes better support for Apple M1 chips. You can install it by searching for "gopls" in the Extensions view in VSCode.
+
+5. **Try using a different IDE or editor**: If none of the above solutions work, you might want to try using a different IDE or editor that has better support for Go on Apple M1 chips. JetBrains' GoLand is one such option.
+
+Remember to restart VSCode after making these changes to ensure they take effect.

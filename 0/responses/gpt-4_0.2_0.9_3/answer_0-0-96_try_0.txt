@@ -1,0 +1,37 @@
+Here is an example of an optimal `tsconfig.json` for a Node.js 12 environment:
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2019", 
+    "module": "commonjs", 
+    "outDir": "./dist", 
+    "strict": true, 
+    "esModuleInterop": true, 
+    "skipLibCheck": true, 
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
+```
+
+Explanation of some of the key options:
+
+- `target`: This option specifies the ECMAScript target version. Node.js 12 supports ES2019 fully, so we set it as "es2019".
+
+- `module`: This option specifies the module system for your project. Node.js uses the CommonJS module system, so we set it as "commonjs".
+
+- `outDir`: The directory where the output build will be placed.
+
+- `strict`: This option enables a wide range of type checking behavior that results in more type-safe programs.
+
+- `esModuleInterop`: This option enables a more compatible CommonJS/AMD module emit.
+
+- `skipLibCheck`: This option makes the compiler skip type checking of declaration files (*.d.ts).
+
+- `forceConsistentCasingInFileNames`: This option makes sure that the casing is correct in your import statements. If you import a file as `import * as foo from './Foo';` but the filename is actually `./foo.ts`, TypeScript will throw an error.
+
+- `include`: Instructs the compiler to include these files in the compilation process.
+
+- `exclude`: Instructs the compiler to exclude these files from the compilation process.

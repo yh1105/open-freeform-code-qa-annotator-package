@@ -1,0 +1,32 @@
+Unfortunately, the latest version of CMake may not always be available in the default repositories of your Linux distribution. However, you can try adding a PPA (Personal Package Archive) to your system to get the latest version of CMake.
+
+Here are the steps to install the latest version of CMake on Ubuntu:
+
+1. Add the Kitware repository to your system:
+
+```
+sudo apt-key adv --fetch-keys https://apt.kitware.com/keys/kitware-archive-latest.asc
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+```
+
+Note: Replace "focal" with your Ubuntu version codename (e.g. bionic, xenial, etc.)
+
+2. Update the package list:
+
+```
+sudo apt-get update
+```
+
+3. Install CMake:
+
+```
+sudo apt-get install cmake
+```
+
+This should install the latest version of CMake on your system. You can check the version by running:
+
+```
+cmake --version
+```
+
+I hope this helps!

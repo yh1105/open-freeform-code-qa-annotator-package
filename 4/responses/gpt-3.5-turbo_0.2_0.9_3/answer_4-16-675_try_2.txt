@@ -1,0 +1,15 @@
+To show the current branch name in the VSCode terminal, you can use the following command:
+
+```
+git branch | grep \* | cut -d ' ' -f2
+```
+
+This command will display the name of the current branch. You can add this command to your PS1 environment variable to display the branch name in your terminal prompt.
+
+To add this command to your PS1 environment variable, you can add the following line to your .bashrc file:
+
+```
+export PS1='\u@\h:\w $(git branch 2>/dev/null | grep -e ^* | sed -E s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /) $ '
+```
+
+This will display the current branch name in parentheses in your terminal prompt.

@@ -1,0 +1,36 @@
+You can achieve this by using the `::before` and `::after` pseudo-elements to create the horizontal and vertical lines of the plus symbol. Here's an example:
+
+```css
+.plus {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.plus::before, .plus::after {
+  content: "";
+  position: absolute;
+  background-color: black;
+}
+
+.plus::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.plus::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+```
+```html
+<div class="plus"></div>
+```
+
+This will create a thin plus symbol. The `::before` pseudo-element creates the horizontal line and the `::after` pseudo-element creates the vertical line. The `transform` property is used to center the lines. You can adjust the `width`, `height`, and `background-color` properties to change the size and color of the lines.

@@ -1,0 +1,21 @@
+You can use the `split()` function in Python to split the string at the '|' character and then just select the first part. Here is how you can do it:
+
+```python
+a='2.452811139617034,42.10874821716908|3.132087902867818,42.028314077306646|-0.07934861041448178,41.647538468746916|-0.07948265046522918,41.64754863599606'
+
+# Split the string at '|'
+split_string = a.split('|')
+
+# Get the first part
+first_part = split_string[0]
+
+print(first_part)
+```
+
+When you run this code, it will print:
+
+```
+2.452811139617034,42.10874821716908
+```
+
+The `split()` function splits a string into a list where each word is a list item. The split is done at the specified separator. In this case, the separator is '|'. After the split, the first part of the string is the first item in the list, which is what you want.

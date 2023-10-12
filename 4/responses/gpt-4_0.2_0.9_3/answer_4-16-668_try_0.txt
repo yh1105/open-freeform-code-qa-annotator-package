@@ -1,0 +1,13 @@
+You can use the `-i` option with `grep` to make your search case insensitive. Here is how you can modify your command:
+
+```bash
+cat file1 | grep -i "success\.\.\."
+```
+
+This command will return lines containing either `Success...` or `success...`.
+
+Also, you can directly use `grep` on the file without using `cat`:
+
+```bash
+grep -i "success\.\.\." file1
+```

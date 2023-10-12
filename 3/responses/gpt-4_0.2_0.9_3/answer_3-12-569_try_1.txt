@@ -1,0 +1,18 @@
+The `builder` parameter in `ChangeNotifierProvider` has been deprecated and replaced with `create`. So, you should replace `builder` with `create` in your code.
+
+Here is how you can modify your code:
+
+```dart
+main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Auth()),
+      ],
+      child: App(),
+    ),
+  );
+}
+```
+
+This change was made to make the API more consistent with other parts of the Flutter framework. The `create` parameter is more descriptive of its purpose, which is to create a new instance of a `ChangeNotifier`.

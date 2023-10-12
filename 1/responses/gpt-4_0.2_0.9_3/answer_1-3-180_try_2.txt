@@ -1,0 +1,15 @@
+In pandas, you can filter your DataFrame before applying groupby. Here's how you can do it:
+
+```python
+data_useless[data_useless['TEST_STATUS'] == 'PASS TEST'].groupby('TEST_STATUS').count()
+```
+
+This line of code will first filter your DataFrame to only include rows where 'TEST_STATUS' is 'PASS TEST'. Then it will group by 'TEST_STATUS' and count the number of occurrences.
+
+If you want to see all the data for 'PASS TEST', you don't need to use groupby. You can just filter the DataFrame:
+
+```python
+data_useless[data_useless['TEST_STATUS'] == 'PASS TEST']
+```
+
+This will return all rows in your DataFrame where 'TEST_STATUS' is 'PASS TEST'.

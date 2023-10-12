@@ -1,0 +1,11 @@
+Storing API keys directly in your client-side code is indeed a bad practice as it exposes your keys to the public. Here are a few ways to manage API keys in a secure manner:
+
+1. **Environment Variables**: You can store your API keys in environment variables on the server that is serving your React app. You can then access these variables in your code. This is a common practice and is secure because the keys are not exposed in your code and they are not accessible via the browser. However, this method is only applicable if you have control over the server environment.
+
+2. **Proxy Server**: If you don't have a backend for your app, you can create a simple proxy server that handles the API calls. The proxy server stores the API keys and makes the API requests on behalf of the client. The client sends a request to the proxy server, the proxy server makes the API request, and then sends the data back to the client. This way, the API keys are never exposed to the client.
+
+3. **Serverless Functions**: If setting up a proxy server seems too much, you can use serverless functions like AWS Lambda or Netlify Functions. These functions can hold your API keys and make the API calls. Your React app would call these functions instead of calling the API directly.
+
+4. **Secure Key Management Services**: You can use secure key management services like AWS Secrets Manager or Google Cloud Secret Manager to store and manage your API keys. These services provide a secure and convenient way to manage API keys and other sensitive information.
+
+Remember, no matter which method you choose, never expose your API keys in the client-side code or in version control systems like Git.

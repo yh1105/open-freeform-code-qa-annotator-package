@@ -1,0 +1,21 @@
+It seems like the issue is related to the timezone information in your datetime objects. Excel does not support timezone-aware datetime objects, so you need to convert them to timezone-naive datetime objects before writing to Excel.
+
+You mentioned that you have already tried using `dt.tz_convert` and `replace(tzinfo=None)`. However, it's important to make sure that you are applying these methods to the correct columns in your DataFrame.
+
+Here's an example of how you can convert a column of timezone-aware datetime objects to timezone-naive datetime objects:
+
+```
+df['datetime_column'] = df['datetime_column'].dt.tz_convert(None)
+```
+
+Make sure to replace `'datetime_column'` with the name of the column that contains your datetime objects.
+
+You can also try setting the timezone to UTC before converting to timezone-naive datetime objects:
+
+```
+df['datetime_column'] = df['datetime_column'].dt.tz_convert('UTC').dt.tz_localize(None)
+```
+
+Once you have converted your datetime objects to timezone-naive datetime objects, you should be able to write them to Excel without any issues.
+
+Let me know if this helps!

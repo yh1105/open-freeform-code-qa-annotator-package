@@ -1,0 +1,23 @@
+You can use the `Clipboard.SetText` method to copy the text value to the Windows clipboard. Here's an example code snippet:
+
+```
+Dim textValue As String
+textValue = "Your text value here"
+Clipboard.SetText textValue
+```
+
+Regarding your issue with copying the node path value into the Windows clipboard, you can try using the `DoCmd.RunCommand acCmdCopy` method after setting the focus to the node key control. Here's an example code snippet:
+
+```
+Me.NodeKey.SetFocus
+DoCmd.RunCommand acCmdCopy
+```
+
+If this doesn't work, you can try using the `SendKeys` method to simulate the Ctrl+C key combination. Here's an example code snippet:
+
+```
+Me.NodeKey.SetFocus
+SendKeys "^c"
+```
+
+This should copy the node path value to the Windows clipboard.

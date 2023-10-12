@@ -1,0 +1,16 @@
+`MaterialStateProperty` is a class in Flutter that represents the state of a material component, such as a button, checkbox, or switch. It is used to define the appearance of a component in different states, such as when it is pressed, disabled, or hovered over.
+
+In the `ButtonStyle` class, `MaterialStateProperty` is used to define the background color of a button in different states. For example, you can set the background color of a button to red when it is pressed, and blue when it is not pressed, using the following code:
+
+```
+backgroundColor: MaterialStateProperty.resolveWith<Color>(
+  (Set<MaterialState> states) {
+    if (states.contains(MaterialState.pressed)) {
+      return Colors.red;
+    }
+    return Colors.blue;
+  },
+),
+```
+
+This code sets the background color of the button to red when it is pressed, and blue when it is not pressed. The `resolveWith` method takes a function that returns the color for a given set of states. In this case, the function checks if the `MaterialState.pressed` state is present in the set of states, and returns the appropriate color.

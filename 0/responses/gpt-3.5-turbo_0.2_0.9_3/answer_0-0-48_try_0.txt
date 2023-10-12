@@ -1,0 +1,5 @@
+The error message you're seeing is due to a limitation in TypeScript's type system. When you use a mapped type, you're essentially creating a new type by mapping over an existing type. However, TypeScript doesn't allow you to declare properties or methods within a mapped type. This is because mapped types are meant to be used for transforming existing types, not for defining new properties.
+
+In your example, you're trying to define new properties within the mapped type, which is why you're seeing the error message. However, TypeScript is still able to compile the code because it's able to infer the correct type based on the mapped type.
+
+By using an intersection type, as you've done in your workaround, you're able to define new properties without running into the limitation of mapped types. This is because intersection types allow you to combine multiple types into a single type, effectively creating a new type with all the properties of the original types.

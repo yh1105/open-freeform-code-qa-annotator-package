@@ -1,0 +1,5 @@
+Yes, `pip` will continue to work for Python 2.7 even after its end of life. You will still be able to install packages using `pip install abc==1.2.3`. However, it's important to note that while `pip` will continue to work, individual package maintainers may choose to stop supporting Python 2.7. This means that newer versions of packages may not be compatible with Python 2.7.
+
+Also, the Python Package Index (PyPI) will continue to serve Python 2 packages. The Python Software Foundation has not announced any plans to stop hosting Python 2.7 packages on PyPI.
+
+However, it's strongly recommended to upgrade to Python 3 as soon as possible, as Python 2.7 will not receive any security updates or bug fixes, making any code running on it potentially vulnerable.

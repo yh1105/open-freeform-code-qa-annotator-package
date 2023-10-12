@@ -1,0 +1,34 @@
+You can use the `apply()` function to loop through each column of the data.frame and extract the minimum and maximum values, as well as the row names of each maximum value. Then, you can combine the results into a new data.frame using the `cbind()` function.
+
+Here's an example code that should work for your data:
+
+```
+# Example data
+cars <- data.frame(speed = c(4, 4, 7, 7, 8, 9),
+                   dist = c(2, 10, 4, 22, 16, 10))
+
+# Loop through each column and extract min/max values and row names
+min_vals <- apply(cars, 2, min)
+max_vals <- apply(cars, 2, max)
+max_rows <- apply(cars, 2, function(x) paste(which(x == max(x)), collapse = ","))
+
+# Combine results into a new data.frame
+result <- data.frame(min.value = min_vals,
+                     max.value = max_vals,
+                     column = colnames(cars),
+                     rowname = max_rows,
+                     freq.times = sapply(strsplit(max_rows, ","), length))
+
+# Print the result
+result
+```
+
+This should give you the desired output:
+
+```
+  min.value max.value column rowname freq.times
+1         4         9  speed     6,5          2
+2         2        22   dist       4          1
+```
+
+Note that the `freq.times` column is calculated by splitting the `rowname` column by commas and counting the number of elements in each resulting vector.

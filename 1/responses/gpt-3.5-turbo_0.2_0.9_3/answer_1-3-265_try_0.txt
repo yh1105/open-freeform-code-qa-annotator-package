@@ -1,0 +1,51 @@
+Yes, you can encrypt the JSON file using a symmetric encryption algorithm such as AES (Advanced Encryption Standard) in Python. Here's an example code snippet to encrypt and decrypt a JSON file using AES:
+
+```python
+import json
+from Crypto.Cipher import AES
+
+# Define the key and initialization vector (IV)
+key = b'my_secret_key_123'
+iv = b'initialization_vec'
+
+# Define the encryption function
+def encrypt_json(json_data):
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    json_bytes = json.dumps(json_data).encode('utf-8')
+    # Pad the data to be a multiple of 16 bytes
+    padded_data = json_bytes + b' ' * (16 - len(json_bytes) % 16)
+    encrypted_data = cipher.encrypt(padded_data)
+    return encrypted_data
+
+# Define the decryption function
+def decrypt_json(encrypted_data):
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    decrypted_data = cipher.decrypt(encrypted_data)
+    # Remove the padding
+    unpadded_data = decrypted_data.rstrip(b' ')
+    json_data = json.loads(unpadded_data.decode('utf-8'))
+    return json_data
+
+# Load the JSON file
+with open('data.json', 'r') as f:
+    json_data = json.load(f)
+
+# Encrypt the JSON data
+encrypted_data = encrypt_json(json_data)
+
+# Write the encrypted data to a file
+with open('encrypted_data.bin', 'wb') as f:
+    f.write(encrypted_data)
+
+# Read the encrypted data from the file
+with open('encrypted_data.bin', 'rb') as f:
+    encrypted_data = f.read()
+
+# Decrypt the JSON data
+json_data = decrypt_json(encrypted_data)
+
+# Use the decrypted JSON data
+print(json_data)
+```
+
+In this example, the `key` and `iv` are used to encrypt and decrypt the JSON data. You can change these values to your own secret key and initialization vector. The `encrypt_json` function takes the JSON data as input, converts it to bytes, pads it to a multiple of 16 bytes, encrypts it using AES, and returns the encrypted data. The `decrypt_json` function takes the encrypted data as input, decrypts it using AES, removes the padding, converts it back to JSON format, and returns the JSON data.

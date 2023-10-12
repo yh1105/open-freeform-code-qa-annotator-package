@@ -1,0 +1,21 @@
+Based on the error message, it seems that the `ZIndexProperty` field in the `Microsoft.Maui.Controls.VisualElement` class is inaccessible from the `Ventas_Citel.Views.Login.Login:InitializeComponent()` method. This could be caused by a linker issue where the linker is removing the `ZIndexProperty` field from the release build.
+
+To fix this issue, you can try adding the following code to your `MauiProgram.cs` file to exclude the `Microsoft.Maui.Controls.VisualElement` class from the linker:
+
+```
+[assembly: LinkerSafe]
+namespace Microsoft.Maui.Controls
+{
+    public class VisualElement
+    {
+        // Add any properties or methods that you need from the VisualElement class
+        public static readonly BindableProperty ZIndexProperty = BindableProperty.CreateAttached("ZIndex", typeof(int), typeof(VisualElement), 0);
+    }
+}
+```
+
+This code creates a new `VisualElement` class in your app's namespace and includes the `ZIndexProperty` field. The `[assembly: LinkerSafe]` attribute tells the linker not to remove this class from the release build.
+
+Alternatively, you can try disabling the linker for the release build by setting the linker option to "None" in your project's properties. However, this will increase the size of your app's binary.
+
+I hope this helps you solve the issue. Let me know if you have any further questions or concerns.

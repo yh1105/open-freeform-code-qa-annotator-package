@@ -1,0 +1,21 @@
+It seems like you're having trouble with Rails' asset pipeline. The asset pipeline is a feature in Rails that concatenates and minifies or compresses JavaScript and CSS assets. It also adds the ability to write these assets in other languages such as CoffeeScript, Sass and ERB.
+
+When you're in development mode, Rails is supposed to compile assets on-the-fly, meaning that you shouldn't have to precompile your assets every time you make a change. However, if you've precompiled your assets at some point, Rails might be serving those precompiled assets instead of compiling them on-the-fly.
+
+Here are a few steps you can take to solve this issue:
+
+1. **Clear your precompiled assets**: You can do this by running `rake assets:clobber` in your terminal. This will remove all precompiled assets.
+
+2. **Disable asset precompiling in development**: In your `config/environments/development.rb` file, make sure the following line is set to `false`:
+
+    ```ruby
+    config.assets.debug = false
+    ```
+
+    This will disable the concatenation and compression of assets, causing them to be compiled individually and making them easier to debug.
+
+3. **Check your CSS manifest file**: Rails uses a manifest file to determine which CSS files to include. This file is usually located at `app/assets/stylesheets/application.css`. Make sure that your CSS file is being required in this manifest file.
+
+4. **Restart your server**: After making these changes, restart your server to ensure that the changes take effect.
+
+If you're still having trouble after trying these steps, there might be an issue with your Rails setup. In that case, you might want to consider creating a new Rails app and gradually moving your code over to see if the problem persists.

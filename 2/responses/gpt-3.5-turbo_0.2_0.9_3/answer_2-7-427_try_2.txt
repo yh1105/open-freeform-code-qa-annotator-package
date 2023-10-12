@@ -1,0 +1,23 @@
+The error message you are getting suggests that there is a problem with the SSL certificate on the mail server. The SSL certificate may be expired, invalid or not trusted by your server. 
+
+To fix this issue, you can try changing the encryption method from 'ssl' to 'tls' in your .env file and mail.php configuration file. 
+
+```
+MAIL_ENCRYPTION=tls
+```
+
+If that doesn't work, you can try disabling SSL verification by adding the following line to your mail.php configuration file:
+
+```
+'stream' => [
+    'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true,
+    ],
+],
+```
+
+This will disable SSL verification and allow your server to connect to the mail server without verifying the SSL certificate. However, this is not recommended for production environments as it can pose a security risk.
+
+If none of the above solutions work, you may need to contact the mail server administrator to check the SSL certificate and ensure that it is valid and trusted.

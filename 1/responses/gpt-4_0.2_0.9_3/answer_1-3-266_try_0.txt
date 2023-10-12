@@ -1,0 +1,24 @@
+The issue you're experiencing seems to be related to the way Azure handles static files. Azure doesn't serve static files by default. You need to add a web.config file to your static files directory to enable this.
+
+Here's a sample web.config file that you can use:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <system.webServer>
+    <staticContent>
+      <mimeMap fileExtension=".svg" mimeType="image/svg+xml" />
+      <mimeMap fileExtension=".woff" mimeType="application/font-woff" />
+      <mimeMap fileExtension=".woff2" mimeType="application/font-woff" />
+      <mimeMap fileExtension=".json" mimeType="application/json" />
+      <mimeMap fileExtension=".png" mimeType="image/png" />
+    </staticContent>
+  </system.webServer>
+</configuration>
+```
+
+This file should be placed in the root of your static files directory. It tells IIS (the web server used by Azure) to serve files with the extensions .svg, .woff, .woff2, .json, and .png as static files.
+
+Also, make sure that the path to your static files in your Django settings is correct and that the STATIC_ROOT setting points to the location where you want Django to collect static files for deployment.
+
+If you're still having issues, you might want to consider using a separate static file hosting service like Azure Blob Storage or a CDN. This can provide better performance and scalability for your static files.

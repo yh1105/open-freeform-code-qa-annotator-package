@@ -1,0 +1,13 @@
+`::ng-deep` is a deprecated feature in Angular and should be avoided. Instead, you can use the `::ng-deep` alternative, which is the `::ng-deep` pseudo-class. This pseudo-class can be used to apply styles to child components from the parent component.
+
+To use `::ng-deep`, you can add it to the CSS selector in the parent component's CSS file. For example, if you want to apply styles to a child component with the class `child-component`, you can use the following code in the parent component's CSS file:
+
+```
+:host ::ng-deep .child-component {
+  /* styles to be applied to child component */
+}
+```
+
+Note that `::ng-deep` is deprecated and may be removed in future versions of Angular. It is recommended to use other methods to style child components, such as using the `@Input` decorator to pass styles from the parent component to the child component.
+
+Regarding IE11 support, `::ng-deep` is not supported in IE11. If you need to support IE11, you should use other methods to style child components.

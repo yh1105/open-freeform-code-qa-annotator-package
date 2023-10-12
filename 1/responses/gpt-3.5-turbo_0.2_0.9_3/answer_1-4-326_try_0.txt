@@ -1,0 +1,21 @@
+You can use regular expressions to replace the commas inside the quoted portions of the string with a different character (e.g. a semicolon), then use `separate_rows()` with `sep==","`, and finally replace the semicolons back to commas. Here's the code to do that:
+
+```
+library(tidyr)
+
+string <- c("1, 2, \"something, else\"", "3, 5, \"more, more, more\"", "6, \"commas, are fun\", \"no, they are not\"")
+
+# Replace commas inside quotes with semicolons
+string <- gsub("(\"[^\"]*),([^\\\"]*\")", "\\1;\\2", string)
+
+# Separate rows using commas
+string <- separate_rows(string, sep = ",")
+
+# Replace semicolons back to commas
+string <- gsub(";", ",", string)
+
+string
+#[1] "1, 2, \"something else\""                  
+#[2] "3, 5, \"more more more\""                  
+#[3] "6, \"commas are fun\", \"no they are not\""
+```

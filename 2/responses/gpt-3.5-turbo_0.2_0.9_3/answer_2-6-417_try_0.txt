@@ -1,0 +1,31 @@
+Yes, you can customize the error messages that are displayed to the user when there is a connection issue with the server. 
+
+In your Blazor component, you can add the following code to customize the error message:
+
+```csharp
+protected override void OnInitialized()
+{
+    base.OnInitialized();
+    var hubConnection = new HubConnectionBuilder()
+        .WithUrl(NavigationManager.ToAbsoluteUri("/myhub"))
+        .Build();
+
+    hubConnection.Closed += async (error) =>
+    {
+        await Task.Delay(new Random().Next(0, 5) * 1000);
+        await hubConnection.StartAsync();
+    };
+
+    hubConnection.OnClose((exception) =>
+    {
+        // customize the error message here
+        Console.WriteLine("Connection closed.");
+    });
+
+    hubConnection.StartAsync();
+}
+```
+
+In the `OnClose` method, you can customize the error message to display to the user. You can also translate the message to another language if needed.
+
+Additionally, you can disable the automatic reconnection attempts by removing the `hubConnection.Closed` event handler. This will prevent the "Attempting to reconnect to the server" message from appearing. However, keep in mind that this may result in a poor user experience if the user is disconnected from the server for an extended period of time.

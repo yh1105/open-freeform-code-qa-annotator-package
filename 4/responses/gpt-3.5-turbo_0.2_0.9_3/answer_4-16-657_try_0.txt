@@ -1,0 +1,9 @@
+Yes, you can output bold text in PowerShell by using the escape sequence for bold text. Here's an example:
+
+```
+Write-Host "This is normal text. This is $(tput bold)bold$(tput sgr0) text."
+```
+
+In this example, `$(tput bold)` is the escape sequence for bold text, and `$(tput sgr0)` resets the text formatting back to normal. You can replace "bold" with any text that you want to output in bold.
+
+Note that this may not work in all PowerShell environments, as it relies on the `tput` command being available. If it doesn't work for you, you may need to look for an alternative method of outputting bold text.

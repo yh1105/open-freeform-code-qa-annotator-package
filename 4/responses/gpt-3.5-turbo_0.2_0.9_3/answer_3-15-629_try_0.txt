@@ -1,0 +1,21 @@
+You can try using the `Clipboard.SetText` method to copy the text value to the Windows clipboard. Here's an example code snippet that you can modify to suit your needs:
+
+```
+Dim objData As New DataObject
+objData.SetText Me.NodeKey.Value
+objData.PutInClipboard
+```
+
+This code creates a new `DataObject` and sets its text value to the `NodeKey.Value`. Then it puts the data object in the clipboard using the `PutInClipboard` method. 
+
+If you're still having trouble copying the node path value to the clipboard, you can try using the `SendKeys` method to simulate the Ctrl+C keystroke combination. Here's an example code snippet:
+
+```
+Me.NodeKey.SetFocus
+DoCmd.RunCommand acCmdSelectRecord
+DoCmd.RunCommand acCmdCopy
+```
+
+This code sets the focus on the `NodeKey` control, selects the record, and then copies it to the clipboard using the `acCmdCopy` command. 
+
+I hope this helps! Let me know if you have any further questions.

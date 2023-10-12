@@ -1,0 +1,7 @@
+The `@RequiredArgsConstructor` annotation in Lombok is used to generate a constructor with parameters for all final fields, as well as any fields marked as `@NonNull`. This is useful to ensure that these fields are always initialized when an instance of the class is created.
+
+The `@RequiredArgsConstructor(onConstructor = @__(@Inject))` is a bit more specific. It does the same thing as `@RequiredArgsConstructor`, but it also adds the `@Inject` annotation to the generated constructor. 
+
+The `@Inject` annotation is part of the Java CDI (Contexts and Dependency Injection) standard. It's used to mark a constructor, field, or method as to be dependency injected. In other words, it's a way of telling the system, "Hey, I need an instance of this class. Please create one for me and set it here."
+
+So, the difference between the two is that the latter one is used when you want the generated constructor to be used for dependency injection.

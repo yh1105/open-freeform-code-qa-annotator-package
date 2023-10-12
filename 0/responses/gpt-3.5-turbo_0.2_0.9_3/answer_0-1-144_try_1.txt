@@ -1,0 +1,9 @@
+To change the color of the accordion arrow, you can add the following CSS code to your website's stylesheet:
+
+```
+.accordion-button::after {
+    color: green;
+}
+```
+
+This will change the color of the arrow icon that appears next to the accordion button. You can adjust the color to your desired shade of green by changing the value of the `color` property.

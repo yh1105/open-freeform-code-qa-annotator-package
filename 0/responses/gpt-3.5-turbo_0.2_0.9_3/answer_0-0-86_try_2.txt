@@ -1,0 +1,9 @@
+The issue is that the import paths you are using are outdated. The latest version of `react-icons` no longer uses the `lib` folder in the import path. Instead, you should import the icons directly from the package like this:
+
+```
+import { MdTerrain } from 'react-icons/md';
+import { TiWeatherSnow } from 'react-icons/ti';
+import { FaCalendar } from 'react-icons/fa';
+```
+
+Make sure to update your import statements accordingly and it should work.

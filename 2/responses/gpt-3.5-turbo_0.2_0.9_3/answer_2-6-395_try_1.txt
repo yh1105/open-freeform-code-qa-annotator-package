@@ -1,0 +1,34 @@
+To add XML comments to your API endpoints in .NET6, you need to follow these steps:
+
+1. Enable XML documentation generation in your project settings. To do this, right-click on your project in the Solution Explorer, select Properties, and go to the Build tab. Under the Output section, check the "XML documentation file" option and specify a file name.
+
+2. Add XML comments to your API endpoint methods. You can do this by placing triple-slash comments (///) above the method declaration and adding the appropriate tags to describe the method and its parameters. For example:
+
+```
+/// <summary>
+/// Retrieves a list of clients from the repository.
+/// </summary>
+/// <param name="repo">The client repository to use.</param>
+/// <returns>A list of client models.</returns>
+app.MapGet("/clients",
+     async (IClientRepository repo) =>
+     {
+          var results = await repo.GetClientsAsync();
+          return mapper.Map<IEnumerable<ClientModel>>(results);
+     });
+```
+
+3. Build your project to generate the XML documentation file.
+
+4. Configure Swagger to use the XML documentation file. In your Startup.cs file, add the following code to the ConfigureServices method:
+
+```
+services.AddSwaggerGen(c =>
+{
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "YourXmlFileName.xml"));
+});
+```
+
+Replace "YourXmlFileName.xml" with the name of your XML documentation file.
+
+5. Run your project and navigate to the Swagger UI. You should now see the XML comments displayed in the description section of your API endpoint.

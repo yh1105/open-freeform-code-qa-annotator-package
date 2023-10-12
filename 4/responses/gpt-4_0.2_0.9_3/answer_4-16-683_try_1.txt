@@ -1,0 +1,39 @@
+The colors you see in your terminal are not determined by iTerm2 but by your shell and the programs you run in it. iTerm2 just displays the colors it's told to. 
+
+If you're using bash, you can change the colors of your prompt by modifying the PS1 environment variable in your .bashrc or .bash_profile file. 
+
+Here's an example of how you can change the colors:
+
+```bash
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+```
+
+In this example:
+
+- `\[\033[01;32m\]` changes the color to green for the username and hostname
+- `\u@\h` is the username and hostname
+- `\[\033[00m\]` resets the color
+- `\[\033[01;34m\]` changes the color to blue for the path
+- `\w` is the path
+- `\[\033[00m\]` resets the color again
+
+You can change the color codes to whatever you prefer. Here are some common ones:
+
+- Black: 0;30
+- Red: 0;31
+- Green: 0;32
+- Brown/Orange: 0;33
+- Blue: 0;34
+- Purple: 0;35
+- Cyan: 0;36
+- Light Gray: 0;37
+- Dark Gray: 1;30
+- Light Red: 1;31
+- Light Green: 1;32
+- Yellow: 1;33
+- Light Blue: 1;34
+- Light Purple: 1;35
+- Light Cyan: 1;36
+- White: 1;37
+
+After you've made the changes, save the file and then run `source ~/.bashrc` or `source ~/.bash_profile` to apply the changes. If you open a new terminal window or tab, the changes should also apply.

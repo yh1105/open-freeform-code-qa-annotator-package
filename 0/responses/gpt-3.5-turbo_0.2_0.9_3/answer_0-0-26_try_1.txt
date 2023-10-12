@@ -1,0 +1,27 @@
+You can add a `displayName` property to your functional component to fix the ESLint error. Here's an example:
+
+```
+function Foos(props) {
+  // component code here
+}
+
+Foos.displayName = 'Foos';
+
+export default connect(
+  mapStateToProps,
+)(Foos)
+```
+
+Alternatively, you can use the `displayName` property directly on the exported component:
+
+```
+export default connect(
+  mapStateToProps,
+)(function Foos(props) {
+  // component code here
+});
+
+Foos.displayName = 'Foos';
+```
+
+Either way, adding the `displayName` property should resolve the ESLint error.

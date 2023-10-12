@@ -1,0 +1,16 @@
+It seems like the issue is with the way the YAML file is being parsed. The quotes around the command may be causing the error.
+
+To fix this, you can try escaping the quotes in the YAML file. For example, instead of enclosing the command in double quotes, you can use single quotes and escape any single quotes within the command with a backslash. Here's an example:
+
+```
+args:
+        - '
+          /cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+          CHILD_PID=$!
+          (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill ; echo "Killed  as the main container terminated."; fi; sleep 1; done) &
+          wait 
+          if [[ -f "/tmp/pod/main-terminated" ]]; then exit 0; echo "Job completed. Exiting..."; fi
+          '
+```
+
+This should prevent the YAML parser from enclosing the command in quotes and causing the error.

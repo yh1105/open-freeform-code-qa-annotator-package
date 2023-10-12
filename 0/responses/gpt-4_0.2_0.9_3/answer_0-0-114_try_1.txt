@@ -1,0 +1,13 @@
+The issue you're experiencing might be due to the security settings on your Mac. MacOS Catalina has increased security measures, and one of them includes blocking applications from unidentified developers or from the internet.
+
+Here's how you can open the application:
+
+1. Go to your `Applications` folder and find `Flipper`.
+2. Control-click the `Flipper` icon, then choose `Open` from the menu.
+3. Click `Open` in the dialog box. If you don't see this option, choose `Apple menu > System Preferences`, click `Security & Privacy`, then click `General`. Under the `General` tab, click `Open Anyway` to confirm your intent to open or install the app.
+
+The warning prompt reappears, and you can click `Open`.
+
+The app is saved as an exception to your security settings, and you can open it in the future by double-clicking it, just like a registered app.
+
+If the problem persists, it might be a different issue. Please provide more details about the error message you're getting.

@@ -1,0 +1,46 @@
+In Rust, there's no built-in way to automatically map fields from one struct to another, especially when the types of the fields are different. However, you can make the process a bit more ergonomic by implementing a conversion function or using a conversion trait like `From` or `Into`.
+
+Here's an example of how you might do this using the `From` trait:
+
+```rust
+pub struct Message {
+    pub id: i32,
+    pub email: String,
+    pub name: String,
+}
+
+pub struct Source {
+    pub email: Email,
+    pub name: Name,
+}
+
+impl From<Source> for Message {
+    fn from(source: Source) -> Self {
+        Message {
+            id: 0, // or some default value
+            email: source.email.to_string(),
+            name: source.name.to_string(),
+        }
+    }
+}
+```
+
+Then you can convert a `Source` to a `Message` like this:
+
+```rust
+let source = Source { /* ... */ };
+let message = Message::from(source);
+```
+
+Or even more succinctly:
+
+```rust
+let source = Source { /* ... */ };
+let message: Message = source.into();
+```
+
+This approach still requires you to manually map each field, but it encapsulates the conversion logic in a single place and makes the conversion itself very straightforward.
+
+If you have many structs to convert and they all follow a similar pattern, you might consider using a macro to generate the conversion code. However, macros in Rust can be quite complex and might be overkill for this situation.
+
+Unfortunately, there's no way to automatically map fields based on their names in Rust. This is because Rust is a statically typed language and doesn't have the kind of runtime reflection capabilities that would be needed to implement this feature.

@@ -1,0 +1,37 @@
+Yes, there is a standard-library tool for this. You can use the `std::transform` algorithm with a custom lambda function to achieve this transformation. Here's an example code snippet:
+
+```c++
+#include <iostream>
+#include <vector>
+#include <utility> // for std::pair
+#include <algorithm> // for std::transform
+
+int main() {
+    std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<std::pair<int, int>> goal;
+
+    std::transform(origin.begin(), origin.end() - 1, origin.begin() + 1, std::back_inserter(goal),
+                   [](const int& a, const int& b) { return std::make_pair(a, b); });
+
+    for (const auto& p : goal) {
+        std::cout << "(" << p.first << ", " << p.second << ")" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+The `std::transform` algorithm takes three input iterators and an output iterator. In this case, we pass `origin.begin()` and `origin.end() - 1` as the first and second input iterators, respectively. These iterators define the range of elements that will be used to create the pairs. The third input iterator is `origin.begin() + 1`, which is one position ahead of the first input iterator. This is because we want to create pairs of adjacent elements.
+
+The output iterator is `std::back_inserter(goal)`, which appends the newly created pairs to the `goal` vector.
+
+The lambda function takes two integer arguments and returns a pair of integers created using `std::make_pair`. This function is applied to each pair of adjacent elements in the input range, and the resulting pairs are added to the `goal` vector.
+
+The output of this code snippet will be:
+
+```
+(1, 2)
+(3, 4)
+(5, 6)
+(7, 8)
+```

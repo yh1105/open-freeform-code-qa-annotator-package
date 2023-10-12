@@ -1,0 +1,32 @@
+It seems like you want to filter the data not only by exact match but also by partial match. You can achieve this by using the `indexOf()` method in JavaScript. This method returns the position of the first occurrence of a specified value in a string. If the specified value is not found, it will return -1.
+
+Here is the updated code:
+
+```javascript
+$(document).ready(function () {
+    $(".sbtns").on("click", function () {
+        var name = $('#snme').val();
+        var coundivy = $('#ddlCoundivy').find("option:selected").val();
+        var age = $('#ddlAge').find("option:selected").val();
+        SearchData(name, coundivy, age)
+    });
+});
+
+function SearchData(name, coundivy, age) {
+    $('#table11 .item').each(function () {
+        var rowName = $.trim($(this).find('div:eq(0)').text());
+        var rowCoundivy = $.trim($(this).find('div:eq(1)').text());
+        var rowAge = $.trim($(this).find('div:eq(2)').text());
+
+        if ((name == '' || rowName.toUpperCase().indexOf(name.toUpperCase()) > -1) &&
+            (coundivy == 'all' || rowCoundivy.toUpperCase() == coundivy.toUpperCase()) &&
+            (age == 'all' || rowAge == age)) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+```
+
+In this code, I have used `indexOf()` method to check if the input name is a substring of the row name. If it is, it will show the row, otherwise it will hide the row. This will allow you to filter the data by partial match of the name.

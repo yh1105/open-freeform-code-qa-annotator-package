@@ -1,0 +1,1 @@
+It seems like you forgot to include the error messages you're encountering. Could you please provide the error messages you're seeing when you try to create the database and when you try to delete the other databases? This will help me understand the problem better and provide a more accurate solution.

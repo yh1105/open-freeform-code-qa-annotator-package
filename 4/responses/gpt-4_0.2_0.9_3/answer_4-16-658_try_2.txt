@@ -1,0 +1,42 @@
+The error message you're seeing is indicating that the Docker daemon is not running. The Docker daemon is the background service running on the host that manages building, running and distributing Docker containers.
+
+Here are some steps you can try:
+
+1. **Check if Docker is running:** You can check if Docker is running by executing the following command in PowerShell:
+
+    ```powershell
+    Get-Service Docker
+    ```
+    If Docker is not running, you can start it with the following command:
+
+    ```powershell
+    Start-Service Docker
+    ```
+
+2. **Check Docker version:** Make sure you have the correct version of Docker installed. Docker Desktop is not supported on Windows Server. You should install Docker Enterprise Edition (EE) for Windows Server. You can download it from the Docker Store.
+
+3. **Reinstall Docker:** If Docker is still not working, you may need to reinstall it. Here are the steps to do so:
+
+    - Uninstall Docker:
+
+        ```powershell
+        Uninstall-Package -Name Docker -ProviderName DockerMsftProvider
+        ```
+
+    - Install Docker:
+
+        ```powershell
+        Install-Package -Name Docker -ProviderName DockerMsftProvider
+        ```
+
+    - Start Docker:
+
+        ```powershell
+        Start-Service Docker
+        ```
+
+4. **Check Docker daemon configuration:** If Docker is still not working, you may need to check the Docker daemon configuration. The configuration file is located at `C:\ProgramData\Docker\config\daemon.json`. Make sure the file is correctly configured. You can find more information about the Docker daemon configuration in the Docker documentation.
+
+5. **Check Docker logs:** If Docker is still not working, you can check the Docker logs for any error messages. The logs are located at `C:\ProgramData\Docker\logs\daemon.log`.
+
+6. **Contact Docker support:** If you're still having issues, you may need to contact Docker support. They can help you troubleshoot the issue and provide further assistance.

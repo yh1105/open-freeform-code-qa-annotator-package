@@ -1,0 +1,29 @@
+The `displayName` property is used by React DevTools to give a name to the component. You can add a `displayName` property to your functional component to fix the ESLint error. Here's how you can do it:
+
+```
+function Foos(props) {
+  // component code
+}
+
+Foos.displayName = 'Foos';
+
+export default connect(
+  mapStateToProps,
+)(Foos);
+```
+
+Alternatively, you can use the `displayName` property as a static property of the function component like this:
+
+```
+function Foos(props) {
+  // component code
+}
+
+export default connect(
+  mapStateToProps,
+)(Foos);
+
+Foos.displayName = 'Foos';
+```
+
+Either way, this should fix the ESLint error.

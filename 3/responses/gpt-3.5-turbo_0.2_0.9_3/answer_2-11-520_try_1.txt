@@ -1,0 +1,20 @@
+The issue with your code is that you are trying to override the `operator==` function from the `IClient` interface, but you have not provided an implementation for it in the interface itself. Therefore, the compiler is complaining that your `SeviceClient` class is not actually overriding anything.
+
+To fix this issue, you need to provide an implementation for the `operator==` function in the `IClient` interface. You can do this by adding the following line to the interface:
+
+```
+virtual bool operator==(const IClient& anotherClient) = 0;
+```
+
+Then, in your `SeviceClient` class, you can override this function as follows:
+
+```
+bool operator==(const IClient<int8_t>& anotherClient) override {
+    const auto& anotherID = anotherClient.getID();
+    return isEqual(anotherID);
+}
+```
+
+This implementation compares the IDs of the two clients by calling the `isEqual` function, which you have already provided.
+
+With these changes, your code should compile without errors.

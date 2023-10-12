@@ -1,0 +1,37 @@
+The SelectByID2 method is used to select entities in SolidWorks. The parameters for this method are as follows:
+
+- Name: The name of the entity to select.
+- Type: The type of the entity to select.
+- X, Y, Z: The coordinates of the entity to select.
+- Append: Whether to append the selection to the current selection list.
+- Mark: The selection mark of the entity to select.
+- Callout: The callout to use for the selection.
+- SelectOption: The selection option to use.
+
+In your case, you are trying to select a face and a point to create a reference plane. The issue you are facing is that the objects that were selected become deselected. This could be due to the fact that you are not providing the correct parameters to the SelectByID2 method.
+
+Here are some suggestions to fix your issue:
+
+1. Make sure you are providing the correct name for the entity you are trying to select. The name should be the same as the one displayed in the SolidWorks feature tree.
+
+2. Make sure you are providing the correct type for the entity you are trying to select. For a face, the type should be "FACE", and for a point, the type should be "VERTEX".
+
+3. Make sure you are providing the correct coordinates for the entity you are trying to select. The coordinates should be the same as the ones displayed in the SolidWorks graphics area.
+
+4. Set the Append parameter to True to append the selection to the current selection list.
+
+5. Set the Mark parameter to a unique number for each entity you are trying to select. This will allow you to identify the entities later.
+
+6. You can leave the Callout and SelectOption parameters as null.
+
+Here is an example of how to use the SelectByID2 method to select a face and a point:
+
+```vba
+' Select the face
+swModel.Extension.SelectByID2("Face1", "FACE", 0, 0, 0, True, 1, Nothing, 0)
+
+' Select the point
+swModel.Extension.SelectByID2("Point1", "VERTEX", 0, 0, 0, True, 2, Nothing, 0)
+```
+
+After selecting the entities, you can use the InsertRefPlane method to create the reference plane.

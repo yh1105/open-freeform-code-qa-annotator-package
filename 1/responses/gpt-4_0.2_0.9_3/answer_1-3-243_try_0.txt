@@ -1,0 +1,37 @@
+The error message you're seeing, `Error: Unable to extract uploader id`, is a common issue with `youtube_dl` when YouTube changes something on their end. This can break the functionality of `youtube_dl` until it's updated to handle the changes.
+
+However, you mentioned that you've already tried updating `youtube_dl` and it didn't solve the problem. This suggests that the issue might be with the specific videos you're trying to play, or with your usage of `youtube_dl`.
+
+One possible solution is to use the `youtube-dl` fork called `yt-dlp` which is more maintained and updated. You can install it by running `pip install yt-dlp`. Then, you can replace `youtube_dl` with `yt_dlp` in your code.
+
+Here's how you can modify your code:
+
+```python
+import yt_dlp
+
+yt_dlp.utils.bug_reports_message = lambda: ''
+
+ytdl_format_options = {
+    'format': 'bestaudio/best',
+    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'restrictfilenames': True,
+    'noplaylist': True,
+    'nocheckcertificate': True,
+    'ignoreerrors': False,
+    'logtostderr': False,
+    'quiet': True,
+    'no_warnings': True,
+    'default_search': 'auto',
+    'source_address': '0.0.0.0',  # bind to ipv4 since ipv6 addresses cause issues sometimes
+}
+
+ffmpeg_options = {
+    'options': '-vn',
+}
+
+ytdl = yt_dlp.YoutubeDL(ytdl_format_options)
+
+# rest of your code...
+```
+
+If this doesn't solve your problem, you might need to provide more information about the specific videos that are causing the issue. It's also possible that there's an issue with your Discord bot's permissions or with the Discord API itself.

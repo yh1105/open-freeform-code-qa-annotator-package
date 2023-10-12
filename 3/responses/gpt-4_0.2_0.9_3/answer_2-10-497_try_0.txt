@@ -1,0 +1,34 @@
+In Rust, you can't directly check if a `Box<T>` is a null pointer because Rust doesn't allow null pointers. Instead, you can use `Option<Box<T>>` to represent a nullable pointer. `Option<Box<T>>` can either be `Some(boxed_value)` or `None`, which is similar to having a nullable pointer in other languages.
+
+Here's how you can modify your code to use `Option<Box<T>>`:
+
+```rust
+struct Node {
+    value: i32,
+    next: Option<Box<Node>>,
+}
+
+struct Stack {
+    top: Option<Box<Node>>,
+}
+```
+
+In this code, `next` in `Node` and `top` in `Stack` can either be `Some(boxed_node)` or `None`. `None` is used to represent the end of the stack or an empty stack.
+
+Now, to check if `top` is a null pointer, you can use the `is_none()` method:
+
+```rust
+if self.top.is_none() {
+    // top is a null pointer
+}
+```
+
+And to check if `top` is not a null pointer, you can use the `is_some()` method:
+
+```rust
+if self.top.is_some() {
+    // top is not a null pointer
+}
+```
+
+Note that `Box<Option<T>>` is different from `Option<Box<T>>`. `Box<Option<T>>` is a box that contains an optional value, while `Option<Box<T>>` is an optional box. The former always allocates memory on the heap, even if it's `None`, while the latter doesn't allocate memory when it's `None`. In most cases, you would want to use `Option<Box<T>>` to avoid unnecessary heap allocations.

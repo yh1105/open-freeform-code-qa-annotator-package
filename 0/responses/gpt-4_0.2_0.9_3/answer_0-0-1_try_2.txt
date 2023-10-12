@@ -1,0 +1,37 @@
+The issue you're experiencing might be due to the way Vercel handles routing for Next.js applications. 
+
+Vercel automatically provides a `vercel.json` configuration file for Next.js applications. This file is used to configure the routing behavior of the application when it's deployed. If you don't provide a `vercel.json` file in your project, Vercel will use a default configuration.
+
+The `404 Error` you're seeing might be due to a misconfiguration in the routing rules. Here are a few things you can try:
+
+1. **Check your `package.json` file:** Make sure that your `build` script in `package.json` is set to `next build`. This is the command that Vercel uses to build your application.
+
+2. **Check your dynamic routes:** Dynamic routes in Next.js should be named with square brackets, like `[id].tsx`. Make sure that your dynamic routes are correctly named and that they are correctly importing and exporting their components.
+
+3. **Add a `vercel.json` file:** You can add a `vercel.json` file to your project to manually configure the routing rules. Here's an example of what this file might look like for your project:
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
+```
+
+This configuration tells Vercel to route all requests to the corresponding file in your Next.js application.
+
+4. **Check your dependencies:** Make sure that all your dependencies are correctly installed and that they are compatible with the version of Next.js you're using.
+
+5. **Check your build output:** The `_next` folder is generated during the build process and it contains the built version of your application. If this folder is missing, it means that the build process failed. Check the build logs in Vercel for any error messages.
+
+If none of these suggestions work, please provide more information about your application, such as the code for your dynamic routes and the build logs from Vercel.

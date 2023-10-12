@@ -1,0 +1,7 @@
+`@RequiredArgsConstructor` is a Lombok annotation that generates a constructor with required arguments. Required arguments are final fields and fields with constraints such as @NonNull that need to be initialized.
+
+`@RequiredArgsConstructor(onConstructor = @__(@Inject))` is a variant of the `@RequiredArgsConstructor` annotation that additionally adds the `@Inject` annotation to the generated constructor. 
+
+The `@Inject` annotation is a standard Java annotation defined by JSR 330, which specifies APIs for dependency injection. It's used to automatically inject dependencies into an object. 
+
+So, the difference between the two is that the latter one is used when you want the generated constructor to be used for dependency injection.

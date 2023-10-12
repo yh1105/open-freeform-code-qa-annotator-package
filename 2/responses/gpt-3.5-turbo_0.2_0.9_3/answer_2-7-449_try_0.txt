@@ -1,0 +1,33 @@
+It seems like you are trying to override a vendor file in Laravel, which is not recommended as it can cause issues with future updates and maintenance. Instead, you can create a middleware to modify the request before it reaches the routing system.
+
+Here's an example of how you can create a middleware to remove the trailing slash from the request URI:
+
+1. Create a new middleware using the following command:
+
+```
+php artisan make:middleware RemoveTrailingSlash
+```
+
+2. Open the newly created middleware file `app/Http/Middleware/RemoveTrailingSlash.php` and modify the `handle` method to remove the trailing slash:
+
+```
+public function handle($request, Closure $next)
+{
+    $uri = $request->getRequestUri();
+    if (substr($uri, -1) === '/') {
+        $request->server->set('REQUEST_URI', substr($uri, 0, -1));
+    }
+    return $next($request);
+}
+```
+
+3. Register the middleware in the `$middleware` array in `app/Http/Kernel.php`:
+
+```
+protected $middleware = [
+    // ...
+    \App\Http\Middleware\RemoveTrailingSlash::class,
+];
+```
+
+With this middleware, any request with a trailing slash will have it removed before it reaches the routing system. This way, you don't have to modify any vendor files and your code will be more maintainable in the long run.

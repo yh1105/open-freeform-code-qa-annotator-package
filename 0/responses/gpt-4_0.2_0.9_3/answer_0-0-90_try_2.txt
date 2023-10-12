@@ -1,0 +1,26 @@
+The issue you're facing is because of the way you're using the `render` prop in your `Route` components. When you use the `render` prop, the component is created immediately, regardless of the route. This is why you're seeing all components being loaded regardless of the current route.
+
+To fix this, you should use the `component` prop instead of `render`. This will ensure that the component is only created when the route matches. Here's how you can modify your code:
+
+```jsx
+<Switch>
+    <Route exact path="/" component={Home} />
+
+    <Route exact path="/profile/:id" component={Profile} />
+
+    <Route exact path="/feed" render={(props) => <Feed isLogged={isLogged} user={user} {...props} />} />
+
+    <Route
+        exact
+        path="/settings"
+        render={(props) => (
+            <Settings isLight={isLight} setIsLight={setIsLight} handleClick={handleClick} showBtn={showBtn} {...props} />
+        )}
+    />
+    <Route component={NotFound} />
+</Switch>
+```
+
+In the case of `Feed` and `Settings` components, since you're passing props to them, you can still use the `render` prop but you need to pass the route props to them. This is done by passing `props` to the component in the `render` function.
+
+As for `MenuAppBar` and `SnackAlert`, since they are not associated with any specific route and need to be displayed on all routes, they will be loaded when the app starts. If you want to lazy load them, you can keep them inside `Suspense` as you're currently doing. But remember, lazy loading these components will mean a slight delay in their rendering as they will be loaded only after the initial render.

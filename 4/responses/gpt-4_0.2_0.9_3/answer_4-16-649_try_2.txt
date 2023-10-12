@@ -1,0 +1,29 @@
+You can use the `date` command to convert the timestamps to Unix time (seconds since 1970-01-01 00:00:00 UTC), subtract them, and then convert the result to the desired format. Here's a bash script that does this:
+
+```bash
+#!/bin/bash
+
+# Get the start and end times
+times=$(sudo journalctl | grep "Logs begin at" | awk '{print $6" "$7" "$12" "$13}')
+start_time=$(echo $times | awk '{print $1" "$2}')
+end_time=$(echo $times | awk '{print $3" "$4}')
+
+# Convert to Unix time
+start_seconds=$(date --date="$start_time" +%s)
+end_seconds=$(date --date="$end_time" +%s)
+
+# Find the difference
+diff_seconds=$((end_seconds - start_seconds))
+
+# Convert to the desired format
+diff_days=$((diff_seconds / 86400))
+diff_seconds=$((diff_seconds % 86400))
+diff_hours=$((diff_seconds / 3600))
+diff_seconds=$((diff_seconds % 3600))
+diff_minutes=$((diff_seconds / 60))
+diff_seconds=$((diff_seconds % 60))
+
+echo "0 year(s), 0 month(s), $diff_days day(s), $(printf "%02d" $diff_hours):$(printf "%02d" $diff_minutes):$(printf "%02d" $diff_seconds)"
+```
+
+This script assumes that the start and end times are always in the same year and month. If this is not the case, you would need to add code to calculate the number of years and months.

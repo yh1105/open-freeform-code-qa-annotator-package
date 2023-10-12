@@ -1,0 +1,57 @@
+Yes, it is possible to create a function that can take multiple parameters of the same type, passed in as a template. The number of arguments is known in compile time. Here is how you can do it:
+
+```cpp
+#include <array>
+#include <cstdint>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <typename T, std::size_t N>
+void fun(const std::array<T, N>& args) 
+{
+    // You can now use args here
+}
+
+int main()
+{
+    fun(std::array<Foo, 3>{ { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} } });
+
+    return 0;
+}
+```
+
+In this code, the `fun` function is a template function that takes a `std::array` of any type `T` and of any size `N`. The size `N` is known at compile time. In the `main` function, we create a `std::array` of `Foo` objects and pass it to the `fun` function. 
+
+This solution works in C++14 and later versions. 
+
+If you want to use variadic templates, you can do it like this:
+
+```cpp
+#include <cstdint>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <typename... T>
+void fun(T... args) 
+{
+    // You can now use args here
+    // static_assert(sizeof...(args) <= argsCount, "Too many arguments");
+}
+
+int main()
+{
+    fun(Foo{1, 2, 3}, Foo{4, 5, 6}, Foo{7, 8, 9});
+
+    return 0;
+}
+```
+
+In this code, the `fun` function is a template function that takes any number of arguments of any type. The number of arguments is known at compile time. In the `main` function, we create `Foo` objects and pass them to the `fun` function. 
+
+This solution works in C++11 and later versions. Note that you can't limit the number of arguments at compile time with a template parameter as in your original code. You can use `static_assert` to check the number of arguments at compile time, but you can't use a template parameter for the limit.

@@ -1,0 +1,13 @@
+You can try using the `cy.get()` command to get the element and then use the `.text()` method to get the text value of the element. Here's an example:
+
+```
+cy.get('.WildnessText-kRKTej')
+  .invoke('text')
+  .should('equal', 'Wildness')
+  .then((text) => {
+    // do something with the text value
+    console.log(text)
+  })
+``` 
+
+This should select the element with the class `WildnessText-kRKTej` and get its text value, which should be "Wildness".

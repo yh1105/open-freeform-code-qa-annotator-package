@@ -1,0 +1,51 @@
+The `ILogger<T>` interface is a generic version of `ILogger`, where `T` is the class into which the logger is being injected. The logger factory creates an instance of `ILogger<T>` for each class `T` that requests it, and the logger instance includes the name of the class `T` in the log messages it generates. This is useful for filtering and searching log messages based on the class that generated them.
+
+The `ILogger` interface is non-generic version and it doesn't include the class name in the log messages it generates.
+
+In your case, you're trying to inject `ILogger` which is not registered in the DI container, hence the error. When you change it to `ILogger<MyClass>`, it works because the logging service is set up to provide instances of `ILogger<T>`.
+
+If you want to use `ILogger` instead of `ILogger<T>`, you can do so by creating a factory that creates instances of `ILogger`. Here's an example:
+
+```csharp
+public class LoggerFactory : ILoggerFactory
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public LoggerFactory(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    public ILogger CreateLogger<T>()
+    {
+        return _serviceProvider.GetRequiredService<ILogger<T>>();
+    }
+}
+```
+
+You can then register this factory in your DI container:
+
+```csharp
+services.AddSingleton<LoggerFactory>();
+```
+
+And use it to create instances of `ILogger`:
+
+```csharp
+public class MyClass
+{
+    private readonly ILogger _logger;
+
+    public MyClass(LoggerFactory loggerFactory)
+    {
+        _logger = loggerFactory.CreateLogger<MyClass>();
+    }
+
+    public void MyFunc()
+    {
+        _logger.Log(LogLevel.Error, "My Message");
+    }
+}
+```
+
+This way, you can use `ILogger` and still have the class name included in the log messages.

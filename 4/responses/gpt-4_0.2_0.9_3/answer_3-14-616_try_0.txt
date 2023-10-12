@@ -1,0 +1,26 @@
+The error is occurring because you are trying to use `card` as an index to access elements in `properties`. However, `card` is not an index, it's an instance of `Unicards.HPropert`.
+
+In your `ForEach` loop, `card` is an instance of `Unicards.HPropert` that you are iterating over. So, you don't need to use it as an index to access `properties`. You can directly use `card.label` and `card.value`.
+
+Here is the corrected code:
+
+```swift
+ForEach(properties) { card in
+    VStack {
+        Image()
+            .resizable()
+            .scaledToFit()
+            .frame(width: 34, height: 34)
+
+        VStack {
+            Text(card.label) 
+                .font(.system(size: 14))
+                .fontWeight(.medium)
+            Text(card.value)
+                .font(.system(size: 14))
+        }
+    }
+}
+```
+
+In this corrected code, `card` is an instance of `Unicards.HPropert` that you are iterating over in the `ForEach` loop. You can directly access its `label` and `value` properties.

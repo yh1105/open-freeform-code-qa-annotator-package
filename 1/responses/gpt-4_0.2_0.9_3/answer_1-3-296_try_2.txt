@@ -1,0 +1,31 @@
+The error message suggests that there might be a file in your dataset that is not in one of the expected formats (JPEG, PNG, GIF, BMP). Even though you mentioned that all images are in JPEG format, it's possible that there might be a corrupted file, or a file with an incorrect extension.
+
+Here are a few steps you can take to debug this issue:
+
+1. **Check for corrupted files**: You can use a tool like `jpeginfo` to check for corrupted JPEG files. Here is a simple command that checks all JPEG files in a directory and its subdirectories:
+
+```bash
+find /content/drive/MyDrive/fi_dataset/train -name "*.jpg" -exec jpeginfo -c {} \; | grep -E "WARNING|ERROR"
+```
+
+This command will print out any files that `jpeginfo` has issues with.
+
+2. **Check for files with incorrect extensions**: Sometimes, files might have a `.jpg` extension, but are not actually JPEG files. You can use the `file` command to check the actual type of a file:
+
+```bash
+file /path/to/your/image.jpg
+```
+
+This command will print out the actual type of the file. You can use a similar `find` command as above to check all files in your directory.
+
+3. **Check for non-image files**: Make sure that your directory only contains image files, and no other types of files. The `image_dataset_from_directory` function will try to load all files in the directory, not just image files.
+
+4. **Check for empty files**: Make sure that none of your image files are empty. You can use the `find` command to find all files in your directory with a size of 0:
+
+```bash
+find /content/drive/MyDrive/fi_dataset/train -type f -size 0
+```
+
+This command will print out all files in your directory that are empty.
+
+If none of these steps help, you might want to try loading your images manually with a custom generator, so you can catch the error and print out the problematic file.

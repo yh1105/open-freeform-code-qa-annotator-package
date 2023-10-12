@@ -1,0 +1,71 @@
+The issue you're encountering is because `create-react-app` doesn't support the `paths` option out of the box. This is because the underlying tool, `react-scripts`, doesn't support it.
+
+However, there are a few workarounds:
+
+1. **Use `react-app-rewired` and `react-app-rewire-alias`:** These are tools that let you customize the configuration of `create-react-app` without ejecting from the default setup. Here's how you can use them:
+
+   - Install the packages:
+
+     ```
+     npm install --save-dev react-app-rewired react-app-rewire-alias
+     ```
+
+   - Create a `config-overrides.js` file in the root of your project with the following content:
+
+     ```javascript
+     const rewireAliases = require('react-app-rewire-alias');
+
+     module.exports = function override(config, env) {
+       config = rewireAliases.aliasesOptions({
+         '@store': 'src/store',
+       })(config, env);
+
+       return config;
+     };
+     ```
+
+   - Modify the `scripts` section of your `package.json`:
+
+     ```json
+     "scripts": {
+       "start": "react-app-rewired start",
+       "build": "react-app-rewired build",
+       "test": "react-app-rewired test",
+       "eject": "react-scripts eject"
+     }
+     ```
+
+2. **Use `babel-plugin-module-resolver`:** This is a Babel plugin that can rewrite your imports at compile time:
+
+   - Install the plugin:
+
+     ```
+     npm install --save-dev babel-plugin-module-resolver
+     ```
+
+   - Create a `.babelrc` file in the root of your project with the following content:
+
+     ```json
+     {
+       "plugins": [
+         ["module-resolver", {
+           "root": ["./src"],
+           "alias": {
+             "@store": "./src/store"
+           }
+         }]
+       ]
+     }
+     ```
+
+3. **Eject from `create-react-app`:** This is the most drastic option, as it will expose all of the configuration and build scripts, allowing you to modify them directly. However, it's generally recommended to avoid ejecting if possible, as it makes it harder to upgrade your project in the future.
+
+   - Run the eject command:
+
+     ```
+     npm run eject
+     ```
+
+   - Then you can modify the `webpack.config.js` and `tsconfig.json` files directly to support the `paths` option.
+
+Remember to restart your development server after making these changes.

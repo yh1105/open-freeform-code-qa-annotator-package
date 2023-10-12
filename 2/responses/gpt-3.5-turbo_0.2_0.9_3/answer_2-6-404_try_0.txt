@@ -1,0 +1,16 @@
+In C#, you can add another constructor overload to a record type using the `init` keyword. Here's an example:
+
+```
+public record Person(int Id, string FirstName, string LastName)
+{
+    public Person() : this(0, "", "")
+    {
+    }
+    
+    public Person(int id, string firstName, string lastName) : this(id, firstName, lastName)
+    {
+    }
+}
+```
+
+In this example, we've added a parameterless constructor that calls the primary constructor with default values. The `init` keyword is used to indicate that the properties can only be set during object initialization, not after.

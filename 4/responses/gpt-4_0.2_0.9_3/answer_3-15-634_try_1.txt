@@ -1,0 +1,15 @@
+The error you're encountering is a known issue caused by the November 12, 2019, update for Office 2010 (KB4484127). Microsoft has acknowledged this issue and released a fix for it.
+
+To resolve this issue, you should install the latest updates for Office 2010. Specifically, you need to install the December 10, 2019, update for Office 2010 (KB4484193). This update fixes the issue that causes Access to fail when a query uses the Update method.
+
+Here are the steps to install the update:
+
+1. Go to the [Microsoft Update Catalog website](https://www.catalog.update.microsoft.com/Home.aspx).
+2. In the search box, type "KB4484193" and press Enter.
+3. In the list of search results, find the update that matches your version of Office (32-bit or 64-bit).
+4. Click the "Download" button next to the update.
+5. Follow the prompts to install the update.
+
+After installing the update, you should be able to run your queries without encountering the "Query ' ' is corrupt" error.
+
+If for some reason you can't install this update, as a workaround, you can modify your queries to use the Recordset object, instead of the RunSQL method. However, this might require significant changes to your code, so it's recommended to install the update if possible.

@@ -1,0 +1,70 @@
+You can convert your StatelessWidget to a StatefulWidget. The StatefulWidget creates an instance of a State class to manage the state of the widget. 
+
+Here's how you can modify your code:
+
+```dart
+import 'package:carve_brace_app/model/activity.dart';
+import 'package:flutter/material.dart';
+
+class DetailPage extends StatefulWidget {
+  final Activity activity;
+  DetailPage({Key key, this.activity}) : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool _mappedValue = false;
+  bool _rtValue = false;
+  String _dropdownValue = 'Now (Default)';
+
+  @override
+  Widget build(BuildContext context) {
+    // Your code here...
+
+    final mappedCheckbox = CheckboxListTile(
+      title: Text("Mapped"),
+      value: _mappedValue,
+      onChanged: (newValue) {
+        setState(() {
+          _mappedValue = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+    );
+
+    final rtCheckBox = CheckboxListTile(
+      title: Text("Real-time Tracking"),
+      value: _rtValue,
+      onChanged: (newValue) {
+        setState(() {
+          _rtValue = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+    );
+
+    final dropdown = new DropdownButton<String>(
+      items: <String>['Now (Default)', 'B', 'C', 'D'].map((String value) {
+        return new DropdownMenuItem<String>(
+          value: value,
+          child: new Text(value),
+        );
+      }).toList(),
+      value: _dropdownValue,
+      onChanged: (newValue) {
+        setState(() {
+          _dropdownValue = newValue;
+        });
+      },
+    );
+
+    // Your code here...
+  }
+}
+```
+
+In this code, I've created a new class `_DetailPageState` that extends `State<DetailPage>`. This class contains the mutable state for this widget. I've also added three instance variables `_mappedValue`, `_rtValue`, and `_dropdownValue` to hold the state of the checkboxes and the dropdown. 
+
+In the `onChanged` callbacks for the checkboxes and the dropdown, I call `setState` to update the state of the widget and trigger a rebuild. The `setState` call ensures that Flutter redraws the widget with the updated state.

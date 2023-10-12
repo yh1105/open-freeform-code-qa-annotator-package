@@ -1,0 +1,53 @@
+It seems like you have correctly installed the EasyAdminBundle and your route configuration also looks fine. However, the problem might be due to the fact that the EasyAdminBundle has changed the way it handles routes in the newer versions.
+
+In EasyAdmin 3.x, the routes are defined differently than in EasyAdmin 2.x. The `/admin` route is not defined by default anymore. Instead, you have to create a DashboardController and define your routes there.
+
+Here is an example of how you can define your DashboardController:
+
+```php
+// src/Controller/Admin/DashboardController.php
+namespace App\Controller\Admin;
+
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class DashboardController extends AbstractDashboardController
+{
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function index(): Response
+    {
+        return parent::index();
+    }
+
+    public function configureDashboard(): Dashboard
+    {
+        return Dashboard::new()
+            // the name visible to end users
+            ->setTitle('My Dashboard')
+            // you can include HTML contents too (e.g. to link to an image)
+            ->setTitle('<img src="..."> ACME Corp.')
+            ->setTitle('<span class="text-small">Welcome to</span> ACME Corp.')
+            // the path defined in this method is passed to the Twig asset() function
+            ->setFaviconPath('favicon.svg')
+            // the domain used by default is 'messages'
+            ->setTranslationDomain('my-domain')
+            // used to generate URLs related to the dashboard
+            ->setUrlPrefix('admin')
+            // ...
+        ;
+    }
+
+    public function configureMenuItems(): iterable
+    {
+        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        // ...
+    }
+}
+```
+
+After you have created your DashboardController, you should be able to access your admin dashboard at the `/admin` route.

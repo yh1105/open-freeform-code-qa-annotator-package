@@ -1,0 +1,33 @@
+The error message indicates that the "target" property is no longer supported in Next.js 13. This property was used to specify the environment in which the app was being built, such as "serverless" or "server". 
+
+Since this property is no longer supported, you can remove it from your next.config.js file. 
+
+If you still need to specify the environment, you can use the "serverless" property in your package.json file instead. Here's an example:
+
+```
+{
+  "name": "my-next-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "next build && amplify publish"
+  },
+  "dependencies": {
+    "next": "^13.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "serverless": true
+}
+```
+
+In this example, the "serverless" property is set to true, indicating that the app should be built for a serverless environment. 
+
+After making these changes, try building and deploying your app again to see if the issue is resolved.

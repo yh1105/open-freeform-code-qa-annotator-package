@@ -1,0 +1,27 @@
+The error you're encountering is due to the fact that the `graphql-upload` package has undergone significant changes in its recent versions. The `graphqlUploadExpress` middleware has been removed in version 11.0.0 and onwards. 
+
+Since you're using version 14.0.0 of `graphql-upload`, you won't be able to import `graphqlUploadExpress` as it no longer exists in this version.
+
+If you want to continue using `graphqlUploadExpress`, you need to downgrade your `graphql-upload` package to a version below 11.0.0. You can do this by running:
+
+```bash
+npm uninstall graphql-upload
+npm install graphql-upload@10.0.0
+```
+
+However, if you want to use the latest version of `graphql-upload`, you need to follow the new way of setting it up. Here's how you can do it:
+
+```javascript
+import { ApolloServer } from 'apollo-server-express';
+import { graphqlUploadExpress } from 'graphql-upload';
+
+const server = new ApolloServer({
+  schema,
+  uploads: false, // disable built-in upload
+});
+
+app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
+server.applyMiddleware({ app });
+```
+
+Please note that you need to disable the built-in upload functionality of Apollo Server by setting `uploads: false` in the Apollo Server options. Then, you can use `graphqlUploadExpress` middleware from `graphql-upload` package.

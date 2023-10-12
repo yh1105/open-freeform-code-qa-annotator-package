@@ -1,0 +1,53 @@
+Jetpack Compose provides a built-in `NumberPicker` composable that you can use to create a widget similar to the one in the image you provided. Here's an example of how you can use it:
+
+```kotlin
+var value by remember { mutableStateOf(0) }
+
+NumberPicker(
+    value = value,
+    onValueChange = { newValue ->
+        value = newValue
+    },
+    minValue = 0,
+    maxValue = 10,
+    modifier = Modifier.width(100.dp)
+)
+```
+
+In this example, the `value` variable holds the current value of the `NumberPicker`, and the `onValueChange` callback is called whenever the user changes the value. The `minValue` and `maxValue` parameters define the range of values that the `NumberPicker` can display, and the `modifier` parameter sets the width of the `NumberPicker`.
+
+To create multiple `NumberPicker` widgets in a row, you can simply place them inside a `Row` composable:
+
+```kotlin
+Row {
+    NumberPicker(
+        value = value1,
+        onValueChange = { newValue ->
+            value1 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+    NumberPicker(
+        value = value2,
+        onValueChange = { newValue ->
+            value2 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+    NumberPicker(
+        value = value3,
+        onValueChange = { newValue ->
+            value3 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+}
+```
+
+This will create three `NumberPicker` widgets in a row, each with its own `value` variable and `onValueChange` callback.

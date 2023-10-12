@@ -1,0 +1,22 @@
+To make the injection generic, you can use the open generic registration feature of the .NET Core DI container. Here's how you can do it:
+
+1. Change the registration in `Startup.cs` to the following:
+
+```
+services.AddScoped(typeof(IDatabaseService<>), typeof(ProjectService));
+```
+
+This registers `ProjectService` as the implementation for all closed versions of `IDatabaseService<T>`.
+
+2. Change the constructor of `ProjectController` to the following:
+
+```
+public ProjectController(IDatabaseService<Project> projectService)
+{
+    this.projectService = (ProjectService)projectService;
+}
+```
+
+This casts the injected `IDatabaseService<Project>` to `ProjectService`, which is the actual implementation.
+
+This approach is a good practice as it allows you to reuse the same interface and implementation for different types of entities. However, you should be careful when casting the injected interface to the actual implementation, as it may cause runtime errors if the injected implementation is not of the expected type.

@@ -1,0 +1,44 @@
+You can use the `apply` function to iterate over each column of the data.frame and extract the minimum and maximum values along with their corresponding row names. Then, you can combine the results into a new data.frame and count the frequency of each minimum value using the `table` function. Here's an example code:
+
+```
+# Sample data
+set.seed(123)
+df <- data.frame(matrix(rnorm(750), ncol = 150))
+
+# Extract min and max values and row names for each column
+min_max <- apply(df, 2, function(x) {
+  min_val <- min(x)
+  max_val <- max(x)
+  min_rows <- row.names(df)[which(x == min_val)]
+  max_rows <- row.names(df)[which(x == max_val)]
+  data.frame(min_value = min_val, max_value = max_val,
+             min_rows = paste(min_rows, collapse = ","), max_rows = paste(max_rows, collapse = ","))
+})
+
+# Combine results into a data.frame
+min_max_df <- do.call(rbind, min_max)
+min_max_df$column <- colnames(df)
+
+# Count frequency of each minimum value
+min_freq <- as.data.frame(table(min_max_df$min_value))
+colnames(min_freq) <- c("min_value", "freq_times")
+
+# Merge frequency with min_max_df
+result <- merge(min_max_df, min_freq, by = "min_value")
+
+# Reorder columns
+result <- result[, c("min_value", "column", "min_rows", "freq_times", "max_value", "max_rows")]
+```
+
+This should give you a data.frame with the minimum and maximum values, their corresponding row names, and the frequency of each minimum value:
+
+```
+> head(result)
+   min_value column min_rows freq_times  max_value max_rows
+1 -2.5580000      X      100          1  1.9946967       81
+2 -2.5282656      Y       23          1  2.1861065       91
+3 -2.4580717      Z       50          1  2.0106495       91
+4 -2.4288346     Z1       23          1  2.1861065       91
+5 -2.4139028     Z2       23          1  2.1861065       91
+6 -2.4079465     Z3       23          1  2.1861065       91
+```

@@ -1,0 +1,37 @@
+Unfortunately, there is no standard function like `std::make_from_tuple` for creating a new object with `new` operator and passing the arguments as a tuple. However, you can create a custom function to achieve this functionality.
+
+Here's an example implementation of `make_new_from_tuple` function that creates a new object of type `T*` using `new` operator and passes the arguments as a tuple:
+
+```
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<Args...> args)
+{
+    return new T(std::forward<Args>(std::get<Args>(args))...);
+}
+```
+
+You can use this function as follows:
+
+```
+auto aTuple = std::make_tuple(1, 1.5, std::string("Hello"));
+A* aObj = make_new_from_tuple<A>(aTuple);
+```
+
+If the tuple contains a `unique_ptr` that you want to forward, you can modify the function as follows:
+
+```
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<Args...> args)
+{
+    return new T(std::forward<Args>(std::get<Args>(args))...);
+}
+
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<std::unique_ptr<T>, Args...> args)
+{
+    auto ptr = std::move(std::get<std::unique_ptr<T>>(args));
+    return new T(std::move(ptr), std::forward<Args>(std::get<Args>(args))...);
+}
+```
+
+This version of the function will handle the case where the tuple contains a `unique_ptr` as the first argument.

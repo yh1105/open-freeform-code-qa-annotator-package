@@ -1,0 +1,36 @@
+No problem, I can help you with that. Here is a sample code that should do what you are asking for:
+
+```python
+import openpyxl
+
+# Load the workbook
+workbook = openpyxl.load_workbook('example.xlsx')
+
+# Select the sheet
+sheet = workbook['Sheet1']
+
+# Define the product name to search for
+product_name = 'ABC'
+
+# Loop through all the rows in the sheet
+for row in sheet.iter_rows():
+
+    # Loop through all the cells in the row
+    for cell in row:
+
+        # Check if the cell contains the product name
+        if cell.value == product_name:
+
+            # If it does, copy the contents of every cell in the row
+            row_contents = []
+            for row_cell in row:
+                row_contents.append(row_cell.value)
+
+            # Assign every cell to a variable
+            cell1, cell2, cell3, cell4, cell5 = row_contents
+
+            # Do something with the variables (e.g. print them)
+            print(cell1, cell2, cell3, cell4, cell5)
+```
+
+This code should loop through all the cells in the sheet and check if they contain the product name. If a cell does contain the product name, it will copy the contents of every cell in the row and assign them to variables. You can then do something with these variables (e.g. print them).

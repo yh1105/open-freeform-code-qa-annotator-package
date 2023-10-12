@@ -1,0 +1,18 @@
+The issue with your code is that you are returning the first word after transforming it, so the loop only runs once. You need to move the return statement outside the loop and append each transformed word to the `say` variable. Here's a corrected version of your code:
+
+```
+def pig_latin(text):
+  say = ""
+  words = text.split()
+  for word in words:
+    endString = str(word[1]).upper()+str(word[2:])
+    them = endString, str(word[0:1]).lower(), 'ay'
+    word = ''.join(them)
+    say += word + " "
+  return say.strip()
+
+print(pig_latin("hello how are you")) # Should be "ellohay owhay reaay ouyay"
+print(pig_latin("programming in python is fun")) # Should be "rogrammingpay niay ythonpay siay unfay"
+```
+
+This should give you the correct output.

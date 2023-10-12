@@ -1,0 +1,30 @@
+It seems like you're trying to ignore undefined properties in your request. However, there's no built-in feature like 'ignoreundefinedproperties' in Express.js or Node.js. 
+
+The error you're experiencing might be due to trying to access a property of an object that is undefined. To avoid this, you should always check if the object is defined before trying to access its properties.
+
+Here's an example of how you can do this:
+
+```javascript
+app.post('/api/data', (req, res) => {
+    let data = req.body.data;
+    if(data){
+        let property = data.property;
+        // rest of your code
+    } else {
+        res.status(400).send('Bad Request: data is undefined');
+    }
+});
+```
+
+In this example, we first check if `data` is defined before trying to access `data.property`. If `data` is undefined, we send a 400 Bad Request response.
+
+If you're using a database like Firestore, it has a feature to ignore undefined properties. Here's how you can enable it:
+
+```javascript
+const firestore = new Firestore({
+  projectId: 'your-project-id',
+  ignoreUndefinedProperties: true,
+});
+```
+
+In this example, Firestore will ignore undefined properties when you try to write data to your database.

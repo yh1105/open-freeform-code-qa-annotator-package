@@ -1,0 +1,17 @@
+To create a route with 2 optional parameters in the URL using Nestjs, you can use the `@Param()` decorator to define the parameters in your controller method. Here's an example:
+
+```typescript
+@Controller('route')
+export class MyController {
+  @Get(':param1/config/:optionalParam1?/:optionalParam2?')
+  getConfig(@Param('param1') param1: string, @Param('optionalParam1') optionalParam1?: string, @Param('optionalParam2') optionalParam2?: string) {
+    // your code here
+  }
+}
+```
+
+In this example, the `@Get()` decorator defines the route with the `:param1`, `:optionalParam1`, and `:optionalParam2` parameters. The `@Param()` decorator is used to extract the values of these parameters in the `getConfig()` method. 
+
+Note that the `optionalParam1` and `optionalParam2` parameters are marked with the `?` symbol to indicate that they are optional. This means that you can call the route with or without these parameters. 
+
+I hope this helps! Let me know if you have any further questions.

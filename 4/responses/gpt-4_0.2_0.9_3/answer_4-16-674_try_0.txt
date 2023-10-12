@@ -1,0 +1,19 @@
+Based on the logs you've shared, it seems like the Service Fabric Runtime installation is timing out after 10 minutes. This could be due to various reasons such as system performance issues, network issues, or even permission issues.
+
+Here are a few things you can try to resolve this issue:
+
+1. **Run as Administrator**: Make sure you are running the installer as an administrator. Right-click on the installer and select "Run as administrator".
+
+2. **Disable Antivirus**: Sometimes, antivirus software can interfere with the installation process. Try disabling your antivirus software temporarily and then try the installation again.
+
+3. **Check System Performance**: If your system is under heavy load, it might cause the installation to timeout. Make sure there are no heavy processes running in the background that might be slowing down your system.
+
+4. **Check Network**: If the installer is trying to download some components from the internet, network issues might cause the installation to timeout. Check your network connection and try again.
+
+5. **Clean Installation**: It seems like there might be some leftover files from a previous installation that are causing issues. You've mentioned that you've already tried removing the Service Fabric folder manually. However, there might be some hidden files or registry entries that are not being removed. Try using a software uninstaller tool that can remove all traces of a program, including hidden files and registry entries.
+
+6. **Check Disk Space**: Make sure you have enough disk space on your system for the installation.
+
+7. **Install an Older Version**: If none of the above solutions work, you can try installing an older version of Service Fabric Runtime and then upgrade to the latest version.
+
+Remember to restart your system after each attempt to ensure all changes take effect.

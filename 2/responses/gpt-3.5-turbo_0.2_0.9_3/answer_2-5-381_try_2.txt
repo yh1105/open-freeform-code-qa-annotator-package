@@ -1,0 +1,5 @@
+It looks like the import statement in your `column_metadata.proto` file is incorrect. Instead of `import "tech/tablesaw/service/common/column_type.proto";`, it should be `import "tech/tablesaw/service/common/column_type_enum.proto";`. 
+
+Also, make sure that the file name for `column_type.proto` matches the name specified in the import statement (`column_type_enum.proto`). 
+
+After making these changes, regenerate the protobuf code and try importing the message again.

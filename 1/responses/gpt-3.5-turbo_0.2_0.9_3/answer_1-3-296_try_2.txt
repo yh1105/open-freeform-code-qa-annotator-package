@@ -1,0 +1,20 @@
+The error message suggests that some of the images in your dataset are not in the expected format (JPEG, PNG, GIF, BMP). You can try to identify the problematic images by iterating over the dataset and checking the file format of each image. Here's an example code snippet that you can use:
+
+```
+import os
+from PIL import Image
+
+image_dir = '/content/drive/MyDrive/fi_dataset/train'
+for subdir, dirs, files in os.walk(image_dir):
+    for file in files:
+        filepath = os.path.join(subdir, file)
+        try:
+            with Image.open(filepath) as img:
+                img.verify()
+        except (IOError, SyntaxError) as e:
+            print(f'Invalid image file: {filepath}')
+```
+
+This code iterates over all the files in the `image_dir` directory and its subdirectories, and tries to open each file as an image using the PIL library. If the file is not a valid image file, an exception is raised and the file path is printed.
+
+Once you identify the problematic images, you can either remove them from the dataset or convert them to the expected format using a tool like ImageMagick or Pillow.

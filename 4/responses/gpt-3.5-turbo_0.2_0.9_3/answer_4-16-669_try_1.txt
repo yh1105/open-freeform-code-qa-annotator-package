@@ -1,0 +1,11 @@
+You can use the `Get-ChildItem` command with the `-Name` parameter to only get the names of the files and folders, and then use the `Out-File` command to write them to a `.gitignore` file. Here's an example:
+
+```
+Get-ChildItem -Name | Out-File -Encoding utf8 .gitignore
+```
+
+This will write the names of all files and folders in the current directory to a `.gitignore` file in UTF-8 encoding. If you want to exclude certain files or folders, you can use the `-Exclude` parameter with a wildcard pattern. For example, to exclude all `.txt` files and a folder named `Folder3`, you can use:
+
+```
+Get-ChildItem -Name -Exclude *.txt,Folder3 | Out-File -Encoding utf8 .gitignore
+```

@@ -1,0 +1,43 @@
+This is a known issue with Safari and flexbox. Safari has some problems with `height: auto` for images inside a flex container. 
+
+A workaround for this issue is to wrap the image in a div and apply the flex properties to the div instead of the image. 
+
+Here is an updated version of your code:
+
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container section:first-child {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.container .img-container {
+  width: 125px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+```
+
+```html
+<div class="container">
+  <section>
+    <div class="img-container">
+      <img src="https://via.placeholder.com/250">
+    </div>
+  </section>
+  <section>
+    <div class="img-container">
+      <img src="https://via.placeholder.com/150">
+    </div>
+  </section>
+</div>
+```
+
+In this version, the `img` tag is wrapped in a div with class `img-container`. The `width: 125px;` is applied to `.img-container` and the `img` tag has `width: 100%;` and `height: auto;`. This should maintain the aspect ratio of the image in Safari.

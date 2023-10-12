@@ -1,0 +1,20 @@
+The error message suggests that the problem is related to the stack trace. Specifically, it seems that the stack trace is not in the expected format, which can happen if `FlutterError.demangleStackTrace` is not set in the environment.
+
+To fix this issue, you can try setting `FlutterError.demangleStackTrace` to `true` in your `main()` function before running the app:
+
+```
+Future<void> main() async {
+  FlutterError.demangleStackTrace = true; // add this line
+  await runZonedGuarded(
+    () async {
+      // your code here
+    },
+    (Object error, StackTrace stack) {
+      debugPrint(error.toString());
+      debugPrint(stack.toString());
+    },
+  );
+}
+```
+
+This should ensure that the stack trace is in the expected format and prevent the error from occurring.

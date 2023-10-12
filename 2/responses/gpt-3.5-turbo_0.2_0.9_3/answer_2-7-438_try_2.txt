@@ -1,0 +1,11 @@
+It looks like you are using the correct format for specifying the migration version in the `doctrine:migrations:execute` command. However, you may need to double-check that the migration class exists in the specified migrations path.
+
+In your case, the migration class is `Application\Migrations\Version20210909072642`, so you can try running the following command to rollback the migration:
+
+```
+bin/console doctrine:migrations:execute 'Application\Migrations\Version20210909072642' --down --no-interaction -vvv
+```
+
+If you still encounter the `MigrationClassNotFound` error, you can try running the `doctrine:migrations:status` command to see if the migration is listed as "available" or "executed". If it is listed as "executed", you can use the `doctrine:migrations:execute` command with the `--up` option to re-execute the migration and then use the `--down` option to rollback the migration.
+
+If the migration is not listed at all, you may need to double-check that the migrations path is correctly configured in your `doctrine_migrations` configuration.

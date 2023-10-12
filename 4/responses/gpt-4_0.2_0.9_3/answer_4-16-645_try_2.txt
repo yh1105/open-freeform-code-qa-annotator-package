@@ -1,0 +1,20 @@
+A NuGet provider for PowerShell is not just the `nuget.exe`. It's a specific package that allows PowerShell to interact with NuGet repositories. It's a .dll file, not an .exe file.
+
+To install a NuGet provider offline, you need to download the `NuGet.Core` package from the NuGet gallery on a machine that has internet access. The URL is https://www.nuget.org/packages/NuGet.Core/. You need version 2.8.5.201 or newer.
+
+After downloading the `NuGet.Core` package, you need to extract the `NuGet.Core.dll` file from it. You can rename the downloaded .nupkg file to .zip and extract it like a regular zip file.
+
+Once you have the `NuGet.Core.dll` file, you need to place it in one of the following directories on the target machine:
+
+- `C:\Program Files\PackageManagement\ProviderAssemblies`
+- `C:\Users{your login}\AppData\Local\PackageManagement\ProviderAssemblies`
+
+After you've done this, PowerShell should be able to find and use the NuGet provider.
+
+As for installing the `pswindowsupdate.2.0.0.4.nupkg` package, you can't use `Install-Module` with a .nupkg file directly. You need to use `Install-Package` instead. Here's how you can do it:
+
+1. Rename the `pswindowsupdate.2.0.0.4.nupkg` file to `pswindowsupdate.2.0.0.4.zip` and extract it.
+2. Inside the extracted folder, you'll find a `pswindowsupdate` folder. Copy this folder to one of your module paths. You can see your module paths by running `$env:PSModulePath` in PowerShell.
+3. After copying the `pswindowsupdate` folder to a module path, you should be able to import the module with `Import-Module pswindowsupdate`.
+
+Please note that this method bypasses the PowerShellGet and PackageManagement modules, so you won't be able to use `Update-Module` to update the module later. You'll have to repeat these steps with the new version of the module.

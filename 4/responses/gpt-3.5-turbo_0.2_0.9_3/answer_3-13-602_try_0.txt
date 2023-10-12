@@ -1,0 +1,7 @@
+The error message suggests that the `HomeActivity` is not attached to the `CoreApplication` annotated with `@HiltAndroidApp`. 
+
+Make sure that the `CoreApplication` class is correctly annotated with `@HiltAndroidApp` and is declared in the `AndroidManifest.xml` file as the application class. 
+
+Also, check if you have added the `HiltAndroidRule` in your test class if you are using Hilt for testing. 
+
+If the issue persists, try cleaning and rebuilding the project.

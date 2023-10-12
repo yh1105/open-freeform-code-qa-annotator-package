@@ -1,0 +1,17 @@
+The issue you're facing is likely due to the fact that you're trying to patch the form with the values (numbers) directly, while the p-multiSelect component is expecting objects in the format `{label: '...', value: ...}`.
+
+You need to convert your number array back to the object format that the p-multiSelect component expects. Here's how you can do it:
+
+```typescript
+let excludeDaysNumbers = [1, 2]; // This should be your converted array
+let excludeDaysObjects = this.excludeDays.filter(day => excludeDaysNumbers.includes(day.value));
+
+this.form.patchValue({
+  ... : ....
+  excludeDays: excludeDaysObjects
+});
+```
+
+In this code, `excludeDaysObjects` will be an array of objects from `this.excludeDays` where the `value` is included in `excludeDaysNumbers`. This array can then be used to patch the form.
+
+This way, the p-multiSelect component will correctly display the selected days.

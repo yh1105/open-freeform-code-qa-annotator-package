@@ -1,0 +1,11 @@
+You are correct that Spring's constructor/setter DI works even without `@Autowired` annotation. However, using `@Autowired` annotation in the constructor has some advantages over the traditional setter injection.
+
+1. It makes the code more readable and explicit: By using `@Autowired` annotation in the constructor, you are explicitly stating that this class requires this dependency to function. This makes the code more readable and easier to understand.
+
+2. It ensures that the dependency is injected at the time of object creation: When you use constructor injection with `@Autowired` annotation, Spring ensures that the dependency is injected at the time of object creation. This means that the object is in a fully initialized state when it is returned to the caller.
+
+3. It makes the class immutable: When you use constructor injection with `@Autowired` annotation, you are making the class immutable. Once the object is created, the dependency cannot be changed. This makes the class more predictable and easier to test.
+
+4. It helps in avoiding circular dependencies: When you use constructor injection with `@Autowired` annotation, Spring can detect circular dependencies and throw an exception at the time of object creation. This helps in avoiding runtime errors and makes the code more robust.
+
+In summary, using `@Autowired` annotation in the constructor has some advantages over the traditional setter injection. It makes the code more readable, ensures that the dependency is injected at the time of object creation, makes the class immutable, and helps in avoiding circular dependencies.

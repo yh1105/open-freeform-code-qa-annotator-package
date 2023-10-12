@@ -1,0 +1,58 @@
+The problem you are facing is due to the fact that you are performing multiple joins for each filter. This is because each filter is applied to the queryset in a separate filter operation, which results in a new join for each filter.
+
+One way to improve the performance is to reduce the number of joins. You can achieve this by using the `Q` object to combine all the filters into one. Here's how you can do it:
+
+```python
+from django.db.models import Q
+
+# This is the filter returned by the HTML form, which list
+# all the available Classes for each Trait of the selected Protocol
+filters = [
+  {'trait': 1, 'class': [2, 3]},
+  {'trait': 2, 'class': [6,]},
+]
+
+queryset = Description.objects.all()
+
+# Create a Q object for each filter and combine them using the OR operator
+q_objects = Q()
+
+for filter in filters:
+  q_objects |= Q(expression_set__class__in=filter["class"])
+
+# Apply the combined filter to the queryset
+queryset = queryset.filter(q_objects)
+```
+
+This will result in a single SQL query with a WHERE clause that combines all the conditions using the OR operator, instead of multiple INNER JOIN clauses.
+
+Another way to improve the performance is to use indexing. If you often filter by `class_id`, you should add an index to this field. This can be done in the `Class` model like this:
+
+```python
+class Class(models.Model):
+    """
+    Stores the different Classes related to a Trait.
+    """
+
+    name = models.CharField()
+    trait = models.ForeignKey(Trait)
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['id']),
+        ]
+```
+
+This will speed up the lookup of `class_id` in the database.
+
+Lastly, consider using `select_related` or `prefetch_related` to reduce the number of database queries. These methods are used to perform a SQL join and include related objects in the query results. This can significantly reduce the number of database queries and improve performance.
+
+For example, if you often access the `protocol` of a `Description`, you can do:
+
+```python
+queryset = Description.objects.select_related('protocol').all()
+```
+
+This will perform a SQL join on the `protocol` table and include the related `Protocol` objects in the query results. As a result, when you access `description.protocol`, Django won't have to hit the database again, because the `Protocol` object is already fetched.
+
+Remember, optimizing database queries is a complex task that requires a good understanding of both your data and how databases work. Always measure the performance before and after applying optimizations to make sure they actually improve the performance.

@@ -1,0 +1,13 @@
+The command `npm install -g @vue/cli` installs Vue CLI globally, which is a tool for starting new Vue.js projects. It doesn't upgrade the Vue.js version in your existing projects.
+
+The version you're seeing in your `package.json` file is the version of Vue.js that your project is using, not the version of Vue CLI. 
+
+If you want to upgrade the Vue.js version in your project, you should do the following:
+
+1. Open your `package.json` file.
+2. Find the line that says `"vue": "^2.5.7"`.
+3. Change it to the version you want, for example `"vue": "^2.6.0"`.
+4. Save the `package.json` file.
+5. Run `npm update` in your project directory. This will update the dependencies to the versions specified in your `package.json` file.
+
+Please note that upgrading Vue.js version in your project might break your application if there are breaking changes between the version you're currently using and the version you're upgrading to. Always make sure to test your application thoroughly after upgrading.

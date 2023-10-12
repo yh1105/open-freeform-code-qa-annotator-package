@@ -1,0 +1,5 @@
+Yes, pip will continue to work with Python 2.7 after its end of life. The Python Package Index (PyPI) will not be removing any Python 2.7 packages, so you will still be able to download and install them with pip. However, individual package maintainers may choose to stop supporting Python 2.7, so new versions of packages may not be compatible with Python 2.7.
+
+It's important to note that while pip will continue to work with Python 2.7, it will not receive any updates or bug fixes for Python 2.7. The version of pip that is available at the end of life of Python 2.7 will be the final version for Python 2.7.
+
+While you can continue to use Python 2.7, it is strongly recommended to upgrade to Python 3 as soon as possible. Python 2.7 will not receive any security updates after its end of life, which can put your applications at risk.

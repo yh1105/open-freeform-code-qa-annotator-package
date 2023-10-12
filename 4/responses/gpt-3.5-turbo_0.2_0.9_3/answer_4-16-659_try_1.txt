@@ -1,0 +1,17 @@
+To check if a key exists and is not empty in your JSON file, you can use the following command:
+```
+if [[ $(jq -r '.key1 | length' "$my_json") -gt 0 ]]; then
+  values=$(jq -r '.key1[]' "$my_json")
+  for item in $values
+  do
+    echo "Item : $item"
+  done
+fi
+```
+This command checks if the length of the array associated with "key1" is greater than 0. If it is, then it iterates over the array and prints each item.
+
+To achieve the desired output of key-value pairs that are not empty, you can use the following command:
+```
+jq 'to_entries | map(select(.value | length > 0)) | from_entries' "$my_json"
+```
+This command converts the JSON object to an array of key-value pairs using `to_entries`, filters out the pairs with empty values using `map(select(.value | length > 0))`, and then converts the filtered array back to a JSON object using `from_entries`. This will give you only the key-value pairs that are not empty.

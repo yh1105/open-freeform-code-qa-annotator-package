@@ -1,0 +1,26 @@
+The error message is indicating that Django is unable to reverse the URL for the 'profile' view because it's expecting a username but it's getting an empty string.
+
+This error is likely occurring because there is a post in your database that has no author associated with it. When Django tries to create the URL for the profile link in your template, it's trying to insert an empty string where the username should be, which doesn't match the URL pattern you've defined.
+
+To fix this issue, you can add a check in your template to ensure that a post has an author before trying to create the profile link. Here's how you can modify your template:
+
+```html
+{% for post in posts %}
+    <div class="card">
+        <div class="card-body"> Title: {{post.title}} </div>
+        <div class="card-body"> Description: {{post.description}}</div>
+        {% if post.author %}
+            <p> {{post.author.username}} </p>
+            <div class="card-body">
+                <a href="{% url 'profile' post.author.username %}">
+                    @{{post.author.username}}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
+```
+
+This will only display the author's username and the link to their profile if the post has an author. If the post doesn't have an author, these elements will be skipped.
+
+In addition, you might want to consider making the `author` field on your `NewPost` model required (i.e., remove `null=True`) to prevent this issue from occurring in the future.

@@ -1,0 +1,11 @@
+The error message indicates that the `rbenv` command is not found. This could be due to a few reasons:
+
+1. `rbenv` is not installed. You can check this by running `which rbenv`. If it returns no output, then `rbenv` is not installed. You can install it using Homebrew with the command `brew install rbenv`.
+
+2. `rbenv` is installed but not in your PATH. The commands you ran should have added `rbenv` to your PATH, but there might be an issue. You can check your PATH by running `echo $PATH`. If the path to `rbenv` is not there, you can add it manually.
+
+3. The `rbenv init` command is not running correctly. This command sets up your shell for `rbenv`. If it's not running correctly, `rbenv` won't work. You can try running `rbenv init` manually and see if there are any error messages.
+
+4. The `~/.zshenv` file is not being sourced correctly. This file should be sourced every time a new shell is started. You can check if it's being sourced by adding a line like `echo 'sourcing .zshenv'` to the top of the file, then opening a new shell and seeing if the message is printed.
+
+If none of these solutions work, please provide more information about your setup and I'll try to help further.

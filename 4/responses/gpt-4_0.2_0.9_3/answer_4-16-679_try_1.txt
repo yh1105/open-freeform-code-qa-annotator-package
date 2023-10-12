@@ -1,0 +1,17 @@
+It appears that you have done a thorough job of troubleshooting and have come to the conclusion that the issue is likely on Microsoft's end. This is further supported by the fact that other users are experiencing the same problem. 
+
+Here are a few additional steps you could take while waiting for a response from Microsoft:
+
+1. **Check the Service Health Dashboard**: This will provide you with any updates on known issues that Microsoft is currently working on. 
+
+2. **Try a Different Account**: If you have another Global Admin account, you could try using that to see if the issue is account-specific.
+
+3. **Reinstall the Exchange Online Management Module**: Sometimes, reinstalling the module can resolve unexpected issues.
+
+4. **Try Connecting from a Different Network**: This can help determine if the issue is related to your network.
+
+5. **Try Connecting from a Different Device**: This can help determine if the issue is related to your device.
+
+Remember to keep monitoring the ticket you opened with Microsoft and update it with any new information you discover during your troubleshooting. 
+
+It's good to hear that Microsoft has acknowledged the issue (EX280152) and is working on a fix. Hopefully, the issue will be resolved soon.

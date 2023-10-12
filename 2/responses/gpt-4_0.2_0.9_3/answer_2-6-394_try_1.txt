@@ -1,0 +1,26 @@
+Yes, it is a good practice to use generic interfaces for dependency injection. It allows you to write more reusable and maintainable code. However, you need to register each service with its specific type in the `Startup.cs` file.
+
+Here is how you can do it:
+
+```csharp
+services.AddScoped<IDatabaseService<Project>, ProjectService>();
+services.AddScoped<IDatabaseService<Task>, TaskService>();
+```
+
+Then, you can inject the service into your controller like this:
+
+```csharp
+public class ProjectController : ControllerBase
+{
+    private readonly IDatabaseService<Project> projectService;
+
+    public ProjectController (IDatabaseService<Project> projectService)
+    {
+        this.projectService = projectService;
+    }
+}
+```
+
+This way, you are telling the dependency injection container that whenever it sees a constructor asking for `IDatabaseService<Project>`, it should provide an instance of `ProjectService`.
+
+This approach allows you to use the same interface for different services, and inject the correct service based on the type parameter. It also makes your code more testable, as you can easily mock the `IDatabaseService<T>` interface in your unit tests.

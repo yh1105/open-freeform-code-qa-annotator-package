@@ -1,0 +1,27 @@
+It looks like you are running into a dependency conflict between `eslint` and `react-scripts`. One solution is to install `eslint-config-react-app` which is specifically designed to work with `create-react-app` and includes all the necessary dependencies.
+
+Here are the steps to install `eslint-config-react-app`:
+
+1. Remove `eslint` and `babel-eslint` from your project by running the following command:
+
+   ```
+   npm uninstall eslint babel-eslint
+   ```
+
+2. Install `eslint-config-react-app` by running the following command:
+
+   ```
+   npm install eslint-config-react-app --save-dev
+   ```
+
+3. Update your `.eslintrc` file to extend `eslint-config-react-app`:
+
+   ```
+   {
+     "extends": "react-app"
+   }
+   ```
+
+4. Run your linter again and it should work without any conflicts.
+
+Let me know if this helps!

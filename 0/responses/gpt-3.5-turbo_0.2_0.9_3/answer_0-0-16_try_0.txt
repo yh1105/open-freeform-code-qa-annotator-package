@@ -1,0 +1,9 @@
+The error message is indicating that you need to specify an explicit value for `android:exported` in the `AndroidManifest.xml` file for the component that has an intent filter defined. In your case, it seems to be the `MainActivity`.
+
+You can try adding the following line inside the `AndroidManifest.xml` file, under the `MainActivity` element:
+
+```
+android:exported="false"
+```
+
+This should resolve the error you are facing. If you are still facing issues, please share the `AndroidManifest.xml` file for further assistance.

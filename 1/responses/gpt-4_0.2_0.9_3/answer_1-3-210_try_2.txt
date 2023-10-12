@@ -1,0 +1,7 @@
+The `match`/`case` syntax in Python, introduced in Python 3.10, is not implemented as a hash table or lookup table, which would provide constant time access to each case. Instead, it's implemented as a sequence of if-elif-else statements under the hood. This means that each case is checked in the order they are written until a match is found.
+
+In your example, the match for '0' is found immediately, so it's the fastest. The match for '1' is found after one unsuccessful check ('0'), so it's slightly slower. This pattern continues, with each subsequent match taking slightly longer because it has to check more cases before finding a match.
+
+This is different from how switch statements work in some other languages, like C or Java, where the cases are often implemented as a lookup table, providing constant time access to each case. In Python, if you need constant time access, a dictionary would be a more appropriate data structure. But as you mentioned, you're not interested in that approach.
+
+It's also worth noting that the `match`/`case` syntax in Python is more powerful than a simple switch statement or lookup table, because it can match complex patterns, not just simple values. This added flexibility comes with the cost of linear time complexity for finding a match.

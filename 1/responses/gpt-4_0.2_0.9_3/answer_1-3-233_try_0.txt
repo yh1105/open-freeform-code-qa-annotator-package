@@ -1,0 +1,15 @@
+The error message "Can't find target attribute [Sequence]" suggests that the import process is not able to find a column named "Sequence" in the target table where it can import the data from the "Sequence" column of your CSV file.
+
+However, from the DDL you provided, it seems like the "Sequence" column does exist in the table. One possible issue could be the case sensitivity. PostgreSQL is case sensitive for column names. If the column name is created with double quotes like "Sequence", then you have to always refer to it with double quotes and the exact case.
+
+Here are a few things you could try:
+
+1. Check the case sensitivity: Make sure that the case of the "Sequence" column in your CSV file matches exactly with the case of the "Sequence" column in your PostgreSQL table.
+
+2. Check the CSV file format: Make sure that your CSV file is correctly formatted. There should not be any extra spaces before or after the column names and the data. Also, make sure that the data for the "Sequence" column is of the correct data type (integer).
+
+3. Check the import settings: When importing the CSV file, make sure that you have selected the correct options. For example, if your CSV file has a header row, make sure that the "Header" option is checked.
+
+4. Try creating a new table: If none of the above solutions work, try creating a new table with a different name and try importing the CSV file into this new table.
+
+If you still encounter the same error, it would be helpful if you could provide more details about the import process, such as the exact steps you are following and the options you are selecting.

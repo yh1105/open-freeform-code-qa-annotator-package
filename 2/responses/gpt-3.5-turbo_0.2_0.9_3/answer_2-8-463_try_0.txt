@@ -1,0 +1,33 @@
+The type union constraint in Go generics is used to specify that a type parameter can be one of several types. However, it does not mean that the type parameter will have access to the methods of all the types in the union.
+
+In your example, the `AB` interface is defined as a type union of `*A` and `*B`. This means that any type that implements the `AB` interface must be either a pointer to `A` or a pointer to `B`. However, this does not mean that a value of type `T` (which is constrained to be `AB`) will have access to the methods of both `*A` and `*B`.
+
+When you call the `some` method on a value of type `T`, the compiler does not know whether the value is a pointer to `A` or a pointer to `B`, so it cannot determine which implementation of the `some` method to call. To fix this, you can define a separate interface that includes the `some` method and have both `*A` and `*B` implement that interface. Then, you can use that interface as the constraint for the type parameter `T`.
+
+Here's an example of how you can modify your code to use a separate interface:
+
+```
+type A struct {
+}
+
+type B struct {
+}
+
+type Someable interface {
+    some() bool
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T Someable](x T) bool {
+    return x.some()
+}
+```
+
+In this example, the `Someable` interface includes the `some` method, and both `*A` and `*B` implement that interface. The `some` function is now constrained to types that implement the `Someable` interface, which includes both `*A` and `*B`.

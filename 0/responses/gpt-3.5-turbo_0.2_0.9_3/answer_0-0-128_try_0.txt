@@ -1,0 +1,39 @@
+To reset a reactive object in Vue.js setup, you can simply assign a new value to it. In your code, you are already doing this for the `view` and `config` objects in the `pageRefresh` method. However, you need to make sure that any components or templates that are using these reactive objects are also updated with the new values.
+
+One way to do this is to use the `toRefs` function to create a reactive reference to the reactive object. This allows you to access the individual properties of the object as separate reactive references, which can be used in your components or templates.
+
+Here's an example of how you can reset a reactive object using `toRefs`:
+
+```
+import { reactive, toRefs } from 'vue';
+
+const state = reactive({
+  foo: 'bar',
+  baz: 123,
+});
+
+const resetState = () => {
+  const newState = {
+    foo: 'baz',
+    baz: 456,
+  };
+  Object.assign(state, newState);
+};
+
+const { foo, baz } = toRefs(state);
+
+export default {
+  setup() {
+    // use foo and baz in your components or templates
+    // ...
+    
+    return {
+      foo,
+      baz,
+      resetState,
+    };
+  },
+};
+```
+
+In this example, the `state` object is a reactive object with two properties: `foo` and `baz`. The `resetState` function assigns a new value to the `state` object using `Object.assign`. The `toRefs` function is used to create reactive references to the `foo` and `baz` properties, which can be used in your components or templates. Finally, the `foo`, `baz`, and `resetState` properties are returned from the `setup` function.

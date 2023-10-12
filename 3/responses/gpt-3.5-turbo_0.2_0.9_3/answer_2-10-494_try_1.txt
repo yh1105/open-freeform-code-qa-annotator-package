@@ -1,0 +1,9 @@
+It seems like this is a known issue with rust-analyzer. There are a few things you can try to resolve this:
+
+1. Update rust-analyzer to the latest version. This issue may have been fixed in a more recent release.
+
+2. Try disabling the "rust-analyzer.enableCargoWatch" setting in VSCode. This may help resolve the issue.
+
+3. If neither of the above solutions work, you can try using the official Rust VSCode extension instead of rust-analyzer. While rust-analyzer is generally more performant, the official extension may be more stable in some cases.
+
+In any case, it's always a good idea to report issues like this to the rust-analyzer team so they can work on fixing them. You can do this by opening an issue on their GitHub repository.

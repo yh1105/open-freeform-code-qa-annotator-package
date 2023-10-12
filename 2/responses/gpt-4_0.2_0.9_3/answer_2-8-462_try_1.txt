@@ -1,0 +1,7 @@
+1. You are not overlooking anything obvious. The issue you are facing is due to the fact that Go's type system does not provide a way to create an instance of a generic type parameter. This is a limitation of the current design of generics in Go.
+
+2. Yes, this is a limitation of generics in Go. The workaround you found, using a constructor function, is currently the best way to handle this situation. It is not ideal, but it is the only way to create an instance of a generic type parameter in Go.
+
+3. This limitation is known and is a result of the design decisions made in the creation of generics for Go. It is unlikely that raising an issue would result in any changes, as this is not a bug but a design decision. However, you could still raise an issue to discuss this limitation and see if there are any plans to address it in the future.
+
+In conclusion, the current design of generics in Go does not provide a way to create an instance of a generic type parameter. This is a known limitation and the workaround you found, using a constructor function, is currently the best way to handle this situation.

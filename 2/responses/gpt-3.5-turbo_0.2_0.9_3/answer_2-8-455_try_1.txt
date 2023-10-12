@@ -1,0 +1,21 @@
+You can create a `map[string]Capability` to map the string representation to the corresponding enum value. Here's an example implementation:
+
+```
+var capabilityMap = map[string]Capability{
+    "read":   Read,
+    "create": Create,
+    "update": Update,
+    "delete": Delete,
+    "list":   List,
+}
+
+func ParseString(s string) (Capability, error) {
+    c, ok := capabilityMap[strings.ToLower(s)]
+    if !ok {
+        return -1, fmt.Errorf("invalid capability: %s", s)
+    }
+    return c, nil
+}
+```
+
+This implementation uses the `strings.ToLower()` function to convert the input string to lowercase before looking it up in the `capabilityMap`. If the string is not found in the map, it returns an error. Otherwise, it returns the corresponding enum value.

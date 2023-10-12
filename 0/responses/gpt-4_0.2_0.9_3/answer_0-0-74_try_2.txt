@@ -1,0 +1,35 @@
+Next.js does not provide a built-in way to access the previous URL. However, you can manage this by yourself using a custom middleware in your `_app.js` file.
+
+Here's an example of how you can do it:
+
+```jsx
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      // store the current URL in localStorage when the route changes
+      localStorage.setItem('previousURL', router.asPath);
+    };
+
+    // listen to route changes
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    // cleanup the listener when the component unmounts
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, []);
+
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+```
+
+In this example, we're using the `useEffect` hook to listen to route changes. When the route changes, we store the current URL in `localStorage`. You can then access the previous URL from `localStorage` whenever you need it.
+
+Please note that this solution assumes that the user does not manually change the URL in the browser's address bar. If the user manually changes the URL, the previous URL stored in `localStorage` will not be accurate. Also, this solution may not work if the user has disabled `localStorage` in their browser.

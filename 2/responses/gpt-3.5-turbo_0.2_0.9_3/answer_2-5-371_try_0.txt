@@ -1,0 +1,50 @@
+To make your ImageView auto-resize according to the screen size, you can use the following steps:
+
+1. Change the layout_width and layout_height attributes of your ImageView to "match_parent". This will make the ImageView fill the entire available space in the layout.
+
+2. Set the scaleType attribute of your ImageView to "centerCrop". This will make the image fill the entire ImageView while maintaining its aspect ratio.
+
+3. Add constraints to your ImageView to position it where you want it in the layout. You can use the layout_constraintStart_toStartOf, layout_constraintEnd_toEndOf, layout_constraintTop_toTopOf, and layout_constraintBottom_toBottomOf attributes to position the ImageView relative to other views in the layout.
+
+Here's an example of how your layout file might look with these changes:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/resetButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="56dp"
+        android:background="#F70000"
+        android:text="Undo"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1750DF"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/resetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+With these changes, your ImageView will now resize to fit the available space in the layout, while maintaining the aspect ratio of the image.

@@ -1,0 +1,18 @@
+It's difficult to determine the exact cause of the issue without more information, but here are some possible solutions:
+
+1. Check if there are any file permissions issues on the master branch. Make sure that the user running the Gitlab CI job has the necessary permissions to access and modify the files.
+
+2. Try running the Gitlab CI job with debug mode enabled to get more information about the error. You can do this by adding the following line to your Gitlab CI configuration file:
+
+   ```
+   variables:
+     GIT_TRACE: "1"
+   ```
+
+   This will enable debug mode and print more detailed information about the error.
+
+3. Check if there are any differences in the Gitlab CI configuration file between the master branch and other branches. Make sure that the configuration file is consistent across all branches.
+
+4. Try running the Gitlab CI job on a different machine or environment to see if the issue is specific to the current environment.
+
+5. If none of the above solutions work, try reaching out to the Gitlab support team for further assistance. They may be able to provide more specific guidance based on your setup and configuration.

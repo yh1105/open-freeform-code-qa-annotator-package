@@ -1,0 +1,40 @@
+The issue you're facing is because the GestureDetector is only wrapping the QQBody widget, which is just the Text widget in the center of the screen. GestureDetector will only detect gestures on its child widget and the space it occupies.
+
+To make the GestureDetector detect taps anywhere on the screen, you need to wrap the GestureDetector around the Scaffold. Here's how you can do it:
+
+```dart
+class QQHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+      ),
+      home: GestureDetector(
+        onTap: () => print('Tapped'),
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('QuoteQuota'),
+          ),
+          body: QQBody(),
+        ),
+      ),
+    );
+  }
+}
+
+class QQBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Hello, World!'
+      ),
+    );
+  }
+}
+```
+
+Now, the GestureDetector will detect taps anywhere on the screen, including the AppBar and the body of the Scaffold.

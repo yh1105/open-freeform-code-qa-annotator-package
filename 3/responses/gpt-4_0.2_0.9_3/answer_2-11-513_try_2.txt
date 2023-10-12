@@ -1,0 +1,20 @@
+The MISRA warning you're seeing is because the `memset` function returns a pointer to the memory area it has set, and MISRA rules require that you use (or deliberately ignore) the return value of non-void functions. This is to ensure that you don't accidentally ignore an error condition.
+
+However, in the case of `memset`, it's generally safe to ignore the return value, because `memset` doesn't have any error conditions that it can report via its return value. The cast you've tried to use doesn't work because you're trying to cast a pointer (`void*`) to `void`, which is not a pointer type.
+
+One way to suppress the warning and comply with MISRA rules is to assign the return value to a dummy variable, like this:
+
+```c
+void* dummy = memset(&mystruct, 0, sizeof(MY_STRUCT));
+(void)dummy; // to avoid unused variable warning
+```
+
+This way, you're technically using the return value (by assigning it to a variable), but you're not actually doing anything with it.
+
+However, it's worth noting that using `memset` to initialize a struct is not always safe or portable, because it makes assumptions about the memory layout of the struct. For example, it assumes that a value of 0 is a suitable null value for all types, which is not always the case. A more portable and type-safe way to initialize a struct to zero in C is to use a designated initializer:
+
+```c
+mystruct = (MY_STRUCT){0};
+```
+
+This will zero-initialize all members of the struct, regardless of their type, and it doesn't rely on the memory layout of the struct.

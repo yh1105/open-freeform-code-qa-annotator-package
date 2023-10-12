@@ -1,0 +1,46 @@
+In your case, where you don't have any synchronous cleanup to do, you can leave the Dispose(bool) method empty. The Dispose() method is there to clean up any managed resources in a synchronous way. If you don't have any, there's no need to put anything there.
+
+However, you should still implement it, because it's part of the IDisposable interface and the dispose pattern. It's also a good practice to keep it there in case you need to add synchronous cleanup in the future.
+
+Here is how your code should look:
+
+```csharp
+public class MyClass : IDisposable, IAsyncDisposable
+{
+    private bool disposed;
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(false);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+                // Nothing to clean up
+            }
+
+            disposed = true;
+        }
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        // Make async cleanup call here e.g. Database.CleanupAsync();
+    }
+}
+```
+
+Remember, the Dispose(bool) method is called by both Dispose() and DisposeAsync() methods. The boolean parameter 'disposing' is used to determine whether the method was called from a Dispose method (true), or a finalizer (false). In your case, since you don't have a finalizer, you can ignore this parameter.

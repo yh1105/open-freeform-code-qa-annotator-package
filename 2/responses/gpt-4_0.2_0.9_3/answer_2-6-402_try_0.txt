@@ -1,0 +1,32 @@
+In ASP.NET Core 3.1 and later versions, the `SameSiteMode.None` value is handled correctly and will emit `SameSite=None` as expected. However, if you are using an older version, you may need to manually append the `SameSite=None` attribute to the cookie.
+
+Here's a workaround to add a custom attribute to a cookie:
+
+```csharp
+public static class HttpResponseExtensions
+{
+    public static void AppendCookie(this HttpResponse response, string key, string value, CookieOptions options, bool sameSiteNone = false)
+    {
+        if (sameSiteNone)
+        {
+            response.Headers.Add("Set-Cookie", $"{key}={value}; expires={options.Expires:R}; path={options.Path}; secure; samesite=none");
+        }
+        else
+        {
+            response.Cookies.Append(key, value, options);
+        }
+    }
+}
+```
+
+You can use this extension method like this:
+
+```csharp
+Response.AppendCookie("MyCookie", "MyValue", new CookieOptions { Secure = true, Expires = DateTime.Now.AddDays(1) }, true);
+```
+
+This will append a cookie with `SameSite=None` attribute.
+
+Please note that `SameSite=None` requires the `Secure` attribute, which means the cookie will only be sent over HTTPS. This is a requirement of the `SameSite=None` attribute, not a limitation of this workaround.
+
+Also, be aware that this is a workaround and may not work in all scenarios. It's recommended to upgrade to a newer version of ASP.NET Core if possible.

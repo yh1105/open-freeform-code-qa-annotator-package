@@ -1,0 +1,37 @@
+To make Axios send cookies automatically in every request, you need to set the `withCredentials` property to `true` in the Axios request configuration. This will include cookies in the request headers.
+
+Here is how you can do it:
+
+```javascript
+axios.get('some api url', { withCredentials: true })
+  .then(response => {
+    // handle success
+  })
+  .catch(error => {
+    // handle error
+  });
+```
+
+If you want to set `withCredentials` to `true` for all requests, you can do it globally like this:
+
+```javascript
+axios.defaults.withCredentials = true;
+```
+
+Now, all your Axios requests will automatically include cookies.
+
+Please note that for CORS requests, the server must also include the `Access-Control-Allow-Credentials` header set to `true` in the response, and the `Access-Control-Allow-Origin` header must not be set to `*` but to the specific origin making the request. 
+
+Here is how you can do it in your Express.js server:
+
+```javascript
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  next();
+});
+```
+
+Remember to replace `req.headers.origin` with your specific client-side domain.

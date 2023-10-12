@@ -1,0 +1,26 @@
+You can use a for loop and step through the string by 1 index each time. Then, you can slice the string to get the desired output. Here's an example:
+
+```
+my_string = 'teststring'
+
+for i in range(len(my_string)-1):
+    print(my_string[i:i+2])
+```
+
+This will output:
+
+```
+te
+es
+st
+ts
+st
+tr
+ri
+in
+ng
+``` 
+
+In the for loop, we are iterating through the indices of the string using `range(len(my_string)-1)`. We subtract 1 from the length of the string because we are slicing 2 characters at a time, and we don't want to go out of bounds. 
+
+Then, we slice the string using `my_string[i:i+2]` to get the 2 characters at the current index and the next index. We print this out for each iteration of the loop.

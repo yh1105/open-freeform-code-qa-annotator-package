@@ -1,0 +1,17 @@
+The issue here is not with the data type but with the property name you are trying to inject. In your `data.yml` file, the property is `main.header.info` but in your code, you are trying to inject `main.header1.info` which does not exist. 
+
+Also, you have a typo in your `@Value` annotation. You have an extra backtick (`) before the property name.
+
+Here is the correct way to do it:
+
+```java
+@Component
+@PropertySource("classpath:data.yml")
+public class SomeClass {
+    @Value("${main.header.info}")
+    private long info;
+    ...
+}
+```
+
+This should work if you are using Spring Boot with the `spring-boot-starter-data-yaml` dependency. If you are not using this dependency, Spring Boot does not natively support YAML in `@PropertySource` annotations. In that case, you would need to use a `YamlPropertySourceLoader` to load the YAML file.

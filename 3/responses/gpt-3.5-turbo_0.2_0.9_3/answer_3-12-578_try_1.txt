@@ -1,0 +1,12 @@
+In Flutter, the `const` keyword is used to create compile-time constants. When you use `const` with `Text` widget, it means that the `TextStyle` object created using `TextStyle(fontSize: textSize)` is a compile-time constant. 
+
+However, when you use `var` or `double` to declare `textSize`, it is not a compile-time constant. It is a runtime variable whose value can change during the execution of the program. Therefore, you cannot use `var` or `double` with `const` in this case.
+
+To fix the error, you can remove the `const` keyword from `Text` widget and use the following code:
+
+```
+child: Text('Calculate Client Fees',
+                   style: TextStyle(fontSize: textSize),)
+```
+
+This will create a `TextStyle` object at runtime with the `fontSize` value stored in the `textSize` variable.

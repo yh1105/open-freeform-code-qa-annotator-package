@@ -1,0 +1,57 @@
+You can create a factory that will generate a `ServiceBusSender` for a given queue name. Here's an example of how you can do this:
+
+1. Define a factory interface:
+
+```csharp
+public interface IServiceBusClientFactory
+{
+    ServiceBusSender CreateSender(string queueName);
+}
+```
+
+2. Implement the factory:
+
+```csharp
+public class ServiceBusClientFactory : IServiceBusClientFactory
+{
+    private readonly ServiceBusClient _serviceBusClient;
+
+    public ServiceBusClientFactory(IOptions<UserEventConsumerSetting> options)
+    {
+        var serviceBusConfiguration = options.Value;
+        _serviceBusClient = new ServiceBusClient(serviceBusConfiguration.ServiceBusConnectionString, new ServiceBusClientOptions
+        {
+            TransportType = ServiceBusTransportType.AmqpWebSockets
+        });
+    }
+
+    public ServiceBusSender CreateSender(string queueName)
+    {
+        return _serviceBusClient.CreateSender(queueName);
+    }
+}
+```
+
+3. Register the factory in your DI container:
+
+```csharp
+_services.TryAddSingleton<IServiceBusClientFactory, ServiceBusClientFactory>();
+```
+
+4. Use the factory to create a `ServiceBusSender` for a specific queue:
+
+```csharp
+public class CarReservationMessagingService
+{
+    private readonly ServiceBusSender _serviceBusSender;
+
+    public CarReservationMessagingService(IServiceBusClientFactory serviceBusClientFactory)
+    {
+        _serviceBusSender = serviceBusClientFactory.CreateSender("yourQueueName");
+    }
+
+    // ...
+}
+```
+
+With this setup, you can inject `IServiceBusClientFactory` wherever you need and create a `ServiceBusSender` for any queue you want.

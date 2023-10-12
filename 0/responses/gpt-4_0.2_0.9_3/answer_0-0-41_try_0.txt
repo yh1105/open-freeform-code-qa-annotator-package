@@ -1,0 +1,30 @@
+The problem is that the `else` block in your code is executed when the browser does not support the Geolocation API, not when the user denies the location permission.
+
+The `navigator.geolocation.getCurrentPosition()` function takes a second argument which is a function that will be called when an error occurs. This is where you should handle the case when the user denies the location permission.
+
+Here is how you can modify your code:
+
+```javascript
+ngOnInit() {
+    this.getUserLocation();
+}
+
+getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+            },
+            error => {
+                if (error.code === error.PERMISSION_DENIED)
+                    console.log("User denied the request for Geolocation.");
+            }
+        );
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+```
+
+In this code, if the user denies the location permission, the error function will be called and "User denied the request for Geolocation." will be logged to the console. If the browser does not support the Geolocation API, "Geolocation is not supported by this browser." will be logged to the console.

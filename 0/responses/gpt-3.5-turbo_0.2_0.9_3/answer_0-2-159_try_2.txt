@@ -1,0 +1,9 @@
+Your code looks fine, and the issue might be with the image file path. Make sure that the image file is in the same directory as your HTML file, and the file name and extension are correct. Also, check if the image file name is spelled correctly in your HTML code.
+
+If the image file is in a different directory, you need to specify the correct file path in the `src` attribute of the `img` tag. For example, if the image file is in a folder named "images" in the same directory as your HTML file, you can use the following code:
+
+```
+<img src="images/hologram.jpg" alt="Holograms" width="500" height="500">
+```
+
+If the issue persists, you can try opening the image file separately in your browser to check if it's displaying correctly. If it's not, then the issue might be with the image file itself.

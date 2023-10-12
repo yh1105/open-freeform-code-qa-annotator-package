@@ -1,0 +1,13 @@
+It seems like there is an issue with the encryption of your credentials in production. The error message suggests that the message is invalid, which could mean that the encryption key used to encrypt the credentials in production is different from the one used in development.
+
+To fix this, you need to make sure that the encryption key used in production is the same as the one used in development. You can do this by copying the `config/master.key` file from your development environment to your production environment.
+
+To do this, you can use the Heroku CLI to copy the file to your production environment. First, make sure you have the Heroku CLI installed and logged in to your Heroku account. Then, run the following command:
+
+```
+heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+```
+
+This will set the `RAILS_MASTER_KEY` environment variable in your production environment to the value of your `config/master.key` file.
+
+After setting the `RAILS_MASTER_KEY` environment variable, you should be able to precompile your assets and deploy your app to Heroku without any issues.

@@ -1,0 +1,41 @@
+The issue with your code is that the threads you are creating are borrowing mutable references to the strings in the `strings` vector. However, the threads may outlive the vector, which would cause the references to become invalid. This is what the compiler is warning you about.
+
+To fix this, you can use the `move` keyword to move ownership of the string into the thread closure. This way, the thread will own the string and there will be no lifetime issues. Here's the modified code:
+
+```
+use std::thread;
+
+fn child_job(s: &mut String) {
+    *s = s.to_uppercase();
+}
+
+fn main() {
+    // initialize
+    let mut thread_handles = vec![];
+    let strings = vec![
+        "hello".to_string(),
+        "world".to_string(),
+        "testing".to_string(),
+        "good enough".to_string(),
+    ];
+
+    // create threads
+    for s in strings {
+        thread_handles.push(thread::spawn(move || child_job(&mut s.clone())));
+    }
+
+    // wait for threads
+    for handle in thread_handles {
+        handle.join().unwrap();
+    }
+
+    // print result
+    for s in strings {
+        println!("{}", s);
+    }
+}
+```
+
+In this code, we use `move` to move ownership of the string `s` into the thread closure. We also use `s.clone()` to create a new mutable reference to the string, which we pass to `child_job`. This way, each thread has its own copy of the string to work with, and there are no lifetime issues.
+
+Note that we also removed the `&mut` from the `child_job` function signature, since we are now passing a mutable reference to the cloned string.

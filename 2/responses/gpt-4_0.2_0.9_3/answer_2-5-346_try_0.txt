@@ -1,0 +1,33 @@
+The error you're encountering is because Gradle is not using the correct Java version. Even though you've set the Java version in IntelliJ IDEA, Gradle might still be using a different version. 
+
+You can specify the Java version for Gradle in a couple of ways:
+
+1. **Specify the Java version in the `gradle.properties` file.** Create or modify the `gradle.properties` file in the root directory of your project (or in your Gradle home directory) and add the following line:
+
+    ```
+    org.gradle.java.home=/path/to/your/jdk17
+    ```
+
+    Replace `/path/to/your/jdk17` with the actual path to your JDK 17 installation.
+
+2. **Specify the Java version in the `build.gradle` file.** You can specify the Java version directly in your `build.gradle` file:
+
+    ```groovy
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+    ```
+
+    This will tell Gradle to use the Java 17 toolchain.
+
+3. **Use the Gradle Wrapper.** The Gradle Wrapper is a script that can automatically download and use the correct Gradle version for your project. You can specify the Java version for the Gradle Wrapper in the `gradle/wrapper/gradle-wrapper.properties` file:
+
+    ```
+    distributionUrl=https\://services.gradle.org/distributions/gradle-7.3-bin.zip
+    ```
+
+    Gradle 7.3 and later versions support Java 17.
+
+After making these changes, try running your project again. If you're still encountering issues, make sure that your `JAVA_HOME` environment variable is set to the correct Java version.

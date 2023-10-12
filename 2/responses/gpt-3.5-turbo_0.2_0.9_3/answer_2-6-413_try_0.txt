@@ -1,0 +1,17 @@
+When C#8's nullability context is enabled, you need to explicitly mark the properties as nullable or non-nullable. In your case, you can mark the `ServiceUrl` property as non-nullable by adding the `!` symbol after the property type:
+
+```
+public string ServiceUrl { get; set; }!
+```
+
+This tells the compiler that the property is guaranteed to be non-null, and it will not generate the `CS8618` error.
+
+Alternatively, you can initialize the property to a default value to avoid the error:
+
+```
+public string ServiceUrl { get; set; } = "";
+```
+
+This initializes the property to an empty string, which is a non-null value.
+
+Note that if you mark a property as non-nullable, you must ensure that it is always initialized before it is used. Otherwise, you will get a runtime `NullReferenceException`.

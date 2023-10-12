@@ -1,0 +1,32 @@
+From your code, it seems you are inflating your layout twice which is unnecessary and could be the cause of your issue. Once you have inflated your layout using `FragmentHomeBinding.inflate(inflater, container, false)`, you can access your views directly from the binding object. 
+
+Here's how you can modify your code:
+
+```kotlin
+override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        binding.exercise.setText("This is an exceptionally hardcoded string")
+
+        binding.btnNewExercise.setOnClickListener {
+            Toast.makeText(requireContext(), "New exercise will be generated", Toast.LENGTH_SHORT).show()
+            println("Generated a new exercise")
+        }
+
+        return root
+    }
+```
+
+In this code, `binding.exercise` and `binding.btnNewExercise` are the views in your layout. Make sure the ids in your layout file match the ids you are using in your Kotlin code. 
+
+Also, make sure you are not trying to access the views before they are inflated, this could cause a `NullPointerException`. 
+
+If you are still facing issues, please provide the fragment and layout files for further assistance.

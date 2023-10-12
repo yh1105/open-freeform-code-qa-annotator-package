@@ -1,0 +1,16 @@
+In Flutter, the `const` keyword is used to represent a compile-time constant. Flutter needs to know the value at compile time, not at runtime. 
+
+When you use `const` before `Text` widget, it means you are creating a constant `Text` widget. All the properties of this widget should also be constant. That's why you're getting an error when you're trying to use a non-constant `textSize` for the `fontSize`.
+
+If you want to use a variable for `fontSize`, you should remove the `const` keyword before `Text` widget. Here's how you can do it:
+
+```dart
+var textSize = 10.0;
+// or
+double textSize = 10.0;
+
+child: Text('Calculate Client Fees',
+            style: TextStyle(fontSize: textSize),)
+```
+
+In this case, the `Text` widget is not a constant and it can have non-constant properties.

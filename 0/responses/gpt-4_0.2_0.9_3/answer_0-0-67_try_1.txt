@@ -1,0 +1,21 @@
+The error you're seeing is because the `target` property is already defined in `React.HTMLProps` with a different type, and you're trying to redefine it with a different type `{ value: string }`. 
+
+Instead, you should define the type of the event in the `onChange` handler. Here's how you can do it:
+
+```tsx
+export interface InputProps extends React.HTMLProps<HTMLInputElement> {
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export class Input extends React.Component<InputProps, {}> {
+    // ...
+}
+```
+
+Then, you can use it like this:
+
+```tsx
+<Input onChange={(e) => data.motto = e.target.value} />
+```
+
+In this case, `e.target.value` will be correctly typed as `string`, and you won't need to use `any`.

@@ -1,0 +1,36 @@
+The type union constraint in Go generics (v1.18) is used to specify that a type parameter can be one of several types. However, it does not allow you to call methods that are common to those types. This is because Go's type system is static and does not support dynamic dispatch on type parameters.
+
+In your code, the `AB` interface is a type union of `*A` and `*B`. But when you try to call the `some` method on a value of type `T` (which is constrained to be `AB`), the compiler doesn't know which `some` method to call, because `T` could be either `*A` or `*B`. This is why you get the error message "x.some undefined (type T has no field or method some)".
+
+If you want to call a method that is common to several types, you need to define an interface that includes that method, and then use that interface as the type constraint. Here's how you can modify your code to make it work:
+
+```go
+type A struct {
+}
+
+type B struct {
+}
+
+type Some interface {
+    some() bool
+}
+
+type AB interface {
+    Some
+    ~*A | ~*B
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T AB](x T) bool {
+    return x.some()
+}
+```
+
+In this code, the `Some` interface includes the `some` method. The `AB` interface includes `Some` and is a type union of `*A` and `*B`. The `some` function takes a parameter of type `T`, which is constrained to be `AB`, and it can call the `some` method on `x` because `T` is guaranteed to implement `Some`.

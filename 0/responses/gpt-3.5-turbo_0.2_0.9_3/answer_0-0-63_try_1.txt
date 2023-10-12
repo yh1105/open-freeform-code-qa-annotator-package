@@ -1,0 +1,43 @@
+The reason you are getting an infinite loop is that you are updating the state inside the component's render method. This causes the component to re-render, which updates the state again, and so on, creating an infinite loop.
+
+To fix this, you can move the logic for checking the input length inside a useEffect hook that runs whenever the firstName or lastName state changes. This way, the state is only updated when necessary, and you avoid the infinite loop.
+
+Here's an example of how you can update your code:
+
+```
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        if (firstName.length < 3 || lastName.length < 3) {
+            setIsButtonDisabled(true);
+        } else {
+            setIsButtonDisabled(false);
+        }
+    }, [firstName, lastName]);
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    return (
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" defaultValue={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" defaultValue={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+        </>
+    );
+}
+
+export default TableFooterPanel;
+```
+
+In this updated code, we use the useEffect hook to check the length of the firstName and lastName inputs whenever they change. If either input has a length less than 3, we disable the button by setting the isButtonDisabled state to true. Otherwise, we enable the button by setting isButtonDisabled to false.

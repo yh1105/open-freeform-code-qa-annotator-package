@@ -1,0 +1,62 @@
+It seems like you have tried a few different approaches to resolve the issue with absolute imports, but none of them have worked. Here are a few suggestions that you can try:
+
+1. Update your webpack configuration: You can update your webpack configuration to resolve the absolute imports. In your `webpack.config.js` file, add the following code:
+
+```
+const path = require('path');
+
+module.exports = {
+  resolve: {
+    alias: {
+      client: path.resolve(__dirname, 'client/'),
+    },
+  },
+};
+```
+
+This will resolve the `client` alias to the correct path.
+
+2. Use `tsconfig-paths-webpack-plugin`: You can use the `tsconfig-paths-webpack-plugin` to resolve the absolute imports. Install the plugin using the following command:
+
+```
+yarn add -D tsconfig-paths-webpack-plugin
+```
+
+Then, update your `webpack.config.js` file with the following code:
+
+```
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+module.exports = {
+  resolve: {
+    plugins: [new TsconfigPathsPlugin()],
+  },
+};
+```
+
+This will resolve the absolute imports using the paths defined in your `tsconfig.json` file.
+
+3. Use `babel-plugin-root-import`: You can use the `babel-plugin-root-import` to resolve the absolute imports. Install the plugin using the following command:
+
+```
+yarn add -D babel-plugin-root-import
+```
+
+Then, update your `.babelrc` file with the following code:
+
+```
+{
+  "plugins": [
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "client"
+      }
+    ]
+  ]
+}
+```
+
+This will resolve the absolute imports using the `client` directory as the root path.
+
+I hope one of these suggestions helps you resolve the issue with absolute imports. Let me know if you have any questions or need further assistance.

@@ -1,0 +1,36 @@
+You can use the `alignmentGuide` modifier to align the contents of the `HStack` to the left. Here's the modified code:
+
+```
+struct HomeSection: View {
+    var body: some View {
+        Button(action: {
+
+        }) {
+            Group {
+                Spacer().frame(width: 0, height: 36.0, alignment: .topLeading)
+                HStack(alignment: .top) {
+                    Image("home")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.navigationTextGrey)
+
+                    Text("HOME")
+                        .bold()
+                        .font(.system(size: 17.0))
+                        .foregroundColor(Color.navigationTextGrey)
+                        .padding(.leading, 4.0)
+                }
+                .alignmentGuide(.top) { d in
+                    d[.top]
+                }
+                Rectangle()
+                    .fill(Color.navigationTextGrey)
+                    .frame(width: UIScreen.main.bounds.width - 60, height: 1)
+                    .padding(.top, 6.0)
+            }
+        }
+    }
+}
+```
+
+The `alignmentGuide` modifier takes a closure that returns a guide value for the specified alignment. In this case, we're using the `.top` alignment and returning the top guide value of the `HStack` to align it with the top of the `Spacer`. This should keep the contents of the `HStack` aligned to the left.

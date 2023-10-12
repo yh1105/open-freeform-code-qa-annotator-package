@@ -1,0 +1,44 @@
+The error message is telling you that you cannot access a `@State` variable outside of the `body` property of a `View`. This is because `@State` is a property wrapper that is designed to work specifically with SwiftUI's view rendering system.
+
+To achieve what you want, you can use a different property wrapper called `@Binding`. `@Binding` allows you to create a two-way connection between a property in a parent view and a property in a child view.
+
+Here's an updated version of your code that uses `@Binding` instead of `@State`:
+
+```
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+    @Binding var fullText: String
+
+    init(letter: String, fullText: Binding<String>) {
+        self._fullText = fullText
+        self.fullText = list[letter]!
+    }
+
+    var body: some View {
+        TextField("", text: $fullText)
+    }
+}
+```
+
+In this version, we've changed `fullText` to be a `@Binding` instead of a `@State`. We've also added a new parameter to the `init` method that takes a `Binding<String>` as an argument. This allows us to create a two-way connection between the `fullText` property in this view and a property in a parent view.
+
+To use this view, you would create a parent view that passes in a `@State` property as a `Binding<String>` to the `StateFromOutside` view:
+
+```
+struct ParentView: View {
+    @State var text = ""
+
+    var body: some View {
+        VStack {
+            StateFromOutside(letter: "a", fullText: $text)
+            Text("You typed: \(text)")
+        }
+    }
+}
+```
+
+In this example, we're creating a `ParentView` that has a `@State` property called `text`. We're then passing this property as a `Binding<String>` to the `StateFromOutside` view. When the user types into the `TextField`, the `text` property in the `ParentView` will be updated automatically.

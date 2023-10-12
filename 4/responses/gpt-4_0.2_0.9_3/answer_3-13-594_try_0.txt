@@ -1,0 +1,26 @@
+This is a known issue with the Kotlin's Random function in Android 12. The issue is that the Random function is not truly random on Android 12 due to changes in the underlying OS.
+
+A workaround for this issue is to use Java's Random function instead of Kotlin's. Here's how you can modify your code to use Java's Random:
+
+```kotlin
+import java.util.Random
+
+private fun getNextChoice(): Int {
+    val random = Random()
+    return random.nextInt(2)
+}
+
+private fun getNextImage(imageList: Array<Image>): Int {
+    val listSize = imageList.size
+    var imageId: Int
+    val random = Random()
+    do {
+        imageId = random.nextInt(listSize)
+    } while (imageList[imageId].played)
+
+    imageList[imageId].played = true
+    return imageList[imageId].image
+}
+```
+
+This should solve your problem until the Kotlin team fixes the issue with their Random function on Android 12.

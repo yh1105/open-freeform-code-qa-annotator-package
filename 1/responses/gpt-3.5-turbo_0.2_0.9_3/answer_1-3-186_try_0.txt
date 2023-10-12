@@ -1,0 +1,81 @@
+The correct way to separate callbacks and layouts from the `app.py` in a single page app is to use a factory pattern. 
+
+In this pattern, you create a function in each view module that returns the layout for that view. Then, in the `app.py`, you import each view module and call the layout function to get the layout for that view. 
+
+Here's how you can modify your MWE to use the factory pattern:
+
+### File structure
+
+```
+.
+├── my_dash_app
+│   ├── app.py
+│   └── views
+│       ├── first_view.py
+│       └── __init__.py
+└── setup.py
+```
+
+### setup.py
+
+```
+import setuptools
+
+setuptools.setup(
+    name='dash-minimal-realworld',
+    version='1.0.0',
+    install_requires=['dash>=1.12.0'],
+    packages=setuptools.find_packages(),
+)
+```
+
+### app.py
+
+```
+import dash
+
+from my_dash_app.views.first_view import layout as first_view_layout
+
+app = dash.Dash(__name__)
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
+])
+
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname == '/first_view':
+        return first_view_layout
+    else:
+        return '404'
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
+```
+
+### first_view.py
+
+```
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
+
+from my_dash_app.app import app
+
+layout = html.Div([
+    dcc.Input(id='my-id', value='initial value', type='text'),
+    html.Div(id='my-div')
+])
+
+@app.callback(Output(component_id='my-div', component_property='children'),
+              [Input(component_id='my-id', component_property='value')])
+def update_output_div(input_value):
+    return 'You\'ve entered "{}"'.format(input_value)
+```
+
+In this example, we've created a `layout` variable in `first_view.py` that contains the layout for that view. We've also removed the circular import by importing `app` from `my_dash_app.app` instead of importing `make_layout` from `first_view.py`.
+
+In `app.py`, we've modified the layout to include a `dcc.Location` component and a `page-content` div. We've also added a callback that listens to changes in the URL and displays the appropriate view based on the URL path.
+
+Now, when you run `python ./my_dash_app/app.py`, you can navigate to `http://localhost:8050/first_view` to see the `first_view` layout with its corresponding callback.

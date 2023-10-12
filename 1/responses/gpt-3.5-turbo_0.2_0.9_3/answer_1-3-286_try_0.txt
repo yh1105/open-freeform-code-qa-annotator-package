@@ -1,0 +1,25 @@
+The issue with your code is that you are trying to access the variable `a` outside of its scope. The variable `a` is only defined inside the `try` block, so when you try to access it in the `except` block, it hasn't been defined yet.
+
+To fix this, you can define `a` before the `try` block and set it to an initial value (e.g. `None`). Then, inside the `try` block, you can update the value of `a` to the integer input. This way, `a` will be defined outside of the `try` block and you can access it inside the `except` block.
+
+Here's the updated code:
+
+```
+s = set()
+print('Please type the number, when you are done please type "Done":')
+a = None
+while True:
+    try:
+        a = input()
+        if a == "Done":
+            break
+        else:
+            s.add(int(a))
+    except ValueError:
+        print('Integer only, please re-type:')
+print(s)
+```
+
+In this code, we first set `a` to `None`. Then, inside the `try` block, we first check if the input is "Done". If it is, we break out of the loop. If it's not, we try to convert it to an integer using `int(a)`. If this raises a `ValueError`, we print an error message and continue the loop. If it doesn't raise an error, we add the integer to the set `s`.
+
+Note that we're using `except ValueError` instead of just `except`. This is because we only want to catch `ValueError` exceptions (which are raised when we try to convert a non-integer input to an integer). If there's any other exception (e.g. a `KeyboardInterrupt` if the user presses Ctrl+C), we want to let it propagate up the call stack.

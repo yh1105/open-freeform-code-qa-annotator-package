@@ -1,0 +1,9 @@
+You can use the `applymap` function in pandas which applies a function to a DataFrame that is intended to operate elementwise, i.e. like doing map(func, series) for each series in the DataFrame.
+
+Here is how you can do it:
+
+```python
+df = df.applymap(lambda x: 1 if x >=25 else 0)
+```
+
+This will apply the function to each element in the dataframe, not just a specific column.

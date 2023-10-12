@@ -1,0 +1,37 @@
+It seems like you are trying to detect if the software keyboard is visible when a button is pressed. This can be a bit tricky as the method varies depending on the platform you are working on. Here are some general methods for Android and iOS:
+
+1. Android:
+In Android, you can check if the keyboard is open by measuring the difference between the height of the ContentView and the height of the RootView. If the difference is more than a certain threshold, it means the keyboard is open.
+
+Here is a sample code snippet:
+
+```java
+final View activityRootView = findViewById(R.id.activityRoot);
+activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+    @Override
+    public void onGlobalLayout() {
+        int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+        if (heightDiff > dpToPx(this, 200)) { // if more than 200 dp, it's probably a keyboard...
+            // ... do something here
+        }
+     }
+});
+```
+
+2. iOS:
+In iOS, you can listen for the notifications that are sent when the keyboard is shown and hidden. Here is a sample code snippet:
+
+```swift
+NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+@objc func keyboardWillShow(notification: NSNotification) {
+    // Keyboard will show
+}
+
+@objc func keyboardWillHide(notification: NSNotification) {
+    // Keyboard will hide
+}
+```
+
+Remember, these are just general methods and might not work in all cases. The implementation can vary based on the specific requirements of your application.

@@ -1,0 +1,23 @@
+The error you're seeing is because you're trying to compare two arrays using `==` operator. This operator will return an array of boolean values, not a single boolean value. Therefore, Python doesn't know how to interpret this in an `if` statement.
+
+If you want to check if all values in two arrays are equal, you can use `numpy.array_equal()`:
+
+```python
+import numpy as np
+
+if np.array_equal(mask_black, cv2.bitwise_and(mask_black, mask_not)):
+    # body 
+else:
+    # body
+```
+
+However, in your case, it seems like you want to check if the mask is either all black or all white. If that's the case, you can use `numpy.all()` or `numpy.any()`:
+
+```python
+if np.all(mask_black == 0):  # all black
+    # detect white line
+elif np.all(mask_black == 255):  # all white
+    # detect black line
+```
+
+This will check if all values in the mask are either 0 (black) or 255 (white). If you want to check if there are any black or white pixels, you can use `numpy.any()` instead of `numpy.all()`.

@@ -1,0 +1,23 @@
+The issue with your first attempt is that you're checking if 'USDT' is in `my_set` which is a list, not a string. You should check if 'USDT' is in `word` instead.
+
+The issue with your second attempt is that you're using `all` incorrectly. `all` checks if all elements in an iterable are true. In your case, you're checking if all elements in `keyword` are in `keyword` which is always true.
+
+The issue with your third attempt is that `filter` returns a filter object which is an iterator and you need to convert it to a list to see the elements.
+
+Here's the correct way to do it:
+
+```python
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = [word for word in my_set if word.endswith('USDT')]
+print(my_final_set)
+```
+
+Or if you want to use `filter`, you can do it like this:
+
+```python
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = list(filter(lambda x: x.endswith('USDT'), my_set))
+print(my_final_set)
+```
+
+Both of these will output: `['LUNAUSDT', 'BTCUSDT']`

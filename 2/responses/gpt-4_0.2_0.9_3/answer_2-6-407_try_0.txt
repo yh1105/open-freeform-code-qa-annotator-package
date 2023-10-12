@@ -1,0 +1,11 @@
+The error message you're seeing indicates that the response from your API call is not a valid JSON. The '<' character is typically the start of an XML or HTML document, not a JSON document.
+
+This could be due to a few reasons:
+
+1. The API endpoint is not returning a JSON response. It might be returning XML or HTML instead. You can check this by calling the API endpoint directly in a browser or using a tool like Postman to see what the response looks like.
+
+2. The API endpoint might not be correct. The route you've defined in your controller is "api/Employee/Index", but the route attribute on the controller itself is "[controller]". This means that the actual route to your endpoint might be "/Employee/api/Employee/Index" instead of "/api/Employee/Index". You can try changing the route attribute on your controller to "[Route("api/[controller]")]".
+
+3. There might be an error on the server side causing it to return an error page (which is usually HTML) instead of the expected JSON response. Check the server logs to see if there are any errors.
+
+Also, note that the `GetJsonAsync` method is obsolete in .NET 5.0 and later. You should use `GetFromJsonAsync` instead. If you're still using .NET Core 3.1, you can ignore this.

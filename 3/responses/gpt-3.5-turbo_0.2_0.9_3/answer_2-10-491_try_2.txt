@@ -1,0 +1,12 @@
+One way to simplify the code is to use the `map_or_else` method of `Option`. This method takes two closures as arguments: one to execute if the `Option` is `None`, and one to execute if the `Option` is `Some`. Here's an example:
+
+```
+fn main() {
+    let mut foo: Option<u8> = None;
+    foo = foo.map_or_else(|| Some(5), |val| if val < 5 { Some(5) } else { foo });
+}
+```
+
+In this code, the first closure (`|| Some(5)`) is executed if `foo` is `None`, and it simply returns a new `Some` value containing `5`. The second closure (`|val| if val < 5 { Some(5) } else { foo }`) is executed if `foo` is `Some`, and it checks if the value is less than `5`. If it is, it returns a new `Some` value containing `5`. If it isn't, it returns the original `foo` value.
+
+This code has the advantage of not needing a separate `match` statement, and it's more concise than the original code.

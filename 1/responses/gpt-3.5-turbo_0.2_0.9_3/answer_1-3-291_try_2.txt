@@ -1,0 +1,5 @@
+`__peg_parser__` is not a Python keyword, but rather a special attribute used by the Python parser. It is used to implement a new parser for Python 3.9, which is based on the PEG (Parsing Expression Grammar) formalism.
+
+The `SyntaxError: You found it!` message is actually an Easter egg added by the Python developers. It is a reference to a scene from the movie "The Matrix", where Neo finds a hidden message on his computer that says "Follow the white rabbit". In this case, the message is a playful way of acknowledging that you have found something that is not meant to be used directly in your code.
+
+In general, you should avoid using special attributes like `__peg_parser__` in your code, as they are not part of the public API and may change or be removed in future versions of Python.

@@ -1,0 +1,53 @@
+React does not provide a built-in method to reset all state variables back to their initial values. The way you're doing it right now is actually a common approach in React. 
+
+However, if you want to make your code cleaner and more maintainable, you could consider using useReducer instead of useState. useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. 
+
+Here's an example of how you might use useReducer to handle your form state:
+
+```jsx
+const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: ''
+}
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'field': // action to handle field changes
+            return {
+                ...state,
+                [action.fieldName]: action.payload,
+            }
+        case 'reset': // action to reset the state
+            return initialState
+        default:
+            return state
+    }
+}
+
+const Signup = () => {
+    const [state, dispatch] = useReducer(reducer, initialState)
+    const { username, email, password, passwordConfirmation } = state
+
+    const handleSubmit = signupUser => e => {
+        e.preventDefault()
+        signupUser().then(data => {
+            console.log(data)
+            dispatch({ type: 'reset' }) // reset the state
+        })
+    }
+
+    return <JSX />
+}
+
+export default Signup
+```
+
+In this example, you would use dispatch to update the state fields like this:
+
+```jsx
+onChange={e => dispatch({ type: 'field', fieldName: 'username', payload: e.target.value })}
+```
+
+This way, you can easily reset all fields by dispatching a 'reset' action.

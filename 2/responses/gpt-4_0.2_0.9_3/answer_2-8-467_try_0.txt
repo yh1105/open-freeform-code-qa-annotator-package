@@ -1,0 +1,12 @@
+The issue you're experiencing is related to the Go linter used by VS Code. The linter is warning you about the use of `reflect` package and the string concatenation in your code.
+
+1. **Use of `reflect` package**: The Go linter warns about the use of `reflect` package because it's a powerful library that can potentially lead to code that is difficult to understand and maintain. However, in your case, you're using it to dynamically encode a struct to JSON, which is a valid use case. You can ignore this warning if you're sure about what you're doing.
+
+2. **String concatenation**: The Go linter warns about string concatenation because it can be inefficient in terms of memory usage, especially in loops. In Go, strings are immutable, which means a new string is created every time you concatenate two strings. This can lead to high memory usage if you're concatenating strings in a loop. To fix this, you can use `fmt.Sprintf` or `strings.Builder` for string concatenation. Here's how you can do it with `fmt.Sprintf`:
+
+```go
+pairs = append(pairs, fmt.Sprintf(`"%s":"%s"`, string(structFieldRefObjTyp.Tag), strVal))
+pairs = append(pairs, fmt.Sprintf(`"%s":%d`, string(structFieldRefObjTyp.Tag), intVal))
+```
+
+Remember, these are just warnings and not errors. Your code will still run correctly even if you ignore these warnings. However, it's a good practice to follow the linter's advice to write clean, efficient, and maintainable code.

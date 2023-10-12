@@ -1,0 +1,41 @@
+The reason why your code is going into an infinite loop is that you are updating the state inside the render function. Updating the state inside the render function will cause the component to re-render, which will update the state again, and so on, causing an infinite loop.
+
+To fix this issue, you can move the logic for disabling the button inside a useEffect hook that listens to changes in the firstName and lastName state variables. Here's how you can modify your code to achieve this:
+
+```
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        if (firstName.length < 3 || lastName.length < 3) {
+            setIsButtonDisabled(true);
+        } else {
+            setIsButtonDisabled(false);
+        }
+    }, [firstName, lastName]);
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    return (
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+        </>
+    );
+}
+
+export default TableFooterPanel;
+```
+
+In this modified code, we have added a useEffect hook that listens to changes in the firstName and lastName state variables. Inside the useEffect hook, we check the length of the firstName and lastName variables and update the isButtonDisabled state variable accordingly. This way, the button will be disabled or enabled based on the length of the input fields, without causing an infinite loop.

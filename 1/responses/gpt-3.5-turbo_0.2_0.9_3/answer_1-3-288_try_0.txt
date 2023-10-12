@@ -1,0 +1,26 @@
+You can use a for loop and increment the index by 1 each time through the loop. Here's an example:
+
+```
+my_string = 'teststring'
+
+for i in range(len(my_string)-1):
+    print(my_string[i:i+2])
+```
+
+This will output:
+
+```
+te
+es
+st
+ts
+st
+tr
+ri
+in
+ng
+``` 
+
+In this example, we use the `range()` function to loop through the indices of the string. We subtract 1 from the length of the string because we want to stop the loop before the last character (since we're slicing 2 characters at a time). 
+
+Then, we use string slicing to get the two characters at the current index and the next index (`my_string[i:i+2]`). We print this out for each iteration of the loop.

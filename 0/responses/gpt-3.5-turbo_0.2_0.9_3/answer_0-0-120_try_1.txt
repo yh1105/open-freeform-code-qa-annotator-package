@@ -1,0 +1,11 @@
+This error is caused by the fact that the version of the Java bytecode used in your code is not supported by the version of the Java runtime used by the Android build system. 
+
+The error message indicates that the class file major version 57 is not supported. This corresponds to Java 13, which is not yet supported by the Android build system.
+
+To fix this issue, you need to update your Java version to a supported version. You can either downgrade your Java version to a supported version or upgrade your Android build system to support the latest Java version.
+
+To downgrade your Java version, you can install an older version of the JDK and set the JAVA_HOME environment variable to point to the installation directory of the older version.
+
+To upgrade your Android build system, you can update your build.gradle file to use a newer version of the Android Gradle plugin that supports the latest Java version. You can check the latest version of the Android Gradle plugin on the official Android developer website.
+
+Once you have updated your Java version or Android Gradle plugin, you should be able to build your project without any issues.

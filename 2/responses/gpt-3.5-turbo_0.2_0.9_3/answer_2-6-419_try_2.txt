@@ -1,0 +1,38 @@
+Your approach is correct. You can pass multiple arguments from child to parent upon onClick event in child component using the `EventCallback` delegate. Here's an updated version of your code:
+
+Child Razor
+
+```
+@foreach( var item in items)
+{
+  @foreach( var score in item.scores)
+  {
+    <span @onclick="() => ItemClicked.InvokeAsync(item.name, score.id)"> 
+      @item.name 
+    </span>
+  }
+}
+
+@code {
+  [Parameter]
+  public EventCallback<(string name, int id)> ItemClicked { get; set; }
+}
+```
+
+Parent Razor
+
+```
+<Child ItemClicked="@((tuple) => ItemClicked(tuple.name, tuple.id))"/>
+
+@code{
+ private void ItemClicked(string name, int id)
+    {
+        Console.WriteLine(name);
+        Console.WriteLine(id);
+    }
+}
+```
+
+In the child component, we define an `EventCallback` delegate that takes a tuple of `(string name, int id)` as an argument. We then pass this delegate to the `@onclick` event handler using a lambda expression that invokes the `InvokeAsync` method of the `EventCallback` delegate.
+
+In the parent component, we pass a lambda expression to the `ItemClicked` parameter of the child component. This lambda expression takes a tuple as an argument and invokes the `ItemClicked` method of the parent component with the tuple's `name` and `id` properties.

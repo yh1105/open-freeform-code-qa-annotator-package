@@ -1,0 +1,24 @@
+The `lastIndexOf` method returns the last index of the specified string, which is not what you want in this case. You want to find the index of `-354` and then add 4 to it (to include `-354` in the substring). 
+
+Here is how you can do it:
+
+```powershell
+$FileArray = @("Name1-354-03.pdf", "Name23-354-H11.pdf", "Name354-354-02.pdf", "Name3545-354.pdf")
+ForEach ($n in $FileArray){
+     $index = $n.IndexOf("-354")
+     if($index -ne -1) {
+         Write-Host $n.Substring(0, $index+4)
+     }
+}
+```
+
+This script will output:
+
+```
+Name1-354
+Name23-354
+Name354-354
+Name3545-354
+```
+
+This script works by finding the index of `-354` in each string, and then using the `Substring` method to get a substring from the start of the string to the end of `-354`. If `-354` is not found in the string, `IndexOf` returns `-1`, and in that case, we don't print anything.

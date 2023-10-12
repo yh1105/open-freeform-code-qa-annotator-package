@@ -1,0 +1,49 @@
+You can use the Azure DevOps REST API to download the latest build artifacts. Here's a general step-by-step guide:
+
+1. **Get the latest build ID**: You need to use the `Builds - List` API to get the ID of the latest build. The API endpoint is: `https://dev.azure.com/{organization}/{project}/_apis/build/builds?definitions={definitionId}&$top=1&api-version=6.0`. Replace `{organization}`, `{project}`, and `{definitionId}` with your actual values.
+
+2. **Get the artifact download URL**: Once you have the latest build ID, you can use the `Build Artifacts - Get` API to get the download URL of the artifact. The API endpoint is: `https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}/artifacts?artifactName={artifactName}&api-version=6.0`. Replace `{organization}`, `{project}`, `{buildId}`, and `{artifactName}` with your actual values.
+
+3. **Download the artifact**: Now that you have the download URL, you can use `HttpClient` to download the artifact.
+
+Here's a sample code snippet in C#:
+
+```csharp
+using System.Net.Http;
+using System.Threading.Tasks;
+
+public async Task DownloadArtifactAsync()
+{
+    string organization = "LumiaWoA";
+    string project = "Boot Shim";
+    string definitionId = "3";
+    string artifactName = "drop"; // replace with your actual artifact name
+
+    using (var client = new HttpClient())
+    {
+        // Get the latest build ID
+        var buildListResponse = await client.GetStringAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds?definitions={definitionId}&$top=1&api-version=6.0");
+        var buildList = JsonConvert.DeserializeObject<BuildList>(buildListResponse);
+        var latestBuildId = buildList.Value[0].Id;
+
+        // Get the artifact download URL
+        var artifactResponse = await client.GetStringAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds/{latestBuildId}/artifacts?artifactName={artifactName}&api-version=6.0");
+        var artifact = JsonConvert.DeserializeObject<Artifact>(artifactResponse);
+        var downloadUrl = artifact.Resource.DownloadUrl;
+
+        // Download the artifact
+        var artifactBytes = await client.GetByteArrayAsync(downloadUrl);
+        System.IO.File.WriteAllBytes("artifact.zip", artifactBytes);
+    }
+}
+```
+
+This code assumes that you have classes `BuildList` and `Artifact` that match the JSON responses of the Azure DevOps REST API. You can use a tool like [json2csharp](https://json2csharp.com/) to generate these classes.
+
+Please note that this code does not handle errors and does not include any authentication. If your project is private, you will need to authenticate your requests. You can do this by adding a Personal Access Token (PAT) to your requests:
+
+```csharp
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", yourPat);
+```
+
+Replace `yourPat` with your actual PAT.

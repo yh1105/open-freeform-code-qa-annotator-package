@@ -1,0 +1,59 @@
+I'm glad you were able to solve your issue. Your new approach using the `useHistory` hook from `react-router-dom` is a common and recommended way to programmatically navigate in a React application.
+
+Just a few things to note:
+
+1. You don't need to use `withRouter` anymore. The `useHistory` hook makes it unnecessary. You can remove it from the export statement.
+
+2. Instead of using `document.getElementById` to get the values of the inputs, you can use React's state. This is a more "React" way of doing things and it will make your code cleaner and easier to manage.
+
+Here's how you can do it:
+
+```jsx
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+function CustomerLoginPage () {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const history = useHistory();
+
+  const loginButtonClicked = () =>{ 
+    let path = '/customerhomepage'; 
+    history.push(path);
+  }
+
+  const backButtonClicked = () => {
+    let path = '/main'; 
+    history.push(path);
+  }
+
+  const handleSubmit = () => {
+    if (username !== 'customer' || password !== 'customer') {
+      alert("Wrong username or password!");
+    } else {
+      loginButtonClicked();
+    }
+  }
+  
+  return (
+    <div class="App-header">
+      <button id="backButton" onClick={backButtonClicked}>Go Back</button>
+      <h4>Login with your customer account</h4>
+      <br />
+      <input id="customerLoginUsername" placeholder=" Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+      <input id="customerLoginPassword" type="password" placeholder=" Password" value={password} onChange={e => setPassword(e.target.value)}></input>
+      <br />
+      <button id="customerLoginButton" onClick={handleSubmit}> 
+        Login
+      </button>
+      <div className="content"></div>
+    </div>
+  );
+}
+
+export default CustomerLoginPage;
+```
+
+In this code, I've added two pieces of state: `username` and `password`. These are updated whenever the user types into the corresponding input fields. When the form is submitted, we check these pieces of state to see if they match the expected values.

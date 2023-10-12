@@ -1,0 +1,15 @@
+The issue you're encountering is due to changes in Android 12 (API level 31) regarding PendingIntent mutability. In Android 12 and above, you must explicitly specify whether a PendingIntent is mutable or immutable when you create it.
+
+The error message suggests that the MediaSessionCompat class is trying to create a PendingIntent without specifying the mutability flag, which is not allowed when targeting Android 12 and above.
+
+The issue seems to be in the AndroidX Media library, specifically in the MediaSessionCompat class. As you've pointed out, the library tries to handle the new requirement by using a mutable PendingIntent, but it seems like it's not working as expected.
+
+Unfortunately, as this issue is within the AndroidX library, you can't directly fix it in your code. However, you can try the following workaround:
+
+1. Downgrade your `targetSdkVersion` to 30 in your `build.gradle` file. This will allow your app to bypass the new PendingIntent requirement in Android 12. However, this is only a temporary solution, as you'll eventually need to update your `targetSdkVersion` to meet Play Store requirements.
+
+2. Keep an eye on the AndroidX Media library for updates. The Android team is likely aware of this issue and will probably fix it in a future update. You can check the issue tracker for updates: [Android Issue Tracker](https://issuetracker.google.com/issues)
+
+3. Report the issue to the Android team if it hasn't been reported yet. Providing them with detailed information about the issue will help them fix it faster.
+
+Remember to update your library as soon as a fix is available and test your app thoroughly to ensure the fix works as expected.

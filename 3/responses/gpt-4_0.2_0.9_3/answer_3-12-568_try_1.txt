@@ -1,0 +1,15 @@
+Running background tasks in Flutter can be a bit challenging because of the restrictions imposed by both Android and iOS to save battery life and optimize performance. However, there are several ways to achieve this.
+
+1. **WorkManager for Android**: This is a recommended way to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or the device restarts. It's not Flutter, but native Android. You can write the background task in Kotlin or Java and then call it from Flutter using platform channels.
+
+2. **Isolate in Flutter**: Dart's `Isolate` allows you to run code in a separate thread. It's a good choice for CPU-intensive operations like parsing a big JSON, doing complex computations, etc. But it's not suitable for tasks that need to run indefinitely in the background.
+
+3. **flutter_background_service**: This package allows you to run Dart code in the background, even when the app is closed. It's a good choice for tasks that need to run indefinitely, like listening for incoming Bluetooth connections or fetching data from a REST API periodically.
+
+4. **background_fetch**: This package allows your Flutter app to periodically fetch data in the background, similar to what you're looking for. However, it's limited by the Android and iOS task scheduler. On Android, it uses the JobScheduler API, and on iOS, it uses the Background Fetch API. Both of these APIs have limitations and don't guarantee that your task will run at an exact time.
+
+5. **foreground_service**: This package allows your Flutter app to run a foreground service, which is a service that the user is aware of and is not subject to the same restrictions as a background service. It's a good choice for tasks that need to run indefinitely and require user awareness, like a music player.
+
+In your case, I would recommend using a combination of `flutter_background_service` for the "always on" background service and `background_fetch` for periodic updates from REST APIs. You can also consider using `foreground_service` if you want the user to be aware of the service.
+
+Remember that running tasks in the background can consume a lot of battery, so it's important to optimize your tasks to be as efficient as possible. Also, keep in mind that Android and iOS have different restrictions for background tasks, so you might need to adjust your implementation for each platform.

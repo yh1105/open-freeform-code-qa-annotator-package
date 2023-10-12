@@ -1,0 +1,37 @@
+The issue you're facing might be due to the fact that the `componentWillUnmount` method is not being called when you expect it to be. This can happen if the modal component is not being unmounted from the DOM when it's closed, but rather just being hidden. 
+
+A better approach would be to use the `componentDidUpdate` lifecycle method to check for changes in the `show` prop. If the modal is being opened, you can set the body overflow to 'hidden', and if it's being closed, you can set it back to 'auto' or 'scroll'. Here's how you can do it:
+
+```jsx
+componentDidUpdate(prevProps) {
+    if (this.props.show && !prevProps.show) {
+        // The modal is being opened
+        document.body.style.overflow = 'hidden';
+    } else if (!this.props.show && prevProps.show) {
+        // The modal is being closed
+        document.body.style.overflow = 'auto';
+    }
+}
+```
+
+This way, you're ensuring that the body overflow is being set correctly based on the current state of the modal, regardless of whether the modal component is being unmounted or not. 
+
+Also, remember to set the initial body overflow style in the `componentDidMount` method if the modal is initially shown:
+
+```jsx
+componentDidMount() {
+    if (this.props.show) {
+        document.body.style.overflow = 'hidden';
+    }
+}
+```
+
+And reset it in `componentWillUnmount` just in case:
+
+```jsx
+componentWillUnmount() {
+    document.body.style.overflow = 'auto';
+}
+```
+
+This should solve your issue.

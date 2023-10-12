@@ -1,0 +1,18 @@
+The error you are getting is because the `diff` object is a dictionary and not a pandas DataFrame. You can convert the dictionary to a DataFrame and then save it to a CSV file with the following code:
+
+```
+import pandas as pd
+
+# Convert the dictionary to a DataFrame
+df = pd.DataFrame.from_dict(diff)
+
+# Add extra columns for 'added', 'removed', and 'changed'
+df['added'] = df['added'].apply(lambda x: ', '.join([str(i) for i in x]))
+df['removed'] = df['removed'].apply(lambda x: ', '.join([str(i) for i in x]))
+df['changed'] = df['changed'].apply(lambda x: ', '.join([str(i) for i in x]))
+
+# Save the DataFrame to a CSV file
+df.to_csv('diff.csv', index=False)
+```
+
+This code will create a CSV file with the 'added', 'removed', and 'changed' columns containing a comma-separated list of the items that were added, removed, or changed. You can modify the code to add more columns or change the format of the output as needed.

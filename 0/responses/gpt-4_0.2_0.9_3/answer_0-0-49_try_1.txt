@@ -1,0 +1,26 @@
+You can change the outline color of an outlined variant `TextField` by overriding the CSS in your `styles` object. Here's how you can do it:
+
+```jsx
+const styles = theme => ({
+  field: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    height: '30px !important',
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red', // Change Outline Color
+      },
+      '&:hover fieldset': {
+        borderColor: 'yellow', // Change Hover Color
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'green', // Change Focus Color
+      },
+    },
+  },
+});
+```
+
+In this example, the outline color will be red, the hover color will be yellow, and the focus color will be green. You can replace these colors with any valid CSS color.
+
+Please note that this solution is for Material-UI version 4. For version 3, you would need to use `MuiInput-underline` instead of `MuiOutlinedInput-root`. For version 5, you would need to use `MuiOutlinedInput-notchedOutline` instead of `fieldset`.

@@ -1,0 +1,28 @@
+You can use the `stream()` method in combination with `filter()` to remove the objects where status is false. Here is how you can do it:
+
+```java
+class Student{
+    String name;
+    List<Subject> subjects1;
+    List<Subject> subjects2;
+    List<Subject> subjects3;
+    // getters & setters
+
+    public void removeFalseStatusSubjects() {
+        subjects1 = subjects1.stream().filter(Subject::isStatus).collect(Collectors.toList());
+        subjects2 = subjects2.stream().filter(Subject::isStatus).collect(Collectors.toList());
+        subjects3 = subjects3.stream().filter(Subject::isStatus).collect(Collectors.toList());
+    }
+}
+
+class Subject{
+    String sub;
+    Integer marks;
+    boolean status;
+    // getters & setters
+}
+```
+
+In the `removeFalseStatusSubjects()` method, we are using `stream()` to convert the list into a stream, then `filter()` to filter out the subjects where status is false. The `::` operator is a method reference, and `Subject::isStatus` is equivalent to `subject -> subject.isStatus()`. Finally, we collect the remaining elements back into a list with `collect(Collectors.toList())`.
+
+This will modify the original lists `subjects1`, `subjects2`, and `subjects3` to only contain subjects where status is true.

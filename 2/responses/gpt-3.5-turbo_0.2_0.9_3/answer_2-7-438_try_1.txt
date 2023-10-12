@@ -1,0 +1,13 @@
+It looks like you are using the correct format for rolling back a migration, but the error message suggests that DoctrineMigrationsBundle is not able to find the migration class.
+
+One possible reason for this could be that the namespace of the migration class is not correct. In your `doctrine_migrations` configuration, you have specified the migrations path as `'Application\Migrations': 'app/DoctrineMigrations'`. This means that the namespace for your migration classes should be `Application\Migrations`.
+
+Based on the name of the migration class (`Version20210909072642`), it seems like the namespace should be `Application\Migrations`. However, in your rollback commands, you are using different namespaces (`Application\DoctrineMigrations` and `Version20210909072642`). This could be causing the class not to be found.
+
+To fix this, try running the rollback command with the correct namespace:
+
+```
+bin/console --env=dev doctrine:migrations:execute 'Application\Migrations\Version20210909072642' --down --no-interaction -vvv
+```
+
+This should locate the migration class and execute the rollback.

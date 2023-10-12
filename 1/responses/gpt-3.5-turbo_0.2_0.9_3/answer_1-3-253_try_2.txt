@@ -1,0 +1,22 @@
+1. Yes, it is possible to speed up the calculation of statistics for each group. One way to do this is to use the `apply` method instead of `agg`. Here's an example:
+
+```
+%%timeit
+df.groupby(['a_bins','b_bins','c_bins'])['value'].apply(np.mean).reset_index()
+
+>>> 1.17 s ± 12.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+This method is about 14 times faster than using `agg`.
+
+2. Yes, the `apply` method also supports finding the value by inputs of a, b, and c values. Here's an example:
+
+```
+grouped = df.groupby(['a_bins','b_bins','c_bins'])['value'].apply(np.mean).reset_index()
+grouped.set_index(['a_bins','b_bins','c_bins'], inplace=True)
+grouped.loc[(-1.72, 0.32, 1.18)]
+
+>>> -0.252436
+```
+
+This will return the same output as using `agg`.

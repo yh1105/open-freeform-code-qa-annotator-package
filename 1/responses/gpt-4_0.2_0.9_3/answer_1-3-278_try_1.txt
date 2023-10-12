@@ -1,0 +1,35 @@
+The `asdict` function does not provide a way to customize how individual fields are serialized. However, you can achieve your goal by overriding the `__str__` method in your Enum class. This method is called when you try to convert the Enum instance to a string. Here is how you can do it:
+
+```python
+from dataclasses import dataclass, asdict
+from enum import Enum
+
+class FoobarEnum(Enum):
+    FIRST = "foobar"
+    SECOND = "baz"
+
+    def __str__(self):
+        return self.value
+
+@dataclass
+class Foobar:
+    name: str
+    template: FoobarEnum
+
+    def to_dict(self):
+        return {"name": self.name, "template": str(self.template)}
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(foobar.to_dict())
+```
+
+In this code, the `to_dict` method in the `Foobar` class converts the dataclass instance to a dictionary. It uses the `str` function to convert the `template` field to a string. The `__str__` method in the `FoobarEnum` class returns the value of the Enum instance, so the `str` function returns the value of the Enum instance.
+
+When you run this code, it prints:
+
+```
+{'name': 'John', 'template': 'foobar'}
+```
+
+This is the output you wanted.

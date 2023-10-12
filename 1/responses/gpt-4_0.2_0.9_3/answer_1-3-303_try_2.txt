@@ -1,0 +1,22 @@
+The error message is indicating that `wrapt` was installed by a method other than `pip`, and `pip` is refusing to uninstall it because it might break other things that depend on it.
+
+You can try to force reinstall `wrapt` by using the `--ignore-installed` flag. This will ignore the request to uninstall the previous package. Here is the command:
+
+```bash
+pip install --ignore-installed wrapt
+```
+
+After that, you can try to install `tensorflow-gpu` again:
+
+```bash
+pip install tensorflow-gpu~=1.14
+```
+
+If the above doesn't work, you might want to consider using a virtual environment to avoid conflicts with system packages. You can use `conda` to create a new environment:
+
+```bash
+conda create -n tf_gpu tensorflow-gpu=1.14
+conda activate tf_gpu
+```
+
+This will create a new environment named `tf_gpu` and install `tensorflow-gpu` version 1.14 in it. You can then activate the environment with `conda activate tf_gpu` and run your code within this environment.

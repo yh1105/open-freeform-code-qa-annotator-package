@@ -1,0 +1,15 @@
+The error message suggests that the Gradle process is not able to access the required file because it's being used by another process or it doesn't have the necessary permissions.
+
+Here are a few steps you can try to resolve this issue:
+
+1. **Close any running instances of VS Code and Android Studio**: Make sure there are no other instances of VS Code or Android Studio running that might be locking the file. You can do this by closing all instances of these applications.
+
+2. **Delete the Gradle cache**: Sometimes, the Gradle cache can become corrupted, leading to such issues. You can delete the cache by deleting the `.gradle` folder in your home directory (`C:\Users\sanjay\.gradle` in your case). After deleting, try running the application again. Gradle will download the necessary files again.
+
+3. **Check for antivirus interference**: Sometimes, antivirus software can interfere with file access. Try temporarily disabling your antivirus software and see if the problem persists.
+
+4. **Check file permissions**: Make sure that your user account has the necessary permissions to access the file. You can do this by right-clicking on the file, selecting 'Properties', going to the 'Security' tab, and checking the permissions for your user account.
+
+5. **Update Gradle**: If none of the above solutions work, you might want to consider updating Gradle to the latest version. You can do this by changing the Gradle version in your `gradle-wrapper.properties` file.
+
+Remember to restart your system after trying these solutions to ensure all changes are applied.

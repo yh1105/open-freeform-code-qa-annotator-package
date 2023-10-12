@@ -1,0 +1,9 @@
+You can use the `declare` command in bash to get a list of environment variables with their values. Here's an example:
+
+```
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ declare -p | grep -E '^declare -x [^=]+='
+declare -x MYVAR="something\nMYVAR=10"
+```
+
+The `declare -p` command prints all defined variables in a format that can be used to recreate them, and the `grep` command filters out only the lines that define environment variables. This way, you can get a list of environment variables with their values, even if they contain newlines or other special characters.

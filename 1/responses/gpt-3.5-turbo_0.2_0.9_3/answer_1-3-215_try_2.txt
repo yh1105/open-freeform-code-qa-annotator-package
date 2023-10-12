@@ -1,0 +1,5 @@
+`db_index=True` should be used on fields that are frequently used in queries, especially when the table has a large number of rows. It is not necessary to use it on fields that have unique values like the primary key `id`, as they are already indexed by default.
+
+If you enable indexing on fields that are not unique and contain repetitive data, it can still improve the performance of queries that use those fields in the WHERE clause. However, it may slightly increase the storage and memory usage of the database, as the index will need to store references to all the rows that contain the indexed value.
+
+In general, it is recommended to use indexing judiciously and only on fields that are frequently used in queries. Over-indexing can lead to slower write performance and increased storage requirements. It is also important to regularly monitor the performance of your queries and adjust indexing as necessary.

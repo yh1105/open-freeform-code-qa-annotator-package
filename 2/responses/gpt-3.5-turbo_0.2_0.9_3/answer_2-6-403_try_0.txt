@@ -1,0 +1,24 @@
+In .NET Core, you can use the `Json` method to return JSON data with a specified HTTP status code. Here's an example:
+
+```
+public IActionResult GetResourceData()
+{
+    var data = new { response = "Hello" };
+    return Json(data, new JsonSerializerSettings { Formatting = Formatting.Indented });
+}
+```
+
+In this example, we're returning a JSON object with a `response` property set to `"Hello"`. We're also using the `JsonSerializerSettings` class to specify that the JSON should be indented for readability.
+
+You can also specify the HTTP status code by chaining the `StatusCode` method to the `Json` method:
+
+```
+public IActionResult GetResourceData()
+{
+    var data = new { response = "Hello" };
+    return Json(data, new JsonSerializerSettings { Formatting = Formatting.Indented })
+        .StatusCode = HttpStatusCode.OK;
+}
+```
+
+In this example, we're setting the HTTP status code to `OK` (200). You can replace `HttpStatusCode.OK` with any other valid HTTP status code.

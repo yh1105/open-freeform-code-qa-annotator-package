@@ -1,0 +1,37 @@
+One way to improve the performance of your query is to use subqueries instead of joining the same table multiple times. You can use Django's `Subquery` expression to create subqueries that filter the `Expression` table for each filter in your list. Then, you can combine these subqueries using the `Q` object to create a single query that filters the `Description` table.
+
+Here's an example of how you can modify your code to use subqueries:
+
+```
+from django.db.models import Subquery, OuterRef, Q
+
+# This is the filter returned by the HTML form, which list
+# all the available Classes for each Trait of the selected Protocol
+filters = [
+  {'trait': 1, 'class': [2, 3]},
+  {'trait': 2, 'class': [6,]},
+]
+
+# Create a list of subqueries that filter the Expression table for each filter
+subqueries = []
+for filter in filters:
+  subquery = Subquery(
+    Expression.objects.filter(
+      description_id=OuterRef('id'),
+      class_id__in=filter['class'],
+      trait_id=filter['trait']
+    ).values('id')
+  )
+  subqueries.append(subquery)
+
+# Combine the subqueries using the Q object to create a single query
+queryset = Description.objects.filter(
+  Q(*[Q(expression_set__in=subquery) for subquery in subqueries])
+)
+```
+
+This code creates a list of subqueries that filter the `Expression` table for each filter in your list. Each subquery uses the `Subquery` expression to filter the `Expression` table for the `Description` with the same `id` as the outer query, and for the `Class` and `Trait` specified in the filter. The `values` method is used to select only the `id` field of the `Expression` table, which is needed to create the subquery.
+
+Then, the code combines the subqueries using the `Q` object to create a single query that filters the `Description` table. The `Q` object is used to create a list of queries that filter the `Expression` table using the subqueries created earlier. The `*` operator is used to unpack the list of queries into separate arguments for the `Q` object.
+
+This approach should be more efficient than joining the same table multiple times, as it avoids creating redundant rows in the result set. It also allows the database to use indexes more efficiently, as each subquery only filters a small subset of the `Expression` table.

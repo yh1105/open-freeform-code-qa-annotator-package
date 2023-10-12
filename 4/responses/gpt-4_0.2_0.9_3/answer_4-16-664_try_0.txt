@@ -1,0 +1,22 @@
+The problem you're facing is due to the fact that environment variables are not designed to hold newlines in their values. When you export `MYVAR` with a newline in its value, it's treated as two separate environment variables when you print the environment with `env`. This is why you see `MYVAR=something` and `MYVAR=10` as separate lines.
+
+If you want to handle environment variables with newlines in their values, you'll need to use a different approach. One way is to use the `printenv` command, which can print the value of a single environment variable. This will correctly handle newlines in the value.
+
+Here's an example of how you can use `printenv` to get the value of `MYVAR`:
+
+```bash
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ printenv MYVAR
+something
+MYVAR=10
+```
+
+If you want to get a list of all environment variables with their values, you can use a loop to call `printenv` for each variable. Here's an example:
+
+```bash
+$ for var in $(compgen -e); do
+    echo "$var=$(printenv $var)"
+done
+```
+
+This will print each environment variable and its value, correctly handling newlines in the values. Note that this will not work correctly if an environment variable's name contains a newline, but such names are extremely rare and generally considered a bad practice.

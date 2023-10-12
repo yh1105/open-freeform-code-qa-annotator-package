@@ -1,0 +1,36 @@
+The issue you're encountering is due to the way bash handles word splitting and pathname expansion. When you use an array like this: `cmd_array=(ls -1 "$HOME/temp/some folder with spaces")`, the shell splits the array elements by spaces, even if they are within quotes. This is why you're getting the error `ls: cannot access '/home/gabriel/temp/some': No such file or directory`, because `ls` is trying to access each word as a separate argument.
+
+To solve this issue, you can use a different approach where you store the command as a string, then use `eval` to execute it. Here's how you can modify your function:
+
+```bash
+print_and_run_cmd() {
+    local cmd="$1"
+    echo "Running cmd:  $cmd"
+    eval "$cmd"
+}
+```
+
+And you can use it like this:
+
+```bash
+cmd='ls -1 "$HOME/temp/some folder with spaces"'
+print_and_run_cmd "$cmd"
+```
+
+This will give you the desired output:
+
+```
+Running cmd: ls -1 "$HOME/temp/some folder with spaces"
+(all output of that command should be here)
+```
+
+However, be aware that `eval` can be dangerous if not used carefully, as it executes the command it's given. Make sure you have control over the content of the command you're passing to `eval`.
+
+As for your follow-up question, you can use the same approach. Store the command with the pipe operator as a string, then pass it to the function:
+
+```bash
+cmd='ls -1 | grep .txt'
+print_and_run_cmd "$cmd"
+```
+
+This will print and execute the command correctly.

@@ -1,0 +1,30 @@
+It seems like you are using the wrong syntax for hiding and showing elements in Angular. Instead of using `ngHide` and `ngShow`, you should use `[hidden]` and `[ngClass]`.
+
+Here's how you can modify your code to hide and show the password input field based on the value of `isHidden`:
+
+```
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div>
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw" [hidden]="isHidden">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login" (click)="isHidden = !isHidden">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+```
+
+In this code, we are using the `[hidden]` attribute to hide the password input field when `isHidden` is true. We are also using `(click)` to toggle the value of `isHidden` when the login button is clicked.
+
+I hope this helps! Let me know if you have any further questions.

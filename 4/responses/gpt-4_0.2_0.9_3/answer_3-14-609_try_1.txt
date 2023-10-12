@@ -1,0 +1,28 @@
+The issue is with the placement of your `.navigationBarTitle` modifier. It should be applied to the `List` inside the `NavigationView`, not the `NavigationView` itself. 
+
+Here is the corrected code:
+
+```swift
+import SwiftUI
+
+struct LandmarkList : View {
+    var body: some View {
+        NavigationView {
+            List(landmarkData) { landmark in
+                LandmarkRow(landmark: landmark)
+            }
+            .navigationBarTitle(Text("Landmarks"))
+        }
+    }
+}
+
+#if DEBUG
+struct LandmarkList_Previews : PreviewProvider {
+    static var previews: some View {
+        LandmarkList()
+    }
+}
+#endif
+```
+
+In SwiftUI, the order and placement of modifiers is important. The `.navigationBarTitle` modifier sets the title of the navigation bar when the view is presented by a navigation view. Therefore, it should be applied to the view that will be presented, which in this case is the `List`, not the `NavigationView` itself.

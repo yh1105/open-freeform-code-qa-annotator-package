@@ -1,0 +1,15 @@
+The error message you are receiving indicates that the `git checkout` command is failing. This could be due to a number of reasons, such as the specified commit hash not existing in the repository, or the repository not being in a clean state.
+
+To troubleshoot this issue, you can try the following:
+
+1. Check that the specified commit hash exists in the repository by running the `git log` command and verifying that the hash is present.
+
+2. Ensure that the repository is in a clean state by running `git status` and verifying that there are no uncommitted changes or untracked files.
+
+3. Try running the `git checkout` command manually in the terminal to see if you receive any error messages or prompts.
+
+4. Add the `--force` flag to the `git checkout` command to force the checkout, although this should be used with caution as it can overwrite local changes.
+
+5. Check the permissions of the repository directory to ensure that the user running the script has the necessary permissions to execute the `git` command.
+
+Once you have identified the issue, you can modify your code accordingly to handle the error or prevent it from occurring in the first place.

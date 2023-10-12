@@ -1,0 +1,16 @@
+The error message you're seeing indicates that Ruby is unable to load the OpenSSL library. This is a common issue when installing Ruby with RVM, and it's usually due to one of two reasons:
+
+1. OpenSSL is not installed on your system.
+2. Ruby was not compiled with OpenSSL support.
+
+Here's how you can troubleshoot and fix this issue:
+
+1. **Check if OpenSSL is installed**: You can do this by running `openssl version` in your terminal. If OpenSSL is not installed, you can install it using Homebrew with the command `brew install openssl`.
+
+2. **Reinstall Ruby with OpenSSL support**: If OpenSSL is installed but you're still seeing the error, it's likely that Ruby was not compiled with OpenSSL support. You can fix this by reinstalling Ruby with RVM and explicitly telling it to use OpenSSL. Here's how you can do that:
+
+   First, remove the existing Ruby installation with `rvm remove 2.1.2`.
+
+   Then, reinstall Ruby with OpenSSL support using the command `rvm install 2.1.2 --with-openssl-dir=/usr/local/opt/openssl`. This tells RVM to use the OpenSSL installed by Homebrew.
+
+After doing this, try running your `ruby -r openssl -e 'puts OpenSSL::OPENSSL_VERSION'` command again. If everything went well, you should see the OpenSSL version printed out, and you should be able to list your gems with `gem list` without any errors.

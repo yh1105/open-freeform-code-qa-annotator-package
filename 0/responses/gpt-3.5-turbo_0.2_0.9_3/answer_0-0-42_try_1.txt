@@ -1,0 +1,14 @@
+The error message is indicating that the `MongoStore` class constructor is being called without the `new` keyword. This means that the `MongoStore` object is not being properly instantiated.
+
+To fix this error, make sure that you are using the `new` keyword when creating a new instance of the `MongoStore` class. In your `app.js` file, update the `store` property of the `session` configuration to use the `new` keyword like this:
+
+```
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+```
+
+This should properly instantiate the `MongoStore` object and resolve the error.

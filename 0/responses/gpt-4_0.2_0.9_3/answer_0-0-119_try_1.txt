@@ -1,0 +1,21 @@
+The issue is with the way you're importing `AuthContext` in your `RegisterRoutes` component. You're trying to import it as a default export, but it's not being exported as default from `authContext.js`. 
+
+In your `authContext.js`, you're exporting `AuthContext` as a named export:
+
+```jsx
+export { AuthContext };
+```
+
+And `AuthContextProvider` as a default export:
+
+```jsx
+export default AuthContextProvider;
+```
+
+So, in your `RegisterRoutes` component, you should import `AuthContext` like this:
+
+```jsx
+import { AuthContext } from "../context/authContext";
+```
+
+This should resolve the issue.

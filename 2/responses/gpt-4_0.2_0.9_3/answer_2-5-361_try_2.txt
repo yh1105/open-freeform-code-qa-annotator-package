@@ -1,0 +1,51 @@
+To get the current host being used by your application, you can use the `DatabaseMetaData` class provided by JDBC. This class can provide information about the database such as its URL, username, etc.
+
+Here is how you can modify your `getDataSourceProperties()` method to include the current host:
+
+```java
+public String[] getDataSourceProperties() {
+    String[] dataSourceProperties = new String[3]; // Increase the size to 3
+    HikariDataSource dataSource = getDataSourceFromHibernateEntityManager();
+    if(dataSource.getJdbcUrl() != null){
+        dataSourceProperties[0] = dataSource.getJdbcUrl();
+        dataSourceProperties[1] = dataSource.getDataSourceClassName();
+        try (Connection connection = dataSource.getConnection()) {
+            DatabaseMetaData metaData = connection.getMetaData();
+            dataSourceProperties[2] = metaData.getURL(); // This will give the current URL being used
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+        }
+    }
+    return dataSourceProperties;
+}
+```
+
+Then in your `getServiceStatus()` method, you can extract the host from the URL:
+
+```java
+@GetMapping(path = "/healthcheck",
+        produces = MediaType.APPLICATION_JSON_VALUE
+)
+public String getServiceStatus(){
+    // ... existing code ...
+
+    try {
+        String[] dataSourceProperties = nameService.getDataSource();
+        url = dataSourceProperties[0];
+        String currentUrl = dataSourceProperties[2]; // Get the current URL
+        String host = new URL(currentUrl).getHost(); // Extract the host from the URL
+        url = "jdbc:oracle:thin:@" + host + ":1521/coldv1"; // Construct the new URL
+    } catch (SQLException | MalformedURLException ex) {
+        log.error(ex.getMessage(), ex);
+    }
+
+    // ... existing code ...
+
+    result.append("\ndb url     :\t")
+            .append(url) // This will now print the current host being used
+
+    // ... existing code ...
+}
+```
+
+Please note that this code assumes that the port and service name are always the same. If they can change, you will need to modify the code to extract them from the current URL as well.

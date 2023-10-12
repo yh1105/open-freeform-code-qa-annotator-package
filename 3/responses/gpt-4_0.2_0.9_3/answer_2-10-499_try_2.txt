@@ -1,0 +1,36 @@
+In Rust, you can't directly assign a `nil` value to a variable like you can in Go. The Rust equivalent of `nil` is `None`, but it can only be used with `Option<T>` type.
+
+The `TcpStream` struct doesn't implement the `Default` trait, so you can't use `Default::default()` to get a default value. 
+
+One way to solve this problem is to use `Option<TcpStream>` for the `conn` field. This allows you to use `None` as a default value. When you successfully connect, you can then set `conn` to `Some(tcp_stream)`. Here's how you can do it:
+
+```rust
+use std::net::TcpStream;
+use std::io;
+
+pub struct FistClient {
+    addr: String,
+    conn: Option<TcpStream>,
+}
+
+impl FistClient {
+    pub fn new(ip: &str, port: &str) -> Self {
+        FistClient {
+            addr: String::from(ip) + ":" + &String::from(port),
+            conn: None,
+        }
+    }
+
+    pub fn connect(&mut self) -> io::Result<()> {
+        match TcpStream::connect(&self.addr) {
+            Ok(c) => {
+                self.conn = Some(c);
+                Ok(())
+            },
+            Err(e) => Err(e),
+        }
+    }
+}
+```
+
+In this code, `conn` is an `Option<TcpStream>`, which means it can either be `Some(TcpStream)` or `None`. In the `new` method, `conn` is initialized to `None`. In the `connect` method, if the connection is successful, `conn` is set to `Some(c)`. If the connection fails, the error is returned.

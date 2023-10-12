@@ -1,0 +1,23 @@
+The error message you're seeing, `Error: Unable to extract uploader id`, is a common issue with `youtube_dl`. It usually occurs when YouTube changes something on their end, and `youtube_dl` needs to be updated to accommodate the changes.
+
+You mentioned that you've already tried updating `youtube_dl`, but the error persists. Here are a few things you can try:
+
+1. **Update youtube_dl again**: Sometimes, the first update might not have worked correctly. Try updating `youtube_dl` again using pip:
+
+    ```bash
+    pip install --upgrade youtube_dl
+    ```
+
+2. **Check your youtube_dl version**: Make sure you're using the latest version of `youtube_dl`. You can check your version by running:
+
+    ```bash
+    youtube-dl --version
+    ```
+
+3. **Try a different video**: The issue might be with the specific video you're trying to download. Try using a different video URL to see if the problem persists.
+
+4. **Check your code**: Make sure your code is correct and you're using `youtube_dl` correctly. The error might be due to a mistake in your code.
+
+5. **Wait for a fix**: If none of the above solutions work, the issue might be with `youtube_dl` itself. In this case, you might have to wait for the developers to release a fix.
+
+Also, please note that `youtube_dl` has been receiving DMCA takedowns and might not be the best choice for a long-term solution. You might want to consider using an alternative library or service for downloading YouTube videos.

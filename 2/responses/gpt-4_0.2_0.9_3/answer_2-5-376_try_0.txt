@@ -1,0 +1,13 @@
+The error message you're seeing suggests that IntelliJ is still using an older version of the Java compiler (javac) to build your project. Here are some steps to ensure that IntelliJ is using the correct JDK:
+
+1. **Check the Project SDK:** Go to `File > Project Structure > Project`. In the `Project SDK` field, make sure that the JDK 11 is selected. If it's not, select it from the dropdown menu. If it's not in the dropdown menu, click `New > JDK` and navigate to the location of your JDK 11 installation.
+
+2. **Check the Module SDK:** In the same `Project Structure` window, click on `Modules` in the left-hand panel. For each module, make sure that the `Module SDK` is either set to the same JDK 11 or is set to `Project SDK` (which should be JDK 11 if you followed the previous step).
+
+3. **Check the Java Compiler settings:** Go to `File > Settings > Build, Execution, Deployment > Compiler > Java Compiler`. In the `Target bytecode version` field, make sure that `11` is selected. If it's not, select it from the dropdown menu.
+
+4. **Check the Maven or Gradle settings:** If you're using Maven or Gradle, you'll also need to make sure that these tools are using the correct JDK. For Maven, go to `File > Settings > Build, Execution, Deployment > Build Tools > Maven > Importing`. In the `JDK for importer` field, select the JDK 11. For Gradle, go to `File > Settings > Build, Execution, Deployment > Build Tools > Gradle`. In the `Gradle JVM` field, select the JDK 11.
+
+Regarding the JDK and JRE folders, starting from Java 9, the JRE is no longer shipped as a separate module. Instead, it's included in the JDK, so it's normal to only see a JDK folder for Java 11.
+
+If you've followed all these steps and you're still seeing the error, it might be worth trying to reinstall the JDK 11 and making sure that the `JAVA_HOME` environment variable is pointing to the correct location.

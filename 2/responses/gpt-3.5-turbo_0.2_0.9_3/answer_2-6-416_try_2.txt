@@ -1,0 +1,61 @@
+The issue you are facing is because Entity Framework 6.4.4 is not compatible with .NET 6.0. Entity Framework 6.x is only compatible with .NET Framework, not .NET Core or .NET 5+.
+
+To solve this issue, you can either downgrade your project to use .NET Framework or upgrade to Entity Framework Core, which is compatible with .NET 6.0.
+
+If you decide to upgrade to Entity Framework Core, you can follow these steps:
+
+1. Install the Entity Framework Core package using NuGet: `Install-Package Microsoft.EntityFrameworkCore`
+
+2. Create a new DbContext class that inherits from `DbContext`.
+
+3. Define your entities as classes with properties that map to database columns.
+
+4. Configure your entities using the Fluent API or data annotations.
+
+5. Use the `DbContext` class to query and manipulate data.
+
+Here is an example of a simple DbContext class:
+
+```
+using Microsoft.EntityFrameworkCore;
+
+public class MyDbContext : DbContext
+{
+    public DbSet<Customer> Customers { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+    }
+}
+
+public class Customer
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+```
+
+In this example, we define a `MyDbContext` class that has a `Customers` property that represents a table in the database. We also define a `Customer` class that has properties that map to columns in the `Customers` table.
+
+We then configure the `MyDbContext` class to use a SQL Server database using the `OnConfiguring` method.
+
+You can then use the `MyDbContext` class to query and manipulate data:
+
+```
+using (var db = new MyDbContext())
+{
+    var customer = new Customer { Name = "John Doe", Email = "john.doe@example.com" };
+    db.Customers.Add(customer);
+    db.SaveChanges();
+
+    var customers = db.Customers.ToList();
+    foreach (var c in customers)
+    {
+        Console.WriteLine($"{c.Id}: {c.Name} ({c.Email})");
+    }
+}
+```
+
+In this example, we create a new `Customer` object, add it to the `Customers` table, and save changes to the database. We then retrieve all customers from the `Customers` table and print their information to the console.

@@ -1,0 +1,23 @@
+The error message "pq: column "com2" is of type integer but expression is of type text" suggests that you're trying to insert a text value into a column that expects an integer. 
+
+The problem is likely in the way you're passing parameters to your SQL query. In your insert query, you're using placeholders like $1, $2, etc., but it seems like the actual values you're passing might not match the expected data types for the columns.
+
+Here's a simplified example of how you might construct your queries:
+
+```go
+tx := db.MustBegin()
+for _, result := range results {
+    queryInsert := `INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES ($1,$2,$3,$4)`
+    tx.MustExec(queryInsert, result.Com1, result.Com2, result.Path, result.Time)
+    queryUpdate := `UPDATE "DataCom_commcombinaison" set done = TRUE WHERE com1 =$1 and com2 =$2`
+    tx.MustExec(queryUpdate, result.Com1, result.Com2)
+}
+err := tx.Commit()
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+In this example, I'm passing the actual values (result.Com1, result.Com2, etc.) directly to the MustExec method, rather than trying to include them in the query string. This should ensure that the values are correctly interpreted as integers, not text.
+
+If you're still having trouble, you might want to print out the values of result.Com1, result.Com2, etc. to make sure they're what you expect. If these values are not integers, you'll need to convert them before passing them to MustExec.

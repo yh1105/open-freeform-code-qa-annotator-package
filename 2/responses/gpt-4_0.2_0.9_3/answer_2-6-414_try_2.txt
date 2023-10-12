@@ -1,0 +1,32 @@
+The issue is that the JSON array contains empty strings and null values, which cannot be directly deserialized to `int` in C#. 
+
+One way to handle this is to deserialize the array to a `List<string>` and then convert the strings to integers in a separate step, handling the empty strings and null values as you see fit. 
+
+Here is an example:
+
+```csharp
+public class Redacted
+{
+    ...
+
+    [JsonProperty("edges", NullValueHandling = NullValueHandling.Ignore)]
+    public List<string> Edges { get; set; } = new();
+
+    public List<int> EdgesAsInts
+    {
+        get
+        {
+            return Edges
+                .Where(e => !string.IsNullOrEmpty(e))
+                .Select(int.Parse)
+                .ToList();
+        }
+    }
+
+    ...
+}
+```
+
+In this example, `EdgesAsInts` is a computed property that returns a list of integers. It filters out any null or empty strings from `Edges` and then parses the remaining strings to integers. 
+
+If you want to handle empty strings and null values differently, you can modify the `Where` and `Select` calls as needed. For example, you might want to convert empty strings to 0, or throw an exception if a null value is encountered.

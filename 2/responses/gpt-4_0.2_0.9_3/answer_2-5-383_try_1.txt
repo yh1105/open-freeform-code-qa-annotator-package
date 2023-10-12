@@ -1,0 +1,46 @@
+The error message indicates that the application is unable to create the `entityManagerFactory` bean because it requires a `dataSource` or `dataSourceClassName` or `jdbcUrl`. 
+
+Since you've removed the `dataSource()` method from `DatabaseConfig.java`, the application can't find the required bean. 
+
+The `dataSource()` method is responsible for creating the `DataSource` bean that Spring needs for creating the `EntityManagerFactory`. When you removed this method, you removed the creation of the `DataSource` bean, hence the error.
+
+You should add the `dataSource()` method back to `DatabaseConfig.java`:
+
+```java
+@Bean
+@Primary
+@ConfigurationProperties(prefix = "spring.datasource")
+public DataSource dataSource() {
+    return DataSourceBuilder.create().build();
+}
+```
+
+Also, make sure that the `spring.datasource` properties are correctly set in your `application.yml` file. 
+
+If you still encounter the error after adding the `dataSource()` method back, please check the following:
+
+1. Ensure that the PostgreSQL JDBC driver is on the classpath. If it's not, you can add it as a dependency in your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.2.5</version>
+</dependency>
+```
+
+2. Make sure that the database URL, username, and password are correct in your `application.yml` file.
+
+3. If you're using Spring Boot 2.x, you might need to change `spring.datasource.url` to `spring.datasource.jdbc-url` in your `application.yml` file. 
+
+4. If you're using HikariCP as your connection pool (which is the default in Spring Boot 2.x), you might need to specify the pool name by adding `spring.datasource.hikari.pool-name=MyPool` to your `application.yml` file. 
+
+5. If none of the above solutions work, you might need to provide more configuration properties for Hibernate and/or JPA in your `application.yml` file. For example, you might need to specify the Hibernate dialect for PostgreSQL:
+
+```yml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+```

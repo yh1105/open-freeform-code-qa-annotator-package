@@ -1,0 +1,27 @@
+The error you're encountering is due to pip trying to uninstall a version of llvmlite that was installed by conda. Pip does not have the permissions to uninstall this package.
+
+Here are a few steps you can try:
+
+1. Create a new conda environment and install librosa in that environment. This will isolate your installation and prevent conflicts with other packages. You can do this with the following commands:
+
+```bash
+conda create -n myenv python=3.7
+conda activate myenv
+pip install librosa
+```
+
+2. If you want to install librosa in your base environment, you can try installing it with conda instead of pip:
+
+```bash
+conda install -c conda-forge librosa
+```
+
+3. If you still want to use pip, you can try to force the installation without dependencies, and then install the dependencies manually:
+
+```bash
+pip install --no-deps librosa
+```
+
+Then you can install the dependencies one by one. You can find the list of dependencies in the [librosa documentation](https://librosa.org/doc/main/install.html).
+
+Remember to always activate your conda environment before installing any packages.

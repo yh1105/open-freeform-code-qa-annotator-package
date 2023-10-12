@@ -1,0 +1,38 @@
+The issue you're facing is due to the default behavior of SwiftUI's `Button` view. It centers its content by default. To align the contents to the left, you can use the `HStack` view with a `Spacer` view.
+
+Here's how you can modify your code:
+
+```swift
+struct HomeSection: View {
+    var body: some View {
+        Button(action: {
+
+        }) {
+            HStack {
+                Group {
+                    Spacer().frame(width: 0, height: 36.0, alignment: .topLeading)
+                    HStack {
+                        Image("home")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.navigationTextGrey)
+
+                        Text("HOME")
+                            .bold()
+                            .font(.system(size: 17.0))
+                            .foregroundColor(Color.navigationTextGrey)
+                            .padding(.leading, 4.0)
+                    }
+                    Rectangle()
+                        .fill(Color.navigationTextGrey)
+                        .frame(width: UIScreen.main.bounds.width - 60, height: 1)
+                        .padding(.top, 6.0)
+                }
+                Spacer() // This will push your content to the left
+            }
+        }
+    }
+}
+```
+
+In this code, the `HStack` view is used to horizontally stack the content and the `Spacer` view. The `Spacer` view expands as much as possible, pushing the content to the left.

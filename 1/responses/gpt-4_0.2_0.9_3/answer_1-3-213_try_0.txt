@@ -1,0 +1,14 @@
+The error message you're seeing is because Excel does not support timezone-aware datetimes. You need to convert your timezone-aware datetime objects to timezone-naive datetime objects before writing to Excel.
+
+You mentioned that you've tried using `dt.tz_convert` and `replace(tzinfo=None)`, but it's not clear how you've used them. Here's how you can use them to remove the timezone information from your datetime columns:
+
+```python
+# Convert timezone-aware datetime to timezone-naive datetime in UTC
+df['datetime_column'] = df['datetime_column'].dt.tz_convert(None)
+```
+
+Replace `'datetime_column'` with the name of your datetime column. If you have multiple datetime columns, you'll need to do this for each one.
+
+If this doesn't work, it might be worth checking the data types of your columns to make sure they're what you expect. You can do this with `df.dtypes`.
+
+If the data types are correct and you're still seeing the error, it might be an issue with your pandas or xlsxwriter versions. You mentioned that the code works on your colleague's machine. If they're using different versions of pandas or xlsxwriter, you might try installing those versions to see if it resolves the issue.

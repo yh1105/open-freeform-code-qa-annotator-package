@@ -1,0 +1,56 @@
+To achieve the desired layout, you can use a GridView to display the images. You can also maintain a list of picked images. Here's a simplified version of your code that should do what you want:
+
+```dart
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class BusinessProfilePage extends StatefulWidget {
+  @override
+  _BusinessProfilePageState createState() => _BusinessProfilePageState();
+}
+
+class _BusinessProfilePageState extends State<BusinessProfilePage> {
+  List<File> _pickedImages = [];
+
+  Future pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _pickedImages.add(File(pickedFile.path));
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BusinessProfile"),
+      ),
+      body: GridView.count(
+        crossAxisCount: 3,
+        children: List.generate(5, (index) {
+          return Center(
+            child: index < _pickedImages.length
+                ? Image.file(_pickedImages[index])
+                : IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      if (index == _pickedImages.length) {
+                        pickImage();
+                      }
+                    },
+                  ),
+          );
+        }),
+      ),
+    );
+  }
+}
+```
+
+In this code, we create a GridView with 5 cells. For each cell, we check if there is an image picked for that index. If there is, we display the image. If there isn't, we display a button that allows the user to pick an image. The button is only functional if the index is the next one in line (i.e., we don't allow the user to skip indices).

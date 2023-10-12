@@ -1,0 +1,27 @@
+It seems like the issue is with the content type being set to null. You can try explicitly setting the content type for the response entity to "application/xml" to see if that resolves the issue. 
+
+```
+ResponseEntity<Pet> r = ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_XML)
+                .body(p);
+```
+
+If that doesn't work, you can also try adding the Jackson XML dependency to your project and configuring it to handle XML serialization/deserialization. 
+
+```
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+    <version>${jackson.version}</version>
+</dependency>
+```
+
+Then, add the following configuration to your application.properties file:
+
+```
+spring.jackson.serialization.INDENT_OUTPUT=true
+spring.jackson.mapper.defaultUseWrapper=false
+spring.jackson.xml.enabled=true
+```
+
+This should enable Jackson to handle XML serialization/deserialization for your response entities.

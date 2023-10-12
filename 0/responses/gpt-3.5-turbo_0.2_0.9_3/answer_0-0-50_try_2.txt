@@ -1,0 +1,7 @@
+`esModuleInterop` and `allowSyntheticDefaultImports` are both related to how TypeScript handles imports and exports in modules.
+
+`esModuleInterop` is used to enable interoperability between CommonJS and ES modules. When you use `import` statements in TypeScript, it generates code that uses ES module syntax. However, if you are importing from a CommonJS module, the generated code will not work as expected. `esModuleInterop` allows TypeScript to generate code that works with CommonJS modules by adding additional code to handle the differences between the two module systems.
+
+`allowSyntheticDefaultImports` allows you to import from modules that do not have a default export. Normally, if you try to import from a module that does not have a default export, TypeScript will give you an error. However, if you enable `allowSyntheticDefaultImports`, TypeScript will allow you to import from a module that does not have a default export by generating code that creates a synthetic default export.
+
+In summary, `esModuleInterop` is used to enable interoperability between CommonJS and ES modules, while `allowSyntheticDefaultImports` allows you to import from modules that do not have a default export. Both options are related to how TypeScript handles imports and exports in modules and are dependent on the `"module": "commonjs"` option in the `tsconfig.json` file.

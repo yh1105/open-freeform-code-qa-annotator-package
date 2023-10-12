@@ -1,0 +1,29 @@
+You can use the OpenCV library to find the contours of the binary mask, which will give you the boundary of the rectangle. Here's how you can do it:
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Assuming 'mask' is your binary image
+contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Get the coordinates of the first contour. 
+# If there are multiple contours, you may need to loop through them.
+contour = contours[0]
+
+# Reshape the contour array to a 2D array of coordinates
+coords = contour.reshape(-1, 2)
+
+# Separate x and y coordinates
+x = coords[:, 0]
+y = coords[:, 1]
+
+# Plot the boundary
+plt.plot(x, y)
+plt.show()
+```
+
+This will give you the x-y coordinates of the boundary of the rectangle. The `cv2.findContours` function finds the contours in a binary image, where white pixels are considered as the foreground. The `cv2.RETR_EXTERNAL` flag retrieves only the extreme outer contours (ignores holes). The `cv2.CHAIN_APPROX_SIMPLE` flag compresses horizontal, vertical, and diagonal segments and leaves only their end points.
+
+Please note that OpenCV uses (row, column) format to represent coordinates, which corresponds to (y, x) in the Cartesian system. So, you might need to swap x and y when plotting or using the coordinates elsewhere.

@@ -1,0 +1,27 @@
+The error message indicates that there is a problem with the `node-sass` package during the build process. This could be due to a version incompatibility issue with the current version of Node.js (v16.13.1) that you have specified in the `engines` section of your `package.json` file.
+
+To fix this issue, you can try downgrading the Node.js version to a lower version that is compatible with the `node-sass` package. You can do this by updating the `engines` section of your `package.json` file to specify a lower version of Node.js, for example:
+
+```
+"engines": {
+  "node": "14.x"
+}
+```
+
+After updating the `engines` section, run `yarn install` again to install the dependencies with the updated Node.js version. Then try deploying your app to Heroku again.
+
+If downgrading the Node.js version does not work, you can try updating the `node-sass` package to a newer version that is compatible with the current version of Node.js. You can do this by updating the `node-sass` package version in your `package.json` file, for example:
+
+```
+"node-sass": "^7.0.0"
+```
+
+After updating the `node-sass` package version, run `yarn install` again to install the updated package. Then try deploying your app to Heroku again.
+
+If neither of these solutions work, you can try removing the `node-sass` package from your project and using an alternative package for Sass compilation, such as `sass` or `dart-sass`. You can update your `package.json` file to include the alternative package, for example:
+
+```
+"sass": "^1.43.4"
+```
+
+After updating the `package.json` file, run `yarn install` again to install the alternative package. Then update your Sass configuration to use the new package instead of `node-sass`. Finally, try deploying your app to Heroku again.

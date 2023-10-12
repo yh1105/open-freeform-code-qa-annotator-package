@@ -1,0 +1,13 @@
+It seems like there is an issue with the ESLint configuration file. The error message indicates that ESLint is unable to read the `tsconfig.json` file. 
+
+To fix this issue, you can try the following steps:
+
+1. Make sure that the `tsconfig.json` file is located in the root directory of your project.
+
+2. Check that the path to the `tsconfig.json` file in the `parserOptions` section of the `.eslintrc.js` file is correct. It should be relative to the location of the `.eslintrc.js` file. In your case, it should be `"project": "./tsconfig.json"`.
+
+3. If the above steps do not work, you can try adding the following line to the `parserOptions` section of the `.eslintrc.js` file: `"tsconfigRootDir": "./"`. This tells ESLint to look for the `tsconfig.json` file in the root directory of your project.
+
+4. If none of the above steps work, you can try reinstalling the ESLint and TypeScript packages by running the following command in your terminal: `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript --save-dev`.
+
+After making these changes, restart your VSCode editor and see if the error message disappears.

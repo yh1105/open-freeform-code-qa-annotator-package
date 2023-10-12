@@ -1,0 +1,15 @@
+The error message suggests that the package was installed before R 4.0.0 and needs to be re-installed. However, you mentioned that you have already tried re-installing the package and it didn't work.
+
+The problem could be due to the fact that the package is old and may not be compatible with R 4.0.2. The package `cfcdae` seems to be last updated in 2013 and the package `Stat5303libs` in 2011. It's possible that these packages are not compatible with the latest version of R.
+
+Here are a few things you could try:
+
+1. **Try installing the packages in a fresh R session**: Sometimes, if there are other packages loaded in the R session, they can interfere with the installation of new packages. Start a new R session and try installing the packages again.
+
+2. **Try installing older version of R**: If the packages are not compatible with R 4.0.2, you could try installing an older version of R that is compatible with the packages. You can download older versions of R from [CRAN's archive](https://cran.r-project.org/bin/windows/base/old/).
+
+3. **Check if there are updated versions of the packages**: The packages you are trying to install seem to be quite old. Check if there are updated versions of the packages available. You can do this by going to the package's CRAN page and checking the "Old sources" section.
+
+4. **Contact the package authors**: If none of the above solutions work, you could try contacting the authors of the packages. They might be able to provide you with a solution or an updated version of the package. You can usually find the author's contact information on the package's CRAN page.
+
+Remember to always be careful when installing older versions of software, as they may contain bugs or security vulnerabilities that have been fixed in newer versions.

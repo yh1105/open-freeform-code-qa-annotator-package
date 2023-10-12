@@ -1,0 +1,23 @@
+The error you're seeing is likely because you're trying to create an array of a negative length. In JavaScript, the `Array()` constructor creates an array of the specified length. If the length is not a positive integer, a `RangeError` is thrown.
+
+In your code, `props.ingredients[igKey]` is used as the length for the new array. If `props.ingredients[igKey]` is not a positive integer (including zero), it will throw the error you're seeing.
+
+To fix this, you should ensure that `props.ingredients[igKey]` is always a positive integer. You can do this by using the `Math.max()` function, which returns the largest of the zero or more numbers given as input parameters.
+
+Here's how you can modify your code:
+
+```javascript
+const burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients).map(igKey => (
+    // eslint-disable-next-line max-len,react/no-array-index-key
+    [...Array(Math.max(0, props.ingredients[igKey]))].map((_, i) => <BurgerIngredient key={igKey + i} type={igKey} />)
+  )).reduce((arr, el) => (
+    arr.concat(el)
+  ), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please add some ingredients!</p>;
+  }
+```
+
+In this code, `Math.max(0, props.ingredients[igKey])` ensures that the length of the new array is always zero or a positive integer. If `props.ingredients[igKey]` is negative, `Math.max()` will return `0`, and an empty array will be created.

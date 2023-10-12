@@ -1,0 +1,29 @@
+This is likely due to the different default timeout settings on Android and iOS for HTTP requests. Android's default timeout is typically shorter than iOS's. 
+
+In Dart's HttpClient, there is no direct way to set a timeout. However, you can use the `Future.timeout` method to achieve this. Here's how you can modify your method to include a timeout:
+
+```dart
+void _getSimpleReply( String command, callback, errorCallback ) async {
+
+    try {
+
+      HttpClientRequest request = await _myClient.get( _serverIPAddress, _serverPort, '/' )
+        .timeout(const Duration(seconds: 5)); // Set your desired timeout duration
+
+      HttpClientResponse response = await request.close();
+
+      response.transform( utf8.decoder ).listen( (onData) { callback( onData ); } );
+
+    } on SocketException catch( e ) {
+
+      errorCallback( e.toString() );
+
+    } on TimeoutException catch (e) {
+
+      errorCallback( e.toString() );
+
+    }
+  }
+```
+
+In this example, if the request takes more than 5 seconds, it will throw a `TimeoutException` and call the `errorCallback`. You can adjust the duration to suit your needs.

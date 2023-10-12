@@ -1,0 +1,24 @@
+The issue seems to be with the indentation in your `pubspec.yaml` file. YAML files are sensitive to indentation and spaces. Here is the corrected version of your `pubspec.yaml` file:
+
+```yaml
+name: jsondata 
+description: A new Flutter application.
+
+dependencies:  
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.0
+
+dev_dependencies:   
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+```
+
+Please make sure that the `flutter:` and `assets:` fields are not indented under `dev_dependencies:`. Also, the path to your assets should be indented under `assets:`. 
+
+After correcting the `pubspec.yaml` file, run `flutter pub get` in your terminal to update your dependencies.

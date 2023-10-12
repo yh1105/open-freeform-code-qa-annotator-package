@@ -1,0 +1,57 @@
+The error message "Uncaught SyntaxError: Unexpected end of JSON input" usually means that the JSON data you're trying to parse is not complete or is not correctly formatted. 
+
+In your case, the error is caused by this line:
+
+```javascript
+console.info(JSON.parse(scatterSeries));
+```
+
+Here, you're trying to parse `scatterSeries` which is an array, not a JSON string. `JSON.parse()` is used to convert a JSON string into a JavaScript object. 
+
+If you want to print the `scatterSeries` array to the console, you can simply do:
+
+```javascript
+console.info(scatterSeries);
+```
+
+If you want to convert the `scatterSeries` array to a JSON string, you can use `JSON.stringify()`:
+
+```javascript
+console.info(JSON.stringify(scatterSeries));
+```
+
+So, your corrected code should look like this:
+
+```javascript
+function DashboardViewModel() {
+  
+    var self = this;
+    self.lineTypeValue = ko.observable('curved');
+    var scatterSeries = []; 
+    
+    $.getJSON( "http://localhost:8080/points", function (data) {
+               console.info(data);
+               var ch = '{"name":"graphe1","items":'+JSON.stringify(data.results[1])+ '}';
+               console.info(ch);
+               scatterSeries.push(JSON.parse(ch));
+               console.info(scatterSeries);
+        });
+    
+    
+    /* chart data */
+    
+    this.scatterSeriesValue = ko.observableArray(scatterSeries);
+    
+    self.lineTypeOptions = [
+        {id: 'straight', label: 'straight'},
+        {id: 'curved', label: 'curved'},
+        {id: 'stepped', label: 'stepped'},
+        {id: 'segmented', label: 'segmented'},
+        {id: 'none', label: 'none'}
+    ];
+  
+  
+}
+```
+
+I hope this helps! Let me know if you have any other questions.

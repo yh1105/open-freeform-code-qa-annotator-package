@@ -1,0 +1,37 @@
+Yes, it is possible to achieve this in C++14 using variadic templates and `std::array`. Here's an example implementation:
+
+```
+#include <array>
+#include <iostream>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <uint32_t argsCount, typename T, typename... Args>
+typename std::enable_if<sizeof...(Args) == argsCount-1>::type
+fun(const T& arg, const Args&... args)
+{
+    std::array<T, argsCount> arr{ arg, args... };
+    for (const auto& elem : arr)
+    {
+        std::cout << elem.a << " " << elem.b << " " << elem.c << std::endl;
+    }
+}
+
+int main()
+{
+    fun<3>(Foo{ 1, 2, 3 }, Foo{ 4, 5, 6 }, Foo{ 7, 8, 9 });
+
+    return 0;
+}
+```
+
+In this implementation, the `fun` function takes a template parameter `argsCount` which specifies the number of arguments to be passed in. It also takes a template parameter `T` which specifies the type of the arguments. The function uses a variadic template parameter pack to accept the arguments. 
+
+The `std::enable_if` is used to ensure that the number of arguments passed in matches the specified `argsCount`. If the number of arguments is less than `argsCount-1`, the function is not enabled and will not be called.
+
+Inside the function, an `std::array` is created with the specified `argsCount` and the arguments are passed in using the parameter pack. The `std::array` is then printed out to demonstrate that the arguments were correctly passed in.
+
+Note that the `std::enable_if` requires C++11, but the rest of the implementation is compatible with C++14.

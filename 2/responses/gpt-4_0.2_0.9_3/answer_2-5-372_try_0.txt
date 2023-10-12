@@ -1,0 +1,33 @@
+The error you're encountering is due to the fact that the `@NotEmpty` and `@NotBlank` annotations are not supported in Hibernate Validator 5.x. They were introduced in Hibernate Validator 6.0. 
+
+The problem is that your application is using Hibernate Validator 5.3.5.Final-redhat-2, which is provided by JBoss. This version does not support `@NotEmpty` and `@NotBlank` annotations, hence the error.
+
+To resolve this issue, you need to upgrade to Hibernate Validator 6.0 or later. However, since the Hibernate Validator version is provided by JBoss, you need to upgrade your JBoss version to one that includes Hibernate Validator 6.0 or later.
+
+Alternatively, you can exclude the Hibernate Validator provided by JBoss and include the Hibernate Validator 6.0 in your application. However, this might lead to other compatibility issues, so it's generally recommended to upgrade your JBoss version.
+
+Here is how you can exclude the Hibernate Validator from JBoss and include it in your application:
+
+1. Exclude Hibernate Validator from JBoss by adding a `jboss-deployment-structure.xml` file in your `WEB-INF` directory with the following content:
+
+```xml
+<jboss-deployment-structure>
+    <deployment>
+        <exclusions>
+            <module name="org.hibernate.validator" />
+        </exclusions>
+    </deployment>
+</jboss-deployment-structure>
+```
+
+2. Include Hibernate Validator 6.0 in your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>6.0.11.Final</version>
+</dependency>
+```
+
+Remember to replace `6.0.11.Final` with the latest version if there is a newer one available.

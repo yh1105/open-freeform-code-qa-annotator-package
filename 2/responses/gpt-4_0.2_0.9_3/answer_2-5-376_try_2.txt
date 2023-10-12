@@ -1,0 +1,19 @@
+The error message "invalid target release: 11" indicates that the Java compiler version that IntelliJ IDEA is using does not support Java 11. 
+
+Here are the steps you can follow to resolve this issue:
+
+1. Open IntelliJ IDEA.
+2. Go to `File` > `Project Structure` > `Project Settings` > `Project`.
+3. In the `Project SDK` section, select the correct JDK version (11 in your case). If it's not listed, click `New` > `JDK` and then navigate to the location where you installed JDK 11.
+4. In the `Project language level` field, select `11 - Local variable syntax for lambda parameters`.
+5. Click `OK` to save the changes.
+
+If you still encounter the same issue, you can try the following steps:
+
+1. Go to `File` > `Settings` > `Build, Execution, Deployment` > `Compiler` > `Java Compiler`.
+2. In the `Target bytecode version` section, select `11` for all modules.
+3. Click `OK` to save the changes.
+
+Regarding your question about the JDK and JRE folders, starting from Java 9, Oracle provides JDK distributions without a separate JRE. This is because the JRE can be created from the JDK via the `jlink` tool. So, it's normal to see only the JDK folder for Java 11.
+
+If you're still having trouble, please ensure that you've installed the correct version of JDK 11. You can download it from the [Oracle website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html). After downloading, install it and make sure to set the `JAVA_HOME` environment variable to the correct path.

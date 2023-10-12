@@ -1,0 +1,19 @@
+The error you're encountering is because the `clf.predict()` function expects a 2D array, but you're providing a 1D array. 
+
+In your case, you are trying to predict the class of a single sample with features `[0.58,0.76]`. You should reshape this array to have a shape of `(1, -1)`, which means we have 1 sample and -1 is inferred from the length of the array.
+
+Here's how you can fix it:
+
+```python
+print(clf.predict([[0.58,0.76]]))  # wrap your array inside another array to make it 2D
+```
+
+or
+
+```python
+print(clf.predict(np.array([0.58,0.76]).reshape(1, -1)))
+```
+
+Both of these will convert your 1D array into a 2D array, which is what the `predict()` function expects.
+
+Also, the line `X.reshape(1, -1)` in your code doesn't do anything because you're not assigning the reshaped array back to `X`. If you want to reshape `X`, you should do `X = X.reshape(1, -1)`. However, in this case, you don't need to reshape `X`.

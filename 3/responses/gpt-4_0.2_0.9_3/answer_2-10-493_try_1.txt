@@ -1,0 +1,37 @@
+In Rust, there is no built-in way to automatically map fields from one struct to another. However, you can create a function to convert a `Source` struct to a `Message` struct. This function can be a method of `Source` or a standalone function.
+
+Here is an example of how you can do it:
+
+```rust
+pub struct Message {
+    pub id: i32,
+    pub email: String,
+    pub name: String,
+}
+
+pub struct Source {
+    pub email: Email,
+    pub name: Name,
+}
+
+impl From<Source> for Message {
+    fn from(source: Source) -> Self {
+        Message {
+            id: 0, // or some default value
+            email: source.email.to_string(),
+            name: source.name.to_string(),
+        }
+    }
+}
+```
+
+Then, you can convert a `Source` to a `Message` like this:
+
+```rust
+let source = Source { ... };
+let message = Message::from(source);
+```
+
+If you have multiple structs with many fields, you might want to consider using a code generation tool or a macro to automate the process. However, this would require a good understanding of Rust's macro system and might be overkill for your situation.
+
+Another approach is to use a library like `serde` for serialization and deserialization. You can define your structs with `serde` attributes, and then use `serde` to convert between them. This would require both structs to have the same field names and compatible types, and would also require adding a dependency on `serde` to your project.

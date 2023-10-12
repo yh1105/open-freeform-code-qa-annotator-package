@@ -1,0 +1,5 @@
+The `random_state` parameter is used for initializing the internal random number generator, which will decide the splitting of data into train and test indices in your case.
+
+In machine learning, it's a common practice to split the dataset into a training set and a test set. However, to ensure the results are reproducible, we often use a specific seed for the random number generator (which is the `random_state` in this case). This seed is often set to 42, which is a common convention in machine learning and statistics, inspired by "The Hitchhiker's Guide to the Galaxy" where 42 is "The Answer to the Ultimate Question of Life, The Universe, and Everything".
+
+By setting `random_state` to an integer, the output of the split will be the same each time you run the code. This is useful if you want reproducible results, for example in the documentation, so that everybody can consistently see the same numbers when running the examples. If you don't set a `random_state`, then every time the code is run, a new random value is generated and the train and test datasets would have different values each time.

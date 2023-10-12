@@ -1,0 +1,23 @@
+The error message indicates that the `Az.Accounts` module is not available in the environment where the script is running. 
+
+To resolve this, you can add a task in your Azure DevOps pipeline to install the `Az.Accounts` module before your PowerShell script task. Here is an example of how you can do this:
+
+```yaml
+steps:
+- powershell: |
+    if (!(Get-Module -ListAvailable -Name Az.Accounts)) {
+        Install-Module -Name Az.Accounts -Scope CurrentUser -Force
+    }
+  displayName: 'Install Az.Accounts Module'
+
+- task: PowerShell@2
+  inputs:
+    filePath: 'path_to_your_script'
+  displayName: 'Run PowerShell Script'
+```
+
+In this example, the first task checks if the `Az.Accounts` module is available, and if not, it installs the module. The second task is your existing PowerShell task that runs your script.
+
+Please replace `'path_to_your_script'` with the actual path to your PowerShell script.
+
+Note: The `Install-Module` command requires the PowerShellGet module, which is included by default in PowerShell 5.0 and later. If you're using an earlier version of PowerShell, you may need to install PowerShellGet first.

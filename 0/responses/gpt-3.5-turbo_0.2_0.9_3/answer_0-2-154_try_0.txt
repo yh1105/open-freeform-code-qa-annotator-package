@@ -1,0 +1,35 @@
+To handle nested tags, you can modify your `parseChildren` method to recursively call itself for each child node that is an element. Here's an updated version of the `HTMLParser` class that should handle nested tags correctly:
+
+```
+export class HTMLParser {
+
+    public parse(text: string): void {
+        const parser = new DOMParser();
+        const sourceDocument = parser.parseFromString(text, "text/html");
+        this.parseChildren(sourceDocument.body.childNodes);
+
+        // HERE SHOULD BE the result
+        console.log("RESULT of CONVERSION", this.phrasesProcessed);
+    }
+
+    public phrasesProcessed: Phrase[] = [];
+
+    private parseChildren(toParse: NodeListOf<ChildNode>) {
+        try {
+            Array.from(toParse).forEach(child => {
+                if (child.nodeType === Node.ELEMENT_NODE && child instanceof HTMLElement) {
+                    this.parseChildren(child.childNodes);
+                    this.phrasesProcessed.push({ text: "\n", format: null });
+                } else {
+                    this.phrasesProcessed.push({ text: child.textContent, format: null });
+                }
+            });
+        } catch (e) {
+            console.warn(e);
+        }
+    }
+
+}
+```
+
+This version of `parseChildren` checks if each child node is an element, and if it is, it recursively calls `parseChildren` on its child nodes. This allows it to handle nested tags correctly. It also adds a linebreak after each element to match the desired output format.

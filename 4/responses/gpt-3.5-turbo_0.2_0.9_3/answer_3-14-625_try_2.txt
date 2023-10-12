@@ -1,0 +1,13 @@
+To check if the keyboard is present when a button is pressed, you can use the following code:
+
+```
+if (Input.anyKeyDown) {
+    if (Event.current.isKey) {
+        Debug.Log("Keyboard is present");
+    }
+}
+```
+
+This code checks if any key is pressed and then checks if the event is a keyboard event. If it is, then it logs that the keyboard is present.
+
+Note that this code should be placed in the `Update()` function of a script attached to a game object in your scene.

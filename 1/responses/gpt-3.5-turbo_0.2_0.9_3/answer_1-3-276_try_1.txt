@@ -1,0 +1,7 @@
+The error message suggests that the problem is caused by an in-place operation that modifies a variable needed for gradient computation. In PyTorch, in-place operations are those that modify the input tensor directly, instead of returning a new tensor. 
+
+In your code, the most likely culprit for the in-place operation is the line `dec_text_tensor.data = dec_text_tensor.data[order]`. This line modifies the `dec_text_tensor` tensor in-place, which could cause the error. 
+
+To fix this, you can try creating a new tensor instead of modifying `dec_text_tensor` in-place. For example, you can replace the line with `dec_text_tensor = dec_text_tensor[order]`. This creates a new tensor that has the same values as the original tensor, but with the rows shuffled according to the `order` array. 
+
+If this doesn't solve the problem, you may need to look for other in-place operations in your code. One way to do this is to search for lines that modify a tensor in-place using the `data` attribute, and replace them with equivalent operations that create a new tensor.

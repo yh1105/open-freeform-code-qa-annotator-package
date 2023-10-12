@@ -1,0 +1,15 @@
+The error message indicates that the compiler cannot find the `ruby/config.h` file. This is a common issue when the Ruby development headers are not installed or not found in the expected location.
+
+Here are a few things you can try:
+
+1. **Check your Ruby installation**: Make sure you have a full Ruby development environment installed. If you installed Ruby with Homebrew, you can reinstall it with `brew reinstall ruby`.
+
+2. **Install Xcode Command Line Tools**: If you're on a Mac, make sure you have the Xcode Command Line Tools installed, which include necessary development headers. You can install it with `xcode-select --install`.
+
+3. **Check the location of your Ruby headers**: The error message indicates that the compiler is looking for headers in `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/include/ruby-2.3.0/`. You should check if the headers are actually there. If not, you might need to create a symlink to the correct location.
+
+4. **Use RVM or rbenv**: These version management tools can help isolate your Ruby environment and might help avoid such issues. If you're not already using one of them, it might be worth a try.
+
+5. **Check your `PKG_CONFIG_PATH`**: The `libffi` package uses pkg-config to find its dependencies, and the `PKG_CONFIG_PATH` environment variable is used to specify additional directories to search. Make sure it includes the directory where `libffi.pc` is located.
+
+If none of these solutions work, please provide more information about your environment (OS version, Ruby version, how Ruby was installed, etc.) to help diagnose the issue.

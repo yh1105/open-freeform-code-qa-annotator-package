@@ -1,0 +1,36 @@
+Yes, you can use a single state object to handle all the form fields. Here's how you can do it:
+
+First, initialize your state object:
+
+```jsx
+const [form, setForm] = useState({
+  mobile: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+});
+```
+
+Then, create a function to handle the input changes:
+
+```jsx
+const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.id]: e.target.value
+  });
+}
+```
+
+Finally, use this function in your input fields:
+
+```jsx
+<input type="text"
+       className="form-control"
+       id="mobile"
+       placeholder="Enter a valid mobile number"
+       onChange={handleChange}/>
+```
+
+This way, the `handleChange` function will update the correct property in the state object based on the `id` of the input field. This is a more scalable solution if you have many input fields.

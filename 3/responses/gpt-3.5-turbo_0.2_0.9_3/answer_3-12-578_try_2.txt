@@ -1,0 +1,18 @@
+In Flutter, when defining a `const` value, the value must be known at compile-time. This means that the value cannot be changed at runtime. 
+
+In your code, you are trying to use a non-constant variable `textSize` as the value for `fontSize` in the `TextStyle` of the `Text` widget. Since `textSize` is not a constant, it cannot be used in a `const` context.
+
+To fix this error, you can either define `textSize` as a constant:
+
+```
+const double textSize = 10.0;
+```
+
+Or, you can remove the `const` keyword from the `Text` widget:
+
+```
+child: Text('Calculate Client Fees',
+            style: TextStyle(fontSize: textSize),)
+```
+
+In this case, you can use `var` or `double` to define the variable `textSize`, but it must be a constant value if you want to use it in a `const` context.

@@ -1,0 +1,11 @@
+The error message suggests that there are some values in the `year` column that are not valid integers. In this case, it seems that there is at least one value that has a decimal point, which cannot be converted to an integer.
+
+To fix this, you can try converting the column to float first, and then to integer. This will allow the decimal values to be preserved, but will still result in an error if there are any non-numeric values in the column.
+
+Here is an updated code snippet that should work:
+
+```
+data_h_df['year'] = data_h_df['year'].astype(float).astype(int)
+```
+
+This will first convert the `year` column to a float, and then to an integer. If there are any non-numeric values in the column, this will result in a `ValueError` with a more informative error message.

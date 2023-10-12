@@ -1,0 +1,35 @@
+The CSS you've written seems to be correct for vertical scroll snapping. However, the issue might be that you're missing the CSS property `overflow-y: scroll;` in your `.parent` class. This property is necessary to enable scrolling within the parent element.
+
+Here's the corrected CSS:
+
+```css
+.parent {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+
+Also, note that `scroll-snap-points-y: repeat(100vh);` is not necessary and is not currently supported in any major browsers. The `scroll-snap-type: mandatory;` is also redundant and can be removed, as you've already defined `scroll-snap-type: y mandatory;` afterwards.

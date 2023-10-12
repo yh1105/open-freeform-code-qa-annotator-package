@@ -1,0 +1,5 @@
+It is not recommended to manually set the commit SHA in Git as it is generated based on various parameters such as the content of the commit, the parent commit(s), the author, the committer, and the timestamp. Manually setting the SHA could potentially cause conflicts and issues with the Git repository.
+
+If you want to mirror a Git repository, it is recommended to use Git's built-in mirroring functionality such as `git clone --mirror` or `git remote add --mirror`. This will ensure that the two repositories have identical commits and commit SHAs.
+
+If you still want to manually set the commit SHA, you can use the `git commit-tree` command. This command allows you to create a new commit object with a specific SHA and parent commit(s). However, this should only be used in exceptional cases and with caution as it can cause issues with the Git repository.

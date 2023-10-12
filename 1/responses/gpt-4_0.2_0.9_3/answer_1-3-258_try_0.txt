@@ -1,0 +1,33 @@
+The problem you're facing is due to the fact that each worker in FastAPI runs in its own process and therefore has its own memory space. This means that they can't directly share Python objects with each other. 
+
+To share data between workers, you'll need to use a shared storage that all workers can access. This could be a database, a cache like Redis, or a message queue like RabbitMQ, depending on your needs.
+
+Here's an example of how you could modify your code to use Redis for shared storage:
+
+```python
+from fastapi import FastAPI, status
+import redis
+
+app = FastAPI()
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+r.set('count', 0)
+
+@app.get("/increment")
+async def increment():
+    r.incr('count')
+    return status.HTTP_200_OK
+
+@app.get("/report")
+async def report():
+    return {'count': int(r.get('count'))}
+
+@app.get("/reset")
+async def reset():
+    r.set('count', 0)
+    return status.HTTP_200_OK
+```
+
+In this example, all workers will be able to increment, retrieve, and reset the count because they're all interacting with the same Redis instance.
+
+As for your side question, if you want all workers to perform an action in response to a single request, you'll need to use a message queue or similar. When a request comes in, you'd send a message to the queue, and each worker would listen for messages on the queue and perform the action when it receives the message. However, this is a more complex solution and may not be necessary depending on your needs.

@@ -1,0 +1,27 @@
+The issue is that you are only changing the isSelected value of the Zone object in your onPressed() function, but you are not updating the color of the button based on the new isSelected value. To fix this, you need to update the color of the button in your setState() function based on the new isSelected value of the Zone object.
+
+Here's an updated version of your _makeZoneList() function that should work:
+
+```
+List<Widget> _makeZoneList(List<Zone> zones) {
+  List<Widget> buttons = [];
+  for (int i = 0; i < zones.length; i++) {
+    buttons.add(
+      RaisedButton(
+        color: zones[i].isSelected ? AppColors.primaryColor : AppColors.white,
+        onPressed: () {
+          setState(() {
+            zones[i].isSelected = !zones[i].isSelected;
+          });
+        },
+        child: Text(zones[i].text),
+      ),
+    );
+  }
+  return buttons;
+}
+```
+
+In this updated version, we are using the ternary operator to set the color of the button based on the isSelected value of the Zone object. We are also simplifying the onPressed() function by using the ! operator to toggle the isSelected value of the Zone object.
+
+I hope this helps! Let me know if you have any further questions.

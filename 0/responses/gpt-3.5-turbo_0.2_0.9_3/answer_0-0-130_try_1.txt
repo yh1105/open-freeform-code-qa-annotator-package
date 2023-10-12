@@ -1,0 +1,22 @@
+The issue you are facing is that the `TextEncoder` is not defined in the Node.js environment. One solution to this problem is to use a polyfill for the `TextEncoder` in your test environment.
+
+You can install the `text-encoding` package and use it to define the `TextEncoder` before importing the TensorFlow encoder. Here's an example of how you can modify your test file to include the polyfill:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { TextEncoder } from 'text-encoding';
+import * as mobilenet from '@tensorflow-models/mobilenet';
+import App from './App';
+
+// Define the TextEncoder before importing TensorFlow encoder
+global.TextEncoder = TextEncoder;
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+
+This should define the `TextEncoder` globally before importing the TensorFlow encoder and resolve the `ReferenceError: TextEncoder is not defined` error.

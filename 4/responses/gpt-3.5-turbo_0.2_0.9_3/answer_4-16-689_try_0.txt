@@ -1,0 +1,9 @@
+Yes, you can open the explorer at This PC by using the following command in the Command Prompt:
+
+```
+explorer.exe /e,::{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+```
+
+This command will open the explorer at This PC instead of Quick Access. You can also create a shortcut with this command to open it quickly. 
+
+To create a shortcut, right-click on your desktop and select "New" > "Shortcut". In the "Type the location of the item" field, enter the above command and click "Next". Give the shortcut a name and click "Finish". Now you can double-click on the shortcut to open the explorer at This PC.

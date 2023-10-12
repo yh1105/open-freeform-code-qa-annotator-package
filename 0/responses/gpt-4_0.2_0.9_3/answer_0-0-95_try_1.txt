@@ -1,0 +1,24 @@
+The error message suggests that there's an issue with the `postcss-scss` package, which is a part of the `next` package in your project. It seems like a class is trying to extend from something that is either `undefined` or `null`.
+
+Here are a few steps you can take to troubleshoot this issue:
+
+1. **Clear Node Modules and Reinstall**: Sometimes, the node_modules folder or the package-lock.json file can get corrupted. Delete your `node_modules` folder and `package-lock.json` file, then run `npm install` to reinstall your packages.
+
+```bash
+rm -rf node_modules
+rm package-lock.json
+npm install
+```
+
+2. **Update Next.js and PostCSS**: The issue might be due to a specific version of Next.js or PostCSS. Try updating these packages to their latest versions.
+
+```bash
+npm install next@latest
+npm install postcss@latest
+```
+
+3. **Check Your PostCSS Configuration**: If you have a PostCSS configuration file in your project (usually `postcss.config.js`), check to make sure it's correctly configured. If you're not sure, refer to the [Next.js documentation on PostCSS](https://nextjs.org/docs/advanced-features/customizing-postcss-config) for guidance.
+
+4. **Check Your Code**: Even though you mentioned that modifying the code to not include any files or load anything still produces the same error, it's worth double-checking. The error message suggests that a class is trying to extend from something that is either `undefined` or `null`. Make sure that all classes are extending from valid constructors.
+
+If none of these steps resolve your issue, it might be a bug in the `next` or `postcss-scss` package. In this case, you might want to create an issue in the relevant GitHub repository to get help from the package maintainers.

@@ -1,0 +1,45 @@
+One way to solve this issue is to use generics. You can modify the `M` class to be generic and use the subclass as the type parameter. Here's an example:
+
+```
+from __future__ import annotations
+from typing import TypeVar, Generic
+
+T = TypeVar('T', bound='M')
+
+class M(Generic[T]):
+    def set_width(self, width: int) -> T:
+        self.width = width
+        return self
+
+    def set_height(self, height: int) -> T:
+        self.height = height
+        return self
+```
+
+Now you can use `M3D` as the type parameter when creating an instance of `M`:
+
+```
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+This works because `M3D` is a subclass of `M`, so it satisfies the `T` type parameter constraint. The `set_width()` and `set_height()` methods return `T`, which is `M3D` in this case, so the `set_depth()` method is available.
+
+You can also use this approach for special methods like `__enter__`. Here's an example:
+
+```
+class MyContextManager(Generic[T]):
+    def __enter__(self) -> T:
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass
+```
+
+Now you can create a subclass and specify the return type of `__enter__`:
+
+```
+class MySubclass(MyContextManager[MySubclass]):
+    pass
+```
+
+This way, `MySubclass().__enter__()` returns `MySubclass` instead of `MyContextManager[MySubclass]`.

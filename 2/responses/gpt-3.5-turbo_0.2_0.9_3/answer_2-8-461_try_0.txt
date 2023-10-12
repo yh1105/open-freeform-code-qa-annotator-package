@@ -1,0 +1,19 @@
+It seems like you are trying to insert values of different types into the `com2` column. Please make sure that the data type of the `com2` column in your database matches the data type of the `result.Com2` variable in your code. 
+
+Also, you can try using a single SQL statement with multiple value sets for bulk insertion, like this:
+
+```
+query := `INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES `
+values := []interface{}{}
+for _, result := range results {
+    query += `($1,$2,$3,$4),`
+    values = append(values, result.Com1, result.Com2, result.Path, result.Time)
+}
+query = query[:len(query)-1] // remove the last comma
+_, err := db.Exec(query, values...)
+if err != nil {
+    // handle error
+}
+```
+
+This will create a single SQL statement with multiple value sets, which can be executed in a single transaction for faster insertion.

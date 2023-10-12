@@ -1,0 +1,37 @@
+To solve the incompatible error, you need to make sure that all the dependencies in your project are compatible with the Kotlin version you are using. In this case, the error message indicates that the Kotlin version used by one of the dependencies is not compatible with the Kotlin version used by your project.
+
+To fix this, you can try updating the Kotlin version in your project to match the version used by the dependency. In this case, the binary version of the metadata is 1.5.1, so you can try updating your Kotlin version to 1.5.1.
+
+To add the email and cardholder name in Stripe, you can use the `CardInputWidget` instead of the `CardMultilineWidget`. The `CardInputWidget` provides an option to enter the cardholder name and email. You can add the `CardInputWidget` to your layout file and use it to collect the required information.
+
+Here's an example of how to use the `CardInputWidget` to collect the email and cardholder name:
+
+1. Add the `CardInputWidget` to your layout file:
+
+```
+<com.stripe.android.view.CardInputWidget
+    android:id="@+id/card_input_widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shouldShowPostalCode="false"
+    app:shouldShowCardholderName="true"
+    app:shouldShowError="true"
+    app:shouldShowExpiry="true"
+    app:shouldShowScanCard="false"
+    app:shouldShowPostalCode="false"
+    app:shouldShowPostalCode="false" />
+```
+
+2. In your activity or fragment, get a reference to the `CardInputWidget` and use it to collect the required information:
+
+```
+val cardInputWidget = findViewById<CardInputWidget>(R.id.card_input_widget)
+
+val cardParams = cardInputWidget.cardParams
+cardParams.email = "user@example.com"
+cardParams.name = "John Doe"
+
+// Use the cardParams to create a Stripe token or payment method
+```
+
+Note that you will need to replace `user@example.com` and `John Doe` with the actual email and cardholder name entered by the user. You can then use the `cardParams` object to create a Stripe token or payment method as required.

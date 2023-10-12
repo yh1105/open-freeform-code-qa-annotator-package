@@ -1,0 +1,14 @@
+Yes, you can use the `filter` method on `Option` to achieve this. Here's how you can rewrite your code in a more idiomatic way:
+
+```rust
+fn main() {
+    let mut foo: Option<u8> = None;
+    if foo.filter(|&foo_val| foo_val >= 5).is_none() {
+        foo.replace(5);
+    }
+}
+```
+
+The `filter` method takes a predicate and transforms the `Option<T>` into an `Option<T>` where the `Some(T)` case is only retained if the predicate returns `true`. If the predicate returns `false`, it transforms `Some(T)` into `None`.
+
+In your case, the predicate is `foo_val >= 5`, which is the negation of your original condition. If `foo` is `None` or `foo_val` is less than 5, `filter` will return `None`, and then `is_none()` will return `true`, causing `foo.replace(5)` to be executed.

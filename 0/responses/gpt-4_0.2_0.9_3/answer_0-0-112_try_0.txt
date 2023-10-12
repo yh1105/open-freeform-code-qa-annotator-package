@@ -1,0 +1,25 @@
+The error message `EACCES` typically means that the process does not have sufficient permissions to access a file or directory. 
+
+In this case, it seems like the Node.js process does not have the necessary permissions to access the Chromium executable at the specified path. 
+
+You can try to change the permissions of the Chromium executable using the `chmod` command in your terminal:
+
+```bash
+sudo chmod 755 /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app
+```
+
+This command will give read and execute permissions to all users and write permission to the owner.
+
+If this doesn't solve your problem, you can try to use Puppeteer with bundled Chromium (which is the default behavior). Puppeteer will download and use a specific version of Chromium. 
+
+```javascript
+const browser = await puppeteer.launch({headless:false});
+```
+
+If you still want to use a specific version of Chrome or Chromium, you should point `executablePath` to the actual executable file, not the .app folder. For example:
+
+```javascript
+const browser = await puppeteer.launch({headless:false, executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+```
+
+Remember to replace the path with the actual path to your Chrome or Chromium executable.

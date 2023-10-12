@@ -1,0 +1,20 @@
+You can use the `filter` method of the `Stream` class to filter out the `Subject` objects with `status` as `false`. Here's an example code snippet:
+
+```
+Student student = new Student();
+// set student properties
+
+student.getSubjects1().stream()
+        .filter(subject -> subject.isStatus())
+        .collect(Collectors.toList());
+
+student.getSubjects2().stream()
+        .filter(subject -> subject.isStatus())
+        .collect(Collectors.toList());
+
+student.getSubjects3().stream()
+        .filter(subject -> subject.isStatus())
+        .collect(Collectors.toList());
+```
+
+In the above code, we are using the `filter` method to filter out the `Subject` objects with `status` as `false`. We are then collecting the filtered `Subject` objects into a new `List` using the `Collectors.toList()` method.

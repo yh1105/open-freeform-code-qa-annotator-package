@@ -1,0 +1,18 @@
+Yes, both pairs of lines are equivalent in terms of functionality. 
+
+The reason you are getting an error when using `context.read<Model>()` inside the `build()` method is because `read` is a synchronous operation that immediately returns the requested value. This means that if the value has not yet been initialized, `read` will return `null`. 
+
+On the other hand, `Provider.of<Model>(context)` is an asynchronous operation that waits for the value to be initialized before returning it. This is why it works inside the `build()` method. 
+
+To use `read` inside the `build()` method, you can wrap it in a `Builder` widget to ensure that it is only called after the value has been initialized. For example:
+
+```
+Widget build(BuildContext context) {
+  return Builder(
+    builder: (context) {
+      final model = context.read<Model>();
+      // use model here
+    },
+  );
+}
+```

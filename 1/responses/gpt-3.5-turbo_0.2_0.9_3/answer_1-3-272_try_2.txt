@@ -1,0 +1,33 @@
+The issue here is that the `${PATH}` syntax is not being interpreted as an environment variable by the YAML parser. One way to solve this is to use Python's `os` module to replace `${PATH}` with the actual value of the `PATH` environment variable before parsing the YAML file.
+
+Here's an updated version of your script that does this:
+
+```
+import yaml
+import os
+
+with open("sample.yml", "r") as stream:
+    # Read the YAML file as a string
+    yaml_str = stream.read()
+
+    # Replace ${PATH} with the actual value of the PATH environment variable
+    path_value = os.environ.get("PATH")
+    if path_value:
+        yaml_str = yaml_str.replace("${PATH}", path_value)
+
+    # Parse the YAML string
+    docs = yaml.load_all(yaml_str)
+
+    # Print the parsed YAML
+    for doc in docs:
+        for k, v in doc.items():
+            print(k, "->", v)
+        print("\n")
+```
+
+This should produce the expected output:
+
+```
+Top -> /Users/abc/Downloads/tbwork/my.txt
+Vars -> ['a', 'b']
+```

@@ -1,0 +1,11 @@
+In IntelliJ IDEA, you can use the `print()` statement to log data to the console. However, if you are using Flutter, you should use the `debugPrint()` statement instead. This is because `debugPrint()` is specifically designed for Flutter and will print the data to the Flutter console.
+
+Here's an example of how to use `debugPrint()`:
+
+```dart
+debugPrint("Hello, world!");
+```
+
+If you still can't see your data in the console, make sure that you have the "Flutter" tab selected in the console window. You can switch between the "Dart" and "Flutter" tabs using the dropdown menu in the top-right corner of the console window.
+
+Also, make sure that you are running your app in debug mode. You can do this by clicking on the "Run" button in IntelliJ IDEA with the "Debug" configuration selected.

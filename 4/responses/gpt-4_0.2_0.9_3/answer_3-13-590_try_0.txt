@@ -1,0 +1,13 @@
+The error message indicates that the style on the `TextInputLayout` component requires your app theme to be `Theme.MaterialComponents` (or a descendant). 
+
+You have mentioned that your app theme is `Theme.MaterialComponents.Light.NoActionBar`. However, in the provided code, you have mentioned that your app theme is `Theme.MaterialComponents.Light.DarkActionBar`. Please make sure that you are using the correct theme.
+
+If you are using `Theme.MaterialComponents.Light.NoActionBar` as your app theme, then it should work fine as it is a descendant of `Theme.MaterialComponents`.
+
+Also, make sure that you have the latest version of the Material Components library. You mentioned that you are using `1.1.0-alpha08`. The latest stable version at the time of writing is `1.5.0`. You can update it in your `build.gradle` file:
+
+```gradle
+implementation 'com.google.android.material:material:1.5.0'
+```
+
+If you still face the issue, try cleaning and rebuilding your project. Sometimes, the build cache can cause such issues. You can clean your project by selecting `Build > Clean Project` from the menu in Android Studio.

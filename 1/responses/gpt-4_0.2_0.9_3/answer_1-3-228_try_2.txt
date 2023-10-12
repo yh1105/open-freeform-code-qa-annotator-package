@@ -1,0 +1,20 @@
+The error message indicates that TensorFlow is looking for CUDA 10.0, but you have CUDA 10.1 installed. The version of TensorFlow you installed (1.13.1) is not compatible with CUDA 10.1.
+
+There are two ways to resolve this issue:
+
+1. Downgrade your CUDA version to 10.0. You can download it from the official NVIDIA website. After downloading, you can install it using the following commands:
+
+```bash
+sudo dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo apt-get update
+sudo apt-get install cuda-10-0
+```
+
+2. Upgrade your TensorFlow version to one that supports CUDA 10.1. TensorFlow 2.1.0 and later versions support CUDA 10.1. You can upgrade TensorFlow using pip:
+
+```bash
+pip3 install --upgrade tensorflow-gpu
+```
+
+After you have either downgraded CUDA or upgraded TensorFlow, you should be able to import TensorFlow without any errors.

@@ -1,0 +1,49 @@
+React Native's built-in `Button` component is somewhat limited in terms of customization. It doesn't provide a way to handle focus events for TV remote controls like the Amazon Fire Stick. However, you can achieve this functionality using a combination of `TouchableOpacity` and `useTVEventHandler` from `react-native`.
+
+`useTVEventHandler` is a hook that allows you to handle TV-specific hardware events, such as up, down, left, right, and select. You can use this hook to track which button is currently focused.
+
+Here's an example of how you might implement this:
+
+```jsx
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, useTVEventHandler } from 'react-native';
+
+const MyButton = (props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const tvEventHandler = useTVEventHandler((evt) => {
+    if (evt.eventType === 'focus') {
+      setIsFocused(true);
+    } else if (evt.eventType === 'blur') {
+      setIsFocused(false);
+    }
+  }, []);
+
+  return (
+    <TouchableOpacity
+      style={isFocused ? styles.focusedButton : styles.button}
+      onPress={() => props.addNumber(1)}
+      onFocus={tvEventHandler}
+      onBlur={tvEventHandler}
+      disabled={props.loading}
+    >
+      <Text>1</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = {
+  button: {
+    // your normal button styles
+  },
+  focusedButton: {
+    // your focused button styles
+  },
+};
+
+export default MyButton;
+```
+
+In this example, `MyButton` is a custom button component that uses the `useTVEventHandler` hook to handle focus and blur events. When the button is focused, it changes its style to `styles.focusedButton`, and when it loses focus, it changes back to `styles.button`.
+
+Please note that this is a basic example and you might need to adjust it to fit your specific use case. For instance, if you have multiple buttons, you might need to track which button is currently focused in a parent component and pass the `isFocused` prop to each `MyButton` component.

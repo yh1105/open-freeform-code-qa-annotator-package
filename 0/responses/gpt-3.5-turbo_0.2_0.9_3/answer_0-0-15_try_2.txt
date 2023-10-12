@@ -1,0 +1,11 @@
+It looks like the issue might be related to how the API class is being exported and imported. 
+
+When you use `export default API`, you are exporting the API class as the default export of the module. This means that when you import it using `import API from "utils/API"`, you are importing the default export of the module, which is the API class itself.
+
+However, the error message you are seeing suggests that the import is not recognizing the API class as a constructor. This could be due to a few different reasons, such as:
+
+- The API class is not actually being exported as a constructor. Double-check that the class definition includes a constructor method.
+- There is another module in your application with the same name as the API class, and the import is resolving to that module instead. Try renaming the API class or the module to avoid naming conflicts.
+- There is a problem with your Jest setup that is causing the import to fail. Make sure that your Jest configuration is correctly set up to handle ES6 modules and that any necessary Babel presets/plugins are installed and configured.
+
+If you change the export to a named export, as in `export { API }`, you will need to import it using `import { API } from "utils/API"`. The error message you are seeing in this case suggests that the import is not recognizing the API class as a constructor. This could be due to similar reasons as above, such as a naming conflict or a problem with your Jest setup.

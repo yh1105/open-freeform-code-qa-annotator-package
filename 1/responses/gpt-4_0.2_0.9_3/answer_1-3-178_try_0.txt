@@ -1,0 +1,34 @@
+In Playwright for Python, you can select an option from a dropdown using the `select_option` method. This method can take a value, an index, or a label to select the option.
+
+In your case, you can select the option "Banana" by its visible text like this:
+
+```python
+page.select_option(new_selector, label="Banana")
+```
+
+Here is the complete code:
+
+```python
+from playwright import sync_playwright
+import time
+
+URL = '<my url>'
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.newPage()
+    page.goto(URL)
+
+    # identify this element by ID. Wait for it first
+    new_selector = 'id=name-fruit'
+    page.waitForSelector(new_selector)
+
+    # select the option "Banana" by its visible text
+    page.select_option(new_selector, label="Banana")
+
+    # at this point I have the element and can print the content
+    handle = page.querySelector(new_selector)
+    print(handle.innerHTML())
+```
+
+Please note that the `select_option` method is called on the `page` object, not on the `handle` object. The `new_selector` is passed as the first argument to identify the dropdown list, and the `label` parameter is used to specify the visible text of the option to be selected.

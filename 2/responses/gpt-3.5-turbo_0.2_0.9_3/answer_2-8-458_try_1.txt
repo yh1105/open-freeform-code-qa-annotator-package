@@ -1,0 +1,7 @@
+It looks like the issue is that the package `project/game` is not located in the `GOROOT` directory. This is because `GOROOT` is the directory where Go is installed, and it should not be used for your own projects.
+
+Instead, you should set your `GOPATH` environment variable to the root directory of your Go projects, which in your case is `C:\Users\ketchup\go`. This is where Go will look for your packages.
+
+Once you have set your `GOPATH` correctly, you should move your `project` directory into `C:\Users\ketchup\go\src`. This will make it so that Go can find your packages when you try to build them.
+
+After you have made these changes, you should be able to build your project without any issues.

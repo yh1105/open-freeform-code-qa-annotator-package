@@ -1,0 +1,15 @@
+The error message you're seeing is because Entity Framework 6.4.4 is not compatible with .NET 6.0. 
+
+Entity Framework 6.4.4 is the last version of Entity Framework 6, which is a different line of Entity Framework that is not compatible with .NET Core or .NET 5+. It's only compatible with .NET Framework, which is a different technology that is not being developed anymore.
+
+If you're using .NET 6.0, you should be using Entity Framework Core instead of Entity Framework 6.4.4. The latest version at the time of writing is Entity Framework Core 6.0.
+
+Here are the steps to add Entity Framework Core to your project:
+
+1. Right-click on your project in Solution Explorer and select Manage NuGet Packages.
+2. In the NuGet Package Manager, switch to the Browse tab and search for Microsoft.EntityFrameworkCore.
+3. Select the package and install it.
+
+You may also need to install the package for your specific database provider. For example, if you're using SQL Server, you would also need to install the Microsoft.EntityFrameworkCore.SqlServer package.
+
+After you've installed the necessary packages, you should be able to use Entity Framework Core in your project.

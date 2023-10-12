@@ -1,0 +1,26 @@
+You can use the `Object.keys()` method to get the keys of an object as an array. To get the prices, you can map over the keys and access the price property of each item. Here's how you can do it:
+
+```javascript
+var itemsToBuy = {
+    milk: {
+        quantity : 5,
+        price: 20
+    },
+    bread: {
+        quantity : 2,
+        price: 15
+    },
+    potato: {
+        quantity : 3,
+        price: 10
+    }
+}
+
+var itemNames = Object.keys(itemsToBuy); // ['milk', 'bread', 'potato']
+
+var itemPrices = itemNames.map(function(name) {
+    return itemsToBuy[name].price;
+}); // [20, 15, 10]
+```
+
+In this code, `Object.keys(itemsToBuy)` returns an array of the keys in the `itemsToBuy` object. Then, `itemNames.map(function(name) { return itemsToBuy[name].price; })` creates a new array by taking each name in `itemNames`, looking up the corresponding item in `itemsToBuy`, and returning its price.

@@ -1,0 +1,56 @@
+The error message suggests that you are using the same `AdWidget` in more than one place in your widget tree. This is not allowed. Each `AdWidget` should have a unique `Ad` object.
+
+The problem is that you are using the same `BannerAd` object for multiple `AdWidget`s. Each `AdWidget` should have its own `BannerAd` object.
+
+Here's how you can fix it:
+
+1. Create a new `BannerAd` for each `AdWidget` you want to display. You can do this in your `ListView.builder` method.
+
+2. Make sure that you dispose of the `BannerAd` when it's no longer needed. You can do this in the `dispose` method of your widget.
+
+Here's an example of how you can do this:
+
+```dart
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if(posts[index] is Post){
+      return posts[index];
+    }
+    else {
+      final BannerAd myBanner = BannerAd(
+        adUnitId: '<your-admob-unit-id>',
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: AdListener(),
+      )..load();
+
+      final Container adContainer = Container(
+        alignment: Alignment.center,
+        child: AdWidget(key: UniqueKey(), ad: myBanner),
+        height: 50,
+      );
+      return adContainer;
+    }
+  },
+  itemCount: posts.length,
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())
+);
+```
+
+Remember to dispose of the `BannerAd` when it's no longer needed:
+
+```dart
+@override
+void dispose() {
+  // Dispose of the BannerAd object to free up resources.
+  for (var post in posts) {
+    if (post is BannerAd) {
+      post.dispose();
+    }
+  }
+  super.dispose();
+}
+```
+
+This should solve your problem. Let me know if you have any other questions.

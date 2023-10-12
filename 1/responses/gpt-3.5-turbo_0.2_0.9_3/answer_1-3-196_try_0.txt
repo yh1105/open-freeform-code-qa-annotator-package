@@ -1,0 +1,21 @@
+You can use the `conda list --show-channel-urls` command to display the package size in bytes. Here's how to do it:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type `conda list --show-channel-urls` and hit enter.
+3. Wait for the list of packages to load.
+4. Look for the `size` column in the output. This column shows the package size in bytes.
+
+Alternatively, you can use the `conda info` command to find out the size of a specific package. Here's how to do it:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type `conda info <package-name>` and hit enter. Replace `<package-name>` with the name of the package you want to check.
+3. Wait for the package information to load.
+4. Look for the `size` field in the output. This field shows the package size in bytes.
+
+You can also use the Windows File Explorer to find out the size of the `pkgs` folder in your Anaconda installation directory. This folder contains all the installed packages, so its size will give you an idea of how much space your packages are taking up. To find the `pkgs` folder, follow these steps:
+
+1. Open the File Explorer.
+2. Navigate to the Anaconda installation directory. By default, this is `C:\ProgramData\Anaconda3` on Windows 10.
+3. Look for the `pkgs` folder and right-click on it.
+4. Select "Properties" from the context menu.
+5. The Properties dialog will show you the size of the folder in bytes, kilobytes, megabytes, and gigabytes.

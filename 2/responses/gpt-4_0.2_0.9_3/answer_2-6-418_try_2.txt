@@ -1,0 +1,16 @@
+Yes, C# will still short-circuit the evaluation of the `if` statement condition, even with `await` calls. However, the way it works with asynchronous methods is a bit different.
+
+In your example:
+
+```csharp
+if( await first_check() && await second_check() )
+    // ???
+```
+
+The `await first_check()` will always be executed because it's the first condition. If `first_check()` returns `false`, then `second_check()` will not be executed because the `&&` operator short-circuits and the overall condition cannot be `true`.
+
+However, if `first_check()` returns `true`, then `second_check()` will be executed. This is because the `&&` operator needs to evaluate the second condition to determine the overall result.
+
+So, in short, the `await` keyword doesn't change the short-circuit behavior of the `&&` operator. The second condition is only evaluated if the first condition is `true`.
+
+It's important to note that the `await` keyword makes the method wait for the task to complete and then returns the result of the task. So, the `if` statement will not continue until `first_check()` has completed. If `first_check()` returns `true`, the `if` statement will then wait for `second_check()` to complete.

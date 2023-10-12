@@ -1,0 +1,15 @@
+The error is because the `predict` method expects a 2D array, but you're providing a 1D array. In your case, you're trying to predict the class for one sample, so you need to reshape your array to have a shape of (1, -1).
+
+You should change your prediction line from:
+
+```python
+print(clf.predict([0.58,0.76]))
+```
+
+to:
+
+```python
+print(clf.predict([[0.58,0.76]]))
+```
+
+This will make your array 2D, with one row and two columns, which is the expected input for the `predict` method. The outer brackets denote a new dimension in the array.

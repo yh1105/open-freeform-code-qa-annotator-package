@@ -1,0 +1,21 @@
+Based on the information you provided, it seems like your Xdebug configuration is correct and Xdebug is properly installed and enabled in your Docker container.
+
+However, PhpStorm might not be able to detect it due to the way it communicates with the Docker container. Here are a few things you can try:
+
+1. **Check the Xdebug version**: PhpStorm supports Xdebug 2.9 and later. You can check your Xdebug version by running `php -v` in your Docker container.
+
+2. **Check the PhpStorm configuration**: Make sure that PhpStorm is properly configured to use Xdebug. Go to `File > Settings > Languages & Frameworks > PHP > Debug` and ensure that Xdebug is selected as the debugging engine.
+
+3. **Check the PhpStorm server settings**: Go to `File > Settings > Languages & Frameworks > PHP > Servers` and make sure that the server is properly configured. The host should be your Docker container's IP, the port should be the Xdebug port (10000 in your case), and the debugger should be Xdebug.
+
+4. **Check the PhpStorm interpreter settings**: Go to `File > Settings > Languages & Frameworks > PHP` and make sure that the CLI interpreter is set to the PHP version in your Docker container.
+
+5. **Check the PhpStorm path mappings**: In the server settings (see step 3), check the path mappings. The absolute path on the server should be the path in the Docker container, and the path in the project should be the path on your local machine.
+
+6. **Check the Xdebug log**: You can enable Xdebug logging by adding `xdebug.remote_log="/tmp/xdebug.log"` to your `docker-php-ext-xdebug.ini` file. Then, you can check the log for any errors or issues.
+
+7. **Check the PhpStorm debug configuration**: Go to `Run > Edit Configurations` and make sure that the PHPUnit configuration is properly set up. The interpreter should be the one from your Docker container, and the server should be the one you configured in step 3.
+
+8. **Check the network connection**: Make sure that your local machine can connect to the Docker container. You can test this by running `telnet <docker-ip> <xdebug-port>` from your local machine.
+
+If none of these steps help, you might want to consider reaching out to JetBrains support or asking on the PhpStorm forums. They might be able to provide more specific assistance.

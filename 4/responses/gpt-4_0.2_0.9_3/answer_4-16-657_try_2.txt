@@ -1,0 +1,14 @@
+In PowerShell, you can't directly make the output text bold. However, you can change the color of the output text using the "Write-Host" cmdlet, which can help to distinguish different parts of your output.
+
+Here's an example:
+
+```powershell
+Write-Host "This is a normal text"
+Write-Host "This is a green text" -ForegroundColor Green
+```
+
+In this example, the first line will output normal text, and the second line will output green text.
+
+If you want to make your output more noticeable, you can use a combination of different colors for different parts of your output.
+
+Also, if you are writing scripts that are intended to be used by other people, it's generally recommended to use "Write-Output" or "Write-Verbose" instead of "Write-Host". The "Write-Host" cmdlet is primarily intended for interactive use, and its output can't be captured or redirected, which can be a problem if your script is being used in a pipeline or automated process.

@@ -1,0 +1,11 @@
+In Rust, you can use the `chunks` method to split your vector into chunks of 2 elements and then use `map` and `collect` to create your `HashMap`. Here is a one-liner:
+
+```rust
+let map: HashMap<_, _> = vec.chunks(2).map(|chunk| (chunk[0].to_string(), chunk[1].to_string())).collect();
+```
+
+This will create a `HashMap` where the keys and values are the 0th and 1st elements of each chunk, respectively. 
+
+Please note that this will panic if your vector doesn't have an even number of elements. You might want to add a check for that before running this code.
+
+Also, this assumes that your vector contains strings. If it contains something else, you might need to adjust the `to_string` calls.

@@ -1,0 +1,16 @@
+You can use a list comprehension to return the matching elements instead of a boolean value. Here's how you can do it:
+
+```python
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+matches = [s for s in l if s.startswith(wanted)]
+```
+
+In this example, `matches` will be a list containing all elements in `l` that start with the string `wanted`. If you only want the first match, you can use `next` with a generator expression:
+
+```python
+match = next((s for s in l if s.startswith(wanted)), None)
+```
+
+In this case, `match` will be the first element in `l` that starts with `wanted`, or `None` if there are no matches.

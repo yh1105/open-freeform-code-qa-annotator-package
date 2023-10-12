@@ -1,0 +1,46 @@
+The problem here is that Rust is very strict about ownership and borrowing. When you create a thread and pass it a reference to a string, Rust needs to make sure that the string will still be valid for the entire lifetime of the thread. This is why it requires a `'static` lifetime, which basically means "this will be valid for the entire duration of the program".
+
+However, your `strings` vector is not `'static` - it's created in the `main` function and will be dropped when `main` returns. This is why you're getting the error "`strings` does not live long enough".
+
+To fix this, you can use `Arc` and `Mutex` to share ownership of the strings between the threads. Here's how you can do it:
+
+```rust
+use std::thread;
+use std::sync::{Arc, Mutex};
+
+fn child_job(s: Arc<Mutex<String>>) {
+    let mut s = s.lock().unwrap();
+    *s = s.to_uppercase();
+}
+
+fn main() {
+    // initialize
+    let mut thread_handles = vec![];
+    let strings = vec![
+        Arc::new(Mutex::new("hello".to_string())),
+        Arc::new(Mutex::new("world".to_string())),
+        Arc::new(Mutex::new("testing".to_string())),
+        Arc::new(Mutex::new("good enough".to_string())),
+    ];
+
+    // create threads
+    for s in &strings {
+        let s_clone = Arc::clone(s);
+        thread_handles.push(thread::spawn(move || child_job(s_clone)));
+    }
+
+    // wait for threads
+    for handle in thread_handles {
+        handle.join().unwrap();
+    }
+
+    // print result
+    for s in &strings {
+        println!("{}", s.lock().unwrap());
+    }
+}
+```
+
+In this code, `Arc` (Atomic Reference Counting) is a type of smart pointer that allows multiple threads to have read access to the same data, and `Mutex` (Mutual Exclusion) is used to ensure that only one thread can write to the data at a time. The `Arc::clone` function is used to create a new reference to the same data, which can be passed to the thread. The `move` keyword is used to move ownership of the cloned `Arc` into the thread.
+
+This code should work as expected, creating a new thread for each string and converting each string to uppercase.

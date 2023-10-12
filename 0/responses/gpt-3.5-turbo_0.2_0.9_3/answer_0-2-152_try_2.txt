@@ -1,0 +1,17 @@
+It seems like you are missing the initialization code for the toast. You need to add the following code to your JavaScript file to initialize the toast:
+
+```
+$('.toast').toast();
+```
+
+This code initializes all the toasts on the page. You can also add options to the toast initialization like this:
+
+```
+$('.toast').toast({
+  delay: 2000 // This will set the delay for the toast to 2 seconds
+});
+```
+
+Make sure that you have added the jQuery library before the bootstrap JavaScript files. Also, make sure that you have added the correct classes to your toast div.
+
+If you still face any issues, please let me know.

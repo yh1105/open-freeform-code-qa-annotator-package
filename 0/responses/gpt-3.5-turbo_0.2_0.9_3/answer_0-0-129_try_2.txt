@@ -1,0 +1,31 @@
+The error message you're seeing indicates that the Elasticsearch server is using a self-signed SSL certificate, which is not trusted by the client. To fix this, you can either disable SSL verification on the client side or use a trusted SSL certificate on the Elasticsearch server.
+
+To disable SSL verification on the client side, you can set the `ssl.rejectUnauthorized` option to `false` in the Elasticsearch client configuration:
+
+```
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+```
+
+However, this is not recommended for production environments as it can leave your application vulnerable to man-in-the-middle attacks.
+
+To use a trusted SSL certificate on the Elasticsearch server, you can follow the steps outlined in the [official Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-tls.html) to generate and configure a SSL certificate. Once you have a trusted SSL certificate, you can configure the Elasticsearch client to use it:
+
+```
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  ssl: {
+    ca: fs.readFileSync('/path/to/ca.crt'),
+    key: fs.readFileSync('/path/to/client.key'),
+    cert: fs.readFileSync('/path/to/client.crt')
+  }
+});
+```
+
+Replace `/path/to/ca.crt`, `/path/to/client.key`, and `/path/to/client.crt` with the paths to your SSL certificate files.
+
+I hope this helps! Let me know if you have any further questions.

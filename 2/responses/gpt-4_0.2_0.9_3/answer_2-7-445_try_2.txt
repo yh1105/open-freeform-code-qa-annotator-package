@@ -1,0 +1,20 @@
+The code you're using is for getting the current URL of a front-end page, not for a page in the admin area. 
+
+In the WordPress admin area, you can use `admin_url()` function to get the current page URL. Here's an example:
+
+```php
+global $pagenow;
+$current_page = admin_url($pagenow);
+```
+
+This will give you the current admin page URL without any query parameters. If you want to include the query parameters, you can use `$_SERVER['REQUEST_URI']`:
+
+```php
+$current_page = admin_url() . $_SERVER['REQUEST_URI'];
+```
+
+This will give you the full URL of the current admin page, including any query parameters.
+
+Please note that `$_SERVER['REQUEST_URI']` includes the leading `/` before `wp-admin`, so you don't need to add it manually. 
+
+Also, be aware that `$_SERVER['REQUEST_URI']` can be manipulated by the user, so it's not safe to use without sanitizing if you're going to use its value in a database query or in output. If you're just using it to get the current URL for display purposes, it should be fine.

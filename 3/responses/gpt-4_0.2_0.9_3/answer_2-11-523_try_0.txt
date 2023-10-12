@@ -1,0 +1,16 @@
+In C++17, the order of evaluation of expressions is well-defined. The standard specifies that the operands of an operator are evaluated before the operator itself. This means that in the expression `lhs != rhs`, both `lhs` and `rhs` are evaluated before the `!=` operator.
+
+In your specific case, `v != std::exchange(v, pmap[v])`, `std::exchange(v, pmap[v])` is evaluated first, which changes the value of `v`, and then the `!=` operator is applied.
+
+The `std::exchange` function is equivalent to:
+```
+T exchange(T& obj, T new_value)
+{
+    T old_value = std::move(obj);
+    obj = std::move(new_value);
+    return old_value;
+}
+```
+So, `std::exchange(v, pmap[v])` sets `v` to `pmap[v]` and returns the old value of `v`. This old value is then compared with the new value of `v` in the `!=` operation.
+
+Therefore, your loop will continue as long as the old value of `v` is not equal to `pmap[v]`, and `v` will be updated to `pmap[v]` in each iteration. This is guaranteed by the C++17 standard, so you can use this idiom without worrying about undefined behavior.

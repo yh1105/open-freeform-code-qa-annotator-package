@@ -1,0 +1,21 @@
+Unfortunately, the version of CMake available through the default package manager on your Linux distribution may not always be the latest version. In this case, you can try installing the latest version of CMake using the following steps:
+
+1. Download the latest version of CMake from the official website: https://cmake.org/download/
+2. Extract the downloaded file to a directory of your choice. For example, you can extract it to /opt/cmake-<version>/.
+3. Add the CMake binary directory to your PATH environment variable. You can do this by adding the following line to your ~/.bashrc file:
+
+   export PATH="/opt/cmake-<version>/bin:$PATH"
+
+   Replace <version> with the version number of the CMake you downloaded.
+
+4. Save the file and run the following command to apply the changes:
+
+   source ~/.bashrc
+
+5. Verify that the latest version of CMake is installed by running the following command:
+
+   cmake --version
+
+   This should display the version number of the latest CMake you installed.
+
+Note that this method installs CMake outside of the package manager, so you may need to manually update it in the future.

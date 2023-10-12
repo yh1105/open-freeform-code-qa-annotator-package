@@ -1,0 +1,19 @@
+The error message indicates that Python is not found in your Jenkins environment. Node-gyp, which is a dependency of node-sass, requires Python to be installed.
+
+There are a few solutions to this:
+
+1. Install Python in your Jenkins environment. Node-gyp requires Python 2.7.x, so make sure to install that version. After installing Python, you may need to add it to the PATH in your Jenkins environment or set the PYTHON environment variable to the path of the Python executable.
+
+2. If you cannot install Python in your Jenkins environment, you can try using a version of node-sass that does not require node-gyp. Node-sass v4.14.1 and later provide pre-compiled binaries for a variety of platforms, which do not require node-gyp to build. You can install it using npm:
+
+   ```
+   npm install node-sass@4.14.1
+   ```
+
+3. If neither of the above solutions are feasible, you can try using Dart Sass instead of Node Sass. Dart Sass is the primary implementation of Sass and does not have a Python dependency. You can install it using npm:
+
+   ```
+   npm install sass
+   ```
+
+Remember to update your build scripts to use the correct Sass implementation if you switch from Node Sass to Dart Sass.

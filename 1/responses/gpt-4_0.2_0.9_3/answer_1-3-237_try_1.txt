@@ -1,0 +1,36 @@
+Testing a function that doesn't return anything can be a bit tricky, but it's definitely possible. You can test the side effects of the function, in this case, the change in the list. Here's an example of how you might write a test case for this function:
+
+```python
+import unittest
+
+list = []
+
+def myfunc(link):
+    # [code block]
+    # list.append(value)
+    pass  # replace this with your actual code
+
+class TestMyFunc(unittest.TestCase):
+    def setUp(self):
+        # Clear the list before each test
+        list.clear()
+
+    def test_myfunc(self):
+        # Test with a specific link
+        myfunc('http://example.com')
+        # Check that the list contains the expected result
+        self.assertEqual(list, ['expected result'])
+
+    def test_myfunc_with_different_link(self):
+        # Test with a different link
+        myfunc('http://another-example.com')
+        # Check that the list contains the different expected result
+        self.assertEqual(list, ['different expected result'])
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+In this example, `setUp` is used to clear the list before each test, ensuring that the tests don't interfere with each other. Then, in each test, `myfunc` is called with a specific link, and `assertEqual` is used to check that the list contains the expected result.
+
+Remember to replace `'http://example.com'`, `'http://another-example.com'`, `'expected result'`, and `'different expected result'` with the actual values you expect based on the link and the code block in `myfunc`.

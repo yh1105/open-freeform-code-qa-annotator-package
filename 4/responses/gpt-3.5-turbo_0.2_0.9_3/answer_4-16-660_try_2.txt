@@ -1,0 +1,25 @@
+You can add the `Az.Accounts` module to your pipeline by using the `Install-Module` cmdlet in your PowerShell task. Here's an example:
+
+```
+- task: PowerShell@2
+  inputs:
+    targetType: 'filePath'
+    filePath: 'path/to/your/script.ps1'
+    arguments: '-Parameter1 Value1 -Parameter2 Value2'
+    pwsh: true
+    modulePath: '$(Build.SourcesDirectory)/path/to/modules'
+  displayName: 'Run PowerShell script'
+  env:
+    PSModulePath: '$(Build.SourcesDirectory)/path/to/modules'
+  continueOnError: true
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Install-Module -Name Az.Accounts -Force -Scope CurrentUser -Repository PSGallery'
+  displayName: 'Install Az.Accounts module'
+```
+
+This example assumes that you have a directory called `path/to/modules` in your source code that contains the `Az.Accounts` module. If you don't have it, you can remove the `modulePath` and `env` sections and the `Install-Module` task will download the module from the PowerShell Gallery.
+
+Note that the `continueOnError` parameter is set to `true` in the first task to avoid failing the pipeline if the module is not found.

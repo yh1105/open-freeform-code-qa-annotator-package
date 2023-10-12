@@ -1,0 +1,155 @@
+To make the Checkboxes and Dropdown Menu work, you need to convert your `DetailPage` StatelessWidget to a StatefulWidget. Here's how you can do it:
+
+1. Create a new file called `detail_page.dart` and move the `DetailPage` class into it.
+
+2. Change the class declaration from `class DetailPage extends StatelessWidget` to `class DetailPage extends StatefulWidget`.
+
+3. Add a `_DetailPageState` class inside `DetailPage` and override the `createState` method to return an instance of `_DetailPageState`.
+
+```
+class DetailPage extends StatefulWidget {
+  final Activity activity;
+  DetailPage({Key key, this.activity}) : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  // Add your state variables and methods here
+}
+```
+
+4. Move all the UI code from `build` method into a new method called `_buildUI`.
+
+```
+class _DetailPageState extends State<DetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          _buildUI(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUI() {
+    // Add your UI code here
+  }
+}
+```
+
+5. Declare your state variables inside `_DetailPageState` and initialize them in the `initState` method.
+
+```
+class _DetailPageState extends State<DetailPage> {
+  bool _isMapped = false;
+  bool _isRealTimeTracking = false;
+  String _selectedScheduledFor = 'Now (Default)';
+
+  @override
+  void initState() {
+    super.initState();
+    _isMapped = false;
+    _isRealTimeTracking = false;
+    _selectedScheduledFor = 'Now (Default)';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          _buildUI(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUI() {
+    // Add your UI code here
+  }
+}
+```
+
+6. Update the `onChanged` callback of the `CheckboxListTile` widgets to update the state variables.
+
+```
+final mappedCheckbox = CheckboxListTile(
+  title: Text("Mapped"),
+  value: _isMapped,
+  onChanged: (newValue) {
+    setState(() {
+      _isMapped = newValue;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+);
+
+final rtCheckBox = CheckboxListTile(
+  title: Text("Real-time Tracking"),
+  value: _isRealTimeTracking,
+  onChanged: (newValue) {
+    setState(() {
+      _isRealTimeTracking = newValue;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+);
+```
+
+7. Update the `onChanged` callback of the `DropdownButton` widget to update the `_selectedScheduledFor` variable.
+
+```
+final dropdown = new DropdownButton<String>(
+  items: <String>['Now (Default)', 'B', 'C', 'D'].map((String value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value),
+    );
+  }).toList(),
+  value: _selectedScheduledFor,
+  onChanged: (newValue) {
+    setState(() {
+      _selectedScheduledFor = newValue;
+    });
+  },
+  hint: Text("Now (Default)"),
+);
+```
+
+8. Update the `TextFormField` widget to use a `TextEditingController` to update the state variable.
+
+```
+final descriptionController = TextEditingController();
+
+final description = TextFormField(
+  controller: descriptionController,
+  decoration: InputDecoration(
+    hintText: 'Enter an activity description',
+  ),
+  onChanged: (newValue) {
+    // Update the state variable here
+  },
+);
+```
+
+9. Finally, update the `onPressed` callback of the `RaisedButton` widget to use the state variables.
+
+```
+final readButton = Container(
+  padding: EdgeInsets.symmetric(vertical: 16.0),
+  width: 170,
+  child: RaisedButton(
+    onPressed: () {
+      // Use the state variables here
+    },
+    color: Colors.lightBlue,
+    child: Text("Start", style: TextStyle(color: Colors.white, fontSize: 20)),
+  ),
+);
+```
+
+That's it! Your `DetailPage` should now be able to update the state when the user interacts with the Checkboxes and Dropdown Menu.

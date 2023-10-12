@@ -1,0 +1,24 @@
+In .NET Core, you can use the `JsonResult` class to return JSON data with a HTTP status code. Here's an example:
+
+```
+public JsonResult GetResourceData()
+{
+    return Json(new { response = "Hello" }, new JsonSerializerSettings { Formatting = Formatting.Indented });
+}
+```
+
+In this example, we're returning a `JsonResult` object with a JSON payload and an HTTP status code of 200 (OK). The `Json` method serializes the object to JSON and sets the content type to `application/json`.
+
+You can also set the HTTP status code explicitly by using the `StatusCode` property of the `JsonResult` object:
+
+```
+public JsonResult GetResourceData()
+{
+    var data = new { response = "Hello" };
+    var result = new JsonResult(data);
+    result.StatusCode = 200;
+    return result;
+}
+```
+
+This code does the same thing as the previous example, but sets the status code explicitly.

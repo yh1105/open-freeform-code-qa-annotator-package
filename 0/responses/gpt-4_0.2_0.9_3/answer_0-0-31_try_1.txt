@@ -1,0 +1,11 @@
+No, there is no nullish version of `&&` in JavaScript. The `&&` operator checks for falsiness, not nullishness. 
+
+However, you can achieve similar functionality by using the nullish coalescing operator `??` in combination with the ternary operator `? :`.
+
+Here is an example:
+
+```javascript
+a = b != null ? func(b) : b
+```
+
+In this case, if `b` is not null or undefined, `func(b)` will be executed and its result will be assigned to `a`. If `b` is null or undefined, `b` itself will be assigned to `a`. This is similar to using `&&` but it checks for nullishness instead of falsiness.

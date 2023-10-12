@@ -1,0 +1,11 @@
+The issue with your code is that you are trying to use jQuery to get the text of the div before the page has fully loaded. In Cypress, you should use its built-in commands to interact with the DOM, as these commands automatically wait for elements to exist.
+
+Here's how you can get the text of the div using Cypress commands:
+
+```javascript
+cy.get('.ibxudA .WildnessText-kRKTej').invoke('text').then((text) => {
+  expect(text).to.eq('Wildness');
+});
+```
+
+In this code, `cy.get` is used to get the div with the class `WildnessText-kRKTej` that is a child of the div with the class `ibxudA`. The `invoke` command is then used to get the text of this div. The `then` command is used to work with the text once it has been retrieved. The `expect` command is used to assert that the text is equal to 'Wildness'.

@@ -1,0 +1,16 @@
+The arrow in the Bootstrap accordion is actually a background image. You can change its color by applying a CSS filter to it. 
+
+Here is how you can do it:
+
+```css
+.accordion-button::after {
+    /* You may need to adjust the filter value to get the exact color you want */
+    filter: invert(48%) sepia(99%) saturate(1362%) hue-rotate(106deg) brightness(96%) contrast(91%);
+}
+```
+
+This CSS rule targets the `::after` pseudo-element of the `.accordion-button` class, which is where the arrow image is located. The `filter` property is used to apply graphical effects like blurring or color shifting to an element. Filters are commonly used to adjust the rendering of images, backgrounds, and borders.
+
+In this case, we're using a combination of different filter functions to change the color of the arrow. You may need to adjust the values to get the exact color you want.
+
+Add this CSS to your stylesheet or in a `<style>` tag in your HTML file.

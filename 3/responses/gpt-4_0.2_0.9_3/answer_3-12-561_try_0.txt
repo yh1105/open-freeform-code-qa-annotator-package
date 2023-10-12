@@ -1,0 +1,25 @@
+The difference in behavior between Android and iOS is due to the different default timeout settings on the underlying platforms for network requests. Android has a shorter default timeout than iOS.
+
+To fix this issue, you can set a timeout directly in your Dart code. This way, you ensure that the errorCallback is called after a certain period of time regardless of the platform. Here's how you can do it:
+
+```dart
+void _getSimpleReply( String command, callback, errorCallback ) async {
+    try {
+        HttpClientRequest request = await _myClient.get( _serverIPAddress, _serverPort, '/' )
+            .timeout(const Duration(seconds: 5), onTimeout: () {
+                // Handle timeout here
+                errorCallback('Request timed out');
+                return;
+            });
+
+        HttpClientResponse response = await request.close();
+
+        response.transform( utf8.decoder ).listen( (onData) { callback( onData ); } );
+
+    } on SocketException catch( e ) {
+        errorCallback( e.toString() );
+    }
+}
+```
+
+In this code, I've added a timeout of 5 seconds to the request. If the request doesn't complete within this time, the `onTimeout` function is called, which in turn calls the `errorCallback` with a timeout message. You can adjust the duration to fit your needs.

@@ -1,0 +1,21 @@
+The `%tensorboard` magic command is not a built-in command in Jupyter Notebook. It is provided by the `jupyter_tensorboard` extension, which needs to be installed separately. 
+
+To install the `jupyter_tensorboard` extension, you can run the following command in your terminal:
+
+```
+pip install jupyter_tensorboard
+```
+
+After installing the extension, you can load it in your Jupyter Notebook by running the following command:
+
+```
+%load_ext tensorboard
+```
+
+Then, you can use the `%tensorboard` magic command to start TensorBoard:
+
+```
+%tensorboard --logdir {logs_base_dir}
+```
+
+Make sure that you have the latest version of TensorFlow installed as well.

@@ -1,0 +1,25 @@
+The error message indicates that there is an issue with resolving an attribute at index 11. Looking at your XML file, it seems that the issue is with the `app:activeTrackColor` attribute. This attribute is not defined in the `Slider` class and is likely causing the inflation error.
+
+To fix this issue, you can remove the `app:activeTrackColor` attribute and use the `app:trackColorActive` attribute instead. Here's the updated XML code:
+
+```
+<com.google.android.material.slider.Slider
+    android:layout_width="327dp"
+    android:layout_height="37dp"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginStart="42dp"
+    android:layout_marginTop="217dp"
+    android:layout_marginEnd="42dp"
+    android:layout_marginBottom="349dp"
+    android:valueFrom="0"
+    android:valueTo="300"
+    app:trackColorActive="#ff4500"
+    app:trackColorInactive="#fbb999" >
+
+</com.google.android.material.slider.Slider>
+```
+
+Also, make sure that you have the latest version of the Material Components library (currently 1.3.0) and that you have updated your project's build.gradle file accordingly.

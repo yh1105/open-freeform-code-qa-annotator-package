@@ -1,0 +1,13 @@
+You can extract the host name from the database URL by using regular expressions. Here's an example code snippet that you can use to extract the host name:
+
+```
+String url = "jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=OFF)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=domainName1.com) (PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=domainName2.com)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=xyz)))";
+Pattern pattern = Pattern.compile("\\(HOST=([^\\)]+)\\)");
+Matcher matcher = pattern.matcher(url);
+if (matcher.find()) {
+    String hostName = matcher.group(1);
+    System.out.println("Host name: " + hostName);
+}
+```
+
+This code uses a regular expression pattern to match the host name in the URL. The pattern matches the string "(HOST=" followed by any characters that are not a closing parenthesis, and captures those characters in a group. The Matcher.find() method is used to find the first occurrence of the pattern in the URL, and the Matcher.group() method is used to extract the captured group.

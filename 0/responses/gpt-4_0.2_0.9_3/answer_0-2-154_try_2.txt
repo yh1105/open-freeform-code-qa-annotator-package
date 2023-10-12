@@ -1,0 +1,36 @@
+The problem with your code is that it does not handle nested tags correctly. It only checks the immediate children of each node, but does not recursively check the children of those children. This is why it fails when there are nested tags.
+
+Here is a modified version of your code that should work correctly:
+
+```javascript
+export interface Phrase {
+    text: string;
+    format: string | string[];
+}
+
+export class HTMLParser {
+
+    public parse(text: string): void {
+        const parser = new DOMParser();
+        const sourceDocument = parser.parseFromString(text, "text/html");
+        this.parseChildren(sourceDocument.body.childNodes, []);
+        console.log("RESULT of CONVERSION", this.phrasesProcessed);
+    }
+
+    public phrasesProcessed: Phrase[] = [];
+
+    private parseChildren(toParse: NodeListOf<ChildNode>, formats: string[]) {
+        Array.from(toParse).forEach(item => {
+            if (item.nodeType === Node.TEXT_NODE) {
+                this.phrasesProcessed.push({ text: item.textContent, format: formats.length ? formats : null });
+            } else if (item.nodeType === Node.ELEMENT_NODE && item instanceof HTMLElement) {
+                this.parseChildren(item.childNodes, [...formats, item.tagName.toLowerCase()]);
+            }
+        });
+    }
+}
+```
+
+In this version, the `parseChildren` function takes an additional parameter `formats` which is an array of the names of the tags that are currently open. When it encounters a text node, it adds a new `Phrase` to `phrasesProcessed` with the current text and the current formats. When it encounters an element node, it recursively calls `parseChildren` with the children of the element and the current formats plus the tag name of the element.
+
+This way, the `format` of each `Phrase` will correctly reflect all the tags that are currently open when the text of the `Phrase` is encountered.

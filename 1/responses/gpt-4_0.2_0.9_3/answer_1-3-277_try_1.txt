@@ -1,0 +1,46 @@
+You can implement this learning rate schedule manually in PyTorch. Here is a simple example of how you might do it:
+
+```python
+import math
+import torch
+from torch.optim import Adam
+
+class CustomScheduler:
+    def __init__(self, optimizer, d_model, warmup_steps=4000):
+        self.optimizer = optimizer
+        self.step_num = 0
+        self.warmup_steps = warmup_steps
+        self.d_model = d_model
+
+    def step(self):
+        self.step_num += 1
+        lr = self.learning_rate()
+        for param_group in self.optimizer.param_groups:
+            param_group['lr'] = lr
+
+    def learning_rate(self):
+        return self.d_model**-0.5 * min(self.step_num**-0.5, self.step_num * self.warmup_steps**-1.5)
+
+# Initialize your model and Adam optimizer
+model = ...
+optimizer = Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9)
+
+# Initialize the learning rate scheduler
+scheduler = CustomScheduler(optimizer, d_model=512)
+
+# In your training loop
+for epoch in range(num_epochs):
+    for batch in dataloader:
+        optimizer.zero_grad()
+        output = model(batch)
+        loss = criterion(output, target)
+        loss.backward()
+        optimizer.step()
+        scheduler.step()  # Update the learning rate
+```
+
+In this example, `CustomScheduler` is a learning rate scheduler that implements the learning rate schedule described in the "Attention is All You Need" paper. The learning rate is updated after each step (i.e., after each batch of data is processed). The `learning_rate` method computes the learning rate according to the formula in the paper.
+
+Note that the learning rate is initially set to 0 in the Adam optimizer, and the actual learning rate is controlled by the scheduler. The `betas` and `eps` parameters are set according to the paper.
+
+This is a basic implementation and may need to be adjusted based on your specific needs. For example, you might want to add some checks to make sure the learning rate doesn't become too large or too small.

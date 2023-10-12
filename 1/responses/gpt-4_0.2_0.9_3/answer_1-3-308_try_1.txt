@@ -1,0 +1,13 @@
+The error message you're seeing is due to pip trying to uninstall a version of llvmlite that was installed by conda. Pip doesn't have the ability to uninstall packages installed by conda, hence the error.
+
+Here are a few potential solutions:
+
+1. **Use conda to install librosa**: Since you're already using conda, you can try installing librosa with it instead of pip. You can do this by running `conda install -c conda-forge librosa`. The conda-forge channel often has more up-to-date versions of packages than the default conda channel.
+
+2. **Create a new conda environment**: Sometimes, package conflicts can be resolved by creating a new environment. You can do this with `conda create -n new_env python=3.7`, then activate it with `conda activate new_env`, and finally install librosa with `pip install librosa`.
+
+3. **Ignore installed packages**: You can tell pip to ignore the installed packages and install librosa anyway. This can be done with `pip install --ignore-installed librosa`. However, be aware that this may lead to other issues down the line if other packages depend on the specific version of llvmlite that's currently installed.
+
+4. **Uninstall llvmlite with conda and then install librosa**: First, uninstall llvmlite with `conda uninstall llvmlite`. Then, try installing librosa with `pip install librosa`. This should work if librosa doesn't actually need the specific version of llvmlite that was installed.
+
+Remember to always keep your Python environment clean and try to avoid mixing conda and pip as much as possible to prevent these kinds of issues.

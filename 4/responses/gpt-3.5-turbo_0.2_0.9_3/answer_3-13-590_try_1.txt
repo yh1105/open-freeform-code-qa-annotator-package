@@ -1,0 +1,17 @@
+The error message indicates that the `TextInputLayout` requires the app theme to be `Theme.MaterialComponents` or a descendant of it. However, in your `styles.xml`, the parent of your app theme is `Theme.MaterialComponents.Light.NoActionBar`. 
+
+To fix the error, you can change the parent of your app theme to `Theme.MaterialComponents` or one of its descendants, such as `Theme.MaterialComponents.Light` or `Theme.MaterialComponents.Light.NoActionBar`. 
+
+For example, you can change your app theme to:
+
+```
+<style name="AppTheme" parent="Theme.MaterialComponents">
+```
+
+Or:
+
+```
+<style name="AppTheme" parent="Theme.MaterialComponents.Light">
+```
+
+After making the change, make sure to clean and rebuild your project to ensure that the changes are applied correctly.

@@ -1,0 +1,27 @@
+It seems like you have already done some research on how to enable TLS for Redis on Heroku. Based on the documentation you have read, you need to assign `ca_file`, `cert`, and `key` for `Redis.new#ssl_params`. Here's how you can set these parameters for Redis or through Sidekiq on Heroku:
+
+1. For Redis:
+
+You can set the `ssl_params` option when creating a new Redis client instance. Here's an example:
+
+```ruby
+redis = Redis.new(url: ENV['REDIS_URL'], ssl_params: {
+  ca_file: '/path/to/ca_file.pem',
+  cert: '/path/to/cert.pem',
+  key: '/path/to/key.pem'
+})
+```
+
+Make sure to replace the file paths with the actual paths to your certificate and key files.
+
+2. For Sidekiq:
+
+You can set the `REDIS_URL` environment variable to include the `ssl_params` option. Here's an example:
+
+```
+REDIS_URL=rediss://:password@hostname:port/0?ssl=true&ssl_ca_cert=/path/to/ca_file.pem&ssl_cert=/path/to/cert.pem&ssl_key=/path/to/key.pem
+```
+
+Again, make sure to replace the file paths with the actual paths to your certificate and key files.
+
+If you're still having issues after trying these steps, I would recommend reaching out to Heroku support for further assistance.

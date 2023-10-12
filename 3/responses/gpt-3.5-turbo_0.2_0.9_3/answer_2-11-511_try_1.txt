@@ -1,0 +1,68 @@
+In C++, the size of an array must be known at compile time. Therefore, you cannot use a variable to specify the size of an array. However, you can use dynamic memory allocation to create an array of a specified size at runtime. One way to do this is to use a pointer to an array and allocate memory for it using the `new` operator.
+
+Here's an example of how you can modify your code to create a 2D array of size MxN and return it from the `my_2d_array` function:
+
+```
+int** my_2d_array(int N, int M) {
+    int** A = new int*[N];
+    for (int i = 0; i < N; i++) {
+        A[i] = new int[M];
+        for (int j = 0; j < M; j++) {
+            A[i][j] = i * 10 + j;
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    int** A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    // Free memory
+    for (int i = 0; i < N; i++) {
+        delete[] A[i];
+    }
+    delete[] A;
+}
+```
+
+In this example, `my_2d_array` creates a 2D array of size MxN using dynamic memory allocation. It returns a pointer to the array, which is assigned to `A` in the `main` function. The array is then printed using nested loops.
+
+Note that you need to free the memory allocated for the array using the `delete` operator. This is done in the `main` function after the array has been printed.
+
+Regarding your question about vectors, they are similar to arrays but with some additional features such as dynamic resizing. Vectors can be used to create 1D arrays of a specified size at runtime. Here's an example of how you can modify your code to create a 1D array of size N using a vector:
+
+```
+#include <vector>
+
+std::vector<int> my_array(int N) {
+    std::vector<int> A(N);
+    for (int i = 0; i < N; i++) {
+        A[i] = i;
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+
+    std::vector<int> A = my_array(N);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        std::cout << A[i] << " ";
+    }
+}
+```
+
+In this example, `my_array` creates a 1D array of size N using a vector. It returns the vector, which is assigned to `A` in the `main` function. The array is then printed using a loop. Note that you don't need to free the memory allocated for the vector as it is automatically managed by the vector class.

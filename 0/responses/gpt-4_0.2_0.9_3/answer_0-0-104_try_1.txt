@@ -1,0 +1,40 @@
+React Native's `Button` component is quite limited in terms of customization. It doesn't provide a way to handle focus events. However, you can use the `TouchableHighlight` or `TouchableOpacity` components to achieve this functionality.
+
+Here's an example of how you can use `TouchableHighlight` to change the color of the button when it's focused:
+
+```jsx
+import React, { useState } from 'react';
+import { TouchableHighlight, Text, View } from 'react-native';
+
+const MyButton = (props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  return (
+    <TouchableHighlight
+      underlayColor={isFocused ? 'blue' : 'red'}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onPress={() => {props.addNumber(1)}}
+      style={styles.button}
+    >
+      <Text>1</Text>
+    </TouchableHighlight>
+  );
+};
+
+export default MyButton;
+```
+
+In this example, we're using the `onFocus` and `onBlur` props to handle the focus events. When the button is focused, we change the `underlayColor` to blue, and when it's not focused, we change it back to red.
+
+However, please note that `onFocus` and `onBlur` events are not supported in all versions of React Native. If you're targeting a platform that doesn't support these events, you might need to use a third-party library or a native module to handle the focus events.
+
+Also, the `TouchableHighlight` component doesn't have a `disabled` prop. If you need to disable the button, you might need to handle this manually in your `onPress` handler.

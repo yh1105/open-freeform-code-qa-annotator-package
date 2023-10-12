@@ -1,0 +1,40 @@
+Testing a function that doesn't return anything can be a bit tricky, but it's definitely possible. In your case, you can test the function by checking the state of the list before and after the function call. Here's a simple example of how you might do this:
+
+```python
+import unittest
+
+list = []
+
+def myfunc(link):
+    # [code block]
+    list.append(value)
+
+class TestMyFunc(unittest.TestCase):
+    def setUp(self):
+        # Clear the list before each test
+        list.clear()
+
+    def test_myfunc(self):
+        # Assume that the function should add a specific value to the list
+        expected_value = 'some value'
+        myfunc('some link')
+        self.assertIn(expected_value, list)
+
+    def test_myfunc_with_multiple_calls(self):
+        # Assume that the function should add a specific value to the list each time it's called
+        expected_value = 'some value'
+        myfunc('some link')
+        myfunc('some link')
+        self.assertEqual(list.count(expected_value), 2)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+In this example, `setUp` is a special method that gets called before each test. It's used to set up any state that's needed for the tests. In this case, it's used to clear the list so that each test starts with an empty list.
+
+The `test_myfunc` method is a test case that checks whether the expected value is in the list after calling `myfunc`.
+
+The `test_myfunc_with_multiple_calls` method is another test case that checks whether the list contains the expected value twice after calling `myfunc` twice.
+
+Please replace 'some value' and 'some link' with the actual value and link you are testing with.

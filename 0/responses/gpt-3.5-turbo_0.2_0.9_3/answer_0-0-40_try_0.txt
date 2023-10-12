@@ -1,0 +1,31 @@
+Based on the information you provided, it seems like `npm` is not installed on your system. 
+
+You can try installing `npm` using the following command:
+
+```
+sudo apt-get install -y npm
+```
+
+If that doesn't work, you can try installing `npm` using `nvm` (Node Version Manager). Here are the steps to install `nvm` and then use it to install `npm`:
+
+1. Install `nvm` using the following command:
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+
+2. Close and reopen your terminal to start using `nvm`.
+
+3. Install the latest version of Node.js using `nvm`:
+
+```
+nvm install node
+```
+
+4. Use the following command to install `npm`:
+
+```
+npm install -g npm
+```
+
+This should install `npm` on your system. You can check the version of `npm` using the `npm -v` command.

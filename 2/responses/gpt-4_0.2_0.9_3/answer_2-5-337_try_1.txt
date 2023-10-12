@@ -1,0 +1,11 @@
+In Android Studio (or IntelliJ), you can use the "Extract Method" refactoring shortcut to simplify a complex layout by extracting a widget into a method. Here's how to do it:
+
+1. Select the widget you want to extract. For example, if you want to extract the `Container` widget, you would select all the lines of code from `Container(` to its closing parenthesis `),`.
+
+2. Once you've selected the widget, press `Ctrl + Alt + M` on Windows/Linux or `Cmd + Option + M` on Mac. This is the shortcut for the "Extract Method" refactoring.
+
+3. A dialog box will appear asking you to enter a name for the new method. Enter a descriptive name and press `Enter`.
+
+4. The selected widget will be replaced with a call to the new method, and the method itself will be added to your class.
+
+This is a great way to simplify complex layouts and make your code more readable.

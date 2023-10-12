@@ -1,0 +1,26 @@
+There are a few issues with your recurrence relation and code:
+
+1. In your recurrence relation, you are adding `k` twice for the case where the first and second elements are the same. This should only be counted once.
+
+2. You are using `n` instead of `i` in the loop when calculating `dp[i]`. This means you are always using the same values for `dp[n-2]` and `dp[n-1]`, instead of updating them as you iterate through the loop.
+
+3. In your code, you are not returning the result of the function. You can add `return dp[n]` at the end of the function to return the final result.
+
+Here is a corrected version of your code:
+
+```
+def count_num_ways(n, k):
+    dp = [0 for i in range(n+1)]
+
+    dp[0] = 0
+    dp[1] = k
+
+    for i in range(2, n+1):
+        dp[i] = k + (k-1)*dp[i-1] + (k-1)*dp[i-2]
+
+    return dp[n]
+
+print(count_num_ways(3, 2)) # expected output: 6
+```
+
+In the corrected code, we use `i` instead of `n` in the loop, and update `dp[i-1]` and `dp[i-2]` as we calculate `dp[i]`. We also remove the duplicate `k` when calculating the number of ways to allot two same elements.

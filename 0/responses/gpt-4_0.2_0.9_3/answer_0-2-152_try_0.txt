@@ -1,0 +1,15 @@
+The Bootstrap toast component is hidden by default and needs to be shown using JavaScript. The `$('.toast').toast(option)` line you have in your JavaScript file is correct, but you need to replace `option` with `'show'` to actually display the toast.
+
+Here's how you should modify your JavaScript:
+
+```javascript
+$(document).ready(function(){
+    $('.toast').toast('show');
+});
+```
+
+This code waits until the document is fully loaded, then shows the toast.
+
+Also, make sure that your JavaScript file is correctly linked in your HTML file and that it's loaded after jQuery and Bootstrap's JavaScript files. If it's loaded before, the `$` and `.toast` functions won't be recognized.
+
+If you're still having trouble, check your browser's console for any error messages. These can give you clues about what's going wrong.

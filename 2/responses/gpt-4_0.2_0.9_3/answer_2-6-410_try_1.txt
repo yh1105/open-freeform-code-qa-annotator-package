@@ -1,0 +1,77 @@
+The Floyd-Warshall algorithm has a time and space complexity of O(V^3), where V is the number of vertices in the graph. This means that the algorithm can quickly become inefficient for large graphs. 
+
+In your case, you are trying to store the path information for each pair of vertices in a 2D array. This can lead to a significant increase in memory usage, especially for large graphs, as you have observed.
+
+One way to reduce the memory usage is to not store the entire path for each pair of vertices, but instead store only the next vertex on the shortest path from each vertex to every other vertex. This is often referred to as the "next-hop" information.
+
+Here is a modified version of your Floyd-Warshall algorithm that implements this idea:
+
+```csharp
+public void floydWarshall(Dictionary<(int x, int y), double> dictionary, out double[,] dist, out int[,] next)
+{
+    int dictionary_size = (int)Math.Ceiling(Math.Sqrt(dictionary.Count));
+    dist = new double[dictionary_size, dictionary_size];
+    next = new int[dictionary_size, dictionary_size];
+
+    // Initialize dist and next arrays
+    for (int i = 0; i < dictionary_size; i++)
+    {
+        for (int j = 0; j < dictionary_size; j++)
+        {
+            if (i == j)
+            {
+                dist[i, j] = 0;
+                next[i, j] = j;
+            }
+            else if (dictionary.ContainsKey((i, j)))
+            {
+                dist[i, j] = dictionary[(i, j)];
+                next[i, j] = j;
+            }
+            else
+            {
+                dist[i, j] = double.PositiveInfinity;
+                next[i, j] = -1;
+            }
+        }
+    }
+
+    // Floyd-Warshall algorithm
+    for (int k = 0; k < dictionary_size; k++)
+    {
+        for (int i = 0; i < dictionary_size; i++)
+        {
+            for (int j = 0; j < dictionary_size; j++)
+            {
+                if (dist[i, k] + dist[k, j] < dist[i, j])
+                {
+                    dist[i, j] = dist[i, k] + dist[k, j];
+                    next[i, j] = next[i, k];
+                }
+            }
+        }
+    }
+}
+```
+
+With this modification, you can reconstruct the shortest path from any vertex i to any vertex j by starting at vertex i, then repeatedly moving to the next vertex on the path until you reach vertex j. This can be done with a simple loop:
+
+```csharp
+public List<int> getShortestPath(int i, int j, int[,] next)
+{
+    List<int> path = new List<int>();
+    if (next[i, j] == -1)
+    {
+        return path; // no path exists
+    }
+    path.Add(i);
+    while (i != j)
+    {
+        i = next[i, j];
+        path.Add(i);
+    }
+    return path;
+}
+```
+
+This approach significantly reduces the memory usage of the algorithm, as you are only storing one integer for each pair of vertices, instead of a potentially large list of vertices. However, it does require an additional step to reconstruct the shortest path when needed.

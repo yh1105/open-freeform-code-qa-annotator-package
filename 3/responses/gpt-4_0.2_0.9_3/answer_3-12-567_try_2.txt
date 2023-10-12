@@ -1,0 +1,24 @@
+You can use the `Spacer` widget to create space between your widgets. The `Spacer` widget will take up any available space along the main axis. In a `Row`, the main axis runs horizontally. Here's how you can modify your code:
+
+```dart
+Row(
+    children: [
+      Container(
+        child: Icon(Icons.comment),
+        margin: EdgeInsets.only(left: 5.0),
+      ),
+      Container(
+        child: Text(snapshot.data![index].comments.toString(),
+            style: TextStyle(
+                fontSize: 14.0, fontWeight: FontWeight.bold)),
+        margin: EdgeInsets.only(left: 5.0),
+      ),
+      Spacer(), // This will take up all available space between the widgets
+      Align(
+        alignment: Alignment.topRight,
+        child: Text(snapshot.data![index].date.toString()),
+      )
+    ]),
+```
+
+With this code, your `Icon` and `Text` widgets will be aligned to the left, and the other `Text` widget will be aligned to the right. The `Spacer` widget will take up all the available space in between.

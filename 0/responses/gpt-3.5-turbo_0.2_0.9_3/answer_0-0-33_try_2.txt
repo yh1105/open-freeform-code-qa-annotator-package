@@ -1,0 +1,32 @@
+It seems like you have already tried some solutions, but let me suggest a few more that might help:
+
+1. Use a custom error page in IIS:
+You can create a custom error page in IIS for the 404 error. This page can be an HTML file or a URL to a page in your application. To do this, follow these steps:
+
+- Open IIS Manager and select your website.
+- Click on the "Error Pages" icon in the middle pane.
+- Click on "Add" in the right-hand pane.
+- Select "Status code" and enter "404" in the textbox.
+- Select "Execute a URL on this site" and enter the URL of your custom error page in the textbox.
+
+2. Use a catch-all route in your React app:
+You can create a catch-all route in your React app that matches any URL that is not handled by other routes. This route can render your custom error page component. To do this, add the following route to your routes.js file:
+
+```
+<Route path="*" component={FourOFour} />
+```
+
+This route will match any URL that is not matched by other routes and render the FourOFour component.
+
+3. Use a server-side solution:
+You can also handle the 404 error on the server-side. This involves configuring IIS to redirect all 404 errors to a specific URL, which can be a URL in your application that handles the error. To do this, follow these steps:
+
+- Open IIS Manager and select your website.
+- Click on the "Error Pages" icon in the middle pane.
+- Click on "Add" in the right-hand pane.
+- Select "Status code" and enter "404" in the textbox.
+- Select "Respond with a 302 redirect" and enter the URL of your error handling page in the textbox.
+
+In your error handling page, you can render your custom error page component.
+
+I hope one of these solutions works for you. Let me know if you have any questions.

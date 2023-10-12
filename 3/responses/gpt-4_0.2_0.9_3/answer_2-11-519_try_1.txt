@@ -1,0 +1,37 @@
+The error message is indicating that the `<experimental/filesystem>` header is deprecated and you should use the `<filesystem>` header instead. However, the `<filesystem>` header is only available in C++17 or later.
+
+Here are a few steps you can take to resolve this issue:
+
+1. Make sure you are compiling your code with C++17 or later. If you are using a compiler like g++ or clang, you can enable C++17 by adding `-std=c++17` to your compiler flags. If you are using Visual Studio, you can set the C++ language standard to C++17 in the project properties.
+
+2. Replace the `<experimental/filesystem>` include with `<filesystem>`, and replace `std::experimental::filesystem` with `std::filesystem` in your namespace alias:
+
+```cpp
+#include <filesystem>
+namespace fs = std::filesystem;
+```
+
+3. If you still need to support older compilers that don't have `<filesystem>`, you can use an `#ifdef` check to include the right header and namespace alias:
+
+```cpp
+#if __has_include(<filesystem>)
+    #include <filesystem>
+    namespace fs = std::filesystem;
+#elif __has_include(<experimental/filesystem>)
+    #include <experimental/filesystem>
+    namespace fs = std::experimental::filesystem;
+#else
+    #error "No filesystem support"
+#endif
+```
+
+This will include `<filesystem>` and use `std::filesystem` if they are available, and fall back to `<experimental/filesystem>` and `std::experimental::filesystem` otherwise.
+
+4. If you are still getting the deprecation warning after these steps, you can define `_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING` before including the header:
+
+```cpp
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+#include <experimental/filesystem>
+```
+
+This will silence the deprecation warning, but it's generally better to update your code to use the non-deprecated features if possible.

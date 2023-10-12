@@ -1,0 +1,19 @@
+The issue is that the `tf` module is not imported in the scope of the `Lambda` layer when you load the model. To fix this, you can add the following line of code before loading the model:
+
+```
+import tensorflow as tf
+```
+
+This will ensure that the `tf` module is available in the scope of the `Lambda` layer when you load the model. Your updated code should look like this:
+
+```
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+
+def learning(test_samples):
+    import tensorflow as tf # add this line
+    model = load_model('my_model.h5')
+    # rest of the code
+```

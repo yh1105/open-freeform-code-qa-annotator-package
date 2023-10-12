@@ -1,0 +1,43 @@
+In SwiftUI, you can use the `padding()` modifier to create spacing between list items. You can apply this modifier to the `Button` or `Image` within each list item. Here's an example:
+
+```swift
+struct ContentView: View {
+    
+    @ObservedObject var ratesVM = RatesViewModel()
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        UITableView.appearance().backgroundColor = UIColor.init(named: "midnight blue")
+        UITableViewCell.appearance().backgroundColor = .green
+        UITableView.appearance().separatorStyle = .none
+    }
+    
+    var body: some View {
+        
+        NavigationView {
+            List (ratesVM.ratesList, id: \.self) { rate in
+                HStack {
+                    Image(systemName: "plus")
+                    
+                    Button(action: {print("pressed")}) {
+                        Text(rate.hebrewCurrencyName)
+                    }
+                }
+                .padding(.vertical) // Add vertical padding
+            }
+            .navigationBarTitle("המרות מטבע")
+            .navigationBarItems(leading:
+                Button(action: {
+                    print("button pressed")
+                    self.ratesVM.callService()
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color.orange)})
+        }.environment(\.layoutDirection, .rightToLeft)
+    }
+}
+```
+
+In this code, the `.padding(.vertical)` modifier adds vertical padding to each list item, creating space between them. You can adjust the amount of padding by passing a number to the `padding()` function, like `.padding(.vertical, 10)`.
+
+Also, using a `List` is a good choice for displaying a collection of similar items in SwiftUI. It's efficient and provides built-in support for common features like scrolling and selection.

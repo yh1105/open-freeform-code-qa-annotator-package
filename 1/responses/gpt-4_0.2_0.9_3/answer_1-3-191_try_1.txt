@@ -1,0 +1,25 @@
+You can achieve this by using a list comprehension to create a new list of elements that match the condition, and then return the first element of this new list. Here's how you can do it:
+
+```python
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+matches = [s for s in l if s.startswith(wanted)]
+if matches:
+    print(matches[0])  # prints 'threes'
+else:
+    print("No match found")
+```
+
+In this code, `matches` is a new list that contains all elements from `l` that start with the string stored in `wanted`. If `matches` is not empty, the first element is printed. Otherwise, a message is printed indicating that no match was found.
+
+This will return the first match it finds. If you want all matches, you can simply print the `matches` list:
+
+```python
+if matches:
+    print(matches)  # prints ['threes']
+else:
+    print("No match found")
+```
+
+This will give you all elements in the list that start with the string in `wanted`.

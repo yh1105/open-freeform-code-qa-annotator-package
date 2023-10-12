@@ -1,0 +1,10 @@
+You were on the right track, but you need to use the variable `i` to slice the string. Here is the corrected code:
+
+```python
+str1 = 'teststring'
+for i in range(len(str1)-1): 
+    str2 = str1[i:i+2]
+    print(str2)
+```
+
+This code will start at the beginning of the string and take a slice of length 2, then move one character over and take another slice of length 2, and so on until it reaches the end of the string. The `range(len(str1)-1)` is used to prevent an out of range error, as we're taking slices of 2 characters at a time.

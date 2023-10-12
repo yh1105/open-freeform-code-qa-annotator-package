@@ -1,0 +1,27 @@
+Yes, there is a better way to achieve this without changing the state of the view. You can use a computed property to determine the foreground color of the image based on the length of the text in the textfield. Here's an example:
+
+```
+var sendButtonColor: Color {
+    if chatMessage.count > 1 {
+        return Color.blue
+    } else {
+        return Color.gray
+    }
+}
+
+var body: some View {
+    Spacer()
+    HStack {
+        TextField($chatMessage, placeholder: Text("Reply"))
+            .padding(.leading, 10)
+            .textFieldStyle(.roundedBorder)
+        Button(action: sendMessage) {
+            Image(systemName: "arrow.up.circle")
+                .foregroundColor(sendButtonColor)
+                .padding(.trailing, 10)
+        }.disabled(chatMessage.isEmpty)
+    }
+}
+```
+
+In this example, the `sendButtonColor` property returns blue if the length of the text in the textfield is greater than 1, and gray otherwise. The `foregroundColor` of the image is then set to this computed property. The `disabled` modifier is set to `chatMessage.isEmpty` to disable the button if the textfield is empty. This way, the state of the view is not changed and you can continue editing the textfield without interruption.

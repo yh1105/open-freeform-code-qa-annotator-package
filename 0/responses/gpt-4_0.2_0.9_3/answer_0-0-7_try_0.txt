@@ -1,0 +1,26 @@
+The error message you're getting suggests that the JSON value for `Telephone` is not being converted to a number before it's assigned to `person.Telephone`.
+
+The `parseInt()` function should work as expected. However, it's possible that the `telephone` value you're passing to `parseInt()` is not a string representation of a number. 
+
+Here's how you can do it:
+
+```javascript
+this.person.Telephone = Number(telephone);
+```
+
+or 
+
+```javascript
+this.person.Telephone = +telephone;
+```
+
+Both of these will convert the string to a number.
+
+If you're still having trouble, you might want to check the value of `telephone` before you try to convert it. You can do this with a `console.log()` statement:
+
+```javascript
+console.log(telephone);
+this.person.Telephone = Number(telephone);
+```
+
+This will print the value of `telephone` to the console, which might help you figure out why it's not being converted to a number.

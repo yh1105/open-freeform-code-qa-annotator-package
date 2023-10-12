@@ -1,0 +1,22 @@
+It seems like the issue is that the `build` script in your `package.json` is running after the assets are precompiled on Heroku. This means that the `builds` folder is empty when the assets are precompiled, and the `application.js` file is not copied to `public/assets`.
+
+One solution is to modify your `build` script to include the assets precompilation step. Here's an example:
+
+```
+"build": "RAILS_ENV=production bundle exec rake assets:precompile && esbuild app/javascript/*.* --bundle --outdir=app/assets/builds"
+```
+
+This will first precompile the assets, and then run the `esbuild` command to generate the JavaScript bundle.
+
+Another solution is to modify the Heroku build process to run the `build` script after the assets are precompiled. You can do this by adding a `postinstall` script to your `package.json`:
+
+```
+"scripts": {
+  "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
+  "postinstall": "RAILS_ENV=production bundle exec rake assets:precompile && npm run build"
+}
+```
+
+This will run the `assets:precompile` task after the dependencies are installed, and then run the `build` script to generate the JavaScript bundle.
+
+I hope this helps! Let me know if you have any further questions.

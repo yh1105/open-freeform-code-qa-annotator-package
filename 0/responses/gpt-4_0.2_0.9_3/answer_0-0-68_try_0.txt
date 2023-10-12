@@ -1,0 +1,33 @@
+The issue here is that you're trying to spy on the `useState` hook after the component has already been rendered with `shallow(<Counter/>)`. At this point, the `useState` hook has already been called, and spying on it afterwards won't have any effect.
+
+You need to set up your spy before you render your component. Here's how you can do it:
+
+```jsx
+it('increment counter correctly', () => {
+    const setState = jest.fn();
+    const useStateSpy = jest.spyOn(React, 'useState');
+
+    useStateSpy.mockImplementation((init) => [init, setState]);
+
+    let wrapper = shallow(<Counter/>);
+
+    const button = wrapper.find("button")
+    button.simulate('click');
+    expect(setState).toHaveBeenCalledWith(1);
+})
+```
+
+However, this approach has a limitation. It assumes that `useState` is only called once in your component. If `useState` is called multiple times, this test will fail because the mock implementation will be used for all calls to `useState`, not just the one you're interested in.
+
+A better approach would be to test the behavior of the component, rather than the implementation details. You can do this by checking if the counter value has been incremented after the button click:
+
+```jsx
+it('increment counter correctly', () => {
+    let wrapper = shallow(<Counter/>);
+    const button = wrapper.find("button")
+    button.simulate('click');
+    expect(wrapper.find('h2').text()).toEqual('1');
+})
+```
+
+This test checks that the counter value displayed in the `h2` tag is incremented after the button click, which is the actual behavior you're interested in.

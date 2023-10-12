@@ -1,0 +1,25 @@
+The `diff` object you have is a dictionary, not a DataFrame. The `to_csv` method is a pandas DataFrame method, which is why you're getting an error. 
+
+You can convert the dictionary to a DataFrame and then save it to a csv file. However, since your dictionary contains lists of dictionaries for the 'added' and 'removed' keys, you will need to handle these separately. Here's how you can do it:
+
+```python
+import pandas as pd
+
+# Convert the 'added' and 'removed' lists of dictionaries to DataFrames
+added_df = pd.DataFrame(diff['added'])
+removed_df = pd.DataFrame(diff['removed'])
+
+# Add a new column to each DataFrame to indicate the action
+added_df['action'] = 'added'
+removed_df['action'] = 'removed'
+
+# Concatenate the two DataFrames
+diff_df = pd.concat([added_df, removed_df])
+
+# Save the DataFrame to a csv file
+diff_df.to_csv('diff.csv', index=False)
+```
+
+This will create a csv file where each row represents an item that was either added or removed, and there is an additional column called 'action' that indicates what happened to the item.
+
+If you also want to include the 'changed' items, you can do so in a similar way. Just remember that the 'changed' key in the dictionary contains a list of pairs of dictionaries, where the first dictionary in each pair represents the original item and the second dictionary represents the changed item. You will need to handle these pairs appropriately when creating the DataFrame.

@@ -1,0 +1,13 @@
+Yes, you can achieve this by using the `Pick` and `Exclude` utility types in combination with the spread operator. Here's an example:
+
+```
+type OmitNested<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & {
+  [P in K]?: OmitNested<T[P], keyof T['attributeValues']>
+}
+
+export type CampaignFormValues = OmitNested<Campaign, 'attributeValues'>
+```
+
+This `OmitNested` type recursively omits the specified keys from the object, but only up to the `attributeValues` level. This way, the `optionalAttributes` key at the root level is preserved.
+
+You can then use `CampaignFormValues` as the type for your form values.

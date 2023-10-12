@@ -1,0 +1,45 @@
+Material-UI's theme provider doesn't automatically apply the background color to the body of the document. It only provides the theme context to the Material-UI components. 
+
+However, you can use a CSSBaseline component to apply a background color to the body of the document. CSSBaseline is a component in Material-UI that applies a collection of HTML element and CSS rule normalization.
+
+Here's how you can do it:
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme, CssBaseline } from '@material-ui/core';
+
+const themeLight = createMuiTheme({
+  palette: {
+    type: 'light',
+    background: {
+      default: "#e4f0e2"
+    }
+  },
+});
+
+const themeDark = createMuiTheme({
+  palette: {
+    type: 'dark',
+    background: {
+      default: "#222222",
+    }
+  },
+});
+
+ReactDOM.render(
+  <ThemeProvider theme={themeDark}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>, 
+  document.getElementById('root')
+);
+```
+
+In this code, the `CssBaseline` component is used to apply a global reset and set the background color of the body. 
+
+You can switch between the `themeLight` and `themeDark` by changing the theme passed to the `ThemeProvider` component. 
+
+Remember to import `CssBaseline` from `@material-ui/core`.

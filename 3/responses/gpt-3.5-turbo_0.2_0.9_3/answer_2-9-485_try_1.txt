@@ -1,0 +1,46 @@
+It seems like you have already done some research on how to enable TLS for Redis on Heroku. To set the `ca_file`, `cert`, and `key` for `Redis.new#ssl_params`, you can try the following steps:
+
+1. First, you need to obtain the SSL certificate for your Redis instance. You can do this by running the following command in your terminal:
+
+   ```
+   openssl s_client -connect <REDIS_HOST>:<REDIS_PORT> -showcerts
+   ```
+
+   Replace `<REDIS_HOST>` and `<REDIS_PORT>` with the hostname and port of your Redis instance. This command will output the SSL certificate chain for your Redis instance.
+
+2. Copy the entire certificate chain and save it to a file, e.g. `redis.crt`.
+
+3. In your Rails app, you can set the `ca_file`, `cert`, and `key` for `Redis.new#ssl_params` like this:
+
+   ```ruby
+   redis_url = ENV['REDIS_URL']
+   redis_options = {
+     ssl_params: {
+       ca_file: 'path/to/redis.crt',
+       cert: OpenSSL::X509::Certificate.new(File.read('path/to/client.crt')),
+       key: OpenSSL::PKey::RSA.new(File.read('path/to/client.key'))
+     }
+   }
+   redis = Redis.new(url: redis_url, **redis_options)
+   ```
+
+   Replace `path/to/redis.crt`, `path/to/client.crt`, and `path/to/client.key` with the actual paths to the SSL certificate chain file, client certificate file, and client private key file, respectively.
+
+4. If you are using Sidekiq, you can set the `ca_file`, `cert`, and `key` for Sidekiq's Redis client like this:
+
+   ```ruby
+   Sidekiq.configure_server do |config|
+     config.redis = {
+       url: ENV['REDIS_URL'],
+       ssl_params: {
+         ca_file: 'path/to/redis.crt',
+         cert: OpenSSL::X509::Certificate.new(File.read('path/to/client.crt')),
+         key: OpenSSL::PKey::RSA.new(File.read('path/to/client.key'))
+       }
+     }
+   end
+   ```
+
+   Replace `path/to/redis.crt`, `path/to/client.crt`, and `path/to/client.key` with the actual paths to the SSL certificate chain file, client certificate file, and client private key file, respectively.
+
+I hope this helps you solve the SSL certificate verification error you are experiencing with Heroku Redis Premium 0 add-on. If you still have issues, you can try reaching out to Heroku support for further assistance.

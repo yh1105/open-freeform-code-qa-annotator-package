@@ -1,0 +1,17 @@
+The error you're seeing is because you've enabled nullable reference types in C# 8.0, and you've declared a non-nullable property (`ServiceUrl`) without initializing it. This is a compile-time safety feature to help you avoid null reference exceptions.
+
+In DTOs, it's common to have parameterless constructors and properties that are set after construction. In this case, you can suppress the warning by initializing the property to null! with the null-forgiving post-fix:
+
+```csharp
+public class Connection
+{
+    public string ServiceUrl { get; set; } = null!;
+    public string? UserName { get; set; }
+    public string? Password { get; set; }
+    //... others 
+}
+```
+
+The `null!` syntax is a way of telling the compiler "I know this looks like it could be null, but trust me, it won't be by the time anyone gets their hands on it." It's a way of suppressing the nullable warning for that specific property.
+
+However, be aware that this is effectively a promise to the compiler that you will ensure `ServiceUrl` is initialized before it's used. If it's not, you'll still get a runtime null reference exception. So make sure your code fulfills this promise.

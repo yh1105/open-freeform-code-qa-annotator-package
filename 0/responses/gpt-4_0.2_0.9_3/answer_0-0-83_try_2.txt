@@ -1,0 +1,26 @@
+The error you're seeing is because the scale type "linear" is not registered. This is likely because you're using Chart.js version 3.x, which has some breaking changes compared to version 2.x. 
+
+In Chart.js version 3.x, the scales are defined differently. The 'y' scale in your options should be replaced with 'yAxes'. Here's how you can define your scales in Chart.js version 3.x:
+
+```javascript
+options: {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+}
+```
+
+However, if you want to continue using the old way of defining scales, you can downgrade to Chart.js version 2.x. You can do this by running the following command in your terminal:
+
+```bash
+npm uninstall chart.js
+npm install chart.js@^2.9.4
+```
+
+This will uninstall the current version of Chart.js and install version 2.9.4.
+
+Also, make sure that the id of the canvas in your HTML matches the id you're using to create the chart in your TypeScript file. In your case, both are "myChart", so that should be fine.

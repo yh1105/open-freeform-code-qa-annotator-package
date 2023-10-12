@@ -1,0 +1,19 @@
+It is possible that these middlewares are being added automatically by Visual Studio or IIS Express. One way to confirm this is to create a new ASP.NET Core project and see if these middlewares are present in the request pipeline by default.
+
+To stop the behavior of the browser reloading every time you save a file, you can try disabling the Browser Refresh middleware. You can do this by removing the following line from your `Startup.cs` file:
+
+```
+app.UseBrowserRefresh();
+```
+
+If this line is not present in your `Startup.cs` file, you can try disabling the Browser Refresh middleware by adding the following line to your `appsettings.json` file:
+
+```
+{
+  "Watch": {
+    "BrowserRefreshEnabled": false
+  }
+}
+```
+
+This should disable the Browser Refresh middleware and stop the browser from reloading every time you save a file.

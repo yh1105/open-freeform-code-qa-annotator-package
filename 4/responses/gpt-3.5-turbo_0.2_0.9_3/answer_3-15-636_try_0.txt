@@ -1,0 +1,80 @@
+Based on your requirements, here is a modified version of the code that should split the data into multiple sheets within the same workbook and format it as per your expected format:
+
+```
+Sub Split_Data()
+    
+    Dim wb As Workbook
+    Dim myfilename As String
+    Dim lr As Long
+    Dim ws As Worksheet
+    Dim vcol, i As Integer
+    Dim icol As Long
+    Dim myarr As Variant
+    Dim title As String
+    Dim titlerow As Integer
+    Dim dest As Variant
+    Dim destCount As Integer
+    
+    'Open the source workbook
+    myfilename = "C:\Macro\XD MIS Report.xlsx"
+    Set wb = Workbooks.Open(myfilename)
+    
+    'Format the data
+    With wb.Sheets("XD MIS")
+        .Cells.EntireColumn.Hidden = False
+        .Cells.EntireRow.Hidden = False
+        .Columns("B:F").Delete Shift:=xlToLeft
+        .Columns("D:E").Delete Shift:=xlToLeft
+        .Columns("H").Delete Shift:=xlToLeft
+        .Columns("K:L").Delete Shift:=xlToLeft
+        .Columns("D").Cut
+        .Columns("K").Insert Shift:=xlToRight
+        .Range("K1").Value = "Remarks"
+        .Columns("J").Copy
+        .Columns("K").PasteSpecial Paste:=xlPasteFormats
+        .Columns("H").Insert Shift:=xlToRight
+        .Range("H1").Value = "Packing Type"
+        .Columns("A:B").Copy
+        .Columns("B:C").Insert Shift:=xlToRight
+        .Range("C2").FormulaR1C1 = "=COUNTIF(R[-1]C[6]:RC[6],RC[6])"
+        .Range("C2").AutoFill Destination:=Range("C2:C" & .Cells(.Rows.Count, "A").End(xlUp).Row)
+        .Columns("C").Copy
+        .Columns("C").PasteSpecial Paste:=xlPasteValues
+        .Range("A1:L" & .Cells(.Rows.Count, "A").End(xlUp).Row).Borders.LineStyle = xlContinuous
+        .Range("A1:L" & .Cells(.Rows.Count, "A").End(xlUp).Row).Font.Name = "Calibri"
+        .Range("A1:L" & .Cells(.Rows.Count, "A").End(xlUp).Row).Font.Size = 11
+        .Range("A1:L" & .Cells(.Rows.Count, "A").End(xlUp).Row).HorizontalAlignment = xlCenter
+        .Range("A1:L" & .Cells(.Rows.Count, "A").End(xlUp).Row).VerticalAlignment = xlCenter
+    End With
+    
+    'Split the data into multiple sheets
+    Application.ScreenUpdating = False
+    vcol = Application.InputBox(prompt:="Which column would you like to filter by?", title:="Filter column", Default:="3", Type:=1)
+    Set ws = wb.Sheets("XD MIS")
+    lr = ws.Cells(ws.Rows.Count, vcol).End(xlUp).Row
+    title = "A1"
+    titlerow = ws.Range(title).Cells(1).Row
+    icol = ws.Columns.Count
+    ws.Cells(1, icol) = "Unique"
+    For i = 2 To lr
+        On Error Resume Next
+        If ws.Cells(i, vcol) <> "" And Application.WorksheetFunction.Match(ws.Cells(i, vcol), ws.Columns(icol), 0) = 0 Then
+            ws.Cells(ws.Rows.Count, icol).End(xlUp).Offset(1) = ws.Cells(i, vcol)
+        End If
+    Next
+
+    myarr = Application.WorksheetFunction.Transpose(ws.Columns(icol).SpecialCells(xlCellTypeConstants))
+    ws.Columns(icol).Clear
+    
+    destCount = 0
+    For i = 2 To UBound(myarr)
+        ws.Range(title).AutoFilter field:=vcol, Criteria1:=myarr(i) & ""
+        dest = Application.WorksheetFunction.Transpose(ws.Columns(vcol).SpecialCells(xlCellTypeConstants))
+        If Not Evaluate("=ISREF('" & myarr(i) & "'!A1)") Then
+            Sheets.Add(after:=Worksheets(Worksheets.Count)).Name = myarr(i) & ""
+        Else
+            Sheets(myarr(i) & "").Move after:=Worksheets(Worksheets.Count)
+        End If
+        With Sheets(myarr(i) & "")
+            .Range("A1:L1").Value = ws.Range("A1:L1").Value
+            .Range("A2:L2").Value = ws.Range("

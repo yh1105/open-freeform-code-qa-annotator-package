@@ -1,0 +1,17 @@
+The error message you are seeing indicates that the Elasticsearch server is using a self-signed SSL certificate, which is not trusted by the client. To fix this issue, you need to configure your Elasticsearch client to trust the self-signed certificate.
+
+One way to do this is to set the `ssl.rejectUnauthorized` option to `false` in your Elasticsearch client configuration. This will tell the client to accept any SSL certificate, even if it is self-signed or not trusted by the client.
+
+Here's an updated code snippet that sets the `ssl.rejectUnauthorized` option to `false`:
+
+```
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  // https://elasticsearch-es-http.default.svc.cluster.local:9200
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+```
+
+Note that this is not a recommended approach for production environments, as it can leave your application vulnerable to man-in-the-middle attacks. In production, you should use a trusted SSL certificate for your Elasticsearch server.

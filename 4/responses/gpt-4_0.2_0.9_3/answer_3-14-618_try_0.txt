@@ -1,0 +1,17 @@
+In SwiftUI, `@Binding` is used to create a two-way binding between a property that stores data, and a view that displays and changes the data. A binding connects a property to a source of truth stored elsewhere, instead of storing data directly. 
+
+However, you cannot directly initialize a `@Binding` property. It needs to be passed from the parent view. 
+
+In your case, you can use `constant` to create a binding for the preview. Here's how you can do it:
+
+```swift
+#if DEBUG
+struct LoggedInView_Previews : PreviewProvider {
+    static var previews: some View {
+        LoggedInView(dismissView: .constant(false))
+    }
+}
+#endif
+```
+
+The `.constant(false)` creates a binding to a constant value. This is useful in previews and other places where you need to satisfy a binding requirement in your code, but don’t have a source of truth for the data you can use.

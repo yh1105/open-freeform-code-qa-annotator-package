@@ -1,0 +1,51 @@
+The error message you're seeing suggests that the version of Kotlin used to compile the Stripe SDK is newer than the one your project is using. 
+
+To fix this, you need to update your Kotlin version to match the one used by Stripe. You can do this by changing the version in your project's build.gradle file. 
+
+Here's how you can do it:
+
+1. Open your project-level build.gradle file.
+2. Look for the ext.kotlin_version line.
+3. Change the version to '1.5.1' or higher.
+
+It should look something like this:
+
+```groovy
+ext.kotlin_version = '1.5.1'
+```
+
+After you've done this, sync your project with Gradle files and the error should be gone.
+
+As for the email and cardholder name, the `CardMultilineWidget` does not support these fields. You will need to create your own EditText fields for the email and cardholder name. 
+
+Here's a basic example:
+
+```xml
+<EditText
+    android:id="@+id/email"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:hint="Email"/>
+
+<EditText
+    android:id="@+id/cardholder_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPersonName"
+    android:hint="Cardholder Name"/>
+
+<com.stripe.android.view.CardMultilineWidget
+    android:id="@+id/card_multiline_widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+```
+
+Then in your activity or fragment, you can get the text from these fields like this:
+
+```kotlin
+val email = findViewById<EditText>(R.id.email).text.toString()
+val cardholderName = findViewById<EditText>(R.id.cardholder_name).text.toString()
+```
+
+Remember to validate these fields before processing the payment.

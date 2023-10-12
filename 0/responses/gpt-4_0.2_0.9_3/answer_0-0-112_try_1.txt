@@ -1,0 +1,19 @@
+The error message `EACCES` means that the Node.js process does not have sufficient permissions to execute the file at the specified path. 
+
+You can try to change the permissions of the Chromium.app file to make it executable. You can do this with the `chmod` command in the terminal:
+
+```bash
+chmod +x /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app
+```
+
+This command changes the permissions of the file to make it executable by the user. The `+x` flag adds execute permissions.
+
+If this doesn't work, you might need to change the ownership of the file or directory with the `chown` command:
+
+```bash
+sudo chown -R $USER /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app
+```
+
+This command changes the owner of the file or directory to the current user. The `-R` flag applies the command recursively to all files and directories within the specified directory.
+
+If none of these solutions work, there might be an issue with the path you're providing to the `executablePath` option. Make sure that the path points directly to the executable file, not just the .app directory. For example, the path might need to be something like `/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium`.

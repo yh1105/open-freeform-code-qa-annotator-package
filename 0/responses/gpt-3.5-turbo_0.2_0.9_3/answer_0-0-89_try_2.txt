@@ -1,0 +1,14 @@
+Yes, that is correct. The basic type check in prop validation will allow `null` and `undefined` values to pass any type validation. However, if you have specified a specific type for the prop, such as in your example where you have specified `[String, Number, Boolean]`, then passing `null` or `undefined` will result in a type check failure warning. 
+
+In your example, you can modify the prop type to include `null` as a valid type, like this:
+
+```
+props: {
+  value: {
+    type: [String, Number, Boolean, null],
+    required: true,
+  },
+},
+```
+
+This will allow `null` values to pass the type validation.

@@ -1,0 +1,38 @@
+The problem here is that your current implementation does not handle nested tags correctly. You are only checking the immediate children of each node and not going deeper if those children are also element nodes.
+
+Here is a modified version of your code that should handle nested tags correctly:
+
+```javascript
+export interface Phrase {
+    text: string;
+    format: string | string[];
+}
+
+export class HTMLParser {
+    public parse(text: string): void {
+        const parser = new DOMParser();
+        const sourceDocument = parser.parseFromString(text, "text/html");
+        this.parseChildren(sourceDocument.body.childNodes, []);
+        console.log("RESULT of CONVERSION", this.phrasesProcessed);
+    }
+
+    public phrasesProcessed: Phrase[] = [];
+
+    private parseChildren(toParse: NodeListOf<ChildNode>, formats: string[]) {
+        Array.from(toParse).forEach(item => {
+            if (item.nodeType === Node.ELEMENT_NODE && item instanceof HTMLElement) {
+                const newFormats = [...formats, item.tagName];
+                if (item.childNodes.length > 0) {
+                    this.parseChildren(item.childNodes, newFormats);
+                } else {
+                    this.phrasesProcessed.push({ text: item.textContent, format: newFormats });
+                }
+            } else {
+                this.phrasesProcessed.push({ text: item.textContent, format: formats.length ? formats : null });
+            }
+        });
+    }
+}
+```
+
+In this version, the `parseChildren` function takes an additional parameter `formats` which is an array of the tag names of all parent elements. When it encounters an element node, it adds the tag name to the `formats` array and then recursively calls `parseChildren` with the children of the element and the updated `formats` array. If the element has no children, it adds a new `Phrase` to `phrasesProcessed` with the text content of the element and the `formats` array. If it encounters a text node, it adds a new `Phrase` to `phrasesProcessed` with the text content of the node and the `formats` array (or `null` if the array is empty).

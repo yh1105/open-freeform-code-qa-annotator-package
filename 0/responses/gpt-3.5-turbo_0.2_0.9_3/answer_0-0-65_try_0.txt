@@ -1,0 +1,25 @@
+The reason why `observed.current` is empty is because the `console.log` statement is executed before the component is mounted and the `ref` is assigned to the `div` element. 
+
+To access the `div` element, you can use the `useEffect` hook to log the `observed.current` value after the component has mounted:
+
+```
+function App() {
+  const observed = useRef(null);
+
+  useEffect(() => {
+    console.log(observed.current);
+  }, []);
+
+  return (
+    <div ref={observed} className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+This will log the `div` element with all its properties after the component has mounted.

@@ -1,0 +1,13 @@
+This error occurs when Gradle is unable to access a file due to exclusive access being held by another process. This can happen if another instance of Gradle is running or if the file is locked by another program.
+
+To solve this issue, you can try the following steps:
+
+1. Close any running instances of Gradle or VS Code.
+2. Delete the `C:\Users\sanjay.gradle` directory.
+3. Restart VS Code and try running the Flutter application again.
+
+If the issue persists, you can try updating Gradle manually by downloading the latest version from the Gradle website and replacing the `gradle-wrapper.jar` file in your project's `gradle/wrapper` directory with the new version. 
+
+You can also try running the command `flutter clean` to clear any cached files and then running the application again.
+
+If none of these solutions work, you can try reinstalling Flutter and VS Code.

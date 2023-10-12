@@ -1,0 +1,41 @@
+You can achieve this by using PySpark's DataFrame transformations and a User Defined Function (UDF). Here's a step-by-step guide:
+
+1. First, join the two dataframes on the 'id' column. This will allow you to compare the corresponding rows without needing to sort the dataframes.
+
+```python
+df = df1.join(df2, on='id', how='inner', suffixes=('_df1', '_df2'))
+```
+
+2. Define a UDF that takes two rows (one from each dataframe) and returns a list of column names where the values are different.
+
+```python
+from pyspark.sql.functions import udf
+from pyspark.sql.types import ArrayType, StringType
+
+def compare_rows(row1, row2):
+    diff_cols = []
+    for col_name in df1.columns:
+        if row1[col_name] != row2[col_name]:
+            diff_cols.append(col_name)
+    return diff_cols
+
+compare_rows_udf = udf(compare_rows, ArrayType(StringType()))
+```
+
+3. Apply the UDF to the joined dataframe to create the 'column_names' column.
+
+```python
+df = df.withColumn('column_names', compare_rows_udf(df['row_df1'], df['row_df2']))
+```
+
+4. Finally, drop the duplicate columns from the joined dataframe and rename the remaining columns to their original names.
+
+```python
+for col_name in df1.columns:
+    df = df.drop(col_name + '_df1')
+    df = df.withColumnRenamed(col_name + '_df2', col_name)
+```
+
+This will give you a dataframe where each row has an additional 'column_names' column that contains a list of column names where the values were different in the original dataframes.
+
+Please note that this solution assumes that the 'id' column is unique in both dataframes. If this is not the case, you will need to handle duplicate 'id' values before joining the dataframes.

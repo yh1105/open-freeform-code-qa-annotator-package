@@ -1,0 +1,21 @@
+The error message `npm http fetch GET 404 https://registry.npmjs.org/aws-sdk-js 2211ms` suggests that npm is trying to fetch the package `aws-sdk-js` from the npm registry but it's not found, hence the 404 error.
+
+The correct package name for the AWS SDK in the npm registry is `aws-sdk`, not `aws-sdk-js`. 
+
+You should replace `aws-sdk-js` with `aws-sdk` in your `package.json` file or in the npm install command. 
+
+So, the correct command should be:
+
+```bash
+npm install --verbose aws-sdk
+```
+
+And if you're adding it to your `package.json` file, it should look something like this:
+
+```json
+"dependencies": {
+    "aws-sdk": "^2.789.0"
+}
+```
+
+Remember to replace `^2.789.0` with the version you want to use.

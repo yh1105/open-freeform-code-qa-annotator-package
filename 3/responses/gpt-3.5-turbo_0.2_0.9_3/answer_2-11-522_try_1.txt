@@ -1,0 +1,39 @@
+Yes, it is possible to query and enforce on which cores `std::thread` will run in C++. 
+
+To query the properties of a thread, you can use the `std::thread::hardware_concurrency()` function, which returns the number of hardware threads supported by the system. This can be useful for determining the maximum number of threads that can be created without causing contention.
+
+To enforce on which cores a thread will run, you can use the `std::thread::native_handle()` function to obtain the underlying native thread handle, and then use platform-specific APIs to set the thread's affinity to a specific core or set of cores. 
+
+On Windows, you can use the `SetThreadAffinityMask()` function to set the affinity mask for a thread. On Linux, you can use the `sched_setaffinity()` function to set the CPU affinity mask for a thread. 
+
+Here is an example of how to set the affinity of a thread to a specific core on Windows:
+
+```c++
+#include <thread>
+#include <windows.h>
+
+void my_thread_func()
+{
+    // ...
+}
+
+int main()
+{
+    // Create a thread
+    std::thread my_thread(my_thread_func);
+
+    // Get the native handle for the thread
+    HANDLE thread_handle = (HANDLE)my_thread.native_handle();
+
+    // Set the affinity mask to core 0
+    DWORD_PTR affinity_mask = 1;
+    SetThreadAffinityMask(thread_handle, affinity_mask);
+
+    // Wait for the thread to finish
+    my_thread.join();
+
+    return 0;
+}
+```
+
+Note that setting the affinity of a thread can have performance implications, and should be done with care. It is generally best to let the operating system handle thread scheduling, unless there is a specific reason to manually set the affinity.

@@ -1,0 +1,41 @@
+To check if a `Box` is a null pointer, you can use the `is_none()` method of the `Option` type. `Option<Box<T>>` is a type that represents an optional `Box<T>`, meaning it can either be a `Some(Box<T>)` or a `None`. `Box<Option<T>>` is a type that represents a `Box` that contains an optional `T`, meaning it can either be a `Box(Some(T))` or a `Box(None)`.
+
+Here's an example implementation of a stack using `Option<Box<Node>>`:
+
+```
+struct Node {
+    value: i32,
+    next: Option<Box<Node>>,
+}
+
+struct Stack {
+    top: Option<Box<Node>>,
+}
+
+impl Stack {
+    fn new() -> Self {
+        Stack { top: None }
+    }
+
+    fn push(&mut self, value: i32) {
+        let new_node = Box::new(Node {
+            value: value,
+            next: self.top.take(),
+        });
+        self.top = Some(new_node);
+    }
+
+    fn pop(&mut self) -> Option<i32> {
+        self.top.take().map(|node| {
+            self.top = node.next;
+            node.value
+        })
+    }
+
+    fn is_empty(&self) -> bool {
+        self.top.is_none()
+    }
+}
+```
+
+In this implementation, we use `Option<Box<Node>>` for the `next` field of `Node` to represent the end of the stack. We also use `Option<Box<Node>>` for the `top` field of `Stack` to represent an empty stack. The `push()` method creates a new `Node` with the given value and sets its `next` field to the current top of the stack. It then sets the `top` field of the stack to the new node. The `pop()` method takes the current top of the stack, sets the `top` field to its `next` field, and returns its value. The `is_empty()` method checks if the `top` field is `None`.

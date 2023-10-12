@@ -1,0 +1,15 @@
+The error message would be helpful to diagnose the issue. However, based on the code snippet provided, it seems that you are trying to import jQuery as a global variable, which is not recommended. Instead, you can import it as a module and use it in your code like this:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Make sure that you have installed both jQuery and Bootstrap using npm or yarn before importing them in your code.

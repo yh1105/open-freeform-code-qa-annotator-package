@@ -1,0 +1,17 @@
+It seems like the rbenv command is not being recognized by zsh. This could be because the rbenv executable is not in the PATH environment variable. 
+
+To fix this, try adding the following line to your ~/.zshrc file:
+
+```
+export PATH="$HOME/.rbenv/bin:$PATH"
+```
+
+This will add the rbenv executable to the PATH variable so that zsh can find it. 
+
+After adding this line, save the file and then run the following command to reload your zsh configuration:
+
+```
+source ~/.zshrc
+```
+
+This should resolve the issue and prevent the "command not found" error message from appearing in the future.

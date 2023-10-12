@@ -1,0 +1,28 @@
+In NestJS, optional parameters are not defined in the route itself, but rather in the function that handles the route. Here's how you can achieve this:
+
+First, define your route like this:
+
+```typescript
+@Controller('route')
+export class YourController {
+  @Get(':param1/config/:param2?/:param3?')
+  async getSomething(@Param() params: any) {
+    // your code here
+  }
+}
+```
+
+In this example, `param1` is a required parameter, while `param2` and `param3` are optional. The `?` after the parameter name makes it optional.
+
+Then, in your function, you can access these parameters like this:
+
+```typescript
+async getSomething(@Param() params: any) {
+  const { param1, param2, param3 } = params;
+  // your code here
+}
+```
+
+In this example, `param1` will always be defined, while `param2` and `param3` may be `undefined` if they were not provided in the URL.
+
+This way, your route will match `/route/aa/config`, `/route/aa/config/bb`, and `/route/aa/config/bb/cc`, and the parameters `param1`, `param2`, and `param3` will contain the corresponding parts of the URL.

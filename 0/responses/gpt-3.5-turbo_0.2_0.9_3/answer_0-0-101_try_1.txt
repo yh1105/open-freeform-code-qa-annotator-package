@@ -1,0 +1,48 @@
+To capture a screenshot of the entire screen, you can use the `electron.screen` module. Here's an example code snippet:
+
+```
+const { screen } = require('electron');
+
+const display = screen.getPrimaryDisplay();
+const screenshot = display.getBitmap();
+
+// send the screenshot to your Python server
+```
+
+This will capture the entire screen and return a `Bitmap` object that you can send to your Python server. You can then convert the `Bitmap` object to a byte stream using the `toPNG()` or `toJPEG()` methods.
+
+As for the overlay, you can use the `BrowserWindow` module to create a transparent window that overlays the screen. Here's an example code snippet:
+
+```
+const { BrowserWindow } = require('electron');
+
+const overlay = new BrowserWindow({
+  width: display.bounds.width,
+  height: display.bounds.height,
+  transparent: true,
+  frame: false,
+  alwaysOnTop: true,
+  skipTaskbar: true,
+  webPreferences: {
+    nodeIntegration: true
+  }
+});
+
+overlay.setIgnoreMouseEvents(true);
+overlay.setResizable(false);
+overlay.setFullScreen(true);
+overlay.setFullScreenable(false);
+overlay.loadFile('path/to/overlay.html');
+```
+
+This will create a transparent window that covers the entire screen and loads an HTML file as the overlay. You can then draw on the overlay using HTML canvas or any other method you prefer.
+
+As for the mouse cursor, you can hide it using CSS:
+
+```
+* {
+  cursor: none !important;
+}
+```
+
+Add this to your overlay HTML file to hide the mouse cursor.

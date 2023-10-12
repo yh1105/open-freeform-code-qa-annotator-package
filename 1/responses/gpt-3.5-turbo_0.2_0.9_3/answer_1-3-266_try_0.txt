@@ -1,0 +1,11 @@
+It seems like the issue might be with your `STATIC_ROOT` setting. In your current configuration, `STATIC_ROOT` is set to `os.path.join(BASE_DIR, 'static/')`, which means that when you run `python manage.py collectstatic`, Django will copy all the static files to the `static/` directory in your project's root directory.
+
+However, in your Azure web app, the static files are served from the `wwwroot/static` directory. To fix this, you should change your `STATIC_ROOT` setting to point to the `wwwroot/static` directory:
+
+```
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'wwwroot', 'static')
+```
+
+This will tell Django to copy all the static files to the `wwwroot/static` directory when you run `python manage.py collectstatic`.
+
+Once you've made this change, try running `python manage.py collectstatic` again and see if the static files are now visible on your website.

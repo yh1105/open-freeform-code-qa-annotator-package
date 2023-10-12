@@ -1,0 +1,15 @@
+`db_index=True` is used to create an index on a particular field in a database. Indexing a field can significantly speed up data retrieval operations on a database. However, it also slows down write operations (like insert, update, delete) because the index also needs to be updated. Moreover, indexes take up storage space.
+
+You should consider using `db_index=True` in the following scenarios:
+
+1. The field is frequently used in your queries for filtering or sorting data. For example, if you often perform queries that involve a `date` field (like retrieving all records for a particular date), it would be beneficial to index this field.
+
+2. The field is used in a foreign key relationship. Django automatically creates an index for such fields, but if you're manually managing your database schema, you'll need to remember to add an index.
+
+3. The field is used in JOIN operations. Indexes can speed up these operations.
+
+You don't need to use `db_index=True` only for fields with unique values. In fact, indexing can still improve performance for fields with non-unique values. The database will still be able to find the first occurrence of the value faster, even if there are multiple records with the same value.
+
+However, if a field has a very high cardinality (i.e., the data in the field is very repetitive), the benefits of indexing might be reduced. This is because the database will still need to scan through all the duplicate values. For example, if you have a `gender` field with values 'M' and 'F', indexing this field might not provide much benefit because there are only two possible values.
+
+In conclusion, whether to use `db_index=True` or not depends on the specific use case, the nature of your data, and the queries you're running. It's a trade-off between read speed, write speed, and storage space.

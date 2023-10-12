@@ -1,0 +1,26 @@
+The problem with your code is that you have two template specializations for the same primary template `BaseType`, which is not allowed in C++. When you use `detail::BaseType<T>` in your code, the compiler cannot determine which specialization to use for `T` because both specializations are equally valid. This is what causes the error message you see.
+
+To fix this, you can use a single template specialization with a `static_assert` to check whether `T` is an enum or not. Here's an updated version of your code:
+
+```
+namespace detail {
+    template <typename T>
+    struct BaseType {
+        static_assert(!std::is_enum_v<T>, "T must not be an enum");
+        using Type = std::decay_t<T>;
+    };
+
+    template <typename T>
+    struct BaseType<T, std::enable_if_t<std::is_enum_v<T>>>
+    {
+        using Type = std::underlying_type_t<T>;
+    };
+}
+
+template <class T>
+using base_type_t = typename detail::BaseType<T>::Type;
+```
+
+In this version, the primary template handles all types, and the `static_assert` ensures that it only gets used for non-enums. The second specialization only gets used for enums, thanks to the `std::enable_if_t` condition.
+
+This should work as expected and give you the behavior you want.

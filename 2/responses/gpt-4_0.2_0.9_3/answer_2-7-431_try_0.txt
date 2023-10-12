@@ -1,0 +1,26 @@
+The `dd()` function in Laravel uses the Symfony VarDumper component under the hood. This component has a configuration to limit the depth of the output, which is set to 20 levels deep by default. This is likely the limitation you're running into.
+
+You can increase this limit by creating a new instance of the `VarDumper` class with a higher max depth. Here's how you can do it:
+
+```php
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+
+$cloner = new VarCloner();
+$cloner->setMaxItems(-1); // No limit
+$cloner->setMaxString(-1); // No limit
+$cloner->setMaxDepth(100); // Increase this to increase depth
+
+$dumper = new HtmlDumper();
+$dumper->dump($cloner->cloneVar($yourVariable));
+```
+
+Replace `$yourVariable` with the variable you want to dump.
+
+This will output the dumped variable in your browser, similar to `dd()`, but with a higher depth limit.
+
+As for the `ini_set` lines you tried, they only affect the `var_dump` function and have no effect on `dd()` or the VarDumper component.
+
+If you find yourself needing to do this often, you might want to consider creating a helper function or a service that does this for you.
+
+Also, if you're dealing with large collections of Eloquent models, you might want to look into using `->load()` or `->with()` to eager load the relationships you need. This can help reduce the size and complexity of the data you're dealing with.

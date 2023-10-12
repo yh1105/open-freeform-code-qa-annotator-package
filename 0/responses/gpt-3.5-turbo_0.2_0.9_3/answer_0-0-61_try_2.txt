@@ -1,0 +1,37 @@
+You can change the background color of the root element by using the `CssBaseline` component from Material-UI. This component applies basic CSS resets to the document and sets the background color to the default background color of the theme.
+
+Here's an example of how you can use it:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { ThemeProvider } from '@material-ui/styles';
+import { MuiThemeProvider, createMuiTheme, CssBaseline } from '@material-ui/core';
+
+const themeLight = createMuiTheme({
+  palette: {
+    background: {
+      default: "#e4f0e2"
+    }
+  },
+});
+
+const themeDark = createMuiTheme({
+  palette: {
+    background: {
+      default: "#222222",
+    }
+  },
+});
+
+ReactDOM.render(
+  <ThemeProvider theme={themeDark}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root')
+);
+```
+
+By wrapping your app with the `ThemeProvider` and `CssBaseline` components, the background color of the root element will be set to the default background color of the theme you're using.

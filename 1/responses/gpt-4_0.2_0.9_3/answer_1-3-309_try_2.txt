@@ -1,0 +1,23 @@
+The warning message you're seeing is due to a change in the Selenium library. The `executable_path` argument is being deprecated, and Selenium is moving towards using the `Service` object instead.
+
+You can fix this warning by creating a `Service` object with the path to the driver, and then passing that service object when creating the `webdriver.Chrome` instance. Here's how you can modify your code:
+
+```python
+# pip install webdriver-manager
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
+# Create a Service object with the path to the driver
+s=Service(ChromeDriverManager().install())
+
+# Pass the Service object when creating the webdriver.Chrome instance
+driver = webdriver.Chrome(service=s)
+driver.maximize_window()
+
+driver.get('https://www.google.com')
+driver.find_element(By.NAME, 'q').send_keys('Yasser Khalil')
+```
+
+This should eliminate the deprecation warning you're seeing.

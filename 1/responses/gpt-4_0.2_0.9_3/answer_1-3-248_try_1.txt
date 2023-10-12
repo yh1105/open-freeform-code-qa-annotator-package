@@ -1,0 +1,27 @@
+The error you're seeing is because you're trying to compare two arrays using `==`. This comparison will return an array of boolean values, not a single boolean value. Therefore, Python doesn't know how to interpret this in an `if` statement, which expects a single boolean value.
+
+If you want to check if all values in the arrays are equal, you can use `numpy.array_equal()`:
+
+```python
+import numpy as np
+
+if np.array_equal(mask_black, cv2.bitwise_and(mask_black, mask_not)):
+    # body
+else:
+    # body
+```
+
+However, it seems like you're trying to check if `mask_black` is the bitwise inverse of itself, which will never be true. The bitwise inverse of an array will always be different from the original array.
+
+If you want to perform different operations based on whether the image is mostly black or mostly white, you could calculate the mean of the `mask_black` array and use that in your condition:
+
+```python
+mean = np.mean(mask_black)
+
+if mean > 127:  # adjust this threshold as needed
+    # image is mostly white, detect black line
+else:
+    # image is mostly black, detect white line
+```
+
+This will give you a single boolean value that you can use in an `if` statement.

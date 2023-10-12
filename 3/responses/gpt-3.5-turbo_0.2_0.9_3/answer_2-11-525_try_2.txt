@@ -1,0 +1,22 @@
+The problem with your code is that you have two template specializations for the same primary template `BaseType`, which is not allowed in C++. When you define a template specialization, you are supposed to provide a unique set of template parameters that distinguish it from the primary template and any other specializations. In your case, both specializations have the same template parameter list, which is not allowed.
+
+To achieve what you want, you can use a different approach. You can define a primary template that handles all types, and then use `std::enable_if` to conditionally enable the underlying type for enums. Here's an example:
+
+```
+template <typename T, typename = void>
+struct BaseType {
+    using Type = std::decay_t<T>;
+};
+
+template <typename T>
+struct BaseType<T, std::enable_if_t<std::is_enum_v<T>>> {
+    using Type = std::underlying_type_t<T>;
+};
+
+template <class T>
+using base_type_t = typename BaseType<T>::Type;
+```
+
+In this code, the primary template handles all types, and the second template specialization is only enabled for enums. The `std::enable_if_t` conditionally enables the second specialization only if the type `T` is an enum. This way, you have a unique set of template parameters for each specialization, and the code should compile without errors.
+
+I hope this helps!

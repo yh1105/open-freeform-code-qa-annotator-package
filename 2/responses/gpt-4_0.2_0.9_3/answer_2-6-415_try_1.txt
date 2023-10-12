@@ -1,0 +1,35 @@
+The error message you're seeing is a `FieldAccessException`, which is thrown when there is an invalid attempt to access a private or protected field inside a class. In your case, it's trying to access the `ZIndexProperty` field of the `VisualElement` class, which is inaccessible.
+
+This issue is likely due to the linker behavior in Release mode. The linker is a tool that removes unused code from your app in order to reduce its size. However, sometimes it can remove code that is actually used, leading to runtime errors like the one you're seeing.
+
+To solve this issue, you can try the following steps:
+
+1. **Linker Configuration**: You can instruct the linker to preserve certain assemblies, types, or members by using a Linker configuration file. You can create a file named `LinkerConfig.xml` in the root of your project with the following content:
+
+```xml
+<linker>
+  <assembly fullname="Microsoft.Maui.Controls">
+    <type fullname="Microsoft.Maui.Controls.VisualElement" preserve="all" />
+  </assembly>
+</linker>
+```
+
+Then, in your .csproj file, add the following line inside the `<PropertyGroup>` tag:
+
+```xml
+<PropertyGroup>
+  <LinkerConfig>LinkerConfig.xml</LinkerConfig>
+</PropertyGroup>
+```
+
+This will instruct the linker to preserve the `VisualElement` type and all its members.
+
+2. **Linker Behavior**: You can also try changing the linker behavior to see if it solves the issue. In your project properties, go to the Android Options tab and change the Linking option to `Sdk Assemblies Only`. This will make the linker less aggressive, but it will also increase the size of your app.
+
+3. **Debugging**: If the issue persists, you can try debugging your app in Release mode to see if you can catch the error. To do this, go to your project properties, go to the Build tab, and check the `Define DEBUG constant` option. Then, run your app in Release mode and see if you can catch the error.
+
+Remember to revert this change once you're done debugging, as leaving the DEBUG constant defined in Release mode can have performance implications.
+
+4. **Update your packages**: Make sure all your NuGet packages are up to date. Sometimes, these kinds of issues can be caused by bugs in the packages you're using, and updating them can solve the issue.
+
+If none of these steps solve the issue, please provide more information about your project, such as the versions of the packages you're using, and any other relevant code.

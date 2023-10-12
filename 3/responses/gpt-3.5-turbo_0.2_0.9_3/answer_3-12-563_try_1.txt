@@ -1,0 +1,10 @@
+To create a new line manually with a string variable, you can use the "\n" character in your string. For example, if you want to create a new line after the first sentence in your `text[0]` variable, you can modify it like this:
+
+```
+List text = [
+  "${quranText['sura'][widget.surahDipilih]['aya'][index]['_text']}\n",
+  quranTranslation[widget.surahDipilih]['aya'][index]['@text']
+];
+```
+
+This will add a new line after the first sentence in your `AutoSizeText` widget. You can adjust the position of the new line by adding more "\n" characters as needed.

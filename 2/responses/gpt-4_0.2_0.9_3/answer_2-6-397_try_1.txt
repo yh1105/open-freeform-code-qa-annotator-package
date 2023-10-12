@@ -1,0 +1,42 @@
+The behavior you're experiencing seems to be related to the new Hot Reload feature in .NET 6 and Visual Studio 2022. Even though you've disabled Browser Link, the Hot Reload feature might still be active.
+
+Here are some steps you can try:
+
+1. **Disable Hot Reload in Visual Studio 2022:**
+
+   - Go to `Tools > Options > Projects and Solutions > ASP.NET Core`
+   - Uncheck the `Enable .NET Hot Reload on file save` option
+
+2. **Disable Hot Reload in launchSettings.json:**
+
+   - Open the `Properties/launchSettings.json` file in your project
+   - Under the `iisSettings` section, add `"hotReloadProfile": "Off"` to the `iisExpress` profile
+
+Here's an example:
+
+```json
+"iisSettings": {
+  "windowsAuthentication": false,
+  "anonymousAuthentication": true,
+  "iisExpress": {
+    "applicationUrl": "http://localhost:12345",
+    "sslPort": 0,
+    "hotReloadProfile": "Off"
+  }
+}
+```
+
+3. **Disable Hot Reload in the .csproj file:**
+
+   - Open your .csproj file
+   - Add the following PropertyGroup:
+
+```xml
+<PropertyGroup>
+  <DisableHotReload>true</DisableHotReload>
+</PropertyGroup>
+```
+
+After making these changes, restart Visual Studio and run your project again. The Hot Reload feature should be disabled, and the scripts should no longer be injected into your HTML.
+
+If the issue persists, it might be a bug in Visual Studio 2022 or .NET 6. In that case, you might want to report it to Microsoft via the Visual Studio Feedback tool.

@@ -1,0 +1,15 @@
+This error message occurs when Visual Studio is unable to copy the DLL file because it is being used by another process. This can happen if the DLL file is still loaded in memory by the debugger or another application.
+
+Here are some possible solutions to this problem:
+
+1. Close all instances of Visual Studio and any other applications that may be using the DLL file. Then try building your application again.
+
+2. If the DLL file is still locked, you can try using a tool like Process Explorer to find out which process is holding a lock on the file. Once you have identified the process, you can try closing it or killing it to release the lock on the file.
+
+3. Another solution is to use a tool like Unlocker to unlock the DLL file. This tool can help you identify which process is holding a lock on the file and give you the option to unlock it.
+
+4. You can also try disabling the "Enable Edit and Continue" option in Visual Studio. This option allows you to modify code while debugging, but it can also cause issues with file locking. To disable this option, go to Tools > Options > Debugging > General and uncheck the "Enable Edit and Continue" option.
+
+5. Finally, you can try changing the output directory for your project to a different location. This can help avoid file locking issues if the output directory is not being used by any other process.
+
+I hope one of these solutions works for you and helps you avoid having to restart Visual Studio every time you encounter this issue.

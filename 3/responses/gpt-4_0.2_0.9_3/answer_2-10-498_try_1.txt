@@ -1,0 +1,9 @@
+In Rust, the caret (`^`) operator is not used for exponentiation as it is in some other languages. Instead, it is used for bitwise XOR operation.
+
+To perform exponentiation in Rust, you can use the `pow` method of the integer types. Here's how you can raise 2 to the power of 10:
+
+```rust
+assert_eq!(2u32.pow(10), 1024);
+```
+
+In this example, `2u32` is a 32-bit unsigned integer, and `pow` is a method that raises it to the power of the argument (10 in this case). The result is 1024, not 8.

@@ -1,0 +1,9 @@
+Yes, there are several libraries available that support Angular 9 for implementing an input for international mobile numbers. Here are some recommendations:
+
+1. ngx-intl-tel-input: This library provides a customizable input field for international phone numbers with country flags and dial codes. It supports Angular 9 and is easy to use.
+
+2. ng2-tel-input: This library provides a simple input field for international phone numbers with country flags and dial codes. It supports Angular 9 and is lightweight.
+
+3. ng4-intl-phone: This library provides an input field for international phone numbers with country flags and dial codes. It supports Angular 9 and is customizable.
+
+You can choose any of these libraries based on your requirements and preferences.

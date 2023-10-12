@@ -1,0 +1,46 @@
+The error message indicates that the version of R you're trying to install requires a newer version of libc6 than is available in Ubuntu 18.04. 
+
+However, you don't necessarily need to upgrade your entire Ubuntu system to a newer version. Instead, you can try installing R from a different repository that provides a version compatible with your system.
+
+Here are the steps to install R 4.0 on Ubuntu 18.04:
+
+1. First, add the CRAN repository to your sources.list file. Open a terminal and type:
+
+```bash
+sudo nano /etc/apt/sources.list
+```
+
+2. Add the following line to the file:
+
+```bash
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+```
+
+3. Save and exit the file (Ctrl+X, then Y, then Enter).
+
+4. Add the secure apt key:
+
+```bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+5. Update the package list:
+
+```bash
+sudo apt update
+```
+
+6. Finally, install R:
+
+```bash
+sudo apt install r-base
+```
+
+This should install R 4.0 without requiring you to upgrade libc6 or your entire Ubuntu system. If you still encounter issues, it may be necessary to resolve any broken or held packages on your system. You can do this with the following commands:
+
+```bash
+sudo apt install -f
+sudo dpkg --configure -a
+```
+
+Then try installing R again.

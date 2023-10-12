@@ -1,0 +1,40 @@
+Kotlin's scope functions are a powerful feature that allow you to execute a block of code within the context of an object. JavaScript/TypeScript doesn't have an exact equivalent, but you can achieve similar functionality using some of its features.
+
+For example, you can use the `this` keyword in JavaScript/TypeScript to refer to the current object within a method. This is similar to how `this` is used in Kotlin's `apply` and `also` functions.
+
+Here's an example of how you might use `this` in JavaScript/TypeScript:
+
+```javascript
+class MyClass {
+  constructor() {
+    this.myProperty = 'Hello, world!';
+  }
+
+  myMethod() {
+    console.log(this.myProperty);  // Prints: Hello, world!
+  }
+}
+
+const myObject = new MyClass();
+myObject.myMethod();
+```
+
+In this example, `this.myProperty` within `myMethod` refers to `myProperty` of `myObject`.
+
+For something like Kotlin's `let` function, you can use JavaScript/TypeScript's arrow functions, which allow you to define a function with a different `this` context. Here's an example:
+
+```javascript
+const myObject = {
+  myProperty: 'Hello, world!',
+};
+
+const myFunction = () => {
+  console.log(this.myProperty);  // Prints: Hello, world!
+};
+
+myFunction.call(myObject);
+```
+
+In this example, `this.myProperty` within `myFunction` refers to `myProperty` of `myObject` because we're calling `myFunction` with `myObject` as the `this` context.
+
+As for libraries, there doesn't seem to be a widely used library that provides Kotlin-like scope functions in JavaScript/TypeScript. However, you can achieve similar functionality using the features built into the language itself, as shown above.

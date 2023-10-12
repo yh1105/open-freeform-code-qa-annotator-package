@@ -1,0 +1,36 @@
+The issue you're facing is due to the fact that IIS handles routing before your React application does. When a URL is requested that doesn't map to a physical file, IIS returns a 404 error before your React application has a chance to handle the route.
+
+To fix this, you need to install the URL Rewrite module in IIS and then add a rewrite rule to your web.config file. This will tell IIS to redirect all requests to your root document (usually index.html), allowing your React application to handle the routing.
+
+Here are the steps:
+
+1. Install the URL Rewrite module. You can download it from the official Microsoft website. After downloading, just run the installer.
+
+2. Once installed, open your web.config file. If you don't have one, create it in the root directory of your application.
+
+3. Add the following configuration to your web.config file:
+
+```xml
+<configuration>
+  <system.webServer>
+    <rewrite>
+      <rules>
+        <rule name="React Routes" stopProcessing="true">
+          <match url=".*" />
+          <conditions logicalGrouping="MatchAll">
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+          </conditions>
+          <action type="Rewrite" url="/" />
+        </rule>
+      </rules>
+    </rewrite>
+  </system.webServer>
+</configuration>
+```
+
+This configuration tells IIS to redirect all requests to your root document unless the request is for a file or directory that actually exists. This allows your React application to handle all the routing.
+
+4. Save your web.config file and restart IIS.
+
+Now, when you navigate to a route in your application, IIS will serve your root document and your React application will handle the route, displaying your custom 404 page when appropriate.

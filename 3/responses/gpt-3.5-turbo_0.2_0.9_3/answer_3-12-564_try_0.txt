@@ -1,0 +1,39 @@
+The error message suggests that you are trying to reuse the same `BannerAd` object in multiple `AdWidget` instances. Each `AdWidget` should have its own unique `BannerAd` object.
+
+To fix this, you can create a new `BannerAd` object for each `AdWidget` instance. One way to do this is to create a list of `BannerAd` objects and use the index of the `AdWidget` to get the corresponding `BannerAd` object from the list.
+
+Here's an example:
+
+```
+List<BannerAd> bannerAds = [];
+
+// create banner ads
+for (int i = 0; i < 10; i++) {
+  bannerAds.add(AdmobService.createBannerAd()..load());
+}
+
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if (posts[index] is Post) {
+      return posts[index];
+    } else {
+      final Container adContainer = Container(
+        alignment: Alignment.center,
+        child: AdWidget(
+          key: UniqueKey(),
+          ad: bannerAds[index % bannerAds.length],
+        ),
+        height: 50,
+      );
+      return adContainer;
+    }
+  },
+  itemCount: posts.length,
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(
+    parent: AlwaysScrollableScrollPhysics(),
+  ),
+);
+```
+
+In this example, we create a list of `BannerAd` objects and use the modulo operator (`%`) to get the corresponding `BannerAd` object for each `AdWidget`. This ensures that each `AdWidget` has its own unique `BannerAd` object.

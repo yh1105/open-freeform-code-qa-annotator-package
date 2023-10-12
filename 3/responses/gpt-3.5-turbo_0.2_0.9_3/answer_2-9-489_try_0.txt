@@ -1,0 +1,37 @@
+The warning message is indicating that Elasticsearch's built-in security features are not enabled, which means that anyone can access your cluster without authentication. While it may not be a concern for your development machine, it's still recommended to enable security features to protect your data.
+
+To fix this issue, you can follow these steps:
+
+1. Install the Elasticsearch security plugin by running the following command:
+
+   ```
+   bin/elasticsearch-plugin install -b https://d3g5vo6xdbdb9a.cloudfront.net/downloads/elasticsearch-plugins/opendistro-security/opendistro_security-1.13.2.0.zip
+   ```
+
+2. Restart Elasticsearch:
+
+   ```
+   brew services restart elasticsearch
+   ```
+
+3. Run the `elasticsearch-setup-passwords` utility to set up passwords for the built-in users:
+
+   ```
+   bin/elasticsearch-setup-passwords auto
+   ```
+
+   If you can't find the `elasticsearch-setup-passwords` script, it's likely because it's not in your `PATH`. You can try running it from the Elasticsearch installation directory:
+
+   ```
+   /usr/local/Cellar/elasticsearch/<version>/libexec/bin/elasticsearch-setup-passwords auto
+   ```
+
+   Replace `<version>` with your Elasticsearch version.
+
+After completing these steps, the warning message should disappear. If you still want to ignore the warning message, you can add the following line to your `config/environments/development.rb` file:
+
+```
+config.elasticsearch.version = "7.13.1"
+```
+
+This will tell Searchkick to use version 7.13.1 of Elasticsearch, which should not display the warning message. However, keep in mind that this is not recommended for production environments.

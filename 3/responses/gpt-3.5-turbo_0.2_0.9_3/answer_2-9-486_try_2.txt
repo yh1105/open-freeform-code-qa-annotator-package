@@ -1,0 +1,9 @@
+It sounds like the issue may be related to the order in which Heroku is running the asset compilation and the esbuild script. One solution could be to modify your build script to first run the asset compilation and then run the esbuild script. Here's an example of how you could modify your build script:
+
+```
+"build": "RAILS_ENV=production bundle exec rake assets:precompile && esbuild app/javascript/*.* --bundle --outdir=app/assets/builds"
+```
+
+This modified script should first run the asset compilation and then run the esbuild script. This way, the application.js file should be present in the builds folder when the esbuild script runs, and it should be compiled to public/assets.
+
+Alternatively, you could try modifying your Heroku buildpacks to ensure that the esbuild script runs after the asset compilation. You can find more information on Heroku buildpacks here: https://devcenter.heroku.com/articles/buildpacks.

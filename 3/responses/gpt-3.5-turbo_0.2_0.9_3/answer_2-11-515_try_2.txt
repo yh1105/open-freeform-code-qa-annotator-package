@@ -1,0 +1,33 @@
+Yes, there is a standard-library tool for this. You can use the `std::transform` algorithm with a custom lambda function to achieve this transformation. Here's an example code snippet:
+
+```
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <algorithm>
+
+int main() {
+    std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<std::pair<int, int>> goal;
+
+    std::transform(origin.begin(), origin.end() - 1, origin.begin() + 1, std::back_inserter(goal),
+                   [](const int& a, const int& b) { return std::make_pair(a, b); });
+
+    for (const auto& p : goal) {
+        std::cout << "{" << p.first << ", " << p.second << "}" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+The `std::transform` algorithm takes three input iterators and an output iterator. In this case, we pass in `origin.begin()`, `origin.end() - 1`, and `origin.begin() + 1` as the input iterators, which means we will iterate over pairs of adjacent elements in the `origin` vector. The lambda function takes two `const int&` arguments and returns a `std::pair<int, int>` constructed from those two arguments using `std::make_pair`. Finally, we use `std::back_inserter` to append the resulting pairs to the `goal` vector.
+
+The output of this program will be:
+
+```
+{1, 2}
+{3, 4}
+{5, 6}
+{7, 8}
+```

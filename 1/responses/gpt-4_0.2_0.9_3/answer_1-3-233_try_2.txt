@@ -1,0 +1,15 @@
+The error message "Can't find target attribute [Sequence]" suggests that the import process is not able to find a column named "Sequence" in the target table where the CSV data is being imported. 
+
+However, from the DDL you provided, it seems like the "Sequence" column does exist in the table. One possible issue could be the case sensitivity. SQL is case-insensitive by default, but when you use double quotes around identifiers (like column names), it makes them case-sensitive. In your DDL, "Sequence" is written with a capital 'S', but if in your CSV file, it's written as "sequence" (all lowercase), it might cause this error.
+
+Here are a few steps to troubleshoot this issue:
+
+1. Case Sensitivity: Ensure that the case of the column names in your CSV file matches exactly with the column names in your table schema. If the column name in the CSV is "sequence" (all lowercase), then you should change the column name in your table schema to "sequence" (all lowercase) as well.
+
+2. Whitespace: Check if there are any leading or trailing whitespaces in your column names in the CSV file or in the table schema. Whitespaces can sometimes be hard to spot but can cause issues during the import process.
+
+3. Data Type: Ensure that the data type of the "Sequence" column in your table schema matches with the data in the CSV file. If the "Sequence" column in the CSV file contains non-integer values, it might cause issues during the import process.
+
+4. CSV Format: Ensure that your CSV file is properly formatted. Sometimes, issues with the CSV file format (like incorrect delimiter, text qualifier, line separator, etc.) can cause issues during the import process.
+
+If none of the above steps work, you might want to try importing the CSV data into a new table (with a different name) and see if you still get the same error. This can help you determine if the issue is with the specific table or with the CSV data.

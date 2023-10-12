@@ -1,0 +1,23 @@
+The error you're seeing is because the `context` you're using in `showDialog` doesn't have a `Navigator` in its widget tree. The `Navigator` is typically provided by the `MaterialApp` or `CupertinoApp` widget at the root of your widget tree.
+
+You should call your `_showDialog` method from a place where the `context` has a `Navigator` in its widget tree. This is typically inside the `build` method of a widget that is a child of the `MaterialApp` or `CupertinoApp` widget.
+
+However, you can't call `_showDialog` directly in the `build` method because it would be called every time the widget rebuilds, which is not what you want.
+
+Instead, you should use a `WidgetsBinding.instance.addPostFrameCallback` to call `_showDialog` after the widget has been built:
+
+```dart
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (flag) { // replace flag with your condition
+      _showDialog();
+    }
+  });
+}
+```
+
+This will ensure that the dialog is shown only once after the widget is built, and only if your condition is true.
+
+Remember to replace `flag` with your actual condition. This flag can be a value in your app state that you check to decide whether to show the dialog or not.

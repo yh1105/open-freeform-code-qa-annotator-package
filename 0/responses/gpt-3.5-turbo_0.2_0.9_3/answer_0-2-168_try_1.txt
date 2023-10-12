@@ -1,0 +1,7 @@
+The `rel="noopener noreferrer"` attribute is used to prevent a security vulnerability known as "tabnapping". Tabnapping is a type of phishing attack where a new tab is opened with a fake login page, and the original tab is replaced with the fake page when the user switches back to it. 
+
+The `noopener` attribute prevents the new tab from accessing the `window.opener` property of the original tab, which could be used to manipulate the original tab. The `noreferrer` attribute prevents the new tab from sending a `referrer` header to the new page, which could be used to track the user's browsing history.
+
+While it is technically possible for someone to remove the `rel` attribute using Developer Tools, it is not a common attack vector. Additionally, removing the `rel` attribute would not necessarily make the link vulnerable to tabnapping, as the `noopener` and `noreferrer` attributes are the primary protections against this type of attack.
+
+It is still recommended to use the `rel="noopener noreferrer"` attribute when opening links in a new tab as an additional layer of security.

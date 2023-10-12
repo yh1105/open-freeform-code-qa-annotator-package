@@ -1,0 +1,45 @@
+The error message you're seeing indicates that the SSL certificate verification failed because a self-signed certificate was found in the certificate chain. This usually happens when the client is unable to verify the server's SSL certificate.
+
+To resolve this issue, you need to configure your Redis client to use SSL/TLS when connecting to the Heroku Redis server. Here's how you can do this:
+
+1. First, you need to get the SSL certificate for your Heroku Redis server. You can do this by running the following command in your terminal:
+
+```bash
+heroku certs:info -a your-app-name
+```
+
+This will display the SSL certificate information for your Heroku app. Copy the contents of the `Certificate Chain` field.
+
+2. Next, create a new file in your Rails app's `config` directory and paste the certificate chain into this file. Let's call this file `redis.crt`.
+
+3. Now you need to configure your Redis client to use this certificate when connecting to the Redis server. You can do this by setting the `ssl_params` option in your Redis client's configuration. Here's an example:
+
+```ruby
+redis = Redis.new(url: ENV['REDIS_URL'], ssl_params: { ca_file: Rails.root.join('config', 'redis.crt').to_s })
+```
+
+In this example, `ENV['REDIS_URL']` is the URL of your Heroku Redis server, which you can get from your Heroku app's settings.
+
+4. If you're using Sidekiq, you can configure it to use this Redis client by adding the following code to your `config/initializers/sidekiq.rb` file:
+
+```ruby
+Sidekiq.configure_server do |config|
+  config.redis = { url: ENV['REDIS_URL'], ssl_params: { ca_file: Rails.root.join('config', 'redis.crt').to_s } }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: ENV['REDIS_URL'], ssl_params: { ca_file: Rails.root.join('config', 'redis.crt').to_s } }
+end
+```
+
+This will configure both the Sidekiq server and client to use the Redis client you've configured.
+
+5. Finally, commit your changes and push them to Heroku:
+
+```bash
+git add .
+git commit -m "Configure Redis client to use SSL"
+git push heroku master
+```
+
+After doing this, your Redis client should be able to connect to the Heroku Redis server using SSL/TLS.

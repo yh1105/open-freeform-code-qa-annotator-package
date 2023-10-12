@@ -1,0 +1,24 @@
+It's possible that the issue is related to Tailwind's JIT compiler. When you use a variable in a class name, Tailwind's JIT compiler needs to know the value of the variable at build time in order to generate the correct CSS. However, in your case, the value of `colSpan` is only known at runtime, which could cause issues with the JIT compiler.
+
+One possible solution is to use a static class name for the button that spans two columns, instead of using a variable. For example, you could use the class name `col-span-2` directly in the JSX:
+
+```
+<Button className="col-span-2">=</Button>
+```
+
+Alternatively, you could try using the `tw` function from the `twin.macro` library to generate the class name dynamically at build time:
+
+```
+import tw from 'twin.macro';
+
+const Button = ({ colSpan = 1, rowSpan = 1, children }) => {
+  const className = tw`col-span-${colSpan} row-span-${rowSpan} bg-white p-3 rounded`;
+  return (
+    <div className={className}>
+      <div className="flex items-center justify-center">{children}</div>
+    </div>
+  );
+};
+```
+
+This should generate the correct CSS at build time, without relying on the JIT compiler to generate it at runtime.

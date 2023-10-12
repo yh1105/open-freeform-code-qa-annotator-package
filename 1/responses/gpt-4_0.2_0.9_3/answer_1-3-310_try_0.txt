@@ -1,0 +1,20 @@
+Yes, you can use a loop to iterate over the list and replace the characters in each string. Here's how you can do it:
+
+```python
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+
+for i in range(len(list_names)):
+    list_names[i] = list_names[i].replace('!', '').replace('?', '')
+
+print(list_names)
+```
+
+This will replace the '!' and '?' characters in each string in the list. The `range(len(list_names))` is used to iterate over the indices of the list, so that we can modify the elements in-place. The `replace` function is called twice to replace both characters. The modified list is then printed out.
+
+This will give you the output:
+
+```python
+['sdf', 'sdfds', 'afsafsa', 'afasf']
+```
+
+This way, you don't need to manually create and replace each variable. The loop does it for all elements in the list.

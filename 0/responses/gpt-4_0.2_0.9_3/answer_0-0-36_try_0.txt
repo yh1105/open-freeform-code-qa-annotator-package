@@ -1,0 +1,11 @@
+You can use the `window.location.reload()` method to reload the current document. This method does a client-side reload of the page, which should trigger the `getInitialProps` function in the browser.
+
+Here's how you can use it:
+
+```javascript
+window.location.reload();
+```
+
+Please note that this method will completely reload the page from the server and will not preserve any state. If you need to preserve state, you might need to use a different approach, such as using a state management library like Redux or MobX, or using the built-in state management features in React.
+
+Also, keep in mind that `window.location.reload()` is a web API and it won't work in a server-side rendering environment. You should ensure that this code is only run on the client side. You can use a simple check like `if (typeof window !== 'undefined')` to ensure that the code is only run in the browser.

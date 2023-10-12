@@ -1,0 +1,27 @@
+The error message you're seeing indicates that the SQLite database you're using doesn't have a table named "Keys". This table is used by IdentityServer4 to store keys for signing tokens.
+
+When you upgraded to .NET 6.0, it's possible that the database schema required by IdentityServer4 has changed, and you need to update your database to match the new schema.
+
+Here's what you can do to resolve this issue:
+
+1. **Create a Migration**: If you're using Entity Framework Core, you can create a new migration that will generate the necessary table. In your terminal, navigate to the project directory and run the following command:
+
+```bash
+dotnet ef migrations add UpdateIdentityServer4
+```
+
+This will create a new migration file in your project. Review the file to ensure it's creating the "Keys" table.
+
+2. **Update the Database**: After creating the migration, you can apply it to the database by running the following command:
+
+```bash
+dotnet ef database update
+```
+
+This will apply all pending migrations to the database, including the one you just created.
+
+3. **Check the Documentation**: If you're still having issues, check the official IdentityServer4 documentation. While there might not be a specific guide for migrating from .NET 5 to .NET 6, the documentation might have information on changes to the database schema.
+
+4. **Consider Upgrading to Duende IdentityServer**: IdentityServer4 is no longer being maintained, and the team behind it has moved to a new project called Duende IdentityServer. If you're planning to use IdentityServer in a production environment, you might want to consider migrating to Duende IdentityServer. They have a migration guide available on their website.
+
+Remember to always backup your database before performing any operations that might modify its structure or data.

@@ -1,0 +1,48 @@
+In Go, you can create a struct to represent the data structure you want to encode into JSON. Here's how you can do it:
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
+
+type Client struct {
+	Hostname string `json:"Hostname"`
+	IP       string `json:"IP"`
+	MacAddr  string `json:"MacAddr"`
+}
+
+type Clients struct {
+	Clients []Client `json:"Clients"`
+}
+
+func parselines(line string) {
+	var clients Clients
+	for _, line := range strings.Split(line, "\n") {
+		if line != "" {
+			s := strings.Split(line, " ")
+			host, ip, mac := s[0], s[1], s[2]
+			client := Client{Hostname: host, IP: ip, MacAddr: mac}
+			clients.Clients = append(clients.Clients, client)
+		}
+	}
+	jsonData, err := json.Marshal(clients)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(jsonData))
+}
+
+func main() {
+	parselines("example.com 127.0.0.1 mactonight\nfoo.biz 0.0.0.0 12:34:56:78")
+}
+```
+
+In this code, we define two structs, `Client` and `Clients`. `Client` represents a single client with fields `Hostname`, `IP`, and `MacAddr`. `Clients` represents a list of `Client` objects. 
+
+In the `parselines` function, we create a `Clients` object and for each line, we create a `Client` object and append it to the `Clients` object. 
+
+Finally, we use the `json.Marshal` function to convert the `Clients` object into a JSON string. If there's an error during the conversion, we print the error. Otherwise, we print the JSON string.

@@ -1,0 +1,24 @@
+It looks like the issue is with the ESLint configuration file. The `tsconfig.json` file is being referenced in the `parserOptions` section of the `.eslintrc.js` file, but it seems like ESLint is unable to find the `tsconfig.json` file.
+
+To fix this issue, you can try the following steps:
+
+1. Make sure that the `tsconfig.json` file is located in the root directory of your project.
+
+2. In the `.eslintrc.js` file, update the `parserOptions` section to include the full path to the `tsconfig.json` file. For example:
+
+```
+parserOptions: {
+  project: "./tsconfig.json",
+  sourceType: "module",
+},
+```
+
+3. Save the `.eslintrc.js` file and restart VSCode.
+
+This should resolve the issue and the red lines should disappear. If you still see the red lines, try running the ESLint command manually to see if there are any errors:
+
+```
+npx eslint src
+```
+
+This command will run ESLint on the `src` directory and show any errors or warnings. If there are any errors related to the `tsconfig.json` file, you can try updating the path in the ESLint configuration file again.

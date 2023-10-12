@@ -1,0 +1,15 @@
+Yes, you can use the `.only` method in Cypress to run only a specific test. 
+
+To do this, simply add `.only` after the `it` or `describe` block that you want to run exclusively. For example:
+
+```
+describe.only('My exclusive test', () => {
+  it('should do something', () => {
+    // test code here
+  });
+});
+```
+
+This will run only the test block that has the `.only` method attached to it, and skip all other tests in the suite.
+
+Just remember to remove the `.only` method once you're done testing that specific block, so that all tests can run again.

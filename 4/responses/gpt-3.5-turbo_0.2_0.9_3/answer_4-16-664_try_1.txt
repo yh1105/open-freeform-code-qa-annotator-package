@@ -1,0 +1,25 @@
+To get a list of environment variables with their values that would work with the example above, you can use the `printenv` command instead of `env`. The `printenv` command prints the values of all environment variables in the format `VAR=VALUE`, which can be easily parsed using the `read` command. Here's an example:
+
+```
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ printenv | while IFS= read -r line; do
+    var=$(echo "$line" | cut -d= -f1)
+    value=$(echo "$line" | cut -d= -f2-)
+    [ "$var" == "MYVAR" ] && echo "$value"
+done
+something\nMYVAR=10
+```
+
+In this example, we use `printenv` to print all environment variables and their values. We then use a `while` loop to read each line of output and parse it using the `cut` command. The `var` variable contains the name of the environment variable, and the `value` variable contains its value. We then check if the variable name is `MYVAR` and print its value if it is.
+
+Note that the value of `MYVAR` contains a newline character (`\n`), which is preserved by `printenv`. If you want to remove it, you can use the `tr` command to replace it with an empty string:
+
+```
+$ export MYVAR=$(echo -e "something\nMYVAR=10")
+$ printenv | while IFS= read -r line; do
+    var=$(echo "$line" | cut -d= -f1)
+    value=$(echo "$line" | cut -d= -f2- | tr -d '\n')
+    [ "$var" == "MYVAR" ] && echo "$value"
+done
+somethingMYVAR=10
+```

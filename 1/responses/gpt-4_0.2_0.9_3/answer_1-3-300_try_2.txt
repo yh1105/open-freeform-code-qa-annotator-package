@@ -1,0 +1,30 @@
+The issue might be due to the fact that the newline characters in your PDF are not exactly "\r\n". They might be just "\n" or "\r". 
+
+You can try replacing each of them separately:
+
+```python
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = content.replace("\r", "").replace("\n", "")
+print(content)
+```
+
+This code will replace both "\r" and "\n" characters in your string.
+
+If you want to replace multiple types of whitespace characters (like newlines, spaces, tabs etc.) you can use the `re` module:
+
+```python
+import re
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = re.sub('\s', '', content)
+print(content)
+```
+
+The '\s' pattern matches any whitespace character.

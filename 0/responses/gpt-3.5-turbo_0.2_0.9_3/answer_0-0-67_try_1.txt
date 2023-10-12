@@ -1,0 +1,21 @@
+You can define the typings for the `onChange` event handler like this:
+
+```
+onChange={(e: React.ChangeEvent<HTMLInputElement>) => data.motto = e.target.value}
+```
+
+This specifies that the `e` parameter is of type `React.ChangeEvent<HTMLInputElement>`, which provides the correct typings for the event object.
+
+In your `InputProps` interface, you can extend the `HTMLProps<HTMLInputElement>` interface to inherit all the default props for an input element. Then, you can add any additional props specific to your `Input` component.
+
+```
+export interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  // additional props specific to Input component
+}
+
+export class Input extends React.Component<InputProps, {}> {
+  // component implementation
+}
+```
+
+This should allow you to use the `Input` component with the correct typings for all props, including the `onChange` event handler.

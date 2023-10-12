@@ -1,0 +1,3 @@
+1. No, you are not overlooking anything obvious. The issue you are facing is a known limitation of the current implementation of generics in Go.
+2. Yes, this is a limitation of generics in Go. The current implementation does not support the instantiation of types with pointer receivers. The workaround you found with the constructor function is currently the best solution.
+3. This limitation is known and has been discussed in the Type Parameters Proposal. You can find more information in the "Pointer receivers" section of the proposal. However, if you feel that this limitation is causing significant issues for your use case, you can raise an issue in the Go project to bring attention to it.

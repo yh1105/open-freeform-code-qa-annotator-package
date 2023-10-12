@@ -1,0 +1,9 @@
+The error message you're seeing is because ESLint is trying to find the `tsconfig.json` file in the root directory of your project, but it's not there. 
+
+In your `.eslintrc.js` file, you have specified the `project` option under `parserOptions` to be `"tsconfig.json"`. This tells ESLint to look for the `tsconfig.json` file in the root directory of your project.
+
+If your `tsconfig.json` file is not in the root directory, you need to provide the correct relative path to it. For example, if your `tsconfig.json` file is inside a `config` directory in the root of your project, you would change the `project` option to `"./config/tsconfig.json"`.
+
+So, you need to update the `project` path in the `.eslintrc.js` file to the correct relative path from the root directory of your project to the `tsconfig.json` file.
+
+If your `tsconfig.json` file is in the root directory of your project, and you're still seeing this error, it could be a problem with your ESLint setup. You could try deleting your `node_modules` directory and running `npm install` again to see if that fixes the problem.

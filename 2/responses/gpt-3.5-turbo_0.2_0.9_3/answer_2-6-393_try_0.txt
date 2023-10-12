@@ -1,0 +1,37 @@
+The error message suggests that the `Read` method of the `BrowserFileStream` class is being called synchronously, which is not supported. This could be caused by the `OpenReadStream` method returning a non-seekable stream.
+
+To fix this issue, you can try copying the contents of the `IBrowserFile` stream to a new `MemoryStream` that is seekable. Here's an updated version of your method that does this:
+
+```
+public async Task<byte[]> ConvertFileToByteArrayAsync(IBrowserFile file)
+{
+    using var memoryStream = new MemoryStream();
+    await file.OpenReadStream().CopyToAsync(memoryStream);
+    memoryStream.Seek(0, SeekOrigin.Begin);
+
+    using var image = Image.Load(memoryStream);
+    image.Mutate(x => x.Resize(new ResizeOptions
+    {
+        Mode = ResizeMode.Min,
+        Size = new Size(128)
+    }));
+
+    memoryStream.SetLength(0);
+    if (file.ContentType == "image/png")
+    {
+        await image.SaveAsPngAsync(memoryStream);
+    }
+    else
+    {
+        await image.SaveAsJpegAsync(memoryStream);
+    }
+
+    return memoryStream.ToArray();
+}
+```
+
+This code creates a new `MemoryStream` and copies the contents of the `IBrowserFile` stream into it using the `CopyToAsync` method. The `Seek` method is then called to reset the position of the stream to the beginning.
+
+The rest of the code is the same as before, except that the `MemoryStream` is used instead of the `IBrowserFile` stream. Note that the `SetLength` method is called to truncate the stream before writing the image data to it.
+
+Also, note that the `MemoryStream` is disposed automatically when the `using` block is exited, so you don't need to call `Close` or `Dispose` explicitly.

@@ -1,0 +1,29 @@
+The code you posted is almost correct. The problem is that you're trying to use `@Binding` in the main `ContentView`. `@Binding` is used when you want to create a two-way connection between a variable in a child view and a source of truth in a parent view. 
+
+In your case, you should use `@State` in the `ContentView` because it's the source of truth. Then, if you had a child view that needed to modify `isSelected`, you would pass it as a `@Binding`.
+
+Here's the corrected code:
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    @State private var isSelected: Bool = false
+
+    var body: some View {
+        Button(action: {
+            self.isSelected.toggle()
+        }) {
+            Text(isSelected ? "Selected" : "Not Selected")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+In this corrected code, `@State` is used to create a source of truth for `isSelected` in `ContentView`. When `isSelected` changes, SwiftUI automatically refreshes the view.

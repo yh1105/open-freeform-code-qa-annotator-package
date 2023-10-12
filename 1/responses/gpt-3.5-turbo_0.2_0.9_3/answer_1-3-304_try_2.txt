@@ -1,0 +1,20 @@
+Your code is almost correct. The problem is that you are iterating over the whole length of the output array, but you only want to iterate until the third to last element. You can fix this by changing the range to `range(len(output)-2)`.
+
+Also, the last two elements of the output array are incorrect because you are not handling the case where there are not enough elements to sum up. You can fix this by setting the last two elements of the output array to the last two elements of the input array.
+
+Here's the corrected code:
+
+```
+output = np.empty(len(load))
+for i in range(len(output)-2):
+    output[i] = load[i]+load[i+1]+load[i+2]
+output[-2:] = load[-2:]
+output = output.astype(int)
+print(output)
+```
+
+This should give you the desired output:
+
+```
+[31 34 39 53 65 76 79 78 72 66 60 58 60 66 72 78 77 75 68 63 55 47 29 13]
+```

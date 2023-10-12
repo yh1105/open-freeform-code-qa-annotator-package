@@ -1,0 +1,18 @@
+To fix the DeprecationWarning, you can pass a Service object to the Chrome webdriver instead of the executable_path. Here's an updated code snippet:
+
+```
+# pip install webdriver-manager
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+driver.maximize_window()
+
+driver.get('https://www.google.com')
+driver.find_element(By.NAME, 'q').send_keys('Yasser Khalil')
+```
+
+In this updated code, we create a Service object using the ChromeDriverManager and pass it to the Chrome webdriver using the `service` parameter. This should resolve the DeprecationWarning.

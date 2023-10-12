@@ -1,0 +1,20 @@
+You are on the right track with using the `container` parameter to limit the search to a specific area of the DOM. However, the order of the parameters is important. The first parameter should be the text you are searching for, and the second parameter should be the container to search within.
+
+So your second attempt was closer to the correct syntax:
+```
+const container = getByTestId('my-test-id');
+expect(getByText('some text', container)).toBeTruthy();
+```
+
+However, the error message you received indicates that there are multiple elements with the text "some text" within the specified container. This means that `getByText` is indeed searching within the container, but it is finding more than one match.
+
+To fix this, you can use a more specific query to find the element you are looking for. For example, you could use `getByRole` to find an element with a specific role attribute, or `getByLabelText` to find an element with a specific label.
+
+If you know the element's tag name or class name, you can also use `container.querySelector` to search within the container using standard DOM selectors. For example:
+```
+const container = getByTestId('my-test-id');
+const element = container.querySelector('.my-class');
+expect(element).toHaveTextContent('some text');
+```
+
+This will search for an element with the class "my-class" within the container, and then check that it contains the text "some text".

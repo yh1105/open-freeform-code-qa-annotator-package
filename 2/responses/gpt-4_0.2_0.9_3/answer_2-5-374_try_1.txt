@@ -1,0 +1,13 @@
+The error message indicates that the Java Native Access (JNA) library is not compatible with the architecture of your MacBook Pro's M1 chip. The M1 chip is based on ARM architecture, while the JNA library is likely compiled for x86_64 architecture.
+
+Here are a few possible solutions:
+
+1. **Use Rosetta 2**: You can try running your terminal through Rosetta 2, which allows apps built for Intel chips to run on Apple Silicon. To open Terminal with Rosetta, find Terminal in Finder, press Command+I to get info, and then check the box labeled "Open using Rosetta."
+
+2. **Recompile JNA for ARM64**: You can try to recompile the JNA library for ARM64 architecture. This is a more complex solution and requires some knowledge of C and Java.
+
+3. **Use a Docker container**: You can run Cassandra inside a Docker container. Docker has good support for M1 chips and this can isolate the Cassandra environment and its dependencies.
+
+4. **Use a version of Cassandra that supports ARM64**: Some newer versions of Cassandra have added support for ARM64. You can try upgrading to one of these versions.
+
+Remember to always backup your data before making these changes.

@@ -1,0 +1,30 @@
+The `useRef` hook is used to create a mutable ref object whose `.current` property is initialized with the passed argument (`null` in this case). The returned object will persist for the full lifetime of the component.
+
+The reason why `observed.current` is `null` at the time of logging is because the `console.log(observed.current);` is executed during the render phase, but the ref is not attached to the DOM element until after the component is rendered and the DOM is updated. This is why you are seeing `null` in the console.
+
+If you want to access the ref after it's been attached, you can use the `useEffect` hook, which runs after the render is committed to the screen:
+
+```jsx
+import React, { useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  const observed = useRef(null);
+
+  useEffect(() => {
+    console.log(observed.current);
+  }, []);
+
+  return (
+    <div ref={observed} className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+In the above code, `useEffect` is used to schedule a side effect that runs after render. The side effect logs the `observed.current` to the console. Since the empty array `[]` is passed as the second argument to `useEffect`, the side effect runs only once after the initial render, when the ref is already attached to the DOM element.

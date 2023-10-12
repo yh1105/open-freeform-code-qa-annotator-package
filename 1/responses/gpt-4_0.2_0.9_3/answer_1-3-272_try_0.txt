@@ -1,0 +1,21 @@
+The issue is that the yaml file doesn't automatically interpolate environment variables. You need to manually replace them in your Python script. Here's how you can do it:
+
+```python
+import yaml
+import os
+import sys
+
+stream = open("sample.yml", "r")
+docs = yaml.safe_load(stream)
+
+for k, v in docs.items():
+    if isinstance(v, str):
+        docs[k] = os.path.expandvars(v)
+
+for k, v in docs.items():
+    print(k, "->", v)
+```
+
+In this script, we use `os.path.expandvars()` to replace `${PATH}` with the actual value of the PATH environment variable. The `os.path.expandvars()` function replaces variables in a string with their actual values.
+
+Please note that `yaml.load_all()` is replaced with `yaml.safe_load()` for safety reasons. The `load()` function can create arbitrary Python objects, which can be a security risk if you're loading YAML from an untrusted source. The `safe_load()` function only creates basic Python data types like dictionaries, lists, strings, etc.

@@ -1,0 +1,15 @@
+The error message you're seeing is related to a checksum mismatch. This can occur when the package's contents have changed between the time they were added to the npm registry and the time you tried to install them.
+
+Here are a few steps you can try to resolve this issue:
+
+1. **Update npm**: The version of npm you're using is quite old. It's possible that the issue you're experiencing has been fixed in a newer version. You can update npm by running `sudo npm install -g npm@latest`.
+
+2. **Clear npm cache**: You've already tried this, but it's worth repeating after updating npm. Run `npm cache clean --force`.
+
+3. **Delete `node_modules`**: If the problem persists, try deleting the `node_modules` directory and then running `npm install` again. You can delete the directory with `rm -rf node_modules`.
+
+4. **Check your network connection**: If you're behind a proxy or have a slow/unstable internet connection, it could be causing this issue. Try switching to a different network if possible.
+
+5. **Try using a different package registry**: npm has a few different registries you can use. If the default one isn't working for you, you can try using a different one. For example, you can use the registry provided by Taobao by running `npm config set registry https://registry.npm.taobao.org`.
+
+Remember to run `sudo npm install` again after each step to see if the problem has been resolved.

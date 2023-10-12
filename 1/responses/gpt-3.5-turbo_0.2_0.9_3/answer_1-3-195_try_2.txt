@@ -1,0 +1,52 @@
+For your first issue, the problem is that you are using global variables `curve1` and `curve2` to store the plot curves. When you check both checkboxes, both curves are plotted and stored in their respective global variables. However, when you uncheck one of the checkboxes, you are only removing the curve associated with that checkbox, but the other curve is still stored in its global variable. So, when you try to plot a new curve, it is plotted on top of the existing curve, which is still stored in its global variable.
+
+To fix this issue, you can store the curves in a dictionary instead of using global variables. The keys of the dictionary can be the names of the checkboxes, and the values can be the plot curves. Then, when you uncheck a checkbox, you can remove the curve associated with that checkbox from the dictionary.
+
+Here's the modified `todo` function that uses a dictionary to store the plot curves:
+```
+curves = {}
+
+def todo():
+    if cbx1.isChecked():
+        curves['A1'] = plot.plot(x, y1, pen='r')
+    else:
+        if 'A1' in curves:
+            plot.removeItem(curves['A1'])
+            del curves['A1']
+    if cbx2.isChecked():
+        curves['A2'] = plot.plot(x, y2, pen='y')
+    else:
+        if 'A2' in curves:
+            plot.removeItem(curves['A2'])
+            del curves['A2']
+```
+
+For your second issue, you can create the checkboxes and their associated data sets dynamically using a loop. Here's an example code that creates 4 checkboxes and their associated data sets:
+```
+data_sets = {
+    'A1': np.sin(x),
+    'A2': np.cos(x),
+    'B1': np.tan(x),
+    'B2': np.exp(x)
+}
+
+curves = {}
+
+def todo():
+    for cbx_name, data in data_sets.items():
+        cbx = checkboxes[cbx_name]
+        if cbx.isChecked():
+            curves[cbx_name] = plot.plot(x, data, pen='r')
+        else:
+            if cbx_name in curves:
+                plot.removeItem(curves[cbx_name])
+                del curves[cbx_name]
+
+checkboxes = {}
+for i, cbx_name in enumerate(data_sets.keys()):
+    cbx = QtWidgets.QCheckBox()
+    cbx.setText(cbx_name)
+    cbx.stateChanged.connect(todo)
+    checkboxes[cbx_name] = cbx
+    layout.addWidget(cbx, i, 0)
+```

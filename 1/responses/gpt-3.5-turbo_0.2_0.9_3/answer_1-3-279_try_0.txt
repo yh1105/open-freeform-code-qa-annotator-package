@@ -1,0 +1,27 @@
+The error message indicates that the user running the Django application does not have the necessary permissions to create the `/media/artists` directory. 
+
+To fix this issue, you can try the following steps:
+
+1. Check the owner and permissions of the `/media` directory and make sure that the user running the Django application has write permissions to it.
+
+2. Create the `/media/artists` directory manually with the correct permissions. You can use the following command to create the directory with the correct permissions:
+
+   ```
+   sudo mkdir /media/artists
+   sudo chown -R <username>:<groupname> /media/artists
+   sudo chmod -R 775 /media/artists
+   ```
+
+   Replace `<username>` and `<groupname>` with the appropriate values for your system.
+
+3. Update the `MEDIA_ROOT` setting in your `settings.py` file to point to the correct directory:
+
+   ```
+   MEDIA_ROOT = '/media/'
+   ```
+
+   Note that you don't need to include the `/artists` subdirectory in the `MEDIA_ROOT` setting, as it will be automatically created by Django when you upload files.
+
+4. Restart your Django application and try uploading a file again.
+
+I hope this helps! Let me know if you have any further questions.

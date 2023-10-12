@@ -1,0 +1,16 @@
+The issue with your code is that it's distributing the remainder one by one to each group. To distribute the remainder by adding 2 to each group in succession, you need to modify your function. Here's a modified version of your function that should work:
+
+```python
+def split(a, b):
+    quotient, remainder = divmod(a, b)
+    result = [quotient] * b
+    for i in range(0, remainder, 2):
+        result[i % b] += 2
+    return result
+
+num = 100
+parts = num // 30
+print(split(num, parts))
+```
+
+In this function, `divmod(a, b)` returns the quotient and the remainder of the division `a // b`. Then, we create a list `result` with `b` elements, each of which is `quotient`. After that, we distribute the remainder by adding 2 to each group in succession. The expression `i % b` ensures that we go back to the first group when we've added 2 to all groups.

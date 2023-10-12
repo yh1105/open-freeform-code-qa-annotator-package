@@ -1,0 +1,12 @@
+Yes, you can disable the interactive pager in the AWS CLI by setting the `AWS_PAGER` environment variable to an empty string. This will cause the output to be displayed directly in the terminal instead of opening an interactive pager.
+
+You can set the `AWS_PAGER` environment variable in your bash script before running the `aws` command, like this:
+
+```
+for x in 1 2 3; do 
+  export AWS_PAGER=""
+  aws sqs purge-queue --queue-url https://sqs.<aws-region>.amazonaws.com/<id>/<env>-$x-<queueName>.fifo; 
+done
+```
+
+This should prevent the interactive pager from opening and allow your `for` loop to continue to the next iteration automatically.

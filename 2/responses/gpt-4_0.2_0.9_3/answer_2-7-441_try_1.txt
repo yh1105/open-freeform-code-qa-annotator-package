@@ -1,0 +1,32 @@
+The error you're encountering is not due to PHP 7.4. Laravel 6.x does support PHP 7.4. The error is due to Laravel Telescope. 
+
+The error is coming from the QueryWatcher.php file in the Telescope package. This file is trying to access an array offset on a null value, which is not allowed in PHP 7.4 and thus throws an error. 
+
+You can try to disable Telescope in your testing environment to see if that resolves the issue. You can do this by adding the following code to your `TelescopeServiceProvider.php`:
+
+```php
+public function register()
+{
+    $this->hideSensitiveRequestDetails();
+
+    Telescope::filter(function (IncomingEntry $entry) {
+        if ($this->app->isLocal()) {
+            return true;
+        }
+
+        return $entry->isReportableException() ||
+               $entry->isFailedJob() ||
+               $entry->isScheduledTask() ||
+               $entry->hasMonitoredTag();
+    });
+
+    // Add this code
+    if ($this->app->environment('testing')) {
+        Telescope::stopRecording();
+    }
+}
+```
+
+This code will stop Telescope from recording in your testing environment, which should prevent the error from occurring.
+
+If you still want to use Telescope in your testing environment, you will need to wait for a fix from the Telescope package. You can also try to update your Telescope package to the latest version to see if the issue has been resolved.

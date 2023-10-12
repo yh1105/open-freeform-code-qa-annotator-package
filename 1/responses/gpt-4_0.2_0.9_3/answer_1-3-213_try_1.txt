@@ -1,0 +1,19 @@
+The error message suggests that the datetime objects in your DataFrame have timezone information attached to them, which is not supported by Excel. 
+
+You can try to remove the timezone information from your datetime columns before writing to Excel. Here is how you can do it:
+
+```python
+df['your_datetime_column'] = df['your_datetime_column'].dt.tz_localize(None)
+```
+
+Replace `'your_datetime_column'` with the actual name of your datetime column. If you have multiple datetime columns, you need to do this for each of them.
+
+If you don't know which columns are datetime, you can use this code to remove timezone from all datetime columns:
+
+```python
+for col in df.columns:
+    if df[col].dtype == 'datetime64[ns, UTC]':
+        df[col] = df[col].dt.tz_localize(None)
+```
+
+This will remove the timezone information from all datetime columns in your DataFrame. After this, you should be able to write your DataFrame to Excel without any issues.

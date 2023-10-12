@@ -1,0 +1,14 @@
+The designer.exe file is usually located in the `Scripts` folder of your Python installation directory. You can try the following steps to locate the designer.exe file:
+
+1. Open the command prompt or terminal.
+2. Type `where designer.exe` and press Enter.
+3. If the designer.exe file is installed on your system, the command prompt will display the path to the file.
+
+If the above steps do not work, you can try reinstalling PyQT5 and PyQT5-tools using the following command:
+
+```
+pip uninstall pyqt5 pyqt5-tools
+pip install pyqt5 pyqt5-tools
+```
+
+This should ensure that all the necessary files are installed correctly, including the designer.exe file.

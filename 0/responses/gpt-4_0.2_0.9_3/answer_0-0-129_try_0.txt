@@ -1,0 +1,55 @@
+The error message you're seeing is due to the fact that the Elasticsearch client is trying to connect to the Elasticsearch server over HTTPS, but the server is using a self-signed certificate. This is a common issue when using self-signed certificates, as they are not trusted by default.
+
+To solve this issue, you have two options:
+
+1. **Disable SSL verification**: This is not recommended for production environments as it makes your application vulnerable to man-in-the-middle attacks. However, for development or testing purposes, you can disable SSL verification in your Elasticsearch client. Here's how you can do it:
+
+```javascript
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+```
+
+2. **Add the self-signed certificate to your Node.js application**: This is the recommended solution for production environments. You need to add the self-signed certificate to your Node.js application so that it trusts the certificate. Here's how you can do it:
+
+First, you need to get the certificate from your Elasticsearch server. You can do this by running the following command:
+
+```bash
+kubectl get secret quickstart-es-http-certs-public -o=jsonpath='{.data.ca\.crt}' | base64 --decode > ca.crt
+```
+
+Then, you need to add the certificate to your Node.js application:
+
+```javascript
+const fs = require('fs');
+const https = require('https');
+
+const agent = new https.Agent({
+  ca: fs.readFileSync('path/to/your/certificate/ca.crt')
+});
+
+const client = new elasticsearch.Client({
+  node: process.env.elasticsearch_node,
+  agent: agent
+});
+```
+
+Replace `'path/to/your/certificate/ca.crt'` with the path to the certificate file you just created.
+
+Remember, if you're using Docker, you need to make sure the certificate file is available inside your Docker container. You can do this by adding a volume in your Docker Compose file:
+
+```yaml
+volumes:
+  - ./path/to/your/certificate:/usr/src/app/certs
+```
+
+And then use the correct path in your Node.js application:
+
+```javascript
+ca: fs.readFileSync('/usr/src/app/certs/ca.crt')
+```
+
+I hope this helps! Let me know if you have any other questions.

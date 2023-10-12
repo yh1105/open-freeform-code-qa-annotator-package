@@ -1,0 +1,12 @@
+One solution to this problem is to use Cypress's `within` command to get the `div` element and then use JavaScript's `parseFloat` function to convert the value of `width` to a number with a specified number of decimal places. Here's an example:
+
+```
+cy.get('.target').within(() => {
+  cy.get('div').should(($div) => {
+    const width = parseFloat($div.css('width')).toFixed(2);
+    expect(width).to.equal('200.00');
+  });
+});
+```
+
+In this example, we're using the `within` command to scope the search for the `div` element to the `.target` element. Then, we're using the `should` command with a callback function that receives the `div` element as an argument. Inside the callback function, we're using the `css` function to get the value of the `width` property and then using `parseFloat` to convert it to a number. Finally, we're using the `toFixed` function to round the number to two decimal places and comparing it to the expected value of `'200.00'`. This should ensure that the test passes even if the actual value of `width` has some extra decimal places.

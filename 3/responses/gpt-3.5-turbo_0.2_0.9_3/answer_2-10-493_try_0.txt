@@ -1,0 +1,27 @@
+One way to automate this process is to use a code generation tool like `prost-build`. `prost-build` generates Rust code for protobuf messages based on a `.proto` file. You can define your message struct in a `.proto` file, and then use `prost-build` to generate the corresponding Rust code.
+
+Once you have the Rust code generated, you can use the `From` trait to convert your `Source` struct to the corresponding `Message` struct. Here's an example implementation:
+
+```
+use prost::Message;
+
+impl From<Source> for Message {
+    fn from(source: Source) -> Self {
+        let mut message = Message::default();
+        message.email = source.email.to_string();
+        message.name = source.name.to_string();
+        message
+    }
+}
+```
+
+This implementation assumes that the `email` and `name` fields in `Source` are convertible to strings. If they are not, you will need to provide additional conversion logic.
+
+With this implementation, you can convert a `Source` struct to a `Message` struct like this:
+
+```
+let source = Source { email: Email::new("foo@example.com"), name: Name::new("Foo Bar") };
+let message: Message = source.into();
+```
+
+This will create a new `Message` struct with the `email` and `name` fields populated from the corresponding fields in the `Source` struct.

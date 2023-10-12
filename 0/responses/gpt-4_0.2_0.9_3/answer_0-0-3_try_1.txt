@@ -1,0 +1,55 @@
+The error message you're seeing is related to the Android Gradle build failing. This can happen for a variety of reasons, but in your case, it's likely related to the `react-native link` command.
+
+The `react-native link` command is used to automatically link native dependencies in your project. However, from React Native 0.60 and above, auto-linking is supported so you don't need to use `react-native link`. But as I see, you are using React Native version 0.58.3 which doesn't support auto-linking.
+
+Here are a few steps you can take to try and resolve this issue:
+
+1. **Clean and Rebuild**: Sometimes, the build files can get into a bad state causing issues. You can clean your project and rebuild it. Navigate to your android folder in your react native project and run the following commands:
+
+```bash
+cd android
+./gradlew clean
+cd ..
+react-native run-android
+```
+
+2. **Manual Linking**: If the `react-native link` command is not working properly, you can try to link the library manually. Here are the general steps to do that for `react-native-gesture-handler`:
+
+- Update `android/settings.gradle` to include the `react-native-gesture-handler` package:
+
+```gradle
+include ':react-native-gesture-handler'
+project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
+```
+
+- Update `android/app/build.gradle` to add `react-native-gesture-handler` as a dependency:
+
+```gradle
+dependencies {
+   ...
+   implementation project(':react-native-gesture-handler')
+}
+```
+
+- Update `MainApplication.java` to use `react-native-gesture-handler`:
+
+```java
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;  // <-- add this import
+
+public class MainApplication extends Application implements ReactApplication {
+    //...
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+            new RNGestureHandlerPackage()  // <-- add this line
+      );
+    }
+}
+```
+
+After these changes, try to run your project again.
+
+3. **Upgrade React Native**: As I mentioned earlier, React Native 0.60 and above support auto-linking. So, you might consider upgrading your React Native version to the latest one. But remember, upgrading might also require you to make other changes in your project to ensure compatibility.
+
+If none of these solutions work, please provide more details about the error message you're seeing. The screenshot you mentioned was not attached, so I can't see the exact error message.

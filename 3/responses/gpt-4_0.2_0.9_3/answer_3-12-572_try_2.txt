@@ -1,0 +1,28 @@
+The issue you're experiencing is due to the fact that the `Row` widget tries to place all its children in a single line. When the text is too long to fit, it wraps to the next line but it's still considered as a single widget in the row, so it starts where the `Icon` widget ends.
+
+To achieve the desired effect, you can wrap your `Text` and `Icon` widgets in a `Wrap` widget instead of a `Row`. The `Wrap` widget automatically arranges its children and moves them to the next line when there's not enough space.
+
+Here's how you can modify your code:
+
+```dart
+Wrap(
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Text(
+      'on the right hand corner to start a new chat.',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+  ],
+)
+```
+
+In this code, the `Wrap` widget places the `Text` and `Icon` widgets in a line, and if there's not enough space for the second `Text` widget, it moves it to the next line. The `crossAxisAlignment` property is set to `WrapCrossAlignment.center` to align the widgets in the center vertically.

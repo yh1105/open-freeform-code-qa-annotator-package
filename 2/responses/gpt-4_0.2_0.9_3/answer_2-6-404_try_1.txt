@@ -1,0 +1,10 @@
+In C# 9.0 and later, you can declare additional constructors for a record type. However, these constructors must call the primary constructor (the one that declares the properties). Here's how you can do it:
+
+```csharp
+public record Person(int Id, string FirstName, string LastName)
+{
+    public Person() : this(0, string.Empty, string.Empty) { }
+}
+```
+
+In this code, the `Person()` constructor calls the primary constructor `Person(int Id, string FirstName, string LastName)` with default values. This is necessary because in a record type, the properties are readonly and can only be set in the primary constructor.

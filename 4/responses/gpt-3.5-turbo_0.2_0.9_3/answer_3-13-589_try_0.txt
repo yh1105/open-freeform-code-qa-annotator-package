@@ -1,0 +1,20 @@
+The error message suggests that there is a problem with the converter used to parse the response from the server into the `JConfig` object. 
+
+One possible cause of this error is that the JSON response from the server does not match the structure of the `JConfig` object. You can try printing the response body to the console to see if it matches the expected structure.
+
+Another possible cause is that the Moshi converter is not properly configured. In your `AppModule`, you are providing a `MoshiConverterFactory` instance, but you are not specifying the `Moshi` instance to use. You can try creating a `Moshi` instance with the `JsonClass` annotation processor and passing it to the `MoshiConverterFactory.create()` method, like this:
+
+```
+@Singleton
+@Provides
+fun provideConverterFactory(): MoshiConverterFactory {
+    val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+    return MoshiConverterFactory.create(moshi)
+}
+```
+
+Also, make sure that the `JConfig` and `Config` classes are properly annotated with the `@JsonClass` and `@Json` annotations, respectively.
+
+I hope this helps! Let me know if you have any further questions.

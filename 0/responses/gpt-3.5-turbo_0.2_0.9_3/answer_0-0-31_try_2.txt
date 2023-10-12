@@ -1,0 +1,7 @@
+Yes, there is a nullish version of `&&` called the Optional Chaining Operator `?.`. It allows you to access nested properties or call functions on an object only if the object is not nullish. Here's an example:
+
+```
+const result = obj?.prop?.func();
+```
+
+In this example, `result` will be `undefined` if either `obj` or `prop` is nullish. If both `obj` and `prop` exist, then `func()` will be called and `result` will be the return value of `func()`. This is a safer way to access nested properties or call functions on an object without causing errors due to nullish values.

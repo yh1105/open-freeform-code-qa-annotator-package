@@ -1,0 +1,3 @@
+It sounds like you're trying to use a CSS preprocessor like Sass or Less, which allows you to write CSS in a more efficient and organized way. In Sass, for example, you can use the syntax `&.classname` to target an element with a specific class. However, if you're new to web design, it might be best to stick with regular CSS for now until you have a better understanding of the basics.
+
+As for your question about Sublime, it's a popular code editor among developers, but it ultimately comes down to personal preference. If you're comfortable with your current editor, there's no need to switch. However, if you're finding it difficult to work with, it might be worth exploring other options like Sublime or Visual Studio Code to see if they better suit your needs.

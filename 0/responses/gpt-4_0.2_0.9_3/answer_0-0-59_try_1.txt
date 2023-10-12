@@ -1,0 +1,64 @@
+Yes, I do have a recommendation. You can use the "ngx-intl-tel-input" library. It's an International Telephone Input field with country flags and codes for Angular. It's easy to use and highly customizable.
+
+Here's how you can install and use it:
+
+1. Install the package via npm:
+```bash
+npm install ngx-intl-tel-input --save
+```
+
+2. Import the NgxIntlTelInputModule in your module:
+```javascript
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+
+@NgModule({
+  imports: [
+    // ...
+    NgxIntlTelInputModule,
+  ],
+})
+export class AppModule { }
+```
+
+3. Use it in your component:
+```html
+<form [formGroup]="form">
+  <ngx-intl-tel-input
+    [cssClass]="'your-custom-class'"
+    [preferredCountries]="['us', 'gb']"
+    [enableAutoCountrySelect]="true"
+    [enablePlaceholder]="true"
+    [searchCountryFlag]="true"
+    [searchCountryField]="['iso2', 'name']"
+    [selectFirstCountry]="false"
+    [selectedCountryISO]="CountryISO.UnitedStates"
+    [maxLength]="10"
+    [phoneValidation]="true"
+    [inputId]="'phone'"
+    [allowDropdown]="true"
+    [onlyNumbers]="false"
+    formControlName="phone">
+  </ngx-intl-tel-input>
+</form>
+```
+
+4. In your component.ts file:
+```javascript
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CountryISO } from 'ngx-intl-tel-input';
+
+export class AppComponent {
+  form: FormGroup;
+  CountryISO = CountryISO;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      phone: ['', [Validators.required]]
+    });
+  }
+}
+```
+
+Please note that you need to have ReactiveFormsModule imported in your module where you're using this component.
+
+This library is compatible with Angular 9 and should meet your needs for an international phone input.

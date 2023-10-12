@@ -1,0 +1,9 @@
+It seems like there might be some leftover files from a previous installation of Service Fabric that are causing the issue. Even though you have manually removed the `C:\program files\ServiceFabric` folder, there might still be some registry keys or other files that are causing the installation to fail.
+
+One thing you could try is to use the Service Fabric CleanUp tool to completely remove any traces of Service Fabric from your system. You can download the tool from the Microsoft Download Center: https://www.microsoft.com/en-us/download/details.aspx?id=54989
+
+After running the CleanUp tool, try to install Service Fabric again and see if the issue persists. If it does, you could try to manually search for any remaining Service Fabric files or registry keys and remove them.
+
+Another thing to try is to run the installation as an administrator. Right-click on the installer and select "Run as administrator" to see if this makes any difference.
+
+If none of these solutions work, you could try to contact Microsoft support for further assistance. They might be able to provide more specific guidance on how to resolve the issue.

@@ -1,0 +1,14 @@
+Yes, you can achieve this using the `tidyverse` package in a more efficient way. The `split()` function from base R can be used along with `tidyverse` functions to get the desired output. Here is how you can do it:
+
+```r
+library(tidyverse)
+
+my_data <- tibble(list_names = c("Ford", "Chevy", "Ford", "Dodge", "Dodge", "Ford"),
+                  list_values = c("Ranger", "Equinox", "F150", "Caravan", "Ram", "Explorer"))
+
+desired_output <- my_data %>% 
+  split(.$list_names) %>% 
+  map(~ pull(., list_values))
+```
+
+In this code, `split()` is used to split the data frame into a list of data frames based on the `list_names` column. Then, `map()` is used to extract the `list_values` column from each data frame in the list. The `~` symbol is used to create a function on the fly that takes one argument (in this case, each data frame in the list) and applies the `pull()` function to it.

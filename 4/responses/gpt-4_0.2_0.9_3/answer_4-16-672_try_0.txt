@@ -1,0 +1,14 @@
+You can achieve this by using command substitution in your bash script. Command substitution allows the output of a command to replace the command itself. It occurs when a command is enclosed as follows: `$(command)`. 
+
+Here is how you can modify your `run.sh` script:
+
+```bash
+cat << EOF > test.sh
+#!/bin/bash
+some commands
+$(cat file)
+some commands
+EOF
+```
+
+In this script, `$(cat file)` will be replaced by the content of the file. When you run `./run.sh`, it will generate `test.sh` with the desired output.

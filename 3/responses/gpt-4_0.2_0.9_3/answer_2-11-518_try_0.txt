@@ -1,0 +1,15 @@
+You're correct in your understanding that smart pointers can often eliminate the need for user-defined destructors, copy constructors, copy assignment operators, move constructors, and move assignment operators. This is because smart pointers, like `std::unique_ptr` and `std::shared_ptr`, handle their own memory management, which can greatly simplify code and reduce the risk of memory leaks.
+
+However, there are still cases where you might need to define these special member functions yourself:
+
+1. **Performance considerations**: While smart pointers are great for managing resources, they do introduce a slight overhead compared to raw pointers. In performance-critical code, this overhead might be unacceptable.
+
+2. **Custom behavior**: Sometimes, the default behavior provided by the compiler-generated special member functions or those of smart pointers isn't what you want. For example, you might want to deep copy some members and shallow copy others, or you might want to log every time an object is copied or moved.
+
+3. **Managing non-memory resources**: Smart pointers are designed to manage memory. If your class manages other types of resources (like a file, a network connection, a database transaction, etc.), you'll need to define your own destructor and possibly copy/move constructors and assignment operators to manage these resources correctly.
+
+4. **Compatibility with C-style code**: If you're interfacing with C-style code, you might not be able to use smart pointers, as they're a C++ feature.
+
+5. **Legacy code**: If you're working with legacy code that doesn't use smart pointers, you might need to define these special member functions to ensure correct behavior.
+
+So while smart pointers can often eliminate the need for user-defined special member functions, there are still cases where you might need to define them yourself.

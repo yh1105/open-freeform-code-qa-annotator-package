@@ -1,0 +1,29 @@
+The issue here is that you're not passing the `relativeTo` option in the `navigateToSelf` method. This option is necessary because it tells the router that the navigation should be relative to a specific route. Without this option, the router will treat the navigation as absolute, and it will not work as expected.
+
+Here's how you can modify your `navigateToSelf` method:
+
+```typescript
+navigateToSelf(route: ActivatedRoute) {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = "reload";
+  const self = ".";
+  const options: NavigationExtras = { relativeTo: route };
+  this.router.navigate([self], options);
+}
+```
+
+This should make the `navigateToSelf` method work as expected. However, keep in mind that the `shouldReuseRoute` function will affect all navigations, not just this one. If you want to reset it to its default behavior after the navigation, you can do so by setting it back to its default implementation:
+
+```typescript
+navigateToSelf(route: ActivatedRoute) {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = "reload";
+  const self = ".";
+  const options: NavigationExtras = { relativeTo: route };
+  this.router.navigate([self], options).then(() => {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => true;
+  });
+}
+```
+
+This will ensure that the `shouldReuseRoute` function is reset to its default behavior after the navigation is complete.

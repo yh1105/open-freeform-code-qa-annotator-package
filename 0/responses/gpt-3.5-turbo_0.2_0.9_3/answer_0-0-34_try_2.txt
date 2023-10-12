@@ -1,0 +1,138 @@
+Yes, the error is related to the .angular.json file. The error message indicates that there is an additional property "project" in the JSON file which is not valid. 
+
+In Angular 6, the .angular-cli.json file was renamed to angular.json. The structure of the file has also changed slightly. 
+
+You can try the following steps to fix the issue:
+
+1. Rename the file back to angular-cli.json
+2. Run the command `ng update @angular/cli --migrate-only --from=1.7.4` to update the file to the new format.
+3. Rename the file back to angular.json
+
+If this doesn't work, you can try manually updating the file to the new format. Here is an example of how the new format should look like:
+
+```
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "mediaweb": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/browser",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "src/styles.scss",
+              "../node_modules/owl.carousel/dist/assets/owl.carousel.css",
+              "../node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+              "../node_modules/video.js/dist/video-js.css"
+            ],
+            "scripts": [
+              "../node_modules/jquery/dist/jquery.js",
+              "../node_modules/owl.carousel/dist/owl.carousel.js",
+              "../node_modules/video.js/dist/ie8/videojs-ie8.js",
+              "../node_modules/video.js/dist/video.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mediaweb:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mediaweb:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mediaweb:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "mediaweb-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "mediaweb:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mediaweb:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options":

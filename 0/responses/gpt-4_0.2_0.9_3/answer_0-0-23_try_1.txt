@@ -1,0 +1,35 @@
+React's `useMemo` hook is not designed to handle asynchronous operations. It's meant to be used for expensive calculations that you want to avoid repeating on every render, but it expects those calculations to be synchronous.
+
+For handling asynchronous operations, you should use the `useEffect` hook. This hook is designed to handle side effects, including asynchronous operations.
+
+Here's how you can modify your code to use `useEffect`:
+
+```jsx
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const myExpensiveResultObject = await SomeLongRunningApi(arg);
+            setResult(myExpensiveResultObject.interestingProperty);
+        };
+
+        fetchData();
+    }, [arg]);
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={() => setResult('Not yet calculated')}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>);
+}
+```
+
+In this code, `useEffect` will run every time `arg` changes. It will call the `fetchData` function, which is an asynchronous function that fetches the data and then sets the result. The `setResult` function will cause the component to re-render with the new result.
+
+The button now resets the result to 'Not yet calculated' when clicked, which gives the user feedback that the calculation is in progress. The actual calculation is triggered by changing the input, not by clicking the button.
+
+This approach has the advantage of giving the user feedback that the calculation is in progress, which is important for long-running calculations. It also ensures that the calculation is only performed when necessary, i.e., when `arg` changes.

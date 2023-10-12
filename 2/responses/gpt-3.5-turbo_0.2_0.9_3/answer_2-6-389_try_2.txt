@@ -1,0 +1,32 @@
+In ASP.NET Core, you can use the `IHttpContextAccessor` service to create a global variable. Here's how you can do it:
+
+1. Add the `Microsoft.AspNetCore.Http` package to your project.
+
+2. In the `Startup.cs` file, add the following code to the `ConfigureServices` method:
+
+```
+services.AddHttpContextAccessor();
+```
+
+3. In the class where you want to create the global variable, inject the `IHttpContextAccessor` service:
+
+```
+private readonly IHttpContextAccessor _httpContextAccessor;
+
+public MyClass(IHttpContextAccessor httpContextAccessor)
+{
+    _httpContextAccessor = httpContextAccessor;
+}
+```
+
+4. Create the global variable and set its value:
+
+```
+_httpContextAccessor.HttpContext.Items["<variableName>"] = <value>;
+```
+
+You can access the global variable from any part of your application using the `IHttpContextAccessor` service. For example:
+
+```
+var myValue = _httpContextAccessor.HttpContext.Items["<variableName>"];
+```

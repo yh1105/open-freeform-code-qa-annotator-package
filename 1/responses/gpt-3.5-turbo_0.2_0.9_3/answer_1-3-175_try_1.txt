@@ -1,0 +1,37 @@
+One approach to solve this problem is to use the `exceptAll` method of data frames. This method returns all rows in `df2` that are not present in `df1`. We can use this method to find the rows that have different values in `df2` compared to `df1`. Then, we can iterate over these rows and compare the values column by column to find the columns that have different values. Here's the code to achieve this:
+
+```
+from pyspark.sql.functions import array, col, lit, udf
+from pyspark.sql.types import ArrayType, StringType
+
+# read the data frames
+df1 = spark.read.csv("/path/to/data1.csv", header=True)
+df2 = spark.read.csv("/path/to/data2.csv", header=True)
+
+# find the rows with different values in df2 compared to df1
+diff_rows = df2.exceptAll(df1)
+
+# define a UDF to compare the values of two rows and return the column names with different values
+def get_diff_cols(row1, row2):
+    diff_cols = []
+    for i in range(len(row1)):
+        if row1[i] != row2[i]:
+            diff_cols.append(df1.columns[i])
+    return diff_cols
+
+# register the UDF
+udf_get_diff_cols = udf(get_diff_cols, ArrayType(StringType()))
+
+# add the column_names column to df2
+df3 = diff_rows.withColumn("column_names", udf_get_diff_cols(array([df1[col] for col in df1.columns]), array([df2[col] for col in df2.columns])))
+
+# fill null values in column_names column with empty list
+df3 = df3.withColumn("column_names", when(col("column_names").isNull(), array(lit("")).otherwise(col("column_names"))))
+
+# join df1 and df3 to get the final result
+final_df = df1.join(df3, ["id", "name", "sal", "Address"], "left_outer").select(df1.columns + [df3["column_names"]])
+
+final_df.show()
+```
+
+This code should give you the desired output. Note that we are using the `exceptAll` method to find the rows with different values, which is more efficient than sorting the data frames.

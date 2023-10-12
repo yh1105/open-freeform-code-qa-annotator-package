@@ -1,0 +1,13 @@
+The `disabled` attribute is a boolean attribute. When this attribute is present, no matter the value, the element is disabled. This is why your select is always disabled.
+
+In Angular, you can conditionally add attributes by binding to `null`. If the expression you bind to `null` evaluates to `true`, the attribute will not be added. If the expression evaluates to `false`, the attribute will be added.
+
+So, you should change your code to:
+
+```html
+<select [attr.disabled]="editable ? null : ''">
+...
+</select>
+```
+
+This way, when `editable` is `true`, `disabled` attribute will not be added and when `editable` is `false`, `disabled` attribute will be added.

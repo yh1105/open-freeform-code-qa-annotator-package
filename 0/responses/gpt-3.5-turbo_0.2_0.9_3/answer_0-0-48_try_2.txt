@@ -1,0 +1,17 @@
+The error message you're seeing is a bit misleading. The issue is not with declaring properties or methods in a mapped type, but rather with the fact that you're trying to declare two different types of properties in the same mapped type.
+
+When you use a mapped type like `{ [key in fruit]: number }`, you're saying that you want to create a new type where each key in the `fruit` union type maps to a property with the value type `number`. Similarly, `{ [key in color]: boolean }` creates a new type where each key in the `color` union type maps to a property with the value type `boolean`.
+
+However, when you try to combine these two mapped types into a single type with the `&` operator, you're essentially saying that you want a type where each key in both the `fruit` and `color` union types maps to a property with a different value type. This is not allowed in TypeScript, because it would lead to conflicting property types.
+
+To get around this, you can either use the approach you suggested (combining two separate mapped types with `&`), or you can use a union type to represent the two different types of properties:
+
+```
+type FruitsAndColors = {
+  [key in fruit]: number;
+} | {
+  [key in color]: boolean
+}
+```
+
+This creates a type that can have either a numeric property for each fruit or a boolean property for each color, but not both.

@@ -1,0 +1,21 @@
+You can achieve this by first expanding the dimensions of `d` and then concatenating `inps` and `d`. Here's how you can do it in PyTorch:
+
+```python
+import torch
+
+# Assuming inps and d are your tensors
+d = d.unsqueeze(2)  # This will change the size of d to [64, 161, 1]
+inps = torch.cat((inps, d), dim=2)  # This will concatenate inps and d along the third dimension
+```
+
+And here's how you can do it in TensorFlow:
+
+```python
+import tensorflow as tf
+
+# Assuming inps and d are your tensors
+d = tf.expand_dims(d, axis=2)  # This will change the size of d to [64, 161, 1]
+inps = tf.concat([inps, d], axis=2)  # This will concatenate inps and d along the third dimension
+```
+
+In both cases, the size of `inps` after the operation will be `[64, 161, 2]`.

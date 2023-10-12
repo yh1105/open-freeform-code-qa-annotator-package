@@ -1,0 +1,43 @@
+The error message is indicating that the library "resttemplate" is not recognized by the OpenAPI Generator. The available libraries for the "spring" generator are "spring-boot", "spring-mvc", and "spring-cloud".
+
+The "resttemplate" is not a library option for the "spring" generator. If you want to use RestTemplate, you can manually create a RestTemplate bean in your Spring Boot application and use it to make HTTP requests.
+
+Here is an example of how you can create a RestTemplate bean:
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+public class RestTemplateConfig {
+    
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+Then you can Autowire this RestTemplate in your service class to use it:
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class MyService {
+
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public MyService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    // Use restTemplate here
+}
+```
+
+This way, you can use RestTemplate in your Spring Boot application.

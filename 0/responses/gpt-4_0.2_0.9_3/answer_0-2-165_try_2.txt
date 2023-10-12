@@ -1,0 +1,29 @@
+The issue seems to be that you're adding the "active" class and then immediately toggling it. This means that if the element didn't have the "active" class before, it will be added and then immediately removed. If it did have the "active" class, it will be added again (which doesn't change anything), and then removed. 
+
+Here's how you can fix it:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      const active = document.querySelector(".accordion.active");
+      console.log(active);
+      if (active) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+In this code, I've removed the line `this.classList.toggle("active");` because it's unnecessary and was causing the issue. Now, when you click on an accordion, the "active" class will be removed from any other accordions that have it, and then added to the one you clicked on. The panel associated with the accordion will then be shown or hidden depending on its current state.

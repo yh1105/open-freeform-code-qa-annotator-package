@@ -1,0 +1,54 @@
+To download the latest artifacts from an Azure DevOps project, you can use the Azure DevOps REST API. Here is a general step-by-step guide on how you can do this:
+
+1. **Get a Personal Access Token (PAT)**: You need to create a PAT from Azure DevOps that has the appropriate permissions. You can follow the instructions [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) to create a PAT.
+
+2. **Get the latest build ID**: You can use the following API to get the latest build ID:
+```
+https://dev.azure.com/{organization}/{project}/_apis/build/builds?definitions={definitionId}&$top=1&api-version=6.0
+```
+Replace `{organization}`, `{project}`, and `{definitionId}` with your actual values. The `$top=1` query parameter will return the latest build.
+
+3. **Get the artifact**: Once you have the latest build ID, you can use it to get the artifact with the following API:
+```
+https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}/artifacts?api-version=6.0
+```
+Replace `{organization}`, `{project}`, and `{buildId}` with your actual values.
+
+4. **Download the artifact**: The previous API will return a download URL for the artifact. You can use this URL to download the artifact.
+
+Here is a sample C# code using `HttpClient`:
+
+```csharp
+var personalAccessToken = "your_pat_here";
+var organization = "your_organization_here";
+var project = "your_project_here";
+var definitionId = "your_definition_id_here";
+
+using (var client = new HttpClient())
+{
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", "", personalAccessToken))));
+
+    // Get latest build
+    var response = await client.GetAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds?definitions={definitionId}&$top=1&api-version=6.0");
+    response.EnsureSuccessStatusCode();
+    var result = await response.Content.ReadAsStringAsync();
+    var buildId = JsonConvert.DeserializeObject<dynamic>(result).value[0].id;
+
+    // Get artifact
+    response = await client.GetAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}/artifacts?api-version=6.0");
+    response.EnsureSuccessStatusCode();
+    result = await response.Content.ReadAsStringAsync();
+    var downloadUrl = JsonConvert.DeserializeObject<dynamic>(result).value[0].resource.downloadUrl;
+
+    // Download artifact
+    response = await client.GetAsync(downloadUrl);
+    response.EnsureSuccessStatusCode();
+    var bytes = await response.Content.ReadAsByteArrayAsync();
+    File.WriteAllBytes("artifact.zip", bytes);
+}
+```
+
+This code uses the `Newtonsoft.Json` package for JSON deserialization, so make sure to install it via NuGet.
+
+Please note that this code is a simple example and does not include error handling or other best practices for production-level code.

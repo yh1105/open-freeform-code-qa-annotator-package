@@ -1,0 +1,9 @@
+You can use a more specific regular expression to extract the language code. Here's an example using `grep` with Perl-compatible regular expressions (`-P`), and `-o` to print only the matched parts:
+
+```bash
+curl -Ls stick-it.app | grep -oP '(?<=lang=")[^"]*'
+```
+
+This command will look for the string `lang="`, then capture everything until the next `"`. The `(?<=lang=")` part is a positive lookbehind assertion, meaning it requires `lang="` to be there, but doesn't include it in the match.
+
+This command should work for any webpage and will return the language code regardless of its position in the `<html>` tag.

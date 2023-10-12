@@ -1,0 +1,21 @@
+In your code, you are already using `@PathVariable` to get the `code` from the URL. You can send this `code` as a path variable in Postman.
+
+Here's how to do it:
+
+1. Open Postman.
+2. Select POST from the dropdown.
+3. Enter your URL in the URL bar. Replace `{code}` with the actual value you want to send. For example, if your server is running on `localhost:8080` and you want to send `123` as the `code`, your URL will be `http://localhost:8080/api/v1/customers/123`.
+4. Go to the `Body` tab.
+5. Select `raw` and `JSON` from the dropdown.
+6. Enter your `CustomerDTO` object in JSON format in the text area. For example, if your `CustomerDTO` has `name` and `email` fields, your JSON will look like this:
+
+```json
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+```
+
+7. Click `Send`.
+
+Your server should now receive the `code` as a path variable and the `CustomerDTO` object as the request body.

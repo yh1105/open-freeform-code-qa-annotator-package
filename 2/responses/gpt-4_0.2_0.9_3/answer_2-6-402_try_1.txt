@@ -1,0 +1,36 @@
+In ASP.NET Core 3.1, the `SameSiteMode.None` value is correctly translated to the `SameSite=None` attribute in the `Set-Cookie` header. However, in earlier versions of ASP.NET Core, you may need to use a workaround to set the `SameSite` attribute to `None`.
+
+Here's an example of how you can do this:
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseCookiePolicy(new CookiePolicyOptions
+    {
+        MinimumSameSitePolicy = SameSiteMode.None,
+        OnAppendCookie = cookieContext =>
+            CheckSameSite(cookieContext.Context, cookieContext.CookieOptions),
+        OnDeleteCookie = cookieContext =>
+            CheckSameSite(cookieContext.Context, cookieContext.CookieOptions)
+    });
+
+    // other middleware...
+}
+
+private void CheckSameSite(HttpContext httpContext, CookieOptions options)
+{
+    if (options.SameSite == SameSiteMode.None)
+    {
+        var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+        if (UserAgentCheck.DoesUserAgentMatchAny(userAgent, _disallowedUserAgents))
+        {
+            // For .NET Core < 3.1 set SameSite = (SameSiteMode)(-1)
+            options.SameSite = (SameSiteMode)(-1);
+        }
+    }
+}
+```
+
+In this code, `UserAgentCheck.DoesUserAgentMatchAny` is a method that checks if the user agent string matches any of the user agents that don't support `SameSite=None` (as per the list provided by OWASP). If it does, it sets `SameSite` to an undefined value, which results in the `SameSite` attribute not being included in the `Set-Cookie` header.
+
+Please note that this is a workaround and may not be necessary if you're using ASP.NET Core 3.1 or later.

@@ -1,0 +1,22 @@
+You are on the right track, but the `lastIndexOf` method is not the best choice here because it returns the starting index of the last occurrence of the specified string, not the ending index. 
+
+Instead, you can use the `split` method to split the string at '-354', then take the first part and append '-354' back to it. Here's how you can do it:
+
+```powershell
+$FileArray = @("Name1-354-03.pdf", "Name23-354-H11.pdf", "Name354-354-02.pdf", "Name3545-354.pdf")
+ForEach ($n in $FileArray){
+     $split = $n.Split('-354', 2)
+     Write-Host ($split[0] + '-354')
+}
+```
+
+This will give you the output you want:
+
+```
+Name1-354
+Name23-354
+Name354-354
+Name3545-354
+```
+
+This code works by splitting each string into two parts at the first occurrence of '-354'. The first part (`$split[0]`) is the part before '-354', and the second part (`$split[1]`) is the part after '-354'. We then print the first part with '-354' appended back to it.

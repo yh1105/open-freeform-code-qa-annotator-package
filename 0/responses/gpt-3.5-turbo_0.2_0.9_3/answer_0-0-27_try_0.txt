@@ -1,0 +1,46 @@
+It seems like the issue is with the GraphQL endpoint you are using. The endpoint `https://48p1r2roz4.sse.codesandbox.io` is not responding properly. You can try using a different endpoint to see if it works. Here's an example using the SpaceX GraphQL API:
+
+```
+const client = new ApolloClient({
+  uri: 'https://api.spacex.land/graphql/',
+  cache: new InMemoryCache(),
+});
+
+const GET_LAUNCHES = gql`
+  query GetLaunches {
+    launches(limit: 10) {
+      mission_name
+      launch_date_local
+      launch_success
+    }
+  }
+`;
+
+const Launches = () => {
+  const { loading, error, data } = useQuery(GET_LAUNCHES);
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error :(</Text>;
+
+  return data.launches.map((launch) => (
+    <View key={launch.mission_name}>
+      <Text>
+        {launch.mission_name}: {launch.launch_success ? 'Success' : 'Failure'}
+      </Text>
+      <Text>{launch.launch_date_local}</Text>
+    </View>
+  ));
+};
+
+const App = () => {
+  return (
+    <ApolloProvider client={client}>
+      <SafeAreaView>
+        <Launches />
+      </SafeAreaView>
+    </ApolloProvider>
+  );
+};
+```
+
+This should work as expected and fetch the data from the SpaceX GraphQL API.

@@ -1,0 +1,17 @@
+In Vue.js, the Vue Router doesn't provide a built-in way to navigate to a route without adding it to the history stack. However, you can achieve this by using a combination of `router.replace()` and `router.push()`.
+
+`router.replace()` is similar to `router.push()`, the difference being that it doesn't add a new record but replaces the current record in the history stack.
+
+So, you can replace your current navigation to the loading screen with `router.replace()`:
+
+```javascript
+this.$router.replace({ path: "/loading" });
+```
+
+Then, when the task finishes and you navigate to the results screen, you can use `router.push()`:
+
+```javascript
+this.$router.push({ path: "/results/xxxx" });
+```
+
+This way, when the user clicks the back button on the results screen, they will be taken back to the main screen, not the loading screen, because the loading screen was not added to the history stack.

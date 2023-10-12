@@ -1,0 +1,13 @@
+This error occurs because the `graphql-upload` package does not have a `main` field defined in its `package.json` file. To fix this issue, you can try the following steps:
+
+1. Update the `graphql-upload` package to the latest version by running `npm install graphql-upload@latest`.
+
+2. If the issue persists, try adding the following line to your `package.json` file:
+
+   `"type": "module"`
+
+   This tells Node.js to treat your project as an ECMAScript module, which may help resolve the issue.
+
+3. If none of the above solutions work, you can try using a different package for handling file uploads in GraphQL, such as `apollo-upload-server` or `graphql-multipart-request-spec`.
+
+I hope this helps! Let me know if you have any further questions.

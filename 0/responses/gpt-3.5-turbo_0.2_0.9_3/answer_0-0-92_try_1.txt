@@ -1,0 +1,43 @@
+It looks like the issue is with the `node` configuration in your webpack configuration file. The error message indicates that the `node` configuration object has unknown properties `module`, `net`, and `fs`. 
+
+In Webpack 5, the `node` configuration object has been updated to be more restrictive. It now only allows certain properties, such as `__dirname`, `__filename`, and `global`. 
+
+To fix this issue, you can update your `node` configuration to only include these properties. Here's an updated version of your webpack configuration file with the `node` configuration updated:
+
+```
+const path = require('path');
+
+module.exports = {
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.g4$/,
+        use: 'antlr4-webpack-loader',
+      },
+    ],
+  },
+  resolve: {
+    alias: {
+      antlr4$: path.resolve(__dirname, 'node_modules/antlr4/index.js'),
+    },
+  },
+  node: {
+    __dirname: false,
+    __filename: false,
+    global: true,
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+  },
+};
+```
+
+This should resolve the issue with the `node` configuration and allow you to use the `antlr4-webpack-loader` with Webpack 5.

@@ -1,0 +1,17 @@
+The error "Command PhaseScriptExecution failed with a nonzero exit code" is a common error in Xcode and can be caused by various issues. Here are some steps you can try to resolve this issue:
+
+1. **Check your code signing settings:** Make sure you have the correct provisioning profile selected and that your signing certificate is valid. 
+
+2. **Check your build phases:** The error message indicates that the error occurred during the "PhaseScriptExecution" phase. This is a phase where custom scripts specified by you or your project's dependencies are run. Check if there are any scripts specified in your project's "Build Phases" tab that could be causing the issue.
+
+3. **Check your dependencies:** You mentioned that you are using several libraries. It's possible that one of these libraries is causing the issue. Try removing them one by one to see if the error persists. If the error disappears after removing a library, then that library is likely the cause of the issue.
+
+4. **Clean your project:** Try cleaning your project (Product -> Clean Build Folder) and then build again.
+
+5. **Update Cocoapods:** Sometimes, updating Cocoapods can solve the issue. You can update Cocoapods by running `sudo gem install cocoapods` in the terminal.
+
+6. **Check your Swift version:** Make sure that all your libraries are compatible with the Swift version you are using. Some libraries may not be compatible with newer versions of Swift.
+
+7. **Check for hidden characters:** Sometimes, hidden characters in the script can cause this issue. Make sure there are no hidden characters in your script.
+
+If none of the above solutions work, please provide more details about the error message and the script that is causing the issue.

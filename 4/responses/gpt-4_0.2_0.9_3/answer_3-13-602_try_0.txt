@@ -1,0 +1,42 @@
+The error message suggests that your application is not being recognized as a Hilt application. This is because your application is being treated as a `MultiDexApplication` instead of your `CoreApplication` which is annotated with `@HiltAndroidApp`.
+
+This could be due to a few reasons:
+
+1. You might have forgotten to specify your application class in the AndroidManifest.xml file. Make sure you have the following line in your AndroidManifest.xml:
+
+```xml
+<application
+    android:name=".CoreApplication"
+    ...>
+</application>
+```
+
+2. If you are using a library that automatically initializes itself (like Firebase), it might be initializing itself before Hilt. In this case, you need to disable the automatic initialization and initialize it manually after Hilt.
+
+3. If you are using custom Application class, make sure it extends `Application` and is annotated with `@HiltAndroidApp`.
+
+4. If you are using multidex, make sure you have enabled it correctly. In your build.gradle file, you should have:
+
+```groovy
+android {
+    defaultConfig {
+        ...
+        multiDexEnabled true
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+}
+```
+
+And in your Application class:
+
+```kotlin
+@HiltAndroidApp
+class CoreApplication : MultiDexApplication() {
+    ...
+}
+```
+
+5. If none of the above solutions work, try cleaning and rebuilding your project. Sometimes, the build cache can cause issues.

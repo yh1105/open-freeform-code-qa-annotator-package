@@ -1,0 +1,26 @@
+The error message you're seeing is because the protoc-gen-go plugin requires the go_package option to be specified in your .proto file. This option specifies the package name for the generated Go code. 
+
+You can fix this by adding a go_package option to your .proto file. Here's how your updated .proto file should look:
+
+```protobuf
+syntax="proto3";
+
+package main;
+
+option go_package = "main"; // add this line
+
+message Person {
+      string name = 1;
+      int32 age = 2; 
+}
+```
+
+After you've made this change, you should be able to generate the Go code with the same command:
+
+```bash
+protoc --go_out=. simple.proto
+```
+
+This should generate a Go file in the current directory with the Go code for your protobuf message.
+
+If you want the generated Go code to be in a different package, you can specify that package name in the go_package option. For example, if you want the generated code to be in a package named "person", you would use `option go_package = "person";` instead.

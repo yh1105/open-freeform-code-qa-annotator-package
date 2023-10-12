@@ -1,0 +1,11 @@
+To add scrolling to the table, you can add the `overflow-x-auto` class to the parent element of the table, like this:
+
+```
+<div class="overflow-x-auto">
+    <table class="table-auto">
+        <!-- table content here -->
+    </table>
+</div>
+```
+
+This will add horizontal scrolling to the table when it overflows from the parent element. You can adjust the width of the parent element to control when the scrolling appears.

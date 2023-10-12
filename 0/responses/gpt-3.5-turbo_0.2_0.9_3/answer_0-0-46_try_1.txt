@@ -1,0 +1,12 @@
+It looks like the issue is with ESLint not being able to find the `tsconfig.json` file. You can try updating the `parserOptions` in your `.eslintrc.js` file to include the path to your `tsconfig.json` file like this:
+
+```
+parserOptions: {
+  project: "./tsconfig.json",
+  sourceType: "module",
+},
+```
+
+Make sure that the path to your `tsconfig.json` file is correct. If it's located in a different directory, you'll need to update the path accordingly.
+
+After making this change, restart VSCode and see if the error goes away. If it doesn't, you can try running `npm install` to make sure all dependencies are up to date. If the error still persists, you may need to consult the Firebase documentation or reach out to their support team for further assistance.

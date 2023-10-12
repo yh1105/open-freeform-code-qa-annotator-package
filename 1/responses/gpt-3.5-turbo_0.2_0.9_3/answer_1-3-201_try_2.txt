@@ -1,0 +1,37 @@
+One solution to this problem is to use multiprocessing instead of threading. Multiprocessing allows you to run multiple processes simultaneously, which is useful when you have two infinite loops that need to run concurrently.
+
+Here's an example of how you can use multiprocessing to run both scripts simultaneously:
+
+```python
+import multiprocessing
+import financeData as fd
+import dash
+import dash_bootstrap_components as dbc
+import dataBase as db
+import homepage as hp
+
+if __name__ == "__main__":
+    # Create a database object
+    database = db.dataBase()
+
+    # Create a financeData object to continuously update the database
+    data_mining_process = multiprocessing.Process(target=fd.financeData, args=(database, 1600))
+    data_mining_process.start()
+
+    # Create a Dash app to display the data from the database
+    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+    homepage = hp.homepage(database)
+    homepage.timeUpdateCallback(app)
+    homepage.gaugeRefreshCallback(app)
+    app.layout = homepage.layoutMaker()
+
+    # Run the Dash app
+    app.run_server(debug=True)
+
+    # Terminate the financeData process when the Dash app is closed
+    data_mining_process.terminate()
+```
+
+In this example, we create a `multiprocessing.Process` object for the `financeData` function and start it running in the background. Then we create the Dash app and run it as usual. Finally, we terminate the `financeData` process when the Dash app is closed.
+
+Note that you may need to modify the `financeData` function to make it work with multiprocessing. For example, you may need to use a `multiprocessing.Queue` to communicate between the two processes.

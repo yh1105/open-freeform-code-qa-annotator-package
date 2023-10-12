@@ -1,0 +1,14 @@
+It seems like the error is related to the libffi library. You can try installing the libffi-dev package using the following command:
+
+```
+sudo apt-get install libffi-dev
+```
+
+This should install the required library and resolve the issue. If the issue persists, you can try reinstalling the ffi gem using the following command:
+
+```
+gem uninstall ffi
+gem install ffi
+```
+
+This should reinstall the ffi gem and link it to the newly installed libffi library.

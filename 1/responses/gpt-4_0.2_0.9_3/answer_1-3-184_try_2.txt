@@ -1,0 +1,44 @@
+Here's a simple example of how you can achieve this using `openpyxl`. 
+
+First, you need to install the `openpyxl` module. If you haven't done so, you can install it using pip:
+
+```
+pip install openpyxl
+```
+
+Then, you can use the following code to read the Excel file, search for the specific string in all cells, and store the contents of the rows containing the string in a list of dictionaries:
+
+```python
+from openpyxl import load_workbook
+
+# Load the workbook
+wb = load_workbook('your_file.xlsx')
+
+# Select the sheet
+ws = wb['Sheet1']
+
+# The string to search for
+search_string = 'ABC'
+
+# List to store the rows
+rows = []
+
+# Iterate over the rows
+for row in ws.iter_rows(values_only=True):
+    # If the search string is in the row
+    if search_string in row:
+        # Create a dictionary with the column names as keys
+        row_dict = {ws.cell(row=1, column=i+1).value: value for i, value in enumerate(row)}
+        # Add the dictionary to the list
+        rows.append(row_dict)
+
+# Now you have all the rows containing the search string in the 'rows' list
+for row in rows:
+    print(row)
+```
+
+This will print all the rows containing 'ABC' as dictionaries, with the column names as keys. You can then use these dictionaries to access the cell values.
+
+Please replace `'your_file.xlsx'` with the path to your Excel file.
+
+This code assumes that the first row of the sheet contains the column names. If that's not the case, you'll need to adjust the code accordingly.

@@ -1,0 +1,27 @@
+You can modify your existing comparator to compare the alphabetical order of the articles if they have the same length. Here's an example implementation:
+
+```
+public List<Article> sortAsc() {
+    removeNull();
+    return articles.stream()
+            .sorted(Comparator.comparingInt(Article::getDescriptionLength)
+                    .thenComparing(Article::getDescription))
+            .collect(Collectors.toList());
+}
+
+public class Article {
+    private String description;
+
+    public int getDescriptionLength() {
+        return description.length();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    // other methods and properties
+}
+```
+
+In this implementation, we first sort the articles by their description length using `Comparator.comparingInt(Article::getDescriptionLength)`. If two articles have the same length, we then compare their descriptions using `thenComparing(Article::getDescription)`. This will ensure that the articles are sorted alphabetically if they have the same length.

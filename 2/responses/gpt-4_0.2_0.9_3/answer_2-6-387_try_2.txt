@@ -1,0 +1,28 @@
+The error message indicates that the SQLite database does not have a table named "Keys". This table is used by IdentityServer4 to store the keys for token signing.
+
+In ASP.NET Core 6.0, IdentityServer4 is replaced by the Duende IdentityServer. If you have upgraded from ASP.NET Core 5.0 to 6.0, you need to migrate from IdentityServer4 to Duende IdentityServer.
+
+Here are the steps to migrate from IdentityServer4 to Duende IdentityServer:
+
+1. Replace the IdentityServer4 NuGet package with the Duende IdentityServer package.
+
+2. Update the namespaces in your code from `IdentityServer4` to `Duende.IdentityServer`.
+
+3. Update the database schema. Duende IdentityServer has a different database schema than IdentityServer4. You need to create a new migration and update the database. Here is how you can do it:
+
+   - Add a new migration:
+     ```
+     Add-Migration InitialDuende -Context ApplicationDbContext -OutputDir Data/Migrations
+     ```
+   - Update the database:
+     ```
+     Update-Database -Context ApplicationDbContext
+     ```
+
+4. Update the configuration data. Duende IdentityServer has a different configuration data format than IdentityServer4. You need to update the configuration data according to the new format.
+
+5. Update the startup configuration. Replace the `AddIdentityServer` method with the `AddIdentityServerV2` method.
+
+Please note that Duende IdentityServer is not a free product. It is free for development and testing, but you need to purchase a license for production use.
+
+If you want to stick with IdentityServer4, you need to downgrade your project to ASP.NET Core 5.0, because IdentityServer4 is not compatible with ASP.NET Core 6.0.

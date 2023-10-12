@@ -1,0 +1,5 @@
+You are correct that the `omp single` directive ensures that the structured block related to it is executed by only one thread. However, the `omp task` directive creates a task that can be executed by any available thread in the team. 
+
+In the example you provided, the `omp single` directive is used to ensure that the linked list is traversed only once. Within the single block, each node in the linked list is processed using a separate task created by the `omp task` directive. These tasks are added to a task queue and can be executed by any available thread in the team. 
+
+So, while the `omp single` directive ensures that the linked list is traversed only once, the `omp task` directive allows the processing of each node to be done in parallel by multiple threads.

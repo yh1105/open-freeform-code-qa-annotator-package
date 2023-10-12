@@ -1,0 +1,33 @@
+The issue you're facing is due to the way you're setting the environment variable `MYVAR`. When you use the `export` command, it treats the entire string as the value of the variable, including the newline and the `MYVAR=10` part. This is why when you read the environment variables, you're seeing two values for `MYVAR`.
+
+If you want to set multiple values for `MYVAR`, you should use an array. Here's how you can do it:
+
+```bash
+$ MYVAR=("something" "10")
+$ echo ${MYVAR[0]}
+something
+$ echo ${MYVAR[1]}
+10
+```
+
+However, if you want to get a list of environment variables with their values, you can use the `printenv` command:
+
+```bash
+$ printenv
+```
+
+This will print all environment variables with their values. If you want to print a specific variable, you can do so by passing the variable name as an argument:
+
+```bash
+$ printenv MYVAR
+```
+
+If you want to parse the output in a similar way to your original script, you can do so like this:
+
+```bash
+$ printenv | while IFS== read var value; do
+    [ "$var" == "MYVAR" ] && echo $value
+done
+```
+
+This will print the value of `MYVAR`, regardless of whether it contains newlines or not.

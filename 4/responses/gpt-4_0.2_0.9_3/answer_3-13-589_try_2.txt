@@ -1,0 +1,21 @@
+The error message you're seeing is typically caused by Retrofit being unable to create a converter for your `JConfig` class. This is usually due to the fact that Moshi (the library you're using for JSON serialization/deserialization) can't handle the class for some reason.
+
+Looking at your `JConfig` and `Config` classes, it seems like they are set up correctly for Moshi. However, you have commented out the `@Json` annotations in your `Config` class. These annotations are used by Moshi to map the JSON keys to the properties in your `Config` class. Without these annotations, Moshi doesn't know how to convert the JSON into your `Config` objects.
+
+Try uncommenting the `@Json` annotations in your `Config` class like this:
+
+```kotlin
+data class Config(
+    @Json(name = "codigo") var codigo: Int,
+    @Json(name = "tipo") var tipo: String,
+    @Json(name = "empresa") var empresa: Int,
+    @Json(name = "sucursal") var sucursal: Int,
+    @Json(name = "esquema") var esquema: Int,
+    @Json(name = "horainicio") var horainicio: String,
+    @Json(name = "horafinal") var horafinal: String,
+    @Json(name = "fecha") var fecha: String,
+    @Json(name = "seguimiento") var seguimiento: Int
+)
+```
+
+If this doesn't solve your problem, it might be worth checking the JSON you're trying to convert. Make sure the keys in the JSON match the names you've provided in the `@Json` annotations, and that the types of the values in the JSON match the types of the properties in your `Config` class.

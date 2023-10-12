@@ -1,0 +1,22 @@
+The error message you provided is not visible. However, here is an example of how to use the `OrderedModel` class from the `statsmodels.miscmodels.ordinal_model` module:
+
+```
+import numpy as np
+import statsmodels.api as sm
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+
+# Generate some random data
+np.random.seed(123)
+nobs = 100
+x = np.random.normal(size=nobs)
+y = np.random.choice([0, 1, 2], size=nobs, p=[0.3, 0.4, 0.3])
+
+# Fit an ordered probit model
+model = OrderedModel(y, x)
+result = model.fit(method='bfgs')
+
+# Print the summary of the model
+print(result.summary())
+```
+
+In this example, `x` is a vector of independent variables and `y` is a vector of dependent variables that take on three ordered categories. The `OrderedModel` class is used to fit an ordered probit model to the data, and the `fit` method is used to estimate the model parameters. The `method` argument specifies the optimization algorithm to use. Finally, the `summary` method is used to print a summary of the model results.

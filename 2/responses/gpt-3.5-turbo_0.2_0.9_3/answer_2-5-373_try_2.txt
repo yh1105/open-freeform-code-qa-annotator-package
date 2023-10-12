@@ -1,0 +1,12 @@
+The error message indicates that there is already a database with the name "eCommerce" in the PostgreSQL server, and it cannot create another database with the same name. 
+
+To resolve this issue, you can either choose a different name for the new database or delete the existing "eCommerce" database. 
+
+If you want to delete the existing database, you can follow these steps:
+
+1. Open pgAdmin 4 and connect to the PostgreSQL server.
+2. Expand the server group and select the "Databases" node.
+3. Right-click on the "eCommerce" database and select "Delete/Drop" from the context menu.
+4. Confirm the deletion by clicking "Yes" in the confirmation dialog.
+
+After deleting the existing database, you should be able to create a new database with the name "eCommerce" without any issues.

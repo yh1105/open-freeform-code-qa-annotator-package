@@ -1,0 +1,44 @@
+From the error message, it seems like the problem is with the Windows command line not being able to execute the `gradlew.bat` file. This issue is usually caused by one of the following reasons:
+
+1. **Incorrect Path:** The path to your project or to the `gradlew.bat` file might be incorrect. Make sure that the path does not contain any spaces or special characters.
+
+2. **Permission Issues:** The command line might not have the necessary permissions to execute the `gradlew.bat` file. You can try running the command line as an administrator and see if that solves the problem.
+
+3. **Environment Variables:** The environment variables might not be set up correctly. Make sure that the `JAVA_HOME` environment variable is set to the path of your JDK installation.
+
+4. **Gradle Version:** There might be a compatibility issue with the version of Gradle you are using. You can try updating Gradle to the latest version.
+
+5. **React Native Link:** The `react-native link` command has been deprecated in React Native 0.60 and above. If you are using a version below 0.60, you can continue using it, but if you are using a version 0.60 and above, you should use `autolinking` feature provided by React Native.
+
+If none of the above solutions work, you can try manually linking the library. Here are the steps to do it for `react-native-gesture-handler`:
+
+1. Open `android/app/src/main/java/[...]/MainActivity.java`
+2. Add `import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;` to the imports at the top of the file
+3. Replace `return new MainReactPackage();` with the following code:
+
+```java
+@Override
+protected ReactActivityDelegate createReactActivityDelegate() {
+  return new ReactActivityDelegate(this, getMainComponentName()) {
+    @Override
+    protected ReactRootView createRootView() {
+     return new RNGestureHandlerEnabledRootView(MainActivity.this);
+    }
+  };
+}
+```
+
+4. Open `android/app/build.gradle` file and add the following lines in `dependencies`:
+
+```groovy
+implementation project(':react-native-gesture-handler')
+```
+
+5. Open `android/settings.gradle` file and add the following lines:
+
+```groovy
+include ':react-native-gesture-handler'
+project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
+```
+
+After doing these steps, try to build the project again.

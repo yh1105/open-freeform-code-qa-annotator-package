@@ -1,0 +1,36 @@
+You can use the `length` function in `jq` to check if the array is empty or not. Here is how you can do it:
+
+```bash
+if $(cat $my_json | jq 'has("key1")' && jq '.key1 | length > 0'); then
+  values=$(jq -r ".key1[]" "$my_json")
+
+  for item in $values
+  do
+    echo "Item : $item"
+  done
+fi
+```
+
+This script first checks if the key "key1" exists in the JSON file and then checks if the array under "key1" is not empty. If both conditions are true, it will iterate over the items in the array.
+
+For "key2", you can do the same:
+
+```bash
+if $(cat $my_json | jq 'has("key2")' && jq '.key2 | length > 0'); then
+  values=$(jq -r ".key2[]" "$my_json")
+
+  for item in $values
+  do
+    echo "Item : $item"
+  done
+fi
+```
+
+This will output:
+
+```
+Item : first_value
+Item : second_value
+```
+
+Note: The `[]` after `.key1` and `.key2` in `jq -r ".key1[]" "$my_json"` and `jq -r ".key2[]" "$my_json"` is used to iterate over the array items.

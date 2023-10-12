@@ -1,0 +1,44 @@
+The issue is that you're checking the length of the firstName and lastName directly, not their lengths. You should use the .length property of the string to check the length. Also, you're checking if the length is less than or equal to 3, but you want to disable the button when the length is less than 3, so you should use the < operator.
+
+Here's the corrected code:
+
+```jsx
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    var isButtonDisabled = false;
+
+    if (firstName.length < 3 || lastName.length < 3) {
+        isButtonDisabled = true;
+    }
+    else {
+        isButtonDisabled = false;
+    }
+
+    return (
+
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+
+        </>
+
+    );
+
+}
+export default TableFooterPanel;
+```
+
+Also, I replaced defaultValue with value in the input fields. defaultValue is used when you want to set the initial value of the input field, but don't want to control its updates. Since you're controlling the value of the input fields with state, you should use value instead.

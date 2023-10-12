@@ -1,0 +1,15 @@
+This error message indicates that you do not have the necessary permissions to execute the `startup.sh` script. 
+
+You can try changing the permissions of the script using the `chmod` command. For example, you can run the following command to give execute permissions to the owner of the file:
+
+```
+chmod u+x startup.sh
+```
+
+Alternatively, you can try running the command with elevated privileges using `sudo`:
+
+```
+sudo ./startup.sh nginx:start
+```
+
+This will prompt you for your password and then execute the command with root privileges. However, be cautious when using `sudo` as it can potentially cause damage to your system if used improperly.

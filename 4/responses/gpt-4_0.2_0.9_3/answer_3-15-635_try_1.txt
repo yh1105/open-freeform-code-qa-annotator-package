@@ -1,0 +1,42 @@
+You can automate this process using Python and a few libraries. Here's a high-level overview of how you can do it:
+
+1. Use `pandas` to read the Excel file.
+2. Use `html` to escape the text to HTML.
+3. Use `BeautifulSoup` to convert the escaped HTML to formatted HTML.
+4. Write the formatted HTML back to the Excel file using `pandas`.
+
+Here's a sample code snippet:
+
+```python
+import pandas as pd
+from bs4 import BeautifulSoup
+import html
+
+# Read the Excel file
+df = pd.read_excel('your_file.xlsx')
+
+# Iterate over the descriptions
+for i, description in enumerate(df['description']):
+    # Escape the text to HTML
+    escaped_html = html.escape(description)
+    
+    # Convert the escaped HTML to formatted HTML
+    soup = BeautifulSoup(escaped_html, 'html.parser')
+    formatted_html = soup.prettify()
+    
+    # Write the formatted HTML back to the dataframe
+    df.loc[i, 'description'] = formatted_html
+
+# Write the dataframe back to the Excel file
+df.to_excel('your_file.xlsx', index=False)
+```
+
+This script will read your Excel file, convert each description to formatted HTML, and write the formatted HTML back to the Excel file. You can then use this Excel file for your bulk import.
+
+Note: You might need to install the required libraries if you haven't already. You can do this using pip:
+
+```bash
+pip install pandas beautifulsoup4
+```
+
+Also, replace `'your_file.xlsx'` and `'description'` with the actual path to your Excel file and the actual name of the column containing the descriptions, respectively.

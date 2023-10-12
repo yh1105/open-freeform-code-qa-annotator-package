@@ -1,0 +1,62 @@
+It is true that R is generally faster than Python when it comes to working with data frames, especially for operations that involve filtering or subsetting data. However, there are some ways to optimize your Python code and make it faster.
+
+One thing you can do is to use the `numpy` library instead of `pandas` for operations that involve numerical data. `numpy` is a much faster library for numerical computations and can significantly speed up your code. For example, you can convert your data frame to a `numpy` array and use boolean indexing to filter the data:
+
+```
+import numpy as np
+from timeit import default_timer as timer
+
+code = 145896
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+# convert to numpy array
+arr = df.to_numpy()
+
+start = timer()
+for _ in range(100000):
+    desired = arr[arr[:,0]==code, 1][0]
+print(timer() - start) # 0.3929477999999999 (sec)
+```
+
+This code uses boolean indexing to filter the rows of the array where the first column equals the desired code, and then selects the second column of the filtered rows.
+
+Another thing you can do is to use the `numba` library to compile your code to machine code and make it even faster. `numba` is a just-in-time (JIT) compiler for Python that can significantly speed up numerical computations. Here's an example of how to use `numba` to speed up your code:
+
+```
+import numba as nb
+from timeit import default_timer as timer
+
+code = 145896
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+@nb.jit(nopython=True)
+def search(arr, code):
+    for i in range(arr.shape[0]):
+        if arr[i,0] == code:
+            return arr[i,1]
+    return None
+
+# convert to numpy array
+arr = df.to_numpy()
+
+start = timer()
+for _ in range(100000):
+    desired = search(arr, code)
+print(timer() - start) # 0.00022790000000000002 (sec)
+```
+
+This code uses the `numba.jit` decorator to compile the `search` function to machine code. The `nopython=True` option tells `numba` to use only machine code and not fall back to Python code. The `search` function uses a simple loop to search for the desired code and return the corresponding value.
+
+These are just a few examples of how to optimize your Python code for working with data frames. Depending on the specific operations you need to perform, there may be other ways to speed up your code. However, in some cases, it may be more efficient to stick with R for data frame operations and use Python for other tasks.

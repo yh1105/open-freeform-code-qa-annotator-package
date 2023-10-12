@@ -1,0 +1,13 @@
+You can use a list comprehension to filter the elements that partially match the `wanted` string, and then return the first element of the filtered list using the `next()` function. Here's an example:
+
+```
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+matches = [s for s in l if wanted in s]
+result = next(iter(matches), None)
+
+print(result)  # 'threes'
+```
+
+In this example, the list comprehension `[s for s in l if wanted in s]` filters the elements of `l` that contain the `wanted` string, resulting in `['threes']`. The `next()` function returns the first element of the filtered list, which is `'threes'`. If there are no matches, `next()` returns `None`.

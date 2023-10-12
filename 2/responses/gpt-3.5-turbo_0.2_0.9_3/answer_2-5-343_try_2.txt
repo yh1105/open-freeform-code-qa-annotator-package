@@ -1,0 +1,60 @@
+There seems to be an issue with your code logic. The current implementation is finding the maximum sum of two non-overlapping subarrays of different sizes, but the problem requires finding the maximum sum of two non-overlapping subarrays of the same size. 
+
+One approach to solve this problem is to use dynamic programming. You can maintain two arrays, left and right, where left[i] stores the maximum sum of a subarray of size i ending at index i, and right[i] stores the maximum sum of a subarray of size i starting at index i. 
+
+Then, you can iterate over all possible subarray sizes k, and for each size, calculate the maximum sum of two non-overlapping subarrays of size k. This can be done by taking the sum of left[i-1] and right[i] for all i from k to n-k, where n is the total number of boxes. 
+
+Finally, you can return the maximum sum obtained over all subarray sizes. 
+
+Here's the modified code:
+
+```
+import java.util.Scanner;
+
+public class Main {
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        
+        // calculate left and right arrays
+        int[] left = new int[n];
+        int[] right = new int[n];
+        left[0] = arr[0];
+        right[n-1] = arr[n-1];
+        
+        for (int i = 1; i < n; i++) {
+            left[i] = Math.max(arr[i], left[i-1] + arr[i]);
+            right[n-i-1] = Math.max(arr[n-i-1], right[n-i] + arr[n-i-1]);
+        }
+        
+        // calculate maximum sum of two non-overlapping subarrays of same size
+        int maxSum = 0;
+        for (int k = 1; k <= n/2; k++) {
+            int sum = 0;
+            for (int i = 0; i <= n-2*k; i++) {
+                sum = Math.max(sum, left[i+k-1] + right[i+k] + getProduct(arr, i, i+k-1, i+k, i+2*k-1));
+            }
+            maxSum = Math.max(maxSum, sum);
+        }
+        
+        System.out.println(maxSum);
+    }
+    
+    // helper function to calculate product of two subarrays
+    private static int getProduct(int[] arr, int start1, int end1, int start2, int end2) {
+        int product = 0;
+        for (int i = 0; i < end1-start1+1; i++) {
+            product += arr[start1+i] * arr[start2+end1-start1-i];
+        }
+        return product;
+    }
+}
+``` 
+
+This should solve the problem for you.

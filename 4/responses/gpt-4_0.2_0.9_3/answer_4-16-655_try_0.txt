@@ -1,0 +1,9 @@
+The variable expansion you're using should work correctly in GitLab CI/CD. However, the issue you're experiencing might be due to a couple of reasons:
+
+1. The variables `CI_MERGE_REQUEST_SOURCE_BRANCH_NAME`, `CI_COMMIT_BRANCH`, and `CI_DEFAULT_BRANCH` might not be defined in your GitLab CI/CD environment. You should ensure that these variables are correctly defined and accessible in your pipeline.
+
+2. There might be an issue with the GitLab version you're using. You're using GitLab Enterprise Edition 14.1.8-ee. There might be a bug in this version that's causing the issue. You could try updating to the latest version of GitLab and see if the issue persists.
+
+3. The issue might be with the `bash` runner you're using. You could try using a different runner and see if the issue persists.
+
+If none of these solutions work, you should consider reaching out to GitLab support for further assistance.

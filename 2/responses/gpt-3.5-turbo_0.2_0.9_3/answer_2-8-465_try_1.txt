@@ -1,0 +1,9 @@
+This behavior is expected in Go's testing framework. By default, Go caches the results of successful tests to speed up subsequent test runs. If you want to force Go to re-run the tests, you can use the `-count` flag with a value of 1. 
+
+For example, to run the tests once without using the cache, you can use the following command:
+
+```
+go test -count=1 ./tester/apitests
+```
+
+This will force Go to run the tests again and not use the cached results.

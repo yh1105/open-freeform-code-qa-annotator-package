@@ -1,0 +1,13 @@
+Yes, you have understood the process correctly. Here's a bit more detail:
+
+1. Create a modular project: This means that your project should be organized into modules, with a `module-info.java` file at the root of each module's source directory. This file defines the module's name, the modules it requires, and the packages it exports.
+
+2. Package the project in a .jar format: This is the process of bundling your compiled code into a JAR file. This JAR file should include the `module-info.class` files generated from your `module-info.java` files.
+
+3. Use the tool Jlink to create a customized run-time image: Jlink is a tool that can assemble and optimize a set of modules and their dependencies into a custom run-time image. This image will only include the modules that your project actually needs, which can significantly reduce its size.
+
+4. Use the tool jpackage: This tool takes as input a JAR file and a custom run-time image (created by Jlink), and generates a platform-specific package (like an .exe or .dmg file) that can be distributed and installed on end-user machines.
+
+As for your question about IntelliJ artifacts, yes, you can use IntelliJ to create the JAR file. IntelliJ has built-in support for creating JAR artifacts, and it can also handle the creation of the `module-info.class` files. However, you may also want to consider using a build tool like Maven or Gradle, which can automate the process of compiling, testing, and packaging your code.
+
+Regarding dependencies, they do not need to be included in the JAR file if they are included in the custom run-time image. When you use Jlink to create the run-time image, it will include all the modules that your project depends on, so there's no need to duplicate them in the JAR file. However, if your project has any non-modular dependencies (i.e., libraries that don't have a `module-info.java` file), you will need to include them in the JAR file, because Jlink can only work with modular JARs.

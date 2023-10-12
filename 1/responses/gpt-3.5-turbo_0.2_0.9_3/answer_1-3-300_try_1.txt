@@ -1,0 +1,13 @@
+Instead of using `replace()` function, you can try using `splitlines()` function to split the content by newline characters and then join them using an empty string. Here's an updated code snippet:
+
+```
+from tika import parser
+
+filename = 'myfile.pdf'
+raw = parser.from_file(filename)
+content = raw['content']
+content = ''.join(content.splitlines())
+print(content)
+```
+
+This should remove all the newline characters from the content.

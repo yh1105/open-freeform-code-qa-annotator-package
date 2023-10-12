@@ -1,0 +1,16 @@
+To get the boundary of the rectangle, you can use the `find_contours` function from the `skimage` library. Here's an example code snippet:
+
+```
+from skimage import measure
+
+# assuming 'mask' is your binary mask
+contours = measure.find_contours(mask, 0.5)
+
+# get the largest contour (assuming it's the boundary of the rectangle)
+boundary = max(contours, key=len)
+
+# plot the boundary
+plt.plot(boundary[:, 1], boundary[:, 0])
+```
+
+This should give you the x-y coordinates of the boundary of the rectangle. Note that the `find_contours` function returns a list of contours, where each contour is a list of (y, x) coordinates. The `max` function is used to get the largest contour, which should be the boundary of the rectangle.

@@ -1,0 +1,24 @@
+The error message you received indicates that some of the Xdebug configuration settings have been renamed in version 3.0.0beta1. To fix this issue, you need to update your Xdebug configuration settings in your php.ini file or in your Xdebug configuration file.
+
+Here are the new configuration settings that you need to use:
+
+- `xdebug.mode` replaces `xdebug.remote_enable`
+- `xdebug.client_host` replaces `xdebug.remote_host`
+- `xdebug.start_with_request` replaces `xdebug.remote_mode`
+- `xdebug.client_port` replaces `xdebug.remote_port`
+
+To update your configuration settings, you can add the following lines to your php.ini file:
+
+```
+[xdebug]
+xdebug.mode=debug
+xdebug.client_host=localhost
+xdebug.start_with_request=yes
+xdebug.client_port=9003
+```
+
+Make sure to replace `localhost` with your server's IP address if you're debugging a remote server. Also, make sure that the `xdebug.so` extension is loaded in your PHP configuration.
+
+If you're still having issues, you can try creating an Xdebug configuration file named `.xdebug.ini` in your project's root directory and add the above configuration settings to it.
+
+I hope this helps! Let me know if you have any further questions.

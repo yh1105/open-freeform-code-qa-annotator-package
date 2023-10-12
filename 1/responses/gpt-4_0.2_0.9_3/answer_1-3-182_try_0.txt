@@ -1,0 +1,48 @@
+You can achieve this by creating a main app that will handle the navigation and the display of the logo and title. Here's an example of how you can do it:
+
+First, create a new Python file, let's call it `main.py`. This file will be responsible for displaying the logo, title, and handling the navigation between different pages of your app.
+
+`main.py`:
+```python
+import streamlit as st
+from pages import Page_1, Page_2
+
+PAGES = {
+    "Page 1": Page_1,
+    "Page 2": Page_2
+}
+
+def main():
+    st.sidebar.title('My Logo')
+    selection = st.sidebar.radio("Go to", list(PAGES.keys()))
+    page = PAGES[selection]
+    page.app()
+
+if __name__ == "__main__":
+    main()
+```
+
+Then, modify your `Page_1.py` and `Page_2.py` files to have an `app` function that will be called when the page is selected:
+
+`Page_1.py`:
+```python
+import streamlit as st
+
+def app():
+    st.markdown("Page 1")
+```
+
+`Page_2.py`:
+```python
+import streamlit as st
+
+def app():
+    st.markdown("Page 2")
+```
+
+Now, you can run your app using:
+```
+$ streamlit run main.py
+```
+
+This will display your logo and title at the top of the sidebar, and below it, you will have a radio button selection for navigation between your pages. When you select a page, the corresponding `app` function will be called, displaying the content of the selected page.

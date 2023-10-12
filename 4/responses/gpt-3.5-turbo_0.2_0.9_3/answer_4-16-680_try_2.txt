@@ -1,0 +1,15 @@
+The error message you received indicates that the COM class for Microsoft Edge is not registered on your system. This could be due to a number of reasons, such as a corrupted installation of Edge or a missing system component.
+
+As for your updated code, the `Start-Process` cmdlet launches a new process, but it does not return an object that you can manipulate like you would with the `New-Object` cmdlet. Therefore, you cannot set the `Visible` and `FullScreen` properties on the `$edge` variable.
+
+To launch Microsoft Edge in full screen mode, you can try the following code:
+
+```
+$edgePath = "C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe"
+$edgeArgs = "-k https://www.example.com" # Replace with your desired URL
+Start-Process -FilePath $edgePath -ArgumentList $edgeArgs -WindowStyle Maximized
+```
+
+This code launches Edge with the `-k` command-line switch, which opens the browser in full screen mode. The `WindowStyle` parameter of `Start-Process` maximizes the window to fill the screen.
+
+Note that the path to the Edge executable may vary depending on your system configuration. You can check the correct path by opening the Start menu and searching for "Microsoft Edge". Right-click on the Edge icon and select "Open file location" to navigate to the Edge executable.

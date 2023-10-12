@@ -1,0 +1,28 @@
+The error message you're seeing suggests that there's a file in your dataset that TensorFlow is unable to read as an image. Even though you've checked that all your images are in JPEG format, there might be a corrupted file or a file with a wrong extension in your dataset.
+
+Here are a few steps you can take to debug this issue:
+
+1. **Check for hidden files**: Sometimes, hidden files like `.DS_Store` on MacOS can cause this error. Make sure to remove these files from your dataset.
+
+2. **Check for corrupted files**: There might be a corrupted JPEG file in your dataset. You can use a tool like `jpeginfo` to check for and remove corrupted files.
+
+3. **Check file extensions**: Make sure all your files have the correct `.jpg` extension. Sometimes, files might be saved with a different extension but are actually in a different format.
+
+Here is a Python script that you can use to check for non-JPEG files in your dataset:
+
+```python
+import os
+from PIL import Image
+
+folder_path = '/content/drive/MyDrive/fi_dataset/train'
+
+for filename in os.listdir(folder_path):
+    if filename.endswith('.jpg'):
+        try:
+            img = Image.open(os.path.join(folder_path, filename)) # open the image file
+            img.verify() # verify that it is, in fact an image
+        except (IOError, SyntaxError) as e:
+            print('Bad file:', filename) # print out the names of corrupt files
+```
+
+This script will print out the names of any files that cannot be opened as JPEG images, which should help you identify any problematic files in your dataset.

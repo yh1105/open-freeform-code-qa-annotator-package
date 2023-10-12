@@ -1,0 +1,15 @@
+The error message indicates that Doctrine cannot find the migration class you're trying to execute. This could be due to a few reasons:
+
+1. The migration class does not exist: Ensure that the migration class `Version20210909072642` exists in the `app/DoctrineMigrations` directory.
+
+2. The namespace is incorrect: The namespace in the command should match the namespace in the migration file. In your case, it should be `Application\Migrations\Version20210909072642`.
+
+3. The migration version is not registered: If the migration version is not registered in the `migration_versions` table, Doctrine will not be able to find it. You can check this by querying the table.
+
+If all the above checks out, the command to execute the migration should be:
+
+```bash
+bin/console --env=dev doctrine:migrations:execute 'Application\Migrations\Version20210909072642' --down --no-interaction -vvv
+```
+
+If you're still having issues, it could be a problem with the DoctrineMigrationsBundle version. You might want to check the [official documentation](https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) or the [GitHub repository](https://github.com/doctrine/DoctrineMigrationsBundle) for any recent changes or issues.

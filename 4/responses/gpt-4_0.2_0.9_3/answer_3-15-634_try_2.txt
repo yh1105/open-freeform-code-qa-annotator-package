@@ -1,0 +1,19 @@
+The error you're experiencing is a known issue that was introduced by the November 12, 2019, updates for Office. It affects all versions of Microsoft Access. The issue specifically affects queries that have a WHERE clause.
+
+Microsoft has released updates to fix this issue. Here are the updates you should install based on your version of Office:
+
+- Office 2010: Description of the security update for Office 2010: December 10, 2019 (KB4484193)
+- Office 2013: Description of the security update for Office 2013: December 10, 2019 (KB4484186)
+- Office 2016: Description of the security update for Office 2016: December 10, 2019 (KB4484180)
+
+You can find these updates on the Microsoft Update Catalog website or they may be available through Windows Update.
+
+After installing the appropriate update, you should be able to run your queries without encountering the "Query ' ' is corrupt" error.
+
+If for some reason you can't install these updates, a workaround is to change your queries to avoid the issue. Instead of using a WHERE clause directly in the Update statement, you can use a domain function, like DLookup. Here's how you can modify your query:
+
+```
+DoCmd.RunSQL "update users set uname= 'bob' where usercode=" & DLookup("usercode", "users", "usercode=1")
+```
+
+This workaround may not be practical if you have a large number of queries to change, so installing the update to fix the issue is the recommended solution.

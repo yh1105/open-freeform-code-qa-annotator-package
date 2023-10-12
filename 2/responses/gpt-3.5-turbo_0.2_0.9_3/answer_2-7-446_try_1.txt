@@ -1,0 +1,9 @@
+It looks like you have successfully installed Xdebug on your Mac m1. To confirm that Xdebug is installed and enabled, you can run the following command in your terminal:
+
+```
+php -m | grep xdebug
+```
+
+If Xdebug is installed and enabled, you should see "xdebug" listed in the output. 
+
+You can also test Xdebug by setting a breakpoint in your code and using a debugging client like VS Code or PhpStorm to step through your code.

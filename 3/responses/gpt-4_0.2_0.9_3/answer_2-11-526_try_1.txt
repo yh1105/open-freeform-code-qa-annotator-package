@@ -1,0 +1,19 @@
+1. Why doesn't this compile in C?
+
+The reason why this doesn't compile in C is due to the fact that C requires all variables to be declared at the beginning of a block (a block is a piece of code enclosed in braces `{}`). In your code, you're trying to declare a variable `a` in the middle of an `if` statement, which is not allowed in C.
+
+2. Why does this difference exist?
+
+This difference exists due to the evolution of the C++ language. In C++, variables can be declared almost anywhere, not just at the beginning of a block. This is a feature that was added to C++ to make it more flexible and easier to use than C in certain situations. 
+
+In C++, the line `if (1) int a = 2;` is valid because it's equivalent to:
+
+```cpp
+if (1) {
+    int a = 2;
+}
+```
+
+This is a block with a single statement, and `a` is declared at the beginning of it. However, the scope of `a` is limited to this block, so it can't be used outside of it.
+
+This difference is one of many that exist between C and C++, even though C++ was originally based on C. Over time, C++ has added many features that are not present in C, and this is one of them.

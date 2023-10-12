@@ -1,0 +1,35 @@
+The error message is indicating that the namespace `std::filesystem` is not declared. This is because you're including `<experimental/filesystem>` but trying to use `std::filesystem::directory_iterator`.
+
+Since you're using C++17, you should be able to use `std::filesystem` instead of `std::experimental::filesystem`. 
+
+Change your `#include` statement and the usage of `std::filesystem` in your `main.cpp` file:
+
+```cpp
+#include <filesystem>
+
+int main(int argc, char** argv)
+{
+    std::string imageDirectory = "./image";;
+    std::vector<std::string> imagePath;
+
+    for (const auto& entry: std::filesystem::directory_iterator(imageDirectory))
+    {
+        imagePath.push_back(entry.path());
+        std::cout << entry.path() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+Also, you need to link against the filesystem library in your `CMakeLists.txt` file. In C++17, the filesystem library is no longer experimental and is part of the standard library. However, in some compilers (like GCC), it's a separate library that needs to be linked against. 
+
+You're already doing this with `stdc++fs`, but you need to make sure that your compiler actually supports this. If you're using GCC, you need at least version 8.1. If you're using an older version, you might need to upgrade your compiler or use `std::experimental::filesystem` instead.
+
+If you're using GCC 8.1 or later and still having issues, you might need to add `stdc++fs` to the `target_link_libraries` for your `dataIO` library as well:
+
+```cmake
+target_link_libraries(dataIO ${OpenCV_LIBS} stdc++fs)
+```
+
+If you're using a different compiler, the way to link against the filesystem library might be different. For example, in Visual Studio 2017 and later, you don't need to link against a separate library for filesystem.

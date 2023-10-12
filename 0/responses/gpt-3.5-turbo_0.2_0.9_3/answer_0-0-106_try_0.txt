@@ -1,0 +1,1 @@
+Unfortunately, the `--skip-tests` option is not supported for the `ng generate module` command. However, you can manually delete the generated `.spec.ts` file after generating the module and component. Alternatively, you can use the `--skipTests` option when running the `ng test` command to skip running tests for a specific file or directory.

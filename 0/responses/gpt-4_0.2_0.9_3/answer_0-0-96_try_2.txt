@@ -1,0 +1,35 @@
+Here's an example of a `tsconfig.json` file optimized for Node.js 12:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2019", 
+    "module": "commonjs", 
+    "moduleResolution": "node", 
+    "outDir": "./dist", 
+    "rootDir": "./src", 
+    "strict": true, 
+    "esModuleInterop": true, 
+    "skipLibCheck": true, 
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
+Explanation of some important options:
+
+- `target`: Node.js 12 supports ES2019, so we set this as the target to ensure the TypeScript compiler outputs JavaScript that Node.js 12 can understand.
+- `module`: Node.js uses the CommonJS module system, so we set this option to `commonjs`.
+- `moduleResolution`: This option is set to `node` to mimic how Node.js resolves module imports.
+- `outDir`: This is where the compiled JavaScript files will be output to.
+- `rootDir`: This is where your TypeScript source files are located.
+- `strict`: This enables a wide range of type checking behavior that results in more type-safe programs.
+- `esModuleInterop`: This enables better compatibility between CommonJS and ES Modules.
+- `skipLibCheck`: This can speed up compilation by skipping type checking of declaration files.
+- `forceConsistentCasingInFileNames`: This ensures that the casing of filenames is consistent, which can prevent issues on case-sensitive file systems.

@@ -1,0 +1,15 @@
+In Rust, the caret operator (`^`) is not used for exponentiation, but for bitwise XOR. To perform exponentiation, you can use the `pow` method from the `num_traits` crate. Here's an example:
+
+```rust
+use num_traits::pow;
+
+assert_eq!(pow(2, 10), 1024);
+```
+
+Alternatively, you can use the `pow` method from the standard library's `std::ops::Mul` trait, which is implemented for many numeric types:
+
+```rust
+assert_eq!(2i32.pow(10), 1024);
+```
+
+Note that the `pow` method takes the base as the first argument and the exponent as the second argument.

@@ -1,0 +1,26 @@
+Sure, I can help with that. Here's how you can convert these strings to camelCase and PascalCase in JavaScript:
+
+```javascript
+// Convert to camelCase
+function toCamelCase(str) {
+    return str.replace(/([-_][a-z])/gi, function($1) {
+        return $1.toUpperCase().replace('-', '').replace('_', '');
+    });
+}
+
+var var1 = "my-name-is";
+console.log(toCamelCase(var1)); // Output: "myNameIs"
+
+// Convert to PascalCase
+function toPascalCase(str) {
+    str = toCamelCase(str);
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+var var2 = "my_Name_is";
+console.log(toPascalCase(var2)); // Output: "MyNameIs"
+```
+
+In the `toCamelCase` function, we use a regular expression to find all occurrences of a hyphen or underscore followed by a lowercase letter. We then replace these occurrences with the uppercase version of the letter.
+
+In the `toPascalCase` function, we first convert the string to camelCase, and then we capitalize the first letter.

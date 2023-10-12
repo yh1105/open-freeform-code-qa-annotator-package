@@ -1,0 +1,43 @@
+As of the current version of React (17.0.2), there is no hook equivalent to `componentDidCatch` or `getDerivedStateFromError`. Error boundaries must be class components.
+
+The React team has mentioned that they are considering adding this feature in the future, but as of now, there is no way to catch errors in a function component.
+
+So, for now, you have to use class components to catch errors. Here is an example of how you can do it:
+
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    logErrorToMyService(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children; 
+  }
+}
+```
+
+You can use it as a regular component to wrap any part of your application:
+
+```jsx
+<ErrorBoundary>
+  <MyComponent />
+</ErrorBoundary>
+```
+
+In this example, if `MyComponent` throws an error during rendering, the `ErrorBoundary` will catch it, log it to your service, and render a fallback UI.

@@ -1,0 +1,34 @@
+The error messages indicate that there are conflicting dependencies in your project. This can happen when you try to update packages that depend on each other in a specific order. 
+
+Here are the steps you can follow to resolve this issue:
+
+1. First, update your global Angular CLI to the latest version by running the following command:
+
+```bash
+npm uninstall -g @angular/cli
+npm cache verify
+npm install -g @angular/cli@latest
+```
+
+2. Then, navigate to your project directory and remove the `node_modules` folder and `package-lock.json` file. You can do this manually or by running the following commands:
+
+```bash
+rm -rf node_modules
+rm package-lock.json
+```
+
+3. After that, update your local project's Angular CLI and Core by running the following command:
+
+```bash
+ng update @angular/cli @angular/core
+```
+
+4. Then, update the rest of the Angular packages:
+
+```bash
+ng update @angular/cdk @angular/material
+```
+
+5. Finally, reinstall your `node_modules` by running `npm install`.
+
+If you still encounter issues, you might want to consider creating a new Angular 11 project and moving your source files to the new project. This can be a more reliable way to update Angular, especially for major version changes.

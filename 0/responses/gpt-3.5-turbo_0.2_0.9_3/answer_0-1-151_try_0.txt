@@ -1,0 +1,19 @@
+It sounds like you are experiencing issues with the Rails asset pipeline. The asset pipeline is responsible for compiling and serving your application's static assets, including CSS files.
+
+When you make changes to your CSS files, the asset pipeline should automatically recompile them and serve the updated version to your browser. However, it seems like this is not happening in your case.
+
+Here are a few things you can try to fix the issue:
+
+1. Check your development environment settings: Make sure that your development environment is set up correctly. In particular, make sure that the `config.assets.debug` setting is set to `true` in your `config/environments/development.rb` file. This will ensure that the asset pipeline does not use precompiled assets in development mode.
+
+2. Clear your cache: Sometimes, the asset pipeline can get stuck serving old assets from the cache. To fix this, try clearing your browser cache and restarting your Rails server.
+
+3. Use the `asset_path` helper: When referencing your CSS files in your HTML templates, make sure to use the `asset_path` helper. This will ensure that the correct version of the file is served, even if it has been recompiled by the asset pipeline. For example:
+
+   ```
+   <link rel="stylesheet" href="<%= asset_path('application.css') %>">
+   ```
+
+4. Disable asset caching: If none of the above solutions work, you can try disabling asset caching altogether. To do this, set the `config.assets.digest` setting to `false` in your `config/environments/development.rb` file. However, keep in mind that this will slow down your application's asset serving performance.
+
+I hope these suggestions help you resolve your issue!

@@ -1,0 +1,15 @@
+You can achieve this by using the `partition` function in Python. The `partition` function returns a tuple that includes the separator (the text that matches the argument), the first half and the end half of the string.
+
+Here is how you can use it:
+
+```python
+def split_string(s):
+    _, _, split_string = s.partition('_')
+    return split_string if split_string else s
+
+print(split_string('testing_abc'))  # abc
+print(split_string('xyz'))  # xyz
+print(split_string('testing_abc_bbc'))  # abc_bbc
+```
+
+In this function, we use the `partition` function to split the string at the first occurrence of `_`. If `_` is not in the string, the function returns the original string. If `_` is in the string, the function returns everything after the first `_`.

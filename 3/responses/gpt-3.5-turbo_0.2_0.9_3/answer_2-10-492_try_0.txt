@@ -1,0 +1,55 @@
+To transfer native SOL directly into the event account's vault address in an anchor smart contract instruction, you can use the `system_instruction::transfer` method provided by the Solana SDK. Here's an example of how you can use it:
+
+```
+use solana_program::{
+    account_info::{next_account_info, AccountInfo},
+    entrypoint::ProgramResult,
+    program_error::ProgramError,
+    pubkey::Pubkey,
+    system_instruction,
+};
+
+// ...
+
+pub fn deposit_sol_to_event_account(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    amount: u64,
+) -> ProgramResult {
+    let accounts_iter = &mut accounts.iter();
+    let event_account_info = next_account_info(accounts_iter)?;
+    let event_vault_info = next_account_info(accounts_iter)?;
+    let source_user_info = next_account_info(accounts_iter)?;
+
+    // Check if the event account is owned by the program
+    if event_account_info.owner != program_id {
+        return Err(ProgramError::IncorrectProgramId);
+    }
+
+    // Transfer SOL from the source user to the event vault
+    let transfer_instruction = system_instruction::transfer(
+        source_user_info.key,
+        event_vault_info.key,
+        amount,
+    );
+    solana_program::program::invoke_signed(
+        &transfer_instruction,
+        &[source_user_info.clone()],
+        &[&[&b"transfer"[..], &event_account_info.key.to_bytes()]],
+    )?;
+
+    // Update the event account balance
+    let mut event_account_data = event_account_info.try_borrow_mut_data()?;
+    let event_account_balance = &mut event_account_data[0..8];
+    let new_balance = u64::from_le_bytes(*event_account_balance) + amount;
+    *event_account_balance = new_balance.to_le_bytes();
+
+    Ok(())
+}
+```
+
+In this example, we use the `system_instruction::transfer` method to transfer SOL from the source user to the event vault. We then update the event account balance by adding the transferred amount to the existing balance.
+
+Note that you'll need to pass the `source_user_info` account as a signer for the `invoke_signed` method to work. Also, make sure to check that the event account is owned by the program before updating its balance.
+
+Regarding your original question, the `token::transfer` method you mentioned is used for transferring SPL tokens, not native SOL. The `PROGRAM_ACCOUNT` parameter should be the account that handles the SPL token you want to transfer. If you want to transfer native SOL, you'll need to use the `system_instruction::transfer` method as shown above.

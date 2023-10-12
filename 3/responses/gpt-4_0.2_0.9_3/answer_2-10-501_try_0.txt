@@ -1,0 +1,16 @@
+The error message you're seeing suggests that the code is trying to use async functionality outside of an async context. The `mdns::discover::all` function is asynchronous and needs to be run within a Tokio runtime.
+
+The `#[tokio::main]` attribute you have on your `main` function should be setting up this runtime for you. However, there might be a version mismatch issue between the version of Tokio that `mdns` is using and the version you're using in your project.
+
+The `mdns` crate version 1.1.0 depends on Tokio 0.2. So, you should use Tokio 0.2 in your project as well. 
+
+Here's how you can modify your dependencies:
+
+```toml
+[dependencies]
+mdns = "1.1.0"
+futures-util = "0.3.8"
+tokio = { version = "0.2", features = ["full"] }
+```
+
+After changing the version, run `cargo update` to update your dependencies and then try running your program again.

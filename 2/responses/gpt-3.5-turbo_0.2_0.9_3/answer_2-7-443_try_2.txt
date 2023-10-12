@@ -1,0 +1,25 @@
+You can't pass an array directly as a route parameter. One way to solve this is to convert the array to a string using `json_encode()` or `serialize()` and then pass it as a parameter. 
+
+In your case, you used `serialize()` to convert the array to a string, but the error message you received indicates that the serialized string is being interpreted as separate parameters. 
+
+To fix this, you can use `urlencode()` to encode the serialized string before passing it as a parameter. Then, in your route handler, you can use `urldecode()` and `unserialize()` to convert the parameter back to an array.
+
+Here's an example:
+
+```
+// Generating the URL
+$array = [
+  'a' => 'one',
+  'b' => 1,
+  // ...
+];
+$url = route('route.name', ['array' => urlencode(serialize($array))]);
+
+// Handling the route
+Route::get('/example/{array}', function ($encodedArray) {
+  $array = unserialize(urldecode($encodedArray));
+  // Use $array as needed
+});
+```
+
+This should allow you to pass an array of any size and structure as a route parameter.

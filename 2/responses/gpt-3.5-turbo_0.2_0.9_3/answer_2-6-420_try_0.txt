@@ -1,0 +1,7 @@
+The error message indicates that the `MetadataAddress` or `Authority` used in the authentication configuration must use HTTPS unless disabled for development by setting `RequireHttpsMetadata=false`. 
+
+In your code, you have set `options.RequireHttpsMetadata = true;` which means that HTTPS is required. However, in your app service app settings configurations, you have set `AzureAd:Authority` to `https://login.microsoftonline.com/` which uses HTTP instead of HTTPS.
+
+To fix this issue, you need to update the `AzureAd:Authority` value in your app service app settings configurations to use HTTPS. The correct value should be `https://login.microsoftonline.com/`.
+
+Once you have updated the value, restart your app service and try again. The error should be resolved and you should be able to authenticate and access your API successfully.

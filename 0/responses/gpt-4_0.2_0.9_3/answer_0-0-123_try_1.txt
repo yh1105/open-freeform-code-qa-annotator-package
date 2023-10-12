@@ -1,0 +1,15 @@
+Yes, you can do a nested omit with TypeScript, but it's a bit more complex than a simple `Omit`. You'll need to create a new type that represents the modified `attributeValues` object, and then use that in your `CampaignFormValues` type.
+
+Here's how you can do it:
+
+```typescript
+type AttributeValuesWithoutOptionalAndMandatory = Omit<Campaign['attributeValues'], 'optionalAttributes' | 'mandatoryAttributes'>;
+
+export type CampaignFormValues = Omit<Campaign, 'attributeValues'> & {
+  attributeValues: AttributeValuesWithoutOptionalAndMandatory;
+};
+```
+
+In this code, `AttributeValuesWithoutOptionalAndMandatory` is a new type that represents the `attributeValues` object without the `optionalAttributes` and `mandatoryAttributes` properties. Then, `CampaignFormValues` is a type that represents the `Campaign` object without the `attributeValues` property, but with a new `attributeValues` property that uses the `AttributeValuesWithoutOptionalAndMandatory` type.
+
+This way, you're only omitting the `optionalAttributes` and `mandatoryAttributes` properties from the `attributeValues` object, and not from the entire `Campaign` object.

@@ -1,0 +1,9 @@
+Yes, it is possible to get the current page URL while on the wp-admin/admin dashboard. You can use the following code to achieve this:
+
+```
+$current_page = admin_url() . 'admin.php?page=' . $_GET['page'];
+```
+
+This code will give you the current page URL with the page parameter set to the current page's slug. You can modify it as per your requirement.
+
+Note: Make sure to use this code only on the admin dashboard pages as it may not work on other pages.

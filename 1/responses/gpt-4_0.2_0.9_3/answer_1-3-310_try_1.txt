@@ -1,0 +1,13 @@
+Yes, you can use a list comprehension to apply the replace function to all strings in the list at once. Here's how you can do it:
+
+```python
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+
+list_names = [s.replace('!', '').replace('?', '') for s in list_names]
+
+print(list_names)
+```
+
+This will replace '!' and '?' in all strings in the list. The result will be stored back in the `list_names` variable. The `print(list_names)` will output the modified list.
+
+The list comprehension `[s.replace('!', '').replace('?', '') for s in list_names]` goes through each string `s` in `list_names`, applies the replace functions to `s`, and collects the results into a new list.

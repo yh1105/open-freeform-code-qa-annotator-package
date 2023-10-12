@@ -1,0 +1,29 @@
+From your logic, it seems like you're trying to find the number of ways to arrange `n` elements with `k` different types such that no two adjacent elements are the same. 
+
+The recurrence relation you've written seems to be a bit off. Let's break it down:
+
+- If we have `n` elements and `k` different types, we can choose any of the `k` types for the first element.
+- For the next `n-1` elements, we have `k-1` choices (since we can't repeat the previous element).
+- The number of ways to allot the first element is `k`. The number of ways such that the next `n-1` elements are different is `(k-1)*f(n-1)`.
+- The number of ways to allot two same elements is `k + (k-1)*f(n-2)`.
+
+So, the correct recurrence relation should be:
+
+`f(n) = k*(k-1)^(n-1)`
+
+And the code should be:
+
+```python
+def count_num_ways(n, k):
+    dp = [0 for i in range(n+1)]
+
+    dp[0] = 0
+    dp[1] = k
+
+    for i in range(2, n+1):
+        dp[i] = k * ((k-1) ** (i-1))
+
+    print(dp)
+```
+
+This code will correctly calculate the number of ways to arrange `n` elements with `k` different types such that no two adjacent elements are the same.

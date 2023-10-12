@@ -1,0 +1,54 @@
+The `payer` in your code is the account that will pay for the transaction fee. In your case, it should be the wallet's public key. You don't need to get the secret key or sign the transaction manually because the `sendTransaction` function from `useWallet` will handle it for you.
+
+Here's how you can modify your code:
+
+```jsx
+const SendTransaction: React.FC<Props> = ({ children }) => {
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction } = useWallet()
+
+    const onSendSPLTransaction = useCallback(
+        async (toPubkey: string, amount: number) => {
+            if (!toPubkey || !amount) return
+            const toastId = toast.loading('Processing transaction...')
+
+            try {
+                if (!publicKey) throw new WalletNotConnectedError()
+                const toPublicKey = new PublicKey(toPubkey)
+                const mint = new PublicKey('Mint address')
+                const token = new Token(connection, mint, TOKEN_PROGRAM_ID, publicKey) // use publicKey as payer
+                const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+
+                const transaction = new Transaction().add(
+                    Token.createTransferInstruction(
+                        TOKEN_PROGRAM_ID,
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        [],
+                        amount // you should specify the amount to transfer
+                    )
+                )
+
+                const signature = await sendTransaction(transaction, connection)
+
+                const response = await connection.confirmTransaction(signature, 'processed')
+                console.log('response', response)
+                toast.success('Transaction sent', {
+                    id: toastId,
+                })
+            } catch (error) {
+                toast.error(`Transaction failed: ${error.message}`, {
+                    id: toastId,
+                })
+            }
+        },
+        [publicKey, sendTransaction, connection]
+    )
+
+    return <>{children(onSendSPLTransaction)}</>
+}
+```
+
+Please note that you should replace `'Mint address'` with the actual mint address of the SPL token you want to transfer. Also, the `amount` parameter of `Token.createTransferInstruction` should be the amount of tokens to transfer, not `0`.

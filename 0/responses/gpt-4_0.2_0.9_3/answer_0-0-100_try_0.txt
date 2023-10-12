@@ -1,0 +1,53 @@
+The issue you're facing is due to the fact that Create React App has its own ESLint configuration and it doesn't allow custom ESLint configuration out of the box. 
+
+However, you can still use your own ESLint configuration by "ejecting" the Create React App configuration. Please note that this is a one-way operation. Once you eject, you can’t go back! If you aren’t satisfied with the build tool and configuration choices, you can eject at any time.
+
+To eject, you can use the following command:
+
+```bash
+npm run eject
+```
+
+After ejecting, you can install ESLint and other dependencies and configure them as per your requirements.
+
+However, if you don't want to eject, you can use packages like `react-app-rewired` and `customize-cra` to override Create React App configuration without ejecting.
+
+Here is how you can do it:
+
+1. Install `react-app-rewired` and `customize-cra`:
+
+```bash
+npm install react-app-rewired customize-cra --save-dev
+```
+
+2. Create a `config-overrides.js` file in the root directory:
+
+```javascript
+/* config-overrides.js */
+
+const { useEslintRc } = require('customize-cra');
+
+module.exports = function override(config, env) {
+  // use .eslintrc
+  config = useEslintRc()(config);
+
+  return config;
+};
+```
+
+3. Replace `react-scripts` with `react-app-rewired` in `package.json`:
+
+```json
+/* package.json */
+
+"scripts": {
+  "start": "react-app-rewired start",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+}
+```
+
+4. Now, you can use your own `.eslintrc` file with Create React App.
+
+Please note that `react-app-rewired` and `customize-cra` are not officially supported by Create React App, so use them at your own risk.

@@ -1,0 +1,10 @@
+You can achieve this by checking if the string contains `_` using the `in` operator. If it contains `_`, then split the string and extract everything after the first `_`. Otherwise, just use the original string as the variable. Here's an example code snippet:
+
+```
+if '_' in string:
+    split_string = '_'.join(string.split('_')[1:])
+else:
+    split_string = string
+```
+
+This code first checks if `_` is in the string using the `in` operator. If it is, then it splits the string using `_` as the delimiter and extracts everything after the first element using list slicing (`[1:]`). It then joins the remaining elements using `_` as the separator to get the desired output. If `_` is not in the string, then it simply assigns the original string to the variable.

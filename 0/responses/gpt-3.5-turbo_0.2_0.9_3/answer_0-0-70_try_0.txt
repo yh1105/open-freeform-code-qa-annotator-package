@@ -1,0 +1,76 @@
+The warning message is telling you that the "updatedcount" event listener is not being properly inherited by the parent component because the child component is rendering a fragment or text root node. To fix this, you need to declare the "updatedcount" event in the child component's "emits" option.
+
+Here's how you can do it:
+
+childcomponent.vue
+```
+<template>
+  <h1>{{ store.count }}</h1>
+  <button @click="fired">click me</button>
+</template>
+
+<script>
+import { defineEmits } from 'vue';
+import useStore from "../store/store.js";
+
+export default {
+  name: "HelloWorld",
+  emits: ['updatedcount'], // declare the "updatedcount" event here
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+</script>
+```
+
+By declaring the "updatedcount" event in the child component's "emits" option, you are telling Vue that this event is intended to be a custom event listener only, and should be inherited by the parent component.
+
+parentcomponent.vue
+```
+<template>
+  <div>
+    {{ hello }}
+    <br />
+    <br />
+    <input type="text" v-model="hello.searchQuery" />
+    <br><br>
+    <button @click="hello.count--">click me too!</button>
+    <hello-world @updatedcount="mydata" />
+  </div>
+</template>
+
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+import useStore from "./store/store.js";
+
+export default {
+  components: {
+    HelloWorld,
+  },
+  setup() {
+    const hello = useStore();
+
+    function mydata(event) {
+      console.log(event);
+    }
+
+    return {
+      hello,
+      mydata
+    };
+  },
+};
+</script>
+```
+
+Now that you have declared the "updatedcount" event in the child component's "emits" option, the parent component can properly inherit it and listen for it.

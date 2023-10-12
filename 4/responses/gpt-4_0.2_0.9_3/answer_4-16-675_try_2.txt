@@ -1,0 +1,39 @@
+You can use the `git` command to show the current branch name in your terminal.
+
+Here's how to do it:
+
+1. Open your terminal in VSCode.
+
+2. Navigate to your project directory.
+
+3. Run the following command:
+
+```bash
+git rev-parse --abbrev-ref HEAD
+```
+
+This command will output the name of the current branch that HEAD is pointing to.
+
+If you want to show the current branch name in your terminal prompt like Bash, you can add the following lines to your `.bashrc` or `.bash_profile` file:
+
+```bash
+parse_git_branch() {
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+```
+
+Then, source your `.bashrc` or `.bash_profile` file to apply the changes:
+
+```bash
+source ~/.bashrc
+```
+or
+```bash
+source ~/.bash_profile
+```
+
+Now, your terminal prompt will display the current branch name.
+
+Please note that you need to have `git` installed in your WSL for these commands to work.

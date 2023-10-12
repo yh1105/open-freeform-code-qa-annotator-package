@@ -1,0 +1,20 @@
+To run a Power Automate flow using a keyboard shortcut or a PowerShell script, you can use the following steps:
+
+1. Create a new flow in Power Automate and add a trigger that suits your needs (e.g. a button trigger or a scheduled trigger).
+2. Add the actions that you want to perform in your flow.
+3. Save and publish your flow.
+4. Open Windows PowerShell or Command Prompt and navigate to the folder where you want to save your PowerShell script.
+5. Create a new PowerShell script file with the .ps1 extension (e.g. MyFlow.ps1).
+6. In the PowerShell script file, add the following command to run your flow:
+
+   ```powershell
+   Invoke-RestMethod -Method Post -Uri "https://prod-XX.westus.logic.azure.com:443/workflows/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0" -ContentType 'application/json' -Body '{}'
+   ```
+
+   Replace the URL in the command with the URL of your flow. You can find the URL by opening your flow in Power Automate and clicking on the "..." menu next to the flow name. Then select "Properties" and copy the "HTTP POST URL" value.
+
+7. Save and close the PowerShell script file.
+8. To run the PowerShell script, open PowerShell or Command Prompt and navigate to the folder where the script is saved.
+9. Type the name of the script file (e.g. MyFlow.ps1) and press Enter.
+
+Alternatively, you can create a shortcut on your desktop that runs the PowerShell script when you double-click on it. To do this, right-click on your desktop and select "New" > "Shortcut". In the "Location" field, enter the path to your PowerShell script file (e.g. "C:\Scripts\MyFlow.ps1"). Click "Next" and give your shortcut a name. Click "Finish" to create the shortcut. Now you can double-click on the shortcut to run your flow.

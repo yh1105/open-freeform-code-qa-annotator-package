@@ -1,0 +1,8 @@
+It's possible that the SSL certificate verification is failing because your system's SSL certificates are out of date or missing. You can try updating your SSL certificates by following these steps:
+
+1. Download the latest version of the certifi package by running `pip install --upgrade certifi`.
+2. Locate the certifi package on your system by running `python -c "import certifi; print(certifi.where())"`.
+3. Copy the path to the certifi package.
+4. Set the SSL_CERT_FILE environment variable to the path of the certifi package by running `export SSL_CERT_FILE=/path/to/certifi/cacert.pem` (replace `/path/to/certifi/cacert.pem` with the actual path to the cacert.pem file in the certifi package).
+
+After setting the SSL_CERT_FILE environment variable, try running `pip install dedupe` or `pip install --trusted-host pypi.python.org dedupe` again and see if it works.

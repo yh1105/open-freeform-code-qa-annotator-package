@@ -1,0 +1,19 @@
+It seems like your AWS CLI is configured to use `vi` as the default pager. The AWS CLI uses a pager to manage the output of its commands. By default, it uses the pager defined in your environment, or `less` if no pager is defined.
+
+You can change the default pager by setting the `AWS_PAGER` environment variable. If you want to disable the pager and print the output directly to the terminal, you can set `AWS_PAGER` to an empty string.
+
+Here's how you can do it:
+
+1. Open your shell's configuration file. If you're using zsh, this will be `~/.zshrc`. If you're using bash, it will be `~/.bashrc`.
+
+2. Add the following line to the file:
+
+    ```bash
+    export AWS_PAGER=""
+    ```
+
+3. Save the file and exit.
+
+4. Reload your shell's configuration by running `source ~/.zshrc` (or `source ~/.bashrc` if you're using bash).
+
+Now, when you run `aws ec2 describe-instances`, the output should be printed directly to the terminal.

@@ -1,0 +1,12 @@
+You can use the `str.replace` function in pandas to replace the special characters with an empty string. In your case, you can use a regular expression to match the pattern of the special characters you want to remove. Here is an example:
+
+```python
+import pandas as pd
+
+# Assuming df is your DataFrame and 'LGA' is your column
+df['LGA'] = df['LGA'].str.replace(r'\s\(\w+\)$', '', regex=True)
+```
+
+In this code, `r'\s\(\w+\)$'` is a regular expression that matches a space followed by any word inside parentheses at the end of a string. The `replace` function replaces this pattern with an empty string `''`, effectively removing it from your strings.
+
+Please note that this code will only remove the special characters at the end of your strings. If there are special characters in the middle of your strings, they will not be removed.

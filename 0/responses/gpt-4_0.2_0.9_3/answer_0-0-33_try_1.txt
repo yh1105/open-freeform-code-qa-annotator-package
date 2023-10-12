@@ -1,0 +1,43 @@
+The issue you're experiencing is due to the fact that IIS is a server and it handles the routing before your React app does. When you try to access a route that doesn't exist, IIS doesn't know about your React Router and returns its default 404 page.
+
+To solve this issue, you need to configure IIS to redirect all requests to your React app, and let React Router handle the routing. This can be achieved by installing and configuring the URL Rewrite module for IIS.
+
+Here are the steps:
+
+1. Install the URL Rewrite module. You can download it from the official Microsoft website.
+
+2. Once installed, open IIS Manager and navigate to your website.
+
+3. In the Features View, double click on "URL Rewrite".
+
+4. In the Actions pane on the right, click on "Add Rule(s)".
+
+5. In the Add Rules dialog, under Inbound rules, select "Blank rule" and click OK.
+
+6. In the Edit Inbound Rule dialog, give your rule a name (e.g., "React Router").
+
+7. Under Match URL, set the following:
+   - Requested URL: Matches the Pattern
+   - Using: Regular Expressions
+   - Pattern: .*
+
+8. Under Action, set the following:
+   - Action type: Rewrite
+   - Rewrite URL: / (just a forward slash)
+
+9. Under Conditions, click "Add" and set the following:
+   - Condition input: {REQUEST_FILENAME}
+   - Check if input string: Is Not a File
+   - Click OK to add the condition.
+   - Click "Add" again and set the following:
+   - Condition input: {REQUEST_FILENAME}
+   - Check if input string: Is Not a Directory
+   - Click OK to add the condition.
+
+10. Click "Apply" in the Actions pane on the right to save the rule.
+
+This rule will redirect all requests to your React app unless the requested URL corresponds to a file or a directory. This way, IIS will serve your static files (like your JavaScript, CSS, and image files), but all other requests will be handled by your React Router.
+
+Remember to restart IIS after applying these changes. You can do this by running `iisreset` in the command prompt.
+
+I hope this helps! Let me know if you have any questions.

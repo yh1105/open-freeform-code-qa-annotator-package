@@ -1,0 +1,25 @@
+Yes, it is possible to create Kotlin-like scope functions in JavaScript/TypeScript. However, there's no direct equivalent in JavaScript/TypeScript for Kotlin's scope functions like `let`, `run`, `with`, `apply`, and `also`. 
+
+JavaScript/TypeScript has its own set of tools and idioms for handling similar situations. For example, you can use JavaScript's `this` keyword or arrow functions to control the scope and context of your functions. 
+
+Here's an example of how you might implement a Kotlin-like `apply` function in JavaScript:
+
+```javascript
+function apply(obj, action) {
+    action(obj);
+    return obj;
+}
+
+let obj = { a: 1, b: 2 };
+
+apply(obj, (obj) => {
+    obj.a = 3;
+    obj.b = 4;
+});
+
+console.log(obj);  // { a: 3, b: 4 }
+```
+
+As for libraries, there's no specific library that provides Kotlin-like scope functions in JavaScript/TypeScript. However, you can use libraries like lodash or underscore.js which provide a set of utility functions for working with objects and collections, some of which can be used to achieve similar results.
+
+Remember that JavaScript/TypeScript and Kotlin are different languages with different idioms and best practices. While you can often translate concepts from one language to another, it's usually best to embrace the idioms of the language you're working with.

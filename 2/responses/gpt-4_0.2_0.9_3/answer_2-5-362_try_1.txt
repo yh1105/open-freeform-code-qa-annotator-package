@@ -1,0 +1,82 @@
+The error message you're seeing is related to the changes in Spring Cloud 2020.0.2 (also known as Ilford) which introduced a new way of loading configuration data via the `spring.config.import` property. 
+
+In your case, the error is caused by the `spring-cloud-starter-config` dependency. This starter is used for connecting to a Spring Cloud Config Server, but since you mentioned that your project is not using Config Server, you can safely remove this dependency.
+
+Here's the updated `build.gradle` without the `spring-cloud-starter-config`:
+
+```groovy
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example.microservices.composite.product'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spring.io/milestone'
+    }
+}
+
+ext {
+   resilience4jVersion = "1.6.1"
+}
+
+dependencies {
+    // Local projects dependencies
+    implementation project(':api')
+    implementation project(':util') 
+
+    // Implementations dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // SpringFox dependencies
+    implementation "io.springfox:springfox-boot-starter:3+"
+    implementation('io.springfox:springfox-spring-webflux:3+')
+
+    // Implementation: Spring cloud
+    implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
+    implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
+
+    // Security
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.security:spring-security-oauth2-resource-server')
+    implementation('org.springframework.security:spring-security-oauth2-jose')
+
+    // CircuitBreaker with Resilience4J
+    implementation("io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}")
+    implementation("io.github.resilience4j:resilience4j-reactor:${resilience4jVersion}")
+  
+    // Implementation: Tracing
+    implementation('org.springframework.cloud:spring-cloud-starter-sleuth') 
+
+    // Implementation: Performance metrics
+    implementation("io.micrometer:micrometer-registry-prometheus")
+    
+    // TEST dependencies
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation('org.springframework.cloud:spring-cloud-stream-test-support')
+
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.2"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+```
+
+After removing the `spring-cloud-starter-config` dependency, you should be able to upgrade to Spring Cloud 2020.0.2 without any issues.

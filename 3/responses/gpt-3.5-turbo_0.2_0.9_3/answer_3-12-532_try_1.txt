@@ -1,0 +1,20 @@
+The error message indicates that there is an unexpected character at the beginning of the JSON response. The character sequence `ï»¿` is a byte order mark (BOM) that is sometimes added to the beginning of a file to indicate its encoding. 
+
+To fix this issue, you can try removing the BOM from the PHP file by saving it with a different encoding. You can also try to remove the BOM programmatically by adding the following code at the beginning of your PHP file:
+
+```
+<?php
+ob_start("ob_gzhandler");
+header("Content-Encoding: gzip");
+?>
+```
+
+This code will compress the output of your PHP script and remove the BOM. 
+
+Alternatively, you can try to remove the BOM in your Dart code by adding the following line before decoding the JSON:
+
+```
+response.body = response.body.replaceFirst('\uFEFF', '');
+```
+
+This code will replace the BOM character with an empty string before decoding the JSON.

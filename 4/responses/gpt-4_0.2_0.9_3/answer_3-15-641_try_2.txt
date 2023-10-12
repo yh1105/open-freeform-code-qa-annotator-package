@@ -1,0 +1,15 @@
+It seems you're trying to automate the process of creating folders and files on SharePoint using VBA, but the change in SharePoint's path protocol from local to URL is causing issues. 
+
+Unfortunately, VBA doesn't support creating folders or files directly on SharePoint. However, there are a few workarounds you can try:
+
+1. **WebDAV**: SharePoint supports the WebDAV protocol, which allows you to interact with SharePoint as if it were a local file system. You can map a network drive to the SharePoint library and then use VBA to interact with it as if it were a local drive. However, this method has some limitations, such as the inability to work with files larger than 50 MB.
+
+2. **SharePoint REST API**: SharePoint provides a REST API that you can use to interact with SharePoint programmatically. You can use this API to create folders, upload files, and perform other operations. However, this method requires a good understanding of HTTP and REST, and it may not be suitable for all users.
+
+3. **Power Automate (formerly Microsoft Flow)**: Power Automate is a cloud-based service provided by Microsoft to automate workflows across multiple applications and services. You can use Power Automate to create a workflow that creates folders and files on SharePoint when certain conditions are met. This method requires no coding, but it does require a Power Automate license.
+
+As for retrieving the local path of a file, you can use the `ActiveWorkbook.Path` property in VBA to get the path of the workbook that contains the macro. This will return the local path if the workbook is stored on a local drive, or the URL if the workbook is stored on SharePoint. 
+
+If you want to get the local path of a SharePoint file, you can use the `ActiveWorkbook.FullName` property, which returns the full path of the workbook, including the file name and extension. However, this will return the URL if the workbook is stored on SharePoint.
+
+Unfortunately, there's no built-in way in VBA to convert a SharePoint URL to a local path. You would need to write a custom function to do this, and it would likely involve parsing the URL and making assumptions about the structure of your SharePoint site and the local file system.

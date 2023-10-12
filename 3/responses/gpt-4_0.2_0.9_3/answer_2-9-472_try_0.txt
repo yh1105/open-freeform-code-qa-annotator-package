@@ -1,0 +1,40 @@
+The error message indicates that the build is failing due to an issue with the `node-sass` package. This package has been deprecated in favor of `sass`. 
+
+Here are a few steps you can take to resolve this issue:
+
+1. Replace `node-sass` with `sass` in your `package.json` file:
+
+```json
+"dependencies": {
+  ...
+  "sass": "^1.43.4",
+  ...
+}
+```
+
+2. Remove the `node_modules` directory and `yarn.lock` file:
+
+```bash
+rm -rf node_modules
+rm yarn.lock
+```
+
+3. Install the dependencies again:
+
+```bash
+yarn install
+```
+
+4. Commit the changes and push to Heroku again.
+
+If the issue persists, it might be due to the Node.js version specified in the `engines` field of your `package.json` file. The error message indicates that the Node.js version being used is `v16.13.1`, but your local Node.js version is `v12.22.7`. 
+
+You can try changing the Node.js version in the `engines` field to match your local version:
+
+```json
+"engines": {
+  "node": "12.x"
+}
+```
+
+Then commit the changes and push to Heroku again.

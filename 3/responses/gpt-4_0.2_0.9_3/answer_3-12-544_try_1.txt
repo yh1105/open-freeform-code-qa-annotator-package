@@ -1,0 +1,18 @@
+The error you're seeing is due to the fact that you're trying to access the application's documents directory before the Flutter engine is fully initialized. 
+
+In Flutter, the `main()` function cannot be asynchronous, because Flutter needs to ensure that the engine is fully initialized before any other code is run. 
+
+To solve this, you can use `WidgetsFlutterBinding.ensureInitialized();` before calling any asynchronous code in your `main()` function. This ensures that the Flutter engine is fully initialized before you try to access the application's documents directory.
+
+Here's how you can modify your code:
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocsDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocsDir.path);
+  runApp(MyApp());
+}
+```
+
+This should solve the error you're seeing.

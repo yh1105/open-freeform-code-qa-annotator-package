@@ -1,0 +1,73 @@
+You can use the `Image.asset` or `Image.network` widget to load an image from your assets or from a URL respectively. You can then use this image as an icon. 
+
+Here is an example of how you can do this:
+
+```dart
+class BrandButton extends StatelessWidget {
+  final String label;
+  final double height;
+  final Color backgroundColor;
+  final Color textColor;
+  final Widget brandIcon;
+
+  const BrandButton(
+      {Key? key,
+      this.label = "Sign in with Apple",
+      this.height: 48,
+      this.backgroundColor: Colors.black,
+      required this.brandIcon,
+      this.textColor: Colors.white})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              brandIcon,
+              SizedBox(width: 15),
+              Text(
+                label,
+                style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                    height: 1.41),
+              )
+            ],
+          )),
+    );
+  }
+}
+```
+
+And then you can use it like this:
+
+```dart
+BrandButton(
+  label: "Sign in with Google",
+  backgroundColor: Colors.white,
+  textColor: Colors.black,
+  brandIcon: Image.asset('assets/images/google_icon.png'),
+)
+```
+
+Just replace `'assets/images/google_icon.png'` with the path to your colorful Google icon in your assets. Also, don't forget to declare your assets in the `pubspec.yaml` file:
+
+```yaml
+flutter:
+  assets:
+    - assets/images/
+```
+
+This way, you can use any image as an icon for your button.

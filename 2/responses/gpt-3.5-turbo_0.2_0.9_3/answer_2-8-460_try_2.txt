@@ -1,0 +1,17 @@
+You can iterate over the map using a `for` loop and print the key-value pairs using string formatting. Here's an example:
+
+```
+for key, value := range getUsersAppInfo[0] {
+    fmt.Printf("%s value is %v\n", key, value)
+}
+```
+
+This will output:
+
+```
+appId value is 2
+fcmServerKey value is keyTestTest
+name value is com.app
+```
+
+Note that we are accessing the first element of the slice returned by `getUsersAppInfo` because it contains only one map. If there were multiple maps in the slice, you would need to iterate over them as well.

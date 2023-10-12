@@ -1,0 +1,5 @@
+In Android Studio or IntelliJ, you can use the "Extract Widget" refactoring shortcut to extract the Stack widget into a separate method. 
+
+To do this, select the Stack widget and press "Ctrl + Alt + W" (Windows) or "Cmd + Alt + W" (Mac). This will bring up the "Extract Widget" dialog box where you can give the new widget a name and choose where to place it in your code. 
+
+After you click "OK", the new widget method will be created and the original Stack widget will be replaced with a call to the new method.

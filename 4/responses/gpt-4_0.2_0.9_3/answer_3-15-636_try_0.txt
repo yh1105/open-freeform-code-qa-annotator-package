@@ -1,0 +1,15 @@
+It seems like you want to modify your existing VBA macro to split data into multiple sheets within an Excel workbook based on a table format. However, your question is missing some crucial information that would help to provide a more accurate answer. 
+
+1. You mentioned that the current code is not working for you. Could you please specify what kind of error or issue you are facing? Are you getting any error messages? If so, what do they say?
+
+2. You mentioned that you want the split to be done in the same method, but the result format should be different. Could you please specify what exactly you want to be different in the result format?
+
+3. You mentioned that the split data should be in multiple sheets within an Excel workbook, not split into multiple workbooks. Is the current code splitting the data into multiple workbooks instead of sheets?
+
+4. You provided some images, but it's not clear what each image represents. Could you please clarify what each image is showing?
+
+5. You provided a link to a Macro_Folder, but it's not accessible. Could you please check the link?
+
+6. You mentioned that you want the final result to look like the examples you provided. However, it's not clear how these examples relate to your current data and code. Could you please explain how you want your data to be transformed to look like these examples?
+
+Once you provide this information, it will be easier to understand your problem and provide a more accurate solution.

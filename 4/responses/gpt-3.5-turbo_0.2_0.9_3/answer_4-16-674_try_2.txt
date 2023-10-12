@@ -1,0 +1,5 @@
+It seems like there might be some leftover files from a previous installation that are causing the issue. Even though you have manually removed the `C:\program files\ServiceFabric` folder, there might be some registry entries or other files that are still present on your system.
+
+You could try using a tool like CCleaner to clean up any leftover registry entries or files related to Service Fabric. Additionally, you could try running the installation with administrative privileges to ensure that all necessary files are being installed correctly.
+
+If none of these solutions work, you could try reaching out to the Service Fabric support team for further assistance. They might be able to provide more specific guidance on how to resolve this issue.

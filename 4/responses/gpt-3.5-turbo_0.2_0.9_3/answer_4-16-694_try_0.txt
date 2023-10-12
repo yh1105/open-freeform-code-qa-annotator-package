@@ -1,0 +1,9 @@
+Instead of using `grep` and `cut` to extract the language code, you can use `awk` to extract the value of the `lang` attribute directly. Here's an example command that should work for both cases:
+
+```
+curl -Ls yahoo.com | awk -F 'lang=| ' 'NR==1{print $2}' | tr -d '"'
+```
+
+This command uses `awk` to split the input by either `lang=` or a space character, and then prints the second field of the first line (which should be the `lang` attribute value). The `tr` command is then used to remove the double quotes around the value.
+
+You can replace `yahoo.com` with any other URL to test this command.

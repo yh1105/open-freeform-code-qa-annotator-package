@@ -1,0 +1,56 @@
+To make your widget rebuild on listening to the changes you made using the provider package, you need to use the `Consumer` widget provided by the package.
+
+Here are the steps you can follow:
+
+1. Wrap your widget with the `Consumer` widget and pass the provider instance as a parameter.
+
+```dart
+Consumer<MyProvider>(
+  builder: (context, myProvider, child) {
+    // Your widget code here
+  },
+),
+```
+
+2. In the `builder` function, access the data from the provider instance and use it to build your widget.
+
+```dart
+Consumer<MyProvider>(
+  builder: (context, myProvider, child) {
+    final data = myProvider.getData();
+    return Text(data);
+  },
+),
+```
+
+3. When the data changes in the provider instance, call the `notifyListeners()` method to notify the listeners (in this case, the `Consumer` widget) that the data has changed.
+
+```dart
+class MyProvider extends ChangeNotifier {
+  String _data;
+
+  String getData() => _data;
+
+  void setData(String data) {
+    _data = data;
+    notifyListeners();
+  }
+}
+```
+
+4. When you receive new data from the backend, update the data in the provider instance using the `setData()` method.
+
+```dart
+myProvider.setData(newData);
+```
+
+5. The `Consumer` widget will automatically rebuild your widget when the data changes in the provider instance.
+
+```dart
+Consumer<MyProvider>(
+  builder: (context, myProvider, child) {
+    final data = myProvider.getData();
+    return Text(data);
+  },
+),
+```

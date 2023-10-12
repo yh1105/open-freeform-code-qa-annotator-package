@@ -1,0 +1,35 @@
+You can use the `conda list --size` command to list all packages along with their sizes. This command will display the size of each package in human-readable format (KB, MB, GB).
+
+If you want to sort the packages by size, you can use the following command in the Anaconda Prompt:
+
+```bash
+conda list --size --json | jq -r '.[] | "\(.size.KB) KB \(.name)"' | sort -n
+```
+
+This command will list all packages sorted by size in ascending order. The `jq` command is used to parse the JSON output from `conda list --size --json`.
+
+Please note that `jq` is not included in Windows by default. You can download it from https://stedolan.github.io/jq/download/.
+
+After downloading, add the path of `jq` to the system environment variable PATH.
+
+If you don't want to use `jq`, you can use Python to parse the JSON output:
+
+```bash
+conda list --size --json > packages.json
+```
+
+Then, use the following Python script to parse `packages.json`:
+
+```python
+import json
+
+with open('packages.json') as f:
+    packages = json.load(f)
+
+packages.sort(key=lambda x: x['size'])
+
+for package in packages:
+    print(f"{package['size']} KB {package['name']}")
+```
+
+This script will print all packages sorted by size in ascending order.

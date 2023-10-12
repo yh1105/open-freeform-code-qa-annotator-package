@@ -1,0 +1,62 @@
+The circular import issue arises because you are trying to import `app` from `app.py` in `first_view.py` and then trying to import `make_layout` from `first_view.py` in `app.py`. 
+
+To avoid this, you can create a separate file, say `server.py`, where you initialize your Dash app. You can then import this `app` instance in both `app.py` and `first_view.py`. 
+
+Here is how you can modify your code:
+
+### File structure
+
+```
+.
+├── my_dash_app
+│   ├── server.py
+│   ├── app.py
+│   └── views
+│       ├── first_view.py
+│       └── __init__.py
+└── setup.py
+```
+
+### server.py
+
+```python
+import dash
+
+app = dash.Dash(__name__)
+```
+
+### app.py
+
+```python
+from my_dash_app.server import app
+from my_dash_app.views.first_view import make_layout
+
+app.layout = make_layout()
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
+```
+
+### first_view.py
+
+```python
+from dash.dependencies import Input, Output
+
+import dash_core_components as dcc
+import dash_html_components as html
+
+from my_dash_app.server import app 
+
+def make_layout():
+    return html.Div([
+        dcc.Input(id='my-id', value='initial value', type='text'),
+        html.Div(id='my-div')
+    ])
+
+@app.callback(Output(component_id='my-div', component_property='children'),
+              [Input(component_id='my-id', component_property='value')])
+def update_output_div(input_value):
+    return 'You\'ve entered "{}"'.format(input_value)
+```
+
+Now, you should be able to run your app without any circular import issues.

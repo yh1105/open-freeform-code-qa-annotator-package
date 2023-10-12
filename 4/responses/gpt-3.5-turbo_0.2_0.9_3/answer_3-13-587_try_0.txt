@@ -1,0 +1,25 @@
+This error is caused by the Jacoco plugin trying to use a version of Groovy that is not compatible with the Java version being used. 
+
+To fix this issue, you can try updating the Jacoco plugin to a version that is compatible with the Java version being used. You can also try updating the Groovy version being used by the Jacoco plugin.
+
+You can update the Jacoco plugin by changing the `toolVersion` property in your `build.gradle` file to a version that is compatible with the Java version being used. For example, if you are using Java 8, you can try using Jacoco version 0.8.7 or higher.
+
+```
+jacoco {
+    toolVersion = "0.8.7"
+}
+```
+
+If updating the Jacoco plugin does not work, you can try updating the Groovy version being used by the Jacoco plugin. You can do this by adding the following to your `build.gradle` file:
+
+```
+configurations.all {
+    resolutionStrategy {
+        force 'org.codehaus.groovy:groovy-all:3.0.9'
+    }
+}
+```
+
+This will force the Jacoco plugin to use Groovy version 3.0.9, which is compatible with Java 8 and higher.
+
+After making these changes, try running the test coverage report task again to see if the issue has been resolved.

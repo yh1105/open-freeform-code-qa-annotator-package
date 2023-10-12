@@ -1,0 +1,11 @@
+The error message indicates that some of the dependencies have incompatible versions. To fix this, you can try the following steps:
+
+1. Update the `rxjs` package to version 6.2.0 by running the command `npm install rxjs@6.2.0 --save`. This should resolve the peer dependency issue with `@angular/flex-layout`.
+
+2. Update the `typescript` package to version 2.7.2 or higher by running the command `npm install typescript@^2.7.2 --save-dev`. This should resolve the peer dependency issue with `@angular/compiler-cli`.
+
+3. After updating the dependencies, run the command `ng update @angular/core` again to update the core package to version 6.
+
+4. Once the update is complete, run `ng serve` to start the app and check if everything is working as expected.
+
+Note: Before making any changes, it's always a good practice to create a backup of your project or use a version control system like Git.

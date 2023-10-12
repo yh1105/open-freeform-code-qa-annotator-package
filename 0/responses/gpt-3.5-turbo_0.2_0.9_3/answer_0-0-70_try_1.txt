@@ -1,0 +1,37 @@
+The warning message is indicating that the `updatedcount` event listener is not being properly inherited by the parent component. This is because the child component is rendering a fragment or text root node, which prevents the event listener from being automatically inherited.
+
+To fix this, you can declare the `updatedcount` event in the child component's `emits` option. This tells Vue that the event is intended to be a custom event listener and should be properly inherited by the parent component.
+
+Here's how you can update the child component:
+
+```
+<template>
+  <h1>{{ store.count }}</h1>
+  <button @click="fired">click me</button>
+</template>
+
+<script>
+import { defineEmits } from 'vue';
+import useStore from "../store/store.js";
+
+export default {
+  name: "HelloWorld",
+  emits: ['updatedcount'], // declare the custom event here
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+</script>
+```
+
+By declaring the `updatedcount` event in the child component's `emits` option, the parent component will be able to properly inherit the event listener.

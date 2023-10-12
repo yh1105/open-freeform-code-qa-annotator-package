@@ -1,0 +1,17 @@
+The error message you're seeing suggests that the `collections_abc` attribute cannot be found in the `six.moves` module. This is strange because, as you mentioned, the `six` module hasn't been updated recently.
+
+This issue might be related to the version of `six` that you're using. The `collections_abc` attribute was added in `six` version 1.13.0. If you're using an older version of `six`, you might not have access to this attribute, which could be causing the error.
+
+Here are a few things you can do to troubleshoot this issue:
+
+1. **Check the version of `six` you're using:** You can do this by running `pip show six` in your terminal. If you're using a version older than 1.13.0, you should update `six` to a newer version.
+
+2. **Update `six`:** You can update `six` by running `pip install --upgrade six` in your terminal.
+
+3. **Check for conflicting versions of `six`:** It's possible that you have multiple versions of `six` installed in different environments, and the wrong version is being used. You can check for this by running `pip list | grep six` in your terminal. If you see multiple versions of `six`, you might need to uninstall the conflicting versions.
+
+4. **Check your PYTHONPATH:** The `PYTHONPATH` environment variable can affect which version of a module is imported. If `PYTHONPATH` includes a directory that contains an old version of `six`, that version might be used instead of the newer version. You can check your `PYTHONPATH` by running `echo $PYTHONPATH` in your terminal.
+
+5. **Check for issues with your Airflow environment:** Since your script is deployed in Airflow, there might be something about the Airflow environment that's causing the issue. For example, Airflow might be using a different Python interpreter, which could be using a different version of `six`. You can check the Python interpreter that Airflow is using by running `which python` in your Airflow environment.
+
+If none of these steps resolve the issue, please provide more information about your environment and I'll be happy to help further.

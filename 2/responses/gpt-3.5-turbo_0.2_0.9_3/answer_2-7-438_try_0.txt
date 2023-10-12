@@ -1,0 +1,12 @@
+It looks like you are using the correct format for specifying the migration version in the `doctrine:migrations:execute` command. However, you may need to specify the full namespace of the migration class, including the `Application\Migrations` namespace.
+
+Try running the command like this:
+```
+bin/console --env=dev doctrine:migrations:execute 'Application\Migrations\Version20210909072642' --down --no-interaction -vvv
+```
+
+If that doesn't work, you can try running the `doctrine:migrations:status` command to see a list of all available migrations and their versions. This should help you determine the correct version to use in the `execute` command.
+
+```
+bin/console doctrine:migrations:status
+```

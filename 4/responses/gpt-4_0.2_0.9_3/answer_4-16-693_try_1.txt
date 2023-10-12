@@ -1,0 +1,31 @@
+You can use awk to extract the request_id and check if the fwd key has the value of MASKED. Here is how you can modify your script:
+
+```bash
+#!/bin/bash
+curl -s https://coderbyte.com/api/challenges/logs/web-logs-raw -O > /dev/null
+
+grep -F "coderbyte heroku/router" web-logs-raw | awk '{
+  for(i=1;i<=NF;i++) {
+    if($i ~ /request_id=/) {
+      printf "%s", substr($i,12)
+    }
+    if($i ~ /fwd="MASKED"/) {
+      printf " [M]"
+    }
+  }
+  printf "\n"
+}' > test
+
+cat test
+```
+
+This script works as follows:
+
+- The grep command filters the lines that contain the string "coderbyte heroku/router".
+- The awk command processes each line:
+  - It loops through each field in the line.
+  - If the field contains "request_id=", it prints the value of the request_id (it uses substr function to remove the "request_id=" part).
+  - If the field contains "fwd=\"MASKED\"", it prints " [M]".
+  - After processing all fields in a line, it prints a newline character.
+
+The output is written to the file "test". The final cat command is used to display the content of this file.

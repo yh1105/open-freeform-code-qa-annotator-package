@@ -1,0 +1,37 @@
+The issue you're experiencing might be due to a conflict between the packages in your environment and the version of nodejs you're trying to install. Here are a few suggestions you can try:
+
+1. **Create a new environment**: Sometimes, the easiest way to resolve conflicts is to create a new environment and install the packages you need there. You can do this with the following commands:
+
+```bash
+conda create -n newenv
+conda activate newenv
+conda install -c conda-forge nodejs=14.4.0
+```
+
+2. **Update conda**: If you're using an older version of conda, you might experience issues with package installations. You can update conda with the following command:
+
+```bash
+conda update -n base -c defaults conda
+```
+
+After updating conda, try installing nodejs again.
+
+3. **Specify the build**: If you know the specific build of nodejs you want to install, you can specify it in the install command like this:
+
+```bash
+conda install -c conda-forge nodejs=14.4.0=h2c41780_0
+```
+
+4. **Use mamba**: Mamba is a reimplementation of the conda package manager in C++. It's designed to be faster and more efficient than conda, and it can often resolve package conflicts that conda can't. You can install mamba with the following command:
+
+```bash
+conda install -c conda-forge mamba
+```
+
+Then, you can use mamba to install nodejs like this:
+
+```bash
+mamba install -c conda-forge nodejs=14.4.0
+```
+
+Remember to replace `14.4.0` with the version you want to install.

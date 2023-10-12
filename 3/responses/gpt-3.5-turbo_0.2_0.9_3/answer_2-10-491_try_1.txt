@@ -1,0 +1,12 @@
+One way to simplify the code is to use the `map_or_else` method of `Option` to provide a default value and a closure to execute if the option is `None` or the value doesn't satisfy the acceptance condition. Here's an example:
+
+```
+fn main() {
+    let mut foo: Option<u8> = None;
+    foo = foo.map_or_else(|| Some(5), |val| if val < 5 { Some(5) } else { None });
+}
+```
+
+In this code, the `map_or_else` method takes two arguments: a closure that returns a default value (`Some(5)` in this case) if the option is `None`, and a closure that takes the inner value and returns either `None` (if the value satisfies the acceptance condition) or `Some` with a new value (if the value doesn't satisfy the condition). The result of `map_or_else` is assigned back to `foo`, so it will contain either the original value (if it satisfies the condition) or the default value (if it doesn't or if it was `None`).
+
+This code is more concise and expressive than the original `match` statement, and it avoids the need for an arm that doesn't do anything.

@@ -1,0 +1,14 @@
+Yes, it is possible to print text with RGB colored background in Python. The ANSI escape code for setting the background color in RGB is `\033[48;2;r;g;bm`. Here's how you can modify your function to set the background color:
+
+```python
+def colored_bg(r, g, b, text):
+    return "\033[48;2;{};{};{}m{} \033[0m".format(r, g, b, text)
+
+text = "Hello, World"
+colored_text = colored_bg(132, 204, 247, text)
+print(colored_text)
+```
+
+This will print the text "Hello, World" with a background color of RGB(132, 204, 247). The `\033[0m` at the end resets the background color to the terminal's default.
+
+Please note that not all terminals support RGB color codes. If you're finding that the colors aren't displaying correctly, it may be that your terminal doesn't support this feature.

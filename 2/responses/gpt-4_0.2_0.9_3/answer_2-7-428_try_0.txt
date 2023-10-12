@@ -1,0 +1,44 @@
+From the code snippets you've provided, it seems like you're using Laravel Sanctum correctly. However, there are a few things you might want to check:
+
+1. **Token Generation**: Ensure that the token you're generating via the tinker CLI tool is correct. You can do this by calling the `createToken` method on the user instance. Here's an example:
+
+```php
+$user = User::find(1); // replace with your user ID
+$token = $user->createToken('token-name')->plainTextToken;
+```
+
+2. **Token Usage**: When using the token in Postman, ensure that you're including it in the `Authorization` header as a Bearer token. The header should look something like this: `Authorization: Bearer your-token-here`.
+
+3. **Route Definition**: Ensure that your route is correctly defined. In your `api.php` file, the route should be defined like this:
+
+```php
+Route::middleware('auth:sanctum')->get('/documents', 'DocumentHandlerController@index');
+```
+
+4. **Middleware**: Your `Authenticate` middleware seems to be always returning a 401 Unauthorized response. This middleware should check if the user is authenticated before returning a 401 response. Here's an example of how you might do this:
+
+```php
+public function handle($request, Closure $next)
+{
+    if (Auth::guard('sanctum')->check()) {
+        return $next($request);
+    }
+
+    return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+}
+```
+
+5. **Ensure Sanctum Configuration**: Make sure you have correctly configured Sanctum in your `config/auth.php` file. The `api` guard's driver should be set to `sanctum`:
+
+```php
+'guards' => [
+    'api' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+    ],
+],
+```
+
+6. **Ensure Token is Saved**: Make sure the token is saved in the `personal_access_tokens` table in your database.
+
+If you've checked all these and you're still having issues, please provide more information so I can help you better.

@@ -1,0 +1,32 @@
+To restrict the user from viewing inner pages of the app after logging out, you can use a technique called "route guarding". This involves checking whether the user is authenticated before allowing them to access certain pages.
+
+One way to implement route guarding is to use a middleware function that checks the user's authentication status before allowing them to access a page. This middleware function can be added to the `onGenerateRoute` property of the `MaterialApp` widget.
+
+Here's an example of how you can implement route guarding in your app:
+
+1. Create a middleware function that checks the user's authentication status:
+
+```dart
+bool isAuthenticated = false;
+
+void checkAuthenticationStatus(BuildContext context, String routeName) {
+  if (!isAuthenticated && routeName != '/login') {
+    Navigator.pushNamed(context, '/login');
+  }
+}
+```
+
+2. Add the middleware function to the `onGenerateRoute` property of the `MaterialApp` widget:
+
+```dart
+MaterialApp(
+  onGenerateRoute: (settings) {
+    checkAuthenticationStatus(context, settings.name);
+    return MaterialPageRoute(builder: (context) => YourPage());
+  },
+);
+```
+
+This will check the user's authentication status before allowing them to access any page in your app, except for the login page. If the user is not authenticated, they will be redirected to the login page.
+
+Note that this is just one way to implement route guarding in your app. There are other techniques and libraries that you can use to achieve the same result.

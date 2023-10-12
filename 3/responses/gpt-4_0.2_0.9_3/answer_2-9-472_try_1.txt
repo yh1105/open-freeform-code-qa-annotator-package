@@ -1,0 +1,22 @@
+The error you're seeing is related to the `node-sass` package, which is a library that provides binding for Node.js to LibSass, the C version of the popular stylesheet preprocessor, Sass.
+
+It seems like the version of `node-sass` you're using is not compatible with the version of Node.js you're using. `node-sass` version 7.0.0 is not compatible with Node.js 16.x. 
+
+You have two options to solve this issue:
+
+1. Downgrade your Node.js version to 14.x. You can do this by changing the "engines" field in your `package.json` file:
+
+```json
+"engines": {
+  "node": "14.x"
+}
+```
+
+2. Upgrade `node-sass` to `sass`. `node-sass` is deprecated and it's recommended to switch to `sass` (also known as Dart Sass). You can do this by running the following commands:
+
+```bash
+yarn remove node-sass
+yarn add sass
+```
+
+After making these changes, try deploying your app again.

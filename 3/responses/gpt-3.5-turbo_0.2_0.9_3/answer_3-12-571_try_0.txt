@@ -1,0 +1,67 @@
+One way to achieve this is by passing a callback function from `RootPage` to `FeedPage` and any other class that you make. This callback function will be responsible for changing the `currentPage` in `RootPage`.
+
+Here's an example implementation:
+
+```
+import 'package:flutter/material.dart';
+
+class RootPage extends StatefulWidget {
+  @override
+  _RootPageState createState() => new _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  Widget currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = FeedPage(
+      changePage: changePage,
+    );
+  }
+
+  void changePage(Widget page) {
+    setState(() {
+      currentPage = page;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: currentPage,
+    );
+  }
+}
+
+class FeedPage extends StatefulWidget {
+  final Function changePage;
+
+  FeedPage({this.changePage});
+
+  @override
+  _FeedPageState createState() => new _FeedPageState();
+}
+
+class _FeedPageState extends State<FeedPage> {
+  @override
+  Widget build(BuildContext context) {
+    return new FlatButton(
+      onPressed: () {
+        widget.changePage(
+          // Replace this with the widget of the new page you want to show
+          Container(
+            child: Text('New Page'),
+          ),
+        );
+      },
+      child: new Text('Go to a new page but keep root, just replace this feed part'),
+    );
+  }
+}
+```
+
+In this implementation, we pass a callback function `changePage` from `RootPage` to `FeedPage`. When the button in `FeedPage` is pressed, we call this callback function with the widget of the new page we want to show. This callback function then changes the `currentPage` in `RootPage` to the new page widget. 
+
+You can use this same approach to change the `currentPage` from any other class that you make. Just pass the `changePage` callback function to that class and call it with the widget of the new page you want to show.

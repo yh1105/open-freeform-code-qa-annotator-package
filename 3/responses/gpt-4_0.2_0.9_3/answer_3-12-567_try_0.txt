@@ -1,0 +1,21 @@
+You can use the `Spacer` widget to push the last text to the right. The `Spacer` widget will take up any available space in the `Row` widget. Here's how you can do it:
+
+```dart
+Row(
+  children: [
+    Container(
+      child: Icon(Icons.comment),
+      margin: EdgeInsets.only(left: 5.0),
+    ),
+    Container(
+      child: Text(snapshot.data![index].comments.toString(),
+          style: TextStyle(
+              fontSize: 14.0, fontWeight: FontWeight.bold)),
+      margin: EdgeInsets.only(left: 5.0),
+    ),
+    Spacer(), // Add this
+    Text(snapshot.data![index].date.toString()),
+  ]),
+```
+
+In this code, the `Spacer` widget will take up all the available space between the second `Container` and the `Text` widget, pushing the `Text` widget to the right.

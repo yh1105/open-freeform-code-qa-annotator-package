@@ -1,0 +1,11 @@
+This error message indicates that there is not enough storage space on the emulator to install the second app. You can try increasing the storage space of the emulator to overcome this limitation. 
+
+To do this, follow these steps:
+
+1. Open the Android Virtual Device Manager in Android Studio.
+2. Click on the pencil icon to edit the emulator.
+3. Scroll down to the "Emulated Performance" section.
+4. Increase the value of "Internal Storage" to a higher value, such as 2 GB or more.
+5. Click on "Finish" to save the changes.
+
+After increasing the storage space, try running the second app again and see if it installs successfully. If the issue persists, you can try creating a new emulator with a higher storage capacity.

@@ -1,0 +1,19 @@
+Yes, you can get the current logged in user's role using Spatie's Roles and Permissions package in Laravel. However, you need to make sure you're calling the `hasRole` method on a user instance. Here's how you can do it:
+
+```php
+$user = auth()->user(); // get the currently logged in user
+
+if($user->hasRole('admin')) { 
+    // do something 
+}
+```
+
+This will check if the currently logged in user has the 'admin' role. If the user is not logged in, `auth()->user()` will return null and calling `hasRole` on null will cause an error. So, you might want to add a check to ensure a user is logged in:
+
+```php
+if(auth()->check() && auth()->user()->hasRole('admin')) { 
+    // do something 
+}
+```
+
+This will first check if a user is logged in with `auth()->check()`. If a user is logged in, it will then check if the user has the 'admin' role.

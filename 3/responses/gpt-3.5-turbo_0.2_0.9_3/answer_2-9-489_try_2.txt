@@ -1,0 +1,22 @@
+It's not recommended to ignore this message as it's a security warning. However, if you're just using Elasticsearch for development purposes, you can disable security features by adding the following line to your `config/elasticsearch.yml` file:
+
+```
+searchkick:
+  es_client: Elasticsearch::Client.new(url: ENV['ELASTICSEARCH_URL'], transport_options: {request: {timeout: 250}})
+  indices: [MyModel]
+  disable_request_logging: false
+  # Add the following line to disable security features
+  insecure: true
+```
+
+This will disable security features and remove the warning message. However, please note that this is not recommended for production environments.
+
+If you want to enable security features, you can try installing Elasticsearch with the `--with-basic-authentication` option:
+
+```
+brew install elasticsearch-full --with-basic-authentication
+```
+
+This should enable security features and allow you to run the `elasticsearch-setup-passwords` utility. If you still can't find the script, you can try running `find / -name elasticsearch-setup-passwords` to search for it.
+
+Alternatively, you can try installing Elasticsearch manually from the Elasticsearch website and follow the instructions to enable security features.

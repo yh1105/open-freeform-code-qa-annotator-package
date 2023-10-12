@@ -1,0 +1,18 @@
+The behavior you're seeing is due to Docker's build output changes in recent versions. Docker now uses a new build output format called BuildKit by default, which is more efficient and concise but does not show the full output of each command by default.
+
+To get the full output, you can disable BuildKit by setting the environment variable `DOCKER_BUILDKIT=0` before running your build command. Here's how you can do it:
+
+```bash
+export DOCKER_BUILDKIT=0
+docker build .
+```
+
+This will revert to the old build output format and should show the full output of each command.
+
+Alternatively, if you want to keep using BuildKit but see the full output of specific commands, you can use the `RUN` instruction with a `||` (OR) operator to ensure the command's output is shown even if the command is successful. Here's an example:
+
+```Dockerfile
+RUN ls -la || true
+```
+
+This will run `ls -la`, and then run `true` regardless of whether `ls -la` succeeded or failed. Since `true` is a command that always succeeds, the `RUN` instruction will always succeed. But because `ls -la` might fail, Docker will show its output to help you debug the potential error.

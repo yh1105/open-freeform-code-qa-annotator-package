@@ -1,0 +1,29 @@
+To prevent variable expansion in the `echo` command, you can use single quotes around the entire string, like this:
+```
+echo 'Running cmd:  ${cmd_array[@]}'
+```
+
+To fix the issue with the `$HOME` variable getting expanded, you can use double quotes around the command when you call it, like this:
+```
+"${cmd_array[@]}"
+```
+
+Here's the updated function:
+```
+print_and_run_cmd() {
+    local -n array_reference="$1"
+    echo "Running cmd:  ${array_reference[@]}"
+    # run the command by calling all elements of the command array at once
+    "${array_reference[@]}"
+}
+```
+
+This should work for commands with spaces and variables.
+
+As for your follow-up question, you can use the same approach to print and run a command array with the pipe operator. Here's an example:
+```
+cmd_array=(ls -1 "$HOME/temp/some folder with spaces" | grep some)
+print_and_run_cmd cmd_array
+```
+
+This should print and run the command `ls -1 "$HOME/temp/some folder with spaces" | grep some` correctly.

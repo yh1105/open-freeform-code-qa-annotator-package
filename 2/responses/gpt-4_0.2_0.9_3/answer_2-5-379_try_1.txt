@@ -1,0 +1,48 @@
+In Java, you can use the `getClass()` method to get the class of an object. This method is part of the `Object` class, so all non-primitive types will have this method. Here's an example:
+
+```java
+String str = "Hello, World!";
+System.out.println(str.getClass().getName());  // prints "java.lang.String"
+
+Integer num = 123;
+System.out.println(num.getClass().getName());  // prints "java.lang.Integer"
+
+List<String> list = new ArrayList<>();
+System.out.println(list.getClass().getName());  // prints "java.util.ArrayList"
+```
+
+However, as you mentioned, this approach does not work with primitive types because they are not objects and do not have methods. One way to handle this is to use their wrapper classes instead:
+
+```java
+int primitiveInt = 123;
+Integer integerObject = primitiveInt;
+System.out.println(integerObject.getClass().getName());  // prints "java.lang.Integer"
+```
+
+If you want to handle both objects and primitives in a generic way, you could write a method that takes an `Object` and uses `instanceof` to check for each primitive type:
+
+```java
+public static String getType(Object object) {
+    if (object instanceof Integer) {
+        return "int";
+    } else if (object instanceof Double) {
+        return "double";
+    } else if (object instanceof Float) {
+        return "float";
+    } else if (object instanceof Long) {
+        return "long";
+    } else if (object instanceof Boolean) {
+        return "boolean";
+    } else if (object instanceof Character) {
+        return "char";
+    } else if (object instanceof Byte) {
+        return "byte";
+    } else if (object instanceof Short) {
+        return "short";
+    } else {
+        return object.getClass().getName();
+    }
+}
+```
+
+This method will return the name of the primitive type for any object that is an instance of a primitive wrapper class, and for all other objects it will return the name of the class. Note that this method will not work correctly if passed a primitive type directly, because primitives are not objects and cannot be passed to a method that expects an `Object`.

@@ -1,0 +1,19 @@
+The error message suggests that the file on Google Drive may not have the correct sharing settings. The file needs to be set to be accessible by "Anyone with the link". 
+
+Here are the steps to change the permission:
+
+1. Open Google Drive and find the file you want to share.
+2. Right-click on the file and select "Share".
+3. In the pop-up window, click on "Change to anyone with the link".
+4. In the dropdown menu, select "Anyone with the link".
+5. Click "Done".
+
+If you have already done this and still getting the error, it might be because the file is in a folder and the folder's sharing settings are overriding the file's sharing settings. In this case, you need to change the sharing settings of the folder as well.
+
+If you have done all these and still facing the issue, then it might be a problem with the gdown package itself. You can try to update the gdown package to the latest version using pip:
+
+```python
+pip install gdown --upgrade
+```
+
+If none of these work, you might want to consider using another method to download the file, such as the requests library in Python.

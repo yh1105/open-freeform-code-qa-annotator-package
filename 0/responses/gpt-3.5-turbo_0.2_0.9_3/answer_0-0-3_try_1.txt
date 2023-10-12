@@ -1,0 +1,11 @@
+This error occurs when the Gradle wrapper script is unable to download the Gradle distribution specified in the project's Gradle wrapper files. Here are some possible solutions:
+
+1. Check your internet connection and try again. Sometimes, the download may fail due to a poor internet connection.
+
+2. Try deleting the `gradle` folder in your project's root directory and run the `react-native link` command again. This will force the Gradle wrapper to download the distribution again.
+
+3. If the above solutions don't work, you can try manually downloading the Gradle distribution and placing it in the `gradle/wrapper` directory of your project. You can download the distribution from the Gradle website.
+
+4. Another solution is to update the Gradle version in your project's `android/build.gradle` file. You can try changing the `classpath 'com.android.tools.build:gradle:3.3.0'` to `classpath 'com.android.tools.build:gradle:3.4.0'` or a higher version.
+
+I hope one of these solutions works for you.

@@ -1,0 +1,14 @@
+In Android Studio (or IntelliJ), you can use the following shortcut to extract a widget into a method:
+
+- For Windows/Linux: `Ctrl` + `Alt` + `M`
+- For MacOS: `Cmd` + `Option` + `M`
+
+Here's how to do it:
+
+1. Select the widget you want to extract. For example, if you want to extract the first `Container` widget, you would select everything from `Container(` to its closing parenthesis `),`.
+
+2. Press the shortcut (`Ctrl` + `Alt` + `M` or `Cmd` + `Option` + `M`). A dialog will appear.
+
+3. In the dialog, enter the name of the new method and press `Enter`.
+
+The selected widget will be replaced with a call to the new method, and the method will be created with the extracted widget.

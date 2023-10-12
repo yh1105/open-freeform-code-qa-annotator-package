@@ -1,0 +1,3 @@
+If there is nothing to do in the synchronous Dispose() method, then you can leave it empty. The purpose of the synchronous Dispose() method is to provide a way for users of your class to release resources synchronously if they choose to do so. However, since you have no managed resources to release, there is no need for any logic in the Dispose() method. 
+
+The async DisposeAsync() method is the primary way to release resources in an asynchronous manner, and the DisposeAsyncCore() method is where you should put your async cleanup logic. So, in your case, you can leave the Dispose() method empty and focus on implementing the async dispose pattern.

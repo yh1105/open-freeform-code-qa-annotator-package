@@ -1,0 +1,29 @@
+To add multiple paths to the PATH variable, you need to separate each path with a semicolon (;). Here's how you can do it:
+
+1. Open the Environment Variables window by pressing the Windows key + Pause/Break key. Alternatively, you can right-click on This PC/My Computer and select Properties. Then click on Advanced system settings and click on the Environment Variables button.
+
+2. Under System Variables, select the PATH variable and click on Edit.
+
+3. In the Edit Environment Variable window, add a semicolon (;) at the end of the existing value and then add the path you want to add. For example, if the existing value is "C:\Windows\System32", you can add a new path "D:\Softwares\MongoDB\bin" by typing ";D:\Softwares\MongoDB\bin" at the end of the existing value.
+
+4. Click on OK to save the changes.
+
+5. Repeat step 3 for each path you want to add, separating each path with a semicolon (;).
+
+6. Click on OK to close the Environment Variables window.
+
+Alternatively, you can use the command line to add multiple paths to the PATH variable. Here's how you can do it:
+
+1. Open the Command Prompt as an administrator.
+
+2. Type the following command to add a new path to the PATH variable:
+
+   `setx path "%path%;D:\Softwares\MongoDB\bin" /m`
+
+   This command appends the new path to the existing value of the PATH variable.
+
+3. Repeat step 2 for each path you want to add, separating each path with a semicolon (;).
+
+4. Close the Command Prompt.
+
+After adding the paths to the PATH variable, you may need to restart any open command prompt windows or applications for the changes to take effect.

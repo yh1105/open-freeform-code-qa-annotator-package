@@ -1,0 +1,46 @@
+Modifying vendor files directly is not recommended because your changes will be lost when you update the package. Instead, you should override the specific functionality you need to change.
+
+However, in your case, it seems like you're trying to override a class that is not bound in the Laravel's service container, hence the aliasing is not working. Laravel's AliasLoader is used for facades, not for swapping out core classes.
+
+A better approach would be to extend the `Router` class and override the `createRouteCollection` method to return your own `CompiledRouteCollection` class. Then, you can bind your custom router in a service provider.
+
+Here's an example of how you can do this:
+
+1. Create your custom router:
+
+```php
+namespace App\Routing;
+
+use Illuminate\Routing\Router as BaseRouter;
+
+class Router extends BaseRouter
+{
+    protected function createRouteCollection()
+    {
+        return new \App\Helpers\CompiledRouteCollection;
+    }
+}
+```
+
+2. Bind your custom router in a service provider:
+
+```php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use App\Routing\Router;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->singleton('router', function ($app) {
+            return new Router($app['events'], $app);
+        });
+    }
+}
+```
+
+This way, Laravel will use your custom router and your custom `CompiledRouteCollection` class. Make sure to clear the cache (`php artisan cache:clear` and `php artisan config:clear`) after making these changes.
+
+Please note that this is a workaround and it might not be the best solution. It's always better to avoid modifying core classes if possible. If you're having issues with routing, there might be a better solution that doesn't involve modifying the core classes.

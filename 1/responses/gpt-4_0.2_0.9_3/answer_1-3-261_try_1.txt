@@ -1,0 +1,29 @@
+The HTTP 410 Gone error means that the URL you're trying to access is no longer available on the server and there is no forwarding address. This is a client-side error, meaning either the webpage has been removed or moved and the URL was not changed accordingly, or that you typed in the URL incorrectly.
+
+In your case, it seems like the pytube library is trying to access a URL that no longer exists. This is a known issue with the pytube library, as YouTube often changes its internal APIs, causing libraries like pytube to break.
+
+Here are a few things you can try:
+
+1. **Update pytube to the latest version**: You mentioned that you've tried upgrading pytube, but make sure you're using the latest version. You can do this with the following command:
+
+```bash
+pip install pytube --upgrade
+```
+
+2. **Try using pytube3**: pytube3 is a fork of pytube that is often updated more frequently. You can install it with the following command:
+
+```bash
+pip install pytube3
+```
+
+Then, you can use it in your code like this:
+
+```python
+from pytube3 import YouTube
+```
+
+3. **Try using another library**: If pytube continues to give you issues, you might want to try using another library for downloading YouTube videos, like youtube-dl.
+
+4. **Check the URL**: Make sure the URL you're trying to download from is correct and accessible. You can do this by pasting the URL into your web browser and seeing if the video loads.
+
+If none of these solutions work, it's possible that there's an issue with the pytube library itself. In this case, you might want to consider opening an issue on the pytube GitHub page.

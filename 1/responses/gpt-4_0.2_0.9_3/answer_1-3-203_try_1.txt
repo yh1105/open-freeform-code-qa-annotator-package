@@ -1,0 +1,23 @@
+The performance difference you're observing is likely due to a combination of factors:
+
+1. **Native vs Rosetta 2**: Running Python and its libraries natively on the M1 chip should generally be faster than running them under Rosetta 2, which is a translation layer for running Intel-based apps on Apple Silicon. However, not all Python libraries have been optimized for the M1 chip yet, which might explain why you're not seeing a significant speedup.
+
+2. **Python interpreter**: The Python interpreter you're using can also affect performance. For example, PyPy is often faster than CPython for long-running programs, but might be slower for short scripts due to its JIT compilation overhead.
+
+3. **Python libraries**: The performance of Python libraries can vary greatly depending on how they're implemented and whether they're using native code or not. For example, NumPy and TensorFlow have parts that are written in C and Fortran for performance reasons, but if these parts aren't optimized for the M1 chip, they might run slower than expected.
+
+4. **System load**: The performance can also be affected by the overall system load. If your MacBook Pro is running other heavy tasks in the background, it might slow down your Python scripts.
+
+Here are some suggestions to improve the performance:
+
+1. **Use native Python and libraries**: Try to use a Python distribution and libraries that are native to the M1 chip. For example, you can use the Miniforge distribution and install libraries from the conda-forge channel, which provides ARM64 versions of many popular libraries.
+
+2. **Use optimized libraries**: Some libraries have optimized versions for specific hardware. For example, TensorFlow has a version optimized for Apple's M1 chip called TensorFlow Mac OS, which you can install with `pip install tensorflow-macos`.
+
+3. **Use a faster Python interpreter**: If your scripts are long-running, you might benefit from using a faster Python interpreter like PyPy. However, keep in mind that not all Python libraries are compatible with PyPy.
+
+4. **Reduce system load**: Try to reduce the overall system load by closing unnecessary apps and background tasks.
+
+5. **Update your software**: Make sure your macOS, Python, and libraries are up-to-date. Newer versions often come with performance improvements and bug fixes.
+
+Remember that performance tuning is often a process of trial and error, so don't be discouraged if you don't see immediate results. Keep experimenting with different settings and configurations until you find what works best for your specific use case.

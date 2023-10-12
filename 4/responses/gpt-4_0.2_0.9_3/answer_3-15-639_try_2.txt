@@ -1,0 +1,13 @@
+The error message you're seeing usually occurs when Excel can't find the macro you're trying to run. This could be due to a few reasons:
+
+1. The macro is in a module that's not currently open. Make sure the workbook that contains the macro is open.
+
+2. The macro has been deleted or renamed. Check to ensure the macro still exists and has the same name as what's assigned to the button.
+
+3. The macro is in a different scope than what's accessible to the button. If the macro is in a private module or a worksheet module, it might not be accessible to the button. Try moving the macro to a public module.
+
+4. The macro has a parameter. Macros assigned to buttons can't have parameters. Make sure your macro doesn't require any parameters.
+
+5. There are issues with your Excel application or file. Try repairing your Excel application or creating a new Excel file and copying your data over.
+
+If none of these solutions work, there might be an issue with the way your button is set up. Try deleting and recreating the button, then reassign the macro. If you're still having issues, you might want to consider using a Form Control button or an ActiveX Control button instead of a shape. These types of buttons are designed to work with macros and might be more reliable.

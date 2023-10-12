@@ -1,0 +1,9 @@
+The `resttemplate` library is not available in the list of supported libraries for the OpenAPI Generator Gradle Plugin. You can use one of the available libraries instead, such as `spring-boot`, `spring-mvc`, or `spring-cloud`.
+
+If you want to use the `resttemplate` library, you can try using the OpenAPI Generator CLI instead of the Gradle Plugin. Here's an example command to generate the server code with the `resttemplate` library:
+
+```
+openapi-generator generate -i openapi-contracts/src/main/resources/openapi/api.yml -g spring -o build/generated/openapi --library resttemplate --api-package ru.openapi.api.v1 --model-package ru.openapi.model.v1 --enable-post-process-file --config dateLibrary=java8,useBeanValidation=true,enableBuilderSupport=true,interfaceOnly=true,delegatePattern=true
+```
+
+This command generates the server code with the `resttemplate` library and the same configuration options as in your Gradle build file.

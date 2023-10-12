@@ -1,0 +1,13 @@
+It looks like the issue is related to the encryption of your credentials. The error message mentions that the `ActiveSupport::MessageEncryptor::InvalidMessage` error occurred while trying to decrypt a message. 
+
+Here are some steps you can try to resolve the issue:
+
+1. Make sure you have the `master.key` file in your `config` directory. This file is used to decrypt your credentials. If you don't have it, you can create one by running `rails credentials:edit` in your terminal. This will create a new `config/master.key` file and open the credentials file for editing.
+
+2. Check that your `config/credentials.yml.enc` file is not corrupted. You can try to regenerate it by running `EDITOR="nano" rails credentials:edit` in your terminal. This will open the credentials file in the nano editor. Save and close the file to regenerate the `credentials.yml.enc` file.
+
+3. Check that your `RAILS_MASTER_KEY` environment variable is set correctly on Heroku. You can check this by running `heroku config:get RAILS_MASTER_KEY` in your terminal. If it's not set, you can set it by running `heroku config:set RAILS_MASTER_KEY=<your_master_key>`.
+
+4. If none of the above steps work, you can try to reset your credentials by running `EDITOR="nano" rails credentials:reset` in your terminal. This will delete your existing `config/credentials.yml.enc` file and create a new one. You will need to re-enter your credentials after running this command.
+
+Once you have resolved the issue with your credentials, you can try to deploy your app to Heroku again.

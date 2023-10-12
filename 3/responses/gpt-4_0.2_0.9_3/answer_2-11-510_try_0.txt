@@ -1,0 +1,33 @@
+The error message indicates that the namespace `std::filesystem` is not being recognized. This is because you are including `<experimental/filesystem>` but trying to use `std::filesystem::directory_iterator`. 
+
+The filesystem library was experimental in C++14 and became officially part of the standard library in C++17. However, some compilers may still have it under the experimental directory even when using C++17.
+
+If you are using a compiler that still has the filesystem library under the experimental directory, you should use `std::experimental::filesystem::directory_iterator` instead of `std::filesystem::directory_iterator`.
+
+Here is the corrected code:
+
+```cpp
+#include <experimental/filesystem>
+#include <iostream>
+#include <vector>
+
+namespace fs = std::experimental::filesystem;
+
+int main(int argc, char** argv)
+{
+    std::string imageDirectory = "./image";
+    std::vector<std::string> imagePath;
+
+    for (const auto& entry: fs::directory_iterator(imageDirectory))
+    {
+        imagePath.push_back(entry.path());
+        std::cout << entry.path() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+Also, you should link against `stdc++fs` in your CMakeLists.txt file. You have already done this, but make sure that your compiler supports this. If you are using GCC, version 8.0 or later is required.
+
+If you are using a newer compiler that supports `std::filesystem`, you should include `<filesystem>` and use `std::filesystem::directory_iterator` instead. In this case, you don't need to link against `stdc++fs`.

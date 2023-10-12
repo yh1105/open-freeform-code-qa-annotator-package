@@ -1,0 +1,41 @@
+The error message suggests that the code needs to be run within the context of a Tokio runtime. To fix this, you can wrap the code inside a `tokio::runtime::Runtime` block. Here's an updated version of the code:
+
+```rust
+use futures_util::{pin_mut, stream::StreamExt};
+use mdns::{Error, Record, RecordKind};
+use std::{net::IpAddr, time::Duration};
+use tokio::runtime::Runtime;
+
+const SERVICE_NAME: &'static str = "_googlecast._tcp.local";
+
+fn main() -> Result<(), Error> {
+    let mut rt = Runtime::new()?;
+    rt.block_on(async {
+        // Iterate through responses from each Cast device, asking for new devices every 15s
+        let stream = mdns::discover::all(SERVICE_NAME, Duration::from_secs(15))?.listen();
+        pin_mut!(stream);
+
+        while let Some(Ok(response)) = stream.next().await {
+            let addr = response.records().filter_map(self::to_ip_addr).next();
+
+            if let Some(addr) = addr {
+                println!("found cast device at {}", addr);
+            } else {
+                println!("cast device does not advertise address");
+            }
+        }
+
+        Ok(())
+    })
+}
+
+fn to_ip_addr(record: &Record) -> Option<IpAddr> {
+    match record.kind {
+        RecordKind::A(addr) => Some(addr.into()),
+        RecordKind::AAAA(addr) => Some(addr.into()),
+        _ => None,
+    }
+}
+```
+
+This should create a new Tokio runtime and execute the code within its context.

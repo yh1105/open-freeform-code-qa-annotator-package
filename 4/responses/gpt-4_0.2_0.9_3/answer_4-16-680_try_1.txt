@@ -1,0 +1,13 @@
+The error you're getting is because Microsoft Edge does not expose a COM object that can be manipulated with PowerShell in the way you're trying to do. 
+
+The `Start-Process` command you're using in your second example will indeed open Microsoft Edge, but it doesn't return a COM object that you can manipulate with the `visible` and `FullScreen` properties. 
+
+If you want to open Microsoft Edge in full screen mode, you can use the `-k` switch which opens the browser in kiosk mode (full screen). Here's an example:
+
+```powershell
+Start-Process msedge -ArgumentList "-k https://www.example.com"
+```
+
+This will open Microsoft Edge in full screen mode with the URL `https://www.example.com`.
+
+Please note that you can't control the visibility of the Edge browser window using PowerShell because it doesn't expose a COM object for this purpose.

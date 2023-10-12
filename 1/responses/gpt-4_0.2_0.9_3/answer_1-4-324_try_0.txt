@@ -1,0 +1,32 @@
+You can use the `strsplit` function in R to split the string by commas, and then again by colons to separate the keys and values. Here's an example:
+
+```R
+# Your data
+data <- "name:Michael,Age:31,City:NYC"
+
+# Split the data by commas
+split_data <- strsplit(data, ",")
+
+# Split again by colons to separate keys and values
+split_data <- lapply(split_data, function(x) strsplit(x, ":"))
+
+# Convert the list to a data frame
+df <- do.call(rbind, lapply(split_data, function(x) {
+  data.frame(name = x[[1]][2], Age = x[[2]][2], City = x[[3]][2])
+}))
+
+# Convert character columns to their appropriate types
+df$Age <- as.integer(df$Age)
+
+# Print the data frame
+print(df)
+```
+
+This will give you a data frame like this:
+
+```
+     name Age City
+1 Michael  31  NYC
+```
+
+This code assumes that the order of the keys (name, Age, City) is the same for all rows. If this is not the case, you will need to adjust the code to match the keys with their values.

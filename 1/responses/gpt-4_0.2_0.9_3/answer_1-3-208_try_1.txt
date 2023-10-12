@@ -1,0 +1,14 @@
+The issue with your code is that you're checking if the entire input string `text` is in the `correct` string, not if each individual character in `text` is in `correct`. 
+
+Here's how you can modify your code to check each character:
+
+```python
+import string
+text=input("Enter: ")
+correct = string.ascii_letters + string.digits
+
+if all(c in correct for c in text):
+    print("Success")
+```
+
+In this code, `all(c in correct for c in text)` will return `True` if all characters in `text` are in `correct`, and `False` otherwise.

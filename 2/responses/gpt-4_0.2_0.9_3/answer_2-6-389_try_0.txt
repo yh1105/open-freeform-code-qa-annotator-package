@@ -1,0 +1,49 @@
+In ASP.NET Core, you can use dependency injection to create a service that can be used to store and retrieve global variables. Here's a simple example:
+
+1. First, create a class to hold your global variable:
+
+```csharp
+public class GlobalVariableService
+{
+    public string MyGlobalVariable { get; set; }
+}
+```
+
+2. Then, register this class as a singleton in your `Startup.cs` file:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<GlobalVariableService>();
+    // Other service configurations...
+}
+```
+
+3. Now, you can inject this service into your controllers or other services and use it to get or set your global variable:
+
+```csharp
+public class MyController : Controller
+{
+    private readonly GlobalVariableService _globalVariableService;
+
+    public MyController(GlobalVariableService globalVariableService)
+    {
+        _globalVariableService = globalVariableService;
+    }
+
+    public IActionResult Index()
+    {
+        // Set global variable
+        _globalVariableService.MyGlobalVariable = "Hello, world!";
+
+        // Get global variable
+        var myGlobalVariable = _globalVariableService.MyGlobalVariable;
+
+        // Use the global variable...
+    }
+}
+```
+
+This `GlobalVariableService` will be created once and the same instance will be injected wherever it's needed, so you can use it to share data globally.
+
+Note: Be careful when using this approach, as it can lead to issues if not used properly. For example, if you're running multiple instances of your application (e.g. in a load-balanced environment), each instance will have its own `GlobalVariableService`, so changes made in one instance won't be reflected in others. Also, since this service is a singleton, it's shared by all users, so it's not suitable for storing user-specific data.

@@ -1,0 +1,12 @@
+Yes, you can use `tidyverse` functions to achieve the desired output. Here's one way to do it using `group_split()` and `map()` from the `purrr` package:
+
+```
+library(tidyverse)
+
+my_data %>%
+  group_split(list_names) %>%
+  map(~ pull(.x, list_values)) %>%
+  set_names(unique(my_data$list_names))
+```
+
+This code first splits the data into groups based on the values in the `list_names` column using `group_split()`. Then, it uses `map()` to extract the `list_values` column from each group and returns a list of vectors. Finally, it sets the names of the list elements to the unique values in the `list_names` column using `set_names()`. The result is the same as the `desired_output` list you provided.

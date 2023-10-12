@@ -1,0 +1,25 @@
+The issue you're experiencing might be due to a few reasons. Here are some suggestions to troubleshoot:
+
+1. **Check Selenium WebDriver Version**: Make sure you are using the latest version of Selenium WebDriver. Sometimes, older versions may not be compatible with newer versions of Excel.
+
+2. **Check Internet Explorer Driver**: Since you're using Internet Explorer as your browser, make sure you have the correct version of the Internet Explorer Driver installed. Also, note that Selenium WebDriver has deprecated support for Internet Explorer since version 4.0.0.
+
+3. **Check Excel References**: In VBA, go to Tools > References and make sure that Selenium Type Library is checked. If it's not, scroll down, find it and check it.
+
+4. **Check Excel Trust Center Settings**: Go to File > Options > Trust Center > Trust Center Settings > Macro Settings. Make sure "Trust access to the VBA project object model" is checked.
+
+5. **Try Using a Different Browser**: Internet Explorer is being phased out by Microsoft. Try using a more modern browser like Chrome or Firefox. If you decide to use a different browser, make sure to download and install the corresponding WebDriver.
+
+6. **Check Your Code**: Make sure your code is correct. Here is an example of how to use Selenium with Chrome:
+
+```vba
+Dim bot As New WebDriver
+bot.Start "chrome", "http://www.google.com"
+bot.Get "/"
+```
+
+Remember to replace "chrome" with "firefox" or "edge" if you want to use those browsers instead.
+
+7. **Check Excel and Selenium Compatibility**: Ensure that your version of Excel is compatible with Selenium. You might need to downgrade or upgrade your Excel version.
+
+If none of these suggestions work, please provide more information about the error message you're receiving.

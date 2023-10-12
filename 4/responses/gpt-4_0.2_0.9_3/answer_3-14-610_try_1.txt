@@ -1,0 +1,51 @@
+You're correct that SwiftUI's default behavior for animating changes in a `Text` view can be problematic. However, you can work around this by creating a custom `AnimatableModifier` that will animate the changes in the `Text` view's width.
+
+Here's an example of how you might do this:
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    @State var shortString = true
+    var body: some View {
+        VStack {
+            Text(shortString ? "This is short." : "This is considerably longer.")
+                .font(.title)
+                .modifier(WidthAnimatingModifier(shortString: $shortString))
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+
+struct WidthAnimatingModifier: AnimatableModifier {
+    @Binding var shortString: Bool
+    var animatableData: CGFloat {
+        didSet {
+            shortString = animatableData < 0.5
+        }
+    }
+
+    init(shortString: Binding<Bool>) {
+        self._shortString = shortString
+        self.animatableData = shortString.wrappedValue ? 0 : 1
+    }
+
+    func body(content: Content) -> some View {
+        content.frame(width: animatableData * UIScreen.main.bounds.width)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+In this code, `WidthAnimatingModifier` is a custom `AnimatableModifier` that animates changes in the width of the `Text` view. It uses a `Binding` to the `shortString` state variable to determine the width of the `Text` view. When `shortString` is `true`, the width is 0, and when `shortString` is `false`, the width is the full width of the screen.
+
+The `animatableData` property is used to animate changes in the width. When `animatableData` changes, it updates `shortString`, which in turn updates the width of the `Text` view.
+
+This approach should give you a smooth animation of the `Text` view's width without any ellipsis appearing.

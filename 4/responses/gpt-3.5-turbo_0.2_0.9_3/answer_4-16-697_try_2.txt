@@ -1,0 +1,21 @@
+You can try adding the following line to your `launch.sh` script before running `npm` and `node` commands:
+
+```
+source /root/.bashrc
+```
+
+This will source the `.bashrc` file and load all the environment variables and aliases defined in it. 
+
+So, your updated `launch.sh` script will look like this:
+
+```
+#!/bin/bash
+
+source /root/.bashrc
+
+cd /workspace/demo
+npm install
+node index.js
+``` 
+
+This should solve the issue of not finding `npm` and `node` commands in your Docker container.

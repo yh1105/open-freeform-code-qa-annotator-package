@@ -1,0 +1,17 @@
+There could be several reasons why the preview canvas is not showing in SwiftUI:
+
+1. **Xcode Version**: Make sure you are using Xcode 11 or later, as SwiftUI is not supported in earlier versions.
+
+2. **macOS Version**: Make sure you are using macOS Catalina or later. SwiftUI requires macOS Catalina to run.
+
+3. **Device Compatibility**: SwiftUI requires iOS 13.0 or later. Make sure your target device is compatible.
+
+4. **Canvas Visibility**: Make sure the canvas is visible. You can toggle the canvas visibility by pressing `Option + Command + Return`.
+
+5. **Live Preview**: If you are running the live preview, it might take some time to load. If it's taking too long, try stopping and starting the live preview again.
+
+6. **Clean and Rebuild**: Sometimes, cleaning the project (`Shift + Command + K`) and rebuilding it (`Command + B`) can solve the issue.
+
+7. **Restart Xcode**: If none of the above solutions work, try restarting Xcode. Sometimes, Xcode can have glitches that can be resolved by a simple restart.
+
+If you've checked all of these and you're still having issues, there might be a problem with your SwiftUI code. Please share the code so I can help you debug it.

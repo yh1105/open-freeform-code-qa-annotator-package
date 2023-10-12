@@ -1,0 +1,7 @@
+You can use the `:first-of-type` selector to select the first element of a certain type within its parent element. In this case, you can modify your locator to select the first `span` element within the parent element, like this:
+
+```
+[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:first-of-type
+```
+
+This should select only the first `span` element within the parent element, which should be the "Joined" heading you are looking for.

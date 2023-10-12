@@ -1,0 +1,13 @@
+It seems like you are having trouble with Docker on Windows Server 2019. Here are some steps to help you troubleshoot and resolve the issue:
+
+1. **Check Docker Version**: First, check the Docker version installed on your system. You can do this by running `docker version` in your PowerShell. This will display the version of Docker you are running. Ensure that you are running a version that supports process isolation.
+
+2. **Check Docker Service**: Ensure that the Docker service is running. You can check this by running `Get-Service docker` in your PowerShell. If the service is not running, you can start it by running `Start-Service docker`.
+
+3. **Reinstall Docker**: If the Docker service is running and you are still facing issues, you may need to reinstall Docker. You can uninstall Docker by running `Uninstall-Package -Name docker -ProviderName DockerMsftProvider -Force` and then reinstall it by running `Install-Package -Name docker -ProviderName DockerMsftProvider`.
+
+4. **Check Docker Configuration**: If you are still facing issues after reinstalling Docker, you may need to check your Docker configuration. You can do this by running `docker info` in your PowerShell. This will display information about your Docker configuration. Look for any errors or warnings that may indicate what is causing the issue.
+
+5. **Check Docker Logs**: If you are still unable to resolve the issue, you may need to check the Docker logs for any errors or warnings. You can do this by running `Get-EventLog -LogName Application -Source Docker -After (Get-Date).AddHours(-1)` in your PowerShell. This will display the Docker logs for the past hour.
+
+Remember to run all these commands in an elevated PowerShell prompt (Run as Administrator). If you are still facing issues after trying these steps, you may need to reach out to Docker support for further assistance.

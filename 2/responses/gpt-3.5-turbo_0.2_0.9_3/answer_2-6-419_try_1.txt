@@ -1,0 +1,7 @@
+Your approach is correct. You can pass multiple arguments from child to parent upon onClick event in child component by defining a delegate in the parent component and passing it as a parameter to the child component. In the child component, you can use the delegate to invoke the method in the parent component with the required arguments.
+
+In your case, you have defined the delegate `ItemClicked` in the parent component and passed it as a parameter to the child component. In the child component, you have used the `@onclick` directive to invoke the `ItemClicked` delegate with the required arguments.
+
+When the user clicks on the `span` element in the child component, the `ItemClicked` delegate is invoked with the `name` and `id` arguments. These arguments are then passed to the `ItemClicked` method in the parent component, where you can perform the required actions.
+
+Your code looks good and should work as expected.

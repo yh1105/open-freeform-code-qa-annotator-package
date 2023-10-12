@@ -1,0 +1,23 @@
+Unfortunately, the behavior you're experiencing is by design. When you run a process with elevated permissions, Windows starts a new process with a new set of environment variables. This is a security feature to prevent potential privilege escalation attacks.
+
+However, you can work around this by passing the environment variables as arguments to the new process. I understand that you have concerns about this approach, but it's the most straightforward and secure way to handle this situation.
+
+Here's a simple example of how you can do this:
+
+```powershell
+$envVars = [System.Environment]::GetEnvironmentVariables()
+$args = $envVars.Keys | ForEach-Object { "-env:$($_)=$($envVars[$_])" }
+Start-Process -FilePath "powershell.exe" -ArgumentList $args -Verb RunAs
+```
+
+This script gets all environment variables, formats them as arguments, and passes them to the new process. You can modify this script to only pass the environment variables you need.
+
+If you're concerned about escaping special characters in the environment variables, you can use the `[System.Management.Automation.PSObject]::BaseObject` property to get the raw value of the environment variable:
+
+```powershell
+$envVars = [System.Environment]::GetEnvironmentVariables()
+$args = $envVars.Keys | ForEach-Object { "-env:$($_)=$([System.Management.Automation.PSObject]::BaseObject($envVars[$_]))" }
+Start-Process -FilePath "powershell.exe" -ArgumentList $args -Verb RunAs
+```
+
+This will ensure that special characters in the environment variables are correctly escaped.

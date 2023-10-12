@@ -1,0 +1,23 @@
+You can use the `render` method in the `Creation Date` column to format the date as per your requirement. Here's an example:
+
+```
+export const columns = [
+    { title: `ID`, dataIndex: `invoice_id`},
+    { title: `Invoice Number`, dataIndex: `invoice_number` },
+    { title: `Amount`, dataIndex: `invoice_amount`},
+    { title: `Store Name`, dataIndex: `store_name`},
+    { title: `Supplier Name`, dataIndex: `supplier_name`},
+    { 
+      title: `Creation Date`, 
+      dataIndex: `invoice_date`,
+      render: (date) => {
+        const formattedDate = new Date(date).toLocaleDateString('en-GB');
+        return formattedDate;
+      }
+    },
+  ]
+
+<Table bordered columns={columns} dataSource={invoices_list} />
+```
+
+In the `render` method, we convert the date string to a `Date` object and then use the `toLocaleDateString` method to format the date as per the `en-GB` locale, which gives the `dd-mm-yyyy` format. You can change the locale to your preferred format.

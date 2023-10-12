@@ -1,0 +1,5 @@
+To do a client-side reload, you can use the `window.location.reload()` method. This will reload the current page in the browser and trigger a client-side rendering. 
+
+However, keep in mind that this will reload the entire page, including any scripts and stylesheets, which may cause performance issues. 
+
+Alternatively, you can use a client-side routing library like Next.js's `next/router` to navigate to the current page with a query parameter or state that triggers a re-fetch of the data in `getInitialProps`. This will avoid a full page reload and only update the necessary data.

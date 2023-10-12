@@ -1,0 +1,17 @@
+The error message is indicating that `expressJwt` is not a function. This is likely because of how you're importing it.
+
+You're using destructuring assignment to import `expressJwt`:
+
+```javascript
+const { expressJwt } = require('express-jwt');
+```
+
+This would work if `express-jwt` exported an object with a property named `expressJwt`. However, `express-jwt` exports a function directly, not an object with properties.
+
+You should import `expressJwt` like this:
+
+```javascript
+const expressJwt = require('express-jwt');
+```
+
+This way, you're assigning the function exported by `express-jwt` directly to the `expressJwt` variable.

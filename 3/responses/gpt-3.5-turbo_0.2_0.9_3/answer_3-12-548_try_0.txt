@@ -1,0 +1,26 @@
+To restrict the user from viewing inner pages of the app after logging out, you can use a combination of `Navigator.pushReplacement()` and `Navigator.pushAndRemoveUntil()` methods.
+
+Here's how it works:
+
+1. After the user logs out, use `Navigator.pushReplacement()` to navigate to the login page. This will replace the current page in the navigation stack with the login page.
+
+```
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => LoginPage()),
+);
+```
+
+2. Once the user is on the login page, use `Navigator.pushAndRemoveUntil()` to remove all the pages in the navigation stack except for the login page. This will ensure that the user cannot navigate back to the inner pages of the app.
+
+```
+Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => LoginPage()),
+  (route) => false,
+);
+```
+
+The `pushAndRemoveUntil()` method takes three arguments: the context, the new page to navigate to (in this case, the login page), and a function that determines which pages to remove from the navigation stack. In this case, we're removing all pages except for the login page by returning `false` for all routes.
+
+By using these two methods together, you can ensure that the user cannot navigate back to the inner pages of the app after logging out.

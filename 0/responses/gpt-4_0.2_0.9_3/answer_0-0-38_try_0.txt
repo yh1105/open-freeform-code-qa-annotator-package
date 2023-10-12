@@ -1,0 +1,19 @@
+The issue you're experiencing is due to the asynchronous nature of Observables in JavaScript. The `subscribe` method is non-blocking, meaning that it will not wait for the Observable to complete before moving on to the next line of code.
+
+In your case, `console.log(this.newIds);` is being executed before the Observable has a chance to complete and assign the new value to `this.newIds`.
+
+To solve this, you can move the `console.log(this.newIds);` inside the `subscribe` block, like this:
+
+```javascript
+this.repository.getById(Ids).subscribe((response) => {
+  console.log(response);
+  this.newIds = response.map((id) => {
+    return id;
+  });
+  console.log(this.newIds); // Moved inside the subscribe block
+});
+```
+
+Now, `console.log(this.newIds);` will only be executed after the Observable has completed and `this.newIds` has been assigned the new value.
+
+Remember, when dealing with Observables or Promises in JavaScript, any code that depends on the result of an asynchronous operation should be placed inside the `subscribe` or `then` block, respectively.

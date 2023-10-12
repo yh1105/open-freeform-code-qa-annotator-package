@@ -1,0 +1,36 @@
+It seems like you've forgotten to include the error message you get when you run `npm -v`. However, if you've installed Node.js but npm is not working, it's possible that npm was not installed correctly or at all.
+
+Here are some steps you can try to solve this issue:
+
+1. Uninstall nodejs and npm:
+   ```
+   sudo apt-get purge nodejs npm
+   ```
+
+2. Clean npm cache:
+   ```
+   sudo npm cache clean -f
+   ```
+
+3. Install nvm (Node Version Manager). It will allow you to install any version of Node.js along with npm:
+   ```
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+   ```
+
+4. Close terminal and open it again. Verify that nvm is installed by typing:
+   ```
+   nvm --version
+   ```
+
+5. Now install Node.js using nvm:
+   ```
+   nvm install node
+   ```
+
+6. Verify that Node.js and npm are installed by typing:
+   ```
+   node -v
+   npm -v
+   ```
+
+This should solve your issue. If it doesn't, please provide the error message you're getting when you run `npm -v`.

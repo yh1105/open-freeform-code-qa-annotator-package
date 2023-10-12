@@ -1,0 +1,52 @@
+The error message you're seeing is a bit misleading. The actual problem seems to be that you're trying to use `MaterialApp` twice in your widget tree. 
+
+In your `main.dart` file, you're wrapping `HelloWorld` widget with `MaterialApp` and then again in `hello_world.dart`, you're returning a `MaterialApp` from the `build` method of `HelloWorld` widget. 
+
+`MaterialApp` should only be used once at the root of your widget tree. It provides many important context settings that should only be set once, such as `Theme`, `Navigator`, `Localizations`, `MediaQuery`, etc.
+
+To fix the issue, you should remove the `MaterialApp` from `HelloWorld` widget. Here's how you can do it:
+
+`hello_world.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'package:hello_world/src/app.dart';
+…
+
+class HelloWorld extends StatelessWidget {
+  const HelloWorld({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => const App();
+}
+```
+
+And keep your `main.dart` as it is:
+
+`main.dart`:
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+…
+
+Future<void> main() async {
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+      GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+      runApp(const ProviderScope(child: MaterialApp(home: HelloWorld())));
+      …
+    },
+    (Object error, StackTrace stack) {
+      debugPrint(error.toString());
+      debugPrint(stack.toString());
+    },
+  );
+}
+```
+
+This should resolve the error you're facing.

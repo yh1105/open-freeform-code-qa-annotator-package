@@ -1,0 +1,10 @@
+The `truncate` class in TailwindCSS only works if the parent element has a fixed width. You can try adding a width to the parent element like this:
+```
+<div className="ml-1 inline-block w-40">
+   <span>Label: </span>
+   <span className="font-semibold truncate">
+     long texttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+   </span>
+</div>
+```
+In this example, the parent element has a width of `40` which means the text will be truncated if it exceeds that width. You can adjust the width to fit your needs.

@@ -1,0 +1,9 @@
+You can use the `str.replace()` function in pandas to replace the special characters. In your case, you want to replace everything from the opening parenthesis '(' to the end of the string. Here is how you can do it:
+
+```python
+df['LGA'] = df['LGA'].str.replace(r'\(.*$', '', regex=True)
+```
+
+This code will replace everything from the opening parenthesis '(' to the end of the string with an empty string '', effectively removing it. The `r` before the string makes it a raw string, which treats backslashes as literal characters. The `.*$` is a regular expression that matches any character (`.`) any number of times (`*`), up to the end of the string (`$`). The `regex=True` argument tells pandas to treat the string as a regular expression.
+
+After running this code, your 'LGA' column should have the desired format.

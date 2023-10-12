@@ -1,0 +1,13 @@
+There could be several reasons why you are unable to run Flipper on your macOS. Here are some troubleshooting steps you can try:
+
+1. Check if your macOS version is compatible with Flipper. Flipper requires macOS 10.13 or later. Since you have macOS Catalina 10.15.3, this should not be an issue.
+
+2. Check if you have installed the latest version of Flipper. You can download the latest version from the official website [https://fbflipper.com/](https://fbflipper.com/).
+
+3. Check if you have installed the required dependencies. Flipper requires Java 8 or later to be installed on your macOS. You can download the latest version of Java from [https://www.java.com/en/download/](https://www.java.com/en/download/).
+
+4. Check if you have the necessary permissions to run Flipper. You can try running Flipper as an administrator by right-clicking on the Flipper app and selecting "Open as Administrator".
+
+5. Check if there are any conflicting applications or processes running on your macOS that may be preventing Flipper from running. You can try closing all other applications and processes and then running Flipper.
+
+If none of these steps work, you can try reaching out to the Flipper support team for further assistance.

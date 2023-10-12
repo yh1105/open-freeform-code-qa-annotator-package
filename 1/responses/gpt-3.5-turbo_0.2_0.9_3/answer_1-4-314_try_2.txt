@@ -1,0 +1,26 @@
+Sure, I can help you with that. Here's some sample code that should do what you're looking for:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# create sample dataframe
+df = pd.DataFrame({
+    'Sex': ['Male', 'Female', 'Male', 'Female'],
+    'Var1': ['Yes', 'No', 'No', 'Yes'],
+    'Var2': ['No', 'Yes', 'No', 'Yes'],
+    'Var3': ['Yes', 'No', 'Yes', 'No']
+})
+
+# group dataframe by sex and calculate count of 'Yes' values for each variable
+grouped = df.groupby('Sex').apply(lambda x: x.eq('Yes').sum())
+
+# plot bar chart
+ax = grouped.plot(kind='bar', rot=0)
+ax.set_ylabel('Count of Yes')
+ax.set_xlabel('Variable')
+ax.legend(['Male', 'Female'])
+plt.show()
+```
+
+This code should produce a bar chart with two bars for each variable (Var1, Var2, Var3) in the X axis, one for males and one for females, and the count of 'Yes' values in the Y axis. Let me know if you have any questions!

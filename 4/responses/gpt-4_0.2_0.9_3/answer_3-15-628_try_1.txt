@@ -1,0 +1,39 @@
+The Evaluate function is causing a mismatch error because it's trying to evaluate the formula "=list1", which is not a valid Excel formula. It's a named range, not a formula.
+
+Instead of using Evaluate, you can directly compare the Formula1 property to the string "=list1". Here's how you can modify your code:
+
+```vba
+If Target.Validation.Formula1 = "=list1" Then
+    ' Your code here
+End If
+```
+
+However, please note that the Formula1 property returns the formula exactly as it appears in the Data Validation dialog box. So if your formula is "=INDIRECT(B14)", then you should compare it to that string, not "=list1". Here's how you can do it:
+
+```vba
+If Target.Validation.Formula1 = "=INDIRECT(B14)" Then
+    ' Your code here
+End If
+```
+
+If you want to check if B14 equals to "list1", you can do it like this:
+
+```vba
+If Range("B14").Value = "list1" Then
+    ' Your code here
+End If
+```
+
+So, in your case, you can use the following code:
+
+```vba
+If Not Intersect(Target, Range("D14")) Is Nothing Then
+    If Range("B14").Value = "list1" Then
+        ' Your code here for multiple selection
+    Else
+        ' Your code here for single selection
+    End If
+End If
+```
+
+This code will check if the changed cell is D14, and if the value in B14 is "list1". If so, it will execute the code for multiple selection, otherwise it will execute the code for single selection.

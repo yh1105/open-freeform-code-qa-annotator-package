@@ -1,0 +1,31 @@
+Yes, you can achieve this using the `groupby`, `apply`, and `where` functions from pandas. Here's how you can do it:
+
+```python
+import pandas as pd
+import numpy as np
+
+df=pd.DataFrame()
+df['exchange'] = [1, 1, 1, 2, 3]
+df['type'] = ['deposit', 'deposit', 'trade', 'deposit', 'deposit']
+df['value'] = [10, 10, '30', '40', '100']
+df['value'] = df['value'].astype(int)  # Convert the 'value' column to int
+
+# Create a new column 'balance'
+df['balance'] = np.where(df['type'] == 'deposit', df['value'], 0)
+
+# Calculate the cumulative sum of 'balance' for each 'exchange'
+df['balance'] = df.groupby('exchange')['balance'].cumsum()
+```
+
+This will give you the desired output:
+
+```
+   exchange     type  value  balance
+0         1  deposit     10       10
+1         1  deposit     10       20
+2         1    trade     30       20
+3         2  deposit     40       40
+4         3  deposit    100      100
+```
+
+In this code, the `np.where` function is used to create a new column 'balance' where the 'value' is copied if 'type' is 'deposit', otherwise 0 is set. Then, the `groupby` function is used to group the DataFrame by 'exchange', and the `cumsum` function is used to calculate the cumulative sum of 'balance' for each group.

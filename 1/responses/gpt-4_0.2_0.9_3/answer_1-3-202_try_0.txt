@@ -1,0 +1,39 @@
+The error message you're seeing is indicating that the `requests` and `setuptools` packages, which are dependencies of Conda, cannot be removed from Conda's operating environment. This error can occur when the environment file you're using to create the new environment specifies different versions of these packages than the ones currently installed in your base Conda environment.
+
+Here are a few things you can try to resolve this issue:
+
+1. **Update Conda**: Make sure you're using the latest version of Conda. You can update Conda by running the following command in your terminal:
+
+    ```
+    conda update -n base -c defaults conda
+    ```
+
+2. **Check the environment file**: Open the `python3.6-environment-windows.yml` file and check the versions of `requests` and `setuptools` specified in it. If these versions are different from the ones in your base Conda environment, try changing them to match the versions in your base environment.
+
+3. **Create a new environment without the environment file**: If updating Conda and checking the environment file doesn't work, try creating a new environment without using the environment file. You can do this by running the following command in your terminal:
+
+    ```
+    conda create --name myenv python=3.6
+    ```
+
+    This will create a new environment named `myenv` with Python 3.6. After creating the new environment, you can manually install the packages you need.
+
+Remember to activate the environment before installing any packages. You can activate the environment by running:
+
+```
+conda activate myenv
+```
+
+Then you can install packages using either `conda install` or `pip install`. For example, to install the `numpy` package, you would run:
+
+```
+conda install numpy
+```
+
+or
+
+```
+pip install numpy
+```
+
+4. **Reinstall Anaconda**: If none of the above solutions work, you might need to reinstall Anaconda. Uninstall it first, then download the latest version from the [Anaconda website](https://www.anaconda.com/products/distribution) and install it.

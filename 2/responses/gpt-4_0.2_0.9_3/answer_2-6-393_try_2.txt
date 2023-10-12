@@ -1,0 +1,38 @@
+The error message is indicating that the `OpenReadStream` method is returning a stream that does not support synchronous reads, which is what `Image.Load` is trying to do. 
+
+To resolve this, you need to read the stream asynchronously into a byte array, and then load the image from that byte array. Here is how you can modify your method:
+
+```csharp
+public async Task<byte[]> ConvertFileToByteArrayAsync(IBrowserFile file)
+{
+    // Read the stream asynchronously into a byte array
+    var ms = new MemoryStream();
+    await file.OpenReadStream().CopyToAsync(ms);
+    var fileBytes = ms.ToArray();
+
+    // Load the image from the byte array
+    using var image = Image.Load(fileBytes);
+    image.Mutate(x => x.Resize(new ResizeOptions
+    {
+        Mode = ResizeMode.Min,
+        Size = new Size(128)
+    }));
+
+    MemoryStream memoryStream = new MemoryStream();
+    if (file.ContentType == "image/png")
+    {
+        await image.SaveAsPngAsync(memoryStream);
+    }
+    else
+    {
+        await image.SaveAsJpegAsync(memoryStream);
+    }
+    var byteFile = memoryStream.ToArray();
+    memoryStream.Close();
+    memoryStream.Dispose();
+
+    return byteFile;
+}
+```
+
+This way, you are performing the read operation asynchronously, which is supported by the stream returned by `OpenReadStream`. After that, you can load the image from the byte array, which does not require any stream operations.

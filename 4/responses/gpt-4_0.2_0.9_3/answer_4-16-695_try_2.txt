@@ -1,0 +1,16 @@
+The Docker build output on macOS is a bit different from Linux due to the way Docker works on macOS. Docker runs inside a virtual machine on macOS, and the Docker CLI communicates with the Docker Engine inside this VM. This can sometimes lead to differences in behavior.
+
+The output you're seeing is the new BuildKit output, which is more concise and easier to read. However, it doesn't show the output of each command by default, especially for cached layers.
+
+If you want to see the full output of each command, you can disable BuildKit by setting the environment variable `DOCKER_BUILDKIT=0` before running `docker build`. This will revert to the old build output.
+
+Here's how you can do it:
+
+```bash
+export DOCKER_BUILDKIT=0
+docker build .
+```
+
+This should show the full output of each command, including the `ls -la` commands.
+
+However, keep in mind that BuildKit has several advantages over the old builder, like better caching, parallel builds, and more. So you might want to switch back to it once you're done debugging. You can do this by setting `DOCKER_BUILDKIT=1` or just closing and reopening your terminal session.

@@ -1,0 +1,48 @@
+To launch WhatsApp in a Flutter `webview` app, you can use the `url_launcher` package. Here's an example code snippet:
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final flutterWebviewPlugin = FlutterWebviewPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      if (url.startsWith('https://wa.me/')) {
+        launch(url);
+        flutterWebviewPlugin.reload();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WebviewScaffold(
+      url: 'https://coinpaga.com',
+      withLocalStorage: true,
+      withJavascript: true,
+      scrollBar: false,
+      initialChild: Center(child: Text('Loading...')),
+    );
+  }
+
+  @override
+  void dispose() {
+    flutterWebviewPlugin.dispose();
+    super.dispose();
+  }
+}
+```
+
+In this example, we listen to the `onUrlChanged` event of the `FlutterWebviewPlugin` and check if the URL starts with `https://wa.me/`, which is the URL scheme for WhatsApp. If it does, we launch the URL using the `url_launcher` package and then reload the `webview` to prevent the user from staying on the WhatsApp page.

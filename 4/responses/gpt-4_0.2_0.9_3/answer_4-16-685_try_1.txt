@@ -1,0 +1,29 @@
+The PATH variable is a system variable that allows your operating system to locate needed executables from the command line or Terminal window. If you accidentally deleted it, you can restore it by adding multiple paths separated by semicolons (;).
+
+Here are the steps to add multiple paths to the PATH variable:
+
+1. Open the System Properties (Right click Computer in the start menu, or use the keyboard shortcut Win+Pause)
+2. Click Advanced system settings in the sidebar.
+3. Click Environment Variables in the bottom of the window.
+4. Then under system variables look for the path variable and click edit.
+5. Add your path using semicolon (;) as a separator for multiple paths.
+
+For example, if you want to add `D:\Softwares\MongoDB\bin` and `C:\Program Files\Java\jdk1.8.0_121\bin`, your PATH variable should look like this:
+
+`D:\Softwares\MongoDB\bin;C:\Program Files\Java\jdk1.8.0_121\bin`
+
+If you want to add a new path via the command line, you need to get the current PATH variable value, append your new path to it, and then set the new value. Here's how you can do it:
+
+```cmd
+for /f "skip=2 tokens=3" %A in ('reg query HKLM\System\CurrentControlSet\Control\Session Manager\Environment /v Path') do @echo %A
+```
+
+This will output the current system PATH. Copy this value, append your new path to it (with a semicolon before it), and then use `setx` to set the new value:
+
+```cmd
+setx /M PATH "old_path_value;your_new_path"
+```
+
+Replace `old_path_value` with the value you copied and `your_new_path` with the path you want to add.
+
+Please note that `setx` has a character limit of 1024 characters. If your PATH is longer than this, you will need to use the System Properties dialog, or it will get truncated.

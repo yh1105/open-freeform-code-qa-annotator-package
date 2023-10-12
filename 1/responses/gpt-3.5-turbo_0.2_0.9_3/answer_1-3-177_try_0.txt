@@ -1,0 +1,7 @@
+The designer.exe file is not included in the PyQT5 package. You need to install the Qt Designer separately. 
+
+You can download the Qt Designer from the official Qt website: https://www.qt.io/download. 
+
+Once you have downloaded and installed the Qt Designer, you can find the designer.exe file in the installation directory. The default installation directory is C:\Qt\Qt5.x.x\Tools\QtDesigner\bin. 
+
+Make sure to add the directory containing designer.exe to your system's PATH environment variable so that you can access it from anywhere in the command prompt.

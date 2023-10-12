@@ -1,0 +1,10 @@
+You can use the `cycle` function from the `itertools` module to repeat the list in a loop and then assign it to the new column in the dataframe. Here's the code:
+
+```python
+import itertools
+
+my_list = ['abc', 'def', 'hig']
+df['names'] = list(itertools.islice(itertools.cycle(my_list), len(df)))
+```
+
+This code creates an iterator that cycles through the `my_list` repeatedly and then uses the `islice` function to limit the number of elements to the length of the dataframe. Finally, the iterator is converted to a list and assigned to the new column in the dataframe.

@@ -1,0 +1,50 @@
+In Jetpack Compose, it's recommended to pass the ViewModel instance down the composable hierarchy. This is because it allows you to observe the state changes in the ViewModel and recompose the UI accordingly. 
+
+However, creating a new ViewModel instance in each composable function is not a good practice. This is because it can lead to unnecessary object creation and memory leaks. Instead, you should create the ViewModel instance in the top-level composable function (or in your Activity/Fragment) and pass it down to the child composables.
+
+Here is an example of how you can do it:
+
+```kotlin
+class InputActivity : ComponentActivity() {
+
+    private val viewModel by viewModel<InputViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupViewModel()
+        setContent {
+            Theme {
+                AppBarScaffold(
+                    displayHomeAsUpEnabled = true,
+                    titleId = R.string.personal_health
+                ) {
+                    viewModel.OptionData?.let {
+                        Input(it, viewModel)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel.optionData = intent.getParcelableExtra("optiondata")
+    }
+}
+
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel) {
+    InputItem(viewModel)
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    // more function call
+}
+```
+
+In this example, the ViewModel instance is created in the Activity and passed down to the `Input`, `InputItem`, and `PulsePressure` composables. This way, all these composables can observe the state changes in the ViewModel and recompose the UI accordingly.

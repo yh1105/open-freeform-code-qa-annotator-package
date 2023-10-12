@@ -1,0 +1,24 @@
+The error you're seeing is likely due to a mismatch between the versions of Spring Boot and Spring Cloud you're using. 
+
+Spring Cloud releases are built against specific Spring Boot versions, and using mismatched versions can lead to the kind of error you're seeing. 
+
+In your case, you're using Spring Boot 2.4.0 and Spring Cloud Hoxton.SR8. According to the Spring Cloud [version matrix](https://spring.io/projects/spring-cloud#overview), Spring Cloud Hoxton.SR8 is built to work with Spring Boot 2.2.x and 2.3.x, not 2.4.x.
+
+To fix this, you have two options:
+
+1. Downgrade your Spring Boot version to 2.3.x. This would involve changing the version in your `pom.xml` file to something like 2.3.8.RELEASE, which is the latest 2.3.x version at the time of writing.
+
+2. Upgrade your Spring Cloud version to 2020.0.x (also known as Ilford), which is built to work with Spring Boot 2.4.x. This would involve changing the `spring-cloud.version` property in your `pom.xml` file to something like 2020.0.1 (the latest version at the time of writing).
+
+Here's how you can change the Spring Cloud version:
+
+```xml
+<properties>
+    <java.version>15</java.version>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <spring-cloud.version>2020.0.1</spring-cloud.version>
+</properties>
+```
+
+Remember to run `mvn clean install` after changing the `pom.xml` file to ensure that the changes take effect.

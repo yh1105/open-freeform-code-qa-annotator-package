@@ -1,0 +1,24 @@
+The error message indicates that the `dataSource` or `jdbcUrl` is required. However, in your `DatabaseConfig.java` file, you are using `DataSourceBuilder.create().build()`, which does not specify the `jdbcUrl`. 
+
+To fix this issue, you can try adding the `jdbcUrl` property to your `application.yml` file:
+
+```
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+```
+
+Alternatively, you can modify your `DatabaseConfig.java` file to create the `DataSource` bean manually and specify the `jdbcUrl`:
+
+```
+@Bean
+@Primary
+@ConfigurationProperties(prefix = "spring.datasource")
+public DataSource dataSource() {
+    return DataSourceBuilder.create()
+            .url("jdbc:postgresql://localhost:5432/test")
+            .build();
+}
+```
+
+Note that you should replace `test` with the name of your actual database.

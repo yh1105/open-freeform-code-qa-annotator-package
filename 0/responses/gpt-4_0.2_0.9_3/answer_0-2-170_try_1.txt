@@ -1,0 +1,47 @@
+You can achieve this using jQuery and CSS. Here's a simple example:
+
+HTML:
+```html
+<div class="tabs">
+  <div class="tab" id="tab1">TAB1</div>
+  <div class="tab" id="tab2">TAB2</div>
+</div>
+<div class="line"></div>
+```
+
+CSS:
+```css
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.tab {
+  cursor: pointer;
+}
+
+.line {
+  height: 2px;
+  background: black;
+  width: 100px;
+  transition: transform 0.3s ease;
+}
+```
+
+jQuery:
+```javascript
+$('.tab').on('click', function() {
+  var id = $(this).attr('id');
+  if (id === 'tab1') {
+    $('.line').css('transform', 'translateX(0)');
+  } else {
+    $('.line').css('transform', 'translateX(100px)');
+  }
+});
+```
+
+In this example, when you click on a tab, it checks the id of the tab. If it's `tab1`, it moves the line to the left (0px). If it's `tab2`, it moves the line to the right (100px). The `transition` property in the CSS makes the movement smooth.
+
+Please adjust the values according to your needs.

@@ -1,0 +1,52 @@
+The issue you're facing is due to the changes in Material-UI from version 4 to version 5. In version 5, Material-UI has been rebranded as MUI and there are some changes in the way the styles are handled.
+
+In your `Header` component, you're using `makeStyles` from `@material-ui/styles` which is a part of version 4. In version 5, you should use `styled` or `sx` prop for styling.
+
+Here's how you can use `styled` to create a styled `div` with the toolbar mixin:
+
+```jsx
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/system';
+
+function ElevationScroll(props) {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0,
+        target: window ? window() : undefined,
+    });
+
+    return React.cloneElement(children, {
+        elevation: trigger ? 4 : 0,
+    });
+}
+
+const ToolbarMargin = styled('div')(({ theme }) => ({
+    ...theme.mixins.toolbar,
+}));
+
+function Header() {
+    return (
+        <React.Fragment>
+            <ElevationScroll>
+                <AppBar color="primary">
+                    <Toolbar>
+                        <Typography variant="h3" component="h3">
+                            Nome de teste
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </ElevationScroll>
+            <ToolbarMargin />
+        </React.Fragment>
+    );
+}
+
+export default Header;
+```
+
+In this code, `styled` is used to create a `div` with the toolbar mixin. The `theme` is automatically provided to the function passed to `styled`. The `ToolbarMargin` component can be used just like a regular component.

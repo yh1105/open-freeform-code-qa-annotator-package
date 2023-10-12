@@ -1,0 +1,36 @@
+The Floyd-Warshall algorithm has a time complexity of O(V^3) and space complexity of O(V^2). When you have a large number of vertices (like a million), it's not surprising that you're running out of memory, especially when you're trying to store all the paths.
+
+Instead of storing all the paths, you can store only the next vertex on the shortest path from each vertex to every other vertex. This will reduce the space complexity from O(V^3) to O(V^2).
+
+Here is a modified version of your code:
+
+```csharp
+public void floydWarshall(Dictionary<(int x, int y), double> dictionary, out double[,] dist, out int[,] next)
+{
+    int dictionary_size = (int)Math.Ceiling(Math.Sqrt(dictionary.Count));
+    dist = new double[dictionary_size, dictionary_size];
+    next = new int[dictionary_size, dictionary_size];
+    ...
+
+    for (k = 0; k < dictionary_size; k++)
+    {
+        for (i = 0; i < dictionary_size; i++)
+        {
+            for (j = 0; j < dictionary_size; j++)
+            {
+                if (dist[i, k] + dist[k, j] < dist[i, j])
+                {
+                    dist[i, j] = dist[i, k] + dist[k, j];
+                    next[i, j] = next[i, k];
+                }
+            }
+        }
+    }
+}
+```
+
+In the `next` matrix, `next[i, j]` is the next vertex on the shortest path from `i` to `j`. If there is no path from `i` to `j`, `next[i, j]` is -1.
+
+To get the shortest path from `i` to `j`, you can start at `i`, go to `next[i, j]`, then go to `next[next[i, j], j]`, and so on, until you reach `j`.
+
+This approach significantly reduces the amount of memory needed to store the paths. However, it still requires O(V^3) time to compute the shortest paths, which may be prohibitive for large graphs. If you need to compute shortest paths in large graphs, you may need to use a different algorithm, such as Dijkstra's algorithm with a priority queue, which has a time complexity of O(E + V log V), where E is the number of edges.

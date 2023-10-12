@@ -1,0 +1,24 @@
+Yes, in Laravel 8, the `laravel/ui` package has been replaced by the `laravel/breeze` and `laravel/jetstream` packages. If you want to install Bootstrap, you can use Laravel Breeze. Here are the steps:
+
+1. First, you need to install Laravel Breeze via Composer. Run the following command:
+
+```bash
+composer require laravel/breeze --dev
+```
+
+2. Then, you need to install Breeze's views and controllers using the `breeze:install` Artisan command:
+
+```bash
+php artisan breeze:install
+```
+
+This command will install a layout view, registration and login views, as well as routes for all authentication end-points. A HomeController will also be generated to handle post-login requests.
+
+3. After running this command, you'll need to compile your assets using Laravel Mix:
+
+```bash
+npm install
+npm run dev
+```
+
+Now, Laravel Breeze is installed and you can use Bootstrap in your Laravel 8 project.

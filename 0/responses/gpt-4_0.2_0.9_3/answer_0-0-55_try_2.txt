@@ -1,0 +1,46 @@
+The problem with your code is that `myInterval` is not persisting its value between renders. This is because every time your component re-renders, a new instance of `myInterval` is created. So, when you call `clearInterval(myInterval)`, it is not clearing the interval you think it is.
+
+To solve this, you can use `useRef` hook to create a mutable ref object where `.current` property is initialized to the passed argument (`null` in this case). The returned object will persist for the full lifetime of the component.
+
+Here is the corrected code:
+
+```jsx
+import React, { useState, useEffect, useRef } from "react";
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
+
+  function startCounter() {
+    setIsRunning(true);
+    intervalRef.current = setInterval(
+      () => setCounter((counter) => counter + 1),
+      1000
+    );
+  }
+
+  function pauseCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+  }
+
+  function resetCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+    setCounter(0);
+  }
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={isRunning ? pauseCounter : startCounter}>
+        {isRunning ? "Pause" : "Start"}
+      </button>
+      <button onClick={resetCounter}>Reset</button>
+    </div>
+  );
+}
+```
+
+In this code, I've used `useRef` to create a `intervalRef` that holds the interval ID. This ref is then used in the `startCounter`, `pauseCounter` and `resetCounter` functions to start, pause and reset the counter respectively. I've also replaced `flag` and `isClicked` states with a single `isRunning` state that indicates whether the counter is currently running or not. This state is used to determine which function to call and what label to display on the start/pause button.

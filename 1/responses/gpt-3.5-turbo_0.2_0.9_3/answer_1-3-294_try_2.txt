@@ -1,0 +1,13 @@
+This error message suggests that there might be an issue with the `six` module. It's possible that the version of `six` being used by your script is not compatible with the version required by the `google-api-python-client` library.
+
+You can try updating the `six` module to the latest version by running `pip install --upgrade six` in your terminal. If that doesn't work, you can try downgrading the `google-api-python-client` library to a previous version that is compatible with the version of `six` you have installed.
+
+Another possible solution is to explicitly import the `collections_abc` module from the `collections` package in your script, like this:
+
+```
+from collections import abc as collections_abc
+```
+
+Then, replace `six.moves.collections_abc` with `collections_abc` in the `discovery.py` file.
+
+I hope this helps!

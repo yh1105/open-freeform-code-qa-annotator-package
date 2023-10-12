@@ -1,0 +1,7 @@
+Yes, the comment is correct. A constructor is a special type of function that is automatically called when an object is created. It is used to initialize the object's properties and set its initial state.
+
+While a constructor may look like a regular function, it is not considered a function in the traditional sense. This is because its primary purpose is to create and initialize an object, rather than to perform a specific task or return a value.
+
+Additionally, constructors cannot be called directly like regular functions. Instead, they are invoked automatically when an object is created using the `new` keyword. This is because the `new` keyword tells JavaScript to create a new object and then call the constructor to initialize it.
+
+So while a constructor may look and behave like a function in some ways, it is a distinct and specialized feature of the JavaScript language.

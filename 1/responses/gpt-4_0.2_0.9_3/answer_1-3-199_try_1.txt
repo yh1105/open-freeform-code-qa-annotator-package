@@ -1,0 +1,21 @@
+It seems like the issue is related to the way AWS Lambda runs the container. AWS Lambda runs the container as a non-root user by default. This might be causing the issue as Chrome requires certain permissions to run properly.
+
+Here are a few things you can try:
+
+1. Use a custom user in your Dockerfile: You can create a custom user in your Dockerfile and switch to that user before running your application. Here is an example:
+
+```Dockerfile
+# Create a group and user
+RUN addgroup -g 1000 app && adduser -H -D -G app -u 1000 app
+
+# Tell docker that all future commands should run as the app user
+USER app
+```
+
+2. Use a different base image: You can try using a different base image that has the necessary permissions for Chrome to run properly. For example, you can use the selenium/standalone-chrome image which is designed to run Chrome and Chromedriver in a Docker container.
+
+3. Use a different approach: Instead of running Chrome and Selenium directly in your Lambda function, you can use a service like AWS Fargate to run your Selenium tasks. This way, you can have more control over the environment and permissions.
+
+4. Use a different tool: If you are using Selenium to scrape websites, you can consider using a different tool like Puppeteer which is a Node.js library to control headless Chrome or Chromium. Puppeteer works well in a Lambda environment and there are base Docker images available that are designed to run Puppeteer in AWS Lambda.
+
+Remember to always test your changes locally using the AWS SAM CLI before deploying to AWS Lambda. This can help you catch issues early and speed up your development process.

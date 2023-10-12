@@ -1,0 +1,17 @@
+Based on the error message you provided, it seems that your global admin account is not assigned to any management roles. This could be due to a recent change in your organization's policies or a temporary issue with Microsoft's servers.
+
+To resolve this issue, you can try assigning the necessary management roles to your global admin account using the Exchange Online Admin Center or PowerShell. Here are the steps to do it using PowerShell:
+
+1. Open PowerShell as an administrator and connect to Exchange Online using the following command:
+
+   `Connect-ExchangeOnline -UserPrincipalName <your admin account>`
+
+2. Once you are connected, run the following command to assign the necessary roles to your admin account:
+
+   `Add-RoleGroupMember -Identity "Organization Management" -Member <your admin account>`
+
+   This command adds your admin account to the "Organization Management" role group, which has all the necessary management roles to manage Exchange Online.
+
+3. After running the command, try connecting to Exchange Online again using the `Connect-ExchangeOnline` command.
+
+If the issue persists, it could be a temporary issue with Microsoft's servers. You can check the Office 365 Service Health Dashboard for any known issues or contact Microsoft support for further assistance.

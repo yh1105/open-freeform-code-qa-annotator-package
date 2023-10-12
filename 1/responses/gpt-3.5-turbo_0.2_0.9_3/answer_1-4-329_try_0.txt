@@ -1,0 +1,31 @@
+One way to speed up the process of searching for specific values in a Pandas DataFrame is to use NumPy arrays instead of Pandas DataFrames. NumPy arrays are optimized for numerical operations and can be faster than Pandas DataFrames for certain operations.
+
+Here's an example of how you can use NumPy arrays to search for a specific value in a column of a DataFrame:
+
+```
+import pandas as pd
+import numpy as np
+from timeit import default_timer as timer
+
+code = 145896
+
+# real df is way bigger
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+# convert the column of interest to a NumPy array
+code1_arr = np.array(df['code1'])
+
+start = timer()
+for _ in range(100000):
+    # use NumPy's boolean indexing to find the desired value
+    desired = df.loc[code1_arr == code, 'code2'][0]
+print(timer() - start) # 0.2230515999999989 (sec)
+```
+
+As you can see, using NumPy arrays instead of Pandas DataFrames can significantly speed up the process of searching for a specific value in a column of a DataFrame.
+
+However, keep in mind that using NumPy arrays may not always be the best solution, especially if you need to perform more complex operations that require the use of Pandas DataFrames. In those cases, you may need to find other ways to optimize your code.

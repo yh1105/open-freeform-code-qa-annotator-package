@@ -1,0 +1,16 @@
+The issue with your code is that `Math.max()` and `Math.min()` functions do not accept an array as an argument. They expect individual numbers as arguments. 
+
+To solve this, you can use the spread operator (`...`) to pass elements of the array as individual arguments to these functions. Here is the corrected code:
+
+```javascript
+function getMinMax(arr){
+  let maximum = Math.max(...arr);
+  let minimum = Math.min(...arr);
+  let result =  [maximum, minimum]; 
+  return result;
+};
+
+console.log(getMinMax([10,3,8,1,33])); // it will log: [33, 1]
+```
+
+In this code, `...arr` spreads the array into individual elements, so `Math.max(...arr)` and `Math.min(...arr)` are equivalent to `Math.max(10,3,8,1,33)` and `Math.min(10,3,8,1,33)`, respectively.

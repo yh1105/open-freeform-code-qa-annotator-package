@@ -1,0 +1,12 @@
+With Font Awesome 5, the font family name has changed. You can use the following code to call the Font Awesome 5 icon:
+
+```
+#mainNav .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
+  float: right;
+  content: "\f107";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+```
+
+Note that the font-weight property is also required to properly display the icon. You can adjust the font-weight value to change the thickness of the icon.

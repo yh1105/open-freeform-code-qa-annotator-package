@@ -1,0 +1,14 @@
+You can calculate the end hour by adding the start hour to the total duration in hours. The total duration in hours is the integer division of the total duration in minutes by 60. However, you also need to add the carry from the minutes calculation, which is the integer division of the total duration in minutes by 60. Finally, you need to take the result modulo 24 to convert it to a 24-hour format. Here is the corrected code:
+
+```python
+hour = int(input("Starting time (hours): "))
+mins = int(input("Starting time (minutes): "))
+dura = int(input("Event duration (minutes): "))
+
+mins = (mins + dura) % 60
+hour = (hour + (dura // 60) + ((mins + dura) // 60)) % 24
+
+print(hour, ":", mins, sep='')
+```
+
+In this code, `(dura // 60)` calculates the total duration in hours, and `((mins + dura) // 60)` calculates the carry from the minutes calculation. The `% 24` operation converts the result to a 24-hour format.

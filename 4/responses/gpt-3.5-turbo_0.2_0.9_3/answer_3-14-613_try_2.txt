@@ -1,0 +1,11 @@
+This error message suggests that the preview instance cannot be found in any targets in the current scheme. Here are a few things you can try to fix the issue:
+
+1. Check your scheme settings: Make sure that the target containing the preview code is included in the current scheme. You can do this by going to Product > Scheme > Edit Scheme and selecting the Build tab. Make sure that the target containing the preview code is checked.
+
+2. Clean and rebuild your project: Sometimes Xcode can get confused and fail to build previews. Try cleaning your project (Product > Clean Build Folder) and rebuilding it (Product > Build).
+
+3. Try a different device: Sometimes previews fail to launch on certain devices. Try changing the preview device to a different one and see if that helps.
+
+4. Update Xcode: Make sure you are using the latest version of Xcode. If you are not, try updating to the latest version and see if that fixes the issue.
+
+If none of these solutions work, you may need to provide more information about your project and the specific error message you are seeing.

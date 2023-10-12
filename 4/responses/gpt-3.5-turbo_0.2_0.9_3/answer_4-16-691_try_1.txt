@@ -1,0 +1,44 @@
+It seems like the Flutter SDK is not properly installed or added to the system path. Here are the steps you can follow to fix this issue:
+
+1. Check if Flutter is installed: Open a terminal window and run the following command:
+
+   ```
+   flutter --version
+   ```
+
+   If Flutter is not installed, you can follow the installation guide from the official Flutter website.
+
+2. Add Flutter to the system path: If Flutter is installed but not added to the system path, you can add it manually. Here are the steps to add Flutter to the system path:
+
+   - Open the terminal and run the following command to open the bash profile:
+
+     ```
+     nano ~/.bash_profile
+     ```
+
+   - Add the following lines at the end of the file:
+
+     ```
+     export PATH="$PATH:[PATH_TO_FLUTTER_GIT_DIRECTORY]/flutter/bin"
+     export PATH="$PATH:[PATH_TO_FLUTTER_GIT_DIRECTORY]/flutter/bin/cache/dart-sdk/bin"
+     ```
+
+     Replace `[PATH_TO_FLUTTER_GIT_DIRECTORY]` with the actual path to the Flutter SDK directory.
+
+   - Save the file and exit the editor.
+
+3. Refresh the terminal: Close and reopen the terminal window or run the following command to refresh the terminal:
+
+   ```
+   source ~/.bash_profile
+   ```
+
+4. Verify Flutter installation: Run the following command to verify if Flutter is added to the system path:
+
+   ```
+   echo $PATH
+   ```
+
+   You should see the path to the Flutter SDK directory in the output.
+
+After following these steps, you should be able to run Flutter commands in the terminal of Android Studio.

@@ -1,0 +1,15 @@
+To filter the data by `TEST_STATUS` column where the value is 'PASS TEST', you can use the following code:
+
+```
+data_useless[data_useless['TEST_STATUS'] == 'PASS TEST']
+```
+
+This will return a new dataframe with only the rows where `TEST_STATUS` is 'PASS TEST'.
+
+If you want to group the data by `TEST_STATUS` and then filter only the rows where `TEST_STATUS` is 'PASS TEST', you can use the following code:
+
+```
+data_useless.groupby('TEST_STATUS').get_group('PASS TEST')
+```
+
+This will return a new dataframe with only the rows where `TEST_STATUS` is 'PASS TEST', grouped by `TEST_STATUS`.

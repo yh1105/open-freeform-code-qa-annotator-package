@@ -1,0 +1,22 @@
+The problem with your code is that the variable `a` is not defined when the user enters a non-integer value. This is because the `int(input())` function throws an exception before the value can be assigned to `a`. 
+
+To fix this, you should first assign the user's input to `a` as a string, and then try to convert `a` to an integer. If the conversion fails, you can then check if `a` is equal to "Done". Here is the corrected code:
+
+```python
+s = set()
+print('Please type the number, when you are done please type "Done":')
+while True:
+    a = input()
+    try:
+        a = int(a)
+        s.add(a)
+    except ValueError:
+        if a == "Done":
+            break
+        else:
+            print('Integer only, please re-type:')
+            continue
+print(s)
+```
+
+In this corrected code, the user's input is first assigned to `a` as a string. Then, the code attempts to convert `a` to an integer. If the conversion is successful, the integer is added to the set `s`. If the conversion fails (i.e., if the user entered a non-integer value), the code checks if `a` is equal to "Done". If `a` is "Done", the loop breaks. If `a` is not "Done", the code prints a message asking the user to re-enter an integer, and then continues to the next iteration of the loop.

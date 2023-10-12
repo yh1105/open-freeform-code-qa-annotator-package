@@ -1,0 +1,53 @@
+One possible solution is to use the Maven Surefire plugin's `runOrder` configuration option to specify the order in which your test classes should be executed. You can set the `runOrder` to `reversealphabetical` or `random` to run your slow test classes at the beginning of the verify process.
+
+Here's an example configuration for the Surefire plugin in your `pom.xml` file:
+
+```
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>3.0.0-M5</version>
+      <configuration>
+        <runOrder>reversealphabetical</runOrder>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+```
+
+Alternatively, you can use the `maven-failsafe-plugin`'s `groups` configuration option to group your slow test classes and run them separately from the rest of your tests. Here's an example configuration for the Failsafe plugin in your `pom.xml` file:
+
+```
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+      <version>3.0.0-M5</version>
+      <configuration>
+        <groups>slow-tests</groups>
+      </configuration>
+      <executions>
+        <execution>
+          <id>integration-tests</id>
+          <goals>
+            <goal>integration-test</goal>
+            <goal>verify</goal>
+          </goals>
+          <configuration>
+            <groups>!slow-tests</groups>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+In this configuration, the `slow-tests` group contains your slow test classes, and the `!slow-tests` group excludes them from the regular test execution. You can then run the slow tests separately by specifying the `slow-tests` group in your Maven command:
+
+```
+mvn verify -Dgroups=slow-tests
+```

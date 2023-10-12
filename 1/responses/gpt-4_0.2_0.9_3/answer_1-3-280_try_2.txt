@@ -1,0 +1,9 @@
+The `@property` decorator in Python is used to convert a method into a "read-only" attribute of the same name. This means you can access the method like an attribute without parentheses.
+
+In your example, `full_name` is a method. If you want to call it, you would normally use `person.full_name()`. However, with the `@property` decorator, you can use `person.full_name` instead, which is more intuitive when the method is used to retrieve a property of the object.
+
+If you remove the `@property` decorator, you would have to call `full_name` as a method: `person.full_name()`.
+
+The `@property` decorator is a built-in decorator in Python for the property() function. It makes the usage of getter and setter methods (used for value checking and encapsulation) more pythonic and easier to use. 
+
+In Django, it's often used in models to define computed fields that don't exist in the database, but are a function of the fields that do. In your example, `full_name` doesn't exist in the database, but is a combination of `first_name` and `last_name`.

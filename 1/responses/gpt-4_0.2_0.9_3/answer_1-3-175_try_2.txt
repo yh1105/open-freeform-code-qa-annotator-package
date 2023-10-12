@@ -1,0 +1,33 @@
+You can use the `exceptAll` function to find the differences between two dataframes. However, this function will return the entire row if there is any difference in any column. To get the column names, you can use a UDF function. Here is a possible solution:
+
+First, you need to join the two dataframes on the 'id' column:
+
+```python
+df = df1.join(df2, on=['id'], how='inner', suffixes=('_df1', '_df2'))
+```
+
+Then, define a UDF function to compare the columns:
+
+```python
+from pyspark.sql.functions import udf
+from pyspark.sql.types import ArrayType, StringType
+
+def compare_columns(row):
+    diff_columns = []
+    for column in df1.columns:
+        if row[column + '_df1'] != row[column + '_df2']:
+            diff_columns.append(column)
+    return diff_columns
+
+compare_columns_udf = udf(compare_columns, ArrayType(StringType()))
+```
+
+Finally, apply the UDF function to the joined dataframe:
+
+```python
+df = df.withColumn('column_names', compare_columns_udf(df))
+```
+
+This will add a new column 'column_names' to the dataframe, which contains a list of column names that have different values in df1 and df2.
+
+Please note that this solution assumes that the 'id' column is unique in both dataframes. If it's not the case, you need to drop duplicates or aggregate the data before joining. Also, this solution does not handle null values. If your data can contain null values, you need to modify the UDF function to handle them.

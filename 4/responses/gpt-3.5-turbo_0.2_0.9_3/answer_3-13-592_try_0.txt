@@ -1,0 +1,24 @@
+In the latest version of androidx, you can use the `ViewModelProvider` class to initialize the ViewModel in your Activity. Here's an updated code snippet:
+
+```
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+        binding.setLifecycleOwner(this)
+
+        val viewModel = ViewModelProvider(this).get(SheduleViewModel::class.java)
+
+    }
+}
+```
+
+Make sure that you have imported the correct `ViewModelProvider` class from the `androidx.lifecycle` package.

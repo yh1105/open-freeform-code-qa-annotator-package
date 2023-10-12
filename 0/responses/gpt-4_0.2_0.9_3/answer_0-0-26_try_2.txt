@@ -1,0 +1,22 @@
+The ESLint error you're seeing is because you're using an anonymous function as a component in your render method. The `react/display-name` rule requires that all components have a `displayName` for debugging purposes.
+
+You can solve this by either disabling the rule for that line or by creating a named function component. Here's how you can do it:
+
+```jsx
+const RenderCountForCountry = ({ text }) => <span>{getCountForCountry(text)}</span>;
+
+RenderCountForCountry.displayName = 'RenderCountForCountry';
+
+const columns_payment_summary_table = [
+  {
+    title: FooConstants.LABEL_QUANTITY_SELECTED,
+    dataIndex: 'group',
+    key: 'group',
+    render: text => <RenderCountForCountry text={text} />,
+  }
+]
+```
+
+In this code, `RenderCountForCountry` is a named function component that takes `text` as a prop and returns the JSX you were originally returning in your render method. It also has a `displayName` property set, which should satisfy the ESLint rule.
+
+Remember to define `RenderCountForCountry` inside your `Foos` component if `getCountForCountry` is a method of `Foos`. If `getCountForCountry` is a standalone function, you can define `RenderCountForCountry` outside `Foos`.

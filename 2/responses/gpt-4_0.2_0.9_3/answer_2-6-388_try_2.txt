@@ -1,0 +1,26 @@
+The `[Keyless]` attribute is part of the `Microsoft.EntityFrameworkCore` namespace, not `System.ComponentModel.DataAnnotations`. This attribute is used to specify that an entity type does not have a primary key and therefore cannot be tracked by the DbContext. 
+
+To use the `[Keyless]` attribute, you need to install the `Microsoft.EntityFrameworkCore.Relational` package and add the following using directive at the top of your file:
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+```
+
+Then you can use the `[Keyless]` attribute in your model class like this:
+
+```csharp
+[Keyless]
+public class MyKeylessClass
+{
+    public string SomeProperty { get; set; }
+    // other properties...
+}
+```
+
+And in your `DbContext`:
+
+```csharp
+public DbSet<MyKeylessClass> KeylessModel { get; set; }
+```
+
+Now you should be able to use `_context.KeylessModel.FromSqlRaw(...)` without any issues.

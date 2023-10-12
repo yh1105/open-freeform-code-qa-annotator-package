@@ -1,0 +1,27 @@
+The error you're seeing is due to the Django process not having write permissions to the directory where it's trying to save the uploaded file.
+
+First, you need to make sure that the path you're trying to write to exists. If the directory doesn't exist, you'll need to create it. You can do this with the following command:
+
+```bash
+sudo mkdir -p /media/artists
+```
+
+Next, you need to change the owner of the directory to the user that runs the Django process. If you're running Django with a user named 'rahul', you would do this with the following command:
+
+```bash
+sudo chown -R rahul:rahul /media/artists
+```
+
+Finally, you need to give the Django process write permissions to the directory. You can do this with the following command:
+
+```bash
+sudo chmod -R 775 /media/artists
+```
+
+Also, there seems to be an issue with your `MEDIA_ROOT` setting in your `settings.py`. You should not have a leading slash in the path. Change it to:
+
+```python
+MEDIA_ROOT = BASE_DIR / 'media/'
+```
+
+After making these changes, try uploading a file again. If you're still having issues, the problem might be somewhere else in your code.

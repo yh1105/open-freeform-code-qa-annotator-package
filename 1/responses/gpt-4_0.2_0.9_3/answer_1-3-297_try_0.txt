@@ -1,0 +1,11 @@
+The correct syntax for importing resources with `for_each` in Terraform is `module.name.resource_type.resource_name[\"key\"]`. In your case, you should use:
+
+```
+terraform import 'aws_s3_bucket.bucket["logs"]' logs_bucket
+```
+
+This command tells Terraform to import the existing S3 bucket named "logs_bucket" into your Terraform state, under the resource named "bucket" with the key "logs".
+
+Please replace `logs_bucket` with the actual AWS S3 bucket ARN or bucket name.
+
+Also, make sure you are running this command from the directory where your Terraform configuration files (.tf files) are located.

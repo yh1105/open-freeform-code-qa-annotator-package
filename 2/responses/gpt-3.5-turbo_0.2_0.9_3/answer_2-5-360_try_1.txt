@@ -1,0 +1,10 @@
+The issue is with the property key in the `@Value` annotation. You have used `main.header1.info` instead of `main.header.info`. The correct property key should be `main.header.info` as per the structure of your `data.yml` file.
+
+So, you can fix the issue by changing the `@Value` annotation to:
+
+```
+@Value("${main.header.info}")
+private long info;
+```
+
+This should inject the value of `info` property from `data.yml` file to the `info` field of `SomeClass`.

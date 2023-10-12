@@ -1,0 +1,37 @@
+To solve the issue of not being able to scroll left after selecting the last tab, you can add some JavaScript code to dynamically adjust the width of the tab header container based on the number of tabs and the width of each tab.
+
+Here's the updated code:
+
+In your component.ts file, add the following code:
+
+```
+ngAfterViewInit(): void {
+  document.getElementsByClassName('mat-tab-header-pagination-before')[0].remove();
+  document.getElementsByClassName('mat-tab-header-pagination-after')[0].remove();
+
+  const tabHeader = document.getElementsByClassName('mat-tab-header')[0];
+  const tabLabels = tabHeader.getElementsByClassName('mat-tab-label');
+
+  let width = 0;
+  for (let i = 0; i < tabLabels.length; i++) {
+    width += tabLabels[i].clientWidth;
+  }
+
+  tabHeader.style.width = width + 'px';
+}
+```
+
+This code calculates the total width of all the tab labels and sets the width of the tab header container accordingly.
+
+In your style.css file, remove the `overflow-x: scroll !important;` property from `.mat-tab-label-container`.
+
+```
+.mat-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 1;
+}
+```
+
+With these changes, you should now be able to scroll left and right through all the tabs even after selecting the last tab.

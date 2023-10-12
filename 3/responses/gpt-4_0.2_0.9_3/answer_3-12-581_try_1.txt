@@ -1,0 +1,61 @@
+The error message "Vertical viewport was given unbounded height" is usually thrown when a ListView or any other widget with a potentially infinite height is placed inside a widget that does not provide a finite height.
+
+In your case, you are placing a ListView inside a Row, which does not provide a bounded height for its children. To fix this, you can wrap your ListView in an Expanded widget, which forces the ListView to take only the remaining space in the Row:
+
+```dart
+class ListFormState extends State<ListForm> {
+  List<String> products = ["Test1", "Test2", "Test3"];
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new Center(
+        child: new Column(
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                Expanded( // Add this
+                  child: new ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(products[index]);
+                    }
+                  ),
+                ),
+                new IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  onPressed: () { },
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            new TextField(
+              decoration: new InputDecoration(
+                hintText: "Prodotto"
+              ),
+              onSubmitted: (String str) {
+                setState(() {
+                  products.add(str);
+                });
+              },
+            ),
+          ]
+        )
+      )
+    );
+  }
+}
+```
+
+Also, you may want to add a shrinkWrap: true property to your ListView.builder to ensure that the ListView only occupies the minimum space necessary:
+
+```dart
+ListView.builder(
+  shrinkWrap: true, // Add this
+  itemCount: products.length,
+  itemBuilder: (BuildContext ctxt, int index) {
+    return new Text(products[index]);
+  }
+),
+```
+
+Remember that ListView.builder creates a scrollable list, so if you want to use it inside another scrollable widget, you may want to consider using a different widget or strategy to avoid potential scrolling issues.

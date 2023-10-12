@@ -1,0 +1,15 @@
+In Dart, if a class extends another class, it must call the superclass's constructor either implicitly or explicitly. If the superclass doesn't have a default constructor (a constructor with no arguments), then you must manually call one of the superclass's constructors in the subclass.
+
+In your case, `BaseClass` doesn't have a default constructor, so you must call its constructor in `ChildClass`. If you don't, Dart Analyzer should give you a compile-time error.
+
+Here's how you can do it:
+
+```dart
+class ChildClass extends BaseClass {
+  ChildClass({@required String name}) : super(name: name);
+}
+```
+
+If you are not seeing this error in your IDE, make sure that you have Dart Analyzer enabled. In VS Code, you can do this by opening your settings (File > Preferences > Settings), then searching for "dart.analyze" and making sure that "Dart: Analyze With Lint" is checked. In Android Studio, Dart Analyzer should be enabled by default.
+
+If Dart Analyzer is enabled and you're still not seeing the error, it might be a bug in the Dart plugin for your IDE. In that case, you might want to report it to the Dart team.

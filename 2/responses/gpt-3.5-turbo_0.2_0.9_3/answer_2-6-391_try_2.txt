@@ -1,0 +1,13 @@
+Including the banner.png file in the Docker image during the build process is a common practice and is recommended. This ensures that the file is available within the container at runtime and can be easily accessed by the microservice.
+
+You can include the banner.png file in the Docker image by adding the following line to your Dockerfile:
+
+```
+COPY src/Email.Service/Assets/banner.png /app/Assets/banner.png
+```
+
+This will copy the banner.png file from the project directory to the /app/Assets directory within the Docker image.
+
+Alternatively, you can also mount the directory containing the banner.png file as a volume when running the container. This approach allows you to update the file without rebuilding the Docker image. However, this approach requires additional configuration and may not be suitable for all use cases.
+
+Overall, including the banner.png file in the Docker image during the build process is a good practice and is recommended for most use cases.

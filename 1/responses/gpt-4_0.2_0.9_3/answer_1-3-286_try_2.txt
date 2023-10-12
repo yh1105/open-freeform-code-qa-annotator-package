@@ -1,0 +1,22 @@
+The issue here is that when the `int(input())` throws an exception, the variable `a` is not assigned any value. So, when you try to check `if a == "Done":` in the `except` block, it throws a `UnboundLocalError` because `a` is not defined at that point.
+
+You can solve this by first taking the input as a string, then trying to convert it to an integer. If the conversion fails, you can then check if the input string is "Done". Here's how you can do it:
+
+```python
+s = set()
+print('Please type the number, when you are done please type "Done":')
+while True:
+    a = input()
+    try:
+        a = int(a)
+        s.add(a)
+    except ValueError:
+        if a == "Done":
+            break
+        else:
+            print('Integer only, please re-type:')
+            continue
+print(s)
+```
+
+In this code, `a` is first assigned the input string. Then we try to convert `a` to an integer. If this fails, we go to the `except` block where we can safely check if `a == "Done"` because `a` is guaranteed to have a value.

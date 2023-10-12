@@ -1,0 +1,75 @@
+In Jetpack Compose, it's recommended to pass the ViewModel instance to the composable functions that need it. This is because it allows you to control the lifecycle of the ViewModel and to share the same ViewModel instance across multiple composables.
+
+However, you should avoid creating a new ViewModel instance in each composable function. Instead, you should create the ViewModel in your Activity or Fragment and pass it down to the composable functions that need it. This way, all the composables that use the ViewModel will share the same instance and will be able to observe the same data.
+
+Here's an example of how you can do this:
+
+```kotlin
+class InputActivity : ComponentActivity() {
+
+    private val viewModel by viewModel<InputViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupViewModel()
+        setContent {
+            Theme {
+                AppBarScaffold(
+                    displayHomeAsUpEnabled = true,
+                    titleId = R.string.personal_health
+                ) {
+                    viewModel.OptionData?.let {
+                        Input(it, viewModel)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel.optionData = intent.getParcelableExtra("optiondata")
+    }
+}
+
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel) {
+    var value by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        InputItem(viewModel)
+        Spacer()
+        OnSubmitPulse()
+    }
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    Image()
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    Column {
+        InputWithUnitContainer(viewModel)
+        InputWithUnitContainer(viewModel)
+    }
+}
+
+@Composable
+fun InputWithUnitContainer(viewModel: InputViewModel) {
+    Row() {
+        Text()
+        TextField(value = "")
+        Text()
+    }
+}
+```
+
+In this example, the ViewModel is created in the `InputActivity` and passed down to the `Input`, `InputItem`, `PulsePressure`, and `InputWithUnitContainer` composables. This way, all these composables share the same ViewModel instance and can observe the same data.

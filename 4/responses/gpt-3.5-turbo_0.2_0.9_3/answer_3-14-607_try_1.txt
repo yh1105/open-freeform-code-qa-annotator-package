@@ -1,0 +1,31 @@
+Yes, there is a better way to achieve this without using the `disabled` modifier. You can use a `@State` variable to keep track of whether the text field is empty or not, and then use a `computed property` to set the foreground color of the image based on the value of the `@State` variable.
+
+Here's an example code snippet that demonstrates this approach:
+
+```
+@State private var chatMessage: String = ""
+
+private var chatMessageIsValid: Bool {
+    !chatMessage.isEmpty
+}
+
+private var sendButtonColor: Color {
+    chatMessageIsValid ? .blue : .gray
+}
+
+var body: some View {
+    Spacer()
+    HStack {
+        TextField("Reply", text: $chatMessage)
+            .padding(.leading, 10)
+            .textFieldStyle(.roundedBorder)
+        Button(action: sendMessage) {
+            Image(systemName: "arrow.up.circle")
+                .foregroundColor(sendButtonColor)
+                .padding(.trailing, 10)
+        }
+    }
+}
+```
+
+In this code, we use the `chatMessageIsValid` computed property to check whether the text field is empty or not. We then use the `sendButtonColor` computed property to set the foreground color of the image based on the value of `chatMessageIsValid`. This way, the color of the image will change dynamically as the user types in the text field, without affecting the editing experience.

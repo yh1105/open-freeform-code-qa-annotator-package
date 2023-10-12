@@ -1,0 +1,55 @@
+To create a `Signer` object with the solana-wallet adapter, you can use the `wallet.signTransaction()` method. This method takes a `Transaction` object and returns a signed `Transaction` object.
+
+Here's an example of how you can modify your code to sign the transaction with the wallet:
+
+```
+const SendTransaction: React.FC<Props> = ({ children }) => {
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction, wallet } = useWallet()
+
+    const onSendSPLTransaction = useCallback(
+        async (toPubkey: string, amount: number) => {
+            if (!toPubkey || !amount) return
+            const toastId = toast.loading('Processing transaction...')
+
+            try {
+                if (!publicKey) throw new WalletNotConnectedError()
+                const toPublicKey = new PublicKey(toPubkey)
+                const mint = new PublicKey('Mint address')
+                const token = new Token(connection, mint, TOKEN_PROGRAM_ID, wallet.publicKey)
+                const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+
+                const transaction = new Transaction().add(
+                    Token.createTransferInstruction(
+                        TOKEN_PROGRAM_ID,
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        [],
+                        amount
+                    )
+                )
+
+                const signedTransaction = await wallet.signTransaction(transaction)
+                const signature = await connection.sendRawTransaction(signedTransaction.serialize())
+
+                const response = await connection.confirmTransaction(signature, 'processed')
+                console.log('response', response)
+                toast.success('Transaction sent', {
+                    id: toastId,
+                })
+            } catch (error) {
+                toast.error(`Transaction failed: ${error.message}`, {
+                    id: toastId,
+                })
+            }
+        },
+        [publicKey, sendTransaction, connection, wallet]
+    )
+
+    return <>{children(onSendSPLTransaction)}</>
+}
+```
+
+In this example, we pass `wallet.publicKey` as the `payer` parameter when creating the `Token` object. Then, we use `wallet.signTransaction()` to sign the transaction before sending it with `connection.sendRawTransaction()`.

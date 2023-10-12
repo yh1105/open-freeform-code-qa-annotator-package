@@ -1,0 +1,47 @@
+To capture a screenshot of the entire screen, you can use the `desktopCapturer` module in Electron. Here's an example of how to do it:
+
+```
+const { desktopCapturer } = require('electron');
+
+desktopCapturer.getSources({ types: ['screen'] }).then(async sources => {
+  for (const source of sources) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          mandatory: {
+            chromeMediaSource: 'desktop',
+            chromeMediaSourceId: source.id,
+            minWidth: 1280,
+            maxWidth: 1280,
+            minHeight: 720,
+            maxHeight: 720
+          }
+        }
+      });
+      const track = stream.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(track);
+      const bitmap = await imageCapture.grabFrame();
+      const canvas = document.createElement('canvas');
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(bitmap, 0, 0);
+      const dataUrl = canvas.toDataURL();
+      const base64Data = dataUrl.replace(/^data:image\/png;base64,/, '');
+      const buffer = Buffer.from(base64Data, 'base64');
+      // send buffer to server
+    } catch (e) {
+      console.error(e);
+    }
+  }
+});
+```
+
+This code uses the `ImageCapture` API to grab a frame from the video stream and then draws it onto a canvas. The resulting image is then converted to a base64-encoded PNG and sent to the server as a buffer.
+
+As for the mouse cursor, you can hide it by setting the `cursor` CSS property to `none` on the body element:
+
+```
+document.body.style.cursor = 'none';
+```

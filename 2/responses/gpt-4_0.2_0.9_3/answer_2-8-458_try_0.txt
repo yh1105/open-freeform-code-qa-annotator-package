@@ -1,0 +1,17 @@
+The error message you're seeing is because Go is looking for your package in the wrong place. It's looking in the GOROOT directory, which is where the Go standard library is located. Your code, however, is in the GOPATH directory.
+
+The issue is likely due to the fact that you're using Go modules, but your code is inside your GOPATH. As of Go 1.11, Go introduced a new concept of 'modules' which allows code to live outside of the GOPATH.
+
+Here are a few steps you can take to resolve this issue:
+
+1. Move your project outside of the GOPATH. You can place it anywhere else on your system. For example, you could move it to `C:\Users\username\myproject`.
+
+2. Navigate to the root directory of your project (where your go.mod file is located) and run your Go commands from there. For example, if you moved your project to `C:\Users\username\myproject`, you would open a terminal, navigate to that directory, and run your commands.
+
+3. Ensure that your GoLand IDE is correctly configured to use Go modules. You can do this by going to `File > Settings > Go > Go Modules (vgo)` and ensuring that the `Enable Go Modules (vgo) integration` checkbox is checked.
+
+4. If you're importing packages from within your own project, make sure you're using the full path from the module root. For example, if you have a module named `project`, and you're trying to import code from the `game` package, you would use `import "project/game"`.
+
+5. Finally, make sure your `go.mod` file is correctly set up. It should be in the root directory of your project, and it should have a module directive with the name of your module. For example, if your module is named `project`, the first line of your `go.mod` file should be `module project`.
+
+After making these changes, try running your Go build command again. It should now be able to find your packages correctly.

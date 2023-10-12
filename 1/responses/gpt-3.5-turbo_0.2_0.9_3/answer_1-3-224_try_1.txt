@@ -1,0 +1,11 @@
+You were close with your first attempt. Instead of checking if the keyword is in the original list, you should check if the keyword is in the current word being iterated over. Here's the corrected code:
+
+```
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH' ]
+my_final_set = [word for word in my_set if word.endswith('USDT')]
+print(my_final_set)
+```
+
+This will output: `['LUNAUSDT', 'BTCUSDT']`
+
+In this code, we are iterating over each word in `my_set` and checking if it ends with the string `'USDT'`. If it does, we add it to the `my_final_set` list.

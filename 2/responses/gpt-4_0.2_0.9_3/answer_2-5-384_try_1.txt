@@ -1,0 +1,40 @@
+You can use `@TestPropertySource` annotation to specify locations of properties files that are to be loaded for your test. Here is how you can do it:
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SomeProperties.class)
+@ActiveProfiles("test")
+@EnableConfigurationProperties
+@TestPropertySource(locations="classpath:application-test.properties")
+public class SomeServiceTest {
+    @InjectMocks
+    private SomeService someService;
+
+    @Autowired
+    private SomeProperties someProperties;
+```
+
+In this case, you don't need to mock `SomeProperties` because it will be loaded with properties from `application-test.properties` file. 
+
+If you still want to mock `SomeProperties`, you need to set the properties manually in your test:
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SomeProperties.class)
+@ActiveProfiles("test")
+@EnableConfigurationProperties
+public class SomeServiceTest {
+    @InjectMocks
+    private SomeService someService;
+
+    @Mock
+    private SomeProperties someProperties;
+
+    @Before
+    public void setup() {
+        Mockito.when(someProperties.getProperty1()).thenReturn("mockProperty1");
+        Mockito.when(someProperties.getProperty2()).thenReturn("mockProperty2");
+    }
+```
+
+In this case, `someProperties.getProperty1()` will return `"mockProperty1"` and `someProperties.getProperty2()` will return `"mockProperty2"` in your tests.

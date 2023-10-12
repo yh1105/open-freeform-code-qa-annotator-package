@@ -1,0 +1,30 @@
+To add scrolling to the table, you can use the `overflow-x-auto` class instead of `overflow-scroll` in the `table` tag. This will add a horizontal scrollbar to the table when it overflows. Here's the updated code:
+
+```
+<table class="table-auto overflow-x-auto">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="w-20 px-4 py-2">No.</th>
+            <th class="px-4 py-2">First Name</th>
+            <th class="px-4 py-2">Second Name</th>
+            <th class="px-4 py-2">Third Name</th>
+            <th class="px-4 py-2">Department</th>
+            <th class="px-4 py-2">Stage</th>
+            <th class="px-4 py-2">Email</th>
+            <th class="px-4 py-2">Roles</th>
+            <th class="px-4 py-2">status</th>
+            <th class="px-4 py-2">University Email</th>
+            <th class="px-4 py-2">University Password</th>
+            <th class="px-4 py-2">Students Files</th>
+            <th class="px-4 py-2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(isset($users)) @include('dashboard.users.partials.users_details') @endif
+        @if(isset($searches)) @include('dashboard.users.partials.search') @endif
+        @if(isset($statusSearch)) @include('dashboard.users.partials.status_search') @endif
+    </tbody>
+</table>
+```
+
+This should add a horizontal scrollbar to the table when it overflows, allowing users to scroll horizontally to see the entire table.

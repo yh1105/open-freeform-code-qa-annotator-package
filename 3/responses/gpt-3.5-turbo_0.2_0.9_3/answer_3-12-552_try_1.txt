@@ -1,0 +1,37 @@
+To achieve the desired layout, you can use a Row widget as the title of the AppBar. Here's an example code:
+
+```
+appBar: AppBar(
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          // Open drawer
+        },
+      ),
+      Text(
+        'Title',
+        style: TextStyle(fontSize: 22.0, color: CustomColors.primaryDark),
+      ),
+      IconButton(
+        icon: Icon(Icons.search),
+        onPressed: () {
+          // Open search screen
+        },
+      ),
+    ],
+  ),
+),
+```
+
+In this code, we have used a Row widget as the title of the AppBar. The `mainAxisAlignment` property of the Row widget is set to `MainAxisAlignment.spaceBetween` to evenly distribute the child widgets along the horizontal axis. 
+
+The first child of the Row widget is an IconButton with the menu icon. The `onPressed` property of the IconButton can be used to open the drawer.
+
+The second child of the Row widget is a Text widget with the title of the screen.
+
+The third child of the Row widget is an IconButton with the search icon. The `onPressed` property of the IconButton can be used to open the search screen.
+
+You can customize the icons and their actions as per your requirements.

@@ -1,0 +1,32 @@
+You can achieve this by using the `re` module's `split` function with a lookahead and lookbehind assertion. This will ensure that the split operation checks for the delimiters in the order you specified.
+
+Here's how you can do it:
+
+```python
+import re
+
+def split_string(s):
+    delimiters = ['and', '&', '-']
+    regexPattern = '|'.join(map(re.escape, delimiters))
+    return re.split(r'(?<= )(' + regexPattern + r')(?= )', s, maxsplit=1)
+
+print(split_string('121 34 adsfd')) # ['121 34 adsfd']
+print(split_string('dsfsd and adfd')) # ['dsfsd ', 'and', ' adfd']
+print(split_string('dsfsd & adfd')) # ['dsfsd ', '&', ' adfd']
+print(split_string('dsfsd - adfd')) # ['dsfsd ', '-', ' adfd']
+print(split_string('dsfsd and adfd and adsfa')) # ['dsfsd ', 'and', ' adfd and adsfa']
+print(split_string('dsfsd and adfd - adsfa')) # ['dsfsd ', 'and', ' adfd - adsfa']
+print(split_string('dsfsd - adfd and adsfa')) # ['dsfsd ', '-', ' adfd and adsfa']
+```
+
+This will split the string based on the first occurrence of the delimiters in the order you specified. However, this will also include the delimiter in the result. If you don't want to include the delimiter, you can filter it out:
+
+```python
+def split_string(s):
+    delimiters = ['and', '&', '-']
+    regexPattern = '|'.join(map(re.escape, delimiters))
+    parts = re.split(r'(?<= )(' + regexPattern + r')(?= )', s, maxsplit=1)
+    return [part for part in parts if part not in delimiters]
+```
+
+This will give you the desired output.

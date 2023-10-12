@@ -1,0 +1,9 @@
+The error message is indicating that you cannot use the `Gender` property as an index on the `User` entity because it is configured as a navigation property. Navigation properties are used to define relationships between entities and cannot be used as regular properties.
+
+To fix this error, you can remove the `user.HasIndex(x => x.Gender);` line from your `OnModelCreating` method. If you need to create an index on the `GenderId` property, you can add the following line:
+
+```
+user.HasIndex(x => x.GenderId);
+```
+
+This will create an index on the `GenderId` column in the `User` table.

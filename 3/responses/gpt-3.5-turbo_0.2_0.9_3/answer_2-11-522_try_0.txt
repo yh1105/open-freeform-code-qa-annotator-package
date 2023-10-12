@@ -1,0 +1,28 @@
+Yes, it is possible to query and enforce the affinity of `std::thread` in C++. The affinity of a thread refers to the set of processor cores on which it is allowed to run. 
+
+In C++, the `std::thread` class provides a `native_handle()` function that returns a platform-specific handle to the underlying thread object. On some platforms, such as Linux, this handle can be used to set the affinity of the thread using system calls such as `sched_setaffinity()`.
+
+Here's an example of how to set the affinity of a `std::thread` to a specific core on Linux:
+
+```c++
+#include <thread>
+#include <sched.h>
+
+int main() {
+    std::thread t([](){
+        // Thread code here
+    });
+
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(0, &cpuset); // Set affinity to core 0
+    pthread_setaffinity_np(t.native_handle(), sizeof(cpu_set_t), &cpuset);
+
+    t.join();
+    return 0;
+}
+```
+
+In this example, we create a `std::thread` object and then use the `pthread_setaffinity_np()` function to set its affinity to core 0. The `CPU_ZERO()` and `CPU_SET()` macros are used to initialize and set the `cpuset` variable, which is then passed to `pthread_setaffinity_np()`.
+
+Note that the `pthread_setaffinity_np()` function is not part of the C++ standard library and is platform-specific. On Windows, for example, you would need to use the `SetThreadAffinityMask()` function to set the affinity of a thread.

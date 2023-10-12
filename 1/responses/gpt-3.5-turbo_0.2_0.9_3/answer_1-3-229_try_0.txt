@@ -1,0 +1,10 @@
+To find and replace text inside a single Jupyter cell in Visual Studio Code, you can use the following steps:
+
+1. Click on the cell you want to edit.
+2. Press the `Esc` key to enter command mode.
+3. Press the `F` key to open the find and replace dialog box.
+4. Type in the text you want to find and the text you want to replace it with.
+5. Press the `Enter` key to replace the first occurrence of the text.
+6. Press the `Alt+Enter` key to replace all occurrences of the text in the cell.
+
+Note that this method only replaces text within the current cell and not in the entire Jupyter notebook file.

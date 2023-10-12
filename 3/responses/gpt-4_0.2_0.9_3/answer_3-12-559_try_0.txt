@@ -1,0 +1,73 @@
+To use a custom icon in Flutter, you can use the `Image.asset` or `Image.network` widgets. However, your `BrandButton` widget currently only accepts an `Icon` widget. To allow it to accept an image, you can change the `brandIcon` parameter to accept a `Widget` instead of an `Icon`. This way, you can pass either an `Icon` or an `Image` to the `brandIcon` parameter.
+
+Here's how you can modify your `BrandButton` widget:
+
+```dart
+class BrandButton extends StatelessWidget {
+  final String label;
+  final double height;
+  final Color backgroundColor;
+  final Color textColor;
+  final Widget brandIcon; // Change this to Widget
+
+  const BrandButton(
+      {Key? key,
+      this.label = "Sign in with Apple",
+      this.height: 48,
+      this.backgroundColor: Colors.black,
+      required this.brandIcon, // Change this to Widget
+      this.textColor: Colors.white})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              brandIcon, // This can now be either an Icon or an Image
+              SizedBox(width: 15),
+              Text(
+                label,
+                style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                    height: 1.41),
+              )
+            ],
+          )),
+    );
+  }
+}
+```
+
+Now, you can use an image as your brand icon like this:
+
+```dart
+BrandButton(
+  label: "Sign in with Google",
+  backgroundColor: Colors.white,
+  textColor: Colors.black,
+  brandIcon: Image.asset('assets/images/google_icon.png'), // Use your own image path
+)
+```
+
+Make sure to add your image to your `pubspec.yaml` file under `flutter:` like this:
+
+```yaml
+flutter:
+  assets:
+    - assets/images/
+```
+
+And replace `'assets/images/google_icon.png'` with the path to your own image.

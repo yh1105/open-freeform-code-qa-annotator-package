@@ -1,0 +1,34 @@
+The issue you're facing is indeed a version incompatibility issue. The Spring Cloud version you're using (Hoxton.SR8) is not compatible with the Spring Boot version (2.4.0). 
+
+Spring Cloud Hoxton.SR8 is compatible with Spring Boot 2.3.x versions. If you want to use Spring Boot 2.4.0, you should upgrade your Spring Cloud version to 2020.0.0 (also known as Ilford) or later.
+
+Here's how you can fix it:
+
+1. Change the Spring Cloud version in your pom.xml to 2020.0.0:
+
+```xml
+<properties>
+    <java.version>15</java.version>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <spring-cloud.version>2020.0.0</spring-cloud.version>
+</properties>
+```
+
+2. Change the Spring Cloud Dependencies artifactId in your pom.xml to spring-cloud-dependencies:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+After making these changes, try running your application again. If you still encounter issues, you might need to check the compatibility of other dependencies in your project.

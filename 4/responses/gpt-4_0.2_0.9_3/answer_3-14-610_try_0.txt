@@ -1,0 +1,63 @@
+You're correct that SwiftUI's default behavior for animating changes in `Text` views can be problematic. The ellipsis issue you're seeing is due to SwiftUI's default behavior of animating the frame of the text, but not the text content itself.
+
+To avoid the ellipsis, you can use a custom `AnimatableModifier` to animate the changes in the text content. This will allow you to control the animation of the text content separately from the animation of the frame.
+
+Here's an example of how you can do this:
+
+```swift
+import SwiftUI
+
+struct AnimatableText: AnimatableModifier {
+    var text: String
+    var progress: Double
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        Text(text)
+    }
+}
+
+extension View {
+    func animatableText(_ text: String, progress: Double) -> some View {
+        self.modifier(AnimatableText(text: text, progress: progress))
+    }
+}
+
+struct ContentView: View {
+    @State var shortString = true
+    var body: some View {
+        VStack {
+            if shortString {
+                Text("This is short.")
+                    .font(.title)
+                    .animatableText("This is short.", progress: shortString ? 0 : 1)
+                    .animation(.easeInOut(duration:1.0))
+            } else {
+                Text("This is considerably longer.")
+                    .font(.title)
+                    .animatableText("This is considerably longer.", progress: shortString ? 0 : 1)
+                    .animation(.easeInOut(duration:1.0))
+            }
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+In this code, `AnimatableText` is a custom `AnimatableModifier` that takes a `text` string and a `progress` value. The `progress` value is used as the `animatableData`, which is what SwiftUI uses to animate changes in the modifier.
+
+The `animatableText(_:progress:)` function is an extension on `View` that applies the `AnimatableText` modifier to the view.
+
+In the `ContentView`, we use an `if` statement to switch between the short and long text. For each text, we apply the `animatableText(_:progress:)` function with the appropriate text and progress value. The progress value is `0` when `shortString` is `true`, and `1` when `shortString` is `false`. This causes SwiftUI to animate the changes in the text content when `shortString` is toggled.

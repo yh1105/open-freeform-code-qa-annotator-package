@@ -1,0 +1,19 @@
+You can use the `trap` command in bash to capture the command that is about to be executed. The `trap` command allows you to catch signals and execute code when they occur. `DEBUG` is a kind of pseudo-signal that is triggered right before any simple command, function, or command list is executed.
+
+Here's a simple function that you can add to your `.bashrc` or `.bash_profile` file:
+
+```bash
+trap 'echo -ne "\033]0;${PWD} ($BASH_COMMAND)\007"' DEBUG
+```
+
+This will set the terminal title to the current working directory and the command that is about to be executed.
+
+Here's how it works:
+
+- `trap '...' DEBUG`: This sets up a trap on the DEBUG signal. The code inside the quotes is executed each time the signal is triggered.
+- `echo -ne "\033]0;... \007"`: This is an escape sequence that sets the terminal title. The `-n` option tells echo not to output a newline, and the `-e` option tells it to interpret escape sequences.
+- `${PWD}`: This is a variable that contains the current working directory.
+- `($BASH_COMMAND)`: This is a variable that contains the command that is about to be executed.
+- `\033]0;... \007`: This is the escape sequence that sets the terminal title. The `...` is replaced with the string you want to set as the title.
+
+Please note that this will not work for commands that are run in the background or for commands that are piped into other commands. For those cases, you would need a more complex solution.

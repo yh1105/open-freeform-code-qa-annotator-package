@@ -1,0 +1,12 @@
+You can use the `loc` function in pandas to locate the row and then extract the value from the 'tradingsymbol' column. Here is an example:
+
+```python
+df = # your dataframe
+instrument_token = 12295682
+tradingsymbol = df.loc[df['instrument_token'] == instrument_token, 'tradingsymbol'].values[0]
+print(tradingsymbol)
+```
+
+In this code, `df['instrument_token'] == instrument_token` will return a boolean Series where each element is True if the corresponding instrument_token is 12295682, and False otherwise. Then `df.loc[boolean_series, 'tradingsymbol']` will return the 'tradingsymbol' values where the boolean series is True. `.values[0]` is used to extract the first (and in this case, only) value from the resulting pandas Series.
+
+Please replace `df` with your actual dataframe variable.

@@ -1,0 +1,24 @@
+The problem with your code is that SFINAE only works when the substitution failure happens in the immediate context of template argument deduction. In your code, the substitution failure is not in the immediate context because it's in the default value of a non-deduced template parameter.
+
+To fix this, you can use `std::enable_if_t` as part of the type itself, which will be in the immediate context of template argument deduction. Here's how you can do it:
+
+```cpp
+namespace detail {
+    template <typename T, typename = void>
+    struct BaseType {
+        using Type = std::decay_t<T>;
+    };
+
+    template <typename T>
+    struct BaseType<T, std::enable_if_t<std::is_enum_v<T>>> {
+        using Type = std::underlying_type_t<T>;
+    };
+}
+
+template <class T>
+using base_type_t = typename detail::BaseType<T>::Type;
+```
+
+In this code, `BaseType` is a template with two parameters: `T` and an unnamed parameter of type `void`. The second parameter has a default value of `void`, so you can still use `BaseType<T>` without providing a second argument.
+
+The second definition of `BaseType` only applies when `T` is an enum. If `T` is not an enum, `std::is_enum_v<T>` is `false`, `std::enable_if_t<std::is_enum_v<T>>` is invalid, and this definition of `BaseType` is removed from the set of candidates due to SFINAE. If `T` is an enum, `std::is_enum_v<T>` is `true`, `std::enable_if_t<std::is_enum_v<T>>` is `void`, and this definition of `BaseType` is a better match than the first one because it doesn't rely on the default argument.

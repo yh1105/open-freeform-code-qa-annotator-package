@@ -1,0 +1,53 @@
+In .NET 6, you can add XML comments to your minimal APIs by using the `Produces` and `ProducesResponseType` attributes. However, these attributes do not support XML comments directly. Instead, you need to add the XML comments to the types that are returned by your APIs.
+
+Here's an example of how you can do this:
+
+```csharp
+/// <summary>
+/// This class represents a client.
+/// </summary>
+public class ClientModel
+{
+    /// <summary>
+    /// Gets or sets the client's ID.
+    /// </summary>
+    public int Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the client's name.
+    /// </summary>
+    public string Name { get; set; }
+}
+
+app.MapGet("/clients",
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ClientModel>))]
+    async (IClientRepository repo) =>
+    {
+        var results = await repo.GetClientsAsync();
+        return mapper.Map<IEnumerable<ClientModel>>(results);
+    });
+```
+
+In this example, the XML comments are added to the `ClientModel` class and its properties. The `ProducesResponseType` attribute is used to specify that the API returns a 200 OK status code and a list of `ClientModel` objects. The Swagger UI will display these comments as descriptions for the API and its response.
+
+Remember to enable XML documentation in your project settings and ensure that the XML documentation file is generated when you build your project. You can do this by editing your .csproj file and adding these lines:
+
+```xml
+<PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+</PropertyGroup>
+```
+
+Then, in your `Program.cs`, make sure to include the XML comments when configuring Swagger:
+
+```csharp
+app.UseSwagger(c =>
+{
+    c.IncludeXmlComments("path_to_your_xml_file.xml");
+});
+```
+
+Replace `"path_to_your_xml_file.xml"` with the actual path to your XML documentation file. This file is usually located in the `bin` folder of your project and has the same name as your project with a `.xml` extension.
+
+Please note that as of .NET 6, minimal APIs are a new feature and their support for XML comments and other documentation features is still limited compared to controller-based APIs. This might change in future versions of .NET.

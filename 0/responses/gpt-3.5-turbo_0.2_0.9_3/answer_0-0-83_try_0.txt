@@ -1,0 +1,11 @@
+It seems like there is an issue with the version of Chart.js you are using. The "linear" scale is not registered in the latest version of Chart.js. 
+
+To fix this issue, you can try downgrading the version of Chart.js to a version that supports the "linear" scale. You can do this by running the following command in your terminal:
+
+```
+npm install chart.js@2.9.4
+```
+
+This will install version 2.9.4 of Chart.js, which should work with your code. 
+
+Alternatively, you can try using a different type of scale, such as "category" or "logarithmic", depending on your data. You can find more information about scales in the Chart.js documentation.

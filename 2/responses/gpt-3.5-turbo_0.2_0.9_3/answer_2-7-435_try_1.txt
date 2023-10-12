@@ -1,0 +1,27 @@
+It seems like the `mysql-client` package is not available in the repository that you are using. You can try changing the package name to `default-mysql-client` and see if it works. 
+
+Replace this line:
+```
+apt-get update && apt-get install -y mysql-client \
+```
+
+With this line:
+```
+apt-get update && apt-get install -y default-mysql-client \
+```
+
+Also, make sure that you have added the `nodejs` package to the installation command as well. 
+
+Replace this line:
+```
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && apt-get install -y mysql-client \
+```
+
+With this line:
+```
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && apt-get install -y default-mysql-client nodejs \
+```
+
+After making these changes, try building the Docker image again and see if it works.

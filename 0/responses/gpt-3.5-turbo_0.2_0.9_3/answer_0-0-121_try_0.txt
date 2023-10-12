@@ -1,0 +1,11 @@
+The error message you are seeing is a TypeScript error indicating that the `process.env` object does not have a property named `APP_ENV`. 
+
+To fix this error, you need to define the `APP_ENV` environment variable in your project's configuration. You can do this by adding a `.env` file to the root of your project and defining the variable there, like so:
+
+```
+APP_ENV=prod
+```
+
+Make sure to restart your development server after adding the `.env` file so that the changes take effect. 
+
+If you are using a build tool like Webpack or Rollup, you may also need to configure them to load the `.env` file and make the environment variables available to your code.

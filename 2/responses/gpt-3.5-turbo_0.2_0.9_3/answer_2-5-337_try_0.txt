@@ -1,0 +1,65 @@
+In Android Studio or IntelliJ, you can use the "Extract Widget" refactoring shortcut to extract the Stack into a separate widget method. 
+
+To do this, select the Stack widget code block, then press "Ctrl + Alt + W" (Windows) or "Cmd + Alt + W" (Mac) to open the "Extract Widget" dialog. 
+
+In the dialog, you can give the new widget a name and choose whether to make it a stateless or stateful widget. Once you click "OK", the selected code block will be replaced with a call to the new widget method. 
+
+Here's an example of what the extracted widget method might look like:
+
+```
+class MyStackWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/image.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment(-0.7, -0.7),
+          child: Container(
+            height: 300,
+            child: RichText(
+              text: TextSpan(
+                text: 'My text',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'Some other text',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 5.0,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
+
+And here's how you would use the new widget method in your original code:
+
+```
+class BodyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MyStackWidget();
+  }
+}
+```

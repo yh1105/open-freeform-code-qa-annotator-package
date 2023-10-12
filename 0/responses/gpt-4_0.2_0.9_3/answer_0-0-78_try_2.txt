@@ -1,0 +1,11 @@
+Vue Router doesn't have a built-in option to not add a route to the history stack. However, you can use a workaround to achieve this. You can replace the current route with the loading route, so it doesn't get added to the history stack. 
+
+Instead of:
+
+`this.$router.push({path: "/loading"});`
+
+You can use:
+
+`this.$router.replace({path: "/loading"});`
+
+The `replace` method navigates to a different URL but keeps the session history clean. This way, when the user clicks the back button on the results page, they will be taken back to the main screen instead of the loading screen.

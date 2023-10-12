@@ -1,0 +1,50 @@
+The issue you're experiencing is due to the order of operations during the Heroku build process. As you've noticed, Heroku runs `rake assets:precompile` before it runs your package.json scripts. This means that your `application.js` file isn't being created until after Rails has already tried to find it.
+
+One way to solve this issue is to use the Heroku buildpack for Node.js in addition to the Ruby buildpack. This allows you to run your Node.js scripts before Heroku runs `rake assets:precompile`.
+
+Here's how you can set it up:
+
+1. Add the Node.js buildpack to your app:
+
+    ```
+    heroku buildpacks:add --index 1 heroku/nodejs
+    ```
+
+2. Ensure the Ruby buildpack is also present:
+
+    ```
+    heroku buildpacks:add heroku/ruby
+    ```
+
+3. Verify that the buildpacks are in the correct order:
+
+    ```
+    heroku buildpacks
+    ```
+
+    You should see:
+
+    ```
+    1. heroku/nodejs
+    2. heroku/ruby
+    ```
+
+4. Now, you can add a `heroku-postbuild` script in your `package.json` file:
+
+    ```json
+    "scripts": {
+      "heroku-postbuild": "npm run build"
+    }
+    ```
+
+    This script will run after Heroku has installed your dependencies but before it starts the Ruby build process.
+
+5. Finally, commit your changes and push to Heroku:
+
+    ```
+    git add .
+    git commit -m "Configure app for Heroku"
+    git push heroku master
+    ```
+
+Now, Heroku should run your `npm run build` script before it runs `rake assets:precompile`, ensuring that your `application.js` file is created in time.

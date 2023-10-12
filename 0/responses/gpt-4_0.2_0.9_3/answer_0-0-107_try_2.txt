@@ -1,0 +1,21 @@
+The error message you're seeing is due to the default execution policy in PowerShell, which is Restricted. This means no scripts are allowed to run, including your `expo.ps1` script.
+
+To solve this issue, you need to change the execution policy in PowerShell. Here's how to do it:
+
+1. Open PowerShell as an administrator. You can do this by searching for PowerShell in the Start menu, right-clicking on it, and selecting "Run as administrator".
+
+2. Once you have the PowerShell window open, type the following command and press Enter:
+
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+This command sets the policy to RemoteSigned, which means that as long as a script is signed by a trusted publisher, it will run.
+
+3. You will be prompted to confirm the change. Type `Y` and press Enter to confirm.
+
+4. After the command completes, close the PowerShell window.
+
+5. Now, try running your `expo --version` command again in the Visual Studio Code terminal. It should work without any issues.
+
+Remember that changing the execution policy can have security implications, so only do this if you understand the risks and trust the scripts you're running.

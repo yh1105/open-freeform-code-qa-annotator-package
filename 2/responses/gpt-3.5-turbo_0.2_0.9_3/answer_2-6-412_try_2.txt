@@ -1,0 +1,32 @@
+The issue is with the line `content.Headers.Add("Authorization", $"Basic {base64EncodedAuthenticationString}");`. The `Headers` property of `FormUrlEncodedContent` is used for content headers, not request headers. 
+
+To add the Basic Authentication header to the request, you should add it to the `DefaultRequestHeaders` property of the `HttpClient` object instead. Here's an updated code snippet:
+
+```
+//setup reusable http client
+HttpClient client = new HttpClient();
+Uri baseUri = new Uri(url);
+client.BaseAddress = baseUri;
+client.DefaultRequestHeaders.Clear();
+client.DefaultRequestHeaders.ConnectionClose = true;
+
+//Basic Authentication
+var authenticationString = $"{clientId}:{clientSecret}";
+var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
+
+//Post body content
+var values = new List<KeyValuePair<string,string>>();
+values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+
+var content = new FormUrlEncodedContent(values);
+
+//make the request
+var task = client.PostAsync("/oauth2/token",content);
+var response = task.Result;
+response.EnsureSuccessStatusCode();
+string responseBody = response.Content.ReadAsStringAsync().Result;
+Console.WriteLine(responseBody);
+``` 
+
+This should add the Basic Authentication header to the request and allow you to make the request successfully.

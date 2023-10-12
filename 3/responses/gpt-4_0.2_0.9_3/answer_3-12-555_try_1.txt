@@ -1,0 +1,74 @@
+You're correct in that you need to use a StatefulWidget in order to manage the state of your checkboxes and dropdown menu. Here's how you can refactor your code to use a StatefulWidget:
+
+1. First, you need to change your class declaration from `class DetailPage extends StatelessWidget` to `class DetailPage extends StatefulWidget`.
+
+2. Then, you need to create a new class that extends `State<DetailPage>`. This is where you will move your `build` method to. You will also declare your state variables in this class.
+
+3. Inside your new `State<DetailPage>` class, declare two boolean variables for your checkboxes and a String variable for your dropdown menu. These will be used to keep track of the state of your checkboxes and dropdown menu.
+
+4. Update your `CheckboxListTile` widgets and `DropdownButton` widget to use these state variables.
+
+Here's how you can refactor your code:
+
+```dart
+import 'package:carve_brace_app/model/activity.dart';
+import 'package:flutter/material.dart';
+
+class DetailPage extends StatefulWidget {
+  final Activity activity;
+  DetailPage({Key key, this.activity}) : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool _mappedCheckboxValue = false;
+  bool _rtCheckboxValue = false;
+  String _dropdownValue = 'Now (Default)';
+
+  @override
+  Widget build(BuildContext context) {
+    // Your existing code...
+
+    final mappedCheckbox = CheckboxListTile(
+      title: Text("Mapped"),
+      value: _mappedCheckboxValue,
+      onChanged: (newValue) {
+        setState(() {
+          _mappedCheckboxValue = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+    final rtCheckBox = CheckboxListTile(
+      title: Text("Real-time Tracking"),
+      value: _rtCheckboxValue,
+      onChanged: (newValue) {
+        setState(() {
+          _rtCheckboxValue = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+    final dropdown = DropdownButton<String>(
+      items: <String>['Now (Default)', 'B', 'C', 'D'].map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      value: _dropdownValue,
+      onChanged: (newValue) {
+        setState(() {
+          _dropdownValue = newValue;
+        });
+      },
+    );
+
+    // Your existing code...
+  }
+}
+```
+
+In this code, `_DetailPageState` is the state object for `DetailPage`. The `setState` function is called to tell the Flutter framework that something has changed in this state, which causes it to rerun the `build` method, and update the display.

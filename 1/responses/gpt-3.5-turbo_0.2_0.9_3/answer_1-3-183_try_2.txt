@@ -1,0 +1,22 @@
+To get the boundary of the rectangle, you can use the `find_contours` function from the `skimage` library. Here's an example code snippet:
+
+```python
+from skimage import measure
+
+# assuming your binary mask is stored in the variable 'mask'
+contours = measure.find_contours(mask, 0.5)
+
+# the 'contours' variable now contains a list of arrays, where each array
+# represents the x-y coordinates of a single contour
+# in this case, there should only be one contour (the boundary of the rectangle)
+boundary_coords = contours[0]
+
+# plot the boundary
+import matplotlib.pyplot as plt
+plt.plot(boundary_coords[:, 1], boundary_coords[:, 0])
+plt.show()
+```
+
+This should give you the desired output, which is the boundary of the rectangle:
+
+![desired output](https://i.stack.imgur.com/5Z7o9.png)

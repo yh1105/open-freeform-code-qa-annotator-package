@@ -1,0 +1,18 @@
+The error message you're seeing is due to a circular import. This happens when two or more modules depend on each other, either directly or indirectly. In your case, the `authentication.models` module is importing the `corporate.models` module, and vice versa.
+
+Here's how you can resolve this:
+
+1. Remove the import statement `from authentication.models import get_sentinel` from `corporate/models/section.py`.
+
+2. In the `boss` and `surrogate` fields of the `Section` model, replace `get_sentinel` with a string reference to the `get_sentinel` function. Django allows you to use string references to functions in your models to avoid import errors.
+
+Here's how you can do this:
+
+```python
+boss = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET('authentication.models.get_sentinel'), ...)
+surrogate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET('authentication.models.get_sentinel'), ...)
+```
+
+This way, Django will import the `get_sentinel` function only when it's actually needed, avoiding the circular import error. 
+
+Remember to replace `'authentication.models.get_sentinel'` with the actual Python import path of your `get_sentinel` function if it's different.

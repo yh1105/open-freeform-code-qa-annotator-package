@@ -1,0 +1,31 @@
+There isn't a single function in boto3 that can list all resources across all AWS services. AWS is composed of many different services (EC2, S3, RDS, etc.), each with its own set of resources. Boto3 provides an interface to each of these services, and you can list resources within those services.
+
+For example, to list all EC2 instances, you would do:
+
+```python
+import boto3
+
+ec2 = boto3.resource('ec2')
+
+for instance in ec2.instances.all():
+    print(instance.id, instance.state)
+```
+
+To list all S3 buckets:
+
+```python
+import boto3
+
+s3 = boto3.resource('s3')
+
+for bucket in s3.buckets.all():
+    print(bucket.name)
+```
+
+And so on for other services. If you want to get a list of all resources across all services, you would need to call the appropriate list function for each service.
+
+Also, keep in mind that some resources might not be accessible depending on the permissions of the AWS account you're using.
+
+If you want to get a list of all services available in boto3, you can use `boto3.session.Session().get_available_services()`. This will return a list of all service names, which you can then use to access each service individually. However, not all services have a resource object available, some of them can only be accessed via client object. 
+
+Remember to configure your AWS credentials before running these scripts. You can do this by setting the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_SESSION_TOKEN environment variables, or by using the AWS CLI's aws configure command.

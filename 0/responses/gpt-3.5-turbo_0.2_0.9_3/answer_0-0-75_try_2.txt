@@ -1,0 +1,34 @@
+The error message you are seeing is telling you that `theme.mixins.toolbar` is undefined. This is likely because the `mixins` object has been removed from the `theme` object in Material-UI version 5.
+
+Instead of using `theme.mixins.toolbar`, you can create your own `toolbar` mixin using the `createStyles` function from `@material-ui/styles`. Here's an example:
+
+```
+import { createStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    toolbar: theme.mixins.toolbar,
+  })
+);
+
+function Header() {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <ElevationScroll>
+        <AppBar color="primary">
+          <Toolbar className={classes.toolbar}>
+            <Typography variant="h3" component="h3">
+              Nome de teste
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+    </React.Fragment>
+  );
+}
+```
+
+In this example, we create a `toolbar` mixin by using the `createStyles` function and passing in an object with a `toolbar` property that is set to `theme.mixins.toolbar`. We then use this mixin in the `Toolbar` component by applying the `classes.toolbar` className.
+
+This should resolve the error you are seeing and allow you to style just one component without affecting the entire theme.

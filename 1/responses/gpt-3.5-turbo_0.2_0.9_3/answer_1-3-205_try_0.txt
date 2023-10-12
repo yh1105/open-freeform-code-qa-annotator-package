@@ -1,0 +1,62 @@
+You can use Django-filter to create a search form that searches over all fields of the Location model. Here's an example:
+
+1. Install Django-filter:
+
+```
+pip install django-filter
+```
+
+2. Create a filter class for the Location model:
+
+```
+import django_filters
+
+class LocationFilter(django_filters.FilterSet):
+    q = django_filters.CharFilter(method='search_all')
+
+    class Meta:
+        model = Location
+        fields = ['q']
+
+    def search_all(self, queryset, name, value):
+        return queryset.filter(
+            Q(loc__icontains=value) |
+            Q(loc_mansioned__icontains=value) |
+            Q(loc_country__icontains=value) |
+            Q(loc_modern__icontains=value)
+        )
+```
+
+3. In your view, create a search form using the filter class:
+
+```
+from django.shortcuts import render
+from .models import Location
+from .filters import LocationFilter
+
+def location_search(request):
+    location_list = Location.objects.all()
+    location_filter = LocationFilter(request.GET, queryset=location_list)
+    return render(request, 'location_search.html', {'filter': location_filter})
+```
+
+4. In your template, render the search form:
+
+```
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Location Search</h1>
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  {% for location in filter.qs %}
+    <p>{{ location.loc }} - {{ location.loc_mansioned }} - {{ location.loc_country }} - {{ location.loc_modern }}</p>
+  {% empty %}
+    <p>No locations found.</p>
+  {% endfor %}
+{% endblock %}
+```
+
+This will create a search form with one input field that searches over all fields of the Location model. When the form is submitted, the search results will be displayed in the template.

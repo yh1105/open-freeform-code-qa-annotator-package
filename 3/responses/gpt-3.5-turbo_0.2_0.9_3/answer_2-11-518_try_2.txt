@@ -1,0 +1,9 @@
+You are correct that in many cases, smart pointers can be used to manage resources and eliminate the need for user-defined constructors and destructors. However, there are still some cases where user-defined constructors and destructors are necessary.
+
+For example, if you need to manage a resource that is not a pointer, such as a file handle or a network connection, you may need to define a custom destructor to properly release the resource.
+
+Additionally, if you need to implement custom copy or move behavior for your class, you will need to define those constructors and assignment operators explicitly.
+
+Finally, there may be cases where you want to enforce certain constraints on how your class is constructed or destroyed, such as ensuring that certain initialization steps are performed or that resources are released in a specific order. In these cases, user-defined constructors and destructors can be useful.
+
+In general, while smart pointers can help simplify resource management in many cases, there are still situations where user-defined constructors and destructors are necessary or desirable.

@@ -1,0 +1,19 @@
+The error message `Command PhaseScriptExecution failed with a nonzero exit code` is a general error message that Xcode gives when any script in the "Build Phases" fails. The actual error is `Segmentation fault: 11 ../BuildSupport/swift_lint_check.sh`.
+
+A segmentation fault is a specific kind of error caused by accessing memory that "does not belong to you." It's a mechanism that prevents you from corrupting the memory and introducing hard-to-debug memory bugs. Whenever you get a segmentation fault, you know you are doing something wrong with memory - such as accessing a variable that has already been freed or writing to a read-only portion of memory. The operating system kills the process because it has overstepped its bounds.
+
+From the error message, it seems like the script `swift_lint_check.sh` is causing the segmentation fault. Here are a few things you could try:
+
+1. Check the `swift_lint_check.sh` script: The issue is likely in this script. You could be accessing something that's not available or the script is not compatible with the current environment. Debug this script to see what could be causing the segmentation fault.
+
+2. Check the SwiftLint version: If you are using SwiftLint in `swift_lint_check.sh`, make sure you are using the correct version of SwiftLint that's compatible with your Swift version.
+
+3. Check the shell interpreter: Make sure you are using the correct shell interpreter (bash, sh, zsh, etc.) that's compatible with the script.
+
+4. Check the script permissions: Make sure the script has the correct permissions to execute.
+
+5. Check the script path: Make sure the path to `swift_lint_check.sh` is correct. The error message shows `../BuildSupport/swift_lint_check.sh`, which means the script is expected to be in the `BuildSupport` directory one level up from the current directory.
+
+6. Check the Xcode version: Make sure you are using the correct Xcode version that's compatible with your project.
+
+Remember, the issue is not with Xcode but with the script that's being run. The `Command PhaseScriptExecution failed with a nonzero exit code` error message is just a symptom of the issue, not the cause.

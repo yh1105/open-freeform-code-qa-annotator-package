@@ -1,0 +1,18 @@
+The error message is indicating that the condition `mask_black == cv2.bitwise_not(mask_black)` is ambiguous because it is comparing two arrays. Instead, you should use the `np.array_equal()` function to compare the two arrays. Here's an example:
+
+```
+import numpy as np
+import cv2
+
+mask_black = cv2.inRange(hsv, low_black, high_black)
+mask_not = cv2.bitwise_not(mask_black)
+
+if np.array_equal(mask_black, cv2.bitwise_not(mask_black)):
+    # black background detected, white line should be detected
+    # do something
+else:
+    # white background detected, black line should be detected
+    # do something else
+```
+
+This should solve the error you were getting and allow you to detect the white line or black line based on the background color.

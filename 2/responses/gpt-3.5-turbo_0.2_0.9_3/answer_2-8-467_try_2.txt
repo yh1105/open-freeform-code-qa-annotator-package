@@ -1,0 +1,3 @@
+The issue is that the `json` package is not being used in the code, but the `json` struct tags are being used in the `User` struct. The `json` struct tags are used to specify the JSON field names for the struct fields when encoding or decoding JSON data using the `json` package.
+
+To resolve the issue, you can either remove the `json` struct tags from the `User` struct or import the `encoding/json` package in the code. If you choose to keep the `json` struct tags, you should also consider using the `json.Marshal` function from the `encoding/json` package to encode the `User` struct to JSON instead of the `JSONEncode` function in the code.

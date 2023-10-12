@@ -1,0 +1,7 @@
+`db_index=True` is used to create an index on a database table column. Indexing can speed up the queries that filter or order by the indexed column. However, indexing also has some disadvantages, such as increased storage and memory usage.
+
+You should use `db_index=True` on fields that are frequently used in queries and have a high cardinality (i.e., a large number of distinct values). This includes fields that are used for filtering, ordering, or joining tables. 
+
+You can use `db_index=True` on fields that are not unique, but it may not provide as much performance improvement as indexing unique fields. In fact, indexing non-unique fields may even slow down queries if the indexed column has a low cardinality (i.e., a small number of distinct values).
+
+In general, you should use `db_index=True` judiciously and only on fields that are likely to benefit from indexing. You can use database profiling tools to identify the queries that are slow and determine which fields to index.

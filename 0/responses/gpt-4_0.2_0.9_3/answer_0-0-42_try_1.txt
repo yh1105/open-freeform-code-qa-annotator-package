@@ -1,0 +1,21 @@
+The error message you're seeing is because the `connect-mongo` package has been updated and the way you're using it is no longer valid. 
+
+In the latest version of `connect-mongo`, you need to use it like this:
+
+```javascript
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(session({
+    secret: 'story book',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/test-app' })
+}));
+```
+
+You need to replace `'mongodb://localhost/test-app'` with your own MongoDB connection string. 
+
+The `mongooseConnection` option is no longer used in the latest version of `connect-mongo`. Instead, you should use the `mongoUrl` option to provide the MongoDB connection string.
+
+If you want to use the old syntax, you need to install an older version of `connect-mongo`. You can do this by running `npm install connect-mongo@3.2.0`. However, it's generally a good idea to use the latest version of a package, because it will have the latest features and bug fixes.

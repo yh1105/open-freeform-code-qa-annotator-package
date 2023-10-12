@@ -1,0 +1,9 @@
+The error message indicates that the module `jmespath` is missing. This module is required by your Lambda function and needs to be installed in your project's `node_modules` directory.
+
+To fix this issue, you can run the following command in your project directory:
+
+```
+npm install jmespath
+```
+
+This will install the `jmespath` module and its dependencies in your project's `node_modules` directory. Once the installation is complete, you can redeploy your Lambda function and it should work as expected.

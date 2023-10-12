@@ -1,0 +1,18 @@
+The error message indicates that there is a problem with the CMake installation. CMake is a tool that helps in managing the build process of software using compiler-independent methods. It is required to build OpenCV from source.
+
+Here are some steps you can follow to resolve this issue:
+
+1. First, make sure that CMake is installed in your Docker container. You can check this by running the command `cmake --version`. If CMake is not installed, you can install it using the command `apt-get install cmake`.
+
+2. If CMake is already installed, it might be that the version of CMake is not compatible with the version of OpenCV you are trying to install. You can try to update CMake to the latest version using the command `apt-get upgrade cmake`.
+
+3. If the problem persists, it might be that the pip package `opencv-python` is not compatible with the Jetson Nano. In this case, you can try to build OpenCV from source. Here are the general steps to do this:
+
+   - Install the required dependencies: `apt-get install build-essential libgtk2.0-dev libvtk5-dev libjpeg-dev libtiff5-dev libjasper-dev libopenexr-dev libtbb-dev`
+   - Download the OpenCV source code from the [official GitHub repository](https://github.com/opencv/opencv).
+   - Create a build directory and navigate into it: `mkdir build && cd build`
+   - Run CMake to configure the build: `cmake ../`
+   - Build OpenCV: `make -j$(nproc)`
+   - Install OpenCV: `make install`
+
+Please replace the commands with the appropriate ones for your specific OS and environment.

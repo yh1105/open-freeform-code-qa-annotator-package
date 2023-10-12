@@ -1,0 +1,7 @@
+The `__peg_parser__` is not a keyword in the traditional sense. It is a special symbol introduced in Python 3.9 as part of the transition from the old parser to a new PEG-based parser. PEG stands for Parsing Expression Grammar, which is a type of formal grammar used to parse input in programming languages.
+
+The `__peg_parser__` symbol was used during the development of Python 3.9 to switch between the old and the new parser. If you were running a debug build of Python 3.9, you could use `__peg_parser__` to control which parser was used. However, in the final release of Python 3.9 and later versions, the old parser is no longer available, and `__peg_parser__` has no effect.
+
+The `SyntaxError: You found it!` message is a sort of Easter egg or joke from the Python developers. It doesn't mean that you've done anything wrong or that there's a problem with your code. It's just a playful message indicating that you've discovered this special symbol.
+
+In Python 3.10 and later, `__peg_parser__` is no longer listed in `keyword.kwlist`.

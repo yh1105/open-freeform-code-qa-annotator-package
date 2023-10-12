@@ -1,0 +1,43 @@
+The issue you're facing is due to word splitting in Bash. When you use an array like `cmd_array=(ls -1 "$HOME/temp/some folder with spaces")`, the shell interprets each space-separated word as a separate element of the array. This is why you're seeing the error message about not being able to access '/home/gabriel/temp/some', 'folder', 'with', and 'spaces' separately.
+
+To fix this, you can use an associative array to store the command and its arguments. Here's how you can modify your `print_and_run_cmd` function:
+
+```bash
+print_and_run_cmd() {
+    local -n cmd_reference="$1"
+    echo "Running cmd: ${cmd_reference[0]} ${cmd_reference[1]}"
+    "${cmd_reference[0]}" "${cmd_reference[1]}"
+}
+```
+
+And you can use it like this:
+
+```bash
+declare -A cmd_array
+cmd_array=([0]=ls [1]="$HOME/temp/some folder with spaces")
+print_and_run_cmd cmd_array
+```
+
+This will correctly handle paths with spaces in them.
+
+However, this solution only works for commands with one argument. If you have commands with a variable number of arguments, you might need a more complex solution.
+
+For the follow-up question, to handle commands with pipe operator, you can use `eval` function. But be aware that `eval` can be dangerous if not used carefully as it executes the string as a command, which can lead to code injection vulnerabilities. Here's how you can modify your function to handle pipes:
+
+```bash
+print_and_run_cmd() {
+    local -n cmd_reference="$1"
+    local cmd="${cmd_reference[@]}"
+    echo "Running cmd: $cmd"
+    eval "$cmd"
+}
+```
+
+And you can use it like this:
+
+```bash
+cmd_array=("ls -l" "|" "grep .txt")
+print_and_run_cmd cmd_array
+```
+
+This will correctly handle commands with pipe operator.

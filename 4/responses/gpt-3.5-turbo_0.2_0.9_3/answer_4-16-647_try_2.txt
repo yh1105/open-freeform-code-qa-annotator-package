@@ -1,0 +1,43 @@
+To run a Power Automate flow using a keyboard shortcut or a PowerShell script, you can use the following steps:
+
+1. Create a new flow in Power Automate and save it.
+2. Click on the "..." menu on the top right corner of the flow and select "Export".
+3. Choose the "Power Automate CLI" option and download the .zip file.
+4. Extract the .zip file to a folder on your computer.
+5. Open a command prompt or PowerShell window and navigate to the folder where you extracted the .zip file.
+6. Run the following command to install the Power Automate CLI:
+
+```
+npm install -g @microsoft/powerautomate-cli
+```
+
+7. Once the installation is complete, run the following command to log in to your Power Automate account:
+
+```
+paw login
+```
+
+8. Follow the prompts to log in to your account.
+9. Run the following command to get a list of your flows:
+
+```
+paw list
+```
+
+10. Note the ID of the flow you want to run.
+11. Create a new PowerShell script and add the following code:
+
+```
+$flowId = "your_flow_id_here"
+paw run $flowId
+```
+
+12. Replace "your_flow_id_here" with the ID of the flow you noted in step 10.
+13. Save the PowerShell script.
+14. Create a shortcut to the PowerShell script on your desktop.
+15. Right-click on the shortcut and select "Properties".
+16. In the "Shortcut" tab, click on the "Shortcut key" field and press the keyboard shortcut you want to use to run the flow.
+17. Click "Apply" and "OK" to save the changes.
+18. Double-click on the shortcut or press the keyboard shortcut to run the flow.
+
+This should allow you to run the Power Automate flow using a keyboard shortcut or a PowerShell script without having to manually start it in the Power Automate interface.

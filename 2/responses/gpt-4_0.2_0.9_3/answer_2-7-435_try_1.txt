@@ -1,0 +1,28 @@
+The error message you're seeing is because `mysql-client` package is not available in the default repositories of the PHP Docker image you're using. 
+
+In Debian 10 (buster) and the latest versions of Ubuntu, the `mysql-client` package has been replaced with `default-mysql-client`. So, you should replace `mysql-client` with `default-mysql-client` in your Dockerfile.
+
+Here's the corrected part of your Dockerfile:
+
+```Dockerfile
+# Install dependencies
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && apt-get install -y default-mysql-client \
+```
+
+This should solve the problem you're facing. 
+
+Also, I noticed that you're trying to install `nodejs` and some other packages, but they are not listed in the `apt-get install` command in the Dockerfile you posted. If you need them, make sure to include them:
+
+```Dockerfile
+# Install dependencies
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get update && apt-get install -y default-mysql-client nodejs build-essential vim git curl
+```
+
+Remember to clean up after installing the packages to reduce the size of the image:
+
+```Dockerfile
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+```

@@ -1,0 +1,30 @@
+Unfortunately, as of now, Microsoft Power Automate does not support triggering flows with a keyboard shortcut or a command line directly. However, you can achieve this by using a combination of Power Automate and other tools like PowerShell, Microsoft Power Automate Desktop, or third-party tools like AutoHotKey.
+
+Here are two possible solutions:
+
+**Solution 1: Using Power Automate Desktop**
+
+Power Automate Desktop allows you to create flows that can be triggered from your local machine. You can create a desktop flow that triggers your cloud flow. Once you have your desktop flow, you can create a shortcut to it on your desktop. Unfortunately, you can't assign a keyboard shortcut directly to this, but you can use a third-party tool like AutoHotKey to assign a keyboard shortcut to this desktop shortcut.
+
+**Solution 2: Using PowerShell and HTTP Request**
+
+You can trigger a Power Automate flow using an HTTP request. This involves creating a flow that is triggered by an HTTP request, and then using PowerShell to send that HTTP request.
+
+1. Create a flow in Power Automate that is triggered by an HTTP request. You can get the HTTP POST URL by saving and running the flow once.
+
+2. Create a PowerShell script that sends an HTTP POST request to the URL from step 1. Here's a basic example:
+
+```powershell
+$url = "Your HTTP POST URL here"
+Invoke-RestMethod -Uri $url -Method Post
+```
+
+3. Save this PowerShell script somewhere on your machine.
+
+4. Create a shortcut to this PowerShell script on your desktop. You can then assign a keyboard shortcut to this desktop shortcut.
+
+Please note that this method requires your flow to be triggered by an HTTP request, which may not be suitable for all types of flows. Also, the PowerShell method requires the PowerShell window to pop up, which may not be ideal for your situation.
+
+Remember to replace "Your HTTP POST URL here" with the actual URL you got from Power Automate.
+
+These are workarounds and may not be perfect solutions. Hopefully, Microsoft will add more triggering options to Power Automate in the future.

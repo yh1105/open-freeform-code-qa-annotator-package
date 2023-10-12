@@ -1,0 +1,31 @@
+You can achieve this by first expanding the dimensions of `d` to match the dimensions of `inps`, and then concatenating the two tensors along the last dimension. Here's how you can do it in PyTorch:
+
+```python
+import torch
+
+# Assuming inps and d are your tensors
+# inps.shape -> torch.Size([64, 161, 1])
+# d.shape -> torch.Size([64, 161])
+
+# Expand dimensions of d to match inps
+d_expanded = d.unsqueeze(-1) # now d_expanded.shape -> torch.Size([64, 161, 1])
+
+# Concatenate along the last dimension
+result = torch.cat((inps, d_expanded), dim=-1) # result.shape -> torch.Size([64, 161, 2])
+```
+
+In TensorFlow, you can do the same thing using `tf.expand_dims` and `tf.concat`:
+
+```python
+import tensorflow as tf
+
+# Assuming inps and d are your tensors
+# inps.shape -> (64, 161, 1)
+# d.shape -> (64, 161)
+
+# Expand dimensions of d to match inps
+d_expanded = tf.expand_dims(d, axis=-1) # now d_expanded.shape -> (64, 161, 1)
+
+# Concatenate along the last dimension
+result = tf.concat([inps, d_expanded], axis=-1) # result.shape -> (64, 161, 2)
+```

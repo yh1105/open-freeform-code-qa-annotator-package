@@ -1,0 +1,37 @@
+Yes, you can achieve this by providing a custom `asdict` function that converts the `Enum` object to its string value. Here's an example:
+
+```
+from dataclasses import dataclass, asdict
+from enum import Enum
+
+
+@dataclass
+class Foobar:
+  name: str
+  template: "FoobarEnum"
+
+
+class FoobarEnum(Enum):
+  FIRST = "foobar"
+  SECOND = "baz"
+
+
+def asdict_with_enum_value(obj):
+    def convert_value(value):
+        if isinstance(value, Enum):
+            return value.value
+        return value
+    return asdict(obj, dict_factory=dict, dict=convert_value)
+
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(asdict_with_enum_value(foobar))
+```
+
+Output:
+```
+{'name': 'John', 'template': 'foobar'}
+```
+
+In this example, we define a new function `asdict_with_enum_value` that takes an object and returns a dictionary with the same fields, but with the `Enum` values converted to their string values. The `convert_value` function is used to convert each value in the dictionary. If the value is an `Enum`, we return its `value` attribute, otherwise we return the original value. Finally, we call `asdict` with the `dict_factory` parameter set to `dict` and the `dict` parameter set to our `convert_value` function.

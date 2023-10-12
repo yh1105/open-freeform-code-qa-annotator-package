@@ -1,0 +1,38 @@
+To achieve this, you can use a versioning system. Here's a simple way to do this:
+
+1. **Create a version.js file**: This file will hold your current version. You can place it in your src directory.
+
+```javascript
+export default {
+    major: 1,
+    minor: 0,
+    patch: 0
+};
+```
+
+2. **Display the version in your footer**: Import the version from version.js into your footer component and display it.
+
+```javascript
+import React from 'react';
+import version from './version';
+
+const Footer = () => (
+    <div>
+        <p>Version: {version.major}.{version.minor}.{version.patch}</p>
+    </div>
+);
+
+export default Footer;
+```
+
+3. **Increment the version**: Before each deployment, you can manually increment the major, minor, or patch version in version.js based on your changes.
+
+This is a simple way to manage versioning. However, it's manual and prone to errors. For a more robust solution, you can use automated versioning tools like [semantic-release](https://github.com/semantic-release/semantic-release) or [standard-version](https://github.com/conventional-changelog/standard-version). These tools automatically manage your version based on your commit messages.
+
+For example, with semantic-release:
+
+- Commits of the type fix will trigger a patch release (Update the x in x.y.z)
+- Commits of the type feat will trigger a minor release (Update the y in x.y.z)
+- Commits with BREAKING CHANGE in the body or with ! in the type/scope will trigger a major release (Update the z in x.y.z)
+
+You can then use environment variables to pass the version number to your app. This way, your version will be updated automatically every time you deploy your app.

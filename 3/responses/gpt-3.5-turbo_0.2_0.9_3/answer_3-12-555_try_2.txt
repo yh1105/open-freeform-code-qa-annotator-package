@@ -1,0 +1,155 @@
+To make your Checkboxes and Dropdown Menu work, you need to convert your `DetailPage` from a `StatelessWidget` to a `StatefulWidget`. Here's how you can do it:
+
+1. Create a new file called `detail_page.dart` and move your `DetailPage` class into it.
+
+2. Change the class declaration from `class DetailPage extends StatelessWidget` to `class DetailPage extends StatefulWidget`.
+
+3. Add a `_DetailPageState` class inside `DetailPage` like this:
+
+```
+class _DetailPageState extends State<DetailPage> {
+  bool _isMapped = false;
+  bool _isRealTimeTracking = false;
+  String _selectedSchedule = 'Now (Default)';
+
+  @override
+  Widget build(BuildContext context) {
+    // your existing build method code here
+  }
+}
+```
+
+4. Replace your `build` method with this:
+
+```
+@override
+  Widget build(BuildContext context) {
+    final levelIndicator = Container(
+      child: Container(
+        child: LinearProgressIndicator(
+            backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+            value: 2.0,
+            valueColor: AlwaysStoppedAnimation(Colors.green)),
+      ),
+    );
+
+    final topContentText = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(height: 120.0),
+        Container(
+          width: 90.0,
+          child: new Divider(color: Colors.green),
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          widget.activity.activityName,
+          style: TextStyle(color: Colors.white, fontSize: 45.0),
+        ),
+        SizedBox(height: 30.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+                flex: 6,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "Last Run: 3-2-19\n"+
+                      "Last Avg Strain: 34%\n"+
+                      "Last Run Time: 00:45:23",
+                      style: TextStyle(color: Colors.white),
+                    ))),
+            // Expanded(flex: 1, child: newRow)
+          ],
+        ),
+      ],
+    );
+
+    final topContent = Stack(
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height * 0.45,
+          padding: EdgeInsets.all(40.0),
+          width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(33, 147, 176, 100),
+                  Color.fromRGBO(109, 213, 237, 100)
+                ],
+              ),
+            ),
+          child: Center(
+            child: topContentText,
+          ),
+        ),
+        Positioned(
+          left: 235.0,
+          top: 180.0,
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: new CircleAvatar(
+                radius: 80.0,
+                backgroundImage: NetworkImage(widget.activity.icon),
+                backgroundColor: Colors.white,
+              ),
+          ),
+        ),
+        Positioned(
+          left: 8.0,
+          top: 60.0,
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back, color: Colors.white),
+          ),
+        )
+      ],
+    );
+
+    final bottomContentText = Text(
+      "Config:",
+      style: TextStyle(fontSize: 18.0),
+    );
+    final mappedCheckbox = CheckboxListTile(
+      title: Text("Mapped"),
+      value: _isMapped,
+      onChanged: (newValue) {
+        setState(() {
+          _isMapped = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+    );
+    final rtCheckBox = CheckboxListTile(
+      title: Text("Real-time Tracking"),
+      value: _isRealTimeTracking,
+      onChanged: (newValue) {
+        setState(() {
+          _isRealTimeTracking = newValue;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+    );
+    final descriptionText = Text(
+      "Description:",
+      style: TextStyle(fontSize: 12.0),
+    );
+    final description = TextFormField(
+      decoration: InputDecoration(
+      hintText: 'Enter an activity description',
+    ),
+  );
+    final scheduledFor = Text(
+      "Scheduled for:",
+      style: TextStyle(fontSize: 12.0),
+    );
+    final dropdown = new DropdownButton<String>(
+      value: _selectedSchedule,
+      items: <String>['Now (Default)', 'B', 'C', 'D'].

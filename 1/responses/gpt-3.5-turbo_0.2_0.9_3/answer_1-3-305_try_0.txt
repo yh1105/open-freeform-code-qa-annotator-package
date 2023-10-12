@@ -1,0 +1,25 @@
+It seems like there might be a conflict between the dependencies of the packages you have installed and the dependencies required by the `nodejs` package. You can try creating a new environment and installing `nodejs` in that environment to avoid any conflicts. Here are the steps to create a new environment and install `nodejs`:
+
+1. Create a new environment using the following command:
+
+   ```
+   conda create --name myenv
+   ```
+
+   Replace `myenv` with the name you want to give to your new environment.
+
+2. Activate the new environment using the following command:
+
+   ```
+   conda activate myenv
+   ```
+
+3. Install `nodejs` in the new environment using the following command:
+
+   ```
+   conda install -c conda-forge nodejs
+   ```
+
+   This should install the latest version of `nodejs` available in the `conda-forge` channel.
+
+If you still face issues, you can try updating your conda installation using `conda update conda` and then try the above steps again.

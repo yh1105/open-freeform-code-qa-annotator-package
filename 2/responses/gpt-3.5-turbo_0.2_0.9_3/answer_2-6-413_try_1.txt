@@ -1,0 +1,28 @@
+When C#8's nullability context is enabled, you need to explicitly declare whether a property is nullable or not. In your case, the error is because the `ServiceUrl` property is not marked as nullable, but it is not initialized in the constructor or with a default value.
+
+To fix this error, you can mark the `ServiceUrl` property as nullable by adding a `?` after the type declaration:
+
+```
+public string? ServiceUrl { get; set; }
+```
+
+This tells the compiler that the property can be null, and the error should go away.
+
+Alternatively, you can initialize the property with a default value in the constructor:
+
+```
+public class Connection
+{
+    public Connection()
+    {
+        ServiceUrl = "";
+    }
+
+    public string ServiceUrl { get; set; }
+    public string? UserName { get; set; }
+    public string? Password { get; set; }
+    //... others 
+}
+```
+
+This initializes the `ServiceUrl` property with an empty string, which is a non-null value.

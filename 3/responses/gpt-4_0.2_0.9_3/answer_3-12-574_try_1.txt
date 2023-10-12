@@ -1,0 +1,26 @@
+You can use the `weekday` property of `DateTime` object to get the day of the week as an integer where 1 represents Monday and 7 represents Sunday. Then you can convert this integer to the name of the day of the week.
+
+However, if you want to get the name of the day directly, you can use the `DateFormat` class from the `intl` package. Here is how you can do it:
+
+```dart
+import 'package:intl/intl.dart';
+
+void main() {
+  DateTime date = DateTime.now();
+  String dayName = DateFormat('EEEE').format(date);
+  print(dayName);
+}
+```
+
+In this code, 'EEEE' represents the full name of the day of the week. The `DateFormat` class uses the ICU format patterns. You can find more information about these patterns in the [Unicode Technical Standard #35](https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
+
+Remember to add the `intl` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.17.0
+```
+
+Then, run `flutter pub get` to fetch the package.

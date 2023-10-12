@@ -1,0 +1,19 @@
+The error message you're seeing is because Go is trying to find your package in the GOROOT directory, but it should be looking in the GOPATH directory. 
+
+Since Go 1.11, the Go team introduced a new concept called 'Go Modules' which is a dependency management system that makes dependency version information explicit and easier to manage. This is likely the cause of the issue you're experiencing.
+
+Here are some steps to resolve your issue:
+
+1. Make sure you're using Go 1.11 or later. You can check your Go version by running `go version` in your terminal.
+
+2. Enable Go Modules. You can do this by setting the environment variable `GO111MODULE` to `on`. In your terminal, you can do this by running `set GO111MODULE=on` on Windows or `export GO111MODULE=on` on Unix systems.
+
+3. Initialize a new module or migrate existing code to use modules. In your case, since you already ran `go mod init` in your modules, you can skip this step.
+
+4. Now, you should be able to build your project. Try running `go build` in your project directory.
+
+5. If you're still having issues, try clearing your Go build cache by running `go clean -modcache`.
+
+6. Finally, make sure your IDE (Goland) is configured to use Go Modules. You can do this by going to `File > Settings > Go > Go Modules (vgo)` and ensure that the `Enable Go Modules (vgo) integration` checkbox is checked.
+
+I hope this helps! Let me know if you have any other questions.

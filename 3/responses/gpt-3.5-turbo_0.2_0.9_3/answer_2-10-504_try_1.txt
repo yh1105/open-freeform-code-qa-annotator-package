@@ -1,0 +1,21 @@
+Yes, there is a simpler way to remove duplicate elements from an array in Rust. You can use the `dedup_by_key` method of the `Vec` type to remove duplicates based on a key. Here's how you can use it in your code:
+
+```
+fn main() {
+    let mut arr = [
+        Person { name: "aaa".to_string(), age: 10 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "ccc".to_string(), age: 30 },
+    ];
+
+    arr.sort_by_key(|p| p.name.clone());
+    arr.dedup_by_key(|p| p.name.clone());
+
+    dbg!(arr);
+}
+```
+
+In this code, we first sort the array by the `name` field of the `Person` struct. Then, we use the `dedup_by_key` method to remove duplicates based on the `name` field. Finally, we print the resulting array using the `dbg` macro.
+
+This approach is simpler than both Way 1 and Way 2, as it does not require any external crates or complex logic.

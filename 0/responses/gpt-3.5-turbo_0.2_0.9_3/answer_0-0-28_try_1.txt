@@ -1,0 +1,36 @@
+Instead of setting the `overflow` property of the `document.body` element, you can create a CSS class that sets the `overflow` property to `hidden` and apply it to the `body` element when the modal is open. Here's an example:
+
+```
+// Define a CSS class for hiding the scrollbar
+.hide-scroll {
+  overflow: hidden;
+}
+
+// In your Modal component, add a state to keep track of whether the modal is open
+export class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  // When the modal is opened, add the "hide-scroll" class to the body element
+  openModal() {
+    document.body.classList.add('hide-scroll');
+    this.setState({ isOpen: true });
+  }
+
+  // When the modal is closed, remove the "hide-scroll" class from the body element
+  closeModal() {
+    document.body.classList.remove('hide-scroll');
+    this.setState({ isOpen: false });
+  }
+
+  render() {
+    // Render the modal content here
+  }
+}
+```
+
+Then, in your code where you use the Modal component, you can call the `openModal()` and `closeModal()` methods to show and hide the modal, respectively. This way, the "hide-scroll" class will only be applied to the body element when the modal is open, and scrolling will be enabled when the modal is closed.

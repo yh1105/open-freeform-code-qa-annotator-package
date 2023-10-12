@@ -1,0 +1,20 @@
+You can use the `date` command to convert the start and end timestamps to Unix timestamps, which are the number of seconds since January 1, 1970. Then you can subtract the two Unix timestamps to get the total number of seconds between the two timestamps. Finally, you can convert the total number of seconds to the desired format using the `date` command again.
+
+Here's an example command that should do what you want:
+
+```
+start=$(sudo journalctl | grep "Logs begin at" | awk '{print $6" "$7" "$12" "$13}' | awk '{print $1" "$2}')
+end=$(sudo journalctl | grep "Logs begin at" | awk '{print $6" "$7" "$12" "$13}' | awk '{print $3" "$4}')
+start_timestamp=$(date -d "$start" +%s)
+end_timestamp=$(date -d "$end" +%s)
+total_seconds=$((end_timestamp - start_timestamp))
+years=$((total_seconds / 31536000))
+months=$((total_seconds / 2592000))
+days=$((total_seconds / 86400))
+hours=$((total_seconds / 3600))
+minutes=$((total_seconds / 60))
+seconds=$((total_seconds % 60))
+echo "$years year(s), $months month(s), $days day(s), $(printf "%02d:%02d:%02d" $hours $minutes $seconds)"
+```
+
+This command first extracts the start and end timestamps from the output of `sudo journalctl`, and converts them to Unix timestamps using the `date` command. It then calculates the total number of seconds between the two timestamps, and uses that to calculate the number of years, months, days, hours, minutes, and seconds. Finally, it prints the result in the desired format.

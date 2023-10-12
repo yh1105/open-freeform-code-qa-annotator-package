@@ -1,0 +1,59 @@
+It's great that you were able to improve the performance by using `List`s instead of strings. Here are a few more suggestions to further optimize your code:
+
+1. Use a `struct` instead of a `class` for `Point`
+Since `Point` is a small data structure that only contains two integers, it might be more efficient to use a `struct` instead of a `class`. This is because a `struct` is a value type, which means that it is stored on the stack instead of the heap. This can reduce the overhead of memory allocation and garbage collection.
+
+2. Use a jagged array instead of a `List` of `List`s
+Instead of using a `List` of `List`s to store the paths, you could use a jagged array. A jagged array is an array of arrays, where each sub-array can have a different length. This can be more memory-efficient than a `List` of `List`s, because it avoids the overhead of the `List` class.
+
+Here's an example of how you could use a jagged array to store the paths:
+
+```
+Point[][] paths = new Point[dictionary_size][];
+for (int i = 0; i < dictionary_size; i++)
+{
+    paths[i] = new Point[dictionary_size];
+    for (int j = 0; j < dictionary_size; j++)
+    {
+        paths[i][j] = new Point(i, j);
+    }
+}
+```
+
+This creates a jagged array of `Point`s with the same dimensions as the `dist` array. Each element of the `paths` array is initialized with a new `Point` object that represents the path from `i` to `j`.
+
+To update the path when a shorter path is found, you can simply assign the `paths[i][j]` element to a new array that combines the paths from `i` to `k` and from `k` to `j`:
+
+```
+paths[i][j] = paths[i][k].Concat(paths[k][j].Skip(1)).ToArray();
+```
+
+This creates a new array that starts with the path from `i` to `k`, followed by the path from `k` to `j`, excluding the first element (which is the common vertex `k`).
+
+3. Use a `Dictionary` instead of a `List` of `Point`s to store the paths
+Another option is to use a `Dictionary` to store the paths. This can be more memory-efficient than a jagged array, because it only stores the paths that have been updated (i.e. the shortest paths). The keys of the `Dictionary` are tuples of `(int, int)` that represent the source and destination vertices, and the values are arrays of `Point`s that represent the shortest path.
+
+Here's an example of how you could use a `Dictionary` to store the paths:
+
+```
+Dictionary<(int, int), Point[]> paths = new Dictionary<(int, int), Point[]>();
+for (int i = 0; i < dictionary_size; i++)
+{
+    for (int j = 0; j < dictionary_size; j++)
+    {
+        paths[(i, j)] = new[] { new Point(i, j) };
+    }
+}
+```
+
+This creates a `Dictionary` with the same keys as the `paths` jagged array, and initializes each value with a new array that contains a single `Point` object representing the direct path from `i` to `j`.
+
+To update the path when a shorter path is found, you can simply replace the value of the `(i, j)` key with a new array that combines the paths from `i` to `k` and from `k` to `j`:
+
+```
+paths[(i, j)] = paths[(i, k)].Concat(paths[(k, j)].Skip(1)).ToArray();
+```
+
+This creates a new array that starts with the path from `i` to `k`, followed by the path from `k` to `j`, excluding the first element (which is the common vertex `k`).
+
+I hope these suggestions help you further optimize your code!

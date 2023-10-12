@@ -702,3 +702,5 @@ cases:
 - cases/eval_4-16-699.yaml
 - cases/eval_4-16-700.yaml
 - cases/eval_4-16-701.yaml
+full_score_per_question: 1.0
+version: suite_v2.yaml

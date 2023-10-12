@@ -1,0 +1,17 @@
+`::ng-deep` is a pseudo-class selector used in Angular to force a style down through the child component views. It allows you to apply styles to elements that are in the child components, which is useful when you want to override the styles of child components from the parent component.
+
+Here is an example of how you can use `::ng-deep`:
+
+```css
+:host ::ng-deep .child-component-class {
+    /* Your styles here */
+}
+```
+
+In this example, the styles inside the `{}` will be applied to the `.child-component-class` in the child component.
+
+Please note that `::ng-deep` is deprecated and it's not the recommended way to style child components. It's better to use global styles or use `ViewEncapsulation.None` in the component decorator.
+
+As for IE11, `::ng-deep` is not a browser feature but an Angular feature, so it should work in IE11. However, keep in mind that Angular has dropped official support for IE11 as of Angular 12.
+
+Also, remember that `::ng-deep` is deprecated and might be removed in future versions of Angular. It's recommended to avoid its use in new projects.

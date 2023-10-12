@@ -1,0 +1,57 @@
+To open WhatsApp from your Flutter app, you can use the `url_launcher` package. This package allows you to open URLs in the mobile platform. It supports both Android and iOS.
+
+First, you need to add `url_launcher` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.0.12  # Add this line
+```
+
+Then, run `flutter pub get` to fetch the package.
+
+Now, you can use `url_launcher` to open WhatsApp. Here's a simple example:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Launch WhatsApp'),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: _launchWhatsApp,
+            child: Text('Open WhatsApp'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _launchWhatsApp() async {
+    var whatsappUrl = "whatsapp://send?phone=+1234567890&text=Hello"; // change the phone number
+    if (await canLaunch(whatsappUrl)) {
+      await launch(whatsappUrl);
+    } else {
+      throw 'Could not launch $whatsappUrl';
+    }
+  }
+}
+```
+
+In this example, when you press the button, it will try to open WhatsApp and send a message to the phone number `+1234567890`. You should replace this with the actual phone number you want to send a message to.
+
+Please note that this will only work on a device that has WhatsApp installed. If WhatsApp is not installed, it will throw an exception.
+
+Also, note that the `canLaunch` function does not guarantee that the URL can be launched. It only checks if there is an app that can handle the URL scheme.

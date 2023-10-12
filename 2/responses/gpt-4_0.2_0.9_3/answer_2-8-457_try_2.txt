@@ -1,0 +1,15 @@
+The error message you're seeing suggests that the Go debugger (dlv) is trying to run under Rosetta, which is Apple's technology for translating apps built for Intel processors to run on Apple Silicon. However, dlv cannot run under Rosetta.
+
+Here are a few things you can try to resolve this issue:
+
+1. **Check your Go PATH**: Make sure that your Go PATH is correctly set to the arm64 version of Go. You can check this by running `go env` in your terminal and looking at the `GOROOT` and `GOPATH` values. They should point to the arm64 version of Go.
+
+2. **Reinstall dlv**: Try reinstalling dlv using the following command: `GOARCH=arm64 go install github.com/go-delve/delve/cmd/dlv@latest`. This will ensure that you're installing the arm64 version of dlv.
+
+3. **Check your VSCode settings**: Make sure that your VSCode is correctly configured to use the arm64 version of Go and dlv. You can check this by going to the settings (File > Preferences > Settings) and searching for "Go". Make sure that the "Go: Goroot" and "Go: Gopath" settings are correctly set to the arm64 version of Go.
+
+4. **Try using the Go Nightly build**: Some users have reported that using the Go Nightly build can resolve this issue. You can install it by going to the Extensions view in VSCode (View > Extensions), searching for "Go Nightly", and clicking Install.
+
+5. **Update your system and software**: Make sure that your macOS, Go, dlv, and VSCode are all up-to-date. Apple, the Go team, and the VSCode team are all actively working on improving support for Apple Silicon, so updating your software might resolve this issue.
+
+If none of these solutions work, I would recommend asking for help on the Go community forums or on the GitHub pages for Go and dlv. This seems to be a common issue with Go on Apple Silicon, so they might be able to provide more specific assistance.

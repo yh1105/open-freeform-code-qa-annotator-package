@@ -1,0 +1,13 @@
+The issue here is that the command substitution `$(echo {} | sed 's/\?.*//g')` is evaluated before the `find` command is run, so it's not getting the expected filenames. You can solve this by using a shell script or a shell function to do the renaming.
+
+Here's an example using a bash shell script:
+
+```bash
+find . -type f -name '*\?*' | while read -r file; do
+  mv "$file" "$(echo "$file" | sed 's/\?.*//g')"
+done
+```
+
+This script reads each file found by the `find` command, and then renames it by removing everything after the `?` character.
+
+Please note that filenames with `?` are quite unusual in Unix-like systems, as `?` is a special character. It's possible that the `?` and everything after it is not actually part of the filename, but a query parameter that was included when the file was downloaded. If that's the case, the `?` and everything after it won't actually be part of the filename on the filesystem, and the `find` command won't find any files to rename.

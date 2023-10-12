@@ -1,0 +1,12 @@
+You are on the right track, but you need to use the variable `i` to slice the string. In your code, you are always slicing the string from index 0 to 2, which is why you are not getting the desired output. Here's how you can modify your code to get the desired output:
+
+```python
+str1 = 'teststring'
+i = 0
+while i < len(str1) - 1:  # subtract 1 because we're taking 2 characters at a time
+    str2 = str1[i:i+2]
+    print(str2)
+    i += 1
+```
+
+This code will start at the first character of the string, take two characters, print them, and then move to the next character. It will continue this process until it has gone through the entire string.

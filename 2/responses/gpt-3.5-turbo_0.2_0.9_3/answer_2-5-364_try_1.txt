@@ -1,0 +1,21 @@
+If you want to use the same version of Java that works with the Maven task, you can try setting the `JAVA_HOME` environment variable to the path of the JDK that Maven is using. 
+
+To find out which JDK Maven is using, you can run the following command in your terminal or command prompt:
+
+```
+mvn -version
+```
+
+This will display the version of Maven and the path to the JDK that it is using. You can then set the `JAVA_HOME` environment variable to that path.
+
+For example, if the output of the `mvn -version` command is:
+
+```
+Apache Maven 3.6.3
+Maven home: /usr/local/Cellar/maven/3.6.3/libexec
+Java version: 1.8.0_242, vendor: AdoptOpenJDK, runtime: /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+```
+
+You can set the `JAVA_HOME` environment variable to `/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home`.
+
+Once you have set the `JAVA_HOME` environment variable, you can try running the Maven wrapper again and it should use the same version of Java that Maven is using.

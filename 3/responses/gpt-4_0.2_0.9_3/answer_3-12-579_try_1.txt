@@ -1,0 +1,21 @@
+The error message is telling you that the context you're using to call `showDialog` is not a descendant of a `Navigator` widget. This is because the `BuildContext` represents a handle to the location of a widget in the widget tree. The `BuildContext` argument to the `build` method is the context of the `Widget` that is returned by the `build` method.
+
+In Flutter, you cannot show a dialog in the `build` method directly because at the time the `build` method is processed, the widget is not yet fully integrated into the widget tree, hence it doesn't have any `Navigator` in its context yet.
+
+To solve this, you can use `WidgetsBinding.instance.addPostFrameCallback` to add a callback that is called after the current frame has been dispatched. Here is an example:
+
+```dart
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (flag) { // replace flag with your condition
+      _showDialog();
+    }
+  });
+}
+```
+
+This way, the dialog will be shown after the widget is built and the flag condition is met. Make sure to replace `flag` with your actual condition.
+
+Also, remember to call `super.initState();` at the beginning of your `initState` method to correctly initialize the state.

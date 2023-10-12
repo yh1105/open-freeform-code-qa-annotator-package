@@ -1,0 +1,33 @@
+The error message `EACCES` usually means that the process does not have necessary permissions to execute the file or access the directory.
+
+Here are a few things you can try:
+
+1. **Change the permissions of the Chromium directory:**
+   You can use the `chmod` command to change the permissions of the directory. Run the following command in your terminal:
+
+   ```bash
+   sudo chmod -R 755 /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app
+   ```
+
+   This command will prompt you for your password, then change the permissions of the directory and all its contents to be readable and executable by all users, and writable by the owner.
+
+2. **Use the `puppeteer` package with bundled Chromium:**
+   The `puppeteer` package comes with a specific version of Chromium that is guaranteed to work with the library. You can use this version instead of specifying your own path. Just remove the `executablePath` option from the `puppeteer.launch` call:
+
+   ```javascript
+   const browser = await puppeteer.launch({headless:false});
+   ```
+
+3. **Specify the correct path to the Chromium executable:**
+   The path you're providing should point to the actual executable file, not the `.app` directory. On macOS, the executable is usually located in the `Contents/MacOS` subdirectory. Try changing the `executablePath` option to:
+
+   ```javascript
+   const browser = await puppeteer.launch({
+     headless: false,
+     executablePath: '/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium'
+   });
+   ```
+
+   Make sure the path is correct and the `Chromium` file is executable.
+
+Remember to replace `/Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app` with your actual path if it's different.

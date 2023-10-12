@@ -1,0 +1,32 @@
+The error message suggests that the JavaScript bundle is not being found when the app is running in release mode. This is a common issue when you're trying to run your React Native app in release mode without having bundled your JavaScript files.
+
+Here are the steps to generate a JavaScript bundle manually:
+
+1. Create a folder in your project directory named `assets` inside `android/app/src/main`.
+
+2. Run the following command in your project directory:
+
+```bash
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+
+This command generates the JavaScript bundle for the Android platform in release mode. The `--entry-file` parameter specifies the entry point to your application. If your entry file is different, change `index.js` to your entry file. The `--bundle-output` and `--assets-dest` parameters specify where the bundle and resources will be outputted.
+
+3. After running the command, you should see `index.android.bundle` in the `android/app/src/main/assets` directory.
+
+4. Now you can create your release build:
+
+```bash
+npx react-native run-android --variant=release
+```
+
+If you're still having issues, make sure that your `android/app/build.gradle` file is set up to bundle the file in release mode:
+
+```groovy
+project.ext.react = [
+    enableHermes: false,  // clean and rebuild if changing
+    bundleInRelease: true
+]
+```
+
+This will ensure that the JavaScript bundle is included in your APK.

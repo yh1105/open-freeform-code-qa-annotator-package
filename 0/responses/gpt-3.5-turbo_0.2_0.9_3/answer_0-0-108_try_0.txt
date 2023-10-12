@@ -1,0 +1,59 @@
+The problem is that you are not binding the form inputs to any variables in your component. Therefore, when you try to access the form data in your `afterClosed()` subscription, it returns undefined because the variables `name`, `start`, and `end` have not been assigned any values.
+
+To fix this, you need to use `ngModel` to bind the form inputs to variables in your component. Here's an example:
+
+In your HTML template:
+
+```
+<mat-dialog-content>
+  <form class="example-form">
+    <div fxLayout="column" fxLayoutAlign="space-around" class="form">
+      <div class="input">
+        <mat-form-field class="input4">
+          <input matInput placeholder="Shift name" [(ngModel)]="name">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="input input2">
+          <input matInput placeholder="Start" atp-time-picker [(ngModel)]="start">
+        </mat-form-field>
+        <mat-form-field class="input input2">
+          <input matInput placeholder="End" atp-time-picker [(ngModel)]="end">
+        </mat-form-field>
+      </div>
+      <br/>
+    </div>
+  </form>
+</mat-dialog-content>
+```
+
+In your component:
+
+```
+import { Work } from '../../../../classes/work_shift';
+import { DialogContentComponent} from './dialog-content/dialog-content.component';
+export class WorkShiftsComponent implements OnInit {
+ shifts: Work[];
+  name: string;
+  start: string;
+  end: string;
+  constructor(public dialog: MatDialog, private shiftService: WorkShiftsService) { }
+
+  ngOnInit() {
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContentComponent, {
+      width: '640px',
+      disableClose: true,
+      data: {name: this.name, start: this.start, end: this.end}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
+}
+```
+
+Now, when you submit the form in the dialog, the `name`, `start`, and `end` variables in your component will be updated with the values entered by the user, and you can access them in your `afterClosed()` subscription.

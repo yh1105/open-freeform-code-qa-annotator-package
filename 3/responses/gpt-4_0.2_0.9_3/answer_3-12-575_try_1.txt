@@ -1,0 +1,67 @@
+To post data to the URL body in Flutter WebView, you can use the `postUrl` method provided by the `webview_flutter` package. However, this method is currently only supported on Android.
+
+Here is a simple example:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: WebViewExample(),
+    );
+  }
+}
+
+class WebViewExample extends StatefulWidget {
+  @override
+  WebViewExampleState createState() => WebViewExampleState();
+}
+
+class WebViewExampleState extends State<WebViewExample> {
+  WebViewController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: WebView(
+        initialUrl: '',
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+          _loadHtmlFromAssets();
+        },
+      ),
+    );
+  }
+
+  _loadHtmlFromAssets() async {
+    String url = 'https://your-url.com';
+    String postData = "username=username&password=password"; // your post data in urlencoded format
+    _controller.postUrl(
+      url: Uri.parse(url),
+      postData: Uint8List.fromList(utf8.encode(postData)),
+    );
+  }
+}
+```
+
+In this example, we are creating a new WebView and using the `postUrl` method to post data to the specified URL. The `postData` parameter should be a `Uint8List` containing the post data in the `application/x-www-form-urlencoded` format.
+
+Please note that this method is currently only supported on Android. If you need to support iOS as well, you may need to use a different package or method.
+
+Also, don't forget to add the `webview_flutter` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^2.0.13
+```
+
+And run `flutter pub get` to fetch the package.

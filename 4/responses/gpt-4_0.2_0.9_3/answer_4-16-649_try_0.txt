@@ -1,0 +1,36 @@
+You can use the `date` command in Linux to convert the timestamps to seconds since the Unix epoch (1970-01-01 00:00:00 UTC), subtract the start time from the end time to get the difference in seconds, and then convert this difference to the desired format.
+
+Here is a script that does this:
+
+```bash
+#!/bin/bash
+
+# Get the start and end times
+times=$(sudo journalctl | grep "Logs begin at" | awk '{print $6" "$7" "$12" "$13}')
+read start end <<< $times
+
+# Convert the timestamps to seconds since the Unix epoch
+start_sec=$(date --date="$start" +%s)
+end_sec=$(date --date="$end" +%s)
+
+# Calculate the difference in seconds
+diff_sec=$((end_sec - start_sec))
+
+# Calculate the number of days, hours, minutes, and seconds
+days=$((diff_sec / 86400))
+hours=$((diff_sec / 3600 % 24))
+minutes=$((diff_sec / 60 % 60))
+seconds=$((diff_sec % 60))
+
+# Calculate the number of months and years
+months=$((days / 30))
+years=$((days / 365))
+
+# Subtract the number of months and years from the number of days
+days=$((days - months * 30 - years * 365))
+
+# Print the difference in the desired format
+printf "%d year(s), %d month(s), %d day(s), %02d:%02d:%02d\n" $years $months $days $hours $minutes $seconds
+```
+
+Please note that this script assumes that a month has 30 days and a year has 365 days, which is not always true. If you need more accurate results, you may need to use a more sophisticated method to calculate the number of months and years.

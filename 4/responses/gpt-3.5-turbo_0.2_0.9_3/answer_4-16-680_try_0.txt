@@ -1,0 +1,14 @@
+The error message you received indicates that the COM class for Microsoft Edge is not registered on your system. This could be due to a number of reasons, such as a corrupted installation of Edge or a missing system component.
+
+As for your updated code, the `Start-Process` cmdlet launches a new process and returns a `Process` object, which does not have a `visible` or `FullScreen` property. These properties are specific to the `InternetExplorer.Application` COM object, which is used to control Internet Explorer.
+
+To control Microsoft Edge, you can try using the `Start-Process` cmdlet to launch Edge with a specific URL, and then use the `SendKeys` method to send keyboard commands to the Edge window. For example:
+
+```
+Start-Process microsoft-edge.exe -ArgumentList "https://www.google.com"
+Start-Sleep -Seconds 5
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.SendKeys]::SendWait("{F11}")
+```
+
+This code launches Edge with the Google homepage, waits for 5 seconds to allow the page to load, and then sends the F11 key to toggle full-screen mode. Note that this approach may not be very reliable, as it relies on sending keyboard commands to the Edge window, which may not always work as expected.

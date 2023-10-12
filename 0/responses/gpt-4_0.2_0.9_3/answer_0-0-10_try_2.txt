@@ -1,0 +1,13 @@
+The issue you're facing might be due to the fact that Cypress commands are asynchronous and they are enqueued to be run later. The jQuery command you're using to get the text is synchronous and it's executed immediately. 
+
+So, when you're trying to get the text, the DOM might not be fully loaded yet, hence you're getting `undefined`.
+
+You can use Cypress's `cy.get()` command to get the element and then use `invoke('text')` to get the text of the element. Here's how you can do it:
+
+```javascript
+cy.get('.ibxudA .WildnessText-kRKTej').invoke('text').then((text) => {
+  expect(text).to.eq('Wildness');
+});
+```
+
+This command will wait for the element to appear in the DOM and then get its text. It's more reliable in this case because it respects the asynchronous nature of Cypress commands.

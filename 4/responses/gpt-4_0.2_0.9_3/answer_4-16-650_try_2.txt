@@ -1,0 +1,20 @@
+No problem at all, we all start somewhere. Here's how you can do it in PowerShell:
+
+First, you can read the file and store each line in an array using the `Get-Content` cmdlet:
+
+```powershell
+$arrayFromFile = Get-Content -Path "C:\USER\Documents\Collections\collection.txt"
+```
+
+Then, you can iterate over each element in the array and run your command:
+
+```powershell
+foreach($x in $arrayFromFile)
+{
+    newman run $x
+}
+```
+
+Please note that the `newman run` command will only work if `newman` is installed and recognized as a command in your PowerShell environment. If it's not recognized, you might need to provide the full path to the `newman` executable or add it to your system's PATH.
+
+Also, PowerShell uses `$` to denote variables, and you don't need to declare the type of a variable when you create it. PowerShell will automatically determine the type based on the value you assign to it.

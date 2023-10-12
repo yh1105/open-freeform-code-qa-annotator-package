@@ -1,0 +1,78 @@
+In order to achieve the layout you're looking for, you can use CSS Flexbox and Media Queries. Here's a simple example of how you can do it:
+
+HTML:
+```html
+<div class="container">
+  <div class="main">Main Content</div>
+  <div class="sidebar-top">Top Sidebar</div>
+  <div class="sidebar-bottom">Bottom Sidebar</div>
+</div>
+```
+
+CSS:
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  order: 2;
+}
+
+.sidebar-top {
+  order: 1;
+}
+
+.sidebar-bottom {
+  order: 3;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .main {
+    order: 2;
+    flex: 2;
+  }
+
+  .sidebar-top {
+    order: 1;
+    flex: 1;
+  }
+
+  .sidebar-bottom {
+    order: 3;
+    flex: 1;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .main {
+    order: 1;
+    flex: 2;
+  }
+
+  .sidebar-top {
+    order: 2;
+    flex: 1;
+  }
+
+  .sidebar-bottom {
+    order: 3;
+    flex: 1;
+  }
+}
+```
+
+In this example, the `order` property is used to control the order of the elements in the flex container. The `flex` property is used to control the size of the elements. The `@media` rules are used to apply different styles for different screen sizes. 
+
+The `min-width: 768px` media query is for tablet screens, and the `min-width: 992px` media query is for desktop screens. You can adjust these values according to your needs.
+
+Please note that this is a simplified example and you might need to adjust it according to your specific needs.

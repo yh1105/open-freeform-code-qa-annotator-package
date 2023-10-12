@@ -1,0 +1,21 @@
+To ensure that the child class implements the super constructor, you can add the `@required` annotation to the constructor in the `BaseClass` and also add the `super` keyword to the child class constructor. This will ensure that the child class constructor calls the super constructor of the parent class. 
+
+Here's an example:
+
+```
+abstract class BaseClass {
+  final String name;
+
+  BaseClass({
+    @required this.name,
+  });
+}
+
+class ChildClass extends BaseClass {
+  ChildClass({@required String name}) : super(name: name);
+}
+```
+
+In this example, the `@required` annotation in the `BaseClass` constructor ensures that the `name` parameter is required. The `super(name: name)` call in the `ChildClass` constructor ensures that the super constructor of the `BaseClass` is called with the required `name` parameter. 
+
+By doing this, the IDE will inform you if you forget to implement the super constructor in the child class.

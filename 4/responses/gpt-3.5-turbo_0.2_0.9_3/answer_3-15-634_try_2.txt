@@ -1,0 +1,12 @@
+It seems that this issue is caused by the recent security update for Office 2010 (KB4484127). Microsoft has acknowledged this issue and has released a fix for it.
+
+You can try installing the latest update for Office 2010, which includes the fix for this issue. You can download the update from the Microsoft Download Center or use the Microsoft Update service to install it.
+
+If you are unable to install the latest update, you can try uninstalling the KB4484127 update. To do this, follow these steps:
+
+1. Open the Control Panel and go to Programs and Features.
+2. Click on View installed updates.
+3. Locate the KB4484127 update and click on Uninstall.
+4. Follow the prompts to complete the uninstallation process.
+
+After uninstalling the update, you should be able to run your queries without any issues. However, it is recommended to install the latest update as soon as possible to ensure that your system is secure and up-to-date.

@@ -1,0 +1,32 @@
+It seems like you are trying to override a function in a vendor file, which is not recommended as it can cause issues with future updates and maintenance of your application. Instead, you can create a middleware that modifies the request object before it reaches the router.
+
+Here's an example middleware that removes the trailing slash from the request URI:
+
+```
+namespace App\Http\Middleware;
+
+use Closure;
+
+class RemoveTrailingSlash
+{
+    public function handle($request, Closure $next)
+    {
+        $uri = $request->getRequestUri();
+        if (substr($uri, -1) === '/') {
+            $request->server->set('REQUEST_URI', substr($uri, 0, -1));
+        }
+        return $next($request);
+    }
+}
+```
+
+Then, you can register this middleware in your `App\Http\Kernel` class:
+
+```
+protected $middleware = [
+    // ...
+    \App\Http\Middleware\RemoveTrailingSlash::class,
+];
+```
+
+This way, the middleware will modify the request object before it reaches the router, and you don't have to modify any vendor files.

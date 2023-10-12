@@ -1,0 +1,24 @@
+There are a few issues with your recurrence relation and code:
+
+1. In your recurrence relation, you are adding `k` twice for the case where the first element is the same as the second element. This will overcount the number of ways.
+
+2. In your code, you are using `n` instead of `i` in the loop. This will cause the recurrence relation to be incorrect.
+
+3. In your code, you are subtracting `k` for the case where the first element is the same as the second element. This is incorrect because you have already added `k` twice in the previous step.
+
+Here is a corrected version of your code:
+
+```
+def count_num_ways(n, k):
+    dp = [0 for i in range(n+1)]
+
+    dp[0] = 0
+    dp[1] = k
+
+    for i in range(2, n+1):
+        dp[i] = k + (k-1)*dp[i-1] + (k-1)*(dp[i-1]-dp[i-2])
+
+    print(dp)
+```
+
+In the corrected code, we use `i` instead of `n` in the loop, and we calculate the number of ways for the case where the first element is the same as the second element by subtracting `dp[i-2]` from `dp[i-1]`. This is because `dp[i-2]` represents the number of ways where the first two elements are different, and `dp[i-1]` represents the total number of ways for `i-1` elements. Subtracting `dp[i-2]` from `dp[i-1]` gives us the number of ways where the first two elements are the same.

@@ -1,0 +1,65 @@
+The `desktopCapturer` in Electron indeed captures video, not static images. However, you can use the captured video stream to create a snapshot. Here's how you can do it:
+
+1. Create a hidden `video` element and set the stream as its source.
+2. Create a `canvas` element, draw the current frame of the video onto the canvas, and then use `canvas.toDataURL()` to get an image.
+
+Here's an example of how you can modify your `handleStream` function to do this:
+
+```javascript
+private handleStream(stream: MediaStream): void {
+    // Create a hidden video element
+    const video = document.createElement('video');
+    video.style.display = 'none';
+    document.body.appendChild(video);
+
+    // Set the stream as the video source
+    video.srcObject = stream;
+    video.play();
+
+    // Wait for the video to start playing
+    video.onplaying = () => {
+        // Create a canvas and draw the current frame of the video onto it
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Get the image data from the canvas
+        const imageData = canvas.toDataURL();
+
+        // Send the image data to the server
+        this.http.post<Result>('http://localhost:5050', imageData);
+
+        // Clean up
+        document.body.removeChild(video);
+    };
+}
+```
+
+This will send the image data as a base64-encoded string. On your Python server, you can decode this string to get the image data. Here's an example of how you can do this in Python:
+
+```python
+import base64
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/', methods=['POST'])
+def handle_post():
+    # Get the image data from the request
+    image_data = request.get_data()
+
+    # Decode the base64 string
+    image_data = base64.b64decode(image_data.split(',')[1])
+
+    # Save the image
+    with open('image.png', 'wb') as f:
+        f.write(image_data)
+
+    return 'OK'
+```
+
+This will save the image as a PNG file. You can change the filename and the file format as needed.
+
+Please note that this code assumes that the image data is sent as a base64-encoded PNG image. If you're using a different image format, you'll need to adjust the code accordingly.

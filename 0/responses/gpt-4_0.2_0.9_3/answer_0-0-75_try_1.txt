@@ -1,0 +1,40 @@
+The error you're encountering is due to the fact that you're using the `makeStyles` function from `@material-ui/styles` which is a part of Material-UI v4. However, in Material-UI v5, this function has been replaced with the `styled` function or the `sx` prop for styling components.
+
+Here's how you can adjust your code to work with Material-UI v5:
+
+First, replace the `makeStyles` function with the `styled` function:
+
+```jsx
+import { styled } from "@mui/system";
+```
+
+Then, create a styled component for the toolbar margin:
+
+```jsx
+const ToolbarMargin = styled('div')(({ theme }) => ({
+  ...theme.mixins.toolbar,
+}));
+```
+
+Finally, use this styled component in your `Header` component:
+
+```jsx
+function Header() {
+    return (
+        <React.Fragment>
+            <ElevationScroll>
+                <AppBar color="primary">
+                    <Toolbar>
+                        <Typography variant="h3" component="h3">
+                            Nome de teste
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </ElevationScroll>
+            <ToolbarMargin />
+        </React.Fragment>
+    );
+}
+```
+
+This should resolve the error you're encountering and apply the toolbar margin to your `Header` component.

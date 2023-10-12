@@ -1,0 +1,22 @@
+The error message "A mapped type may not declare properties or methods" is a bit misleading. The actual issue here is that TypeScript doesn't allow you to use multiple mapped types in a single type declaration. 
+
+When you write:
+```
+type FruitsAndColors = {
+  [key in fruit]: number;
+  [key in color]: boolean
+}
+```
+TypeScript interprets this as trying to create a single mapped type with keys from both `fruit` and `color`. This is not allowed because TypeScript doesn't know how to merge the two sets of keys together. 
+
+In the case where the keys overlap (for example, if "apple" was both a fruit and a color), it wouldn't know whether to assign the type `number` or `boolean` to the "apple" property.
+
+Your workaround is the correct way to achieve what you want. By using the intersection operator (`&`), you're creating two separate mapped types and then combining them together:
+```
+type FruitsAndColors = {
+  [key in fruit]: number;
+} & {
+  [key in color]: boolean
+}
+```
+This tells TypeScript to create one type with numeric properties for each fruit, another type with boolean properties for each color, and then merge them together into a single type. If there are any overlapping keys, the types of the properties in the resulting type will be the intersection of the types from the original types.

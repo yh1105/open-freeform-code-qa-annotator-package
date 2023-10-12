@@ -1,0 +1,13 @@
+The warning message is suggesting to use `::v-deep(<inner-selector>)` instead of `::v-deep` as a combinator. 
+
+In your case, you can update the CSS selector as follows:
+
+```
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+This will apply the styles to the `.child` element inside the `.parent` component.
+
+Note that `::v-deep` is used to apply styles to child components from a parent component. However, it is recommended to use scoped CSS or CSS modules instead of `::v-deep` whenever possible to avoid potential conflicts with other components.

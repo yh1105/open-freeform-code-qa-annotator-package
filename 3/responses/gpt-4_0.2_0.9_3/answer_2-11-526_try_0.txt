@@ -1,0 +1,15 @@
+1. Why doesn't this compile in C?
+
+The code snippet you provided doesn't compile in C because C does not allow variable declarations to occur within the condition of an `if` statement. In C, all variables must be declared at the beginning of a block (a section of code enclosed in `{}`), before any executable statements.
+
+In your code, `int a = 2;` is a declaration statement, which is not allowed in the conditional part of an `if` statement in C.
+
+2. Why does this difference exist?
+
+This difference exists due to the evolution of the two languages and their different design philosophies. 
+
+C++ was designed to be more flexible and to support a wider range of programming styles than C. One of the ways it achieves this is by allowing variable declarations to occur almost anywhere, not just at the start of a block. This includes within the condition of an `if` statement.
+
+In contrast, C was designed with a focus on simplicity and efficiency. Requiring all variables to be declared at the start of a block makes the language simpler and easier to implement, but it also makes the language less flexible.
+
+So, in summary, this difference exists because C++ chose to prioritize flexibility and expressiveness, while C chose to prioritize simplicity and efficiency.

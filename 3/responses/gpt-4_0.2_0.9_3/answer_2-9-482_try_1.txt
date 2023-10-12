@@ -1,0 +1,13 @@
+The error message you're seeing is due to a security feature introduced in Ruby 3.0's Psych library (which is used for YAML parsing) to prevent deserialization of arbitrary classes, which can be a security risk.
+
+The `permitted_classes` option allows you to specify an array of classes that are allowed to be deserialized. If you're seeing an error with `Symbol`, it means that your YAML file contains symbols, and you need to add `Symbol` to your list of permitted classes.
+
+Here's how you can do it:
+
+```ruby
+hsh = YAML.load_file(some_file_name, permitted_classes: [Matrix, OpenStruct, Symbol])
+```
+
+If you continue to see errors about other classes, you'll need to add those to the `permitted_classes` array as well. 
+
+However, be aware that permitting classes for deserialization can be a security risk if the YAML data comes from an untrusted source, as it could potentially be used to instantiate arbitrary classes with arbitrary data.

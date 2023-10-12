@@ -1,0 +1,13 @@
+The issue with your code is that `ContentView_Previews` is not passing the `selected` state variable to the `ContentView`. Instead, it is creating a new `@State` variable called `selected` which is not connected to the `ContentView`.
+
+To fix this, you need to modify `ContentView_Previews` to pass the `selected` state variable to the `ContentView` like this:
+
+```
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(isSelected: .constant(false))
+    }
+}
+```
+
+This will create a constant binding to `false` which will be passed to the `ContentView`. Now, when you click the button, the `isSelected` binding will update and the view will refresh automatically.

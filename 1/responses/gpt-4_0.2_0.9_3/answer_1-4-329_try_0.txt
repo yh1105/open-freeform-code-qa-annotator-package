@@ -1,0 +1,32 @@
+In Python, the pandas library is designed to work with data frames, but it's not always the fastest option for certain operations. In your case, you're doing a lot of row-wise operations, which can be slow in pandas. 
+
+One way to speed up your code is to use vectorized operations instead of loops. Vectorized operations are performed on entire arrays, which can be much faster than performing an operation for each individual element.
+
+Here's an example of how you can use vectorized operations in your code:
+
+```python
+import pandas as pd
+from timeit import default_timer as timer
+
+code = 145896
+
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+start = timer()
+desired = df.loc[df['code1']==code, 'code2'].values
+print(timer() - start) 
+```
+
+In this code, `df['code1']==code` creates a boolean mask of the same length as `df['code1']`, with `True` where the condition is met and `False` elsewhere. Then, `df.loc[mask, 'code2']` selects the 'code2' values where the mask is `True`. The `.values` attribute is used to get the result as a numpy array.
+
+This should be much faster than your original code, because it avoids the use of a loop.
+
+However, if you're doing a lot of complex operations with data frames, you might want to consider using a different library, such as Dask or Vaex, which are designed for large datasets and can be faster than pandas for certain operations.
+
+Also, if you're doing a lot of operations that involve looking up values based on some condition, you might want to consider using a different data structure, such as a dictionary, which can be faster for this type of operation. However, this would involve a significant change to your code.
+
+In general, the best approach depends on the specifics of your use case. If you're only doing a few operations with data frames, it might be easier to stick with pandas and try to optimize your code as much as possible. If you're doing a lot of complex operations with large data frames, it might be worth looking into other libraries or data structures.

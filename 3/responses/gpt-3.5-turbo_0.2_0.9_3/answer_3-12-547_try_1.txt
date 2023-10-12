@@ -1,0 +1,9 @@
+To ensure that the child class implements the super constructor of the inherited widget's constructor, you can add the `@required` annotation to the constructor of the child class. This will inform the IDE to throw an error if the constructor is not implemented in the child class. Here's an example:
+
+```
+class ChildClass extends BaseClass {
+  ChildClass({@required String name}) : super(name: name);
+}
+```
+
+In this example, the `@required` annotation is added to the `name` parameter of the child class constructor. This ensures that the child class constructor must have a `name` parameter and that it must call the super constructor of the inherited widget's constructor with the same `name` parameter. If the child class constructor does not implement the super constructor, the IDE will throw an error at build time.

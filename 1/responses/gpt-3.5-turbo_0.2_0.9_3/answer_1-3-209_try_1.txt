@@ -1,0 +1,15 @@
+You can use the `sns.pointplot()` function to plot the mean of each x-element (`method`) as a small horizontal bar. Here's the modified code:
+
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+planets = sns.load_dataset("planets")
+
+sns.stripplot(x="method", y="distance", data=planets, size=4, color=".7")
+sns.pointplot(x="method", y="distance", data=planets, color="black", markers="_", scale=0.5)
+plt.xticks(rotation=45, ha="right")
+plt.show()
+```
+
+The `sns.pointplot()` function plots the mean of each x-element (`method`) as a small horizontal bar with a vertical line indicating the confidence interval. To remove the vertical line, you can set the `scale` parameter to a small value (e.g., `scale=0.5`). You can also set the `markers` parameter to an underscore (`markers="_"`) to plot the mean as a horizontal bar.

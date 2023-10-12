@@ -1,0 +1,61 @@
+To achieve your goal, you can modify the code to check the value of cell B14 and if it is "list1", then make the target cell a multiple selection list. Here's the modified code:
+
+```
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim rngDV As Range
+    Dim oldVal As String
+    Dim newVal As String
+    
+    On Error Resume Next
+    
+    If Target.Count > 1 Then GoTo exitsub
+    
+    Set rngDV = Target.SpecialCells(xlCellTypeAllValidation)
+    
+    If rngDV Is Nothing Then GoTo exitsub
+    
+    If Intersect(Target, Range("B14")) Is Nothing Then GoTo exitsub
+    
+    If Target.Value = "list1" Then
+        'make the target cell a multiple selection list
+        With Target.Validation
+            .Delete
+            .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+                 Formula1:="=list1"
+            .IgnoreBlank = True
+            .InCellDropdown = True
+            .InputTitle = ""
+            .ErrorTitle = ""
+            .InputMessage = ""
+            .ErrorMessage = ""
+            .ShowInput = True
+            .ShowError = True
+        End With
+    Else
+        'make the target cell a single selection list
+        With Target.Validation
+            .Delete
+            .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+                 Formula1:="=INDIRECT(B14)"
+            .IgnoreBlank = True
+            .InCellDropdown = True
+            .InputTitle = ""
+            .ErrorTitle = ""
+            .InputMessage = ""
+            .ErrorMessage = ""
+            .ShowInput = True
+            .ShowError = True
+        End With
+    End If
+    
+exitsub:
+    Application.EnableEvents = True
+    On Error GoTo 0
+End Sub
+```
+
+In this code, we first check if the changed cell has data validation applied to it. If it does, we check if the changed cell is B14. If it is, we check the value of B14. If it is "list1", we make the target cell a multiple selection list, otherwise, we make it a single selection list.
+
+Note that in the code, we are deleting the existing validation and adding a new one with the appropriate formula. This is necessary because we cannot modify the existing validation formula directly.
+
+I hope this helps! Let me know if you have any questions.

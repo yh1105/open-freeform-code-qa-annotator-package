@@ -1,0 +1,30 @@
+To save multiple arrays with separate attributes into the database as a collection, you can use a loop to iterate through the arrays and create a new Bet model for each set of values. Here's an example of how you can do it in your Laravel controller:
+
+```
+public function store(Request $request)
+{
+    $tw_names = $request->input('tw_name');
+    $tw_prices = $request->input('tw_price');
+
+    $bets = [];
+
+    foreach ($tw_names as $key => $name) {
+        $bets[] = [
+            'name' => $name,
+            'price' => $tw_prices[$key],
+        ];
+    }
+
+    Bet::insert($bets);
+
+    return redirect()->back()->with('success', 'Bets saved successfully.');
+}
+```
+
+In this example, we first retrieve the `tw_name` and `tw_price` arrays from the request. We then create an empty array called `$bets` to store the Bet models that we will create.
+
+Next, we loop through the `$tw_names` array using the `foreach` loop. For each iteration, we create a new array with the `name` and `price` values from the corresponding positions in the `$tw_names` and `$tw_prices` arrays. We then add this array to the `$bets` array.
+
+Finally, we use the `insert` method of the `Bet` model to insert all the Bet models at once into the database. This is more efficient than creating and saving each model individually.
+
+I hope this helps! Let me know if you have any further questions.

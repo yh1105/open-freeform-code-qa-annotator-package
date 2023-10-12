@@ -1,0 +1,13 @@
+The issue here is that Microsoft Edge does not expose a COM object that can be used to control it programmatically, unlike Internet Explorer which does have such an object. This is why you're getting a "Class not registered" error.
+
+The second script you posted is able to start Microsoft Edge, but you can't control it afterwards because the `Start-Process` cmdlet returns a `System.Diagnostics.Process` object, which doesn't have `Visible` or `FullScreen` properties.
+
+If you want to open Microsoft Edge in full screen mode, you can use the `-k` switch which opens the browser in kiosk mode. Here's how you can do it:
+
+```powershell
+Start-Process msedge -ArgumentList "-k https://www.example.com"
+```
+
+This will open Edge in full screen mode, but it will also hide the address bar and tabs. If you want to keep those visible, you might need to use a different approach, such as using a UI automation tool to send the F11 key after the browser has started. 
+
+Unfortunately, there's no built-in way in PowerShell to do this, but you can use third-party tools like AutoHotkey or Selenium WebDriver for this purpose.

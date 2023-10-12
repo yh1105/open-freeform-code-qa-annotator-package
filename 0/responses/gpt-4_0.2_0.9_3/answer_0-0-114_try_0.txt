@@ -1,0 +1,16 @@
+The issue you're facing might be due to the security settings on your Mac. MacOS Catalina has increased security settings that prevent applications from unidentified developers or sources from being run.
+
+Here are the steps to resolve this issue:
+
+1. Open `System Preferences` on your Mac.
+2. Go to `Security & Privacy`.
+3. Click on the `General` tab.
+4. At the bottom of the window, you should see a message like "`Flipper` was blocked from use because it is not from an identified developer."
+5. Click on the `Open Anyway` button next to this message.
+6. A dialog box will pop up, asking if you're sure. Click `Open`.
+
+If you don't see the `Open Anyway` button, make sure you're logged in as an administrator. If you're still having trouble, you may need to click the lock icon in the bottom left corner of the `Security & Privacy` window to make changes.
+
+After these steps, you should be able to run `Flipper` on your Mac.
+
+If the problem persists, please let me know so I can assist you further.

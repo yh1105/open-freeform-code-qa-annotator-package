@@ -1,0 +1,14 @@
+As of now, the Jupyter extension in Visual Studio Code does not support find and replace within a single cell. The Ctrl+H command will replace text in the entire notebook. 
+
+However, you can use the built-in find and replace functionality of Visual Studio Code in the Python file before converting it to cells. Here's how:
+
+1. Open your Python file in Visual Studio Code.
+2. Press Ctrl+F to open the find bar.
+3. Type the text you want to find.
+4. Press Ctrl+H to open the replace bar.
+5. Type the text you want to replace the found text with.
+6. Press Enter to replace the first occurrence or press Ctrl+Alt+Enter to replace all occurrences.
+
+After making the changes, you can convert your Python file to a Jupyter notebook by adding `# %%` at the beginning of each cell.
+
+Remember to submit a feature request to the Visual Studio Code team or the Jupyter extension team to add this feature in the future.

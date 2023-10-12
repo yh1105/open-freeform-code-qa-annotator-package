@@ -1,0 +1,22 @@
+You can handle this by looping through the arrays in your controller. Here's an example of how you can do this:
+
+```php
+public function store(Request $request)
+{
+    $names = $request->get('tw_name');
+    $prices = $request->get('tw_price');
+
+    for ($i = 0; $i < count($names); $i++) {
+        Bet::create([
+            'name' => $names[$i],
+            'price' => $prices[$i],
+        ]);
+    }
+
+    return back()->with('success', 'Bets created successfully');
+}
+```
+
+In this example, we're getting the 'tw_name' and 'tw_price' arrays from the request, then looping through them and creating a new Bet for each pair of name and price. The count() function is used to get the number of elements in the 'tw_name' array, which we're assuming is the same as the number of elements in the 'tw_price' array.
+
+Please note that this code doesn't handle validation or error checking. You should add appropriate validation and error checking to ensure that the 'tw_name' and 'tw_price' arrays have the same number of elements and that each name and price is valid before creating the Bet objects.

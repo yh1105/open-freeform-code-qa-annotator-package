@@ -1,0 +1,19 @@
+The error message is indicating that you are trying to access a `list` using a string index instead of an integer index. In your case, the `list` contains a single string element, which is a JSON object. To access the `id` property of the JSON object, you need to first convert the string to a Python dictionary using the `json` module and then access the `id` property using the dictionary syntax.
+
+Here's the corrected code:
+
+```python
+import json
+
+a = ['{"id":9,"name":"Foo"}']
+json_obj = json.loads(a[0])
+print(json_obj['id'])
+```
+
+Output:
+
+```
+9
+```
+
+In this code, we first import the `json` module to parse the JSON string. Then, we access the first element of the `list` using the integer index `0`. We parse the JSON string using the `json.loads()` method, which returns a Python dictionary. Finally, we access the `id` property of the dictionary using the dictionary syntax `json_obj['id']`.

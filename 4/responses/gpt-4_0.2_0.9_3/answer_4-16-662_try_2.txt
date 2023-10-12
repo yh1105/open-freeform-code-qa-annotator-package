@@ -1,0 +1,20 @@
+You can use `jq` to uglify JSON in bash. `jq` is a lightweight and flexible command-line JSON processor. If it's not installed, you can install it using package managers like `apt`, `brew`, `yum`, etc.
+
+Here is how you can use it:
+
+```bash
+echo '{
+    "foo": "lorem",
+    "bar": "ipsum"
+}' | jq -c .
+```
+
+The `-c` option in `jq` stands for "compact output". It will remove all the unnecessary whitespaces.
+
+This will output:
+
+```bash
+{"foo":"lorem","bar":"ipsum"}
+```
+
+You can then use this output in another command as you wish.

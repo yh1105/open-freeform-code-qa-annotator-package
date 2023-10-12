@@ -1,0 +1,22 @@
+You can use the `window.history` object to get the previous URL. Here's an example of how you can do it:
+
+```
+componentDidMount() {
+  // Save the current URL to the session storage
+  sessionStorage.setItem('currentUrl', window.location.href);
+}
+
+// Call this function after the user logs in
+redirectToPreviousPage() {
+  const previousUrl = sessionStorage.getItem('currentUrl');
+  if (previousUrl) {
+    // If the user has a history stack, go back to the previous page
+    this.props.router.back();
+  } else {
+    // If the user doesn't have a history stack, go to the main page
+    this.props.router.push('/');
+  }
+}
+```
+
+In the `componentDidMount` method, we save the current URL to the session storage. Then, after the user logs in, we retrieve the previous URL from the session storage and use it to determine whether to go back to the previous page or go to the main page.

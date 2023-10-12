@@ -1,0 +1,34 @@
+The error message is indicating that synchronous reads are not supported. This is because the `Image.Load` method is trying to read the stream synchronously, but `IBrowserFile` only supports asynchronous reads.
+
+To fix this, you can use `Image.LoadAsync` method which reads the stream asynchronously. Here's how you can modify your method:
+
+```csharp
+public async Task<byte[]> ConvertFileToByteArrayAsync(IBrowserFile file)
+{
+    Image image;
+    await using (var stream = file.OpenReadStream())
+    {
+        image = await Image.LoadAsync(stream);
+    }
+
+    image.Mutate(x => x.Resize(new ResizeOptions
+    {
+        Mode = ResizeMode.Min,
+        Size = new Size(128)
+    }));
+
+    await using var memoryStream = new MemoryStream();
+    if (file.ContentType == "image/png")
+    {
+        await image.SaveAsPngAsync(memoryStream);
+    }
+    else
+    {
+        await image.SaveAsJpegAsync(memoryStream);
+    }
+
+    return memoryStream.ToArray();
+}
+```
+
+In this code, I've used `await using` which is a way to asynchronously dispose of the stream when we're done with it. This is important because it ensures that the stream is properly cleaned up even if an exception is thrown. This is a good practice to follow when dealing with `IDisposable` objects in an asynchronous context.

@@ -1,0 +1,36 @@
+To achieve the desired alignment, you can use the `MainAxisAlignment.spaceBetween` property for the `Row` widget and wrap the first two widgets (icon and comment count) in a `Row` widget with `MainAxisAlignment.start` property. Then, wrap the third widget (date) in an `Expanded` widget to push it to the right side of the screen. Here's an example code:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          child: Icon(Icons.comment),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+        Container(
+          child: Text(
+            snapshot.data![index].comments.toString(),
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+      ],
+    ),
+    Expanded(
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Text(snapshot.data![index].date.toString()),
+      ),
+    ),
+  ],
+),
+``` 
+
+This should align the icon and comment count to the left and the date to the right, with space in between.

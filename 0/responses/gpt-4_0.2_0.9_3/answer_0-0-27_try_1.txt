@@ -1,0 +1,25 @@
+The issue you're experiencing could be due to a number of reasons. Here are a few things you could check:
+
+1. **Network Connection:** Ensure that your device/emulator has a working internet connection. You can test this by making a fetch request to another API or loading a webpage.
+
+2. **API Endpoint:** Verify that the API endpoint you're using is correct and working as expected. You can test this by making a request to the API endpoint in a REST client like Postman or Insomnia.
+
+3. **CORS Policy:** If your server has a CORS policy, it might be blocking requests from your client. You can check this by inspecting the network tab in your browser's developer tools and looking for any CORS-related errors.
+
+4. **Apollo Client Configuration:** Ensure that your Apollo Client is correctly configured. In your case, it seems to be correct, but it's always a good idea to double-check.
+
+5. **Query Syntax:** Make sure that your GraphQL query is correct. You can test this by running the query in a GraphQL playground connected to your API.
+
+6. **React Native Version:** There might be compatibility issues between the version of React Native you're using and the version of Apollo Client. You can try updating React Native or Apollo Client to the latest version.
+
+7. **Error Handling:** It's possible that an error is occurring but it's not being caught. You can add a `catch` block to your query to handle any errors.
+
+```jsx
+const { loading, error, data } = useQuery(EXCHANGE_RATES).catch((error) => {
+  console.error('Error:', error);
+});
+```
+
+8. **Debugging:** Use React Native Debugger or similar tools to debug your application. This can help you identify where the issue is coming from.
+
+If none of these suggestions work, please provide more information about your issue, such as any error messages you're seeing and the exact behavior of your application when the issue occurs.

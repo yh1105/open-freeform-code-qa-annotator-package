@@ -1,0 +1,16 @@
+The image you've provided doesn't show up here, but I understand your issue. In IntelliJ IDEA, local changes are now shown in a dedicated tab in the Git tool window.
+
+Here's how you can find it:
+
+1. Open the `Version Control` tool window (Alt + 9 on Windows/Linux, Command + 9 on macOS).
+2. Click on the `Git` tab.
+3. You should see a `Local Changes` tab there.
+
+If you can't see the `Local Changes` tab, it might be because the non-modal commit interface is disabled. You can enable it by:
+
+1. Go to `File` -> `Settings` (or `Preferences` for macOS).
+2. Navigate to `Version Control` -> `Commit`.
+3. Check the `Use non-modal commit interface` option.
+4. Click `Apply` and then `OK`.
+
+After enabling the non-modal commit interface, you should be able to see your local changes in the `Git` tab of the `Version Control` tool window.

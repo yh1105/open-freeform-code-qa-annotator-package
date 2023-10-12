@@ -1,0 +1,37 @@
+It seems like you're looking for a more elegant way to handle background tasks and updating the UI thread in Android using Java.
+
+One of the best ways to handle this is to use a combination of `Handler` and `HandlerThread`. Here's a simple example:
+
+```java
+HandlerThread handlerThread = new HandlerThread("background-thread");
+handlerThread.start();
+Handler backgroundHandler = new Handler(handlerThread.getLooper());
+
+backgroundHandler.post(new Runnable() {
+    @Override
+    public void run() {
+        // Perform long operation here (this will be run in background thread)
+
+        final String result = "Result from long operation";
+
+        // Now update the UI thread
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                // This will be executed in main thread
+                textView.setText(result);
+            }
+        });
+    }
+});
+```
+
+In this example, `HandlerThread` is a convenient class that starts a new thread with a `Looper`. The `Looper` can then be used to create a `Handler` that runs tasks in that thread.
+
+The `Handler` associated with the `HandlerThread` is used to post a `Runnable` to the background thread. Inside this `Runnable`, you can perform your long operation.
+
+Once the long operation is complete, you can use a new `Handler` associated with the main `Looper` to post a `Runnable` to the main thread. Inside this `Runnable`, you can update your `TextView`.
+
+This approach is more flexible than `AsyncTask` and `ThreadPoolExecutor` because it allows you to post multiple tasks to the background thread and handle messages between the main thread and the background thread.
+
+However, it's still a bit verbose and error-prone compared to Kotlin's coroutines. If you're working on a legacy project, it might be worth considering gradually introducing Kotlin into your codebase. You can have both Java and Kotlin code in the same project, and they can interoperate seamlessly. This way, you can start using coroutines for new features, while maintaining the existing Java code.

@@ -1,0 +1,26 @@
+The error message indicates that you're trying to send a body with a content type of "application/json", but the body is not in the correct format. When you're sending JSON data, the body should be a JSON string, not a Map.
+
+You can use `jsonEncode` function from `dart:convert` to convert your Map to a JSON string. Here's how you can do it:
+
+```dart
+import 'dart:convert';
+
+Map<String,String> headers = {
+  'Content-Type':'application/json',
+  'authorization':'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+};
+
+Map<String, String> body = {
+  "grant_type":"password",
+  "username":"******",
+  "password":"*****",
+  "scope":"offline_access"
+};
+
+var response = await post(Urls.getToken,
+    headers: headers,
+    body: jsonEncode(body), // Convert body to JSON string
+);
+```
+
+This should solve your problem.

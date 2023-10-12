@@ -1,0 +1,20 @@
+You can use the `merge` function in pandas with the `indicator=True` option, which adds a column to the output data frame called `_merge` that can take two values: `both` if the row is in both data frames, `left_only` if the row is only in the left data frame, and `right_only` if the row is only in the right data frame.
+
+Here is an example:
+
+```python
+df3 = df1.merge(df2, how='outer', indicator=True)
+df3 = df3[df3['_merge'] == 'left_only']
+```
+
+In this case, `df3` will contain only the rows that are in `df1` but not in `df2`.
+
+If you want to drop the `_merge` column afterwards, you can do so with the `drop` function:
+
+```python
+df3 = df3.drop(columns=['_merge'])
+```
+
+This will give you the data frame that contains only the rows from `df1` that are not in `df2`.
+
+Please note that this will work as expected if the data frames have the same columns and the rows are considered identical if all their columns have the same values. If your data frames have different columns or you want to consider only some columns to determine if a row is in both data frames, you will need to adjust this code accordingly.

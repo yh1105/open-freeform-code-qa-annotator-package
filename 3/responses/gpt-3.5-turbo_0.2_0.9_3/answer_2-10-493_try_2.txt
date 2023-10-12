@@ -1,0 +1,37 @@
+One way to automate this process is to use a library like `serde` to serialize the `Source` struct into a JSON or YAML string, and then deserialize it into the `Message` struct. Here's an example:
+
+```rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Message {
+    pub id: i32,
+    pub email: String,
+    pub name: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Source {
+    pub email: String,
+    pub name: String,
+}
+
+fn main() {
+    let source = Source {
+        email: "test@example.com".to_string(),
+        name: "John Doe".to_string(),
+    };
+
+    let message: Message = serde_json::from_str(&serde_json::to_string(&source).unwrap()).unwrap();
+
+    println!("{:?}", message);
+}
+```
+
+In this example, we first define the `Message` and `Source` structs with their respective fields. We then use `serde` to derive the `Serialize` and `Deserialize` traits for both structs, which allows us to easily convert between them.
+
+In the `main` function, we create a `Source` struct with some example data. We then use `serde_json` to serialize the `Source` struct into a JSON string, and immediately deserialize it into a `Message` struct. The `unwrap` calls are used to handle any errors that may occur during serialization or deserialization.
+
+Finally, we print out the resulting `Message` struct to verify that the conversion was successful.
+
+Note that this approach assumes that the field names and types in the `Source` struct match those in the `Message` struct. If there are any differences, you may need to manually map the fields using a custom function or macro.

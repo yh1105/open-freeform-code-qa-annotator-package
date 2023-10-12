@@ -1,0 +1,21 @@
+In .NET Core, you can use the `OkObjectResult` class to return a 200 OK status code along with your JSON data. Here's how you can do it:
+
+```csharp
+public IActionResult GetResourceData()
+{
+    return new OkObjectResult(new { response = "Hello" });
+}
+```
+
+In this case, you don't need to use `Json()` method because `OkObjectResult` automatically serializes your object to JSON.
+
+If you want to return a different HTTP status code, you can use the `StatusCode` method, like this:
+
+```csharp
+public IActionResult GetResourceData()
+{
+    return StatusCode(201, new { response = "Created" });
+}
+```
+
+This will return a 201 Created status code along with your JSON data.

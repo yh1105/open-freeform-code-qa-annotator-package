@@ -1,0 +1,39 @@
+Pandas is a powerful library for data manipulation in Python, but it can be slow if not used correctly. The slowness you're experiencing is due to the fact that you're using a loop to access DataFrame rows, which is not the most efficient way to do it in Pandas. 
+
+Pandas is built on top of NumPy, and it is designed to work best with vectorized operations. This means that operations are performed on entire arrays at once, rather than on individual elements (which is what happens when you use a loop). 
+
+In your case, you're trying to filter rows based on a condition. This can be done much more efficiently using boolean indexing, which is a form of vectorized operation. Here's how you can do it:
+
+```python
+import pandas as pd
+from timeit import default_timer as timer
+
+code = 145896
+
+df = pd.DataFrame(data={
+    'code1': [145896, 800175, 633974, 774521, 416109],
+    'code2': [100, 800, 600, 700, 400],
+    'code3': [1, 8, 6, 7, 4]}
+    )
+
+start = timer()
+desired = df.loc[df['code1']==code, 'code2'].values[0]
+print(timer() - start) 
+```
+
+This will be much faster than using a loop, because the filtering operation is performed on the entire array at once.
+
+However, if you need to perform this operation many times for different codes, you might want to consider using a different data structure, such as a dictionary, which has constant time complexity for lookups.
+
+```python
+df_dict = df.set_index('code1')['code2'].to_dict()
+
+start = timer()
+for _ in range(100000):
+    desired = df_dict[code]
+print(timer() - start) 
+```
+
+This will be even faster, because dictionaries in Python are implemented as hash tables, which provide constant time complexity for lookups. 
+
+In general, when working with Pandas, you should try to avoid loops as much as possible, and use vectorized operations instead. This is one of the key principles for achieving good performance with Pandas.

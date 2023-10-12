@@ -1,0 +1,33 @@
+To achieve this, you can use the Intersection Observer API, which provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.
+
+Here is a simple example of how you can use it:
+
+```javascript
+let options = {
+  root: document.querySelector('#parent'),
+  rootMargin: '0px',
+  threshold: 1.0
+}
+
+let callback = (entries, observer) => { 
+  entries.forEach(entry => {
+    // Each entry describes an intersection change for one observed
+    // target element
+    if(entry.isIntersecting){
+      console.log(entry.target.id + ' is visible');
+    }
+  });
+};
+
+let observer = new IntersectionObserver(callback, options);
+
+// Assuming you have a list of divs
+let divs = document.querySelectorAll('#parent > div');
+divs.forEach(div => observer.observe(div));
+```
+
+In this example, the callback function will be called whenever the visibility of the divs changes. The `isIntersecting` property of the `entry` object will tell you whether the div is currently visible or not.
+
+Please note that the Intersection Observer API is not supported in all browsers. You may need to use a polyfill for unsupported browsers.
+
+Also, remember to replace `document.querySelectorAll('#parent > div')` with the actual way you are selecting the divs inside the parent.

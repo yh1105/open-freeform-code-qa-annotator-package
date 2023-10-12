@@ -1,0 +1,28 @@
+You can use the `str.replace()` method in pandas to remove the special characters from the end of each row in the 'LGA' column. Here's an example code snippet that should work for you:
+
+```python
+import pandas as pd
+
+# create a sample dataframe
+df = pd.DataFrame({'LGA': ['Alpine (S)', 'Ararat (RC)', 'Ballarat (C)', 'Banyule (C)', 'Bass Coast (S)', 'Baw Baw (S)', 'Bayside (C)', 'Benalla (RC)', 'Boroondara (C)']})
+
+# remove the special characters from the end of each row in the 'LGA' column
+df['LGA'] = df['LGA'].str.replace(r'\(.*\)', '')
+
+# print the updated dataframe
+print(df)
+```
+
+Output:
+```
+            LGA
+0        Alpine
+1        Ararat
+2      Ballarat
+3       Banyule
+4    Bass Coast
+5       Baw Baw
+6       Bayside
+7       Benalla
+8    Boroondara
+```

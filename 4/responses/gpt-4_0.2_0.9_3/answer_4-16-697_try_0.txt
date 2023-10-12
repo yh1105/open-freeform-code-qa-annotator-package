@@ -1,0 +1,19 @@
+The issue you're experiencing is due to the fact that Docker does not run interactive shells, and therefore does not source `~/.bashrc` or `~/.bash_profile`. This is why you're able to run your script manually when you start the container with an interactive shell using `docker run -it IMAGE_NAME bash`, but not when Docker runs the script.
+
+To solve this issue, you can source the `nvm.sh` script directly in your `launch.sh` script. This will ensure that `nvm` and therefore `node` and `npm` are available in the shell that your script runs in.
+
+Here's how you can modify your `launch.sh` script:
+
+```bash
+#!/bin/bash
+
+export NVM_DIR="/root/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+cd /workspace/demo
+npm install
+node index.js
+```
+
+This script first sets the `NVM_DIR` environment variable and then sources the `nvm.sh` and `bash_completion` scripts if they exist. After that, it changes to your project directory, installs the npm dependencies, and runs your application.

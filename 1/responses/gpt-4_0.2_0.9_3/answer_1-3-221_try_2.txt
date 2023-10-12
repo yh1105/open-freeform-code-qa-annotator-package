@@ -1,0 +1,29 @@
+The error message you're seeing suggests that Visual Studio Code is having trouble finding your Python interpreter. Here's a few steps you can follow to resolve this issue:
+
+1. **Check your Python interpreter path in VSCode settings**: Go to `File > Preferences > Settings` (or `Code > Preferences > Settings` on macOS), then search for `Python Path`. Make sure this path points to the correct location of your Python interpreter. If you're unsure where your Python interpreter is located, you can find out by running `where python` (on Windows) or `which python` (on macOS/Linux) in a terminal.
+
+2. **Check your Python interpreter in the bottom-left of the VSCode window**: VSCode allows you to select the Python interpreter you want to use for each workspace. You can see the currently selected interpreter in the bottom-left of the VSCode window. If this is not the correct interpreter, click on it and select the correct one from the dropdown menu.
+
+3. **Check your `launch.json` file**: In your `launch.json` file, the `"python"` field should be `"pythonPath"`. So, your `launch.json` should look like this:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "pythonPath": "${command:python.interpreterPath}"
+        }
+    ]
+}
+```
+
+4. **Reinstall the Python extension**: If none of the above solutions work, try reinstalling the Python extension in VSCode. Go to the Extensions view (`View > Extensions`), find the Python extension, click on the gear icon, and select `Uninstall`. After uninstalling, install it again.
+
+5. **Check your Python installation**: If you're still having trouble, there might be an issue with your Python installation. Try reinstalling Python and make sure to check the box that says `Add Python to PATH` during the installation process.
+
+Remember to restart VSCode after making these changes to ensure they take effect.

@@ -1,0 +1,36 @@
+Setting environment variables in `~/.bash_profile` or `~/.profile` should work, but you need to make sure that these files are actually being sourced when you start a new terminal session. 
+
+Here are the steps to set the environment variable:
+
+1. Open `~/.bash_profile` and `~/.profile` with a text editor. If they don't exist, you can create them.
+
+2. Add the following line to both files:
+
+    ```
+    export JBOSS_HOME=/Users/{USERNAME}/Desktop/jboss7
+    ```
+
+    Replace `{USERNAME}` with your actual username.
+
+3. Save and close the files.
+
+4. Now, you need to source these files to apply the changes. You can do this by restarting your terminal or using the `source` command:
+
+    ```
+    source ~/.bash_profile
+    source ~/.profile
+    ```
+
+5. Now, if you echo `$JBOSS_HOME`, you should see the path you set:
+
+    ```
+    echo $JBOSS_HOME
+    ```
+
+If this still doesn't work, it's possible that your terminal is not using bash. You can check your default shell with the following command:
+
+```
+echo $SHELL
+```
+
+If it's not bash (for example, it might be zsh), you'll need to add the `export` line to the appropriate configuration file for that shell (for example, `~/.zshrc` for zsh).

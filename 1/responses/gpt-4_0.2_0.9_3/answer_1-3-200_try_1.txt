@@ -1,0 +1,21 @@
+The error you're getting is likely because the SHA hash you're trying to checkout doesn't exist in your repository. Here are a few things you can try:
+
+1. Verify the SHA hash: Make sure that the SHA hash you're trying to checkout actually exists in your repository. You can do this by running `git log` in your repository and looking for the hash.
+
+2. Check your repository path: Make sure that the path to your repository is correct. The `cd` command you're using to change directories won't actually change the directory for the `subprocess.check_output` command. This is because each subprocess command runs in its own shell environment, so changes made in one command won't affect the others. You can fix this by using the `cwd` parameter of the `subprocess.check_output` command to set the working directory, like this:
+
+```python
+subprocess.check_output(['git', 'checkout', sha], cwd=repo)
+```
+
+3. Handle exceptions: It's a good practice to handle exceptions in your code. This way, you can catch any errors that occur and handle them appropriately. Here's how you can modify your code to handle the `CalledProcessError`:
+
+```python
+try:
+    subprocess.check_output(['git', 'checkout', sha], cwd=repo)
+    print("checkout done")
+except subprocess.CalledProcessError as e:
+    print(f"Error checking out commit: {e.output}")
+```
+
+This will print the output of the command that caused the error, which can help you debug the issue.

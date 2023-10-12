@@ -1,0 +1,7 @@
+The error message you are seeing suggests that the PostgreSQL database is having trouble finding the "Sequence" column in your CSV file. This could be due to a number of reasons, such as a mismatch between the column name in the CSV file and the column name in the database schema, or a problem with the data in the column itself.
+
+One thing you could try is to check that the column name in the CSV file is exactly the same as the column name in the database schema. In your DDL, you have enclosed the column name in double quotes, which means that the column name is case-sensitive. Make sure that the column name in the CSV file is also enclosed in double quotes and has the same capitalization.
+
+Another thing to check is the data in the "Sequence" column. Make sure that all the values in the column are integers and that there are no missing or invalid values. You could also try renaming the column in the CSV file to something else (e.g. "ModuleSequence") and updating the DDL accordingly to see if that resolves the issue.
+
+If none of these solutions work, you could try importing the CSV file into a temporary table in the database and then copying the data over to the final table using a SQL query. This would give you more control over the import process and allow you to troubleshoot any issues that arise.

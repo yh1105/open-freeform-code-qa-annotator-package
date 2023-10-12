@@ -1,0 +1,14 @@
+The error message you're seeing is due to a change in Next.js 13. The "target" configuration is no longer supported in Next.js 13 and above. However, from the provided `next.config.js` file, it seems like you're not using the "target" property, so the error might be coming from somewhere else.
+
+AWS Amplify currently has some issues with Next.js 13. As of the time of writing this, AWS Amplify does not fully support Next.js 13. This is likely the cause of your build failure.
+
+You can follow the AWS Amplify's GitHub issues page to keep track of when they will fully support Next.js 13. Here is the link: https://github.com/aws-amplify/amplify-console/issues
+
+As a workaround, you can downgrade your Next.js version to 12 until AWS Amplify fully supports Next.js 13. To do this, you can run the following command in your project directory:
+
+```bash
+npm uninstall next
+npm install next@12
+```
+
+Remember to test your application locally to make sure everything works as expected before pushing the changes to AWS Amplify.

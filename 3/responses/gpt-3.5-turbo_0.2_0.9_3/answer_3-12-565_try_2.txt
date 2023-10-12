@@ -1,0 +1,35 @@
+To launch WhatsApp in a Flutter `webview` app or from the browser in Flutter, you can use the `url_launcher` package. Here's how you can do it:
+
+1. Add the `url_launcher` package to your `pubspec.yaml` file:
+
+```
+dependencies:
+  url_launcher: ^6.0.3
+```
+
+2. Import the `url_launcher` package in your code:
+
+```
+import 'package:url_launcher/url_launcher.dart';
+```
+
+3. Use the `launch` method to open the WhatsApp URL:
+
+```
+String url = "https://wa.me/whatsappphonenumber";
+await launch(url);
+```
+
+Replace `whatsappphonenumber` with the phone number you want to send a message to, including the country code but without any spaces or special characters. For example, if the phone number is +1 555-123-4567, the URL should be `https://wa.me/15551234567`.
+
+You can use this code in your `pageUI` method to launch WhatsApp when a button is pressed or when a certain condition is met. For example:
+
+```
+FlatButton(
+  onPressed: () async {
+    String url = "https://wa.me/whatsappphonenumber";
+    await launch(url);
+  },
+  child: Text("Launch WhatsApp"),
+),
+```

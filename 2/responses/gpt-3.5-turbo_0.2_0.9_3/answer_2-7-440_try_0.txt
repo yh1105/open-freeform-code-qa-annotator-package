@@ -1,0 +1,7 @@
+This error occurs because the `Input` facade has been removed in Laravel 6. Instead, you should use the `request()` helper function to access input data.
+
+To fix this error, you need to update your code to use the `request()` function instead of the `Input` facade. For example, instead of using `Input::get('name')`, you should use `request()->input('name')`.
+
+You should also check your code for any other references to the `Input` facade and update them accordingly.
+
+Once you have made these changes, try running the upgrade again and see if the error persists.

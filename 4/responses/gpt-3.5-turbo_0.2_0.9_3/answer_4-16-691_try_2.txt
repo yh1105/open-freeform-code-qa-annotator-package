@@ -1,0 +1,16 @@
+It seems like Flutter is not installed or not added to the system path. Here are the steps to install Flutter and add it to the system path:
+
+1. Download the Flutter SDK from the official website: https://flutter.dev/docs/get-started/install
+2. Extract the downloaded file to a desired location.
+3. Add the Flutter SDK path to the system path. To do this, open the terminal and run the following command:
+```
+export PATH="$PATH:[PATH_TO_FLUTTER_SDK_DIRECTORY]/flutter/bin"
+```
+Replace [PATH_TO_FLUTTER_SDK_DIRECTORY] with the actual path to the Flutter SDK directory.
+4. Verify the installation by running the following command:
+```
+flutter doctor
+```
+This command will check if all the necessary dependencies are installed and provide guidance on how to install any missing components.
+
+Once you have completed these steps, you should be able to run Flutter commands in the terminal of Android Studio.

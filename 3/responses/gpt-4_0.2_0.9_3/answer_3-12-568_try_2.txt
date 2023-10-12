@@ -1,0 +1,15 @@
+Running background tasks in Flutter can be a bit tricky due to the nature of the Dart runtime. When a Flutter app goes into the background, the Dart runtime usually suspends execution until the app is brought back to the foreground. This is not ideal for tasks that need to run in the background, like fetching data from an API or interacting with Bluetooth.
+
+There are a few options to handle background tasks in Flutter:
+
+1. **WorkManager for Android and BackgroundTasks for iOS**: These are native solutions for running background tasks. You can use platform channels to communicate between your Flutter code and the native code. This is a bit more complex as it requires knowledge of both Kotlin/Swift and Dart.
+
+2. **flutter_background_service**: This is a Flutter package that allows you to run Dart code in the background, even when the app is closed. It's easier to use than the native solutions, but it may not be as flexible or powerful.
+
+3. **Isolate**: Dart's way of creating a new thread. It's a bit more complex to use, but it allows you to run Dart code in the background. However, it doesn't work when the app is closed.
+
+4. **flutter_local_notifications + android_alarm_manager**: This combination allows you to schedule tasks that run in the background, even when the app is closed. It's a bit more complex to set up, but it's a powerful solution.
+
+In your case, since you need to run tasks even when the app is closed, I would recommend looking into the flutter_background_service package or the combination of flutter_local_notifications and android_alarm_manager. These solutions allow you to run Dart code in the background, which is easier to manage than writing native code.
+
+Remember, running background tasks can consume a lot of battery, so it's important to be mindful of how often you're running these tasks and how much work they're doing.

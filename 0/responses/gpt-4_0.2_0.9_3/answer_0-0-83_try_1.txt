@@ -1,0 +1,42 @@
+The error message you're seeing is related to the version of Chart.js you're using. In Chart.js version 3.x, the way scales are defined has changed. 
+
+In your code, you're using the old way of defining scales which was used in Chart.js 2.x. 
+
+Here's how you can define scales in Chart.js 3.x:
+
+```typescript
+options: {
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true
+      }
+    }]
+  }
+}
+```
+
+However, if you want to stick with the old way of defining scales, you can downgrade your Chart.js version to 2.x. 
+
+You can do this by running the following command in your terminal:
+
+```bash
+npm uninstall chart.js
+npm install chart.js@^2.9.4
+```
+
+This will uninstall the current version of Chart.js and install version 2.9.4.
+
+If you want to use Chart.js 3.x, you need to update your code to use the new syntax. Here's how you can do it:
+
+```typescript
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  }
+}
+```
+
+This should resolve the error you're seeing.

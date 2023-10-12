@@ -1,0 +1,5 @@
+The `@RequiredArgsConstructor` annotation from Lombok generates a constructor with parameters for all final fields in the class. This is useful for reducing boilerplate code when creating immutable objects.
+
+The difference between `@RequiredArgsConstructor` and `@RequiredArgsConstructor(onConstructor = @__(@Inject))` is that the latter also adds the `@Inject` annotation to the generated constructor. This is useful when using a dependency injection framework like Spring or Guice, as it tells the framework to inject the dependencies into the constructor.
+
+So, if you are using a dependency injection framework and want to inject the dependencies into the constructor, you should use `@RequiredArgsConstructor(onConstructor = @__(@Inject))`. Otherwise, you can just use `@RequiredArgsConstructor`.

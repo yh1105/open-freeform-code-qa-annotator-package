@@ -1,0 +1,56 @@
+It seems like you are trying to use AngularJS syntax in an Angular 5 application. AngularJS and Angular are two different frameworks and have different syntax and directives.
+
+In Angular 5, you can use the *ngIf directive to show or hide elements based on a condition. Here's how you can modify your code to use *ngIf:
+
+```
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div>
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw" *ngIf="isHidden">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login">
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+```
+
+In your component, you can toggle the value of isHidden to show or hide the input field:
+
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+
+export class LoginComponent implements OnInit {
+  isHidden: boolean = true;
+  input_pw: string = 'password';
+
+  constructor() { }
+
+  ngOnInit() {
+    console.log(this.isHidden); //console shows true
+  }
+
+  toggleInput() {
+    this.isHidden = !this.isHidden;
+  }
+
+}
+```
+
+Then, you can call the toggleInput() method to toggle the value of isHidden and show or hide the input field.

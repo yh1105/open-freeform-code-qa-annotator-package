@@ -1,0 +1,15 @@
+The error message suggests that there is an issue with the `ConfigurationPropertiesRebinderAutoConfiguration` class, which is part of the Spring Cloud auto-configuration. This could be due to a version incompatibility between Spring Boot and Spring Cloud.
+
+You are using Spring Boot 2.4.0 and Spring Cloud Hoxton.SR8, which should be compatible. However, you are also using OpenFeign 2.2.5.RELEASE, which may not be compatible with the other dependencies.
+
+Try updating the version of OpenFeign to the latest version (currently 2.2.6) and see if that resolves the issue. You can do this by changing the version number in your pom.xml file:
+
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.2.6.RELEASE</version>
+</dependency>
+```
+
+If that doesn't work, you may need to check for other version incompatibilities between your dependencies. You can use the `mvn dependency:tree` command to see a tree of all your dependencies and their versions.

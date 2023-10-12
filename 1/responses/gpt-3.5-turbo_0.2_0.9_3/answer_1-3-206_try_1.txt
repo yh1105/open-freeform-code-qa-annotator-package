@@ -1,0 +1,100 @@
+To keep the position of the buttons fixed in the Navbar of your Dash app, you can use the `fixed` property of the `Navbar` component from `dash-bootstrap-components`. Here's an updated version of your code that should achieve this:
+
+```
+import random
+import time
+import webbrowser
+from collections import deque
+
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_bootstrap_components as dbc
+import plotly.graph_objs as go
+from dash.dependencies import Output, Input
+
+BS = "https://codepen.io/chriddyp/pen/bWLwgP.css"
+app = dash.Dash('vehicle-data', external_stylesheets=[BS])
+
+button_group = dbc.Navbar(
+    [
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='HOME',
+                       style={
+                           'display': 'inline-block',
+                           'align': 'center',
+                           'color': 'white', 'marginLeft': '100px',
+                           'fontSize': '15px ',
+                           'backgroundColor': '#101820',
+                           'width': '150px',
+                           'height': '50px',
+                           'marginRight': '100px'
+                       }, className='lg'),
+
+            href='http://127.0.0.1:5050/', refresh=True), className='lg'),
+
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='OVERVIEW',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '10px',
+                              'fontSize': '15px ',
+                              'width': '150px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/overview', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='GRAPH',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/pages/graph_page', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='CONSOLE',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/log_stream', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='DIAGNOSTIC',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '2px',
+                              'fontSize': '15px ',
+                              'width': '170px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/diag', refresh=True))
+    ],
+    color="dark",
+    dark=True,
+    fixed="top"
+)
+
+app.layout = html.Div([
+    html.Div([
+        button_group,
+        dcc.Location(id='url', refresh=False),
+        html.Div(id='page-content', children=[])
+    ]),
+], style={'paddingTop': '70px'})
+
+
+if __name__ == '__main__':
+    webbrowser.open('http://127.0.0.1:8050/')
+    app.run_server(debug=True)
+```
+
+In this updated code, I've replaced the `html.Div` containing the `button_group` with a `dbc.Navbar` component. I've also added the `color`, `dark`, and `fixed` properties to the `Navbar` component to style it and keep it fixed at the top of the page. Finally, I've added some padding to the top of the `app.layout` to ensure that the content doesn't overlap with the `Navbar`.

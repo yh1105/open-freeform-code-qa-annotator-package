@@ -1,0 +1,15 @@
+You can define an interface that describes the shape of the objects in the array and use that as the type for the parameter. Here's an example:
+
+```
+interface Product {
+  name: string;
+  price: number;
+  description: string;
+}
+
+bagTotal = (products: Product[]) => {
+  // function does stuff
+}
+```
+
+Now, `products` is an array of objects that must conform to the `Product` interface, which means they must have a `name` property that is a string, a `price` property that is a number, and a `description` property that is a string. This provides a more strict type check than using `any[]`.

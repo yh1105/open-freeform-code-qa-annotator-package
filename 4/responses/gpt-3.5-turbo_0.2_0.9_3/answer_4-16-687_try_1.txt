@@ -1,0 +1,31 @@
+To convert `$var1` to camelCase, you can follow these steps:
+
+1. Split the string into an array of words using the delimiter `-`.
+2. Capitalize the first letter of each word except the first one.
+3. Join the words back together without any delimiter.
+
+Here's an example code snippet that does this:
+
+```
+$var1 = "my-name-is";
+$words = explode('-', $var1);
+$camelCase = $words[0] . implode('', array_map('ucfirst', array_slice($words, 1)));
+echo $camelCase; // Output: "myNameIs"
+```
+
+To convert `$var2` to PascalCase, you can follow similar steps:
+
+1. Split the string into an array of words using the delimiter `_`.
+2. Capitalize the first letter of each word.
+3. Join the words back together without any delimiter.
+
+Here's an example code snippet that does this:
+
+```
+$var2 = "my_Name_is";
+$words = explode('_', $var2);
+$pascalCase = implode('', array_map('ucfirst', $words));
+echo $pascalCase; // Output: "MyNameIs"
+```
+
+I hope this helps! Let me know if you have any further questions.

@@ -1,0 +1,7 @@
+Yes, you are correct that the `omp single` directive means that the block of code it surrounds will be executed by only one thread. However, this does not mean that the tasks created within this block will also be executed by only one thread.
+
+In your example, the `omp single` directive is used to ensure that the loop itself is only executed by one thread. This is necessary because the loop is iterating over a linked list, which is not a thread-safe operation. If multiple threads were allowed to iterate over the list at the same time, it could lead to race conditions and undefined behavior.
+
+Inside the loop, the `omp task` directive is used to create a new task for each node in the list. These tasks are not executed immediately; instead, they are added to a task pool. The OpenMP runtime system then schedules these tasks for execution on any available threads.
+
+So, while the loop itself is executed by a single thread, the tasks created within the loop can be executed in parallel by multiple threads. This is how the code achieves parallelism, even though it uses the `omp single` directive.

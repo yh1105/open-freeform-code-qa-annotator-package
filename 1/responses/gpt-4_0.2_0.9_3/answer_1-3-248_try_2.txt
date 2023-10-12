@@ -1,0 +1,30 @@
+The error you're seeing is because you're trying to compare two arrays using `==`, which results in an array of boolean values (True where the arrays are equal, False where they're not). Python doesn't know how to interpret an array of booleans in an `if` statement, hence the error message.
+
+If you want to check if all elements in the two arrays are equal, you can use `numpy.array_equal()`:
+
+```python
+if np.array_equal(mask_black, cv2.bitwise_and(mask_black, mask_not)):
+    # body
+else:
+    # body
+```
+
+However, `cv2.bitwise_and(mask_black, mask_not)` will always be an array of zeros (since `mask_not` is the bitwise not of `mask_black`, so they don't have any bits in common), so this condition will only be true if `mask_black` is also an array of zeros.
+
+If you want to check if the mask is all black or all white, you can use `numpy.all()` or `numpy.any()`:
+
+```python
+if np.all(mask_black == 0):  # all black
+    # body
+elif np.all(mask_black == 255):  # all white
+    # body
+```
+
+If you want to perform different operations depending on whether the image is mostly black or mostly white, you could calculate the mean or median of the mask and use that in your condition:
+
+```python
+if np.mean(mask_black) < 128:  # mostly black
+    # body
+else:  # mostly white
+    # body
+```

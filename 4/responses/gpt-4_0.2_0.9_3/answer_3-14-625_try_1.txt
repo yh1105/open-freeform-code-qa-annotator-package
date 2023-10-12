@@ -1,0 +1,29 @@
+To detect if the keyboard is present when a button is pressed, you need to listen for keyboard events. However, the approach can vary depending on the programming language and platform you're working with. 
+
+For example, in Android, you can check if the keyboard is open or not using the `InputMethodManager` class. Here's a simple example:
+
+```java
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isAcceptingText()) { // verify if the soft keyboard is open
+            Log.d("keyboard", "Software Keyboard was opened");
+        } else {
+            Log.d("keyboard", "Software Keyboard was closed");
+        }
+    }
+});
+```
+
+In JavaScript, you can listen for keyboard events like so:
+
+```javascript
+document.querySelector("button").addEventListener("click", function() {
+    window.addEventListener('keydown', function(e) {
+        console.log('Keyboard is present');
+    });
+});
+```
+
+Please note that these are just basic examples and might not work perfectly for all scenarios. If you provide more details about your specific situation (like the programming language and platform you're using), I could give a more accurate solution.

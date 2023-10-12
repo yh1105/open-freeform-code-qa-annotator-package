@@ -1,0 +1,20 @@
+It seems like there is an issue with the version of Chart.js that you are using. The "linear" scale has been removed in the latest version of Chart.js (3.x) and has been replaced with "linearLinear" and "logarithmic". 
+
+To fix this issue, you can either downgrade to an earlier version of Chart.js (2.x) or update your code to use the new scale types. 
+
+To use the new scale types, you can update your options object to include the following:
+
+```
+options: {
+  scales: {
+    y: {
+      type: 'linearLinear',
+      beginAtZero: true
+    }
+  }
+}
+```
+
+This should fix the issue with the "linear" scale not being registered. 
+
+As for the "area is undefined" error, it seems like there might be an issue with the chart data or options. Double check that the data and options are formatted correctly and try removing any unnecessary options to see if that resolves the issue.

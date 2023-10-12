@@ -1,0 +1,23 @@
+You can create a factory method that creates and returns a `ServiceBusSender` instance for a given queue name. Then, you can register this factory method as a singleton service in the DI container. Here's an example:
+
+```
+// Register the factory method as a singleton service
+_services.AddSingleton<Func<string, ServiceBusSender>>(implementationFactory =>
+{
+    var serviceBusConfiguration = implementationFactory.GetRequiredService<Microsoft.Extensions.Options.IOptions<UserEventConsumerSetting>>().Value;
+
+    var serviceBusClient = new ServiceBusClient(serviceBusConfiguration.ServiceBusConnectionString, new ServiceBusClientOptions
+    {
+        TransportType = ServiceBusTransportType.AmqpWebSockets
+    });
+
+    return (queueName) => serviceBusClient.CreateSender(queueName);
+});
+
+// Use the factory method to create a ServiceBusSender instance for a specific queue
+var serviceBusSender = _services.GetRequiredService<Func<string, ServiceBusSender>>()("my-queue-name");
+```
+
+In the above example, the factory method takes a queue name as a parameter and returns a `ServiceBusSender` instance for that queue. The factory method is registered as a singleton service in the DI container using the `AddSingleton` method. 
+
+To use the factory method, you can retrieve it from the DI container using the `GetRequiredService` method and then call it with the desired queue name to create a `ServiceBusSender` instance for that queue.

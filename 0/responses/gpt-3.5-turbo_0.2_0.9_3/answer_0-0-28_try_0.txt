@@ -1,0 +1,40 @@
+One solution is to create a state variable in your parent component that keeps track of whether the modal is open or closed. Then, you can conditionally set the `overflow` property of the `body` element based on the state of the modal.
+
+Here's an example:
+
+```
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalOpen: false
+    };
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    this.setState(prevState => ({
+      modalOpen: !prevState.modalOpen
+    }));
+  }
+
+  render() {
+    const { modalOpen } = this.state;
+    const bodyStyle = modalOpen ? { overflow: 'hidden' } : { overflow: 'auto' };
+
+    return (
+      <div>
+        <button onClick={this.toggleModal}>Open Modal</button>
+        <div style={bodyStyle}>
+          <Modal show={modalOpen} onClose={this.toggleModal}>
+            {/* modal content */}
+          </Modal>
+          {/* other page content */}
+        </div>
+      </div>
+    );
+  }
+}
+```
+
+In this example, the `toggleModal` function updates the state of `modalOpen` to either `true` or `false`, depending on its previous value. The `bodyStyle` variable is then set based on the value of `modalOpen`, and is passed as a style prop to the parent `div`. This ensures that the `overflow` property of the `body` element is set correctly depending on whether the modal is open or closed.

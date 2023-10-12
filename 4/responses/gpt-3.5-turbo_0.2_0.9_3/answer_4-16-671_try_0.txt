@@ -1,0 +1,9 @@
+You can detect if your shell script is running on M1 Apple hardware by checking the output of the `uname -m` command. On M1 Apple hardware, the output will be `arm64`. Here's an example of how you can use this in an `if` statement:
+
+```
+if [[ $(uname -m) == "arm64" ]]; then
+  # Your code for M1 Apple hardware goes here
+fi
+```
+
+This will only execute the code inside the `if` statement if the `uname -m` command returns `arm64`, which is the architecture used by M1 Apple hardware.

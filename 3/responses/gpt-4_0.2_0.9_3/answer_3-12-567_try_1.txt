@@ -1,0 +1,28 @@
+You can use `MainAxisAlignment.spaceBetween` to align your widgets in a row. This will place the maximum space between the main axis of each child. Here is how you can do it:
+
+```dart
+Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          Container(
+            child: Icon(Icons.comment),
+            margin: EdgeInsets.only(left: 5.0),
+          ),
+          Container(
+            child: Text(snapshot.data![index].comments.toString(),
+                style: TextStyle(
+                    fontSize: 14.0, fontWeight: FontWeight.bold)),
+            margin: EdgeInsets.only(left: 5.0),
+          ),
+        ],
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Text(snapshot.data![index].date.toString()),
+      )
+    ]),
+```
+
+In this code, I have nested a `Row` widget inside another `Row` widget. The `mainAxisAlignment` property of the outer `Row` widget is set to `MainAxisAlignment.spaceBetween`, which will place the maximum space between the main axis of each child. The first two widgets (Icon and Text) are placed inside the inner `Row` widget, so they will be grouped together on the left side. The `Align` widget is placed on the right side.

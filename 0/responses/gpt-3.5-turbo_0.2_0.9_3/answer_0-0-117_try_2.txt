@@ -1,0 +1,7 @@
+Great question! It's true that you should not store API keys in your React app, as they can be easily accessed by anyone who inspects your code. Instead, you can store your API key on your server-side code and make requests to the API from there. 
+
+One way to do this is to create a simple backend server using a server-side language like Node.js or Python. You can then make requests to the API from your backend server and send the data back to your React app. This way, your API key is kept secure on the server-side code and is not exposed to the client-side code.
+
+Another option is to use environment variables to store your API key. You can set up environment variables on your server or in a separate configuration file, and then reference them in your code. This way, your API key is not hard-coded into your code and is kept secure.
+
+Overall, the key is to keep your API key secure and not expose it in your client-side code. By using a backend server or environment variables, you can ensure that your API key is kept safe.

@@ -1,0 +1,17 @@
+The error message you're seeing is because TensorFlow is looking for version 10.0 of the CUDA libraries, but you have version 10.1 installed. 
+
+TensorFlow 1.13.1, which you have installed, is built against CUDA 10.0, not CUDA 10.1. This means that it expects the CUDA 10.0 libraries to be present on your system. When it doesn't find them, it throws the error you're seeing.
+
+To resolve this issue, you have two options:
+
+1. Downgrade your CUDA version to 10.0. This will make your CUDA version compatible with your TensorFlow version. You can download CUDA 10.0 from the [NVIDIA website](https://developer.nvidia.com/cuda-10.0-download-archive).
+
+2. Upgrade your TensorFlow version to one that is compatible with CUDA 10.1. As of writing, TensorFlow 2.4.0 is compatible with CUDA 11.0, and TensorFlow 2.0.0 is compatible with CUDA 10.1. You can upgrade TensorFlow using pip:
+
+```bash
+pip3 install --upgrade tensorflow-gpu==2.0.0
+```
+
+Remember to also install the corresponding cuDNN version that is compatible with your CUDA and TensorFlow versions. You can download cuDNN from the [NVIDIA website](https://developer.nvidia.com/cudnn).
+
+Before proceeding with either option, make sure to completely remove the existing CUDA and cuDNN installations to avoid any conflicts.

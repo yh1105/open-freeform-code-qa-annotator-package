@@ -1,0 +1,48 @@
+Your current code is almost correct, but it doesn't handle the last two elements of the array properly. The last two elements are not being calculated correctly because your loop only goes up to `len(output)-2`, so the last two elements of the `output` array are just whatever was in the memory when you created the `np.empty` array.
+
+To fix this, you can add some special handling for the last two elements. Also, to get integer output, you can use `np.empty` with `dtype=int`:
+
+```python
+import numpy as np
+
+load = np.array([10, 12, 9, 13, 17, 23, 25, 28, 26, 24, 22, 20, 18, 20, 22, 24, 26, 28, 23, 24, 21, 18, 16, 13])
+
+output = np.empty(len(load), dtype=int)
+for i in range(len(output)-2):
+    output[i] = load[i]+load[i+1]+load[i+2]
+
+# handle the last two elements
+output[-2] = load[-2] + load[-1]
+output[-1] = load[-1]
+
+print(output)
+```
+
+This will give you the output you want:
+
+```
+[31 34 39 53 65 76 79 78 72 66 60 58 60 66 72 78 77 75 68 63 55 47 29 13]
+```
+
+However, this solution is not very "numpythonic". A more numpythonic solution would be to use the `np.convolve` function, which can compute moving sums more efficiently:
+
+```python
+import numpy as np
+
+load = np.array([10, 12, 9, 13, 17, 23, 25, 28, 26, 24, 22, 20, 18, 20, 22, 24, 26, 28, 23, 24, 21, 18, 16, 13])
+
+# compute moving sum with window size 3
+output = np.convolve(load, np.ones(3, dtype=int), 'full')[:-2]
+
+# handle the last two elements
+output[-2] = load[-2] + load[-1]
+output[-1] = load[-1]
+
+print(output)
+```
+
+This will give you the same output:
+
+```
+[31 34 39 53 65 76 79 78 72 66 60 58 60 66 72 78 77 75 68 63 55 47 29 13]
+```

@@ -1,0 +1,27 @@
+You can achieve this by using the `apply` function in pandas along with a lambda function to concatenate every two columns. Here is a sample code:
+
+```python
+import pandas as pd
+
+# Assuming df is your original dataframe
+df = pd.DataFrame({
+    'X1': ['p1', 'p2', 'p3', 'p4'],
+    'X2': ['H', 'H', 'J', 'K'],
+    'X3': ['I', 'K', 'K', 'I'],
+    'X4': ['K', 'J', 'H', 'H'],
+    'X5': ['J', 'K', 'I', 'J'],
+    'X6': ['K', 'I', 'J', 'I'],
+    'X7': ['H', 'J', 'K', 'J']
+})
+
+# Create a new dataframe with X1 column
+new_df = pd.DataFrame(df['X1'])
+
+# Concatenate every two columns starting from X2
+for i in range(2, df.shape[1], 2):
+    new_df['X'+str(i)] = df.apply(lambda row: row['X'+str(i)] + row['X'+str(i+1)], axis=1)
+
+print(new_df)
+```
+
+This code first creates a new dataframe with the column `X1`. Then, it iterates over the columns of the original dataframe starting from `X2` and concatenates every two columns using the `apply` function with a lambda function. The result is assigned to the corresponding column in the new dataframe.

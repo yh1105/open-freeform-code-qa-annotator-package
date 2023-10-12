@@ -1,0 +1,13 @@
+This error is due to Sprockets 4 requiring a manifest file. Sprockets uses this file to determine which assets to compile.
+
+You can fix this issue by creating a new file at `app/assets/config/manifest.js` and adding the following lines:
+
+```javascript
+//= link_tree ../images
+//= link_directory ../javascripts .js
+//= link_directory ../stylesheets .css
+```
+
+These lines tell Sprockets to include all images, JavaScript files, and CSS files in the asset pipeline.
+
+After adding this file, try to boot your Rails app again. If you still encounter issues, you may need to precompile your assets using the command `rake assets:precompile`.

@@ -1,0 +1,42 @@
+The issue is with the `ForEach` loop. Instead of using `card` as the loop variable, you should use `index` and then access the `card` object using the index. Here's the updated code:
+
+```
+struct Card_cell_rowOfCheracteristics: View {
+
+    var data2: Unicards
+
+    var body: some View {
+        let properties = data2.properties!
+
+        return VStack() {
+
+            ScrollView(Axis.Set.horizontal) {
+
+                HStack {
+
+                    ForEach(properties.indices, id: \.self) { index in
+                        let card = properties[index]
+
+                        VStack {
+                            Image()
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 34, height: 34)
+
+                            VStack {
+                                Text(card.label)
+                                    .font(.system(size: 14))
+                                    .fontWeight(.medium)
+                                Text(card.value)
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+In the updated code, we are using `properties.indices` to loop through the indices of the `properties` array. Then, we are accessing the `card` object using the index `properties[index]`. This should fix the error you were facing.

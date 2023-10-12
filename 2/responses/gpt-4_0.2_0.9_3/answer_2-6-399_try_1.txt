@@ -1,0 +1,56 @@
+To download the latest artifacts from an Azure DevOps project, you can use the Azure DevOps REST API. Here is a general outline of the steps you need to follow:
+
+1. Get the latest build id.
+2. Use the build id to get the list of artifacts for that build.
+3. Download the desired artifact.
+
+Here is a sample C# code snippet using HttpClient:
+
+```csharp
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program
+{
+    static readonly HttpClient client = new HttpClient();
+
+    static async Task Main()
+    {
+        string organization = "LumiaWoA";
+        string project = "Boot Shim";
+        string buildDefinitionId = "3";
+        string personalAccessToken = "your_personal_access_token_here";
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", personalAccessToken);
+
+        // Get the latest build id
+        HttpResponseMessage response = await client.GetAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds?definitions={buildDefinitionId}&$top=1&api-version=6.0");
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+        dynamic result = JsonConvert.DeserializeObject(responseBody);
+        string buildId = result.value[0].id;
+
+        // Get the list of artifacts for that build
+        response = await client.GetAsync($"https://dev.azure.com/{organization}/{project}/_apis/build/builds/{buildId}/artifacts?api-version=6.0");
+        response.EnsureSuccessStatusCode();
+        responseBody = await response.Content.ReadAsStringAsync();
+        result = JsonConvert.DeserializeObject(responseBody);
+        string downloadUrl = result.value[0].resource.downloadUrl;
+
+        // Download the desired artifact
+        response = await client.GetAsync(downloadUrl);
+        response.EnsureSuccessStatusCode();
+        byte[] artifactData = await response.Content.ReadAsByteArrayAsync();
+        // Save the artifact data to a file, etc.
+    }
+}
+```
+
+Please replace `"your_personal_access_token_here"` with your actual personal access token. You can generate a personal access token in Azure DevOps.
+
+This code assumes that the latest build has at least one artifact and that you want to download the first artifact. If this is not the case, you will need to modify the code accordingly.
+
+Also, please note that this code uses the Newtonsoft.Json library to parse the JSON responses from the Azure DevOps REST API. You can install this library via NuGet.
+
+This is a basic example and does not include any error handling. In a production environment, you should add appropriate error handling code.

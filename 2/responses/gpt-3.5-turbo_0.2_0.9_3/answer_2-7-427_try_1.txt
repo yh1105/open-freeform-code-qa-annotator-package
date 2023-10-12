@@ -1,0 +1,7 @@
+The error message you are receiving indicates that there is an issue with the SSL certificate on the SMTP server. It could be that the server is using an outdated SSL version or the SSL certificate is not properly configured.
+
+To fix this issue, you can try changing the encryption type from `ssl` to `tls` in your `.env` file and `mail.php` configuration file. Also, make sure that the `MAIL_PORT` is set to the correct port number for the SMTP server.
+
+If that doesn't work, you can try contacting the email provider and ask them to check their SSL certificate configuration. They may need to update their SSL certificate or provide you with a different SMTP server address.
+
+Additionally, you can try using a different email provider or SMTP server that supports SSL encryption.

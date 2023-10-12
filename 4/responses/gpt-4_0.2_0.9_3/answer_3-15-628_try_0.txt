@@ -1,0 +1,18 @@
+The issue you're facing is likely due to the fact that `Evaluate(Target.Validation.Formula1)` is trying to evaluate the formula `=INDIRECT(B14)`, which is a reference to a cell, not a named range. 
+
+To solve this, you need to evaluate the cell that `INDIRECT(B14)` is referring to, and then compare that to `"list1"`. Here's how you can do it:
+
+```vba
+Dim rng As Range
+Set rng = Evaluate(Target.Validation.Formula1)
+
+If rng.Value = "list1" Then
+    ' Your code here
+End If
+```
+
+This code first evaluates the `INDIRECT` formula to get the range that it's referring to, and then compares the value of that range to `"list1"`. If they are equal, it executes your code.
+
+Please note that this code assumes that `B14` contains the name of a named range (like `"list1"`). If `B14` contains a cell reference (like `"A1"`), you'll need to adjust the code accordingly.
+
+Also, please be aware that this code will only work if the cell that `B14` is referring to contains a single value. If it contains an array of values, you'll need to use a loop to compare each value to `"list1"`.

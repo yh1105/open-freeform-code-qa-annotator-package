@@ -1,0 +1,56 @@
+Yes, you can get the current scroll position of a `ScrollView` using the `GeometryReader` and `ScrollViewProxy` APIs in SwiftUI.
+
+Here's an example code snippet:
+
+```swift
+struct ContentView: View {
+    @State private var scrollOffset: CGFloat = 0
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                ScrollViewReader { proxy in
+                    VStack(spacing: 20) {
+                        ForEach(0..<50) { index in
+                            Text("Item \(index)")
+                                .frame(width: geometry.size.width, height: 50)
+                        }
+                    }
+                    .onAppear {
+                        // Scroll to a specific item
+                        proxy.scrollTo(25)
+                    }
+                    .onChange(of: scrollOffset) { offset in
+                        // Get the current scroll position
+                        print("Current scroll offset: \(offset)")
+                    }
+                    .background(
+                        GeometryReader { innerGeometry in
+                            Color.clear
+                                .preference(key: ScrollOffsetPreferenceKey.self, value: proxy.contentOffset.y)
+                        }
+                    )
+                }
+            }
+            .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
+                // Update the current scroll position
+                scrollOffset = value
+            }
+        }
+    }
+}
+
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+```
+
+In this example, we use a `GeometryReader` to get the size of the `ScrollView` and a `ScrollViewReader` to scroll to a specific item and track the scroll offset.
+
+We also use a `PreferenceKey` to get the current scroll offset and update it whenever the scroll position changes.
+
+Hope this helps! Let me know if you have any further questions.

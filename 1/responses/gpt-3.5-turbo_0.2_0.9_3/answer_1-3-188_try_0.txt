@@ -1,0 +1,22 @@
+You can use pandas library to filter the dataframe based on the condition and then extract the required value from the resulting dataframe.
+
+Here's the code:
+
+```python
+import pandas as pd
+
+# create the dataframe
+df = pd.DataFrame({'instrument_token': [12295681, 12295682, 12295683],
+                   'exchange_token': [123, 124, 125],
+                   'tradingsymbol': ['UBL19JANFUT', 'UBL20JANFUT', 'UBL21JANFUT']})
+
+# filter the dataframe based on the condition
+result = df[df['instrument_token'] == 12295682]
+
+# extract the required value from the resulting dataframe
+tradingsymbol = result['tradingsymbol'].values[0]
+
+print(tradingsymbol) # UBL20JANFUT
+```
+
+In this code, we first create the dataframe using the `pd.DataFrame()` function. Then we filter the dataframe using the condition `df['instrument_token'] == 12295682` which returns a new dataframe containing only the rows where the `instrument_token` column has the value 12295682. Finally, we extract the value of the `tradingsymbol` column from the resulting dataframe using the `result['tradingsymbol'].values[0]` syntax.

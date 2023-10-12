@@ -1,0 +1,48 @@
+In the current version of React Navigation, the parameters are passed to the specific screen, not to the navigator. Therefore, the child screens of the navigator can't directly access the parameters passed to the navigator.
+
+However, there are a few workarounds you can use to pass parameters to the child screens:
+
+1. **Pass the parameters to each screen individually:**
+   You can pass the parameters to each screen when you navigate to them. This can be done by using the `navigation.navigate` function with the route name and parameters.
+
+2. **Use React Context:**
+   You can create a context to hold the parameters and provide it at a level above the navigators. Then, you can consume the context in your screens to access the parameters.
+
+Here's an example of how you can use context to pass parameters:
+
+```jsx
+import React, { createContext, useContext } from 'react';
+
+// Create a context
+const ParamsContext = createContext();
+
+// Create a provider component
+export const ParamsProvider = ({ children, params }) => (
+  <ParamsContext.Provider value={params}>
+    {children}
+  </ParamsContext.Provider>
+);
+
+// Create a hook to use the context
+export const useParams = () => useContext(ParamsContext);
+
+// Wrap your navigator with the provider
+export const ProfileStack = () => (
+  <ParamsProvider params={{ isPublicProfile, firstName }}>
+    <Stack.Navigator initialRouteName='profileView'>
+      {/* your screens */}
+    </Stack.Navigator>
+  </ParamsProvider>
+);
+
+// Use the hook in your screen
+const PageScreen = () => {
+  const { isPublicProfile, firstName } = useParams();
+  // ...
+};
+```
+
+3. **Use Redux or another state management library:**
+   If you're using Redux or another state management library, you can store the parameters in the global state and access them from any screen.
+
+Remember, these are workarounds and may not be the best solution depending on your use case. The React Navigation team is aware of this limitation and there are plans to improve this in future versions.

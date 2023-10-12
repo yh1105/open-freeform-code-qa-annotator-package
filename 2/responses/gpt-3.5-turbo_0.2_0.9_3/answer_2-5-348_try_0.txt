@@ -1,0 +1,11 @@
+It seems like there is an issue with the command prompt (cmd) on your system. You can try the following steps to resolve the issue:
+
+1. Check if the "cmd" program is installed on your system. You can do this by opening the command prompt and typing "cmd" and pressing enter. If it opens, then it is installed. If not, you may need to reinstall it.
+
+2. Check if there are any special characters in the path to your NetBeans installation directory. If there are, try moving the installation directory to a location without any special characters in the path.
+
+3. Try running NetBeans as an administrator. Right-click on the NetBeans icon and select "Run as administrator".
+
+4. Try reinstalling NetBeans and make sure to install it with administrative privileges.
+
+If none of these steps work, you may need to seek further assistance from the NetBeans support team or a professional IT technician.

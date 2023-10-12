@@ -1,0 +1,21 @@
+You can use a list comprehension to iterate over the list and check if each element partially matches the `wanted` string. Then, you can use the `next()` function to return the first element that matches the condition. If no element matches, you can return `None` or a default value.
+
+Here's an example code snippet:
+
+```
+l = ['ones', 'twos', 'threes']
+wanted = 'three'
+
+result = next((s for s in l if wanted in s), None)
+print(result)  # 'threes'
+```
+
+In this code, the `next()` function returns the first element in the list that contains the `wanted` string. If no element matches, it returns `None`. You can also provide a default value as the second argument to `next()`, which will be returned if no element matches the condition. For example:
+
+```
+l = ['ones', 'twos', 'threes']
+wanted = 'four'
+
+result = next((s for s in l if wanted in s), 'Not found')
+print(result)  # 'Not found'
+```

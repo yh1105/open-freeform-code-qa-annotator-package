@@ -1,0 +1,13 @@
+The error message "Bearer error="invalid_token", error_description="The issuer is invalid"" indicates that the token you are using is not valid for the API you are trying to access. 
+
+This could be due to a few reasons:
+
+1. The token was issued by a different authorization server than the one you are trying to access. Make sure that the authorization server you are using to obtain the token is the same as the one specified in the `options.Authority` property.
+
+2. The API name specified in the `options.ApiName` property does not match the `aud` claim in the token. Make sure that the `aud` claim in the token matches the API name.
+
+3. The token has expired. Check the `exp` claim in the token to see if it has expired.
+
+4. The token signature is invalid. Make sure that the token was signed with the correct key.
+
+You can also try to decode the token using a JWT decoder to see if it contains the correct claims and values. This will help you identify any issues with the token itself.

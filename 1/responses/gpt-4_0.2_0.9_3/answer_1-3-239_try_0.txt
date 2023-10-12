@@ -1,0 +1,39 @@
+To install a specific version of Python using Homebrew, you can use the following steps:
+
+1. First, you need to update Homebrew. Open Terminal and type:
+
+```bash
+brew update
+```
+
+2. Next, search for the available Python versions:
+
+```bash
+brew search python
+```
+
+This will list all the available Python versions. Look for the version you want to install.
+
+3. Once you find the version you want to install, use the following command to install it:
+
+```bash
+brew install python@3.6
+```
+
+This will install Python 3.6 on your macOS.
+
+4. After the installation, you need to add the Python 3.6 executable to your PATH. You can do this by adding the following line to your `.bash_profile` or `.zshrc` file:
+
+```bash
+export PATH="/usr/local/opt/python@3.6/bin:$PATH"
+```
+
+5. Finally, you can verify the Python version by typing:
+
+```bash
+python3 --version
+```
+
+This should display the version of Python you just installed.
+
+Please note that Homebrew does not always maintain older versions of packages, so the specific version you're looking for may not be available. In such cases, you might have to consider using other version management tools like `pyenv`.

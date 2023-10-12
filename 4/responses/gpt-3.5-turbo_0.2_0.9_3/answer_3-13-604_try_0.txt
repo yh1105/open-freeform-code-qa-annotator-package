@@ -1,0 +1,27 @@
+It seems like you are inflating the layout twice, once in the `onCreateView` method and once in the `setOnClickListener` method. You should only inflate the layout once in the `onCreateView` method and then use the `_binding` variable to access the views in that layout.
+
+Here's an example of how you can access the `exercise` EditText in the `HomeFragment.kt` file:
+
+```
+override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        // Access the exercise EditText using the _binding variable
+        _binding.exercise.setText("This is an exceptionally hardcoded string")
+
+        val btnNewExercise = _binding.btnNewExercise
+        btnNewExercise.setOnClickListener {
+            Toast.makeText(requireContext(), "New exercise will be generated", Toast.LENGTH_SHORT).show()
+            println("Generated a new exercise")
+        }
+
+        return root
+    }
+```
+
+Make sure that you have also defined the `exercise` EditText and `btn_new_exercise` Button in the `fragment_home.xml` layout file and that you have initialized the `_binding` variable at the top of the `HomeFragment.kt` file.

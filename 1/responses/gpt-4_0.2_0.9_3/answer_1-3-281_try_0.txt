@@ -1,0 +1,54 @@
+The issue you're facing is due to the fact that you're using the letters as keys in your `guesscolor` dictionary. When a letter is repeated, the previous value is overwritten, which is why you're not seeing all the letters color-coded correctly.
+
+Instead of using the letters as keys, you should use the indices. This way, each position in the word will have its own entry in the dictionary, and no information will be lost when a letter is repeated.
+
+Here's how you can modify your code:
+
+```python
+def wordcolor(self, choice, guess):
+    guesscolor = dict()
+    choiceword = list(choice)
+    guesslist = list(guess)
+
+    counter = 0
+    lengthofword = len(guesslist)
+    totalsame = 0
+    sameword = 0
+
+    countsguess = Counter(guesslist)
+    duplicatesguess = [c for c in countsguess if countsguess[c] > 1]
+    countschoice = Counter(choiceword)
+    duplicateschoices = [c for c in countschoice if countschoice[c] > 1]
+
+    for a in duplicateschoices:
+        if a == None:
+            duplicateschoices.append("None")
+    for a in duplicatesguess:
+        if a == None:
+            duplicatesguess.append("None")
+
+    while (counter < lengthofword):
+        if guesslist[counter] in choiceword:
+
+            totalsame += 1
+
+            if choiceword[counter] == guesslist[counter]:
+                print(f"The word at index {counter} is present in both strings in same place")
+                sameword += 1
+                guesscolor[counter] = "green"
+            else:
+                guesscolor[counter] = "orange"
+            counter += 1
+        else:
+            guesscolor[counter] = "red"
+            counter += 1
+
+    print(guesscolor)
+
+    print("There are " + str(totalsame) + " duplicate characters." + str(sameword) + " of them are in the same place")
+
+
+Game(0).wordcolor(choice, guessh)
+```
+
+This code will create a dictionary where each key is an index of the word, and the value is the color that should be assigned to the letter at that index. This way, even if a letter is repeated, each occurrence will have its own entry in the dictionary.

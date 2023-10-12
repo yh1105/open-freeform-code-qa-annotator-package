@@ -1,0 +1,21 @@
+Both `fireEvent.click(element)` and `userEvent.click(element)` are methods to simulate user interactions in your tests, but they work in slightly different ways.
+
+`fireEvent` is a lower-level API that directly triggers the specified event. It's part of the core `@testing-library/dom` package. It's a good choice when you need to fire events that don't necessarily mimic user interactions, like `load` or `scroll` events.
+
+`userEvent` is a higher-level API that tries to simulate the actual events that would happen in the browser as the user interacts with it. For example, `userEvent.click(element)` first fires a `mousedown` event, then a `mouseup` event, and finally a `click` event, just like what happens when a real user clicks an element. It's part of the `@testing-library/user-event` package.
+
+In most cases, `userEvent` is recommended because it provides a more realistic simulation of user interaction. However, there might be cases where `fireEvent` is more suitable, depending on what you need to test.
+
+In your example, both methods are correctly implemented, but there's a small typo in the `fireEvent` example. It should be `fireEvent.click(myAwesomeButton)`, not `fireEvent(myAwesomeButton)`. Also, there's a missing closing parenthesis in the `expect` statement. Here's the corrected code:
+
+```jsx
+// Solution A
+fireEvent.click(myAwesomeButton);
+expect(mockFunction).toHaveBeenCalledTimes(1);
+
+// Solution B
+userEvent.click(myAwesomeButton);
+expect(mockFunction).toHaveBeenCalledTimes(1);
+```
+
+Both of these will test that the `mockFunction` is called once when the button is clicked.

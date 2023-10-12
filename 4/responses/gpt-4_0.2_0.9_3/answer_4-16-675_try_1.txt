@@ -1,0 +1,45 @@
+You can use the `git` command to show the current branch name in your terminal. 
+
+Here is a simple command to display the current branch:
+
+```bash
+git rev-parse --abbrev-ref HEAD
+```
+
+This command will return the name of the current branch.
+
+If you want to display the branch name in your terminal prompt like in bash, you can modify your PS1 (Prompt String 1) variable in your bash profile. 
+
+Here is a simple example:
+
+```bash
+PS1="\u@\h \[\033[32m\]\$(git rev-parse --abbrev-ref HEAD 2> /dev/null)\[\033[00m\] $ "
+```
+
+This will display the username, host, and current git branch in your terminal prompt.
+
+To make this change permanent, you need to add this line to your bash profile. The bash profile is located in your home directory and is named `.bashrc` or `.bash_profile` depending on your system. You can open it with a text editor and add the line at the end of the file.
+
+Here is how you can do it:
+
+1. Open your bash profile with a text editor. You can use `nano` for example:
+
+```bash
+nano ~/.bashrc
+```
+
+2. Add the line at the end of the file:
+
+```bash
+PS1="\u@\h \[\033[32m\]\$(git rev-parse --abbrev-ref HEAD 2> /dev/null)\[\033[00m\] $ "
+```
+
+3. Save and close the file. If you used `nano`, you can do this by pressing `Ctrl + X`, then `Y` to confirm, and then `Enter`.
+
+4. To apply the changes, you need to source your bash profile:
+
+```bash
+source ~/.bashrc
+```
+
+Now, your terminal prompt should display the current git branch.

@@ -1,0 +1,47 @@
+The error message suggests that there is a circular import between `authentication.models` and `corporate.models.section`. Specifically, `corporate.models.section` is importing `authentication.models.get_sentinel`, which in turn is trying to import `settings.AUTH_USER_MODEL`, which is defined in `corporate.models.section`.
+
+To fix this, you can move the `get_sentinel` function to a separate module, such as `authentication.utils`, and import it from there in both `authentication.models` and `corporate.models.section`. This way, you avoid the circular import.
+
+Here's an example of how you can refactor your code:
+
+1. Create a new module `authentication/utils.py`:
+
+```
+from django.conf import settings
+from django.contrib.auth.models import Group
+
+def get_sentinel():
+    try:
+        sentinel = User.objects.get(username__exact=SENTINEL_USERNAME)
+    except User.DoesNotExist:
+        settings.LOGGER.error("...")
+        sentinel = User()
+        sentinel.username = SENTINEL_USERNAME
+        sentinel.first_name = "..."
+        sentinel.last_name = "..."
+        sentinel.set_unusable_password()
+        sentinel.save()
+        technical = Group.objects.get(name=GROUP_SUPPORT)
+        sentinel.groups.add(technical)
+        sentinel.save()
+    return sentinel
+```
+
+2. Update `authentication/models.py` to import `get_sentinel` from `authentication.utils`:
+
+```
+from authentication.utils import get_sentinel
+
+# rest of the code
+```
+
+3. Update `corporate/models/section.py` to import `get_sentinel` from `authentication.utils`:
+
+```
+from authentication.utils import get_sentinel
+from corporate.models.room import Room
+
+# rest of the code
+```
+
+With these changes, you should be able to run `manage.py makemigrations` without any circular import errors.

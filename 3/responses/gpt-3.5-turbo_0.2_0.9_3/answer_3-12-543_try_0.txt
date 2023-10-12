@@ -1,0 +1,31 @@
+The error message suggests that the problem is related to the stack trace. Specifically, it seems that the stack trace is not in the expected format, which is causing the assertion to fail. This can happen if the stack trace is not properly demangled.
+
+One possible solution is to set the `FlutterError.demangleStackTrace` flag to `true` in your `main` function before running the app. This flag tells Flutter to demangle the stack trace, which should resolve the issue.
+
+Here's an updated version of your `main` function that sets the flag:
+
+```
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+…
+
+Future<void> main() async {
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+      GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+      FlutterError.demangleStackTrace = true; // set the flag
+      runApp(const ProviderScope(child: MaterialApp(home: HelloWorld())));
+      …
+    },
+    (Object error, StackTrace stack) {
+      debugPrint(error.toString());
+      debugPrint(stack.toString());
+    },
+  );
+}
+```
+
+Try running your app again with this change and see if the error goes away.

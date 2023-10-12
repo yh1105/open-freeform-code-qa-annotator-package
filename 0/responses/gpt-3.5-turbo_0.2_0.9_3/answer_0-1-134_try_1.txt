@@ -1,0 +1,27 @@
+It sounds like you're trying to use a CSS preprocessor like Sass or Less, which allows you to write CSS in a more efficient and organized way. In Sass, for example, you can use the `&` symbol to reference the parent selector and create nested styles. Here's an example:
+
+```
+.parent {
+  background-color: blue;
+
+  & .child {
+    color: white;
+  }
+}
+```
+
+This will compile to:
+
+```
+.parent {
+  background-color: blue;
+}
+
+.parent .child {
+  color: white;
+}
+```
+
+Make sure you have a preprocessor installed and configured in your development environment. If you're using a framework like React or Angular, it may already be included.
+
+As for switching to Sublime, it's a matter of personal preference. Sublime is a popular code editor with many useful features, but there are other options like Visual Studio Code and Atom that are also worth considering. Try out a few and see which one you like best.

@@ -1,0 +1,30 @@
+The reason `observed.current` is `null` at the time of logging is because the log statement is being executed during the initial render of the component, at which point the `ref` has not yet been attached to the `div`. 
+
+React `ref`s are updated after the render is committed to the screen. So, if you want to access the `ref` after it's been attached to the `div`, you can use the `useEffect` hook, which runs after the render is committed to the screen.
+
+Here's how you can modify your code:
+
+```jsx
+import React, { useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  const observed = useRef(null);
+
+  useEffect(() => {
+    console.log(observed.current);
+  }, []);
+
+  return (
+    <div ref={observed} className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+In this code, `useEffect` is used with an empty dependency array `[]`, which means it will only run once after the first render. At this point, `observed.current` will point to the `div` element.

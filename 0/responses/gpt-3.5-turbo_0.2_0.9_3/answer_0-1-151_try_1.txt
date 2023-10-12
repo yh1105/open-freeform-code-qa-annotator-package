@@ -1,0 +1,17 @@
+It sounds like you are experiencing issues with the Rails asset pipeline. The asset pipeline is a feature of Rails that helps to manage and optimize the loading of static assets such as CSS, JavaScript, and images.
+
+When you make changes to your CSS files, the asset pipeline may not always pick up those changes immediately. This is because the asset pipeline is designed to precompile your assets for production use, which means that it may cache your assets and serve them from the cache instead of the original files.
+
+To fix this issue, you can try disabling asset caching in your development environment. To do this, you can add the following line to your `config/environments/development.rb` file:
+
+```ruby
+config.assets.digest = false
+```
+
+This will disable asset caching and force Rails to serve your assets directly from the original files. However, keep in mind that this may slow down your application's performance in development mode.
+
+Alternatively, you can try using a tool like Guard to automatically recompile your assets whenever you make changes to your CSS files. Guard is a tool that watches your files for changes and runs tasks automatically when changes are detected. You can use it to automatically recompile your assets whenever you make changes to your CSS files.
+
+To use Guard with Rails, you will need to install the `guard-rails-assets` gem and configure it in your `Guardfile`. You can find more information on how to use Guard with Rails in the official documentation.
+
+I hope this helps! Let me know if you have any further questions.

@@ -1,0 +1,17 @@
+If the `"python.linting.jediEnabled": false` line is greyed out in your settings.json file, it means that the setting is being overridden by another setting. 
+
+To find out which setting is overriding it, you can try the following steps:
+
+1. Open the Command Palette by pressing `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
+2. Type in "Preferences: Open User Settings" and select it.
+3. In the search bar, type in "jediEnabled" to filter the settings.
+4. Look for any settings that have "jediEnabled" set to `true` and try setting them to `false`.
+5. Save the settings file and restart Visual Studio Code.
+
+If you still can't disable Jedi, you can try disabling it globally by adding the following line to your settings.json file:
+
+```
+"python.jediEnabled": false
+```
+
+This should disable Jedi for all Python projects in Visual Studio Code.

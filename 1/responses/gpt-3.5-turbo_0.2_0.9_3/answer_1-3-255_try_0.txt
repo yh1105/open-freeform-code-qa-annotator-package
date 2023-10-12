@@ -1,0 +1,39 @@
+The error message suggests that there is a problem with the CMake installation. You can try the following steps to resolve the issue:
+
+1. Update the package list and upgrade the installed packages:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+2. Install the required dependencies for OpenCV:
+```
+sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+```
+
+3. Clone the OpenCV repository and checkout the desired version:
+```
+git clone https://github.com/opencv/opencv.git
+cd opencv
+git checkout 4.4.0
+```
+
+4. Create a build directory and run CMake:
+```
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+```
+
+5. Build and install OpenCV:
+```
+make -j4
+sudo make install
+```
+
+6. Finally, try installing OpenCV again using pip:
+```
+pip3 install opencv-python
+```
+
+If the issue persists, you can try reinstalling CMake or installing a different version of OpenCV.

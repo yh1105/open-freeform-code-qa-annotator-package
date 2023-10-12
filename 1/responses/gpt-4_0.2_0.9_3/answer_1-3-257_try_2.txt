@@ -1,0 +1,21 @@
+The issue with your current approach is that it distributes the remainder by adding 1 to each group until the remainder is exhausted. This is why you're seeing the output as `[34, 33, 33]` instead of `[34, 34, 32]`.
+
+To distribute the remainder by adding 2 to each group in succession, you need to modify your approach slightly. Here's a way to do it:
+
+```python
+num = 100
+parts = num//30  #Number of parts into which 'num' is to be divided
+
+def split(a, b):
+    quotient, remainder = divmod(a, b)
+    result = [quotient] * b
+    for i in range(0, min(b, remainder), 2):
+        result[i] += 2
+    return result
+
+print(split(num, parts))
+```
+
+This code first calculates the quotient and remainder of `num` divided by `parts`. It then creates a list of `parts` length, where each element is the quotient. It then iterates over the list, adding 2 to each element until the remainder is exhausted. The `min(b, remainder)` in the range function ensures that we don't try to add 2 to more elements than we have in the list or more than the remainder. 
+
+This will give you the output `[34, 34, 32]` as desired.

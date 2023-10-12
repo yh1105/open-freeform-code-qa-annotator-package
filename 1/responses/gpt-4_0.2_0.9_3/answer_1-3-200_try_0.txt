@@ -1,0 +1,35 @@
+The error message you're seeing usually means that the command you're trying to run in the subprocess is failing. In this case, it seems like the `git checkout` command is failing.
+
+One possible reason for this could be that the SHA hash you're trying to checkout doesn't exist in your repository. You can verify this by manually running `git checkout 62bbce43e` in your repository and seeing if it works.
+
+Another possible issue could be that your Python script is not in the correct directory when it tries to run the `git checkout` command. The `subprocess` module runs commands in the current working directory of your Python script, which might not be the same as the directory of your Git repository.
+
+You're using `cl("cd", repo)` to change directories, but it's not clear what this function does. If it's supposed to change the current working directory of your Python script, it might not be working as expected.
+
+Instead, you can use `os.chdir(repo)` to change the current working directory of your Python script. Here's how you can modify your code:
+
+```python
+import os
+import csv
+import subprocess
+
+with open(filename) as inputfile:
+    reader = csv.reader(inputfile, delimiter=",")
+    linecount = 0
+    for row in reader:
+        if linecount == 0:
+            linecount += 1
+        else:
+            repo = str(row[0])
+            sha = str(row[2])
+            specificfile = str(row[3])
+            linenum = int(row[4])
+            os.chdir(repo)
+            subprocess.check_output(['git', 'checkout', sha])
+            print("checkout done")
+            subprocess.check_output(['git', 'checkout', '-'])
+```
+
+This code will change the current working directory to `repo` before running the `git checkout` command. If `repo` is the path to your Git repository, this should allow the `git checkout` command to run successfully.
+
+Remember to handle exceptions for the case when the `repo` directory doesn't exist or the `sha` is not found in the repository.

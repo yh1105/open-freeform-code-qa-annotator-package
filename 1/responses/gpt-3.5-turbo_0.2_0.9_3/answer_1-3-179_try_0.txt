@@ -1,0 +1,17 @@
+To achieve the desired output, you can use the following code:
+
+```
+# Select rows where Value is 1
+q = df[df['Value']==1]
+
+# Group by ID and get the row with the maximum date
+latest = q.groupby('ID')['Date'].max().reset_index()
+
+# Merge with original dataframe and fill NaN values with 'Latest'
+df = pd.merge(df, latest, on=['ID', 'Date'], how='left')
+df['Latest'] = df['Latest'].fillna('Latest')
+```
+
+This code first selects the rows where `Value` is 1 using boolean indexing. Then, it groups the resulting dataframe by `ID` and gets the row with the maximum `Date` for each group using the `max()` function. The resulting dataframe has two columns: `ID` and `Date`. 
+
+This dataframe is then merged with the original dataframe using the `merge()` function, on the columns `ID` and `Date`. The resulting dataframe has a new column `Latest` with NaN values where the `Date` is not the maximum for the corresponding `ID`. Finally, the NaN values in the `Latest` column are filled with the string 'Latest' using the `fillna()` function.

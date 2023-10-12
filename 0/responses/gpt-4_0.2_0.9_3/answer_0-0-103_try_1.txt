@@ -1,0 +1,34 @@
+You can use a render function in your column definition to format the date. In this function, you can use a library like `moment.js` to format the date. Here's how you can do it:
+
+First, install `moment.js`:
+
+```bash
+npm install moment
+```
+
+Then, import it in your file:
+
+```javascript
+import moment from 'moment';
+```
+
+After that, you can use it in your column definition:
+
+```javascript
+export const columns = [
+    { title: `ID`, dataIndex: `invoice_id`},
+    { title: `Invoice Number`, dataIndex: `invoice_number` },
+    { title: `Amount`, dataIndex: `invoice_amount`},
+    { title: `Store Name`, dataIndex: `store_name`},
+    { title: `Supplier Name`, dataIndex: `supplier_name`},
+    { 
+      title: `Creation Date`, 
+      dataIndex: `invoice_date`,
+      render: (text) => moment(text).format('DD-MM-YYYY') 
+    },
+]
+
+<Table bordered columns={columns} dataSource={invoices_list} />
+```
+
+In this code, the `render` function takes the date from the `invoice_date` field, and uses `moment.js` to format it to the `DD-MM-YYYY` format. This formatted date is then displayed in the table.

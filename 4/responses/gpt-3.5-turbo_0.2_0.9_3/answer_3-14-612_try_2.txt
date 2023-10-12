@@ -1,0 +1,29 @@
+To parse the JSON response and get the value, you can use the `JSONSerialization` class in Swift. Here's how you can modify your code to achieve this:
+
+```
+func api() {
+    guard let url = URL(string: "https://sochain.com/api/v2/get_price/DOGE/USD") else { return }
+
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let dataDict = json["data"] as? [String: Any],
+               let prices = dataDict["prices"] as? [[String: Any]],
+               let price = prices.first,
+               let priceValue = price["price"] as? String {
+                print("Price: \(priceValue)")
+            }
+        } catch let error as NSError {
+            print("Failed to parse JSON: \(error.localizedDescription)")
+        }
+    }
+
+    task.resume()
+}
+```
+
+In this code, we first check if the JSON response can be converted to a dictionary. Then, we extract the `data` dictionary and the `prices` array from it. We then get the first element of the `prices` array and extract the `price` value from it. Finally, we print the `priceValue`.
+
+Note that we are using optional binding (`if let`) to safely unwrap the optional values. If any of the values are `nil`, the code inside the `if` block will not be executed.

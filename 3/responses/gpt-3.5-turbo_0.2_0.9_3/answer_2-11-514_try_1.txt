@@ -1,0 +1,31 @@
+Yes, it is possible to achieve this in C++14 using variadic templates and `std::array`. Here's an example implementation:
+
+```
+#include <array>
+#include <iostream>
+
+template <uint32_t argsCount, typename T>
+void fun(std::array<T, argsCount> const& args)
+{
+    // ...
+    // use args as needed
+    for (auto const& arg : args)
+    {
+        std::cout << arg.a << " " << arg.b << " " << arg.c << std::endl;
+    }
+}
+
+int main()
+{
+    std::array<Foo, 3> arr{ { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } } };
+    fun(arr);
+
+    return 0;
+}
+```
+
+In this implementation, we use `std::array` to store the arguments passed in as a single parameter to the `fun` function. We can then access each argument using a range-based for loop or other methods as needed.
+
+Note that we need to use the double-brace syntax to initialize the `std::array` with the list of `Foo` objects. This is because `std::array` is an aggregate type, and the inner braces are needed to initialize each `Foo` object within the array.
+
+This implementation should work in C++14 and newer versions of the language.

@@ -1,0 +1,13 @@
+This error occurs when the Gradle version used by your project is not compatible with the Android Gradle Plugin version. To fix this issue, you can try the following steps:
+
+1. Check the Gradle version used by your project. You can find it in the `gradle/wrapper/gradle-wrapper.properties` file. The `distributionUrl` property specifies the Gradle version.
+
+2. Check the compatibility of the Gradle version with the Android Gradle Plugin version. You can find the compatibility matrix in the Android Gradle Plugin release notes.
+
+3. If the Gradle version is not compatible, update it to a compatible version. You can do this by changing the `distributionUrl` property in the `gradle/wrapper/gradle-wrapper.properties` file.
+
+4. If the compatible Gradle version is not available in your Gradle cache, Gradle will download it automatically.
+
+5. After updating the Gradle version, sync your project with Gradle by clicking on the "Sync Project with Gradle Files" button in the toolbar or by running the `./gradlew clean build` command in the terminal.
+
+If the issue persists, you can try deleting the `.gradle` directory in your project root directory and then syncing your project with Gradle again. This will force Gradle to download all the dependencies again.

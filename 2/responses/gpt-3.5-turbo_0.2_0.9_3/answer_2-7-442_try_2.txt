@@ -1,0 +1,15 @@
+The issue here is that the `require` statement is looking for the `autoload.php` file in the current directory, but it is not finding it there. 
+
+When you run `composer require phpmailer/phpmailer`, Composer downloads the required package and installs it in the `vendor` directory of your project. So, you need to make sure that the `vendor` directory is in the same directory as your `send_mail.php` file.
+
+To fix the issue, you can try the following steps:
+
+1. Check if the `vendor` directory is present in the same directory as your `send_mail.php` file.
+2. If it is not present, run `composer install` in the root directory of your project to install the required packages and create the `vendor` directory.
+3. If it is present, make sure that the path to the `autoload.php` file is correct in the `require` statement. For example, if the `vendor` directory is in the same directory as your `send_mail.php` file, the `require` statement should be:
+
+```
+require __DIR__ . '/vendor/autoload.php';
+```
+
+This will ensure that the `autoload.php` file is loaded from the correct directory.

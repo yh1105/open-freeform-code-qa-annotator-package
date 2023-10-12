@@ -1,0 +1,19 @@
+As a professional assistant for programmers, I can suggest using the built-in Date Picker control in VBA. This control is available in the Developer tab of the Ribbon in Excel and can be added to a UserForm. It provides a calendar interface for selecting dates and does not require any external ocx files. 
+
+To add the Date Picker control to a UserForm, follow these steps:
+
+1. Open the UserForm in the VBA Editor.
+2. If the Developer tab is not visible in the Ribbon, go to File > Options > Customize Ribbon and check the box next to Developer in the right-hand column.
+3. In the Developer tab, click on the Insert button and select the Date Picker control from the list.
+4. Drag the Date Picker control onto the UserForm and resize it as needed.
+5. In the Properties window, set the Value property to the default date you want to display when the UserForm is opened.
+
+You can then use the Value property of the Date Picker control to retrieve the selected date in your VBA code. For example:
+
+```
+Private Sub DatePicker1_Change()
+    MsgBox "Selected date: " & DatePicker1.Value
+End Sub
+```
+
+This code will display a message box with the selected date whenever the user changes the date in the Date Picker control.

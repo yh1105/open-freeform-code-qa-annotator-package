@@ -1,0 +1,29 @@
+The issue you're experiencing is due to the lifecycle of Blazor components. The `OnAfterRenderAsync` method is called after the component has finished rendering. However, the `@ref` attribute is not guaranteed to be populated until after the first render of the parent component. This is why `tabSet` is null during the first call to `OnAfterRenderAsync`.
+
+To solve this issue, you can use the `OnParametersSet` or `OnParametersSetAsync` lifecycle methods instead. These methods are called when a component has received parameters from its parent in the render tree, and are suitable for performing logic that needs to occur during component initialization.
+
+Here's how you can modify your code:
+
+```csharp
+protected override void OnParametersSet()
+{
+    tabSet.TabChanged += TabChanged;
+}
+```
+
+This will ensure that `tabSet` is not null when you're subscribing to the `TabChanged` event. However, be aware that `OnParametersSet` is called each time the parent component renders, so you should add a condition to ensure you only subscribe to the event once:
+
+```csharp
+private bool isEventSubscribed = false;
+
+protected override void OnParametersSet()
+{
+    if (!isEventSubscribed)
+    {
+        tabSet.TabChanged += TabChanged;
+        isEventSubscribed = true;
+    }
+}
+```
+
+This way, you ensure that the event handler is only added once.

@@ -1,0 +1,12 @@
+No, calling `str(roll)` will convert the entire list into a string, not each individual element. It will result in a string that looks like this: "[1, 2, 3]".
+
+If you want to convert each individual element in the list to a string, you need to iterate over the list and call `str()` on each element. You can do this with a list comprehension, which is a compact way of creating a new list by performing an operation on each item in an existing list.
+
+Here's how you can do it:
+
+```python
+roll = [1, 2, 3]
+roll = [str(i) for i in roll]
+```
+
+After running this code, `roll` will be `['1', '2', '3']`, which is a list of strings.

@@ -1,0 +1,44 @@
+The error message you're seeing is due to the fact that R 4.0 has dependencies that are not available in Ubuntu 18.04's repositories. Upgrading to Ubuntu 20.04 would solve this problem, as it includes the necessary versions of the dependencies. However, if you prefer to stay on Ubuntu 18.04, you can still install R 4.0 by adding the CRAN repositories to your sources list.
+
+Here are the steps to do so:
+
+1. First, add the CRAN GPG key to your system:
+
+```bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+```
+
+2. Then, add the CRAN repository to your sources list. Open the sources list file using a text editor (like nano):
+
+```bash
+sudo nano /etc/apt/sources.list
+```
+
+3. Add the following line to the file:
+
+```bash
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+```
+
+4. Save and close the file.
+
+5. Update your system's package list:
+
+```bash
+sudo apt update
+```
+
+6. Now, you should be able to install R 4.0:
+
+```bash
+sudo apt install r-base
+```
+
+If you still encounter issues, it might be due to previously installed R packages. You can remove them with:
+
+```bash
+sudo apt remove r-base r-base-dev r-recommended
+sudo apt autoremove
+```
+
+And then try to install R 4.0 again.

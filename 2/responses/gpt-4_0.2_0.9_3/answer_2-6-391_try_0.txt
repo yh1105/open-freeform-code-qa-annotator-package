@@ -1,0 +1,11 @@
+Including static files like images in your Docker image during the build process is a common practice and it's perfectly fine to do so. This is especially true for small files that are unlikely to change often, as it simplifies the deployment process and ensures that the necessary files are always available to your application.
+
+In your case, including the `banner.png` file in the Docker image makes sense, as it's used by the email service and needs to be available whenever the service is running. Your Dockerfile already includes the necessary command to copy the Assets directory (which contains the `banner.png` file) into the Docker image:
+
+```dockerfile
+COPY src/Email.Service/Assets Assets
+```
+
+This command will copy the entire Assets directory from your project into the Docker image. When your application runs, it will be able to access the `banner.png` file from the Assets directory.
+
+However, if the image file is large or changes frequently, you might want to consider other options. For example, you could store the image in a cloud storage service (like AWS S3 or Azure Blob Storage) and download it when needed. This would keep your Docker image small and allow you to update the image without rebuilding the Docker image. But this adds complexity to your application and might not be necessary if the image file is small and doesn't change often.

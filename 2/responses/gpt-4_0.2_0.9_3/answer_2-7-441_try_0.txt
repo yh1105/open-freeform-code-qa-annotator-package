@@ -1,0 +1,37 @@
+The error you're encountering is not due to PHP 7.4. Laravel 6.x supports PHP 7.2 and above, including PHP 7.4. 
+
+The error message "Trying to access array offset on value of type null" is a notice level error introduced in PHP 7.4. It's triggered when you're trying to access an array offset on a null value.
+
+The error seems to be originating from Laravel Telescope's QueryWatcher. It's possible that Telescope is trying to access some data that isn't available during testing, especially when using the RefreshDatabase trait which resets the database state before each test.
+
+Here are a few things you can try:
+
+1. **Disable Telescope during testing.** You can do this by modifying the `register` method in your `App\Providers\TelescopeServiceProvider`:
+
+```php
+public function register()
+{
+    $this->hideSensitiveRequestDetails();
+
+    if ($this->app->isLocal()) {
+        $this->app->register(TelescopeServiceProvider::class);
+    }
+}
+```
+
+This will only register Telescope in your local environment and not during testing.
+
+2. **Check your Telescope watcher configuration.** In your `config/telescope.php` file, make sure the `watchers` configuration is correct. If you don't need the QueryWatcher during testing, you can disable it:
+
+```php
+'watchers' => [
+    Watchers\QueryWatcher::class => env('TELESCOPE_QUERY_WATCHER', true),
+    // ...
+],
+```
+
+Set the `TELESCOPE_QUERY_WATCHER` environment variable to `false` in your `.env.testing` or wherever you keep your testing environment variables.
+
+3. **Upgrade Laravel Telescope.** If you're not using the latest version of Laravel Telescope, consider upgrading. The issue might have been fixed in a newer version.
+
+Remember to run `composer update` after making these changes to ensure your dependencies are correctly updated.

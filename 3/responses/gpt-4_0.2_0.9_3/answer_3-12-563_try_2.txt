@@ -1,0 +1,35 @@
+In Flutter, if a string overflows, it should automatically wrap to the next line. However, if you want to manually add a new line in a string, you can use `\n`.
+
+For example:
+
+```dart
+String myString = 'This is line 1\nThis is line 2';
+```
+
+In your case, if you want to add a new line in the text from the JSON file, you can do something like this:
+
+```dart
+String myText = quranText['sura'][widget.surahDipilih]['aya'][index]['_text'];
+myText = myText.replaceAll(' ', ' \n');
+```
+
+This will add a new line after each space in the text.
+
+However, if your text is not wrapping to the next line as expected, it might be due to the constraints of the parent widget. In your case, you are using `AutoSizeText` widget, which automatically scales the text to fit within its bounds. If the text is too long to fit within its bounds, it will be scaled down to fit.
+
+You can try to wrap your `AutoSizeText` widget with `Expanded` widget to give it flexible space and allow it to wrap the text:
+
+```dart
+Expanded(
+  child: AutoSizeText(
+    "${text[0]}",
+    style: TextStyle(
+      fontFamily: 'quran', 
+      fontSize: 30
+    ),
+    textAlign: TextAlign.end,
+  )
+)
+```
+
+Also, make sure that the parent `Row` widget has enough space to accommodate the text. If the `Row` widget is too narrow, the text might not wrap as expected. You can try to increase the width of the `Row` widget or use a `Column` widget instead if the layout allows it.

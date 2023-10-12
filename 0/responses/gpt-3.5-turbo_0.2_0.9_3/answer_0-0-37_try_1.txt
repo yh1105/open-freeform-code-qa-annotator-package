@@ -1,0 +1,29 @@
+To create a route with 2 optional parameters in the URL using Nestjs, you can use the following syntax:
+
+```
+@Get('route/:param1/config/:optionalParam1?/:optionalParam2?')
+```
+
+In this syntax, `:param1` is a required parameter, while `:optionalParam1` and `:optionalParam2` are optional parameters. The `?` symbol after each optional parameter indicates that it may or may not be present in the URL.
+
+Here's an example of how you can use this syntax in a Nestjs controller:
+
+```
+@Controller()
+export class MyController {
+  @Get('route/:param1/config/:optionalParam1?/:optionalParam2?')
+  getConfig(@Param('param1') param1: string, @Param('optionalParam1') optionalParam1?: string, @Param('optionalParam2') optionalParam2?: string): string {
+    return `Param1: ${param1}, OptionalParam1: ${optionalParam1}, OptionalParam2: ${optionalParam2}`;
+  }
+}
+```
+
+In this example, the `getConfig` method takes in the `param1`, `optionalParam1`, and `optionalParam2` parameters from the URL using the `@Param` decorator. The `optionalParam1` and `optionalParam2` parameters are marked as optional by adding a `?` symbol after their names.
+
+With this setup, you can now call the `getConfig` method with any of the following URLs:
+
+- `/route/aa/config`
+- `/route/aa/config/bb`
+- `/route/aa/config/bb/cc`
+
+The `optionalParam1` and `optionalParam2` parameters will be `undefined` if they are not present in the URL.

@@ -1,0 +1,52 @@
+The issue you're facing is due to the fact that the `_makeZoneList` function is not being called again after `setState` is called. This means that the UI is not being updated with the new colors.
+
+To fix this, you need to ensure that the `_makeZoneList` function is called again after `setState` is called. This can be done by moving the `setState` call to the `StreamBuilder`'s `builder` function.
+
+Here's how you can do it:
+
+```dart
+Widget _zoneBody() {
+  return Padding(
+    padding: EdgeInsets.all(32),
+    child: StreamBuilder<List<Zone>>(
+      stream: GetterBloc.zonesStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return new Container();
+        } else {
+          if (snapshot.hasData) {
+            return Wrap(
+              spacing: 6.0, // gap between adjacent chips
+              children: _makeZoneList(snapshot.data, context));
+          } else {
+            return new Container();
+          }
+        }
+      }
+    )
+  );
+}
+
+List<Widget> _makeZoneList(List<Zone> zones, BuildContext context) {
+  List<Widget> buttons = new List();
+  for (int i = 0; i < zones.length; i++) {
+    buttons.add(RaisedButton(
+      color: zones[i].isSelected ? AppColors.primaryColor : AppColors.white,
+      onPressed: () {
+        if (zones[i].isSelected){
+          zones[i].isSelected = false;
+        }
+        else{
+          zones[i].isSelected = true;
+        }
+        print(zones[i].isSelected.toString());
+        (context as Element).markNeedsBuild();
+      },
+      child: Text(zones.elementAt(i).text)
+    ));
+  }
+  return buttons;
+}
+```
+
+In the code above, I've passed the `context` to the `_makeZoneList` function and used it to call `markNeedsBuild` on the `Element` that represents the `BuildContext`. This will schedule a new build for the widget, which will cause the `StreamBuilder`'s `builder` function to be called again, and in turn, the `_makeZoneList` function will be called again, updating the UI with the new colors.

@@ -1,0 +1,5 @@
+In Django, `@property` is a decorator that allows you to define a method as a "getter" for a class attribute. When you use `@property` on a method, you can access it like an attribute of the class, rather than calling it like a method. 
+
+In the example you provided, `full_name` is a property that returns the full name of a `Person` instance. Without `@property`, you would need to call the method like this: `person.full_name()`. But with `@property`, you can access it like an attribute: `person.full_name`.
+
+The main benefit of using `@property` is that it allows you to define a computed attribute that behaves like a regular attribute, without having to change the way you access it. This can make your code more readable and easier to use.

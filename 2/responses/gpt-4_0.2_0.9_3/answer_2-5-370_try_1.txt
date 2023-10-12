@@ -1,0 +1,46 @@
+The code you provided is for finding common prefixes in a list of strings, but your requirement is different. You want to find all prefixes and suffixes in a list of strings that occur 2 or more times.
+
+Here is a way to do it:
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> strList = new ArrayList<String>();
+        strList.add("Mary had a little lamb named Willy");
+        strList.add("Mary had a little ham");
+        strList.add("Old McDonald had a farm named Willy");
+        strList.add("Willy had a little dog named ham");
+        strList.add("(abc)");
+        strList.add("(xyz)");
+        strList.add("Visit Target Store");
+        strList.add("Visit Walmart Store");
+
+        HashMap<String, Integer> prefixMap = new HashMap<>();
+        HashMap<String, Integer> suffixMap = new HashMap<>();
+
+        for (String str : strList) {
+            String[] words = str.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                StringBuilder prefix = new StringBuilder(words[0]);
+                StringBuilder suffix = new StringBuilder(words[words.length - 1]);
+                for (int j = 1; j <= i; j++) {
+                    prefix.append(" ").append(words[j]);
+                    suffix.insert(0, " ").insert(0, words[words.length - 1 - j]);
+                }
+                prefixMap.put(prefix.toString(), prefixMap.getOrDefault(prefix.toString(), 0) + 1);
+                suffixMap.put(suffix.toString(), suffixMap.getOrDefault(suffix.toString(), 0) + 1);
+            }
+        }
+
+        prefixMap.entrySet().removeIf(entry -> entry.getValue() < 2);
+        suffixMap.entrySet().removeIf(entry -> entry.getValue() < 2);
+
+        System.out.println("Prefixes: " + prefixMap);
+        System.out.println("Suffixes: " + suffixMap);
+    }
+}
+```
+
+This code first splits each string into words. Then it iterates over the words, each time adding one more word to the prefix and suffix. It uses a `HashMap` to count the occurrences of each prefix and suffix. Finally, it removes all entries from the maps that have a count of less than 2.

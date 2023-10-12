@@ -1,0 +1,7 @@
+The Python `match`/`case` statement, introduced in Python 3.10, is not implemented as a hash table or lookup table, but rather as a sequence of comparisons. This is why the time it takes to match a case increases with the number of preceding cases: each case is checked in order until a match is found.
+
+In your example, the `match` statement checks each `case` in sequence from top to bottom. If the input is '0', it matches the first case and immediately returns. If the input is '1', it checks the first case, finds no match, then checks the second case and returns. This process continues, with each additional case requiring an additional comparison.
+
+This is different from a hash table or lookup table, where access time is constant regardless of the number of entries. In a hash table, the input is used to compute a hash, which directly indexes into the table to find the corresponding value. This operation takes the same amount of time regardless of the size of the table.
+
+The `match`/`case` statement is designed to be more flexible than a hash table. It can match on a variety of conditions, not just equality, and it can bind variables in the process. This flexibility comes at the cost of constant-time access.

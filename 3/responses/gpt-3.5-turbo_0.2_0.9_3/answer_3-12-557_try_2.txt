@@ -1,0 +1,73 @@
+To save the user details in shared preferences, you can use the `shared_preferences` package. Here's how you can modify your code to save the user details:
+
+1. Import the `shared_preferences` package:
+
+```
+import 'package:shared_preferences/shared_preferences.dart';
+```
+
+2. Add a method to save the user details in shared preferences:
+
+```
+_saveUserDetails(String username, String password) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('username', username);
+  prefs.setString('password', password);
+}
+```
+
+3. Modify the `_login` method to save the user details after successful login:
+
+```
+_login(username, password) async {
+  setState(() {
+    loading = true;
+  });
+
+  var body = json.encode({
+    "username": username,
+    "password": password,
+  });
+
+  Map<String, String> headers = {
+    'Content-type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  await http.post("${GlobalVar.Ip}/wp-json/jwt-auth/v1/token",
+      body: body, headers: headers).then((response) {
+    var body = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      _saveUserDetails(username, password); // save user details
+      loading = false;
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+    } else {
+      final snackBar = SnackBar(
+        content: Text(body['message'].toString().trim()),
+      );
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
+    setState(() {
+      loading = false;
+    });
+  });
+}
+```
+
+4. Modify the `_fetchSessionAndNavigate` method to check if the user details are already saved in shared preferences:
+
+```
+_fetchSessionAndNavigate() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String username = prefs.getString('username');
+  String password = prefs.getString('password');
+
+  if (username != null && password != null) {
+    _login(username, password); // auto-login if user details are saved
+  }
+}
+```
+
+With these modifications, the user details will be saved in shared preferences after successful login, and the app will auto-login the user if the user details are already saved in shared preferences.

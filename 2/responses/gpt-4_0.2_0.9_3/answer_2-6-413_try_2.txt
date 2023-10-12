@@ -1,0 +1,23 @@
+The error you're seeing is because the `ServiceUrl` property is non-nullable, but it's not being initialized in the constructor or inline. This is a warning from the compiler that you might be trying to use a null value where a non-null value is expected.
+
+To handle such errors in DTO classes when C#8's nullability context is enabled, you have a few options:
+
+1. **Initialize the non-nullable properties inline or in the constructor**. This ensures that they always have a value and are never null. However, this might not be desirable in a DTO because you might not always have a sensible default value to use.
+
+2. **Suppress the warning**. You can do this by adding `#nullable disable warnings` at the top of your file. This tells the compiler to ignore any warnings about nullability. However, this also suppresses all other nullability warnings in the file, which might not be what you want.
+
+3. **Make the property nullable**. This is the most straightforward solution, but it might not be what you want if you know that the property should never be null.
+
+4. **Use the null-forgiving post-fix**. You can add `!` to the end of the property declaration to tell the compiler that you know the property might be null now, but it will be initialized before it's used. This is probably the best solution for your case. Here's how you can do it:
+
+```csharp
+public class Connection
+{
+    public string ServiceUrl { get; set; } = null!;
+    public string? UserName { get; set; }
+    public string? Password { get; set; }
+    //... others 
+}
+```
+
+In this case, `null!` is a null-forgiving post-fix. It tells the compiler "I know this is null now, but trust me, it will be non-null when I need it." This way, you can keep the non-nullable reference type, and the compiler won't complain about it being uninitialized.

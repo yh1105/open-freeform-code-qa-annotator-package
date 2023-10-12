@@ -1,0 +1,61 @@
+The issue is that you are adding the `onclick` event directly to the button element, which causes the function to run on page load. Instead, you should add an `onClick` event to the button element and call the `myFunction` function from there. Here's an updated version of your code:
+
+```
+import React, { Component } from 'react'
+import { Alert } from 'react-alert'
+
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageURL: '',
+    };
+
+    this.handleUploadImage = this.handleUploadImage.bind(this);
+  }
+
+  handleUploadImage(ev) {
+    ev.preventDefault();
+
+    const data = new FormData();
+    data.append('file', this.uploadInput.files[0]);
+    data.append('filename', this.fileName.value);
+
+    fetch('http://localhost:8000/upload', {
+      method: 'POST',
+      body: data,
+    }).then((response) => {
+      response.json().then((body) => {
+        this.setState({ imageURL: `http://localhost:8000/${body.file}` });
+      });
+    });
+  }
+
+  myFunction() {
+    alert("Your file is being uploaded!")
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleUploadImage}>
+        <div>
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+        </div>
+        <div>
+          <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+        </div>
+        <br />
+        <div>
+          <button onClick={this.myFunction}>Upload</button>
+        </div>
+        <img src={this.state.imageURL} alt="img" />
+      </form>
+    );
+  }
+}
+
+export default Main;
+```
+
+In this updated code, I moved the `myFunction` function outside of the `render` method and added an `onClick` event to the button element that calls the `myFunction` function. This should ensure that the function only runs when the button is clicked.

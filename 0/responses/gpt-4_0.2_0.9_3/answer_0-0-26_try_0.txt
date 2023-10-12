@@ -1,0 +1,39 @@
+The ESLint rule `react/display-name` is complaining because you're defining a component inline (the function that returns the `<span>` element) and that component doesn't have a `displayName` property. 
+
+In your case, you can solve this by either disabling the ESLint rule for that line or by defining the component outside of the object and giving it a `displayName`.
+
+Here's how you can do it:
+
+```jsx
+function RenderText(text) {
+  return <span>{getCountForCountry(text)}</span>;
+}
+
+RenderText.displayName = 'RenderText';
+
+const columns_payment_summary_table = [
+  {
+    title: FooConstants.LABEL_QUANTITY_SELECTED,
+    dataIndex: 'group',
+    key: 'group',
+    render: RenderText,
+  }
+];
+```
+
+Or, if you want to disable the rule for that line:
+
+```jsx
+const columns_payment_summary_table = [
+  {
+    title: FooConstants.LABEL_QUANTITY_SELECTED,
+    dataIndex: 'group',
+    key: 'group',
+    render: text => ( // eslint-disable-line react/display-name
+      <span>{getCountForCountry(text)}</span>
+    ),
+  }
+];
+```
+
+In general, it's a good practice to define components outside of the render method or any other method that gets called frequently, because defining components inside these methods can lead to unnecessary re-renders and performance issues.

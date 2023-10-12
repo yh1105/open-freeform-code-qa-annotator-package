@@ -1,0 +1,27 @@
+You can add an event listener for the "keydown" event on the editor's view element to detect when the enter key is pressed. Here's an example code snippet that should work for you:
+
+```
+mounted() {
+  let editor = new Editor({
+    extensions: [StarterKit],
+    content: this.value
+  });
+
+  editor.on("update", e => {
+    console.log(e);
+    this.$emit("input", this.editor.getHTML());
+  });
+
+  editor.view.dom.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      // Submit chat and clear editor
+      console.log("Enter key pressed");
+      // Add your code here to submit the chat and clear the editor
+    }
+  });
+
+  this.editor = editor;
+}
+```
+
+This code adds an event listener for the "keydown" event on the editor's view element. When the event is fired, it checks if the key pressed was the enter key. If it was, you can add your code to submit the chat and clear the editor.

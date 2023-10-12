@@ -1,0 +1,17 @@
+It looks like the rbenv command is not being recognized by your shell. This could be because the rbenv executable is not in your PATH environment variable. 
+
+To fix this, you can try adding the following line to your ~/.zshrc file:
+
+```
+export PATH="$HOME/.rbenv/bin:$PATH"
+```
+
+This will add the rbenv executable to your PATH so that it can be found by your shell.
+
+After adding this line, save the file and then run the following command to reload your shell configuration:
+
+```
+source ~/.zshrc
+```
+
+This should fix the issue and allow you to use rbenv without any errors.

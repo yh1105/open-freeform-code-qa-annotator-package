@@ -1,0 +1,51 @@
+The error message indicates that the compiler cannot find the `std::filesystem` namespace. This is because the `<experimental/filesystem>` header is not included in your `main.cpp` file.
+
+In C++17, the `<experimental/filesystem>` header was replaced with `<filesystem>`. Therefore, you need to change the include statement in your `main.cpp` file to:
+
+```
+#include <filesystem>
+```
+
+Also, since `<filesystem>` is a standard library header, you do not need to link against any additional libraries. Therefore, you can remove the `stdc++fs` library from your `target_link_libraries` statement in your `CMakeLists.txt` file.
+
+After making these changes, your `main.cpp` file should look like this:
+
+```
+#include <filesystem>
+
+
+int main(int argc, char** argv)
+{
+    std::string imageDirectory = "./image";;
+    std::vector<std::string> imagePath;
+
+    for (const auto& entry: std::filesystem::directory_iterator(imageDirectory))
+    {
+        imagePath.push_back(entry.path());
+        std::cout << entry.path() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+And your `CMakeLists.txt` file should look like this:
+
+```
+cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+
+project(visual_hull LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+add_library(dataIO
+        STATIC
+            dataIO.hpp
+            dataIO.cpp)
+
+find_package(OpenCV REQUIRED core highgui imgproc)
+
+target_link_libraries(dataIO ${OpenCV_LIBS})
+
+add_executable(visual_hull main.cpp)
+
+target_link_libraries(visual_hull PUBLIC dataIO)
+```

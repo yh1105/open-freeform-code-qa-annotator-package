@@ -1,0 +1,35 @@
+The `err113` linter is suggesting that you avoid defining dynamic errors using `errors.New()` and instead use wrapped static errors. This means that you should define the error once and reuse it throughout your codebase.
+
+Here's an example of how you can use wrapped static errors:
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrRepoGaveErr = errors.New("repo gave err")
+	ErrOops        = errors.New("oops")
+)
+
+func main() {
+	err := doSomething()
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func doSomething() error {
+	// Instead of defining the error dynamically, use the pre-defined error.
+	return fmt.Errorf("failed to do something: %w", ErrRepoGaveErr)
+}
+```
+
+In this example, we define two pre-defined errors `ErrRepoGaveErr` and `ErrOops`. These errors can be reused throughout the codebase. 
+
+In the `doSomething()` function, we use the `fmt.Errorf()` function to wrap the `ErrRepoGaveErr` error and return it. This allows us to provide more context to the error message while still using a pre-defined error.
+
+By using pre-defined errors, we can avoid defining dynamic errors using `errors.New()` and ensure that our code is more maintainable and easier to read.

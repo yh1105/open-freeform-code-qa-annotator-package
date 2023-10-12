@@ -1,0 +1,32 @@
+The error message is indicating that you are trying to access the `@State` variable outside of the `body` property of the `View`. This is not allowed in SwiftUI.
+
+To achieve what you are trying to do, you can use a different approach. Instead of initializing the `@State` variable in the `init()` method, you can pass the dictionary value as a parameter to the `TextField` directly.
+
+Here's an updated version of your code that should work:
+
+```
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+    let letter: String
+
+    var body: some View {
+        TextField(list[letter] ?? "", text: $fullText)
+    }
+    
+    @State private var fullText: String = ""
+}
+```
+
+In this version, we are passing the dictionary value as a default value to the `TextField` using the nil-coalescing operator (`??`). We are also declaring the `@State` variable inside the `View`'s `body` property, which is the correct place to use it.
+
+Now you can create an instance of `StateFromOutside` and pass the letter you want to use as a parameter:
+
+```
+let view = StateFromOutside(letter: "a")
+```
+
+This should initialize the `TextField` with the value "Letter A".

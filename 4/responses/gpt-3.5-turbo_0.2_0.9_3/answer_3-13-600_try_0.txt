@@ -1,0 +1,18 @@
+To achieve this behavior, you can set the `ViewPager2`'s `offscreenPageLimit` to 0. This will prevent the `ViewPager2` from preloading any pages, and will only load the page when it is selected by the user via the `TabLayout`.
+
+Here's an example of how to do it:
+
+```kotlin
+// Set the offscreenPageLimit to 0
+viewPager2.offscreenPageLimit = 0
+
+// Set up the TabLayout with the ViewPager2
+TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+    // Set the tab text and icon here
+}.attach()
+
+// Disable user input for the ViewPager2
+viewPager2.isUserInputEnabled = false
+```
+
+With this setup, when the user clicks on a tab in the `TabLayout`, the `ViewPager2` will only load the selected page and display it immediately, without any animation or preloading of other pages.

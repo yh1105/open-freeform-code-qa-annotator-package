@@ -1,0 +1,19 @@
+The `re.split` function does not support hierarchy of delimiters. It will split the string based on whichever delimiter it encounters first. 
+
+To achieve the desired behavior, you can use a loop to split the string based on each delimiter in the order of your preference. Here is a Python function that does this:
+
+```python
+def split_string(s, delimiters):
+    for delimiter in delimiters:
+        parts = s.split(delimiter, 1)
+        if len(parts) > 1:
+            return parts
+    return [s]
+
+# Usage
+delimiters = [' and ', ' & ', ' - ']
+s = 'dsfsd - adfd and adsfa'
+print(split_string(s, delimiters))  # ['dsfsd - adfd ', ' adsfa']
+```
+
+This function works by trying to split the string based on each delimiter in the order they are given. If the string is successfully split (i.e., more than one part is produced), it returns the parts. If none of the delimiters can split the string, it returns the original string as a single-element list.

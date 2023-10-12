@@ -1,0 +1,45 @@
+In ASP.NET Core 3.1, the `SameSiteMode.None` value is correctly translated to the `SameSite=None` attribute in the `Set-Cookie` header. However, in earlier versions of ASP.NET Core, you may need to use a workaround to set the `SameSite=None` attribute.
+
+Here is a workaround for ASP.NET Core 2.1:
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseCookiePolicy(new CookiePolicyOptions
+    {
+        MinimumSameSitePolicy = SameSiteMode.Unspecified,
+        OnAppendCookie = cookieContext =>
+            CheckSameSite(cookieContext.Context, cookieContext.CookieOptions),
+        OnDeleteCookie = cookieContext =>
+            CheckSameSite(cookieContext.Context, cookieContext.CookieOptions)
+    });
+
+    // ... rest of the method
+}
+
+private void CheckSameSite(HttpContext httpContext, CookieOptions options)
+{
+    if (options.SameSite == SameSiteMode.None)
+    {
+        var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+        if (DisallowsSameSiteNone(userAgent))
+        {
+            // For .NET Core < 3.1 set SameSite = (SameSiteMode)(-1)
+            options.SameSite = (SameSiteMode)(-1);
+        }
+    }
+}
+
+private bool DisallowsSameSiteNone(string userAgent)
+{
+    // Check if the user agent string matches known incompatible clients
+    // This method is from: https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
+    // You should update this method with the latest version of the function from the link above
+
+    // ... implementation of the method
+}
+```
+
+In the `CheckSameSite` method, we check if the `SameSite` property of the `CookieOptions` object is `SameSiteMode.None`. If it is, we check if the client's user agent disallows `SameSite=None` (using the `DisallowsSameSiteNone` method). If the client disallows `SameSite=None`, we set `SameSite` to `(SameSiteMode)(-1)`, which results in the `SameSite` attribute being omitted from the `Set-Cookie` header. If the client allows `SameSite=None`, we leave `SameSite` as `SameSiteMode.None`, which results in `SameSite=None` being added to the `Set-Cookie` header.
+
+Please note that this is a workaround and it's always recommended to update to the latest stable version of ASP.NET Core if possible.

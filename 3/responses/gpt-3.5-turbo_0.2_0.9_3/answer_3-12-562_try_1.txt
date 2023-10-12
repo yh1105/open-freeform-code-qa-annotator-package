@@ -1,0 +1,12 @@
+Yes, you are correct that the `Duration` class in Dart does not have built-in support for adding or subtracting years or months. However, you can achieve this functionality by using the `DateTime` class and some simple math.
+
+To subtract 6 months from a `DateTime` object, you can use the `subtract` method and pass in a `Duration` object that represents 6 months. Here's an example:
+
+```
+DateTime date = DateTime.now();
+DateTime sixMonthsAgo = date.subtract(Duration(days: 30 * 6));
+```
+
+In this example, we're subtracting a `Duration` of 6 months, which is equivalent to 180 days (assuming each month has 30 days). We then subtract this `Duration` from the current date to get a new `DateTime` object that represents 6 months ago.
+
+As for a library like moment.js for Dart, there are several options available. One popular choice is the `date_format` package, which provides a variety of date formatting and parsing utilities. Another option is the `timeago` package, which can generate human-readable descriptions of how long ago a given date was.

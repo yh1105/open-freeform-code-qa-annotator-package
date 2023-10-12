@@ -1,0 +1,38 @@
+The error message you are receiving indicates that `theme.mixins.toolbar` is undefined. This could be due to a few different reasons:
+
+1. In version 5 of Material-UI, the `mixins` property has been removed from the theme object. Instead, you can use the `sx` prop to apply styles to a component. So, instead of spreading `theme.mixins.toolbar`, you can use `sx={{ minHeight: "64px" }}` to set the minimum height of the toolbar.
+
+2. There is a typo in your `useStyles` function. You have `classes.toolBarMargin` instead of `classes.toolbarMargin`. This could be causing the error.
+
+Try updating your `useStyles` function to the following:
+
+```
+const useStyles = makeStyles((theme) => ({
+    toolbarMargin: { 
+        ...theme.mixins.toolbar,
+        minHeight: "64px",
+    },
+}));
+```
+
+And update your `Header` component to use `sx` instead of `theme.mixins.toolbar`:
+
+```
+function Header() {
+    const classes = useStyles();
+    return (
+        <React.Fragment>
+            <ElevationScroll>
+                <AppBar color="primary">
+                    <Toolbar>
+                        <Typography variant="h3" component="h3">
+                            Nome de teste
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </ElevationScroll>
+            <div className={classes.toolbarMargin} />
+        </React.Fragment>
+    );
+}
+```

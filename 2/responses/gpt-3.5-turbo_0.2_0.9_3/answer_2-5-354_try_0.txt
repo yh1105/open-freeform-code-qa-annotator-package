@@ -1,0 +1,29 @@
+The error message indicates that there is a problem with the mapping of the `user` field in the `UserRole` class. The error message says that Hibernate could not determine the type for the `user` field, which is a `List<User>`.
+
+The problem is that you are trying to map a bidirectional relationship between `User` and `UserRole`, but you have not specified the correct mapping annotations.
+
+In the `User` class, you have correctly specified the `@ManyToOne` annotation to indicate that each `User` has one `UserRole`. However, in the `UserRole` class, you have incorrectly specified the `@OneToMany` annotation to indicate that each `UserRole` has many `User`s.
+
+To fix this, you need to change the mapping in the `UserRole` class to use the `@ManyToOne` annotation instead of `@OneToMany`. Here's how you can do it:
+
+```
+@Entity
+@Table(name="user_role")
+public class UserRole {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long role_id;
+
+    private String position;
+
+    @OneToMany(mappedBy = "userRole")
+    private List<User> users;
+
+    // getters and setters
+}
+```
+
+In the `UserRole` class, you should remove the `getUser()` and `setUser()` methods, and replace them with a `getUsers()` method that returns the list of `User`s. You should also add a `mappedBy` attribute to the `@OneToMany` annotation to indicate that the relationship is mapped by the `userRole` field in the `User` class.
+
+With these changes, you should be able to map the bidirectional relationship between `User` and `UserRole` correctly.

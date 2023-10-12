@@ -1,0 +1,15 @@
+You can use the `:first-of-type` pseudo-class to select the first element among the 4 elements. Here is how you can modify your locator:
+
+```javascript
+[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:first-of-type
+```
+
+This will select the first `span` element inside the `.flex` class. If this doesn't work, it might be because the `span` elements are not direct siblings. In that case, you can use the `:nth-child()` pseudo-class to select the specific `span` element:
+
+```javascript
+[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:nth-child(1)
+```
+
+This will select the first `span` element inside the `.flex` class. 
+
+Please note that the `:first-of-type` and `:nth-child()` pseudo-classes work based on the type of the element and its position among its siblings, not its position inside the parent element.

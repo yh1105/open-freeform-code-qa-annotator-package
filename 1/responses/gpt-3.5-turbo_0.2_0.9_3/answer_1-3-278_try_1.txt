@@ -1,0 +1,39 @@
+Yes, you can achieve this by providing a custom `asdict` factory function that converts the `Enum` object to its value attribute. Here's an example:
+
+```
+from dataclasses import dataclass, asdict
+from enum import Enum
+
+
+@dataclass
+class Foobar:
+    name: str
+    template: "FoobarEnum"
+
+
+class FoobarEnum(Enum):
+    FIRST = "foobar"
+    SECOND = "baz"
+
+
+def enum_asdict_factory(obj):
+    if isinstance(obj, Enum):
+        return obj.value
+    else:
+        return obj
+
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(asdict(foobar, dict_factory=enum_asdict_factory))
+```
+
+Output:
+
+```
+{'name': 'John', 'template': 'foobar'}
+```
+
+In this example, we define a custom factory function `enum_asdict_factory` that checks if the object being converted is an instance of `Enum`. If it is, it returns the value attribute of the `Enum` object. Otherwise, it returns the object unchanged.
+
+We pass this factory function to the `asdict` function using the `dict_factory` parameter. This tells `asdict` to use our custom factory function instead of the default one.

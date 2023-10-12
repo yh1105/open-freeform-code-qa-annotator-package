@@ -1,0 +1,17 @@
+The error you're seeing is because the pip3 executable is trying to call a module that has been upgraded and is no longer callable in the way it expects.
+
+The steps you've taken to remove and reinstall pip3 should have resolved the issue. After doing so, you should be able to use pip3 to install other libraries.
+
+If you're still having issues, you can try installing pip for your local user only, which can help avoid conflicts with system packages. You can do this with the following command:
+
+```
+python3 -m pip install --user --upgrade pip
+```
+
+After that, you can install Jupyter Notebook using the following command:
+
+```
+python3 -m pip install --user jupyter
+```
+
+This will install Jupyter Notebook for your local user only, which should help avoid any conflicts with system packages.

@@ -1,0 +1,23 @@
+The error message you're seeing is because the AWS Lambda environment is a Linux environment, and you're building your Go binary on a Windows machine. The binary that's produced isn't compatible with the Linux environment where the Lambda function runs.
+
+To solve this, you need to cross-compile your Go code for a Linux environment. You can do this by setting the `GOOS` and `GOARCH` environment variables before building your Go code. Here's how you can do it:
+
+```bash
+set GOOS=linux
+set GOARCH=amd64
+go build main.go
+```
+
+This will produce a `main` binary that's compatible with the AWS Lambda Linux environment. You can then zip this binary and upload it to AWS Lambda.
+
+Also, make sure that the handler name is set to `main` in your AWS Lambda function configuration. This tells AWS Lambda to execute the `main` binary when the function is invoked.
+
+Remember, AWS Lambda expects a Linux executable, not a zip of the Windows executable. So, you need to zip the Linux executable and upload it to AWS Lambda.
+
+Here's how you can zip the Linux binary:
+
+```bash
+zip function.zip main
+```
+
+Then, you can upload `function.zip` to AWS Lambda.

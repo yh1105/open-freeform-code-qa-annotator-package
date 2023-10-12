@@ -1,0 +1,43 @@
+Webpack 5 removed some node.js polyfills, including `fs` and `net`. This is why you're seeing the error. The `node` configuration option no longer accepts these properties.
+
+To fix this, you need to install the polyfills manually. Here's how you can do it:
+
+1. Install the required packages:
+
+```bash
+npm install --save stream-browserify assert browserify-zlib constants-browserify crypto-browserify events process path-browserify os-browserify
+```
+
+2. Then, update your webpack configuration file to include the following:
+
+```javascript
+const webpack = require('webpack');
+const path = require('path');
+
+module.exports = {
+  // ...
+  resolve: {
+    fallback: {
+      "stream": require.resolve("stream-browserify"),
+      "assert": require.resolve("assert"),
+      "zlib": require.resolve("browserify-zlib"),
+      "constants": require.resolve("constants-browserify"),
+      "crypto": require.resolve("crypto-browserify"),
+      "events": require.resolve("events"),
+      "process": require.resolve("process/browser"),
+      "path": require.resolve("path-browserify"),
+      "os": require.resolve("os-browserify/browser"),
+    }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ],
+  // ...
+};
+```
+
+This configuration will tell webpack to use the browser versions of the node.js modules when it encounters them. 
+
+Please note that the `fs` and `net` modules are not fully browser-compatible, and you may encounter issues if your code or any dependencies are trying to use node.js-specific features that aren't available in the browser. If you're using a library that's trying to use these modules, you may need to find a browser-compatible alternative.

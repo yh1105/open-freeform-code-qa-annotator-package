@@ -1,0 +1,55 @@
+You can use the `weekday` property of `DateTime` object to get the day of the week as an integer where 1 represents Monday and 7 represents Sunday. Then you can map these integers to the actual names of the days of the week. Here is how you can do it:
+
+```dart
+DateTime date = DateTime.now();
+String dayOfWeek = '';
+
+switch (date.weekday) {
+  case 1:
+    dayOfWeek = 'Monday';
+    break;
+  case 2:
+    dayOfWeek = 'Tuesday';
+    break;
+  case 3:
+    dayOfWeek = 'Wednesday';
+    break;
+  case 4:
+    dayOfWeek = 'Thursday';
+    break;
+  case 5:
+    dayOfWeek = 'Friday';
+    break;
+  case 6:
+    dayOfWeek = 'Saturday';
+    break;
+  case 7:
+    dayOfWeek = 'Sunday';
+    break;
+}
+
+print(dayOfWeek); // It will print the current day of the week
+```
+
+However, if you want to use `DateFormat`, you can use the 'EEEE' pattern to get the day of the week:
+
+```dart
+import 'package:intl/intl.dart';
+
+DateTime date = DateTime.now();
+String dayOfWeek = DateFormat('EEEE').format(date);
+
+print(dayOfWeek); // It will print the current day of the week
+```
+
+In this case, you need to add `intl` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: ^0.17.0
+```
+
+Then run `flutter pub get` to fetch the package.

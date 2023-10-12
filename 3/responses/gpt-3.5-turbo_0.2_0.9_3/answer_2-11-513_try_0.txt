@@ -1,0 +1,15 @@
+The warning you are getting is because the `memset()` function returns a pointer to the memory block that was set. However, in your code, you are not using the return value of `memset()`. To fix this warning, you can simply assign the return value of `memset()` to a variable and then cast it to `void` to indicate that you are not using the value.
+
+Here's an example:
+
+```
+void Test()
+{
+  void *ptr = memset(&mystruct, 0, sizeof(MY_STRUCT));
+  (void)ptr;
+}
+```
+
+This code assigns the return value of `memset()` to a variable called `ptr`, and then casts it to `void` to indicate that it is not being used.
+
+To avoid such warnings in the future, you should always use the return value of functions that return a value, unless you are absolutely sure that you don't need it. In this case, you can safely ignore the return value of `memset()`, but in other cases, ignoring the return value could lead to bugs or other issues.

@@ -1,0 +1,13 @@
+The error message suggests that the problem is caused by an in-place operation. In PyTorch, an in-place operation is an operation that modifies a tensor in-place, without creating a new tensor. In-place operations are usually indicated by a trailing underscore in the function name, e.g. `add_`, `mul_`, etc.
+
+The error message also provides a hint: "the backtrace further above shows the operation that failed to compute its gradient". This means that the error occurred during the backward pass, when PyTorch was trying to compute the gradients of the tensors involved in the operation.
+
+Looking at your code, the most likely culprit seems to be the `embedding` operation in the `predict_captions` function. The `embedding` operation is an in-place operation, and it modifies the input tensor `input`. This could be the reason why PyTorch is unable to compute the gradients.
+
+To fix the problem, you can try making a copy of the input tensor before passing it to the `embedding` operation. You can do this using the `clone` method of the tensor, like this:
+
+```
+emb = self.embedding(input.clone())
+```
+
+This will create a new tensor that is a copy of the input tensor, and pass it to the `embedding` operation. This should prevent the in-place operation from modifying the input tensor, and allow PyTorch to compute the gradients correctly.

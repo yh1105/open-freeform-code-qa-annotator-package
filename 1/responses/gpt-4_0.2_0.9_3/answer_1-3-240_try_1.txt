@@ -1,0 +1,20 @@
+You can use the `merge` function with the `indicator` argument set to `True`. This will add a new column to the merged DataFrame called `_merge` that can take two values: `both` if the row is in both dataframes, `left_only` if the row is only in the left dataframe, and `right_only` if the row is only in the right dataframe. 
+
+Then, you can filter the rows where `_merge` is `left_only` to get the rows that are in `df1` but not in `df2`.
+
+Here is an example:
+
+```python
+df3 = df1.merge(df2, how='outer', indicator=True)
+df3 = df3[df3['_merge'] == 'left_only']
+```
+
+This will give you a DataFrame `df3` that contains only the rows that are in `df1` but not in `df2`.
+
+If you want to drop the `_merge` column, you can do so with the `drop` function:
+
+```python
+df3 = df3.drop(columns=['_merge'])
+```
+
+Note: This assumes that `df1` and `df2` have the same columns. If they don't, you need to specify which columns to use for the merge in the `on` argument of the `merge` function.

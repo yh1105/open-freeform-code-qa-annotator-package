@@ -1,0 +1,42 @@
+Sure, here is a step-by-step guide on how to enable Dev Tools in IntelliJ IDEA 2021.2 and observe changes in code without having to restart the Tomcat server.
+
+1. **Add DevTools Dependency:**
+   First, you need to add the Spring Boot DevTools dependency to your `pom.xml` file.
+
+   ```xml
+   <dependencies>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-devtools</artifactId>
+           <optional>true</optional>
+       </dependency>
+   </dependencies>
+   ```
+
+   If you're using Gradle, add this to your `build.gradle` file:
+
+   ```groovy
+   dependencies {
+       developmentOnly("org.springframework.boot:spring-boot-devtools")
+   }
+   ```
+
+2. **Enable Automatic Restart:**
+   By default, any classpath file changes will trigger a restart. DevTools needs to be set up in your IDE to make sure that the classpath is updated correctly. The way to do this in IntelliJ IDEA is to enable the "Make project automatically" option.
+
+   - Go to `File > Settings > Build, Execution, Deployment > Compiler`
+   - Check the `Build project automatically` option.
+
+3. **Enable Automatic Restart on Save:**
+   For changes to take effect immediately, you need to also enable the automatic restart or hot swapping after you save a file.
+
+   - Use the shortcut `Ctrl+Shift+A` (or `Cmd+Shift+A` on Mac) and search for the `Registry...` option.
+   - In the registry, enable `compiler.automake.allow.when.app.running`.
+
+4. **Update Running Application:**
+   After you've made some changes in your code, you can apply them using the `Update` action (`Ctrl+F10` on Windows/Linux, `Cmd+F10` on macOS). This will update the classes and resources.
+
+5. **Run Your Application:**
+   Now, run your application. Whenever you make changes to your code, the server will automatically restart to apply the changes.
+
+Please note that not all changes will be applied immediately: some changes (like adding new methods or classes) will require a full restart, not a hot swap.

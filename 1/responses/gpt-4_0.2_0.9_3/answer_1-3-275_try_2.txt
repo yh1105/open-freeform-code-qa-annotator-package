@@ -1,0 +1,56 @@
+From your code, it seems like you are trying to set the DAG for each task manually by using `task_1.dag = dag`, `task_2.dag = dag`, etc. This is not necessary because when you define the tasks, you can pass the `dag` argument directly to the `DatabricksSubmitRunOperator` like this:
+
+```python
+task_1 = DatabricksSubmitRunOperator(
+    task_id='task_1',
+    dag=dag,
+    # other parameters...
+)
+```
+
+Do this for all your tasks.
+
+Also, you have a syntax error in the parameters for `task_5`. You have `'json ={{ dag_run.conf.json }}'` but it should be `'{{ dag_run.conf.json }}'` like in the other tasks.
+
+Here is your corrected code:
+
+```python
+from airflow import DAG
+from datetime import datetime
+from airflow.providers.databricks.operators.databricks import DatabricksSubmitRunOperator
+
+default_args = {
+    'owner': 'airflow',
+    'depends_on_past': False
+}
+
+dag = DAG('DAG_FOR_TEST',default_args=default_args,schedule_interval=None,max_active_runs=3, start_date=datetime(2020, 7, 14)) 
+
+#################### CREATE TASK #####################################   
+
+task_1 = DatabricksSubmitRunOperator(
+    task_id='task_1',
+    dag=dag,
+    databricks_conn_id='connection_id_details',
+    existing_cluster_id='{{ dag_run.conf.clusterId }}',
+    libraries= [
+        {
+        'jar': 'dbfs:/task_1/task_1.jar'
+        }        
+        ],
+    spark_jar_task={
+        'main_class_name': 'com.task_1.driver.TestClass1',
+        'parameters' : [
+            '{{ dag_run.conf.json }}'       
+        ]
+    }
+)
+
+# Do the same for the other tasks...
+
+#################### ORDER OF OPERATORS ###########################  
+
+task_1 >> [task_2 , task_3] >> [ task_4 , task_5 ] >> task_6
+```
+
+This should solve your problem. If you still encounter issues, please provide the error message you are getting.

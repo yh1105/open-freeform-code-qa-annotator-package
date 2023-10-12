@@ -1,0 +1,39 @@
+The error message suggests that your app isn't using AndroidX. AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. It provides the androidx.* package libraries, unbundled from the platform APIs. This means that it provides backward compatibility and updates more frequently than the Android platform.
+
+Here are the steps to migrate your project to AndroidX:
+
+1. Backup your project.
+2. Open your project's `android/gradle.properties` file.
+3. Add the following lines to the file:
+
+```
+android.useAndroidX=true
+android.enableJetifier=true
+```
+
+4. Save the file.
+5. Open your project's `android/app/build.gradle` file.
+6. Change the `compileSdkVersion` and `targetSdkVersion` to `28` or higher.
+7. Save the file.
+8. Run `flutter clean` in your terminal to clean your project.
+9. Run your project again.
+
+If you still encounter issues, you may need to manually migrate your dependencies to their AndroidX equivalents. You can refer to the official [AndroidX migration guide](https://developer.android.com/jetpack/androidx/migrate) for more information.
+
+If the problem persists, the issue might be with the Gradle version. You can try updating the Gradle version in `android/gradle/wrapper/gradle-wrapper.properties` and `android/build.gradle` files.
+
+In `gradle-wrapper.properties`, change the distributionUrl to the latest Gradle version:
+
+```
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.7-all.zip
+```
+
+In `build.gradle`, change the Gradle classpath to the latest version:
+
+```
+dependencies {
+    classpath 'com.android.tools.build:gradle:4.1.0'
+}
+```
+
+Remember to run `flutter clean` after making these changes.

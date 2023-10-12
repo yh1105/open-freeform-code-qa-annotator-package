@@ -1,0 +1,47 @@
+The error message indicates that there is a problem with the mapping of the `user` field in the `UserRole` class. The `user` field is defined as a `List<User>` but Hibernate cannot determine the type for this field.
+
+To fix this issue, you need to specify the type of the `user` field using the `@OneToMany` annotation. Here's an updated version of your `UserRole` class:
+
+```
+@Entity
+@Table(name="user_role")
+public class UserRole {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long role_id;
+
+    private String position;
+
+    @OneToMany(mappedBy="userRole",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> users;
+
+    public long getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(long role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+}
+```
+
+In this updated version, the `users` field is now annotated with `@OneToMany(mappedBy="userRole",cascade=CascadeType.ALL, fetch = FetchType.LAZY)`. This specifies that the `users` field is a collection of `User` objects and that the mapping is done through the `userRole` field in the `User` class.
+
+With this change, you should be able to display all the users and their positions by accessing the `position` field in the `UserRole` class through the `userRole` field in the `User` class.

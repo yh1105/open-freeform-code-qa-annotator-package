@@ -1,0 +1,43 @@
+You can use the `strsplit()` function to split the `segment_stemming` column by comma and then use `unnest()` function from the `tidyr` package to separate the tuples into separate rows. Here's the code:
+
+```
+library(data.table)
+library(tidyr)
+
+x <- structure(list(id = c("A", "B" ),
+                    segment_stemming = c("[('Brownie', 'Noun'), ('From', 'Josa'), ('Pi', 'Noun')]", 
+                                          "[('Dung-caroon-gye', 'Noun'), ('in', 'Josa'), ('innovation', 'Noun')]" )), 
+               row.names = c(NA, -2L), 
+               class = c("data.table", "data.frame" ))
+
+# Split the tuples by comma
+x$segment_stemming <- strsplit(gsub("\\[|\\]|'", "", x$segment_stemming), ", ")
+
+# Unnest the tuples into separate rows
+x <- unnest(x, cols = segment_stemming)
+
+# Separate the tuple into two columns
+x <- cbind(x, data.table(t(matrix(x$segment_stemming, ncol = 2))))
+x <- x[, -3]
+
+# Rename the columns
+colnames(x) <- c("id", "segment_stemming", "pos")
+
+# Reorder the columns
+x <- x[, c(1, 3, 2)]
+
+# View the output
+x
+```
+
+Output:
+
+```
+   id              pos segment_stemming
+1:  A     'Brownie', 'Noun'
+2:  A         'From', 'Josa'
+3:  A           'Pi', 'Noun'
+4:  B 'Dung-caroon-gye', 'Noun'
+5:  B           'in', 'Josa'
+6:  B   'innovation', 'Noun'
+```

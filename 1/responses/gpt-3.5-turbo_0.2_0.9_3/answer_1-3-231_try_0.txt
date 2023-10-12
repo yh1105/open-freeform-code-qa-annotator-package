@@ -1,0 +1,21 @@
+Yes, you can get the shape of the list without converting it to a numpy array. Since your list contains PyTorch tensors, you can use the `torch.stack` function to stack the tensors in the list into a new tensor and then use the `size()` method to get the shape of the new tensor.
+
+Here's an example:
+
+```
+import torch
+
+# your list of tensors
+tensor_list = [
+    torch.tensor([[1, 2], [3, 4]]),
+    torch.tensor([[5, 6], [7, 8]])
+]
+
+# stack the tensors into a new tensor
+new_tensor = torch.stack(tensor_list)
+
+# get the shape of the new tensor
+print(new_tensor.size())  # output: torch.Size([2, 2, 2])
+```
+
+In your case, you can stack your list of tensors using `torch.stack(list(pytorchTensor))` and then get the shape using `new_tensor.size()`.

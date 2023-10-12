@@ -1,0 +1,52 @@
+Yes, you can encrypt the JSON file using a symmetric encryption algorithm like AES (Advanced Encryption Standard) and a secret key. Here's an example code snippet that demonstrates how to encrypt and decrypt a JSON file using AES encryption in Python:
+
+```python
+import json
+from Crypto.Cipher import AES
+
+# Define the secret key and initialization vector (IV)
+key = b'secret_key_12345'
+iv = b'initial_vector_678'
+
+# Define the path to the input and output files
+input_file = 'input.json'
+output_file = 'output.json'
+
+# Read the input JSON file
+with open(input_file, 'r') as f:
+    data = f.read()
+
+# Pad the data to a multiple of 16 bytes (the block size of AES)
+data = data.encode('utf-8')
+padding = b' ' * (16 - len(data) % 16)
+data += padding
+
+# Create an AES cipher object with the key and IV
+cipher = AES.new(key, AES.MODE_CBC, iv)
+
+# Encrypt the data using AES CBC mode
+encrypted_data = cipher.encrypt(data)
+
+# Write the encrypted data to the output file
+with open(output_file, 'wb') as f:
+    f.write(encrypted_data)
+
+# Read the encrypted data from the output file
+with open(output_file, 'rb') as f:
+    encrypted_data = f.read()
+
+# Decrypt the data using AES CBC mode
+cipher = AES.new(key, AES.MODE_CBC, iv)
+decrypted_data = cipher.decrypt(encrypted_data)
+
+# Remove the padding from the decrypted data
+decrypted_data = decrypted_data.rstrip()
+
+# Convert the decrypted data to a JSON object
+json_data = json.loads(decrypted_data.decode('utf-8'))
+
+# Print the decrypted JSON data
+print(json_data)
+```
+
+Note that you should keep the secret key and IV secure and not share them with anyone who should not have access to the decrypted data.

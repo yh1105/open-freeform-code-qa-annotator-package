@@ -1,0 +1,38 @@
+To darken or lighten a color, you can use the HSL (Hue, Saturation, Lightness) color model. You can convert the RGB color to HSL, adjust the lightness, and then convert it back to RGB.
+
+Here's how you can do it in Dart:
+
+```dart
+import 'dart:ui';
+
+Color darken(Color color, [double amount = .1]) {
+  final hsl = HSLColor.fromColor(color);
+  final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+  return hslDark.toColor();
+}
+
+Color lighten(Color color, [double amount = .1]) {
+  final hsl = HSLColor.fromColor(color);
+  final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+  return hslLight.toColor();
+}
+
+void main() {
+  final color = Color(0xff159424);
+
+  print(darken(color).value.toRadixString(16)); // print the darkened color
+  print(lighten(color).value.toRadixString(16)); // print the lightened color
+}
+```
+
+In the above code, `darken` and `lighten` functions take a `Color` object and an optional `amount` parameter that determines how much the color should be darkened or lightened. The `amount` is a fraction between 0 and 1, where 1 corresponds to black or white, respectively.
+
+The `Color` object is created from the hex color code. The `HSLColor.fromColor` method is used to convert the color to HSL. The lightness is then adjusted with the `withLightness` method. The adjusted color is converted back to a `Color` object with the `toColor` method.
+
+The `clamp` method is used to ensure that the lightness stays within the valid range (0.0 - 1.0).
+
+The `main` function demonstrates how to use these functions. It creates a `Color` object from the hex color code, darkens and lightens the color, and then prints the hex color codes of the resulting colors.
+
+Please note that Dart's `Color` class uses ARGB format, so you need to add `ff` at the beginning of your color code to represent full opacity.

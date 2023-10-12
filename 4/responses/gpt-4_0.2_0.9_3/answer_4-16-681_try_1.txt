@@ -1,0 +1,17 @@
+This error message usually indicates that the script you're running in your GitLab CI job is exiting with a non-zero status code. The non-zero status code means that the command or script has failed in some way.
+
+The issue is likely not with GitLab CI itself, but with the script you're running. It's possible that the script is encountering an error when running on the master branch, but not on other branches.
+
+Here are a few things you can try to debug this issue:
+
+1. **Add `set -e` at the beginning of your script**: This will cause the script to exit immediately if any command exits with a non-zero status. This can help you identify which command is causing the problem.
+
+2. **Add `echo` statements to your script**: This can help you see what's happening at each step of the script. You might be able to identify where the script is failing.
+
+3. **Check the differences between your master branch and other branches**: If the script is only failing on the master branch, there might be something different about that branch that's causing the script to fail. Check the differences between your master branch and other branches to see if you can identify any potential issues.
+
+4. **Check the GitLab CI job logs**: The job logs might contain more detailed information about why the script is failing. You can access the job logs from the GitLab CI/CD dashboard.
+
+5. **Check the exit code of the for loop**: The exit code of the last command executed in the for loop will be the exit code of the whole loop. If the last command in the loop fails, the whole loop (and thus your script) will fail. You can check the exit code of the for loop by adding `echo $?` after the loop. This will print the exit code of the loop.
+
+Remember, the issue is not with GitLab CI, but with the script you're running. The error message is just GitLab CI's way of telling you that your script has failed.

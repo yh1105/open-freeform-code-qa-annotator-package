@@ -1,0 +1,43 @@
+The error you're seeing is likely due to a compatibility issue between the older version of Ruby you're trying to install and the newer version of macOS Big Sur you're using. 
+
+Here are a few things you can try:
+
+1. **Update Ruby-Build and rbenv**: Make sure you have the latest versions of both Ruby-Build and rbenv. You can update them using Homebrew:
+
+   ```
+   brew upgrade ruby-build rbenv
+   ```
+
+2. **Install a newer version of Ruby**: As the error message suggests, Ruby 2.5.3 is nearing its end of life and only receives critical security updates. Try installing a newer version of Ruby that's more likely to be compatible with macOS Big Sur. For example, you can try installing Ruby 2.7.2 or Ruby 3.0.0:
+
+   ```
+   rbenv install 2.7.2
+   ```
+
+   or 
+
+   ```
+   rbenv install 3.0.0
+   ```
+
+3. **Install Ruby using RVM instead of rbenv**: If you're still having trouble, you might want to try using RVM (Ruby Version Manager) instead of rbenv. RVM is another tool for managing multiple Ruby environments. Here's how you can install it:
+
+   ```
+   \curl -sSL https://get.rvm.io | bash -s stable
+   ```
+
+   Then, you can use RVM to install Ruby:
+
+   ```
+   rvm install 2.7.2
+   ```
+
+   or 
+
+   ```
+   rvm install 3.0.0
+   ```
+
+Remember to replace "2.7.2" or "3.0.0" with the version of Ruby you want to install. 
+
+If none of these solutions work, please provide the full error log so we can better understand the issue.

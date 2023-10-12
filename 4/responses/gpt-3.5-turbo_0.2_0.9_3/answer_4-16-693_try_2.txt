@@ -1,0 +1,29 @@
+Here is a solution to your problem:
+
+```
+#!/bin/bash
+
+# Download the logs
+curl -s https://coderbyte.com/api/challenges/logs/web-logs-raw -O > /dev/null
+
+# Loop through each log item
+while read -r line; do
+  # Find the lines that contain the string coderbyte heroku/router
+  if [[ $line == *"coderbyte heroku/router"* ]]; then
+    # Extract the request_id value
+    request_id=$(echo "$line" | grep -o "request_id=[^ ]*" | cut -d= -f2)
+    # Extract the fwd value
+    fwd=$(echo "$line" | grep -o "fwd=\"[^\"]*\"" | cut -d\" -f2)
+    # Check if the fwd value is MASKED
+    if [[ $fwd == "MASKED" ]]; then
+      # Add [M] to the end of the line with a space before it
+      echo "$request_id [M]"
+    else
+      # Echo the request_id value to a new line
+      echo "$request_id"
+    fi
+  fi
+done < web-logs-raw
+```
+
+This script reads the logs line by line and checks if each line contains the string "coderbyte heroku/router". If it does, it extracts the request_id value and the fwd value. If the fwd value is "MASKED", it adds "[M]" to the end of the line with a space before it. Otherwise, it echoes the request_id value to a new line.

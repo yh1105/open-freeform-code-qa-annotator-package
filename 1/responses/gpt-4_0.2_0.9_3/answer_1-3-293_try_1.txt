@@ -1,0 +1,23 @@
+The error you're encountering is because the list `a` contains a string that is formatted like a dictionary, but it's still a string. Therefore, you can't access it like a dictionary.
+
+To solve this, you need to convert the string to a dictionary using the `json.loads()` function from the `json` module. Here's how you can do it:
+
+```python
+import json
+
+a = ['{"id":9,"name":"Foo"}']
+
+# Convert the string to a dictionary
+dict_a = json.loads(a[0])
+
+# Now you can access it like a dictionary
+print(dict_a['id'])
+```
+
+This will output:
+
+```
+9
+```
+
+The `json.loads()` function converts a JSON formatted string into a Python object, in this case a dictionary.

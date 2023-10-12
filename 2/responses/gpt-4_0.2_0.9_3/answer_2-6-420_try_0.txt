@@ -1,0 +1,31 @@
+The error message you're seeing is indicating that the Authority URL you're using is not using HTTPS. The error message is: 
+
+```
+System.InvalidOperationException: The MetadataAddress or Authority must use HTTPS unless disabled for development by setting RequireHttpsMetadata=false.
+```
+
+This error is thrown because the `RequireHttpsMetadata` property is set to `true` in your `AddJwtBearer` options, which means that the Authority URL must use HTTPS.
+
+You mentioned that you have set `AzureAd:Authority` to `https://login.microsoftonline.com/` in your app settings, which is correct and it is using HTTPS. 
+
+However, the issue might be in the way you're constructing the Authority URL in your `AddJwtBearer` options:
+
+```csharp
+options.Authority = $"{authSettings.Authority}/{authSettings.TenantId}";
+```
+
+Make sure that `authSettings.Authority` and `authSettings.TenantId` are correctly set and that they form a valid HTTPS URL when combined. 
+
+You can try to print out the final Authority URL to the console or log it to make sure it's correct:
+
+```csharp
+Console.WriteLine($"{authSettings.Authority}/{authSettings.TenantId}");
+```
+
+If the URL is correct and the error persists, you might want to check if there's a network issue that prevents your app from accessing the Authority URL via HTTPS. 
+
+If you're running in a development environment and you want to bypass this check, you can set `RequireHttpsMetadata` to `false`, but this is not recommended for production environments:
+
+```csharp
+options.RequireHttpsMetadata = false;
+```

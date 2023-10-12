@@ -1,0 +1,7 @@
+The "No FontName. Skipping." issue occurs when the font file does not contain the necessary metadata for `extrafont` to import it. Unfortunately, there is no easy fix for this issue, as it requires modifying the font file itself to include the necessary metadata.
+
+Regarding the warning messages, they are related to the `ttf2pt1` utility that `extrafont` uses to extract font metrics from the font files. The warnings indicate that the utility encountered an error while processing the font files. This could be due to a variety of reasons, such as a corrupted font file or an issue with the `ttf2pt1` utility itself.
+
+While these warning messages are not ideal, they do not necessarily indicate a critical issue with your system or the font files themselves. However, if you are experiencing issues with the imported fonts, it may be worth investigating these warnings further.
+
+In summary, the "No FontName. Skipping." issue cannot be easily resolved, and the warning messages may or may not be cause for concern.

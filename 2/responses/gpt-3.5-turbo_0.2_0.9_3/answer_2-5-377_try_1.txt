@@ -1,0 +1,33 @@
+The issue with your code is that you are trying to format a `LocalDate` object as a date-time string, which is not possible. Instead, you should use a `LocalDateTime` object to represent both the date and time.
+
+Here is an updated version of your code that generates a random `LocalDateTime` object and formats it in the desired format:
+
+```
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        String randomDateTimeString = generateRandomDateAndTimeInString();
+        System.out.println(randomDateTimeString);
+    }
+
+    public static String generateRandomDateAndTimeInString() {
+        LocalDateTime dateTime = LocalDateTime.now().minusDays(new Random().nextInt(365 * 70)).withNano(0);
+        System.out.println("date and time :: " + dateTime.toString());
+        return formatDate(dateTime);
+    }
+
+    public static String formatDate(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        return dateTime.format(formatter);
+    }
+}
+```
+
+In this code, we use `LocalDateTime.now()` to get the current date and time, and then subtract a random number of days using `minusDays()`. We also set the nanoseconds to zero using `withNano(0)` to ensure that the formatted string always ends with `00Z`.
+
+We then format the `LocalDateTime` object using a `DateTimeFormatter` object with the desired pattern.
+
+The output of this code should be a random date and time in the desired format, such as `1998-12-24T13:45:22Z`.

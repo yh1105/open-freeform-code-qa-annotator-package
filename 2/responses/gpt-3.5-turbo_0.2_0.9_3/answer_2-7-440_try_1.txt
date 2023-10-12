@@ -1,0 +1,15 @@
+The error message indicates that the `Input` facade is not found in the `Illuminate\Support\Facades` namespace. This is because the `Input` facade was removed in Laravel 6 and replaced with the `request()` helper function.
+
+To fix this error, you need to replace all instances of `Input::` with `request()->`. For example, if you have code like this:
+
+```
+$input = Input::get('name');
+```
+
+You should change it to:
+
+```
+$input = request()->input('name');
+```
+
+Make sure to update all occurrences of `Input::` in your code. Once you have made these changes, try running the upgrade command again and see if the error is resolved.

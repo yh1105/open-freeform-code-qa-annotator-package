@@ -1,0 +1,20 @@
+The error message "No FontName. Skipping." indicates that the `extrafont` package is unable to find a name for the font in the TrueType font file (.ttf). This could be due to a variety of reasons, such as the font file being corrupt or not properly formatted.
+
+Here are a few things you could try to resolve this issue:
+
+1. **Check the font files**: Open the .ttf files in a font viewer to ensure they are not corrupt and are properly formatted.
+
+2. **Use a different method to import the fonts**: Instead of using `extrafont`, you could try using the `sysfonts` package which provides a different method for importing and using fonts in R.
+
+As for the warning messages, they are indicating that the system command being run by the `extrafont` package is failing. This is likely related to the "No FontName. Skipping." issue. Once you resolve the issue with the font files, these warning messages should also be resolved.
+
+Here's how you can use `sysfonts` package to load fonts:
+
+```r
+install.packages("sysfonts")
+library(sysfonts)
+
+font_add("myfont", "C:/Users/me/Desktop/Fonts/myfont.ttf")
+```
+
+In this example, replace "myfont" with the name you want to use for the font in R, and replace "myfont.ttf" with the name of your .ttf file. After running these commands, you should be able to use the font in R with the name "myfont".

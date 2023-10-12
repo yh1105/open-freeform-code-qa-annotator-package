@@ -1,0 +1,10 @@
+Yes, you can use a loop to replace the same string in all the elements of the list. Here's an example:
+
+```
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+
+for i in range(len(list_names)):
+    list_names[i] = list_names[i].replace('!', '').replace('?', '')
+```
+
+This loop iterates through each element of the list and replaces the '!' and '?' characters with an empty string. The modified string is then assigned back to the same element in the list. This way, all the elements in the list will be modified with the same string replace rule.

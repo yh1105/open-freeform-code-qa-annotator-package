@@ -1,0 +1,28 @@
+If you want to use the same version of Java that is used by the Maven task, you can try setting the `JAVA_HOME` environment variable to the path of the Java installation used by the Maven task. 
+
+To find the path of the Java installation used by the Maven task, you can run the following command in your project directory:
+
+```
+mvn -version
+```
+
+This will display the version of Maven and the path of the Java installation used by Maven. You can then set the `JAVA_HOME` environment variable to this path.
+
+On Windows, you can set the `JAVA_HOME` environment variable by following these steps:
+
+1. Open the Start menu and search for "Environment Variables".
+2. Click on "Edit the system environment variables".
+3. Click on the "Environment Variables" button.
+4. Under "System Variables", click on "New".
+5. Enter "JAVA_HOME" as the variable name and the path to the Java installation as the variable value.
+6. Click "OK" to save the changes.
+
+On Linux or macOS, you can set the `JAVA_HOME` environment variable by adding the following line to your shell configuration file (e.g. `~/.bashrc` or `~/.zshrc`):
+
+```
+export JAVA_HOME=/path/to/java
+```
+
+Replace `/path/to/java` with the path to the Java installation used by Maven. 
+
+Once you have set the `JAVA_HOME` environment variable, try running the Maven wrapper again and it should use the correct version of Java.

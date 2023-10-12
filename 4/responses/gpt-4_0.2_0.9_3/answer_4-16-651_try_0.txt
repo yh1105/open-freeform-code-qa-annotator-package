@@ -1,0 +1,13 @@
+The short answer is, you can't manually set a commit SHA in Git. The SHA is a hash of the commit's content and metadata, including the author, committer, date, and parent commit(s). If any of these change, the SHA changes. This is by design: the SHA serves as a unique identifier for the commit and its context in the repository's history.
+
+If you could manually set the SHA, it would defeat the purpose of having it. You could have two completely different commits with the same SHA, which would cause all sorts of problems. Git uses the SHA to track commits, to check for changes, and to ensure the integrity of your repository. If you could manually set the SHA, all of these would be compromised.
+
+As for your XY problem, it sounds like you're trying to mirror a repository but skip certain commits. This is a non-trivial problem, because Git is designed to track the entire history of your project. If you skip a commit, you're effectively creating a new history, which will have different SHAs.
+
+One possible solution would be to use `git cherry-pick` to selectively apply commits from the source repository to the target repository. This would allow you to skip certain commits, but it would still result in different SHAs, because the parent commit(s) would be different.
+
+Another solution might be to use `git rebase` to rewrite the history of the source repository before mirroring it to the target repository. This would allow you to remove or modify certain commits, but again, it would result in different SHAs.
+
+In both cases, you would need to keep track of which commits in the source repository correspond to which commits in the target repository. This could be done with a simple mapping file, or by tagging the commits in the source repository with a unique identifier that can be used to find the corresponding commit in the target repository.
+
+In conclusion, while it's understandable that you might want to manually set the SHA for convenience, it's not possible due to the way Git is designed. You'll need to find a different solution for your mirroring problem.

@@ -1,0 +1,31 @@
+The error message you are receiving indicates that the `TodoItems` table already exists in your database, and the migration you are trying to apply is attempting to create it again. This is likely because the migration is not aware that the table already exists.
+
+To fix this issue, you can try the following steps:
+
+1. Delete the `TodoItems` table from your database manually.
+
+2. Remove the `TodoItems_Initial` migration from your project by running the following command in the Package Manager Console:
+
+   ```
+   Remove-Migration
+   ```
+
+   This will remove the `TodoItems_Initial` migration from your project and update the `__EFMigrationsHistory` table in your database to reflect the change.
+
+3. Create a new migration that includes both the `TodoItems` and `TodoItemsDescription` tables by running the following command in the Package Manager Console:
+
+   ```
+   Add-Migration AddTodoItemsAndDescription
+   ```
+
+   This will create a new migration file that includes the necessary changes to create both tables.
+
+4. Apply the new migration to your database by running the following command in the Package Manager Console:
+
+   ```
+   Update-Database
+   ```
+
+   This will apply the new migration to your database and create both the `TodoItems` and `TodoItemsDescription` tables.
+
+Note that if you have any data in the `TodoItems` table that you want to preserve, you should back it up before deleting the table in step 1. You can then restore the data after the new migration has been applied.

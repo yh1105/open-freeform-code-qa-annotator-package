@@ -1,0 +1,15 @@
+The error you're encountering is related to the Psych library, which is a YAML parser and emitter. The error message `Unknown alias: default (Psych::BadAlias)` suggests that there's an issue with an alias in one of your YAML files.
+
+Here are a few steps you can take to troubleshoot this issue:
+
+1. **Check your YAML files for syntax errors:** Make sure all your YAML files are properly formatted. You can use an online YAML validator to check for syntax errors.
+
+2. **Search for the alias 'default':** The error message suggests that there's an issue with an alias named 'default'. Search your YAML files for the usage of this alias. It might be that this alias is not defined before it's used.
+
+3. **Update your gems:** The error might be caused by an outdated gem. Try updating all your gems by running `bundle update`.
+
+4. **Check your environment variables:** If you're using environment variables in your YAML files, make sure they're all set correctly.
+
+5. **Downgrade Ruby version:** If none of the above solutions work, you might consider downgrading your Ruby version. It's possible that the version you're using has some incompatibilities with your current setup.
+
+Remember to always backup your work before making any major changes to your environment.

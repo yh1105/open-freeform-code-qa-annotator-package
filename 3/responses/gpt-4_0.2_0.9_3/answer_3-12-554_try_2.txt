@@ -1,0 +1,13 @@
+The error you're encountering is related to the Flutter engine. The 'SkDeletable' is a class in the Flutter engine, and it seems like it's expecting a non-null value but it's getting a null value instead.
+
+This issue might be due to several reasons:
+
+1. There might be some breaking changes in the Flutter upgrade that are affecting your code. Flutter 2.0 introduced null safety, which means you need to ensure all your variables are initialized before they're used.
+
+2. There might be some packages in your project that are not yet compatible with Flutter 2.1.0. You should check the packages you're using and see if they have updates available that are compatible with Flutter 2.1.0.
+
+3. There might be some issues with your Flutter installation. You could try to clean your project by running `flutter clean` in your terminal, and then rebuild your project.
+
+4. If none of the above works, you might want to consider downgrading your Flutter version to the one you were using before, if the project was working fine with that version.
+
+Remember to check the official Flutter upgrade guide to see if there are any steps you missed during the upgrade process.

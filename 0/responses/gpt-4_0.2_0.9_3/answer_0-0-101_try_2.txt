@@ -1,0 +1,55 @@
+The `desktopCapturer` API in Electron indeed captures video streams, which is not exactly what you need. You need a single frame (image) from that stream. 
+
+Here's a way to do it:
+
+1. Capture the stream as you're doing now.
+2. Create a hidden `video` element in your HTML and set the stream as its source.
+3. Create a `canvas` element, draw the current frame of the video onto the canvas, and then export the canvas to a data URL or a Blob.
+4. Send this data to your server.
+
+Here's a rough example of how you might implement this:
+
+```javascript
+private handleStream(stream: MediaStream): void {
+    // Create hidden video element
+    let video = document.createElement('video');
+    video.style.display = 'none';
+    document.body.appendChild(video);
+
+    // Create hidden canvas element
+    let canvas = document.createElement('canvas');
+    canvas.style.display = 'none';
+    document.body.appendChild(canvas);
+
+    // Set stream as video source
+    video.srcObject = stream;
+    video.play();
+
+    // When video data is loaded
+    video.onloadeddata = () => {
+        // Set canvas dimensions same as video dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // Draw video frame to canvas
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Export canvas to data URL (base64 encoded string)
+        let screenshot = canvas.toDataURL();
+
+        // Or export canvas to Blob
+        canvas.toBlob((blob) => {
+            // Send Blob to server
+            this.http.post<Result>('http://localhost:5050', blob);
+        });
+
+        // Remove video and canvas elements
+        document.body.removeChild(video);
+        document.body.removeChild(canvas);
+    };
+}
+```
+
+This will give you a single frame from the video stream, which you can then send to your server. The frame will be taken as soon as the video data is loaded, so it should be almost instant.
+
+As for the mouse cursor being captured, this is a limitation of the `desktopCapturer` API and there's no way to avoid it as far as I know. You might need to use a different method to capture the screen if you don't want the cursor to be included.

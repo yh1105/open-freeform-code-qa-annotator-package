@@ -1,0 +1,15 @@
+It looks like the error is occurring because the `project/game` package is not in the GOROOT directory. This is because GOROOT is the directory where Go is installed, and it should not be used for storing your own code.
+
+Instead, you should be using the GOPATH directory to store your code. In your case, the GOPATH is set to `C:\Users\ketchup\go`. So, you should move your `project` directory to `C:\Users\ketchup\go\src`.
+
+Once you have moved the `project` directory to the correct location, you should be able to build your project without any issues. 
+
+Also, make sure that you have set the environment variable `GO111MODULE` to `on` to enable Go modules. This will allow you to use modules in your project and manage dependencies more easily. 
+
+You can set this environment variable by running the following command in your terminal:
+
+```
+set GO111MODULE=on
+```
+
+I hope this helps! Let me know if you have any further questions.

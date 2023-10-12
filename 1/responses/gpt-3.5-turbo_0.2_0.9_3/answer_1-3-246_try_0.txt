@@ -1,0 +1,13 @@
+It seems like you have followed the correct steps to authenticate your Cloud Scheduler job with an OIDC token. However, the error message suggests that the service account used by Cloud Scheduler does not have the necessary permissions to invoke the Cloud Function.
+
+Here are a few things you can try:
+
+1. Make sure that the service account used by Cloud Scheduler has the Cloud Functions Invoker role on the Cloud Function you are trying to invoke. You can do this by going to the Cloud Function's Permissions tab and adding the service account with the Cloud Functions Invoker role.
+
+2. Double-check that the audience parameter in your Cloud Scheduler job is set to the correct URL of the Cloud Function you are trying to invoke. This should be the URL of the Cloud Function without any query parameters or path parameters.
+
+3. Try invoking the Cloud Function directly using the gcloud command-line tool with the same service account and OIDC token. This can help you isolate the issue and determine whether it is related to Cloud Scheduler or the Cloud Function itself.
+
+4. If none of the above steps work, you can try creating a new project and repeating the steps to see if that resolves the issue. It's possible that there is some configuration issue in your current project that is causing the problem.
+
+I hope this helps! Let me know if you have any further questions.

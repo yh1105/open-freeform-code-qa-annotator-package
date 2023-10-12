@@ -1,0 +1,13 @@
+It seems like you've done the correct steps to run the AVD in the Android Studio window itself. However, if it's not working as expected, it could be due to a bug or some other issues. Here are a few things you can try:
+
+1. **Restart Android Studio**: Sometimes, changes in settings don't take effect until you restart Android Studio. Close the IDE and start it again.
+
+2. **Update Android Studio**: Make sure you're using the latest version of Android Studio. If not, update it. Some older versions might have bugs that have been fixed in newer versions.
+
+3. **Recreate AVD**: Try to delete the current AVD and create a new one. There might be some issues with the current AVD.
+
+4. **Check Flutter and Dart Plugins**: Make sure you have installed and updated Flutter and Dart plugins in Android Studio.
+
+5. **Reinstall Android Studio**: If none of the above steps work, you might want to consider reinstalling Android Studio. There might be some issues with the current installation.
+
+Remember to back up your projects before updating or reinstalling Android Studio.

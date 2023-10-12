@@ -1,0 +1,13 @@
+The error message you are getting is related to the `reverse` function in Django. It seems that you are trying to reverse a URL pattern that does not exist. 
+
+Based on the traceback, the error is happening in the `base.html` template, specifically in line 10 where you are loading the `bootstrap.min.css` file from a CDN. 
+
+To fix this issue, you can try replacing the `link` tag in line 10 with the following code:
+
+```
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+```
+
+This will load the `bootstrap.min.css` file from your static files directory instead of a CDN. 
+
+After making this change, try running your project again and see if the issue is resolved.

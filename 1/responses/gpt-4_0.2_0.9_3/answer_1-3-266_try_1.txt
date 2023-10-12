@@ -1,0 +1,39 @@
+It seems like your static files are not being served correctly. In a production environment, Django doesn't serve static files itself, it leaves that job to the web server or a separate file server because it's more efficient.
+
+Azure Web Apps are a bit different from traditional web servers. They do not serve static files in the same way. You need to configure your web app to serve static files.
+
+Here's how you can do it:
+
+1. You need to add a `web.config` file in your `wwwroot` directory. This file is used by Azure to configure the IIS server that runs your application.
+
+2. In the `web.config` file, you need to add a rule to serve static files. Here's an example of how the `web.config` file should look:
+
+```xml
+<configuration>
+  <system.webServer>
+    <rewrite>
+      <rules>
+        <rule name="Static Files" stopProcessing="true">
+          <match url="^(static|media)/.*" />
+          <action type="Rewrite" url="{R:0}" />
+        </rule>
+        <rule name="Configure Python" stopProcessing="true">
+          <match url="(.*)" ignoreCase="false" />
+          <conditions>
+            <add input="{REQUEST_URI}" pattern="^/(static|media)/.*" ignoreCase="false" negate="true" />
+          </conditions>
+          <action type="Rewrite" url="handler.fcgi/{R:1}" appendQueryString="true" />
+        </rule>
+      </rules>
+    </rewrite>
+  </system.webServer>
+</configuration>
+```
+
+This configuration file tells IIS to serve files from the `static` and `media` directories directly, and to pass all other requests to Django.
+
+3. After adding the `web.config` file, you need to restart your web app for the changes to take effect.
+
+Remember to replace `handler.fcgi` with the actual path to your Django application if it's different.
+
+Also, please note that serving static files from a web application is not the best practice for performance and scalability reasons. In a production environment, you should consider serving static files from a dedicated static file server or a CDN.

@@ -1,0 +1,24 @@
+To reset a reactive object in Vue.js setup, you can simply assign a new value to it. In your code, you are already doing this for the `view` and `config` objects. However, you are creating new reactive objects instead of resetting the existing ones. 
+
+To reset a reactive object, you can simply assign a new value to it using the `Object.assign()` method. Here's an example:
+
+```
+const resetViewState = () => {
+  return {
+    page: 1,
+    size: 15,
+    sort_label: "",
+    search: "",
+  };
+};
+
+let view = reactive(resetViewState());
+
+const resetView = () => {
+  Object.assign(view, resetViewState());
+};
+```
+
+In this example, we define a `resetViewState()` function that returns a new object with default values. We then create a `view` reactive object using this function. To reset the `view` object, we define a `resetView()` function that uses the `Object.assign()` method to assign the default values to the `view` object.
+
+You can use a similar approach to reset the `config` object and any other reactive objects in your code.

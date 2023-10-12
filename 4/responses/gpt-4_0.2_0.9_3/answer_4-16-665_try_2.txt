@@ -1,0 +1,19 @@
+You can use the `IFS` (Internal Field Separator) variable in Bash to change the delimiter used when expanding array elements. Here's how you can do it:
+
+```bash
+IFS=","
+echo "${data[*]}"
+```
+
+This will print the array elements separated by commas. 
+
+However, this will only change the `IFS` for this particular echo command. If you want to revert `IFS` back to its original value (which is usually a space), you can store the original `IFS` in a variable, change it, and then restore it, like this:
+
+```bash
+oldIFS=$IFS
+IFS=","
+echo "${data[*]}"
+IFS=$oldIFS
+```
+
+This way, the `IFS` will only be a comma for the duration of the echo command, and then it will be restored to its original value.

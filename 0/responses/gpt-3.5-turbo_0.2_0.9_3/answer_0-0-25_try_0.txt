@@ -1,0 +1,22 @@
+Unfortunately, passing parameters from a parent navigator to a child navigator is not possible yet in React Navigation. The issue you found on GitHub is still open and unresolved. 
+
+However, there are some workarounds you can try. One option is to use a state management library like Redux or Context API to pass the parameters between screens. Another option is to use a global variable to store the parameters and access them in the child screens. 
+
+Here's an example of using a global variable:
+
+```
+// In the parent screen
+const onPressHandler = () => {
+  global.followingParams = { isPublicProfile, firstName };
+  navigation.navigate('following');
+};
+
+// In the child screen
+const PageScreen = () => {
+  const { isPublicProfile, firstName } = global.followingParams;
+  // Use the parameters here
+  ...
+};
+```
+
+Note that using a global variable is not recommended for larger applications as it can lead to maintenance issues and bugs. It's better to use a state management library or wait for the React Navigation team to implement a solution for passing parameters between navigators.

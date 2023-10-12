@@ -1,0 +1,20 @@
+The error message you're seeing indicates that the linker is unable to find the `libpq.lib` file, which is a part of the PostgreSQL library. This file is required to build the `diesel_cli` crate with PostgreSQL support.
+
+Even though you have the PostgreSQL binaries on your `C:\pgsql` and the `lib` and `bin` directories on your `PATH`, the linker might not be able to find the `libpq.lib` file if it's not in a directory that the linker is looking in.
+
+Here are a few things you can try:
+
+1. **Check the location of `libpq.lib`**: Make sure that the `libpq.lib` file is actually in the `lib` directory of your PostgreSQL installation.
+
+2. **Check your `PATH`**: Make sure that the `lib` directory of your PostgreSQL installation is on your `PATH`. You can check your `PATH` by running `echo %PATH%` in the command prompt.
+
+3. **Check your `LIB` environment variable**: The `LIB` environment variable is used by the linker to find library files. You can check your `LIB` environment variable by running `echo %LIB%` in the command prompt. If the `lib` directory of your PostgreSQL installation is not on your `LIB` environment variable, you can add it by running `set LIB=C:\pgsql\lib;%LIB%`.
+
+4. **Install `libpq` with `vcpkg`**: If you're still having trouble, you can try installing `libpq` with `vcpkg`, a package manager for C++ libraries. Here's how you can do it:
+
+   - Install `vcpkg` by following the instructions on the [vcpkg GitHub page](https://github.com/microsoft/vcpkg).
+   - Install `libpq` with `vcpkg` by running `vcpkg install libpq:x64-windows` in the command prompt.
+   - Set the `VCPKGRS_DYNAMIC` environment variable to `1` by running `set VCPKGRS_DYNAMIC=1`.
+   - Try installing `diesel_cli` again.
+
+I hope this helps! Let me know if you have any other questions.

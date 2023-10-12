@@ -1,0 +1,14 @@
+Starting from Spring Boot 2.4.0, the behavior of `spring.profiles.include` has changed. Previously, it was possible to include profiles at runtime using this property, but now it only includes profiles during the application context initialization.
+
+To achieve the same result as before migration, you can use the `spring.config.activate.on-profile` property instead. This property activates the specified profiles during the application context initialization and at runtime.
+
+Here is an example of how you can configure your profiles using `spring.config.activate.on-profile`:
+
+```
+# Profiles
+spring.config.activate.on-profile=auth,dev
+```
+
+This configuration activates both `auth` and `dev` profiles during the application context initialization and at runtime.
+
+I hope this helps! Let me know if you have any further questions.

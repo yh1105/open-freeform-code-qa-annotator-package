@@ -1,0 +1,23 @@
+It sounds like you have already taken the necessary steps to make sure that `nb_conda_kernels` is installed in your base environment. However, there are a few additional steps that you can take to make sure that your new environment is recognized as a kernel in Jupyter Lab.
+
+First, make sure that you have activated your new environment before launching Jupyter Lab. You can do this by running the following command in your terminal:
+
+```
+conda activate <new_environment_name>
+```
+
+Once you have activated your new environment, you can launch Jupyter Lab by running the following command:
+
+```
+jupyter lab
+```
+
+If your new environment is not showing up as a kernel in Jupyter Lab, you can try running the following command to install the kernel into Jupyter Lab:
+
+```
+python -m ipykernel install --user --name <new_environment_name> --display-name "<New Environment Name>"
+```
+
+This command will install the kernel for your new environment and give it a display name that will show up in Jupyter Lab.
+
+If you still have trouble, you can try restarting Jupyter Lab or your terminal session to make sure that all changes have been properly loaded.

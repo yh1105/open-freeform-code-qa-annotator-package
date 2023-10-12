@@ -1,0 +1,21 @@
+The error message you're seeing is usually caused by trying to instantiate a non-class as a class. This could be due to a few reasons:
+
+1. The API class is not being exported correctly.
+2. The API class is not being imported correctly.
+3. The API class is not a class at all.
+
+Given that you've tried both default and named exports and imports, it seems like the issue might be with the API class itself or how it's being transpiled.
+
+Here are a few things you can try:
+
+1. **Check the API class**: Make sure that the API class is actually a class and that it's being defined correctly. If it's not a class, you won't be able to instantiate it with `new`.
+
+2. **Check the transpilation process**: If you're using Babel or another transpiler, make sure that it's correctly transpiling your code. You can try to log the API class in your test file to see what it looks like after being transpiled.
+
+3. **Mock the API class in Jest**: If the issue is only happening in Jest and not in your main application, it might be due to how Jest is handling the import. You can try to mock the API class in Jest to see if that resolves the issue.
+
+4. **Check the Jest configuration**: Make sure that your Jest configuration is correct. If you're using `jest-expo`, make sure that it's compatible with your version of Expo and that it's correctly set up.
+
+5. **Check the import path**: Make sure that the path in your import statement is correct. If the path is incorrect, the import will fail and you won't be able to instantiate the API class.
+
+If none of these suggestions work, please provide more information about the API class and how it's being used and I'll be happy to help further.

@@ -1,0 +1,30 @@
+While it is possible to ignore this message, it is not recommended as it could potentially leave your Elasticsearch cluster vulnerable to unauthorized access. 
+
+To fix this issue, you will need to enable security features in Elasticsearch. Here are the steps you can follow:
+
+1. Install the Elasticsearch security plugin by running the following command:
+
+```
+bin/elasticsearch-plugin install -b https://d3g5vo6xdbdb9a.cloudfront.net/downloads/elasticsearch-plugins/security/security-7.13.1.zip
+```
+
+2. Add the following lines to your Elasticsearch configuration file (`/usr/local/etc/elasticsearch/elasticsearch.yml`):
+
+```
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+```
+
+3. Restart Elasticsearch:
+
+```
+brew services restart elasticsearch
+```
+
+4. Run the `elasticsearch-setup-passwords` utility to set up passwords for the built-in users:
+
+```
+bin/elasticsearch-setup-passwords auto
+```
+
+This should resolve the warning message and enable security features in Elasticsearch.

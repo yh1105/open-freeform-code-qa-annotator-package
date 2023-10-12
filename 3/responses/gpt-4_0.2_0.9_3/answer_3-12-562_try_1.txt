@@ -1,0 +1,27 @@
+Yes, Dart does not have built-in support for adding or subtracting years or months from a DateTime object. However, you can use the `intl` package in Dart to perform these operations. The `intl` package provides date and time manipulation capabilities similar to those in moment.js.
+
+Here's an example of how you can subtract 6 months from a date:
+
+```dart
+import 'package:intl/intl.dart';
+
+void main() {
+  DateTime now = DateTime.now();
+  DateTime sixMonthsAgo = DateTime(now.year, now.month - 6, now.day);
+  
+  print(DateFormat('yyyy-MM-dd').format(sixMonthsAgo));
+}
+```
+
+In this example, we're creating a new DateTime object with the current year and day, but with the month subtracted by 6. Note that Dart's DateTime constructor automatically adjusts the year when the month is less than 1.
+
+Also, remember to add the `intl` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.17.0
+```
+
+Then, run `flutter pub get` to fetch the package.

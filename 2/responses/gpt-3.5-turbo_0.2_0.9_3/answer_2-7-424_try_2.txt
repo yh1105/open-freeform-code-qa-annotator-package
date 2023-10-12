@@ -1,0 +1,17 @@
+The error message "Failed to clear cache. Make sure you have the appropriate permissions." indicates that the user running the command does not have sufficient permissions to clear the cache. 
+
+To fix this issue, you can try running the command with elevated privileges. For example, you can try running the command with `sudo`:
+
+```
+sudo php artisan cache:clear
+```
+
+Alternatively, you can try changing the ownership of the storage directory to the user running the command:
+
+```
+sudo chown -R yourusername:yourusername storage
+```
+
+Replace `yourusername` with the actual username of the user running the command. 
+
+After changing the ownership, try running the `php artisan cache:clear` command again.

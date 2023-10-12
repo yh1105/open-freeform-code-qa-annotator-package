@@ -1,0 +1,15 @@
+Hi Rosalie,
+
+It sounds like you have already created a personal access token, which is great! The email from GitHub is just a reminder that basic authentication using a password to Git is deprecated and will soon no longer work. This means that if you are still using your GitHub password to authenticate Git operations, you will need to switch to using a personal access token instead.
+
+To use your personal access token, you will need to update your Git remote URLs to use the HTTPS protocol instead of the SSH protocol. You can do this by running the following command in your terminal:
+
+```
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+```
+
+Replace `USERNAME` with your GitHub username and `REPOSITORY` with the name of your repository.
+
+When you push to GitHub, you will be prompted to enter your personal access token instead of your GitHub password. Once you have entered your token, Git will remember it for future operations.
+
+I hope this helps! Let me know if you have any further questions.

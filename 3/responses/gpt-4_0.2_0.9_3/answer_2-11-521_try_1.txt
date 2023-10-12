@@ -1,0 +1,15 @@
+Yes, the comment is correct. A constructor is a special type of method in object-oriented programming that is automatically invoked when an object of a class is created. Its main purpose is to initialize the object.
+
+However, a constructor is not a regular function that you can call whenever you want. It's a special method with a specific purpose and usage rules. Here are some reasons why a constructor isn't considered a regular function:
+
+1. **Invocation Time**: Regular functions can be called whenever needed, but a constructor is automatically called when an object is created. You don't explicitly call a constructor function after the object has been created.
+
+2. **Name**: A constructor has the same name as the class. This is a requirement and it differentiates it from regular functions.
+
+3. **No Return Type**: Constructors do not have a return type, not even void. This is different from regular functions which need a return type.
+
+4. **Automatic Call**: You cannot prevent a constructor from being called when an object is created. This is not the case with regular functions, which are only called when explicitly invoked.
+
+5. **Purpose**: The main purpose of a constructor is to initialize the object's properties. A function, on the other hand, is used to perform a specific task.
+
+So, while a constructor is a type of method or function, it has specific rules and characteristics that differentiate it from regular functions.

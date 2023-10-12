@@ -1,0 +1,21 @@
+To inject a generic interface, you can use the open generic registration feature of the .NET Core DI container. Here's how you can register your `IDatabaseService<T>` interface in the `Startup.cs` file:
+
+```
+services.AddScoped(typeof(IDatabaseService<>), typeof(ProjectService));
+```
+
+This registers `ProjectService` as the implementation for all closed versions of the `IDatabaseService<T>` interface. Now you can inject `IDatabaseService<Project>` into your `ProjectController` constructor.
+
+```
+public class ProjectController : ControllerBase
+{
+    private readonly IDatabaseService<Project> projectService;
+
+    public ProjectController(IDatabaseService<Project> projectService)
+    {
+        this.projectService = projectService;
+    }
+}
+```
+
+This is a good practice to use a generic interface to inject into controllers, especially when you have multiple controllers that need to use the same service with different types. It helps to reduce code duplication and makes the code more maintainable.

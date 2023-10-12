@@ -1,0 +1,27 @@
+The issue with your code is that you are not passing the `isSelected` binding to the `Button` view. You need to use the `$` prefix to pass the binding to the `Button` view. Here's the modified code:
+
+```
+import SwiftUI
+
+struct ContentView: View {
+    @Binding var isSelected: Bool
+
+    var body: some View {
+        Button(action: {
+            self.isSelected.toggle()
+        }) {
+            Text(isSelected ? "Selected" : "Not Selected")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    @State static var selected: Bool = false
+
+    static var previews: some View {
+        ContentView(isSelected: $selected)
+    }
+}
+```
+
+Notice the `$` prefix before `selected` in the `ContentView` preview. This passes the binding to the `ContentView` view, allowing it to update the view when the button is clicked.

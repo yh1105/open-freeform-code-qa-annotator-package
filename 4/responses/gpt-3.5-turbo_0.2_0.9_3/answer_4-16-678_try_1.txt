@@ -1,0 +1,15 @@
+It sounds like the output of the `aws ec2 describe-instances` command is being piped to the `vi` editor instead of being displayed in the terminal. This can happen if the `EDITOR` environment variable is set to `vi`.
+
+To fix this, you can try setting the `PAGER` environment variable to an empty string before running the `aws` command. This will prevent the output from being piped to any pager program, including `vi`. You can do this by running the following command:
+
+```
+export PAGER=
+```
+
+Alternatively, you can try setting the `AWS_PAGER` environment variable to an empty string before running the `aws` command. This will specifically prevent the `aws` command from using a pager program to display the output. You can do this by running the following command:
+
+```
+export AWS_PAGER=
+```
+
+Once you have set either of these environment variables, try running the `aws ec2 describe-instances` command again and see if the output is displayed in the terminal as expected.

@@ -1,0 +1,48 @@
+The task you're trying to accomplish is a bit challenging due to the noise in the background. However, you can try a few image processing techniques to improve the results. Here are some steps you can follow:
+
+1. Convert the image to grayscale.
+2. Apply a Gaussian blur to the image to reduce noise.
+3. Use adaptive thresholding to convert the image to binary.
+4. Apply morphological operations like dilation and erosion to remove small noise.
+
+Here is a Python code snippet that implements these steps:
+
+```python
+import cv2
+import pytesseract
+
+def get_text(img_name):
+    # Load the image
+    img = cv2.imread(img_name)
+
+    # Convert the image to gray scale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # Apply Gaussian blur to the image
+    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+
+    # Use adaptive thresholding to convert the image to binary
+    thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+
+    # Invert the image
+    inverted = cv2.bitwise_not(thresh)
+
+    # Apply morphological operations
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+    dilated = cv2.dilate(inverted, kernel, iterations=1)
+    eroded = cv2.erode(dilated, kernel, iterations=1)
+
+    # Save the processed image
+    cv2.imwrite('processed.png', eroded)
+
+    # Use Tesseract to extract text
+    text = pytesseract.image_to_string(eroded, lang='eng')
+
+    return text
+
+print(get_text('your_image.png'))
+```
+
+This code should give you better results. However, keep in mind that the parameters used in the functions like `GaussianBlur`, `adaptiveThreshold`, `dilate`, and `erode` might need to be adjusted based on your specific images. 
+
+Also, Tesseract might not be able to perfectly recognize the text due to the complexity of the captcha. You might need to train Tesseract with similar captcha images for better accuracy.

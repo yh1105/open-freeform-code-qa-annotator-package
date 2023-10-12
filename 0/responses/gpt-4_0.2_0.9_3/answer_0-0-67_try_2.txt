@@ -1,0 +1,24 @@
+The `onChange` event in React has a type of `React.ChangeEvent<HTMLInputElement>`. So you should be able to access the `value` property of the `target` without using `any`.
+
+Here's how you can define the `onChange` event in your `InputProps`:
+
+```tsx
+export interface InputProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // other props...
+}
+
+export class Input extends React.Component<InputProps, {}> {
+  render() {
+    return <input onChange={this.props.onChange} />;
+  }
+}
+```
+
+Then you can use it like this:
+
+```tsx
+<Input onChange={(e) => data.motto = e.target.value} />
+```
+
+This way, you're telling TypeScript that `e.target.value` is a string, which is the correct type for an input value.

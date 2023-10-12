@@ -1,0 +1,38 @@
+The error message indicates that there is an unexpected character at the beginning of the JSON response. The character "ï»¿" is a Byte Order Mark (BOM) for UTF-8. It seems like your PHP script is returning a JSON response encoded in UTF-8 with BOM.
+
+You can remove the BOM from the response before decoding it in Dart. Here's how you can do it:
+
+```dart
+Future<String> iniciarSesion() async{
+  var usuario = textUsuario.text;
+  var password = textPassword.text;
+  var nombreUsuario;
+  var url ="http://192.168.1.37/usuario.php";
+
+  //Metodo post
+  var response = await http.post(
+      url,
+      headers:{ "Accept": "application/json" } ,
+      body: { "usuario": '$usuario',"password": '$password'},
+      encoding: Encoding.getByName("utf-8")
+  );
+
+  // Remove BOM from response body
+  String responseBody = response.body;
+  if (responseBody.codeUnitAt(0) == 65279) {
+    responseBody = responseBody.substring(1);
+  }
+
+  List data = json.decode(responseBody);
+}
+```
+
+This code checks if the first character of the response body is a BOM (65279 is the Unicode value of the BOM in UTF-8), and if it is, it removes it before decoding the JSON.
+
+On the PHP side, you can also prevent the BOM from being included in the first place by setting the charset to 'utf-8' in the 'Content-type' header, like this:
+
+```php
+header('Content-type: application/json; charset=utf-8');
+```
+
+This tells the client that the response is in UTF-8 encoding without a BOM.

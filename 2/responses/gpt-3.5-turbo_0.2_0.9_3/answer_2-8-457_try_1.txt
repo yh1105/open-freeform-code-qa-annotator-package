@@ -1,0 +1,26 @@
+It seems like the issue is related to the fact that the debugger is not able to run under Rosetta, which is required for running applications built for x86 architecture on Apple M1. 
+
+One solution you can try is to install the latest version of Go (1.17.2 as of now) that has native support for Apple M1 architecture. You can download it from the official Go website. 
+
+Once you have installed the latest version of Go, you can try running the debugger again. If the issue persists, you can try the following steps:
+
+1. Open the terminal and navigate to your project directory.
+2. Run the following command to set the `GOARCH` environment variable to `arm64`:
+
+   ```
+   export GOARCH=arm64
+   ```
+
+3. Run the debugger again using the `fn+f5` shortcut.
+
+This should force the debugger to use the `arm64` architecture and avoid the Rosetta-related issue. 
+
+If the issue still persists, you can try updating the `delve` debugger to the latest version (1.7.3 as of now) using the following command:
+
+```
+go get github.com/go-delve/delve/cmd/dlv@latest
+```
+
+Then, try running the debugger again. 
+
+I hope this helps! Let me know if you have any further questions.

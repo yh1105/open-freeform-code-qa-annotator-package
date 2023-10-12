@@ -1,0 +1,60 @@
+To change the default primary color for primeNG saga-blue theme, you can follow these steps:
+
+1. Create a new CSS file in your project and import it after the primeNG theme CSS file.
+2. In your new CSS file, define a new CSS variable for the primary color. For example:
+
+```
+:root {
+  --my-primary-color: #ff0000;
+}
+```
+
+3. Override the existing CSS rules that use the main color hex with your new CSS variable. For example:
+
+```
+.ui-button.ui-button-primary,
+.ui-button.ui-button-primary:hover,
+.ui-button.ui-button-primary:focus,
+.ui-button.ui-button-primary:active {
+  background-color: var(--my-primary-color);
+  border-color: var(--my-primary-color);
+  color: #fff;
+}
+```
+
+4. Repeat step 3 for all the other CSS rules that use the main color hex.
+
+By using CSS variables, you can easily change the primary color throughout your application by simply updating the value of the `--my-primary-color` variable in your CSS file.
+
+If there are too many elements to override, you can use a CSS preprocessor like Sass or Less to generate the CSS rules for you. You can define a mixin that takes the primary color as a parameter and generates the CSS rules for all the different shades of the primary color. For example:
+
+```
+@mixin primary-color($color) {
+  $lighter: lighten($color, 10%);
+  $darker: darken($color, 10%);
+
+  .ui-button.ui-button-primary,
+  .ui-button.ui-button-primary:hover,
+  .ui-button.ui-button-primary:focus,
+  .ui-button.ui-button-primary:active {
+    background-color: $color;
+    border-color: $color;
+    color: #fff;
+  }
+
+  .ui-button.ui-button-primary:hover {
+    background-color: $lighter;
+    border-color: $lighter;
+  }
+
+  .ui-button.ui-button-primary:focus,
+  .ui-button.ui-button-primary:active {
+    background-color: $darker;
+    border-color: $darker;
+  }
+}
+
+@include primary-color(#ff0000);
+```
+
+This will generate the CSS rules for the primary color and its lighter and darker shades, and you can easily change the primary color by updating the parameter in the `primary-color` mixin.

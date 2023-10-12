@@ -1,0 +1,21 @@
+Yes, there is a solution for this. Instead of using `setView`, you can create a custom `Toast` layout using `LayoutInflater` and then set it using the `setView` method of the `Toast` object.
+
+Here's an example:
+
+```
+// Inflate the custom layout
+LayoutInflater inflater = getLayoutInflater();
+View layout = inflater.inflate(R.layout.custom_toast, null);
+
+// Create the Toast object
+Toast toast = new Toast(getApplicationContext());
+toast.setDuration(Toast.LENGTH_SHORT);
+
+// Set the custom layout as the Toast view
+toast.setView(layout);
+
+// Show the Toast
+toast.show();
+```
+
+In this example, `R.layout.custom_toast` is the layout file for your custom Toast. You can customize this layout as per your requirements.

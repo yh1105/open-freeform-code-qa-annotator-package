@@ -1,0 +1,16 @@
+Yes, you can use a list comprehension to apply the replace operation to all elements in the list at once. Here's how you can do it:
+
+```python
+list_names = ['!sdf?', '!sdfds?', '!afsafsa?', '!afasf?']
+list_names = [i.replace('!', '').replace('?', '') for i in list_names]
+```
+
+In this code, `i.replace('!', '').replace('?', '')` is applied to each element `i` in `list_names`. The result is a new list where each element is the result of the replace operation.
+
+If you want to store the results in separate variables, you can do it like this:
+
+```python
+vari1, vari2, vari3, vari4 = [i.replace('!', '').replace('?', '') for i in list_names]
+```
+
+This will assign the first element of the new list to `vari1`, the second to `vari2`, and so on. Note that this assumes that `list_names` has exactly four elements. If it has more or less, you will get an error.

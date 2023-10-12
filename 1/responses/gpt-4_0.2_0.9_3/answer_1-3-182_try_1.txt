@@ -1,0 +1,47 @@
+You can use the `st.sidebar` function to create a sidebar in your Streamlit app. This sidebar can contain any Streamlit command. In your case, you can use it to display a logo and a title before the page navigation.
+
+Here's how you can modify your `Home.py` to achieve this:
+
+```python
+import streamlit as st
+from PIL import Image
+
+# Load the logo image (ensure the logo is in the same directory as your script)
+logo = Image.open("logo.png")
+
+# Display the logo using st.sidebar.image
+st.sidebar.image(logo, use_column_width=True)
+
+# Display the title using st.sidebar.header or st.sidebar.title
+st.sidebar.title("My App Title")
+
+# Create a selectbox for navigation
+page = st.sidebar.selectbox("Choose a page", ["Home", "Page 1", "Page 2"])
+
+if page == "Home":
+    st.markdown("# Home")
+elif page == "Page 1":
+    st.markdown("Page 1")
+elif page == "Page 2":
+    st.markdown("Page 2")
+```
+
+In this example, the logo and title are displayed at the top of the sidebar, before the page navigation selectbox. The `use_column_width=True` argument makes the logo use the full width of the sidebar.
+
+Please note that you need to have the `PIL` (Pillow) library installed to use `Image.open`. You can install it with `pip install pillow`.
+
+Also, make sure to replace `"logo.png"` with the path to your actual logo file. If the logo file is not in the same directory as your script, you need to provide the full path to the image file.
+
+As for the multipage feature, you might need to adjust your directory structure and import the pages as modules in your main script. Here's an example of how you can structure your project:
+
+```
+/my_app
+    /pages
+        __init__.py
+        page_1.py
+        page_2.py
+    main.py
+    logo.png
+```
+
+In this structure, `main.py` is your main script that you run with `streamlit run main.py`. The `pages` directory contains the scripts for the individual pages of your app, and `logo.png` is your logo image. The `__init__.py` file is an empty file that allows Python to recognize the `pages` directory as a package from which you can import modules.

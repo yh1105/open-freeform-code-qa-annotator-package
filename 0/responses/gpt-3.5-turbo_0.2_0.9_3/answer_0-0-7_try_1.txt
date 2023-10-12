@@ -1,0 +1,15 @@
+You can use the `Number()` function to convert a string to a number. Here's how you can modify your code to convert the `Telephone` property to a number:
+
+```
+this.person.Telephone = Number(telephone);
+```
+
+This should convert the `telephone` string to a number and assign it to the `Telephone` property of the `person` object.
+
+Alternatively, you can use the `+` operator to convert a string to a number:
+
+```
+this.person.Telephone = +telephone;
+```
+
+Both of these approaches should work to convert the `Telephone` property to a number.

@@ -1,0 +1,20 @@
+The issue with your code is that you're trying to replace the characters in the string directly, which is not allowed in Python because strings are immutable. Also, the `toUpperCase()` method is not valid in Python, you should use `upper()` instead.
+
+Here's a corrected version of your function:
+
+```python
+def to_camel_case(text):
+    res = []
+    capitalize_next = False
+    for char in text:
+        if char in ['-', '_']:
+            capitalize_next = True
+        elif capitalize_next:
+            res.append(char.upper())
+            capitalize_next = False
+        else:
+            res.append(char)
+    return ''.join(res)
+```
+
+This function works by iterating over each character in the input string. If the character is a dash or underscore, it sets a flag (`capitalize_next`) to True. On the next iteration, if `capitalize_next` is True, it appends the uppercase version of the character to the result list and resets the flag. If the character is not a dash, underscore, or a character to be capitalized, it is appended to the result list as is. Finally, it joins the list of characters back into a string and returns it.

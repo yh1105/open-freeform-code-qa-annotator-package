@@ -1,0 +1,53 @@
+Jetpack Compose provides a `NumberPicker` composable that you can use to create a number picker widget. Here's an example of how you can use it:
+
+```kotlin
+var value by remember { mutableStateOf(0) }
+
+NumberPicker(
+    value = value,
+    onValueChange = { newValue ->
+        value = newValue
+    },
+    minValue = 0,
+    maxValue = 10,
+    modifier = Modifier.width(100.dp)
+)
+```
+
+In this example, we're using the `NumberPicker` composable to create a number picker with a minimum value of 0, a maximum value of 10, and a width of 100dp. The `value` parameter is used to set the initial value of the number picker, and the `onValueChange` parameter is a callback that is called whenever the user changes the value of the number picker.
+
+If you need to create multiple number pickers in a row, you can use the `Row` composable to lay them out horizontally:
+
+```kotlin
+Row {
+    NumberPicker(
+        value = value1,
+        onValueChange = { newValue ->
+            value1 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+    NumberPicker(
+        value = value2,
+        onValueChange = { newValue ->
+            value2 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+    NumberPicker(
+        value = value3,
+        onValueChange = { newValue ->
+            value3 = newValue
+        },
+        minValue = 0,
+        maxValue = 10,
+        modifier = Modifier.width(100.dp)
+    )
+}
+```
+
+In this example, we're using the `Row` composable to lay out three number pickers horizontally. Each number picker has its own `value` and `onValueChange` parameters, as well as a `modifier` parameter to set its width.

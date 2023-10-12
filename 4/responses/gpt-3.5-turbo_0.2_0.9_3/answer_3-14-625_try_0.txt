@@ -1,0 +1,25 @@
+To check if the keyboard is present when a button is pressed, you can use the following code in your program:
+
+```
+import tkinter as tk
+
+def check_keyboard(event):
+    if event.keysym == 'Return':
+        if event.widget.winfo_keyboard() != '':
+            print('Keyboard is present')
+        else:
+            print('Keyboard is not present')
+
+root = tk.Tk()
+
+button = tk.Button(root, text='Press me')
+button.pack()
+
+button.bind('<Return>', check_keyboard)
+
+root.mainloop()
+```
+
+In this code, we are using the `winfo_keyboard()` method of the widget to check if the keyboard is present. If the method returns an empty string, it means that the keyboard is not present. Otherwise, it means that the keyboard is present.
+
+We are also binding the `check_keyboard()` function to the `<Return>` event of the button. This means that the function will be called whenever the user presses the Enter key while the button is in focus.

@@ -1,0 +1,70 @@
+In C++, the size of an array must be a compile-time constant. This means you cannot create an array using a size that is determined at runtime, as you are trying to do in your code. 
+
+For dynamic arrays, you can use the `std::vector` or `std::array` (if you know the size at compile time) from the Standard Library. Here's how you can modify your code to use a `std::vector` of `std::vector`s (essentially a 2D array):
+
+```cpp
+#include <vector>
+#include <string>
+#include <iostream>
+
+std::vector<std::vector<std::string>> my_2d_array(int N, int M) {
+    std::vector<std::vector<std::string>> A(N, std::vector<std::string>(M));
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            A[i][j] = std::to_string(i) + std::to_string(j);
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    std::vector<std::vector<std::string>> A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+This code creates a 2D vector `A` with `N` rows and `M` columns. The `my_2d_array` function returns this 2D vector. In the `main` function, we then print out the elements of the 2D vector.
+
+For your one-dimensional array, you can use `std::vector` as well:
+
+```cpp
+#include <vector>
+#include <iostream>
+
+std::vector<int> my_array(int N) {
+    std::vector<int> A(N);
+
+    for (int i = 0; i < N; i++) {
+        A[i] = i;
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+
+    std::vector<int> A = my_array(N);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        std::cout << A[i] << " ";
+    }
+
+    return 0;
+}
+```
+
+This code creates a vector `A` with `N` elements. The `my_array` function returns this vector. In the `main` function, we then print out the elements of the vector.

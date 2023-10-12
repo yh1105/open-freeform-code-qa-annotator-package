@@ -1,0 +1,9 @@
+Based on the information you provided, it seems like the issue might be related to the dynamic route. Here are a few things you can try:
+
+1. Check if the dynamic route is correctly defined in your `pages` folder. Make sure the file name is `[id].tsx` and that it's located in a folder with the same name as the route (in this case, `editor`).
+
+2. Check if the dynamic route is correctly linked in your code. In your case, you should be using the `Link` component from Next.js to link to the dynamic route. For example, `<Link href="/editor/[id]" as={`/editor/${id}`}>`.
+
+3. Check if the dynamic route is correctly deployed on Vercel. Make sure that the route is correctly defined in your Vercel project settings, and that the build output includes the necessary files for the dynamic route.
+
+If none of these solutions work, it might be helpful to share your code or provide more information about the error message you're receiving.

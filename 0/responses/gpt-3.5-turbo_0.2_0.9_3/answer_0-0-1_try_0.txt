@@ -1,0 +1,44 @@
+Based on the information you provided, it seems that the issue might be related to the dynamic route you have in your app. When you deploy your app to Vercel, it might not be able to handle the dynamic route correctly.
+
+To fix this issue, you can try adding a `next.config.js` file to the root of your project and configure it to handle dynamic routes. Here is an example configuration you can use:
+
+```javascript
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://your-api-url.com/:path*',
+      },
+      {
+        source: '/editor/:id',
+        destination: '/editor',
+      },
+    ];
+  },
+};
+```
+
+This configuration tells Next.js to rewrite the URL for the dynamic route `/editor/[id]` to `/editor`. This should fix the 404 error you are seeing when you deploy your app to Vercel.
+
+Also, make sure that you have added the `vercel.json` file to the root of your project with the following content:
+
+```json
+{
+  "builds": [{ "src": "package.json", "use": "@vercel/node" }],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "utils/db/api.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
+```
+
+This tells Vercel how to build and deploy your app, and how to handle the API routes.
+
+Let me know if this helps or if you have any further questions!

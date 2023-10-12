@@ -1,0 +1,19 @@
+In C++, you can use the `std::stringstream` class to achieve string interpolation. Here's an example:
+
+```
+#include <iostream>
+#include <sstream>
+
+int main() {
+    int myVariable = 42;
+    std::stringstream ss;
+    ss << "My variable has value " << myVariable;
+    std::string result = ss.str();
+    std::cout << result << std::endl;
+    return 0;
+}
+```
+
+In this example, we first create an instance of `std::stringstream`. We then use the `<<` operator to insert the string literal and the value of `myVariable` into the stream. Finally, we call the `str()` method to get the resulting string.
+
+This approach is a bit more verbose than the string interpolation syntax in C# and JavaScript, but it's still a common way of achieving the same result in C++.

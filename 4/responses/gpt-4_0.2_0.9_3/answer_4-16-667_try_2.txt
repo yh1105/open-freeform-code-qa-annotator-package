@@ -1,0 +1,25 @@
+The issue seems to be related to the environment variable `$CATALINA_HOME`. It might not be set correctly or not set at all. This variable should point to the directory where Tomcat is installed.
+
+Here are some steps to debug this issue:
+
+1. **Check if the `$CATALINA_HOME` variable is set**: You can do this by adding `echo $CATALINA_HOME` in the `catalina.sh` script and see what it prints. If it's empty or pointing to the wrong directory, that's likely the cause of the problem.
+
+2. **Set the `$CATALINA_HOME` variable**: If the variable is not set, you can set it in the Dockerfile using the `ENV` instruction. Add this line to your Dockerfile:
+
+    ```
+    ENV CATALINA_HOME /usr/local/tomcat
+    ```
+
+    Then rebuild your Docker image and try running the container again.
+
+3. **Check if the `$CATALINA_HOME` variable is exported**: If the variable is set but not exported, it won't be available to scripts that are run from the shell. You can export the variable by adding this line to your Dockerfile:
+
+    ```
+    RUN echo 'export CATALINA_HOME=/usr/local/tomcat' >> ~/.bashrc
+    ```
+
+    Then rebuild your Docker image and try running the container again.
+
+4. **Check if the `$CATALINA_HOME` variable is set in the correct shell**: If you're setting the variable in a shell that's different from the one running the script, it won't be available. Make sure you're setting the variable in the correct shell. For example, if you're running the script with bash, make sure you're setting the variable in `~/.bashrc` or `~/.bash_profile`.
+
+If none of these steps solve the problem, there might be an issue with the Docker image you're using. You might want to try using a different image or building your own from scratch.

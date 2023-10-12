@@ -1,0 +1,53 @@
+Yes, you can customize the error messages that are displayed to the user when the connection is lost or when the server is attempting to reconnect. 
+
+To do this, you can modify the `Blazor.default.js` file that is included in your project. This file is located in the `wwwroot/_framework/blazor` folder.
+
+Open the `Blazor.default.js` file and search for the following lines of code:
+
+```javascript
+reconnectDisplay: {
+    show: function (message) {
+        console.warn(message);
+        var element = document.getElementById('blazor-error-ui');
+        element.innerText = 'Attempting to reconnect to the server...';
+        element.style.display = 'block';
+    },
+    hide: function () {
+        var element = document.getElementById('blazor-error-ui');
+        element.style.display = 'none';
+    }
+},
+```
+
+These lines of code control the display of the "Attempting to reconnect to the server" message. You can modify the text that is displayed by changing the following line:
+
+```javascript
+element.innerText = 'Attempting to reconnect to the server...';
+```
+
+You can also modify the `Disconnected from server. Reload page ...` message by searching for the following lines of code:
+
+```javascript
+disconnectedDisplay: {
+    show: function (message) {
+        console.warn(message);
+        var element = document.getElementById('blazor-error-ui');
+        element.innerText = 'Disconnected from server. Reload page to try again.';
+        element.style.display = 'block';
+    },
+    hide: function () {
+        var element = document.getElementById('blazor-error-ui');
+        element.style.display = 'none';
+    }
+},
+```
+
+Again, you can modify the text that is displayed by changing the following line:
+
+```javascript
+element.innerText = 'Disconnected from server. Reload page to try again.';
+```
+
+You can also translate these messages to another language by replacing the English text with the translated text.
+
+Once you have made your changes, save the `Blazor.default.js` file and publish your application again. The new error messages should now be displayed to the user.

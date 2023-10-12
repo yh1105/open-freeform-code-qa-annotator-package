@@ -1,0 +1,21 @@
+It seems like there might be an issue with the installation of the required dependencies for Ruby. The error message suggests that some extensions are missing and the build is failing as a result.
+
+One thing you can try is to install the missing dependencies manually using Homebrew. You can do this by running the following command:
+
+```
+brew install openssl readline zlib
+```
+
+After installing these dependencies, try installing Ruby again using `rbenv install`.
+
+If that doesn't work, you can try updating your version of `ruby-build`, which is the tool that `rbenv` uses to install Ruby versions. You can do this by running the following command:
+
+```
+brew upgrade ruby-build
+```
+
+After upgrading `ruby-build`, try installing Ruby again using `rbenv install`.
+
+If neither of these solutions work, you can try using a different version of Ruby or a different installation method. For example, you can try using `rvm` instead of `rbenv`, or you can try installing a different version of Ruby that is known to work on Big Sur.
+
+I hope this helps! Let me know if you have any other questions.

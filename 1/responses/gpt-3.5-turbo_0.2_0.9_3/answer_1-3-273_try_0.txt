@@ -1,0 +1,13 @@
+It sounds like you may need to activate the new environment before launching Jupyter Lab. Here are the steps you can follow:
+
+1. Create a new Conda environment using `conda create --name myenv`.
+2. Activate the new environment using `conda activate myenv`.
+3. Install `nb_conda_kernels` in the new environment using `conda install nb_conda_kernels`.
+4. Launch Jupyter Lab from the new environment using `jupyter lab`.
+5. In Jupyter Lab, go to the "Kernel" menu and select "Change Kernel". You should see the new environment listed as an available kernel.
+
+If you want to launch Jupyter Lab from your base environment and still be able to use the new environment as a kernel, you can try installing `nb_conda_kernels` in your base environment as well. Then, when you launch Jupyter Lab from the base environment, you should be able to see all available kernels, including those from other environments.
+
+If this doesn't work, you can try updating your Jupyter Lab installation using `conda update jupyterlab`. Sometimes, outdated versions of Jupyter Lab can cause issues with kernel management.
+
+I hope this helps! Let me know if you have any other questions.

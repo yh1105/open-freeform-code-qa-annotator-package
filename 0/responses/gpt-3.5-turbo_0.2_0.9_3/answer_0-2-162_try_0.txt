@@ -1,0 +1,23 @@
+Yes, you can achieve this effect using JavaScript and CSS. Here's an example code snippet that you can use as a starting point:
+
+```
+// Get the elements that you want to change the background color of
+const section1 = document.querySelector('.section1');
+const section2 = document.querySelector('.section2');
+
+// Listen for the scroll event on the window
+window.addEventListener('scroll', () => {
+  // Calculate the percentage of the page that has been scrolled
+  const scrollPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+
+  // Set the background color of the sections based on the scroll percentage
+  section1.style.backgroundColor = `rgba(255, 255, 255, ${1 - (scrollPercentage / 100)})`;
+  section2.style.background = `linear-gradient(#f05fa6, #ed1654 ${scrollPercentage}%, rgba(255, 255, 255, 0) ${scrollPercentage}%)`;
+});
+```
+
+In this code, we first get the elements that we want to change the background color of (`section1` and `section2`). Then, we listen for the scroll event on the window and calculate the percentage of the page that has been scrolled. We use this percentage to set the background color of the sections dynamically using CSS.
+
+For `section1`, we set the background color to white with an alpha value that decreases as the user scrolls down the page. For `section2`, we set the background to a linear gradient that starts with the colors `#f05fa6` and `#ed1654` and ends with transparent white. The position of the transparent white color in the gradient is determined by the scroll percentage.
+
+You can adjust the colors and positions in the gradient to achieve the effect that you want.

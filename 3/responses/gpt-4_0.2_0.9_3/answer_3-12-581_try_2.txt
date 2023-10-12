@@ -1,0 +1,27 @@
+The error message is indicating that the ListView is being given an unbounded height, which is not allowed. This is because ListView, like some other widgets such as GridView, Column, etc., tries to expand as much as it can. When you put ListView directly inside Column or other similar widgets, it doesn't know how much it can expand, hence it causes an error.
+
+In your case, you have a ListView inside a Row, which is inside a Column. This is causing the ListView to get confused about the amount of space it has to occupy.
+
+To fix this, you can wrap your ListView with a widget that constrains its height. One such widget is Expanded. Here's how you can do it:
+
+```dart
+new Row(
+  children: <Widget>[
+    new Expanded(
+      child: new ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return new Text(products[index]);
+        }
+      ),
+    ),
+    new IconButton(
+      icon: Icon(Icons.remove_circle),
+      onPressed: () { },
+    )
+  ],
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+),
+```
+
+The Expanded widget tells the Row to give the remaining space to the ListView. This way, the ListView knows how much space it has to occupy and the error should be resolved.

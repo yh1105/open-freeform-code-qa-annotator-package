@@ -1,0 +1,21 @@
+The error message `Cause: error: invalid source release: 17` indicates that Gradle is trying to compile your code with a version of Java that doesn't support Java 17. 
+
+The `sourceCompatibility` in your `build.gradle` file is set to '17', which means you want to compile your code with Java 17. However, it seems that Gradle itself is not running with Java 17.
+
+To fix this, you need to ensure that Gradle is using Java 17. Here's how you can do it:
+
+1. Open the Gradle settings in IntelliJ IDEA. You can find it under `File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle`.
+
+2. Under the `Gradle JVM` option, select your `17` version of Java. If it's not listed, you can add it by clicking on the `...` button and pointing it to your Java 17 installation directory.
+
+3. Click `OK` to save the settings.
+
+4. Try to build your project again.
+
+If you're running Gradle from the command line, you can set the `JAVA_HOME` environment variable to point to your Java 17 installation directory. You can do this in your terminal:
+
+```bash
+export JAVA_HOME=/path/to/your/java17
+```
+
+Replace `/path/to/your/java17` with the actual path to your Java 17 installation directory. After setting `JAVA_HOME`, you can run your Gradle build again.

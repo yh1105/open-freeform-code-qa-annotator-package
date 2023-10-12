@@ -1,0 +1,12 @@
+Yes, you can convert a vector of strings to a HashMap in a one-liner using the `chunks` method and `map` method. Here is how you can do it:
+
+```rust
+use std::collections::HashMap;
+
+let vec = vec!["key1", "value1", "key2", "value2"];
+let map: HashMap<_, _> = vec.chunks(2).map(|chunk| (chunk[0], chunk[1])).collect();
+```
+
+In this code, `chunks(2)` splits the vector into slices of 2 elements each. Then `map` is used to convert each slice into a tuple, which is then collected into a HashMap.
+
+Please note that this code assumes that the vector has an even number of elements. If the vector has an odd number of elements, the last element will be ignored.

@@ -1,0 +1,28 @@
+It seems like you are trying to reload the current route in Angular. The code you have provided looks correct, but there are a few things you can try to debug the issue.
+
+First, make sure that the `navigateToSelf` method is actually being called. You can add a console log statement to check this:
+
+```
+navigateToSelf(route: ActivatedRoute) {
+  console.log('navigateToSelf called');
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = "reload";
+  const self = ".";
+  this.router.navigate([self]);
+}
+```
+
+If the console log statement is not being printed, then the method is not being called.
+
+If the method is being called, then try removing the `routeReuseStrategy` and `onSameUrlNavigation` lines and see if the reload works without them:
+
+```
+navigateToSelf(route: ActivatedRoute) {
+  const self = ".";
+  this.router.navigate([self]);
+}
+```
+
+If the reload works without those lines, then the issue might be with those settings.
+
+If none of these solutions work, then it might be an issue with the Angular version or some other configuration issue. In that case, you might want to try updating to a newer version of Angular or seeking help from the Angular community.

@@ -1,0 +1,7 @@
+The error message indicates that the template name is incorrect. The correct command should be:
+
+```
+npx react-native init MyApp --template react-native-template-typescript
+```
+
+You have repeated the "react-native-template-" part in your command, which is causing the error. The correct template name is "react-native-template-typescript", not "react-native-template-react-native-template-typescript".

@@ -1,0 +1,17 @@
+The error message indicates that some of the dependencies in your project have incompatible versions. Specifically, "@angular/flex-layout" requires a version of "rxjs" that is not compatible with the version that would be installed by "@angular/core", and "@angular/compiler-cli" requires a version of "typescript" that is not compatible with the version that would be installed by "@angular/core".
+
+To resolve this issue, you can try the following steps:
+
+1. Update "@angular/flex-layout" to a version that is compatible with "@angular/core" v6. You can check the compatibility matrix on the [official website](https://github.com/angular/flex-layout#compatibility) to find the appropriate version. For example, "@angular/flex-layout" v6.0.0-beta.18 is compatible with "@angular/core" v6.
+
+2. Update "@angular/compiler-cli" to a version that is compatible with "@angular/core" v6. You can check the compatibility matrix on the [official website](https://github.com/angular/angular/blob/master/CHANGELOG.md#600-2018-05-03) to find the appropriate version. For example, "@angular/compiler-cli" v6.0.0 is compatible with "@angular/core" v6.
+
+3. After updating "@angular/flex-layout" and "@angular/compiler-cli", run the following command to update "@angular/core":
+
+```
+ng update @angular/core
+```
+
+This should resolve the compatibility issues and update your Angular app to v6.
+
+Note: Before making any changes to your project, it's always a good idea to create a backup or commit your changes to a version control system.

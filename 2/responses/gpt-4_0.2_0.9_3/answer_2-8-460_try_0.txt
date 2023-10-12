@@ -1,0 +1,11 @@
+You can achieve this by iterating over the map and printing the key and value. Here's how you can do it in Go:
+
+```go
+for key, value := range getUsersAppInfo[0] {
+    fmt.Printf("%s value is %v\n", key, value)
+}
+```
+
+This code will iterate over each key-value pair in the map and print them in the format you specified. The `[0]` index is used to access the first element of the slice, which is a map in your case.
+
+Please note that the order of the output might not be the same as the order in which the elements are defined in the map, as Go's map type doesn't preserve order.

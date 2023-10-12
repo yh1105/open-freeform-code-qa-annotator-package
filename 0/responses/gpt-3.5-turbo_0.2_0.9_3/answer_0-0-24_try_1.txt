@@ -1,0 +1,48 @@
+It looks like you have tried a few different solutions to get absolute imports working, but none of them have worked so far. Here are a few more things you can try:
+
+1. Update your `tsconfig.json` file to include the `paths` property:
+
+```
+{
+  "compilerOptions": {
+    "baseUrl": "client",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@assets/*": ["assets/*"]
+    }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "client"]
+}
+```
+
+This will allow you to use import statements like `import { MyComponent } from '@components/MyComponent'`.
+
+2. Update your `webpack.config.js` file to include the `resolve.alias` property:
+
+```
+const path = require('path');
+
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      '@components': path.resolve(__dirname, 'client/components'),
+      '@hooks': path.resolve(__dirname, 'client/hooks'),
+      '@assets': path.resolve(__dirname, 'client/assets')
+    }
+  }
+};
+```
+
+This will allow you to use import statements like `import { MyComponent } from '@components/MyComponent'`.
+
+3. Make sure that your import statements are using the correct paths. For example, if you have a component located at `client/components/MyComponent.tsx`, you should import it like this:
+
+```
+import { MyComponent } from 'components/MyComponent';
+```
+
+Note that you don't need to include the `client` directory in the import statement, since you have set the `baseUrl` to `client` in your `tsconfig.json` file.
+
+Hopefully one of these solutions will work for you! Let me know if you have any questions.

@@ -1,0 +1,58 @@
+The error you're encountering is due to a mismatch between the Kotlin version used in your project and the one used in the Stripe SDK. The Stripe SDK version 16.8.0 is compiled with Kotlin 1.5.0, but your project is using an older version of Kotlin.
+
+Here's how you can solve the issue:
+
+1. Update your Kotlin version to match the one used by Stripe. You can do this by changing the Kotlin version in your project's build.gradle file:
+
+```gradle
+buildscript {
+    ext.kotlin_version = '1.5.0'
+    ...
+    dependencies {
+        ...
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+```
+
+2. Then, in your app's build.gradle file, update the Kotlin standard library dependency:
+
+```gradle
+dependencies {
+    ...
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+```
+
+3. Sync your project with the Gradle files.
+
+As for the email and cardholder name, the `CardMultilineWidget` does not support these fields. You will have to create your own EditText fields to capture this information. Here's an example:
+
+```kotlin
+val cardholderNameEditText: EditText = findViewById(R.id.cardholderNameEditText)
+val emailEditText: EditText = findViewById(R.id.emailEditText)
+```
+
+When you create a `PaymentMethodCreateParams.Card` object, you can include the cardholder name:
+
+```kotlin
+val card = cardMultilineWidget.card
+if (card != null) {
+    val cardParams = PaymentMethodCreateParams.Card.Builder()
+        .setNumber(card.number)
+        .setExpMonth(card.expMonth)
+        .setExpYear(card.expYear)
+        .setCvc(card.cvc)
+        .setName(cardholderNameEditText.text.toString())
+        .build()
+
+    val billingDetails = PaymentMethod.BillingDetails.Builder()
+        .setEmail(emailEditText.text.toString())
+        .build()
+
+    val params = PaymentMethodCreateParams
+        .create(cardParams, billingDetails)
+}
+```
+
+Remember to validate the email and cardholder name before creating the `PaymentMethodCreateParams`.

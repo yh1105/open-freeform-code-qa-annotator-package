@@ -1,0 +1,32 @@
+The issue you're facing is likely due to the way you're trying to import the image. When you're using Parcel, you can import an image directly as a string which will contain the final path to the image after being processed by Parcel.
+
+Here's how you should import the image:
+
+```tsx
+import * as React from 'react';
+import img from '../assets/image.jpg';
+
+const Box = props => {
+  // do things...
+}
+
+export default Box;
+```
+
+In the above code, `img` is a string that contains the path to the image.
+
+Also, make sure your `index.d.ts` file is in the correct location and is properly included in your `tsconfig.json`. The `index.d.ts` file should be in the root of your `src` directory, and your `tsconfig.json` should look like this:
+
+```json
+{
+  "compilerOptions": {
+    // other options...
+    "typeRoots" : ["./src/index.d.ts"]
+  },
+  "include": ["src"]
+}
+```
+
+In the above `tsconfig.json`, `"typeRoots" : ["./src/index.d.ts"]` is replaced with `"typeRoots" : ["./node_modules/@types", "./src/index.d.ts"]` to include the default TypeScript type definitions.
+
+If you're still facing issues, try restarting your TypeScript server in VS Code. Sometimes, the server might not pick up changes to the `tsconfig.json` or `index.d.ts` files until it's restarted. You can do this by opening the command palette (Ctrl+Shift+P or Cmd+Shift+P), and running the "TypeScript: Restart TS server" command.

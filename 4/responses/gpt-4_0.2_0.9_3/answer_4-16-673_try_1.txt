@@ -1,0 +1,53 @@
+The issue you're facing is because the version of cmake in the official Ubuntu repositories might not be the latest one. To get the latest version, you can download it from the official CMake website.
+
+Here are the steps to install the latest version of cmake:
+
+1. First, remove the existing version of cmake:
+
+```
+sudo apt-get remove cmake
+```
+
+2. Then, download the latest version of cmake from the official website. At the time of writing, the latest version is 3.21.1. Replace `3.21.1` with the latest version number if it's different:
+
+```
+wget https://github.com/Kitware/CMake/releases/download/v3.21.1/cmake-3.21.1.tar.gz
+```
+
+3. Extract the downloaded file:
+
+```
+tar -xzvf cmake-3.21.1.tar.gz
+```
+
+4. Navigate to the extracted directory:
+
+```
+cd cmake-3.21.1
+```
+
+5. Now, run the bootstrap script:
+
+```
+./bootstrap
+```
+
+6. Once the bootstrap process is complete, compile the source code:
+
+```
+make
+```
+
+7. Finally, install cmake:
+
+```
+sudo make install
+```
+
+8. Verify the installed version of cmake:
+
+```
+cmake --version
+```
+
+This should now show the latest version of cmake that you've just installed.

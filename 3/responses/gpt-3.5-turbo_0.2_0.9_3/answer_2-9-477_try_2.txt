@@ -1,0 +1,17 @@
+Based on the error message you provided, it seems that the installation failed due to missing dependencies. The log suggests that some required libraries such as `openssl`, `readline`, `zlib`, and `yaml` were not found.
+
+To fix this issue, you can try installing these dependencies using Homebrew before installing Ruby. Here are the commands you can use:
+
+```
+brew install openssl readline zlib libyaml
+```
+
+After installing these dependencies, try installing Ruby again using `rbenv install`. This should resolve the issue.
+
+If you still encounter errors, you can try updating your `rbenv` installation and Ruby-build plugin to the latest versions. You can do this using the following commands:
+
+```
+brew upgrade rbenv ruby-build
+```
+
+After upgrading, try installing Ruby again. If the issue persists, you can try using a different version of Ruby or a different installation method.

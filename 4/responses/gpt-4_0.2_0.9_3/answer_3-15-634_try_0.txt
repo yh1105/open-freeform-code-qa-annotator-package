@@ -1,0 +1,15 @@
+The error you're encountering is a known issue with the November 12, 2019, update for Office 2010 (KB4484127). This issue affects all queries with a WHERE clause and is not limited to your specific query.
+
+Microsoft has acknowledged this issue and released a fix for it. You can resolve this issue by installing the latest updates for Office 2010. Here are the steps to do so:
+
+1. Open any Office 2010 application, such as Word 2010 or Excel 2010, and create a new document.
+
+2. Click on File in the top left corner.
+
+3. Click on Help in the left pane.
+
+4. Click on Check for Updates.
+
+5. If updates are found, click Install updates.
+
+If for some reason you can't install the latest updates, you can uninstall the problematic update (KB4484127) as a temporary workaround. However, keep in mind that this update includes security fixes, so it's recommended to install the latest updates as soon as possible to keep your system secure.

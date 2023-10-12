@@ -1,0 +1,17 @@
+Yes, you can output bold text in PowerShell by using the escape sequence for bold text. Here's an example:
+
+```
+Write-Host "This is normal text. This is " -NoNewline
+Write-Host "bold text" -ForegroundColor Yellow -NoNewline
+Write-Host " and this is normal text again."
+```
+
+In this example, the `-NoNewline` parameter is used to prevent each `Write-Host` command from creating a new line. The `-ForegroundColor` parameter is used to set the color of the bold text to yellow. 
+
+You can also use the escape sequence directly in the string:
+
+```
+Write-Host "This is normal text. This is \e[1mbold text\e[0m and this is normal text again."
+```
+
+In this example, `\e[1m` is the escape sequence for bold text and `\e[0m` resets the text back to normal.

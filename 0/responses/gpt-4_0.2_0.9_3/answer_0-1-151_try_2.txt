@@ -1,0 +1,31 @@
+It seems like you are having an issue with Rails asset pipeline. The asset pipeline is a feature by Rails that concatenates and minifies or compresses JavaScript and CSS assets. It also adds the ability to write these assets in other languages such as CoffeeScript, Sass and ERB.
+
+In the development environment, Rails does not concatenate and minify assets for easier debugging. However, it seems like your Rails app is serving precompiled assets instead of assets in the app/assets directory.
+
+Here are a few things you can try:
+
+1. **Disable asset precompilation in development:**
+   In `config/environments/development.rb`, make sure the following line is set to `false`:
+   ```ruby
+   config.assets.debug = false
+   ```
+   This will prevent Rails from serving precompiled assets in the development environment.
+
+2. **Clear precompiled assets:**
+   You can clear precompiled assets by running the following command in your terminal:
+   ```bash
+   rake assets:clobber
+   ```
+   This will remove all precompiled assets.
+
+3. **Enable live asset reloading:**
+   In `config/environments/development.rb`, you can enable live reloading of assets with the following line:
+   ```ruby
+   config.assets.digest = true
+   ```
+   This will make Rails generate a new cache-busting fingerprint every time an asset is changed.
+
+4. **Check your CSS and JavaScript manifest files:**
+   Rails uses manifest files (`application.css` and `application.js`) to determine which assets to serve. Make sure your CSS and JavaScript files are being required in these manifest files.
+
+Remember to restart your Rails server after making these changes. If you are still having issues, please provide more details about your Rails version and your `development.rb` configuration file.

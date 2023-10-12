@@ -1,0 +1,16 @@
+The correct syntax for importing resources with `for_each` in Terraform is as follows:
+
+```bash
+terraform import 'aws_s3_bucket.bucket["logs"]' logs_bucket
+```
+
+The resource address must be in quotes and the map key must be in double quotes. 
+
+So, for your case, you should be able to import the existing S3 buckets with the following commands:
+
+```bash
+terraform import 'aws_s3_bucket.bucket["logs"]' logs_bucket
+terraform import 'aws_s3_bucket.bucket["security"]' cloudtrail_bucket
+```
+
+Remember to replace `logs_bucket` and `cloudtrail_bucket` with the actual AWS S3 bucket names.

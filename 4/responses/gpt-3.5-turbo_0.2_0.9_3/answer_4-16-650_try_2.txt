@@ -1,0 +1,15 @@
+No problem at all! Here's how you can achieve this in PowerShell:
+
+```
+# Read the contents of the file into an array
+$arrayFromFile = Get-Content -Path "C:\USER\Documents\Collections\collection.txt"
+
+# Loop through the array and run the newman command for each file
+foreach ($file in $arrayFromFile) {
+    newman run $file
+}
+```
+
+The `Get-Content` cmdlet is used to read the contents of the file and store each line as an element in the `$arrayFromFile` array. Then, the `foreach` loop is used to iterate through each element in the array and run the `newman` command with the file name as an argument.
+
+I hope this helps! Let me know if you have any further questions.

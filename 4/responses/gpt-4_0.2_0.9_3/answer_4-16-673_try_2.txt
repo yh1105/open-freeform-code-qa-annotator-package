@@ -1,0 +1,54 @@
+The reason you're getting the same version re-installed is because the version in the Ubuntu repositories is not the latest one. To install the latest version of cmake, you can download it from the official website and compile it from source. Here are the steps:
+
+1. First, you need to uninstall the existing version of cmake:
+
+    ```
+    sudo apt-get remove cmake
+    ```
+
+2. Then, update your system:
+
+    ```
+    sudo apt-get update
+    sudo apt-get upgrade
+    ```
+
+3. Install required packages:
+
+    ```
+    sudo apt-get install libssl-dev
+    ```
+
+4. Download the latest version of cmake from the official website. You can do this with wget. Replace "3.21.1" with the version you want to install:
+
+    ```
+    wget https://github.com/Kitware/CMake/releases/download/v3.21.1/cmake-3.21.1.tar.gz
+    ```
+
+5. Extract the downloaded file:
+
+    ```
+    tar -xzvf cmake-3.21.1.tar.gz
+    ```
+
+6. Go to the extracted directory:
+
+    ```
+    cd cmake-3.21.1
+    ```
+
+7. Now, you can compile and install cmake:
+
+    ```
+    ./bootstrap
+    make -j$(nproc)
+    sudo make install
+    ```
+
+8. Verify the installed version of cmake:
+
+    ```
+    cmake --version
+    ```
+
+This should output the version you just installed.

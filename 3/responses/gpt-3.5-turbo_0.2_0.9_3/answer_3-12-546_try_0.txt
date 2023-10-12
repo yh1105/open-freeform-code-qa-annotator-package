@@ -1,0 +1,88 @@
+To achieve the desired output, you can use a `GridView` with a `crossAxisCount` of 5 to display the images. Here's an example implementation:
+
+```
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class BusinessProfilePage extends StatefulWidget {
+  @override
+  _BusinessProfilePageState createState() => _BusinessProfilePageState();
+}
+
+class _BusinessProfilePageState extends State<BusinessProfilePage> {
+  List<File> images = [];
+
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        images.add(File(pickedFile.path));
+      });
+    }
+  }
+
+  Widget _buildImagePicker() {
+    return GestureDetector(
+      onTap: pickImage,
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildImage(File image) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: FileImage(image),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Business Profile'),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Business Profile Pictures',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            GridView.count(
+              crossAxisCount: 5,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                ...images.map((image) => _buildImage(image)),
+                if (images.length < 5) _buildImagePicker(),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this implementation, we have a `List<File>` to store the selected images. When the user taps on the add button, we use the `ImagePicker` plugin to select an image from the gallery and add it to the list of images. We then display the images using a `GridView` with a `crossAxisCount` of 5. If the user has selected less than 5 images, we display an add button at the end of the grid.

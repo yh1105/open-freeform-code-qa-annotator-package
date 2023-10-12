@@ -1,0 +1,95 @@
+Unfortunately, the `--skip-tests` option is not supported for the `ng generate module` command. However, you can manually delete the generated `.spec.ts` file after generating the module and component. 
+
+Alternatively, you can create a custom schematic that extends the `@schematics/angular:module` schematic and adds the `--skip-tests` option. This would require some knowledge of the Angular Schematics API and TypeScript. 
+
+Here's an example of how you can create a custom schematic that extends the `@schematics/angular:module` schematic and adds the `--skip-tests` option:
+
+1. Create a new directory for your custom schematic, for example `my-schematics`.
+2. Inside the `my-schematics` directory, create a new directory called `my-module`.
+3. Inside the `my-module` directory, create a new file called `schema.json` with the following content:
+
+```json
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "MyModule",
+  "title": "My Module Options",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the module.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "The path to create the module.",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "routing": {
+      "type": "boolean",
+      "description": "Generate a routing module.",
+      "default": false
+    },
+    "skipTests": {
+      "type": "boolean",
+      "description": "Skip generating test files.",
+      "default": false
+    }
+  },
+  "required": ["name", "path"]
+}
+```
+
+4. Inside the `my-module` directory, create a new file called `index.ts` with the following content:
+
+```typescript
+import { Rule, SchematicContext, Tree, chain, externalSchematic } from '@angular-devkit/schematics';
+import { Schema as ModuleOptions } from './schema';
+
+export default function (options: ModuleOptions): Rule {
+  const skipTests = options.skipTests ? '--skip-tests' : '';
+  return chain([
+    externalSchematic('@schematics/angular', 'module', {
+      name: options.name,
+      path: options.path,
+      routing: options.routing,
+      skipTests
+    })
+  ]);
+}
+```
+
+5. Inside the `my-schematics` directory, create a new file called `collection.json` with the following content:
+
+```json
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "my-module": {
+      "description": "Generate a new module with an optional routing module.",
+      "factory": "./my-module",
+      "schema": "./my-module/schema.json"
+    }
+  }
+}
+```
+
+6. In your Angular project, run the following command to register your custom schematic:
+
+```
+ng add schematic my-schematics
+```
+
+7. Now you can use your custom schematic to generate a module with the `--skip-tests` option:
+
+```
+ng generate my-schematics:my-module --name asdf --path app --routing true --skipTests --dry-run
+```
+
+This will generate a new module with an optional routing module, and skip generating test files.

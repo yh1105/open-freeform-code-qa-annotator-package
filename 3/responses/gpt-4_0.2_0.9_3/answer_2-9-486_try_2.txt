@@ -1,0 +1,20 @@
+The issue you're facing is due to the order of operations during the Heroku build process. As you've noticed, the `assets:precompile` task is running before your `esbuild` script, which is why the `application.js` file is not being found.
+
+You can customize the build process by using a `Procfile`. A `Procfile` is a mechanism for declaring what commands are run by your application's dynos on the Heroku platform.
+
+Here's a possible solution:
+
+1. Create a `Procfile` in the root of your project if it doesn't exist already.
+2. Add the following line to your `Procfile`:
+
+```bash
+release: yarn build && bundle exec rake assets:precompile
+```
+
+This will tell Heroku to run your `esbuild` script before running `assets:precompile`.
+
+Remember to commit the `Procfile` to your git repository before pushing to Heroku.
+
+If you're already using the `release` phase for other tasks, you can append the `yarn build && bundle exec rake assets:precompile` command to the existing `release` command in your `Procfile`, separating them with `&&`.
+
+Please note that the `release` phase runs after the build phase, but before the deploy phase. This means that if the `release` command fails, the new release is not deployed, leaving your current release unaffected.

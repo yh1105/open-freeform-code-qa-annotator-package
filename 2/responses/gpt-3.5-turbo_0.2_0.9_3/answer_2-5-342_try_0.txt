@@ -1,0 +1,16 @@
+Yes, there is a solution for this. Instead of using `setView`, you can create a custom `Toast` layout using `LayoutInflater` and then set it using `Toast.setGravity()` and `Toast.show()`. Here's an example:
+
+```
+LayoutInflater inflater = getLayoutInflater();
+View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+
+Toast toast = new Toast(getApplicationContext());
+toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+toast.setDuration(Toast.LENGTH_LONG);
+toast.setView(layout);
+toast.show();
+```
+
+In this example, `R.layout.custom_toast` is the layout file for your custom `Toast`. You can customize this layout file to your liking. `R.id.custom_toast_container` is the ID of the container layout in your custom `Toast` layout file. 
+
+By using this method, you can create a custom `Toast` without using the deprecated `setView` method.

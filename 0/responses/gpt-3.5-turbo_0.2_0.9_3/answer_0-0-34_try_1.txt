@@ -1,0 +1,97 @@
+Yes, the error is related to the .angular.json file. The error message indicates that there is an additional property called "project" in the JSON file that is not recognized by the Angular CLI.
+
+To fix the issue, you can remove the "project" property from the JSON file. The "project" property is not required in the Angular 6 version of the CLI.
+
+Here's the updated .angular.json file without the "project" property:
+
+```
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "apps": [{
+            "root": "src",
+            "outDir": "dist/browser",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.ts",
+            "polyfills": "polyfills.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss",
+                "../node_modules/owl.carousel/dist/assets/owl.carousel.css",
+                "../node_modules/owl.carousel/dist/assets/owl.theme.default.css",
+                "../node_modules/video.js/dist/video-js.css"
+            ],
+            "scripts": [
+                "../node_modules/jquery/dist/jquery.js",
+                "../node_modules/owl.carousel/dist/owl.carousel.js",
+                "../node_modules/video.js/dist/ie8/videojs-ie8.js",
+                "../node_modules/video.js/dist/video.js"
+            ],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        },
+        {
+            "platform": "server",
+            "root": "src",
+            "outDir": "dist/server",
+            "assets": [
+                "assets",
+                "favicon.ico"
+            ],
+            "index": "index.html",
+            "main": "main.server.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.server.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app",
+            "styles": [
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.dev.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        }
+    ],
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
+    },
+    "lint": [{
+            "project": "src/tsconfig.app.json",
+            "exclude": ["**/node_modules/**", "**/UI/**"]
+        },
+        {
+            "project": "src/tsconfig.spec.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "defaults": {
+        "styleExt": "scss",
+        "component": {}
+    }
+}
+```
+
+Save the updated .angular.json file and try running `ng serve` again. The error should be resolved.

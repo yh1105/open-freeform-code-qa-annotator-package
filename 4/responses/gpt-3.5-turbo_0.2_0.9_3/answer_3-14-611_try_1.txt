@@ -1,0 +1,28 @@
+You can add spacing between `List` items by using the `padding` modifier on the `VStack` inside the `List`. Here's an example:
+
+```
+List (ratesVM.ratesList, id: \.self) { rate in
+    HStack {
+        Image(systemName: "plus")
+        Button(action: {print("pressed")}) {
+            Text(rate.hebrewCurrencyName)
+        }
+    }
+    .padding(.vertical, 8) // add vertical padding between items
+}
+```
+
+Alternatively, you can use a `LazyVStack` instead of a `List` and add spacing between items using the `spacing` modifier:
+
+```
+LazyVStack(spacing: 8) {
+    ForEach(ratesVM.ratesList, id: \.self) { rate in
+        HStack {
+            Image(systemName: "plus")
+            Button(action: {print("pressed")}) {
+                Text(rate.hebrewCurrencyName)
+            }
+        }
+    }
+}
+```

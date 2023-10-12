@@ -1,0 +1,39 @@
+In your code, you are trying to pass multiple arguments from a child component to a parent component in Blazor. However, the way you are trying to do it is not correct. 
+
+In Blazor, you can use EventCallback and EventCallback<T> to pass data from child components to parent components.
+
+Here is how you can do it:
+
+Child Component:
+
+```csharp
+@code {
+    [Parameter]
+    public EventCallback<(string, int)> ItemClicked { get; set; }
+
+    private async Task OnClick(string name, int id)
+    {
+        await ItemClicked.InvokeAsync((name, id));
+    }
+}
+```
+
+In the child component, you define a Parameter of type EventCallback<(string, int)>. This parameter will be used to pass the data to the parent component. The OnClick method is used to trigger the EventCallback.
+
+Parent Component:
+
+```csharp
+<ChildComponent ItemClicked="ItemClicked" />
+
+@code {
+    private void ItemClicked((string Name, int Id) data)
+    {
+        Console.WriteLine(data.Name);
+        Console.WriteLine(data.Id);
+    }
+}
+```
+
+In the parent component, you define a method that matches the signature of the EventCallback in the child component. This method will be called when the EventCallback is triggered in the child component. The data from the child component is passed as an argument to this method.
+
+Please note that you need to replace `ChildComponent` with the actual name of your child component.

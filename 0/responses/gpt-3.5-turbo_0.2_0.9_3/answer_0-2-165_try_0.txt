@@ -1,0 +1,26 @@
+It seems that the issue is with the `querySelector` method. It is not able to retrieve the active accordion element because it is not initially set to any element. You can modify the code to handle this case by checking if the `active` variable is not null before removing the `active` class. Here's the modified code:
+
+```
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      const active = document.querySelector(".accordion.active");
+      if (active !== null) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+Regarding the `classList.add("active")` not adding the class to the accordion element, it seems that you are also using `classList.toggle("active")` which toggles the class on and off. You can remove the `classList.toggle("active")` line to avoid this issue.

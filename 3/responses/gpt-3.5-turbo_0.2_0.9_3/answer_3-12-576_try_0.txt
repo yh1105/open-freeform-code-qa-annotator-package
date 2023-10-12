@@ -1,0 +1,11 @@
+You can use the `substring` method of the `String` class in Flutter to remove all characters after a specific character. Here's an example:
+
+```dart
+String myString = "one.two";
+String newString = myString.substring(0, myString.indexOf('.'));
+print(newString); // Output: "one"
+```
+
+In this example, we first define a `myString` variable with the value "one.two". We then use the `substring` method to extract the characters from the beginning of the string up to the index of the "." character. The `indexOf` method is used to find the index of the "." character in the string. Finally, we print the new string "one" to the console.
+
+Note that if the "." character is not found in the string, the `indexOf` method will return -1, so you may want to add some error handling to your code to handle this case.

@@ -1,0 +1,31 @@
+To enable 'ignoreundefinedproperties' in your Nodejs and Express application, you can use the `body-parser` middleware. 
+
+First, install the `body-parser` package by running the following command in your terminal:
+
+```
+npm install body-parser
+```
+
+Then, in your Nodejs and Express application, require the `body-parser` package and use it as middleware before your routes:
+
+```javascript
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+// Enable 'ignoreundefinedproperties'
+app.use(bodyParser.json({ ignoreUndefined: true }));
+
+// Your routes go here
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
+```
+
+With this configuration, the `body-parser` middleware will parse incoming JSON requests and automatically ignore any undefined properties.

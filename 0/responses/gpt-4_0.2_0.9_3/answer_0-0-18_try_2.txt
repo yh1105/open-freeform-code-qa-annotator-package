@@ -1,0 +1,45 @@
+React does not provide a built-in method to reset all state variables to their initial values. However, you can create a custom hook that does this. Here's an example:
+
+```jsx
+function useForm(initialState) {
+    const [values, setValues] = useState(initialState);
+
+    const handleChange = e => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const resetForm = () => {
+        setValues(initialState);
+    };
+
+    return [values, handleChange, resetForm];
+}
+
+// Usage
+const Signup = () => {
+    const initialState = {
+        username: '',
+        email: '',
+        password: '',
+        passwordConfirmation: ''
+    };
+    const [values, handleChange, resetForm] = useForm(initialState);
+
+    const handleSubmit = signupUser => e => {
+        e.preventDefault();
+        signupUser().then(data => {
+            console.log(data);
+            resetForm();
+        });
+    };
+
+    return <JSX />;
+};
+
+export default Signup;
+```
+
+In this example, `useForm` is a custom hook that takes an initial state object and returns the current state, a function to update the state, and a function to reset the state to its initial values. This way, you can manage all your form fields with a single state object and reset them all at once.

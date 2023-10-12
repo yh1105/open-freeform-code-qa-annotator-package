@@ -1,0 +1,18 @@
+It looks like the issue might be with the port configuration in your `vite.config.ts` file. You have set the server port to `8080`, but you are also publishing the container port as `8080` in your `docker-compose.yml` file. This could be causing a conflict.
+
+Try changing the server port in your `vite.config.ts` file to a different port, such as `8081`:
+
+```
+server: {
+  port: 8081
+}
+```
+
+Then, update your `docker-compose.yml` file to publish port `8081` instead:
+
+```
+ports:
+  - "8081:8081"
+```
+
+After making these changes, rebuild your Docker image and run the container again. Then try accessing `localhost:8081` in your browser or using `curl` to see if the issue is resolved.

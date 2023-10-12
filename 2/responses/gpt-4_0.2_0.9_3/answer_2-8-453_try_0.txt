@@ -1,0 +1,39 @@
+The `err113` linter rule is suggesting that you should use static errors instead of dynamic ones. This means that you should define your errors at the package level and then use them, rather than creating new errors each time. This can be beneficial for error handling and checking, as you can compare errors directly.
+
+Here is an idiomatic example of how you can do this:
+
+```go
+package foo
+
+import (
+    "errors"
+    "testing"
+
+    "github.com/golang/mock/gomock"
+)
+
+var (
+    ErrRepo = errors.New("repo gave err")
+    ErrOops = errors.New("oops")
+)
+
+func TestFoo(t *testing.T) {
+    ctrl := gomock.NewController(t)
+    defer ctrl.Finish()
+
+    repoMock := NewMockRepo(ctrl)
+
+    repoMock.EXPECT().Save(gomock.Eq(&foooBarBar)).Return(nil, ErrRepo)
+    repoMock.EXPECT().FindAll().Return(nil, ErrOops)
+}
+```
+
+In this example, `ErrRepo` and `ErrOops` are package-level variables that hold the error values. These are then returned in the mocked methods instead of creating new errors with `errors.New()`. 
+
+If you need to add more context to your errors, you can use `fmt.Errorf()` to wrap these static errors:
+
+```go
+return fmt.Errorf("additional context: %w", ErrRepo)
+```
+
+This will create a new error that wraps `ErrRepo`, adding additional context to the error while still allowing direct comparison with `ErrRepo`.

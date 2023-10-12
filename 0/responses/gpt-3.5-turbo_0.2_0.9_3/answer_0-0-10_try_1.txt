@@ -1,0 +1,12 @@
+You can try using the `cy.get()` command to select the div element with class `WildnessText-kRKTej` and then use the `.invoke('text')` method to get the text value. Here's an example:
+
+```
+cy.get('.WildnessText-kRKTej')
+  .invoke('text')
+  .should('eq', 'Wildness')
+  .then((text) => {
+    // do something with the text value
+  })
+``` 
+
+This should select the div element with class `WildnessText-kRKTej`, get its text value, and assert that it is equal to 'Wildness'. You can then use the `text` variable to perform any further actions you need to in your test.

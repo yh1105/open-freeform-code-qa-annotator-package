@@ -1,0 +1,15 @@
+The error message you're seeing usually means that the thing you're trying to use as a constructor is not a class or function. In your case, it seems like the `API` class is not being exported or imported correctly.
+
+Here are a few things you could check:
+
+1. **File Path**: Make sure the file path in the import statement is correct. If the `API` file is not in the same directory as the file where you're trying to use it, you'll need to adjust the path accordingly.
+
+2. **Class Definition**: Check the `API` class definition. Make sure it's a class and it has a constructor. If it's an empty class with no constructor, you might get this error.
+
+3. **Mocking**: If you're mocking the `API` class in your tests, make sure the mock is correctly set up. If Jest replaces the `API` class with a mock that's not a constructor, you'll get this error.
+
+4. **Transpilation**: Babel might be transpiling the `API` class into something that's not a constructor. Check your Babel configuration and make sure it's set up to handle ES6 classes correctly.
+
+5. **Named vs Default Exports**: If you're using named exports, you'll need to import the `API` class like this: `import { API } from 'utils/API';`. If you're using default exports, you'll need to import it like this: `import API from 'utils/API';`. Make sure you're using the correct syntax for the type of export you're using.
+
+If none of these suggestions solve the problem, it would be helpful to see the actual code of the `API` class and the code where you're trying to use it.

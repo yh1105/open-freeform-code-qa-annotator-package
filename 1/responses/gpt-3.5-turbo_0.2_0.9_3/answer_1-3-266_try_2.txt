@@ -1,0 +1,15 @@
+It seems like the issue is with the STATIC_ROOT setting in your settings.py file. 
+
+STATIC_ROOT is the directory where Django will collect all the static files from all the apps in your project. In your case, you have set it to BASE_DIR + 'static/', which means that Django will collect all the static files and put them in a folder named 'static' in the BASE_DIR directory.
+
+However, in your wwwroot directory, there is already a folder named 'static' which contains all your static files. So, when you run the 'collectstatic' command, Django is copying all the static files to the BASE_DIR + 'static/' directory, but your templates are still looking for the static files in the 'static' directory in the wwwroot folder.
+
+To fix this issue, you need to change the STATIC_ROOT setting to the path of the 'static' directory in the wwwroot folder. 
+
+Try changing the STATIC_ROOT setting in your settings.py file to:
+
+```
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+```
+
+Then, run the 'collectstatic' command again and check if the static files are now visible on your templates.

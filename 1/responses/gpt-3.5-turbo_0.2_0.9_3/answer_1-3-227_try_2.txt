@@ -1,0 +1,28 @@
+One way to improve the performance of your query is to use subqueries instead of joining the same table multiple times. You can try using the `Subquery` expression in Django to achieve this.
+
+Here's an example of how you can modify your query using subqueries:
+
+```
+from django.db.models import Subquery, OuterRef
+
+filters = [
+  {'trait': 1, 'class': [2, 3]},
+  {'trait': 2, 'class': [6,]},
+]
+
+queryset = Description.objects.all()
+
+for filter in filters:
+  queryset = queryset.filter(
+    expression_set__class__in=Subquery(
+      Class.objects.filter(
+        trait_id=filter['trait'],
+        id__in=filter['class']
+      ).values('id')
+    )
+  )
+```
+
+This will generate a subquery for each filter that selects the `id` of the `Class` objects that match the filter criteria. The subquery is then used to filter the `Expression` objects in the main query.
+
+Using subqueries can be more efficient than joining the same table multiple times, especially when dealing with large datasets. However, keep in mind that the performance of your query also depends on the size of your database and the hardware resources available.

@@ -1,0 +1,41 @@
+The issue you are facing is because the `TextEncoder` API is not available in the Node.js environment. One way to solve this issue is to use a polyfill for `TextEncoder` that works in Node.js.
+
+You can use the `text-encoding` package to polyfill `TextEncoder` and `TextDecoder`. Here's how you can do it:
+
+1. Install the `text-encoding` package:
+
+   ```
+   npm install --save-dev text-encoding
+   ```
+
+2. Import the `TextEncoder` and `TextDecoder` polyfills at the top of your test file:
+
+   ```
+   import { TextEncoder, TextDecoder } from 'text-encoding';
+   global.TextEncoder = TextEncoder;
+   global.TextDecoder = TextDecoder;
+   ```
+
+   This will define the `TextEncoder` and `TextDecoder` global objects in the Node.js environment.
+
+3. Import the `@tensorflow-models/mobilenet` module after defining the polyfills:
+
+   ```
+   import { TextEncoder, TextDecoder } from 'text-encoding';
+   global.TextEncoder = TextEncoder;
+   global.TextDecoder = TextDecoder;
+
+   import * as mobilenet from '@tensorflow-models/mobilenet';
+   ```
+
+   This should resolve the `ReferenceError: TextEncoder is not defined` error.
+
+4. Run your tests with the `--env=node` flag:
+
+   ```
+   npx react-scripts test --env=node
+   ```
+
+   This will run your tests in the Node.js environment with the `TextEncoder` and `TextDecoder` polyfills defined.
+
+I hope this helps! Let me know if you have any further questions.

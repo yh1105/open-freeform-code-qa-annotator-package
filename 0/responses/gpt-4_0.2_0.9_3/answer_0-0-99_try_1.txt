@@ -1,0 +1,27 @@
+Sure, I can help with that. 
+
+Angular's Validators.pattern uses JavaScript's RegExp object under the hood, so any regular expression that works with JavaScript should work with Validators.pattern.
+
+Here's how you can create the patterns:
+
+1) To allow only numbers, positive and negative:
+
+```javascript
+Validators.pattern(/^[-]?[0-9]+$/)
+```
+
+2) To allow only numbers, positive and negative, optionally with up to 2 decimal places:
+
+```javascript
+Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,2})?$/)
+```
+
+Here's what these patterns do:
+
+- `^` asserts start of a line
+- `[-]?` allows an optional `-` at the start for negative numbers
+- `[0-9]+` allows one or more digits
+- `(\.[0-9]{1,2})?` allows an optional decimal point followed by one or two digits
+- `$` asserts end of a line
+
+These patterns should work for your use case. Let me know if you have any other questions!

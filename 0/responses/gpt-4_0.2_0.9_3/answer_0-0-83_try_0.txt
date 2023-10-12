@@ -1,0 +1,26 @@
+The error message you're seeing is because Chart.js 3.x has some breaking changes compared to Chart.js 2.x. The scale type 'linear' is no longer registered by default. 
+
+You need to import and register it manually. Here's how you can do it:
+
+```typescript
+import { Chart, LinearScale } from 'chart.js';
+
+Chart.register(LinearScale);
+```
+
+Also, the way to define scales has changed in Chart.js 3.x. Here's how you can define scales in your chart options:
+
+```typescript
+options: {
+  scales: {
+    y: {
+      type: 'linear', // this would be unnecessary if the scale name is 'y'
+      beginAtZero: true
+    }
+  }
+}
+```
+
+Please make sure to check the Chart.js 3.x migration guide for more details: https://www.chartjs.org/docs/latest/getting-started/v3-migration.html
+
+If you're still having issues, it might be easier to downgrade to Chart.js 2.x if you don't need the new features in 3.x. You can do this by running `npm uninstall chart.js` and then `npm install chart.js@^2.9.4`.

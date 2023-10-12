@@ -1,0 +1,10 @@
+You can use the `substring` method of the `String` class to achieve this. Here's an example:
+
+```dart
+String str = "one.two";
+String newStr = str.substring(0, str.indexOf(".")); // "one"
+```
+
+In this example, we first define the original string `str`. Then, we use the `indexOf` method to find the index of the first occurrence of the dot character (`.`) in the string. We pass this index to the `substring` method along with 0 as the starting index to get a new string that starts at the beginning of the original string and ends at the index of the dot character. This effectively removes everything after the dot character in the original string.
+
+The resulting `newStr` variable will contain the modified string "one".

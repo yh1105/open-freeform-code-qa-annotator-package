@@ -1,0 +1,63 @@
+The error you're facing is related to the linking of the `react-native-gesture-handler` library. Since React Native 0.60, the library uses auto-linking so you don't need to use `react-native link` command anymore. 
+
+However, you're using React Native version 0.58.3, which doesn't support auto-linking. 
+
+Here are the steps you can follow to resolve this issue:
+
+1. Uninstall the library:
+```
+npm uninstall react-native-gesture-handler
+```
+
+2. Reinstall the library:
+```
+npm install react-native-gesture-handler
+```
+
+3. Link the library manually. Open `android/app/src/main/java/<your-package-name>/MainActivity.java` and make the following changes:
+
+```java
+package com.reactnavigation.example;
+
+import com.facebook.react.ReactActivity;
+// Add the following import
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+
+public class MainActivity extends ReactActivity {
+
+  @Override
+  protected String getMainComponentName() {
+    return "Example";
+  }
+
+  // Add the following method to your main activity class
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegate(this, getMainComponentName()) {
+      @Override
+      protected ReactRootView createRootView() {
+       return new RNGestureHandlerEnabledRootView(MainActivity.this);
+      }
+    };
+  }
+}
+```
+
+4. Open `android/settings.gradle` and add the following lines:
+
+```gradle
+include ':react-native-gesture-handler'
+project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
+```
+
+5. Open `android/app/build.gradle` and add the following line in the `dependencies` block:
+
+```gradle
+implementation project(':react-native-gesture-handler')
+```
+
+6. Run `react-native run-android` to build your project.
+
+If you're still facing the issue, it might be related to the Windows environment. Try running the command prompt or PowerShell as an administrator and then run the `react-native link` command.

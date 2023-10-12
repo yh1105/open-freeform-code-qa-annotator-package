@@ -1,0 +1,26 @@
+In Go, you can convert an integer to its ASCII equivalent by using the `fmt.Sprintf` function. Here's an example:
+
+```
+a := 49
+ascii := fmt.Sprintf("%c", a)
+fmt.Println(ascii) // Output: 1
+```
+
+In your code, you are assigning a string to the variable `a`. To convert a string to its ASCII equivalent, you need to convert each character in the string to its ASCII value. Here's an example:
+
+```
+a := "42"
+for _, c := range a {
+    ascii := fmt.Sprintf("%c", c)
+    fmt.Println(ascii)
+}
+```
+
+This will output:
+
+```
+4
+2
+``` 
+
+Note that the `range` function is used to iterate over each character in the string.

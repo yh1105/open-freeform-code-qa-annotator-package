@@ -1,0 +1,30 @@
+The error message you received indicates that the COM class for Microsoft Edge is not registered on your system. This could be due to a number of reasons, such as a missing or corrupted installation of Microsoft Edge or a problem with the Windows registry.
+
+As for your updated code, the `Start-Process` cmdlet launches a new process and returns a `System.Diagnostics.Process` object, which does not have a `visible` or `FullScreen` property. These properties are specific to the `MicrosoftEdge.Application` COM object.
+
+To interact with the Microsoft Edge window, you can use the `Invoke-UIAWindow` cmdlet from the UIAutomation module. Here's an example:
+
+```
+# Launch Microsoft Edge
+Start-Process microsoft-edge
+
+# Wait for the window to appear
+Start-Sleep -Seconds 5
+
+# Get the MicrosoftEdge.Application COM object
+$edge = New-Object -ComObject MicrosoftEdge.Application
+
+# Get the window handle
+$handle = $edge.Windows() | Where-Object { $_.LocationURL -eq 'about:blank' } | Select-Object -ExpandProperty HWND
+
+# Maximize the window
+Invoke-UIAWindowPattern -WindowHandle $handle -Maximize
+
+# Wait for the window to finish maximizing
+Start-Sleep -Seconds 2
+
+# Minimize the window
+Invoke-UIAWindowPattern -WindowHandle $handle -Minimize
+```
+
+This code launches Microsoft Edge, waits for the window to appear, gets the `MicrosoftEdge.Application` COM object, finds the window handle for the blank tab, maximizes the window, waits for the window to finish maximizing, and then minimizes the window. You can modify this code to suit your needs.

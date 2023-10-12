@@ -1,0 +1,14 @@
+You can use the `sort_by` function to sort by multiple keys. This function allows you to provide a comparator function that can compare two elements of the vector. In your case, you can compare first by `row` and then by `column`. Here is how you can do it:
+
+```rust
+my_vector.sort_by(|a, b| {
+    let row_cmp = a.row.cmp(&b.row);
+    if row_cmp == std::cmp::Ordering::Equal {
+        a.column.cmp(&b.column)
+    } else {
+        row_cmp
+    }
+});
+```
+
+In this code, we first compare the `row` of `a` and `b`. If they are equal, we then compare the `column`. This way, the vector is first sorted by `row` and then by `column` within each group of equal `row`.

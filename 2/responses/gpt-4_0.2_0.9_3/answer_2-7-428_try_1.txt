@@ -1,0 +1,27 @@
+Based on the information you've provided, it seems like you've set up everything correctly. However, there are a few things you could check to troubleshoot this issue:
+
+1. **Token Creation**: Ensure that the token you're creating for the user is correct. You can create a token for a user using the `createToken` method. Here's an example:
+
+```php
+$user = User::first();
+$token = $user->createToken('token-name')->plainTextToken;
+```
+
+2. **Token Usage**: When you use the token in Postman, make sure you include the word `Bearer` before the token in the Authorization header. It should look something like this: `Bearer your-token-here`.
+
+3. **Middleware**: Ensure that the `auth:sanctum` middleware is correctly set up in your `Kernel.php` file. It should be in the `$routeMiddleware` array:
+
+```php
+protected $routeMiddleware = [
+    // ...
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    // ...
+];
+```
+
+4. **Route**: Ensure that your route is correctly set up. The `auth:sanctum` middleware should be applied to the route or route group that you're trying to protect.
+
+5. **Headers**: Ensure that you're sending the correct headers with your request. You should be sending the `Accept: application/json` header.
+
+If you've checked all of these things and you're still having issues, it might be helpful to see more of your code or get more information about your setup.

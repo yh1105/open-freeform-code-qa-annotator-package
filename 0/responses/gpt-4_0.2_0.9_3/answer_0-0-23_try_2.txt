@@ -1,0 +1,36 @@
+The `React.useMemo` hook is not designed to handle asynchronous operations. It's meant to optimize synchronous, expensive computations. For handling asynchronous operations, you should use the `React.useEffect` hook.
+
+Here's how you can modify your code to use `React.useEffect` and `React.useState` to handle the asynchronous operation and store the result:
+
+```jsx
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+    let [myExpensiveResultObject, setMyExpensiveResultObject] = React.useState(null);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const result = await SomeLongRunningApi(arg);
+            setMyExpensiveResultObject(result);
+        };
+
+        fetchData();
+    }, [arg]);
+
+    const getResult = () => {
+        if (myExpensiveResultObject) {
+            setResult(myExpensiveResultObject.interestingProperty);
+        }
+    }
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={getResult}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>);
+}
+```
+
+In this code, `React.useEffect` is used to call the asynchronous function `SomeLongRunningApi(arg)` whenever `arg` changes. The result of this function is stored in the state variable `myExpensiveResultObject` using the `setMyExpensiveResultObject` function. The `getResult` function then uses this state variable to update the `result` state variable.

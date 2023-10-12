@@ -1,0 +1,15 @@
+When C#8's nullability context is enabled, you need to explicitly mark the properties as nullable or non-nullable using the `?` and `!` operators respectively. In your case, you can mark the `UserName` and `Password` properties as nullable using the `?` operator, but you need to mark the `ServiceUrl` property as non-nullable using the `!` operator. 
+
+Here's how your code should look like:
+
+```
+public class Connection
+{
+    public string ServiceUrl { get; set; } = null!; // Non-nullable
+    public string? UserName { get; set; } // Nullable
+    public string? Password { get; set; } // Nullable
+    //... others 
+}
+```
+
+By using the `!` operator, you are telling the compiler that you guarantee that the `ServiceUrl` property will never be null. This will prevent the `CS8618` error from occurring.

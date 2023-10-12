@@ -1,0 +1,46 @@
+The issue is that the `.bashrc` file is not sourced when running the container with `docker run IMAGE_NAME`. You can source the `.bashrc` file manually by adding the following line to your `launch.sh` script:
+
+```
+source /root/.bashrc
+```
+
+This will ensure that the `nvm` script is loaded and the `node` and `npm` commands are available in your container. Your updated `launch.sh` script should look like this:
+
+```
+#!/bin/bash
+
+source /root/.bashrc
+cd /workspace/demo
+npm install
+node index.js
+```
+
+Alternatively, you can modify your Dockerfile to include the `source /root/.bashrc` command in the `CMD` instruction. Your updated Dockerfile should look like this:
+
+```
+FROM ubuntu:16.04
+USER root
+
+RUN apt-get update && apt-get install -y \
+        curl \
+        vim \
+        net-tools \
+        git \
+        iputils-ping \
+        wget
+
+RUN apt-get install -y python
+RUN apt-get update && apt-get install -y gcc g++ make libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev
+
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+ENV NVM_DIR /root/.nvm
+RUN . $NVM_DIR/nvm.sh && \
+  nvm install 7.9.0 && npm install -g npm@5.6.0
+
+ADD ./Docker/launch.sh /workspace/
+
+CMD ["/bin/bash", "-c", "source /root/.bashrc && /workspace/launch.sh"]
+```
+
+This will ensure that the `.bashrc` file is sourced every time the container is started.

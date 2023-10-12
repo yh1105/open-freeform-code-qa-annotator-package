@@ -1,0 +1,28 @@
+You can use the `map()` method to update the `car` property of each object in the `data` array with the corresponding value from the `newData` array. Here's how you can do it:
+
+```
+const updatedData = data.map((item, index) => {
+  return {
+    ...item,
+    car: newData[index]
+  };
+});
+```
+
+This code creates a new array `updatedData` by mapping through the `data` array and returning a new object for each item. The spread operator `...item` copies all the properties of the original object, and the `car` property is updated with the corresponding value from the `newData` array using the `index` parameter of the `map()` method.
+
+To display the updated car values, you can simply map through the `updatedData` array instead of the `data` array:
+
+```
+export default function App() {
+  return (
+    <div className="App">
+      {updatedData?.map((item) => {
+        return <li key={item.id}>{item.car}</li>;
+      })}
+    </div>
+  );
+}
+``` 
+
+This will display the updated car values in the list.

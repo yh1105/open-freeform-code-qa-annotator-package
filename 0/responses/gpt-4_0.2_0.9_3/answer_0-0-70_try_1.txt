@@ -1,0 +1,25 @@
+The warning you're seeing is because Vue 3 requires you to explicitly define the custom events that a component can emit. This is done using the `emits` option in the component definition.
+
+You can fix the warning by adding an `emits` option to your child component (HelloWorld.vue) like so:
+
+```javascript
+export default {
+  name: "HelloWorld",
+  emits: ['updatedcount'], // Add this line
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+```
+
+This tells Vue that the HelloWorld component can emit an `updatedcount` event, and it will no longer warn you about an extraneous non-emits event listener.

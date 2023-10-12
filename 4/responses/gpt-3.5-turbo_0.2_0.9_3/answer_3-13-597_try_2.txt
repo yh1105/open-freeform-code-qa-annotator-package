@@ -1,0 +1,13 @@
+In Kotlin, you can use the MutableList constructor that takes an initial capacity as a parameter. This constructor is available in the standard library and can be used to create a MutableList with an initial capacity.
+
+Here's an example:
+
+```
+val myList = MutableList(initialCapacity) { defaultValue }
+```
+
+Where `initialCapacity` is the initial capacity of the list and `defaultValue` is the default value that will be used to fill the list.
+
+Using this constructor will allow you to create a MutableList with an initial capacity, which can improve performance in cases where you know the eventual size of the list in advance.
+
+So, the recommended/idiomatic Kotlin solution in this case would be to use the MutableList constructor with an initial capacity parameter.

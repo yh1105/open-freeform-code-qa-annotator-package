@@ -1,0 +1,33 @@
+To use Jetpack Compose in an existing Android Studio project, you need to follow these steps:
+
+1. Update your Android Studio to the latest version (4.2 or higher) and make sure you have the latest version of the Android Gradle Plugin (AGP) installed.
+
+2. Add the following dependencies to your app-level build.gradle file:
+
+```
+dependencies {
+    implementation "androidx.compose.ui:ui:1.0.0"
+    implementation "androidx.compose.material:material:1.0.0"
+    implementation "androidx.compose.ui:ui-tooling:1.0.0"
+}
+```
+
+3. Add the following code to your app-level build.gradle file to enable Jetpack Compose:
+
+```
+android {
+    ...
+    buildFeatures {
+        compose true
+    }
+    ...
+}
+```
+
+4. Sync your project with Gradle.
+
+5. Create a new Composable function in your existing activity or fragment. You can start by replacing the existing layout with a Composable function.
+
+6. Run your app and make sure everything works as expected.
+
+Note: If you encounter any issues, make sure to check the Jetpack Compose documentation and the Android Studio release notes for any updates or changes.

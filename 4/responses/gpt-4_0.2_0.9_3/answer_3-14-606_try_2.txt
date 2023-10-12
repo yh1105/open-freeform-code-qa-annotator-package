@@ -1,0 +1,9 @@
+This alert is indicating that the app you're trying to open is a developer-signed app, and you need to trust the developer on your device before you can use it. Here's how you can do it:
+
+1. Go to the Settings app on your iOS device.
+2. Scroll down and tap on "General".
+3. Scroll down to "Device Management" or "Profiles & Device Management". 
+4. Under the "Developer App" section, you should see the developer of the app you're trying to open. Tap on it.
+5. You'll see a blue "Trust" button. Tap on it, and when the confirmation alert pops up, tap "Trust" again.
+
+After doing this, you should be able to open and use the app. If the problem persists, it might be due to the fact that the app was built with a developer profile that doesn't match the one on your device. In this case, you'll need to get a new build of the app that's signed with the correct developer profile.

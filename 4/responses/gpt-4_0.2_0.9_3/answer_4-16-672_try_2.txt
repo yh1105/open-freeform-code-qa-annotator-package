@@ -1,0 +1,12 @@
+You can use command substitution `$(command)` to print the content of the file within the heredoc. Here is how you can modify your script:
+
+```bash
+cat << EOF > test.sh
+#!/bin/bash
+some commands
+$(cat file)
+some commands
+EOF
+```
+
+This will replace `$(cat file)` with the content of the file when the script is run.

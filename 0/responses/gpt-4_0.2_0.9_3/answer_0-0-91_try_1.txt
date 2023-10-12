@@ -1,0 +1,7 @@
+The error message indicates that the template name is duplicated. The correct command should be:
+
+```
+npx react-native init MyApp --template react-native-template-typescript
+```
+
+You don't need to repeat `react-native-template-` in the template name. The `react-native-template-` prefix is assumed by the CLI. So, when you specify `--template react-native-template-typescript`, the CLI is looking for a package named `react-native-template-react-native-template-typescript`, which doesn't exist. That's why you're getting a "Not found" error.

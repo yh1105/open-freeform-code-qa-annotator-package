@@ -1,0 +1,47 @@
+The issue you're facing might be due to the `noStyle` prop in your `Form.Item` for the switch. The `noStyle` prop should be used for nested fields but in your case, it's not necessary. 
+
+Here's how you can use the Ant Design Switch inside a Form:
+
+```jsx
+<Form form={form} layout="vertical">
+  <Form.Item
+    label="Description"
+    name="description"
+    rules={[{ required: true, message: 'Enter a description' }]}
+  >
+    <Input placeholder="Enter Description" />
+  </Form.Item>
+
+  <Form.Item 
+    label="Chargable" 
+    name="chargable" 
+    valuePropName="checked"
+  >
+    <Switch checkedChildren="Yes" unCheckedChildren="No" />
+  </Form.Item>
+
+  <Button
+    onClick={() => {
+      form
+        .validateFields()
+        .then((values) => {
+          form.resetFields()
+          onCreate(values)
+        })
+        .catch((info) => {
+          console.log('Validate Failed:', info)
+        })
+    }}
+  >
+    Save
+  </Button>
+</Form>
+```
+
+In your `onCreate` function, you can now access the value of the switch using `values.chargable`. This will return `true` if the switch is checked and `false` if it's not.
+
+```jsx
+const onCreate = (values) => {
+  console.log(values.chargable); // true or false
+}
+```

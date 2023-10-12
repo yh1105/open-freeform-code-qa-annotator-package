@@ -1,0 +1,13 @@
+This error occurs when you are trying to compile a class file that was compiled with a newer version of Java than the one you are currently using. In this case, the error message indicates that the class file was compiled with Java 13 (major version 57), but you are using Java 8.
+
+To fix this issue, you need to update your Java version to at least Java 13. You can download and install the latest version of Java from the official website. Once you have installed the latest version of Java, you need to update your `JAVA_HOME` environment variable to point to the new installation.
+
+You can update your `JAVA_HOME` environment variable by following these steps:
+
+1. Open your terminal or command prompt.
+2. Type `echo $JAVA_HOME` to check the current value of `JAVA_HOME`.
+3. If `JAVA_HOME` is not set, you can set it by typing `export JAVA_HOME=/path/to/java` (replace `/path/to/java` with the path to your Java installation directory).
+4. If `JAVA_HOME` is already set, you can update it by typing `export JAVA_HOME=/path/to/new/java` (replace `/path/to/new/java` with the path to your new Java installation directory).
+5. Type `echo $JAVA_HOME` again to verify that `JAVA_HOME` has been updated correctly.
+
+After updating your `JAVA_HOME` environment variable, try running your build again. This should resolve the issue.

@@ -1,0 +1,27 @@
+The error message you're seeing is due to a change in Android 12 (API level 31) that requires you to explicitly set the `android:exported` attribute for activities, services, and broadcast receivers that have intent filters.
+
+In your `config.xml` file, you have an intent filter defined for `MainActivity` but you haven't set the `android:exported` attribute for the activity itself. The `android:exported` attribute determines whether or not components of other applications can invoke the activity or whether the activity can be started with an intent that is not explicitly targeting it.
+
+You can fix this issue by adding the `android:exported` attribute to the activity in the `config.xml` file. However, Cordova doesn't directly support this. You'll need to use a plugin like `cordova-plugin-custom-config` to add custom configuration to the AndroidManifest.xml file.
+
+Here's how you can do it:
+
+1. Install the `cordova-plugin-custom-config` plugin:
+
+```bash
+cordova plugin add cordova-plugin-custom-config
+```
+
+2. Add the following lines to your `config.xml` file:
+
+```xml
+<platform name="android">
+    <config-file parent="/manifest/application/activity[@android:name='MainActivity']" target="AndroidManifest.xml">
+        <activity android:exported="true" />
+    </config-file>
+</platform>
+```
+
+This will add the `android:exported="true"` attribute to the `MainActivity` in the `AndroidManifest.xml` file.
+
+Please note that setting `android:exported="true"` means that the activity can be launched by components of other apps. If you don't want this, set it to `false` but make sure that the activity is not intended to receive intents from other apps.

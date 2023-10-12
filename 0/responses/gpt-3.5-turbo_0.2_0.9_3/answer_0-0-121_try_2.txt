@@ -1,0 +1,32 @@
+The error message you are seeing is indicating that `process` is not defined. This error can occur when you are trying to use `process` in a client-side context, such as in a browser environment, where `process` is not available.
+
+To use `process.env` in a Vue + TypeScript project, you need to make sure that you are using a build tool that supports environment variables, such as webpack or rollup. You also need to make sure that you have defined the environment variables that you want to use.
+
+Here are the steps you can follow to define and use environment variables in a Vue + TypeScript project:
+
+1. Install the `dotenv` package as a development dependency:
+
+```
+npm install --save-dev dotenv
+```
+
+2. Create a `.env` file in the root of your project and define your environment variables:
+
+```
+APP_ENV=prod
+```
+
+3. In your `vue.config.js` file, add the following code to load the environment variables:
+
+```
+const dotenv = require('dotenv');
+dotenv.config();
+```
+
+4. In your TypeScript code, you can now use `process.env` to access the environment variables:
+
+```
+const isProduct = process.env.APP_ENV === "prod";
+```
+
+Note that you need to restart your development server after making changes to the `.env` file.

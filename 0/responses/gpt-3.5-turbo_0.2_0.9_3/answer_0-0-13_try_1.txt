@@ -1,0 +1,30 @@
+Yes, you can use an object to store all the user data elements and update them using a single function. Here's an example:
+
+```
+const [userData, setUserData] = useState({
+  mobile: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+});
+
+const handleUserDataChange = event => {
+  const { name, value } = event.target;
+  setUserData(prevState => ({ ...prevState, [name]: value }));
+};
+
+<input type="text"
+       className="form-control"
+       id="mobile"
+       name="mobile"
+       placeholder="Enter a valid mobile number"
+       value={userData.mobile}
+       onChange={handleUserDataChange}/>
+```
+
+In this example, we're using an object called `userData` to store all the user data elements. We're also using a single function called `handleUserDataChange` to update the `userData` object whenever any of the input fields change. 
+
+The `handleUserDataChange` function takes an event object as an argument and extracts the `name` and `value` properties from the input field that triggered the event. It then uses the `setUserData` function to update the `userData` object by spreading the previous state and updating the property with the matching `name` using the `value` from the input field.
+
+By using this approach, you can simplify your code and reduce the amount of repetitive code needed to update each individual state variable.

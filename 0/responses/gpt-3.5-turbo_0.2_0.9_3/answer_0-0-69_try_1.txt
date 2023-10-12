@@ -1,0 +1,56 @@
+The error message `Uncaught ReferenceError: __dirname is not defined` is because `__dirname` is a Node.js global variable that is not available in the browser environment. In your case, you are trying to use it in a Vue component that is being compiled by webpack and executed in the browser.
+
+To fix this issue, you need to use the `contextBridge` API provided by Electron to expose the `ipcRenderer` module to the renderer process (i.e., your Vue component) in a safe way. Here's how you can modify your code to use `contextBridge`:
+
+In your `background.js` file, add the following code:
+
+```
+import { app, protocol, BrowserWindow, ipcMain, contextBridge } from 'electron'
+
+...
+
+// Expose ipcMain to the renderer process
+contextBridge.exposeInMainWorld('ipc', {
+  send: (channel, data) => {
+    ipcMain.emit(channel, data)
+  },
+  on: (channel, callback) => {
+    ipcMain.on(channel, callback)
+  }
+})
+
+app.on('my-open-event', async () => {
+    try {
+        "Will call some executable here";
+    } catch (e) {
+        console.error(e)
+    }
+})
+```
+
+In your `Splash.vue` file, modify the `open` method to use `ipcRenderer` instead of `ipcMain`:
+
+```
+<template>
+    <div @click="open">open</div>      
+</template>
+
+<script>
+const { ipcRenderer } = window.require('electron')
+
+export default {
+    methods: {
+        open() {
+            ipcRenderer.send('my-open-event', 'some data')
+            ipcRenderer.on('my-open-event-reply', (event, arg) => {
+                console.log(event, arg)
+            })
+        }
+    }
+}
+</script>
+```
+
+Note that we are using `window.require` to access the `ipcRenderer` module because it is not available in the Vue component's scope by default.
+
+With these changes, your Vue component should be able to communicate with the main process using `ipcRenderer`. Let me know if you have any further questions!

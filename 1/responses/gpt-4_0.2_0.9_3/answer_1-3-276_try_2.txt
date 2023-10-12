@@ -1,0 +1,21 @@
+The error message you're seeing is due to an in-place operation on a tensor that is needed for gradient computation during the backward pass. PyTorch keeps track of the operations performed on tensors so that it can automatically compute gradients, but if a tensor is modified in-place, this history can be disrupted, leading to incorrect gradient computations.
+
+In your case, the error message indicates that the tensor in question is a `torch.cuda.LongTensor` of size `[128, 1]`. This is likely the tensor that is being passed to your model for training.
+
+Looking at your code, the potential in-place operation could be this line in your `predict_captions` function:
+
+```python
+dec_tensor[:, i+1] = chosen
+```
+
+Here, you're modifying `dec_tensor` in-place by assigning the `chosen` tensor to a slice of `dec_tensor`. This could potentially be the cause of the error if `dec_tensor` is needed for gradient computation.
+
+To fix this, you could try creating a new tensor instead of modifying `dec_tensor` in-place. For example:
+
+```python
+dec_tensor = torch.cat((dec_tensor[:, :i+1], chosen.unsqueeze(1), dec_tensor[:, i+2:]), dim=1)
+```
+
+This will create a new tensor by concatenating the slices of `dec_tensor` before and after the `i+1` index with the `chosen` tensor, instead of modifying `dec_tensor` in-place.
+
+Please note that this is just a guess based on the error message and the code you've provided. The actual cause of the error could be different depending on the specifics of your code and data.

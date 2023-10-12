@@ -1,0 +1,18 @@
+In Go, you can convert an integer to its ASCII equivalent by using the `fmt.Sprintf` function. Here's an example:
+
+```
+a := 49
+ascii := fmt.Sprintf("%c", a)
+fmt.Println(ascii) // Output: 1
+```
+
+In your example, you're trying to assign a string to a rune variable, which is causing the error. To fix it, you can convert the string to an integer first using the `strconv.Atoi` function:
+
+```
+a := "42"
+num, _ := strconv.Atoi(a)
+ascii := fmt.Sprintf("%c", num)
+fmt.Println(ascii) // Output: *
+```
+
+This will convert the string "42" to the integer 42, which corresponds to the ASCII code for the asterisk character.

@@ -1,0 +1,23 @@
+The error you're seeing is because the `target` property is already defined in the `React.SyntheticEvent` type, which is part of the `React.HTMLProps` type. The `target` property is of type `EventTarget`, not a string.
+
+In your case, you're trying to access the `value` property of the `target`, which is specific to `HTMLInputElement`. So, you should define your `onChange` event to be a `React.ChangeEvent<HTMLInputElement>`.
+
+Here's how you can define your `InputProps`:
+
+```tsx
+export interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  // your other props here
+}
+
+export class Input extends React.Component<InputProps, {}> {
+  // your component implementation here
+}
+```
+
+And then you can use it like this:
+
+```tsx
+onChange={(e: React.ChangeEvent<HTMLInputElement>) => data.motto = e.target.value}
+```
+
+This way, you're telling TypeScript that `e.target` is an `HTMLInputElement`, and it has a `value` property of type `string`.

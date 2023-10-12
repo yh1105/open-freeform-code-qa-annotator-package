@@ -1,0 +1,12 @@
+In your code, you are trying to access the characters of the string using the index `i`, which is actually the character itself. Instead, you can use the `replace()` method to replace the dash or underscore with a space, and then split the string into a list of words using the `split()` method. Then, you can capitalize the first letter of each word except the first one, and join the words back together to form the camel case string.
+
+Here's the corrected code:
+
+```
+def to_camel_case(text):
+    text = text.replace('-', ' ').replace('_', ' ')
+    words = text.split()
+    return words[0] + ''.join(word.capitalize() for word in words[1:])
+```
+
+This should pass all the test cases.

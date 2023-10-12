@@ -1,0 +1,30 @@
+It seems like you are facing multiple issues while trying to run Docker in process isolation mode on Windows Server 2019. Here are some suggestions that might help you:
+
+1. Docker installation: It looks like you have installed Docker using the DockerMsftProvider package provider. You can try uninstalling and reinstalling Docker using the following commands in PowerShell:
+
+```
+uninstall-Package -Name docker -ProviderName DockerMsftProvider
+Install-Package -Name docker -ProviderName DockerMsftProvider
+```
+
+Make sure to answer "Yes" when prompted to install software from an untrusted source.
+
+2. Docker daemon: The error message you received indicates that the Docker client cannot connect to the Docker daemon. You can try starting the Docker daemon manually using the following command in PowerShell:
+
+```
+dockerd
+```
+
+This should start the Docker daemon and allow you to run Docker commands.
+
+3. Docker CLI: The `DockerCli.exe` file is not included in a clean Docker installation. It is part of the Docker Desktop installation on Windows. You can try copying the `DockerCli.exe` file from your local Windows 10 Docker Desktop installation to your Windows Server 2019 machine and see if it helps.
+
+4. Process isolation mode: Once you have Docker up and running, you can try running your container in process isolation mode using the following command:
+
+```
+docker run -it --isolation=process mcr.microsoft.com/windows/servercore:ltsc2019 cmd.exe /c ping 127.0.0.1 -t
+```
+
+This should start a container running the `mcr.microsoft.com/windows/servercore:ltsc2019` image and execute the `ping` command inside the container.
+
+I hope these suggestions help you resolve your issues with running Docker in process isolation mode on Windows Server 2019. Let me know if you have any further questions or concerns.

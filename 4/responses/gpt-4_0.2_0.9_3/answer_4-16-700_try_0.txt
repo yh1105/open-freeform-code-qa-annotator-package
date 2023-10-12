@@ -1,0 +1,15 @@
+The script you provided is slow because it performs a lot of unnecessary operations. For each line, it invokes `grep` and `sed` twice, and it also writes to the output file. All these operations are quite expensive in terms of performance.
+
+Here's a more efficient way to do it using awk:
+
+```bash
+awk -F'=' '/^name/{name=$2;next} /^value/{print name"="$2}' input.txt > output.txt
+```
+
+This script works as follows:
+
+- `-F'='` sets the field separator to `=`.
+- `/^name/` matches lines that start with `name`. For these lines, it saves the second field (the part after the `=`) in the variable `name` and then skips to the next line.
+- `/^value/` matches lines that start with `value`. For these lines, it prints the previously saved name and the current value.
+
+This script only reads the input file once and writes to the output file once, so it should be much faster than your original script. It also doesn't use any external commands, which further improves performance.

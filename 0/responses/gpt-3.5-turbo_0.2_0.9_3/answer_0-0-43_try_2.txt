@@ -1,0 +1,7 @@
+The reason why you need to specify the `--downlevelIteration` compiler option when targeting ES5 is because the spread operator and other ES6 features that rely on iterators were not originally part of the ES5 specification. Therefore, when targeting ES5, the TypeScript compiler needs to generate additional code to support these features.
+
+The `--downlevelIteration` compiler option enables this additional code generation, allowing you to use ES6 features like the spread operator and iterators when targeting ES5.
+
+As for downsides or limitations, enabling `--downlevelIteration` may result in slightly larger emitted code size due to the additional code generation. However, this is generally not a significant concern for most applications.
+
+In summary, if you need to use ES6 features like the spread operator or iterators when targeting ES5, you should enable the `--downlevelIteration` compiler option.

@@ -1,0 +1,17 @@
+Yes, there is a nullish version of `&&` called the Optional chaining operator `?.`. It allows you to access properties and methods of an object only if the object is not nullish. If the object is nullish, the expression will short-circuit and return `undefined`. Here's an example:
+
+```
+const obj = {
+  prop1: {
+    prop2: 'value'
+  }
+};
+
+const propValue = obj.prop1?.prop2; // 'value'
+
+const nullObj = null;
+
+const nullPropValue = nullObj?.prop1?.prop2; // undefined
+```
+
+In the above example, `propValue` will be assigned the value `'value'` because `obj.prop1` is not nullish. However, `nullPropValue` will be assigned `undefined` because `nullObj` is nullish and the expression short-circuits.

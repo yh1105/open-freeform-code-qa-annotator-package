@@ -1,0 +1,9 @@
+The command `npm install -g @vue/cli` installs the Vue CLI globally, not the Vue.js library itself. The Vue CLI is a full system for rapid Vue.js development, providing things like scaffolding of new projects, task running, build processes and more.
+
+The version of Vue.js that your project uses is determined by the dependencies in your `package.json` file. When you created your project, it was set up to use Vue.js 2.5.7, and installing a new version of the Vue CLI does not change that.
+
+If you want to upgrade the version of Vue.js that your project uses, you need to update the version number in your `package.json` file and then run `npm install` to install the new version. 
+
+However, please note that upgrading Vue.js from 2.x to 3.x is not as simple as just changing the version number. There are breaking changes between these versions, so you will need to update your code to work with Vue.js 3.x. Vue provides a [migration guide](https://v3.vuejs.org/guide/migration/introduction.html) to help with this process.
+
+If you want to create a new project with the latest version of Vue.js, you can use the Vue CLI to do that. The command `vue create my-project` will create a new project with the latest version of Vue.js.

@@ -1,0 +1,22 @@
+In PowerShell, there isn't a built-in way to output bold text in the console. However, you can change the color of the text to make it stand out, which can be done using the `-ForegroundColor` parameter of the `Write-Host` cmdlet.
+
+Here is an example:
+
+```powershell
+Write-Host "This is a message" -ForegroundColor Green
+```
+
+In this example, the text "This is a message" will be displayed in green color.
+
+You can choose from various colors like Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, and White.
+
+If you want to make the output more noticeable, you could also consider using `Write-Warning` or `Write-Error` cmdlets, which will display the message in yellow and red respectively.
+
+```powershell
+Write-Warning "This is a warning message"
+Write-Error "This is an error message"
+```
+
+Remember that using `Write-Error` will also add an error to the error stream, which might not be what you want if it's not an actual error.
+
+If you are writing a script that will be used in a GUI or a web page, then you could use HTML tags to make the text bold. But in a console or terminal, your options for text formatting are limited.

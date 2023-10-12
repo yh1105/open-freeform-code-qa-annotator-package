@@ -1,0 +1,22 @@
+Yes, you can create a function to handle the conversion from `String` to `int` safely. Here's an example:
+
+```
+int? safeParseInt(String? value) {
+  if (value == null) {
+    return null;
+  }
+  return int.tryParse(value);
+}
+```
+
+This function takes a nullable `String` as input and returns a nullable `int`. It first checks if the input is null and returns null if it is. Otherwise, it tries to parse the input as an integer using `int.tryParse()`. If the parsing is successful, it returns the parsed integer. If not, it returns null.
+
+You can use this function to safely convert your `String` values to `int` like this:
+
+```
+final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
+int? id = safeParseInt(routeArgs["id"]);
+```
+
+This way, you don't have to worry about null values or parsing errors.

@@ -1,0 +1,27 @@
+The issue you're facing is due to the way you're storing the color codes in your `guesscolor` dictionary. You're using the letter itself as the key, which means that if a letter appears more than once, it will overwrite the previous color. 
+
+To fix this, you should use the index of the letter as the key in your `guesscolor` dictionary, not the letter itself. This way, each letter (even if it's the same) will have its own unique key, and you won't overwrite the color of a previous letter.
+
+Here's how you can modify your code:
+
+```python
+while (counter < lengthofword):
+    if guessdict[counter] in choicedict.values():
+
+        totalsame += 1
+
+        if choiceword[counter] == guesslist[counter]:
+            print(f"The word at index {counter} is present in both strings in same place")
+            sameword += 1
+            guesscolor[counter] = "green"  # use counter as key
+
+        else:
+            guesscolor[counter] = "orange"  # use counter as key
+        counter += 1
+
+    else:
+        guesscolor[counter] = "red"  # use counter as key
+        counter += 1
+```
+
+This way, each letter in your guess will have its own color, even if the letter is the same as another letter in the guess.

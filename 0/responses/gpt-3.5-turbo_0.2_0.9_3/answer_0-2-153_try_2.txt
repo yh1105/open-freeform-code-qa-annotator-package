@@ -1,0 +1,39 @@
+Yes, there is a way to make it shorter. You can use the `border-t` utility class to apply a border to only the top edge. Here's an example:
+
+```
+<div class="border-t border-blue-900 border-1">foo</div>
+```
+
+This will apply a blue border with a width of 1 pixel only to the top edge of the element. You can adjust the color and width by changing the values of the `border-blue-900` and `border-1` classes respectively.
+
+Alternatively, you can create a custom utility class using the `@layer` directive in your `tailwind.config.js` file. Here's an example:
+
+```
+// tailwind.config.js
+
+module.exports = {
+  // ...
+  theme: {
+    extend: {},
+  },
+  variants: {},
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.border-top': {
+          borderTopWidth: '1px',
+          borderTopStyle: 'solid',
+        },
+      }, ['responsive']);
+    },
+  ],
+}
+```
+
+This will create a `.border-top` utility class that applies a solid border with a width of 1 pixel only to the top edge of the element. You can use this class in your HTML like this:
+
+```
+<div class="border-top border-blue-900">foo</div>
+```
+
+This will apply a blue border with a width of 1 pixel only to the top edge of the element.

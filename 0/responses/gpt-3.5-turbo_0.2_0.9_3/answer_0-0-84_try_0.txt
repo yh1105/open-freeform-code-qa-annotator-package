@@ -1,0 +1,11 @@
+This error occurs when you try to generate a component using the `ng g component` command outside of an Angular project directory. To solve this error, you need to make sure that you are in the correct directory of your Angular project before running the command.
+
+Here are the steps to follow:
+
+1. Open your terminal or command prompt.
+2. Navigate to the directory where you want to create your Angular project.
+3. Run the command `ng new my-app` to create a new Angular project. Replace `my-app` with the name of your project.
+4. Navigate to the project directory using the command `cd my-app`. Replace `my-app` with the name of your project.
+5. Now you can run the `ng g component` command to generate a new component.
+
+If you have already created an Angular project and still facing the same error, make sure that you are in the root directory of your project before running the command. You can use the `cd` command to navigate to the root directory of your project.

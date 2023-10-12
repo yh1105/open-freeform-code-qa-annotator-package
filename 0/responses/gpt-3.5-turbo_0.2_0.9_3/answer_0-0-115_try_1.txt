@@ -1,0 +1,29 @@
+The warning you are seeing is because `create-react-app` does not support path aliases out of the box. However, you can still use path aliases by ejecting from `create-react-app` and configuring your own webpack configuration.
+
+To eject from `create-react-app`, run the following command:
+
+```
+npm run eject
+```
+
+This will give you access to the webpack configuration files, which you can then modify to support path aliases.
+
+Once you have ejected, you can modify the `webpack.config.js` file to include the following code:
+
+```
+const path = require('path');
+
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      '@store': path.resolve(__dirname, 'src/store'),
+    },
+  },
+  // ...
+};
+```
+
+This will create an alias for `@store` that points to the `src/store` directory.
+
+After making these changes, you should be able to use path aliases in your TypeScript code without any issues.

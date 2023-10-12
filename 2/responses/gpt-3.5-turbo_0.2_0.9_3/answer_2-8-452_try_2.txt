@@ -1,0 +1,28 @@
+Yes, in Go, you can use slices instead of arrays to achieve this functionality. Slices are similar to arrays, but they are dynamic in size and can be resized as needed. You can initialize a slice without a size and then append elements to it using the `append` function.
+
+Here's an example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var mySlice []int // initialize a slice without a size
+    mySlice = append(mySlice, 1) // append an element to the slice
+    mySlice = append(mySlice, 2) // append another element to the slice
+    fmt.Println(mySlice) // prints [1 2]
+}
+```
+
+In this example, we initialize a slice without a size by declaring it as `var mySlice []int`. We then append two elements to the slice using the `append` function. Finally, we print the contents of the slice using `fmt.Println`.
+
+You can also use shorthand syntax to initialize and append to a slice in one line:
+
+```go
+mySlice := []int{1, 2} // initialize a slice with two elements
+mySlice = append(mySlice, 3) // append another element to the slice
+fmt.Println(mySlice) // prints [1 2 3]
+```
+
+In this example, we initialize a slice with two elements using shorthand syntax (`[]int{1, 2}`) and then append another element to the slice using `append`.

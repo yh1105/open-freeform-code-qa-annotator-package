@@ -1,0 +1,21 @@
+Based on your code and the images you provided, it seems like you are trying to split a line of text into multiple columns in Excel. The line of text you are trying to split is in the format of "Cabinet No. X, Subrack No. Y, Slot No. Z, TX Channel No. A, VSWR(0.01) B".
+
+You can use the `Split` function in VBA to split a string into an array, and then assign each element of the array to a different cell in Excel. Here is how you can modify your code:
+
+```vba
+idx = InStr(textline, "Cabinet No.")
+If idx > 0 Then
+    Line Input #1, textline
+    Line Input #1, textline
+    Dim parts() As String
+    parts = Split(textline, ",") 'split the line into an array
+    ActiveSheet.Cells(nextrow, "G").Value = Trim$(Split(parts(0), ".")(1)) 'Cabinet No.
+    ActiveSheet.Cells(nextrow, "H").Value = Trim$(Split(parts(1), ".")(1)) 'Subrack No.
+    ActiveSheet.Cells(nextrow, "I").Value = Trim$(Split(parts(2), ".")(1)) 'Slot No.
+    ActiveSheet.Cells(nextrow, "J").Value = Trim$(Split(parts(3), ".")(1)) 'TX Channel No.
+    ActiveSheet.Cells(nextrow, "K").Value = Trim$(Split(parts(4), " ")(1)) 'VSWR(0.01)
+    nextrow = nextrow + 1 'now move to next row
+End If
+```
+
+This code splits the line of text into an array `parts` using the comma as a delimiter. Then, for each part, it splits again using the period as a delimiter and takes the second element (index 1), which is the value you want. The `Trim$` function is used to remove any leading or trailing spaces from the values.

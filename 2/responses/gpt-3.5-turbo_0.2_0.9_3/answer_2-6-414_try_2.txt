@@ -1,0 +1,47 @@
+The issue with the provided JSON is that the second element in the "edges" array is an empty string, which cannot be converted to an integer. To handle this, you can create a custom JsonConverter for the "edges" property that will ignore any empty strings and only add valid integers to the list.
+
+Here's an example implementation of the custom converter:
+
+```
+public class EdgesConverter : JsonConverter<List<int>>
+{
+    public override List<int> ReadJson(JsonReader reader, Type objectType, List<int> existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        var edges = new List<int>();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonToken.EndArray)
+            {
+                break;
+            }
+            if (reader.TokenType == JsonToken.String && string.IsNullOrEmpty(reader.Value?.ToString()))
+            {
+                continue;
+            }
+            edges.Add(Convert.ToInt32(reader.Value));
+        }
+        return edges;
+    }
+
+    public override void WriteJson(JsonWriter writer, List<int> value, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+}
+```
+
+Then, you can apply this converter to the "edges" property in your model like this:
+
+```
+public class Redacted
+{
+    ...
+
+    [JsonProperty("edges", ItemConverterType = typeof(EdgesConverter), NullValueHandling = NullValueHandling.Ignore)]
+    public List<int> Edges { get; set; } = new();
+
+    ...
+}
+```
+
+This will ensure that any empty strings in the "edges" array are ignored and only valid integers are added to the list. The `NullValueHandling.Ignore` setting will still apply to the property as a whole, but the custom converter will handle the individual items in the list.

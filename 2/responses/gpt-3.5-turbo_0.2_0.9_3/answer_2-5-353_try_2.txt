@@ -1,0 +1,19 @@
+Starting from Spring Boot 2.4.0, the behavior of `spring.profiles.include` property has changed. It no longer includes the specified profiles at runtime. Instead, it only includes them during the configuration phase.
+
+To achieve the same result as before migration, you can use the `spring.profiles.active` property to activate the `auth` profile at runtime. Here's how you can modify your `application-dev.properties` file:
+
+```
+# Profiles    
+spring.profiles.active=dev,auth
+```
+
+This will activate both the `dev` and `auth` profiles at runtime. You can also set the `spring.profiles.active` property as an environment variable or a command-line argument when running your application.
+
+Alternatively, you can use profile groups to achieve the same result. Here's an example:
+
+```
+# Profiles    
+spring.profiles.groups=dev,auth
+```
+
+This will activate both the `dev` and `auth` profiles at runtime. However, note that profile groups are deprecated in Spring Boot 2.4.0 and will be removed in a future release. Therefore, it's recommended to use the `spring.profiles.active` property instead.

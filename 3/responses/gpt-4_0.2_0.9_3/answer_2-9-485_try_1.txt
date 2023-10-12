@@ -1,0 +1,39 @@
+The error you're seeing is due to the fact that your Redis client is trying to connect to the Redis server over SSL/TLS, but the server's SSL certificate is self-signed. This means that the certificate was not issued by a trusted certificate authority, so the client cannot verify the server's identity.
+
+To solve this issue, you need to configure your Redis client to trust the server's self-signed certificate. Here's how you can do this:
+
+1. First, you need to obtain the server's SSL certificate. You can do this by connecting to the server using the `openssl` command-line tool:
+
+    ```bash
+    openssl s_client -connect YOUR_REDIS_URL:REDIS_PORT
+    ```
+
+    This will print out a lot of information about the server's SSL configuration. Look for the section that begins with `-----BEGIN CERTIFICATE-----` and ends with `-----END CERTIFICATE-----`. This is the server's SSL certificate. Copy this section into a new file, and save it as `redis.crt`.
+
+2. Next, you need to configure your Redis client to trust this certificate. According to the redis-rb documentation, you can do this by setting the `ssl_params` option when creating a new Redis client:
+
+    ```ruby
+    redis = Redis.new(url: YOUR_REDIS_URL, ssl_params: { ca_file: 'path/to/redis.crt' })
+    ```
+
+    Replace `'path/to/redis.crt'` with the actual path to the `redis.crt` file you created in step 1.
+
+3. If you're using Sidekiq, you can configure it to use this Redis client by setting the `REDIS_PROVIDER` environment variable to the URL of your Redis server:
+
+    ```bash
+    export REDIS_PROVIDER=YOUR_REDIS_URL
+    ```
+
+    Then, in your Sidekiq configuration file, you can create a new Redis client with the same `ssl_params` option:
+
+    ```ruby
+    Sidekiq.configure_server do |config|
+      config.redis = { url: ENV['REDIS_PROVIDER'], ssl_params: { ca_file: 'path/to/redis.crt' } }
+    end
+
+    Sidekiq.configure_client do |config|
+      config.redis = { url: ENV['REDIS_PROVIDER'], ssl_params: { ca_file: 'path/to/redis.crt' } }
+    end
+    ```
+
+Please note that this solution assumes that you have access to the filesystem on your Heroku dynos, which is not the case by default. If you don't have access to the filesystem, you might need to store the `redis.crt` file somewhere else (like in an environment variable or in your database), and then read it into your application at runtime.

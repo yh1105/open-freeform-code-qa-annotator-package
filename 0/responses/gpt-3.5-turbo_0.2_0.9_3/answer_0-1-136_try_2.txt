@@ -1,0 +1,67 @@
+The issue with your code is that you have set the `scroll-snap-type` property twice in the `.parent` class. You should remove the second instance of `scroll-snap-type` and keep only `scroll-snap-type: mandatory;`. Here's the corrected code:
+
+```
+.parent {
+  height: 100vh;
+  scroll-snap-type: mandatory;
+  scroll-snap-points-y: repeat(100vh);
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+
+Also, make sure that you have included the necessary vendor prefixes for the `scroll-snap-type` and `scroll-snap-points-y` properties. Here's an example:
+
+```
+.parent {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  -webkit-scroll-snap-type: y mandatory;
+  scroll-snap-points-y: repeat(100vh);
+  -webkit-scroll-snap-points-y: repeat(100vh);
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+``` 
+
+I hope this helps!

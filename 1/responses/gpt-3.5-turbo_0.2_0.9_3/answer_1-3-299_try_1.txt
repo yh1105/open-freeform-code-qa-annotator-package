@@ -1,0 +1,24 @@
+You can try the following code to create a bar plot using Seaborn:
+
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+my_dict = {'Southampton': '33.7%', 'Cherbourg': '55.36%', 'Queenstown': '38.96%'}
+
+# Convert the values to float
+values = [float(val.strip('%')) for val in my_dict.values()]
+
+# Create the bar plot
+sns.barplot(x=list(my_dict.keys()), y=values)
+
+# Set the labels and title
+plt.xlabel('Port of Embarkation')
+plt.ylabel('Percentage')
+plt.title('Passengers by Port of Embarkation')
+
+# Show the plot
+plt.show()
+```
+
+This code first converts the values in the dictionary to float by removing the percentage sign and then creates a bar plot using Seaborn. The x-axis shows the keys in the dictionary, and the y-axis shows the values as percentages. Finally, the code sets the labels and title for the plot and displays it using `plt.show()`.

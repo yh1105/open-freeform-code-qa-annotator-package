@@ -1,0 +1,17 @@
+You can use the `split()` method in Dart (the language used in Flutter) to split the string into a list of substrings based on a specific character. Then, you can simply take the first element of the list. Here's how you can do it:
+
+```dart
+String str = 'one.two';
+List<String> strParts = str.split('.');
+String firstPart = strParts[0]; // 'one'
+```
+
+In this code, `str.split('.')` splits the string into a list of substrings at each point where it finds a '.'. The resulting list is `['one', 'two']`. Then, `strParts[0]` gets the first element of the list, which is the part of the string before the '.'.
+
+If you want to make it in one line, you can do it like this:
+
+```dart
+String firstPart = 'one.two'.split('.')[0]; // 'one'
+```
+
+This will give you the same result.

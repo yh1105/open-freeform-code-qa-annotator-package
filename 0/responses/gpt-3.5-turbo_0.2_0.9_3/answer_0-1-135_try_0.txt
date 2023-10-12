@@ -1,0 +1,21 @@
+This is a known issue in Safari where the `height: auto` property does not work as expected on flexbox items. One workaround is to set the `align-items` property of the flex container to `flex-start`. Here's the updated CSS:
+
+```
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* workaround for Safari */
+}
+
+.container section:first-child {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.container img {
+  width: 125px;
+  height: auto;
+}
+```
+
+This should fix the issue in Safari and maintain the aspect ratio of the images.

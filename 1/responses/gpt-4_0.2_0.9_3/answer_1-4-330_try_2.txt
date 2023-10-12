@@ -1,0 +1,20 @@
+Hello Rosalie,
+
+The email you received is about a change in the way GitHub authenticates your Git operations. Previously, you could use your GitHub username and password to authenticate your Git operations. However, this method is being deprecated and will soon no longer work. 
+
+Instead, GitHub is moving towards using personal access tokens for authentication. These tokens are more secure and can be easily revoked if needed. You mentioned that you have already created a personal access token a few months ago, which is great.
+
+Now, you need to use this token instead of your password when authenticating with GitHub. Here's how you can do it:
+
+1. When you are prompted for a password after you have entered your username, enter your personal access token instead of your password.
+
+2. If you have saved your credentials (username and password) in your Git client, you need to update them. Replace your password with the personal access token. The way to do this depends on the Git client you are using. If you're using the terminal on your Mac, you can use the `git credential-osxkeychain` command to store your credentials.
+
+3. If you are using the command line and you have the `credential.helper` configuration set, the next time you `git push`, you'll be asked for your username and password. In the password field, just enter your personal access token.
+
+Remember, your personal access token is like a password. Keep it secret, keep it safe.
+
+I hope this helps! Let me know if you have any other questions.
+
+Best,
+Your Assistant

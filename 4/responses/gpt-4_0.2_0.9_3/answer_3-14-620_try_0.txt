@@ -1,0 +1,45 @@
+You can create a custom `ScrollViewReader` view that will allow you to programmatically scroll to a specific item in a `List`. Here's a simple example:
+
+```swift
+struct ContentView: View {
+    @State private var selection: Int? = nil
+
+    var body: some View {
+        VStack {
+            Button("Scroll to Item 50") {
+                self.selection = 50
+            }
+
+            List(0..<100) { i in
+                Text("Item \(i)").id(i)
+            }
+            .overlayPreferenceValue(ScrollViewOffsetPreferenceKey.self) { offset in
+                GeometryReader { proxy in
+                    Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: proxy.frame(in: .global).minY - offset)
+                }
+            }
+            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { offset in
+                if let selection = self.selection {
+                    let targetOffset = CGFloat(selection * 44) // 44 is default List row height
+                    if abs(targetOffset - offset) > 1 {
+                        self.selection = nil
+                        UIScrollView.appearance().setContentOffset(CGPoint(x: 0, y: targetOffset), animated: true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = .zero
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value += nextValue()
+    }
+}
+```
+
+This code will scroll to the 50th item in the list when you press the button. It works by setting a preference key for each row in the list that stores its offset from the top of the list. When the button is pressed, it calculates the target offset for the selected row and scrolls to it.
+
+This solution is not perfect and has some limitations. For example, it assumes that all rows have the same height (44 points, which is the default height for `List` rows). If your rows have different heights, you'll need to adjust the calculation of the target offset accordingly. Also, it uses `UIScrollView.appearance().setContentOffset()`, which is a bit of a hack and may not work in all situations. But it's a simple and lightweight solution that doesn't require wrapping a `UITableView`.

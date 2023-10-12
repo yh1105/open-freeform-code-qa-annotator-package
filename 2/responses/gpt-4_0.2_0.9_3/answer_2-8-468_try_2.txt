@@ -1,0 +1,24 @@
+In Go, you can convert an integer to its ASCII representation using the `rune` type. However, you're trying to convert a string to a rune, which is causing the error. 
+
+If you want to convert an integer to its ASCII representation, you should do it like this:
+
+```go
+a := 49
+fmt.Println(string(a)) // gives 1
+```
+
+In this case, `a` is an integer, and you're converting it to its ASCII representation using the `string` function.
+
+If you want to convert a string containing a number to its ASCII representation, you should first convert the string to an integer:
+
+```go
+a := "49"
+i, err := strconv.Atoi(a)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Println(string(i)) // gives 1
+}
+```
+
+In this case, `strconv.Atoi` is used to convert the string to an integer, and then the integer is converted to its ASCII representation.

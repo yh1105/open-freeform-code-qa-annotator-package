@@ -1,0 +1,65 @@
+To achieve the layout you want, you can use a combination of flexbox and media queries. Here's an example code snippet to get you started:
+
+HTML:
+
+```
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 order-lg-1 order-2 main-content">
+      <!-- Main content goes here -->
+    </div>
+    <div class="col-lg-4 order-lg-2 order-1 top-sidebar">
+      <!-- Top sidebar content goes here -->
+    </div>
+    <div class="col-lg-4 order-lg-3 order-3 bottom-sidebar">
+      <!-- Bottom sidebar content goes here -->
+    </div>
+  </div>
+</div>
+```
+
+CSS:
+
+```
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-content {
+  flex-basis: 100%;
+}
+
+.top-sidebar,
+.bottom-sidebar {
+  flex-basis: calc(50% - 15px);
+  margin: 0 15px;
+}
+
+@media (min-width: 992px) {
+  .top-sidebar {
+    order: 2;
+  }
+  .bottom-sidebar {
+    order: 3;
+  }
+}
+
+@media (max-width: 991px) {
+  .top-sidebar,
+  .bottom-sidebar {
+    flex-basis: 100%;
+    margin: 0;
+  }
+}
+```
+
+Explanation:
+
+- The `container` class is set to `display: flex` to make the child elements flex items.
+- The `main-content` class is set to `flex-basis: 100%` to make it take up the full width of the container.
+- The `top-sidebar` and `bottom-sidebar` classes are set to `flex-basis: calc(50% - 15px)` to make them each take up half of the container width minus the margin.
+- The `order` property is used to change the order of the elements on larger screens, so that the `top-sidebar` comes before the `bottom-sidebar`.
+- The media queries are used to adjust the layout at different screen sizes. On screens larger than 992px, the `top-sidebar` and `bottom-sidebar` are set to their original widths and orders. On screens smaller than 992px, the `top-sidebar` and `bottom-sidebar` are set to take up the full width of the container.
+
+Note that you may need to adjust the CSS values to fit your specific layout and content.

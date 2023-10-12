@@ -1,0 +1,11 @@
+Your current code is almost correct. You just need to change the order of your loops. You're currently iterating over the outermost list first, but you want to iterate over the innermost lists first. Here's how you can do it:
+
+```python
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+
+for i in range(len(a[0])):
+    for z in range(len(a)):
+        print(a[z][i])
+```
+
+This will first iterate over the inner lists (the pairs of numbers), and then over the outer list (the list of pairs). This way, you're printing the first element of each pair before the second one.

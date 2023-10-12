@@ -1,0 +1,27 @@
+One solution to this problem is to create a new interface that embeds the `Card` interface and adds the `String()` method. This new interface can be used wherever both `Card` and `String()` are needed. Here's an example:
+
+```
+type Stringer interface {
+    Card
+    String() string
+}
+
+func NewStringer(num int) Stringer {
+    return &card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+}
+```
+
+Now, you can create a new `Stringer` using `NewStringer()` and use it wherever both `Card` and `String()` are needed. For example:
+
+```
+func TestString(t *testing.T) {
+    card := NewStringer(0)
+    assert.EqualValues(t, "AceHearts ", card.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```
+
+This approach allows you to reuse the `Card` interface and avoid redundancy while still providing the `String()` method where needed.

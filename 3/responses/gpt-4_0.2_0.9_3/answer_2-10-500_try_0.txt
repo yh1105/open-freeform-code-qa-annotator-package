@@ -1,0 +1,24 @@
+Rust's standard library does not provide a built-in function to sort a vector by a given index vector. However, you can achieve this by using a custom function. Here's an example of how you can do it:
+
+```rust
+fn sort_by_indices<T: Clone>(v: &mut Vec<T>, indices: &[usize]) {
+    let mut temp = v.clone();
+    for (i, &index) in indices.iter().enumerate() {
+        v[i] = temp[index].clone();
+    }
+}
+```
+
+You can use this function like this:
+
+```rust
+let i = vec![0, 3, 2, 1];
+let mut v = vec!["a", "b", "c", "d"];
+sort_by_indices(&mut v, &i);
+
+assert_eq!(v, vec!["a", "d", "c", "b"]);
+```
+
+This function works by creating a temporary copy of the original vector and then replacing the elements in the original vector with the elements from the temporary vector at the specified indices.
+
+However, this solution is not in-place because it creates a temporary copy of the original vector. If your vector is very large and you are concerned about memory usage, you may need to use a more complex algorithm that can sort the vector in-place. Unfortunately, such an algorithm would be quite complex and beyond the scope of this answer.

@@ -1,0 +1,26 @@
+The error you're encountering is because the `Input` facade was removed in Laravel 6.0. You should replace any usage of the `Input` facade with a `Request` facade.
+
+So, instead of using `Input::get('key')`, you should use `Request::input('key')`.
+
+If you want to use the `Request` facade, make sure to include it at the top of your file:
+
+```php
+use Illuminate\Support\Facades\Request;
+```
+
+Then you can use it in your code like this:
+
+```php
+$value = Request::input('key');
+```
+
+Or if you want to use dependency injection, you can do it like this:
+
+```php
+public function yourFunctionName(Illuminate\Http\Request $request)
+{
+    $value = $request->input('key');
+}
+```
+
+Remember to replace `'key'` with the actual key you're trying to access.

@@ -1,0 +1,23 @@
+The error message is not provided in your question, but I'm assuming you're having issues with importing jQuery and Bootstrap in your React project. 
+
+Here's how you can import Bootstrap and jQuery in your React project:
+
+1. First, install jQuery, Bootstrap and Popper.js (required for Bootstrap) using npm:
+
+```bash
+npm install jquery popper.js bootstrap
+```
+
+2. Then, import them in your `index.js` file:
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
+import 'jquery/dist/jquery.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
+```
+
+This should work, but if you're still having issues, please provide the error message so I can give a more accurate solution.

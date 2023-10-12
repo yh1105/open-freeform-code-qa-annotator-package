@@ -1,0 +1,60 @@
+To achieve the layout you want, you can use a combination of flexbox and media queries. Here's an example code snippet that should help you get started:
+
+HTML:
+
+```
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-12 order-lg-1 order-md-2 sidebar-top">
+      <!-- Top sidebar content -->
+    </div>
+    <div class="col-lg-6 col-md-12 order-lg-2 order-md-1 main-content">
+      <!-- Main content -->
+    </div>
+    <div class="col-lg-3 col-md-12 order-lg-3 order-md-3 sidebar-bottom">
+      <!-- Bottom sidebar content -->
+    </div>
+  </div>
+</div>
+```
+
+CSS:
+
+```
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sidebar-top,
+.main-content,
+.sidebar-bottom {
+  flex: 1;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar-top,
+  .sidebar-bottom {
+    order: 3;
+  }
+  
+  .main-content {
+    order: 1;
+  }
+  
+  .sidebar-top,
+  .sidebar-bottom {
+    width: 100%;
+  }
+}
+```
+
+Explanation:
+
+- The HTML code uses Bootstrap's grid system to create three columns: a left sidebar, a main content section, and a right sidebar.
+- The `order` classes are used to change the order of the columns on smaller screens. The `order-lg-*` classes specify the order for larger screens, while the `order-md-*` classes specify the order for medium screens.
+- The CSS code sets the container to use flexbox and wrap its contents. This allows the columns to stack vertically on smaller screens.
+- The `flex: 1` property is used to make all three columns take up equal space.
+- The media query targets screens smaller than 992px (the breakpoint for medium screens in Bootstrap). It changes the order of the columns and sets the width of the sidebars to 100% to make them stack above and below the main content section.
+
+You can customize the styles and breakpoints to fit your specific needs. I hope this helps!

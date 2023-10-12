@@ -1,0 +1,18 @@
+The `_io.BytesIO` object is a type of file-like object that operates on bytes data. To convert it to a bytes-like object, you can use the `getvalue()` method. This method returns the entire contents of the BytesIO object as a bytes object.
+
+Here is how you can modify your function to use this method:
+
+```python
+def uncompress_body(self, compression_type, body):
+    if compression_type == 'gzip' or compression_type == 'compress':
+        return zlib.decompress(body.getvalue())
+    elif compression_type == 'deflate':
+        compressor = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
+        compressed = compressor.compress(body.getvalue())
+        compressed += compressor.flush()
+        return base64.b64encode(compressed)
+
+    return body
+```
+
+In this modified function, `body.getvalue()` is used to convert the BytesIO object to a bytes object before it is passed to `zlib.decompress()` or `compressor.compress()`.

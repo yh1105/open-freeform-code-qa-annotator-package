@@ -1,0 +1,11 @@
+The error message indicates that the `mariadb_config` utility could not be found. This utility is part of the MariaDB Connector/C package, which is a client library for C development.
+
+To fix this issue, you need to install the MariaDB Connector/C package. On Ubuntu, you can install it using the following command:
+
+```bash
+sudo apt-get install libmariadbclient-dev-compat
+```
+
+This package provides the `mariadb_config` utility which is required by the `pip3 install mariadb` command.
+
+After installing the package, try running the `pip3 install mariadb` command again. It should now complete without errors.

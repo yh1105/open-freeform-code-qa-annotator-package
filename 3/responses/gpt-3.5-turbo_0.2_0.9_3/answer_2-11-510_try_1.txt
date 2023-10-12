@@ -1,0 +1,27 @@
+The error message suggests that the `std::filesystem` namespace has not been declared. This is because the `std::filesystem` library was introduced in C++17 and may not be available in older versions of the C++ standard library.
+
+To fix this issue, you need to add the `stdc++fs` library to your `target_link_libraries` command in your `CMakeLists.txt` file. This library provides the necessary support for the `std::filesystem` library.
+
+Here is the updated `CMakeLists.txt` file:
+
+```
+cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+
+project(visual_hull LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+add_library(dataIO
+        STATIC
+            dataIO.hpp
+            dataIO.cpp)
+
+find_package(OpenCV REQUIRED core highgui imgproc)
+
+target_link_libraries(dataIO ${OpenCV_LIBS})
+
+add_executable(visual_hull main.cpp)
+
+target_link_libraries(visual_hull PUBLIC dataIO
+                                         stdc++fs)
+```
+
+With this change, the `std::filesystem` library should be available in your code and the error should be resolved.

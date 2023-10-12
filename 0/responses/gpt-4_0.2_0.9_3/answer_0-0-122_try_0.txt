@@ -1,0 +1,23 @@
+You can downgrade `npm` to a specific version using the same command you used to upgrade it, but instead of `@latest`, you specify the version number you want. 
+
+Here's the general format of the command:
+
+```bash
+npm install -g npm@version
+```
+
+Replace `version` with the version number you want to downgrade to. For example, if you want to downgrade to version 6.14.8, you would run:
+
+```bash
+npm install -g npm@6.14.8
+```
+
+This will install that specific version of `npm` globally on your system. 
+
+You can confirm the version of `npm` that is currently active by running:
+
+```bash
+npm -v
+```
+
+This should return the version number you specified in the install command.

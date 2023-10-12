@@ -1,0 +1,11 @@
+The conflict message indicates that there are some files or directories in the installation area that conflict with the new version of IntelliJ IDEA you are trying to install. This can happen if you have made changes to the installation area manually or if there are leftover files from a previous installation.
+
+To resolve this issue, you can try the following steps:
+
+1. Uninstall the current version of IntelliJ IDEA completely. You can do this by running the uninstall script in the installation directory or by using the package manager.
+
+2. Remove any leftover files or directories related to IntelliJ IDEA. You can do this by searching for files or directories with the name "IntelliJ" or "idea" in the installation directory and removing them.
+
+3. Download the latest version of IntelliJ IDEA from the developer's website and install it from scratch.
+
+If the conflict persists, you may need to seek further assistance from the IntelliJ IDEA support team or the Ubuntu community.

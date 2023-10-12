@@ -1,0 +1,11 @@
+The error is because the `predict` method expects a 2D array, but you're providing a 1D array. 
+
+In your case, you're trying to predict the class of a single sample that has two features (0.58 and 0.76). You should pass this sample as a 2D array where the first dimension corresponds to the samples and the second to the features.
+
+You can fix this by putting the input to `predict` in an extra pair of brackets to make it a 2D array:
+
+```python
+print(clf.predict([[0.58,0.76]]))
+```
+
+This way, you're passing a 2D array with one row (corresponding to one sample) and two columns (corresponding to two features).

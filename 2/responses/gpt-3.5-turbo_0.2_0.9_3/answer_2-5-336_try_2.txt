@@ -1,0 +1,25 @@
+In Java, you can use a custom comparator to sort the elements in the priority queue based on the value of the pair instead of the key. Here's an example:
+
+```
+import javafx.util.Pair;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class Test {
+    public static void main(String[] args) {
+        int n = 5;
+
+        PriorityQueue<Pair<Integer, Integer>> l = new PriorityQueue<>(n, Comparator.comparing(Pair::getValue));
+
+        l.add(new Pair<>(1, 90));
+        l.add(new Pair<>(7, 54));
+        l.add(new Pair<>(2, 99));
+        l.add(new Pair<>(4, 88));
+        l.add(new Pair<>(9, 89));
+
+        System.out.println(l.poll().getKey());
+    }
+}
+```
+
+In this example, we're using a lambda expression to create a custom comparator that compares the pairs based on their value. We're then passing this comparator to the constructor of the priority queue. Finally, we're using `poll()` to remove and return the pair with the smallest value, and then printing its key.

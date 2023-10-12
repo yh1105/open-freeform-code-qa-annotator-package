@@ -1,0 +1,10 @@
+In a record type, you can add a constructor overload with no parameters using the `init` keyword. Here's an example:
+
+```
+public record Person(int Id, string FirstName, string LastName)
+{
+    public Person() : this(0, "", "") { }
+}
+```
+
+In this example, the `Person()` constructor calls the existing constructor with default values for the parameters. The `init` keyword ensures that the properties can only be set during object initialization and not modified afterwards.

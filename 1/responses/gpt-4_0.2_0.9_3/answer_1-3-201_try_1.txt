@@ -1,0 +1,25 @@
+You can use multiprocessing instead of threading. Python's Global Interpreter Lock (GIL) makes it so that only one thread can execute Python bytecodes at a time in a single process. This is why your two infinite loops can't run concurrently using threads. 
+
+Multiprocessing, on the other hand, spawns new processes, which have their own memory space and can run on different CPU cores. This allows for true parallelism.
+
+Here is an example of how you can use multiprocessing:
+
+```python
+from multiprocessing import Process
+
+def func1():
+    dataMiningScript= fd.financeData(database,1600)
+
+def func2():
+    app.run_server(debug=True)
+
+if __name__=='__main__':
+    Process(target=func1).start()
+    Process(target=func2).start()
+```
+
+In this example, `func1` and `func2` will run in separate processes and can execute concurrently. 
+
+However, keep in mind that multiprocessing has a higher overhead than threading because it has to spawn a new process. Also, sharing data between processes is more difficult than sharing data between threads. If you need to share data between your two functions, you might need to use a multiprocessing-safe data structure like a Queue or a Pipe. 
+
+Also, be aware that if you're running this on a web server, the server might not allow you to spawn new processes. In that case, you might need to run your two scripts as separate services.

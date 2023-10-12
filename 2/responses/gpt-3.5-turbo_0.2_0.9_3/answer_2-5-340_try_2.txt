@@ -1,0 +1,17 @@
+It's good that you're thinking about the readability of your code, but it's also important to follow best practices to avoid potential errors and make your code more maintainable in the long run.
+
+In this case, the problem with the empty `else if` statement is that it creates a dangling `if` statement. This means that the `else` block is not associated with any `if` statement, which can lead to confusion and errors if you or someone else modifies the code later on.
+
+To avoid this issue, you can simply remove the empty `else if` statement and combine the conditions of the first two `if` statements using the logical AND operator (`&&`). Here's what the updated code would look like:
+
+```
+if (!seesWater(LEFT) && !seesWater(AHEAD)) {
+    turn(LEFT);
+} else if (!seesWater(RIGHT)) {
+    turn(RIGHT);
+} else {
+    turn180();
+}
+```
+
+This way, the `else` block is associated with the second `if` statement, and the code is more concise and easier to read.

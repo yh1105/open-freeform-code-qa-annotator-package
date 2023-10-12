@@ -1,0 +1,39 @@
+You can use the `cowplot` package to create a discontinuous x-axis in ggplot. Here's an example code that should work for you:
+
+```
+library(ggplot2)
+library(cowplot)
+
+set.seed(321)
+dat <- data.frame(matrix(ncol = 2, nrow = 18))
+x <- c("Month", "Value")
+colnames(dat) <- x
+dat$Month <- rep(c(1,2,3,10,11,12),3)
+dat$Value <- rnorm(18,20,2)
+
+# Create the plot
+p <- ggplot(data = dat, aes(x = factor(Month), y = Value)) +
+  geom_boxplot() +
+  labs(x = "Month") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        text = element_text(size = 16),
+        axis.text.x = element_text(size = 14, color = "black"),
+        axis.text.y = element_text(size = 14, color = "black"))
+
+# Create the angled lines
+line1 <- geom_segment(aes(x = 3.5, y = -Inf, xend = 4.5, yend = -Inf), linetype = "dashed")
+line2 <- geom_segment(aes(x = 7.5, y = -Inf, xend = 8.5, yend = -Inf), linetype = "dashed")
+
+# Combine the plot and the angled lines
+plot_with_lines <- plot_grid(p + line1 + line2, align = "h", axis = "tb", ncol = 1, rel_heights = c(1, 0.1))
+
+# Remove the x-axis labels and ticks between the angled lines
+plot_with_lines$axes$x$grobs[[1]]$children[[2]]$x <- unit(c(0, 0.5, 1), "npc")
+plot_with_lines$axes$x$grobs[[1]]$children[[2]]$label <- rep("", 3)
+
+# Show the plot
+plot_with_lines
+```
+
+This should produce a plot with two angled lines interrupting the x-axis between months 3 and 10.

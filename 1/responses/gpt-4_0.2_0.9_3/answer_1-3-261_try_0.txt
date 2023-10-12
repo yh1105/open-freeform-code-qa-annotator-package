@@ -1,0 +1,19 @@
+The error you're encountering is an HTTP 410 error, which means the resource you're trying to access is no longer available at the server, and no forwarding address is known. This condition is expected to be considered permanent.
+
+This error is often encountered when using the `pytube` library due to changes in YouTube's backend. YouTube frequently updates its website, and these updates can break libraries like `pytube` that rely on the structure of YouTube's website.
+
+The `pytube` library is maintained by volunteers and sometimes it takes a while for it to catch up with YouTube's changes. 
+
+Here are a few things you can try:
+
+1. **Update `pytube` to the latest version.** You mentioned you've tried upgrading `pytube`, but make sure you're using the latest version. You can upgrade it using pip:
+
+```bash
+pip install pytube --upgrade
+```
+
+2. **Try using a different library.** If `pytube` isn't working for you, you might want to try a different library for downloading YouTube videos. For example, `youtube_dl` is a popular alternative.
+
+3. **Check the GitHub issues for `pytube`.** If you're still having trouble, check the [issues on the `pytube` GitHub page](https://github.com/pytube/pytube/issues). Someone else might have encountered the same problem, and there might be a solution or workaround available.
+
+4. **Wait for a fix.** If all else fails, you might just have to wait for a fix to be implemented in `pytube`. As I mentioned earlier, `pytube` is maintained by volunteers and sometimes it takes a while for it to catch up with YouTube's changes.

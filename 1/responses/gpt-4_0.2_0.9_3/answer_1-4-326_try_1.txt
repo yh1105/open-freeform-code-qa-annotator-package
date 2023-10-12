@@ -1,0 +1,19 @@
+You can use `gsub` function in R to replace the commas inside the quotes. Here is the code:
+
+```R
+string <- c("1, 2, \"something, else\"", "3, 5, \"more, more, more\"", "6, \"commas, are fun\", \"no, they are not\"")
+
+gsub('(\"[^\"]*),([^\"]*\")', '\\1 \\2', string, perl=TRUE)
+```
+
+This code uses a regular expression to find commas that are inside quotes and replace them with a space. The regular expression `(\"[^\"]*),([^\"]*\")` matches a quote, followed by any number of non-quote characters, a comma, any number of non-quote characters, and a quote. The `gsub` function then replaces this with the first and second matched groups (the parts in parentheses), separated by a space. The `perl=TRUE` argument is needed to enable the use of lookaheads and lookbehinds in the regular expression.
+
+However, this will only replace the first comma inside each pair of quotes. If you have multiple commas inside the quotes and you want to replace all of them, you can use a loop:
+
+```R
+while(any(grepl('(\"[^\"]*),([^\"]*\")', string, perl=TRUE))) {
+  string <- gsub('(\"[^\"]*),([^\"]*\")', '\\1 \\2', string, perl=TRUE)
+}
+```
+
+This will keep replacing commas inside quotes until there are none left.

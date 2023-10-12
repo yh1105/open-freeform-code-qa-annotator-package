@@ -1,0 +1,20 @@
+In ZSH, the tab key is represented by the widget `expand-or-complete`. So, if you want to set tab for zsh autocompletion plugin, you should replace `tab-char` with `expand-or-complete` in your configuration.
+
+Here is the corrected part of your config:
+
+```bash
+# Widgets that accept the entire suggestion
+(( ! ${+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS} )) && {
+        typeset -ga ZSH_AUTOSUGGEST_ACCEPT_WIDGETS
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+                forward-char
+                end-of-line
+                expand-or-complete //my line
+                vi-forward-char
+                vi-end-of-line
+                vi-add-eol
+        )
+}
+```
+
+The convention for char names used in ZSH is typically the action that the key performs. For example, `forward-char` moves the cursor forward by one character, `end-of-line` moves the cursor to the end of the line, and `expand-or-complete` expands or completes the current word.

@@ -1,0 +1,23 @@
+I see that you are trying to create a hover animation for your link using Tailwind CSS. Here's a simple way to achieve this:
+
+First, you need to add the `relative` class to your link to position the pseudo-element correctly. Then, you can use the `group` class to control the child's behavior when hovering over the parent.
+
+Here's an example of how to do it:
+
+HTML:
+```html
+<div class="p-10 space-x-4">
+  <a href="#" class="group relative text-blue-600 hover:text-blue-800">
+    Hover me
+    <span class="absolute h-1 bg-blue-600 left-0 bottom-0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 ease-in-out"></span>
+  </a>
+</div>
+```
+
+In this example, I'm using a `span` element to create the underline effect. The `scale-x-0` class sets the initial state of the underline (hidden), and the `group-hover:scale-x-100` class reveals it when you hover over the link.
+
+The `transition-transform duration-200 ease-in-out` classes are used to animate the transformation.
+
+This should give you a similar effect to the one in the video you provided. You can adjust the classes as needed to fit your design.
+
+Please note that you need to have `@tailwindcss/forms` and `@tailwindcss/typography` plugins and also enable the `group-hover` variant in your Tailwind CSS configuration for this to work.

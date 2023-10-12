@@ -1,0 +1,20 @@
+The error message suggests that the `$theme-colors` variable is not in a valid CSS format. Bootstrap's `variables.scss` file expects the `$theme-colors` variable to be in a specific format, which is an associative array of color names and their values in hexadecimal format.
+
+To fix the error, you need to make sure that your `$theme-colors` variable is in the correct format. Here's an example of how you can define the `$theme-colors` variable:
+
+```
+$theme-colors: (
+  "primary": #0d6efd,
+  "secondary": #6c757d,
+  "success": #198754,
+  "info": #0dcaf0,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": #f8f9fa,
+  "dark": #212529
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+```
+
+Make sure that you define the colors in hexadecimal format and that you separate the color names and values with a colon. Once you've defined the `$theme-colors` variable correctly, you should be able to compile your SCSS file without any errors.

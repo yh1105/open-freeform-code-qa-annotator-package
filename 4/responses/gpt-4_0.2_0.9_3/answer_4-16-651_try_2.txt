@@ -1,0 +1,9 @@
+The SHA-1 hash in Git is computed based on the commit content and metadata, which includes the commit message, author, date, and the tree of the commit (which includes the content of the repository at that point). This means that if any of these change, the SHA-1 hash will also change. 
+
+Unfortunately, Git does not provide a way to manually specify the SHA-1 hash of a commit. The hash is always computed based on the commit content and metadata. This is a fundamental aspect of how Git ensures the integrity of the repository history.
+
+If you need to keep track of corresponding commits between two repositories, you might consider including a reference to the original commit SHA-1 hash in the commit message of the mirrored commit. This would allow you to easily find the corresponding commit in the other repository.
+
+However, if you're trying to mirror repositories, you might want to consider using Git's built-in capabilities for this, such as `git clone --mirror` or `git push --mirror`, which are designed to create an exact copy of the source repository, including all branches, tags, and commits. This would ensure that the SHA-1 hashes of the commits are the same in both repositories. 
+
+If you need more control over which commits are mirrored, you could use a combination of `git fetch` and `git push` to manually fetch and push individual branches or commits. This would require more work to set up and maintain, but it would give you the flexibility to mirror only the commits you want.

@@ -1,0 +1,11 @@
+It seems like there is an issue with the `llvmlite` package that is preventing the installation of `librosa`. Here are a few steps you can try to resolve the issue:
+
+1. Try uninstalling `llvmlite` using `pip uninstall llvmlite`. If it fails, try using `pip uninstall llvmlite --ignore-installed`.
+
+2. If step 1 doesn't work, try installing `llvmlite` using conda instead of pip. You can do this by running `conda install llvmlite`.
+
+3. If step 2 doesn't work, try creating a new conda environment and installing `librosa` in that environment. You can create a new environment using `conda create --name myenv` and activate it using `conda activate myenv`. Then, try installing `librosa` using `pip install librosa`.
+
+4. If none of the above steps work, you can try installing `librosa` from a pre-built binary. You can download the binary from the official `librosa` website and install it using `pip install path/to/librosa.whl`.
+
+I hope one of these steps helps you resolve the issue and install `librosa` successfully.

@@ -1,0 +1,17 @@
+The error message you're seeing is due to pip not being able to verify the SSL certificate of the server it's trying to connect to. This can be caused by a few different things, such as a misconfigured system clock, a network issue, or a problem with the Python installation itself.
+
+The `--trusted-host` option you're using with pip doesn't actually bypass SSL verification, it just tells pip to trust the specified host even if it can't verify its SSL certificate. However, pip will still attempt to verify the certificate, and if it can't, it will fail with the error message you're seeing.
+
+Here are a few things you can try to resolve this issue:
+
+1. **Check your system clock.** If your system clock is significantly off, it can cause SSL verification to fail. Make sure your system clock is set to the correct time.
+
+2. **Try using a different network.** Sometimes network issues or firewalls can interfere with SSL verification. If possible, try connecting to a different network and see if that resolves the issue.
+
+3. **Upgrade pip.** If you're using an older version of pip, it might not be able to properly verify SSL certificates. You can upgrade pip by running `python -m pip install --upgrade pip`.
+
+4. **Reinstall Python.** If none of the above solutions work, there might be a problem with your Python installation. Uninstalling and reinstalling Python might resolve the issue.
+
+5. **Use pip with the `--cert` option.** If you're in an environment where you have a specific CA bundle, you can point pip to use it with the `--cert` option like so: `pip install --cert /path/to/certbundle.pem dedupe`.
+
+Remember that bypassing SSL verification can expose you to security risks, so it's generally not recommended unless you understand the implications and accept the risks.

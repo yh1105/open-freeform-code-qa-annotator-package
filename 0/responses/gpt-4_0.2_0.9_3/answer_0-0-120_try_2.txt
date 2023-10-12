@@ -1,0 +1,19 @@
+The error message "Unsupported class file major version 57" indicates that the Java version used in your project is not compatible with the one used by Gradle. 
+
+The major version 57 corresponds to Java 13, but in your `build.gradle` file, you have specified Java 8 as the source and target compatibility. 
+
+This mismatch could be the cause of the error. 
+
+Here are a few steps you can take to resolve this issue:
+
+1. Check the Java version used by Gradle. You can do this by running the command `./gradlew -version` in your terminal. This will display the Java version used by Gradle.
+
+2. If the Java version used by Gradle is higher than 8 (which is the version you specified in your `build.gradle` file), you can downgrade it. To do this, you can specify the Java version in your `gradle.properties` file. Add this line to the file: `org.gradle.java.home=/path/to/your/jdk8`.
+
+3. Alternatively, you can upgrade the source and target compatibility in your `build.gradle` file to match the Java version used by Gradle. However, this might not be the best solution if your project relies on features specific to Java 8.
+
+4. Make sure that the correct Java version is set in your system's `JAVA_HOME` environment variable. You can check this by running `echo $JAVA_HOME` in your terminal.
+
+5. If you're using an IDE like IntelliJ IDEA or Android Studio, make sure that the correct Java SDK is selected in the project structure settings.
+
+Remember to clean and rebuild your project after making these changes.

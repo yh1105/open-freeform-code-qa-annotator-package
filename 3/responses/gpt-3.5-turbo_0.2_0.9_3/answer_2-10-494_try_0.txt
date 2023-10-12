@@ -1,0 +1,7 @@
+It seems like this error is a false positive from rust-analyzer. The `#[test]` macro is a built-in Rust macro, and it's unlikely that there's an issue with it. It's possible that rust-analyzer is having trouble resolving the macro due to a bug or a configuration issue.
+
+One thing you can try is to update rust-analyzer to the latest version. You can do this by running `rustup update` and then restarting VSCode. If that doesn't work, you can try disabling rust-analyzer and using the official Rust VSCode extension instead.
+
+To disable rust-analyzer, go to your VSCode settings and search for "rust-analyzer.enable". Set the value to false, and then restart VSCode. This will disable rust-analyzer and use the official Rust VSCode extension instead.
+
+If you still encounter issues, you can try posting on the rust-analyzer GitHub repository or the Rust subreddit for further assistance.

@@ -1,0 +1,24 @@
+The issue with your code is the empty `else if` statement. It's considered bad form because it can lead to confusion and potential bugs. Even though it may seem to make sense in your context, it's generally not a good practice to leave empty blocks of code as it can be misleading to others reading your code.
+
+In your case, you can simply remove the empty `else if` statement and the logic of your code will remain the same. Here's how you can rewrite it:
+
+```csharp
+if (!seesWater(LEFT))
+{
+    turn(LEFT);
+}
+else if (!seesWater(RIGHT))
+{
+    turn(RIGHT);
+}
+else if (seesWater(AHEAD))
+{
+    // Do nothing
+}
+else
+{
+    turn180();
+}
+```
+
+In this version, if `seesWater(AHEAD)` is true, then the code does nothing and skips to the next condition. This maintains your priority order and avoids the empty `else if` statement.

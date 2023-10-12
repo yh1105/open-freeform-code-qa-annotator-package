@@ -1,0 +1,13 @@
+The `disabled` attribute in HTML is a boolean attribute, meaning its presence alone, regardless of its actual value, implies `true`. So, when you use `[attr.disabled]="!editable"`, Angular will add the `disabled` attribute to the `select` element when `editable` is `false`, and remove the attribute when `editable` is `true`.
+
+However, the problem is that Angular treats `null` or `undefined` as falsey values and will remove the attribute, but any other value, including `false`, is treated as truthy and will add the attribute. This is why your `select` is always disabled.
+
+To fix this, you can use `null` to remove the `disabled` attribute:
+
+```html
+<select [attr.disabled]="editable ? null : ''">
+...
+</select>
+```
+
+In this case, when `editable` is `true`, Angular will remove the `disabled` attribute from the `select` element, and when `editable` is `false`, Angular will add the `disabled` attribute, making the `select` element disabled.

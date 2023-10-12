@@ -1,0 +1,25 @@
+In C# 8.0 and later, nullable reference types provide protection against null reference exceptions. When you declare a reference type as non-nullable, the compiler expects it to be initialized in the constructor or directly at the declaration. If you don't do this, you'll get a warning (or error, depending on your project settings).
+
+In your case, you're using a DTO where properties are typically initialized after the object is created, not in the constructor. This is why you're seeing the warning.
+
+There are a few ways to handle this:
+
+1. **Suppress the warning**: You can suppress the warning for specific properties by using the `#nullable disable` directive. This tells the compiler to ignore nullability for the following code. However, this is not recommended because it defeats the purpose of having nullable reference types.
+
+2. **Make the property nullable**: You can declare the property as nullable by adding a `?` after the type. This tells the compiler that the property can be null. However, this might not be what you want if the property should never be null in a correctly initialized object.
+
+3. **Initialize the property with a default value**: You can initialize the property with a default value. This will satisfy the compiler, but it might not make sense for your use case.
+
+4. **Use the null-forgiving post-fix**: You can use the `!` operator to tell the compiler to assume that the property will never be null. This is probably the best solution for your case. Here's how you can do it:
+
+```csharp
+public class Connection
+{
+    public string ServiceUrl { get; set; } = null!;
+    public string? UserName { get; set; }
+    public string? Password { get; set; }
+    //... others 
+}
+```
+
+In this code, `= null!` tells the compiler to assume that `ServiceUrl` will never be null, even though it's not initialized in the constructor. This will suppress the warning.

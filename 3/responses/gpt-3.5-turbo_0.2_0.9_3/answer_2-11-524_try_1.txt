@@ -1,0 +1,15 @@
+It is true that `std::string` is a good choice for handling UTF-8 strings in C++. However, you need to be careful when using functions like `str[i]`, `std::string::size()`, `std::string::find_first_of()` or `std::regex` as they may not work as expected with UTF-8 strings.
+
+One way to handle these problems is to use a library that provides UTF-8 aware string functions. One such library is the ICU (International Components for Unicode) library. ICU provides a set of C++ classes and functions for working with Unicode strings, including UTF-8 strings.
+
+If you decide to stick with `std::string`, you can use the following guidelines to avoid problems with UTF-8 strings:
+
+1. Use `std::string::size()` instead of `strlen()` to get the length of a string. `strlen()` only works with null-terminated strings, which may not be the case with UTF-8 strings.
+
+2. Use `std::string::at()` instead of `str[i]` to access individual characters in a string. `std::string::at()` performs bounds checking and throws an exception if the index is out of range.
+
+3. Use `std::string::find()` instead of `std::string::find_first_of()` to search for a substring in a string. `std::string::find()` works with UTF-8 strings and returns the position of the first occurrence of the substring.
+
+4. Use a library like Boost.Regex or ICU Regular Expressions instead of `std::regex` to work with regular expressions in UTF-8 strings.
+
+If you decide to switch to `std::wstring`, keep in mind that `std::wstring` uses UTF-16 encoding on Windows and UCS-4 encoding on Unix-like systems. This may cause compatibility issues if you need to work with UTF-8 data from other sources.

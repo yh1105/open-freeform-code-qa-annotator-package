@@ -1,0 +1,30 @@
+Yes, you can customize these messages. The Blazor framework provides a JavaScript function that can be used to customize the UI when the connection state changes. 
+
+Here is an example of how you can do it:
+
+```javascript
+Blazor.defaultReconnectionHandler._reconnectCallback = function(d) {
+    var t = Blazor.defaultReconnectionHandler,
+        n = document.getElementById("components-reconnect-modal");
+    n || ((n = document.createElement("div")).id = "components-reconnect-modal", document.body.appendChild(n), n.innerHTML = '<div class="modal-backdrop fade show"></div><div class="modal show d-block" tabindex="-1" role="dialog" style="z-index: 2000;"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Reconnection</h5></div><div class="modal-body">Attempting to reconnect to the server...</div><div class="modal-footer"><button type="button" class="btn btn-primary">Retry</button></div></div></div></div>'), n.querySelector(".btn").addEventListener("click", function() {
+        location.reload()
+    })), t._modal = n, t._updateState(t._reconnectionState, d)
+}
+```
+
+This script replaces the default UI with a custom one. You can modify the HTML to fit your needs. 
+
+To translate the messages, you just need to replace the English text in the HTML with the text in your desired language.
+
+To disable the messages, you can simply remove the innerHTML assignment line.
+
+Please note that this script should be added after the blazor.server.js script reference.
+
+```html
+<script src="_framework/blazor.server.js"></script>
+<script>
+    // Add the script here
+</script>
+```
+
+Remember that this is a workaround and may not work in future versions of Blazor.

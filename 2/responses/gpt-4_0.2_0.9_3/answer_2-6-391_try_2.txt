@@ -1,0 +1,9 @@
+Yes, it is a good practice to include static files like images, which are required by your application, in your Docker image during the build process. This ensures that the image contains everything it needs to run the application, making it portable and self-contained.
+
+In your Dockerfile, you are already copying the Assets directory (which contains the banner.png file) into the Docker image. This is the correct approach.
+
+Uploading the file to an already built container is not a good practice because it breaks the portability of your Docker image. If you move the container to a different host, you would have to remember to also move the file.
+
+Linking the file from a different place (like a network share or a cloud storage bucket) could be a good solution if the file changes frequently and you want to avoid rebuilding the Docker image every time. However, this introduces an external dependency to your application. If the network share or cloud storage bucket is not available, your application will not be able to send the emails with the banner. 
+
+In conclusion, if the banner.png file does not change frequently, it is better to include it in the Docker image. If it changes frequently, you might want to consider storing it in a place that your application can access at runtime, but be aware of the potential issues with this approach.

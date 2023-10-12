@@ -1,0 +1,15 @@
+It seems like you have set up everything correctly. However, there might be a possibility that the Gradle settings are overriding your project settings. 
+
+To fix this issue, you can add the following lines to your `build.gradle` file:
+
+```
+compileJava {
+    options.release = 17
+}
+```
+
+This will ensure that Gradle uses Java 17 to compile your code.
+
+If this doesn't work, you can try deleting the `.gradle` folder in your project directory and re-importing the project in IntelliJ. This will reset all the Gradle settings and might fix the issue.
+
+I hope this helps you resolve the issue.

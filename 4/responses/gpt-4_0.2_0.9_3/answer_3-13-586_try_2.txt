@@ -1,0 +1,45 @@
+The issue you're experiencing is due to a change in Android 12 (API level 31) that requires you to specify mutability of your PendingIntent. The Android system needs to know whether the PendingIntent should be mutable (can be changed after being created) or immutable (cannot be changed after being created).
+
+The AndroidX Media library version 1.4.0 indeed has a fix for this issue, but it seems like it's not working as expected. 
+
+As a workaround, you can try to create a MediaButtonReceiver and set it in the manifest file. This receiver will handle the media button events. 
+
+Here's how you can do it:
+
+1. Create a new class that extends `MediaButtonReceiver`:
+
+```kotlin
+class MediaButtonIntentReceiver : MediaButtonReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+    }
+}
+```
+
+2. Register this receiver in your manifest file:
+
+```xml
+<receiver android:name=".MediaButtonIntentReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.MEDIA_BUTTON" />
+    </intent-filter>
+</receiver>
+```
+
+3. Pass this receiver to the `MediaSessionCompat`:
+
+```kotlin
+val mediaButtonIntent = Intent(Intent.ACTION_MEDIA_BUTTON)
+mediaButtonIntent.setClass(this, MediaButtonIntentReceiver::class.java)
+val mbrIntent = PendingIntent.getBroadcast(this, 0, mediaButtonIntent, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0)
+
+mediaSession = MediaSessionCompat(this, TAG, mbrIntent, null).apply {
+    setCallback(mediaSessionCallback)
+    isActive = true
+}
+```
+
+This way, the `MediaSessionCompat` will use your `PendingIntent` which has the correct flags set. 
+
+Please note that this is a workaround and the issue should be properly fixed in the AndroidX Media library. You might want to keep an eye on updates to the library and remove this workaround once the issue is resolved.

@@ -1,0 +1,27 @@
+The issue you're encountering is due to the `required: true` property in your prop validation. When you set a prop as required, Vue.js expects that prop to always have a value other than `undefined` or `null`. 
+
+If you want to allow `null` as a valid value for your prop, you should remove the `required: true` line from your prop validation. This way, Vue.js will not throw a warning when the prop's value is `null`.
+
+Here's how your updated code should look:
+
+```javascript
+Vue.component('MyInput', Vue.extend({
+  props: {
+    value: {
+      type: [String, Number, Boolean],
+      // required: true,  // Remove this line
+    },
+  },
+  template: `
+    <select v-model="value">
+      <option value="null">
+        null value
+      </option>
+      <option value="">
+        Empty value
+      </option>
+    </select>`,
+}));
+```
+
+Now, Vue.js will not throw a warning when the `value` prop is `null`. However, please note that this also means that Vue.js will not throw a warning when the `value` prop is `undefined`, which might not be what you want. If you want to allow `null` but not `undefined`, you'll need to add custom validation to your prop.

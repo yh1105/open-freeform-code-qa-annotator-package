@@ -1,0 +1,13 @@
+The error message you're seeing is related to a known issue with NetBeans and the Windows command line interpreter. The problem is that the command line interpreter in Windows does not correctly handle paths that contain spaces, which is the case with your `JAVA_HOME` and `mvn.cmd` paths.
+
+Here are a few possible solutions:
+
+1. **Move your installation to a path without spaces.** This is the most straightforward solution. You can reinstall your JDK, NetBeans, and Maven to a directory without spaces in its path, such as `C:\Java\jdk-11.0.5`, `C:\NetBeans-11.1`, and `C:\Maven`.
+
+2. **Use short names.** Windows generates a short name for every file and directory. You can use the `dir /x` command in the command prompt to find out the short name. For example, the short name for `Program Files` is usually `PROGRA~1` or `PROGRA~2`. You can then use these short names in your paths.
+
+3. **Upgrade your NetBeans.** This issue has been fixed in later versions of NetBeans. If you upgrade to a newer version, you should no longer encounter this problem.
+
+4. **Modify the `nbactions.xml` file.** This is a more technical solution and involves modifying the `nbactions.xml` file in your project directory. You would need to replace all instances of `cmd` with `cmd.exe` and add `/s /c` after `cmd.exe`. This tells the command line interpreter to carry out the command that follows and then terminate. 
+
+Remember to backup your files before making any changes.

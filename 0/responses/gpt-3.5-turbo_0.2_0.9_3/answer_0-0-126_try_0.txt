@@ -1,0 +1,19 @@
+The error message indicates that the "target" property is no longer supported in Next.js 13. This property was used to specify the environment in which the app would run, such as "serverless" or "experimental-serverless-trace". 
+
+Since this property is no longer supported, you can remove it from your next.config.js file. 
+
+If you need to specify the environment in which your app will run, you can use the "serverless" property in your package.json file. For example:
+
+```
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "deploy": "next build && aws s3 sync out s3://my-bucket --delete && aws cloudfront create-invalidation --distribution-id my-distribution-id --paths '/*'",
+},
+"next": {
+  "serverless": true
+}
+```
+
+This will tell Next.js to build your app for a serverless environment.

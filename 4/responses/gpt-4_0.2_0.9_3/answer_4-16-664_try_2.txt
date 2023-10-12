@@ -1,0 +1,22 @@
+The problem you're encountering is due to the fact that environment variables in Unix-like systems cannot contain newline characters. When you're setting `MYVAR` to a value that contains a newline, it's actually being split into two separate variables, which is not what you want.
+
+If you need to store multiline data in an environment variable, you'll need to encode it in some way that removes the newlines. One common way to do this is to use base64 encoding.
+
+Here's how you can do it:
+
+```bash
+$ export MYVAR=$(echo -e "something\nMYVAR=10" | base64)
+$ echo $MYVAR | base64 --decode
+something
+MYVAR=10
+```
+
+In this example, `MYVAR` is being set to the base64-encoded version of your string. When you want to use the value of `MYVAR`, you'll need to decode it using `base64 --decode`.
+
+If you want to get a list of all environment variables along with their values, you can use the `env` command without any arguments:
+
+```bash
+$ env
+```
+
+This will print out all environment variables and their values, one per line. If you have any variables that contain newline characters, they will appear as separate lines in the output, which may not be what you want. To avoid this, you could base64 encode all your variables as described above.

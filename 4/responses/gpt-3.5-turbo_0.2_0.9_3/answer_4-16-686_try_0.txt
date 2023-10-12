@@ -1,0 +1,16 @@
+It looks like the issue is with the way you are defining the `args` field in your Kubernetes deployment YAML file. The error message suggests that you are trying to modify an immutable field, which could be caused by the quotes around the command.
+
+To fix this issue, you can try defining the `args` field as an array of strings instead of using a multi-line string with a pipe symbol. Here's an example:
+
+```
+args:
+  - /bin/bash
+  - -c
+  - /cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+    CHILD_PID=$!
+    (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill ; echo "Killed  as the main container terminated."; fi; sleep 1; done) &
+    wait 
+    if [[ -f "/tmp/pod/main-terminated" ]]; then exit 0; echo "Job completed. Exiting..."; fi
+```
+
+This should define the `args` field as an array of strings, with each line of the command as a separate string element. This should prevent the quotes from being added around the command and allow the deployment to succeed.

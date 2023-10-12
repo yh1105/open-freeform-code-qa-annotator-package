@@ -1,0 +1,27 @@
+The issue you're facing is likely due to the way you're exporting and importing `AuthContext`. In your `authContext.js` file, you're exporting `AuthContext` as a named export:
+
+```javascript
+export { AuthContext };
+```
+
+However, in your `RegisterRoutes` component, you're trying to import it as a default export:
+
+```javascript
+import AuthContext from "../context/authContext";
+```
+
+This is why `AuthContext` is `undefined` in `RegisterRoutes`. To fix this, you should import `AuthContext` as a named import:
+
+```javascript
+import { AuthContext } from "../context/authContext";
+```
+
+Alternatively, you can change the export in `authContext.js` to be a default export:
+
+```javascript
+export default AuthContext;
+```
+
+Then you can keep your import in `RegisterRoutes` as it is. 
+
+Also, make sure that you're exporting `AuthContextProvider` correctly in `authContext.js`. If you're using a default export, your import in `App.js` is correct. If you're using a named export, you'll need to adjust your import in `App.js` to match.

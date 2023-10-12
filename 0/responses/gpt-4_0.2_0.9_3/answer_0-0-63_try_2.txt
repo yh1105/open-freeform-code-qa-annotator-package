@@ -1,0 +1,37 @@
+The issue is that you are checking the length of the `firstName` and `lastName` incorrectly. You are comparing the string itself to 3, not its length. You should use the `length` property of the string to get the number of characters in it. 
+
+Also, you can simplify your code by directly assigning the result of the condition to `isButtonDisabled`. 
+
+Here is the corrected code:
+
+```jsx
+function TableFooterPanel(props) {
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    const addNewCustomer = async (name, surname) => {
+        await service.addCustomer(name, surname);
+        props.funcParam();
+    }
+
+    var isButtonDisabled = firstName.length < 3 || lastName.length < 3;
+
+    return (
+        <>
+            <Card className='buttonFooter'>
+                <Form className='buttonFooter'>
+                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <Button disabled={isButtonDisabled} onClick={() => addNewCustomer(firstName, lastName)}>Add</Button>
+                </Form>
+            </Card>
+        </>
+    );
+}
+export default TableFooterPanel;
+```
+
+In this code, `isButtonDisabled` will be `true` if either `firstName` or `lastName` has less than 3 characters, and `false` otherwise. 
+
+Also, I have replaced `defaultValue` with `value` in your input fields. `defaultValue` is for uncontrolled components and it sets the initial value but doesn't update it on subsequent renders. `value` is for controlled components and it updates the value on every render. Since you are using `useState` and updating the state on every change, you should use `value` to make your components controlled.

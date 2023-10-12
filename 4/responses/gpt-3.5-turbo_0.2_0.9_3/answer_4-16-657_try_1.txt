@@ -1,0 +1,10 @@
+Yes, you can output bold text in PowerShell by using escape sequences. Here's an example:
+
+```
+Write-Host "This is a normal text."
+Write-Host "`e[1mThis is a bold text.`e[0m"
+```
+
+In the second line, we use the escape sequence "`e[1m" before the text to make it bold, and "`e[0m" after the text to reset the formatting back to normal. 
+
+Note that the escape sequence "`e" represents the ASCII escape character (decimal value 27), which can also be written as "\e" or [char]27.

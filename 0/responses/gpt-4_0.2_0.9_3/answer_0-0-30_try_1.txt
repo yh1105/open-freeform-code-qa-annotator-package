@@ -1,0 +1,24 @@
+Enzyme currently does not officially support React 17. However, there is an unofficial adapter available for React 17, `@wojtekmaj/enzyme-adapter-react-17`. 
+
+You can install it using npm:
+
+```bash
+npm install --save @wojtekmaj/enzyme-adapter-react-17
+```
+
+Or using yarn:
+
+```bash
+yarn add @wojtekmaj/enzyme-adapter-react-17
+```
+
+Then you can update your `src/setupTests.js` file to use the new adapter:
+
+```javascript
+import Enzyme from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+Enzyme.configure({ adapter: new Adapter() });
+```
+
+Please note that since this is an unofficial package, it may not have the same level of support or stability as the official Enzyme adapters. You may want to consider using the official React Testing Library, which does support React 17, for your testing needs.

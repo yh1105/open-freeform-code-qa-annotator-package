@@ -1,0 +1,42 @@
+In your case, since you don't have any synchronous cleanup to do, you can leave the `Dispose(bool disposing)` method empty. The `Dispose()` method is there to provide a synchronous cleanup mechanism for any managed or unmanaged resources. If you don't have any such resources to clean up, there's no need to put anything in there.
+
+However, it's important to note that if your class is inherited by another class in the future, and that class has some synchronous cleanup to do, it can override `Dispose(bool disposing)` and put its cleanup logic there.
+
+So, your code would look like this:
+
+```csharp
+public class MyClass : IDisposable, IAsyncDisposable
+{
+    private bool disposed;
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(false);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            // Nothing to clean up here
+            disposed = true;
+        }
+    }
+
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        // Make async cleanup call here e.g. Database.CleanupAsync();
+    }
+}
+```
+
+Remember, the `Dispose()` method is still important to implement because it allows your class to be used correctly with interfaces or code that only understands `IDisposable` and not `IAsyncDisposable`.

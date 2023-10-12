@@ -1,0 +1,29 @@
+The error message you're seeing is indicating that the application is unable to create the `entityManagerFactory` bean because it requires a `dataSource` or `dataSourceClassName` or `jdbcUrl`. 
+
+This is likely because you've deleted the `dataSource()` method from `DatabaseConfig.java`. This method is responsible for creating a `DataSource` bean that Spring Boot uses to configure the database connection.
+
+You should add the `dataSource()` method back to `DatabaseConfig.java`:
+
+```java
+@Configuration
+public class DatabaseConfig {
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() { 
+        return DataSourceBuilder.create().build(); 
+    }
+
+    @Bean
+    public SimpleMailMessage templateSimpleMessage() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText(
+                "This is the test email template for your email:\n%s\n");
+        return message;
+    }
+}
+```
+
+Also, make sure that the `spring.datasource` properties in your `application.yml` are correctly configured. The `url`, `username`, and `password` should match your PostgreSQL database settings.
+
+If you still encounter the issue after adding back the `dataSource()` method, please provide more details about the changes you made during the update.

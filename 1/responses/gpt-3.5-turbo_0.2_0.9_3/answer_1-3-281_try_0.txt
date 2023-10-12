@@ -1,0 +1,30 @@
+It seems like you are using a dictionary to store the color codes for each letter in the guess word. However, when there are duplicate letters in the guess word, the dictionary will only store the color code for the last occurrence of that letter.
+
+One way to solve this issue is to use a list instead of a dictionary to store the color codes for each letter. You can initialize the list with the same length as the guess word and fill it with "red" initially. Then, when you find a matching letter in the choice word, you can update the corresponding index in the list with the appropriate color code.
+
+Here's an example implementation using a list:
+
+```
+def wordcolor(self, choice, guess):
+    guesscolor = ["red"] * len(guess)
+    choiceword = list(choice)
+
+    totalsame = 0
+    sameword = 0
+
+    for i, letter in enumerate(guess):
+        if letter in choiceword:
+            totalsame += 1
+            if letter == choiceword[i]:
+                sameword += 1
+                guesscolor[i] = "green"
+            else:
+                guesscolor[i] = "orange"
+
+    print(guesscolor)
+    print("There are " + str(totalsame) + " duplicate characters." + str(sameword) + " of them are in the same place")
+```
+
+In this implementation, `guesscolor` is initialized as a list of "red" strings with the same length as `guess`. Then, for each letter in `guess`, we check if it is present in `choiceword`. If it is, we update the corresponding index in `guesscolor` with the appropriate color code. Finally, we print the `guesscolor` list and the number of total duplicate characters and same-place characters.
+
+I hope this helps! Let me know if you have any further questions.

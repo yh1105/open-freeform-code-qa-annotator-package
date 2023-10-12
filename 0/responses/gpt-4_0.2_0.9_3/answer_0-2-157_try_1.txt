@@ -1,0 +1,11 @@
+The warning message you're seeing is due to a change in how `::v-deep` is used in Vue 3. In Vue 2, `::v-deep` was used as a combinator, but in Vue 3, it's used as a function.
+
+The correct way to use `::v-deep` in Vue 3 would be to include the inner selector within the parentheses. Here's how you can modify your CSS:
+
+```css
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+This change was made to make the usage of `::v-deep` more consistent and predictable.

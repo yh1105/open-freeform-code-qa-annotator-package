@@ -1,0 +1,7 @@
+The error message you received is a bit misleading. The issue is not with declaring properties or methods in a mapped type, but rather with the fact that you are trying to declare two different types of properties in the same mapped type. 
+
+When you use a mapped type, you are essentially creating a new type by mapping over an existing type. In your example, you are mapping over the `fruit` and `color` types to create a new type with properties for each value in those types. However, you are trying to declare two different types of properties in the same mapped type: a numeric property for fruits and a boolean property for colors. 
+
+This is not allowed in TypeScript because each property in an object must have a consistent type. In other words, you cannot have some properties with a numeric type and others with a boolean type in the same object. 
+
+By using an intersection type (`&`) as you did in your workaround, you are essentially creating two separate objects and then combining them into one. This allows you to declare different types of properties in each object without violating the rule that each property in an object must have a consistent type.

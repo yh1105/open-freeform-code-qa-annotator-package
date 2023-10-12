@@ -1,0 +1,25 @@
+PrimeNG uses the CSS variables for its theming which makes it easier to customize the theme. However, if you're using a pre-built theme like saga-blue, the colors are already compiled into the CSS and the `--primary-color` variable may not have an effect.
+
+To change the primary color, you can follow these steps:
+
+1. **Customize the theme:**
+
+   PrimeNG uses SASS for its styles, and you can customize the theme by changing the SASS variables. You need to download the source SASS files of the theme, change the variables, and then compile the SASS to CSS.
+
+   You can find the SASS files for the saga-blue theme in the PrimeNG GitHub repository. The main file is `_theme.scss` and the variables are defined in `_variables.scss`.
+
+   Change the `$primaryColor` variable to the color you want, and then compile the SASS to CSS. You can use a SASS compiler like `node-sass` or `dart-sass`.
+
+2. **Override the CSS:**
+
+   If you can't or don't want to customize the SASS files, you can override the CSS in your own styles. You need to find the CSS rules that use the primary color and write your own rules with a higher specificity.
+
+   To make it easier, you can use a CSS post-processor like PostCSS. You can write a PostCSS plugin that changes the primary color in the CSS file. The plugin can find the color codes and replace them with your color.
+
+   Note that PrimeNG uses different shades of the primary color for different states like hover and focus. You need to find these shades and replace them too. You can use a color tool to find the shades of your color.
+
+3. **Use a custom theme:**
+
+   If you need more customization, you can create your own theme. PrimeNG provides a tool called Theme Designer that you can use to create a custom theme. You can choose the colors, fonts, and other styles, and the tool generates the CSS for you.
+
+Remember to include your custom CSS file in your project and remove the saga-blue theme.

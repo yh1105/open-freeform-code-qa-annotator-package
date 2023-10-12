@@ -1,0 +1,19 @@
+The SelectByID2 method is a bit tricky to use. It requires the name of the entity you want to select, which can be difficult to obtain for faces and edges. However, you can use the GetEntity method to get the entity of the face or edge, and then use the GetName method to get its name. Here's how you can do it:
+
+```vba
+Dim faceEntity As SldWorks.Entity
+Set faceEntity = faceObj.GetEntity
+Dim faceName As String
+faceName = faceEntity.GetName
+```
+
+You can do the same for the edge. Once you have the names, you can use them in the SelectByID2 method.
+
+However, there's a simpler way to create a reference plane from a face and a point. You can use the CreatePlaneAtSurface method of the ModelDoc2 object. This method creates a plane at the first selected face or plane, and the plane is perpendicular to the first selected edge or axis. Here's how you can do it:
+
+```vba
+Dim swPlane As SldWorks.RefPlane
+Set swPlane = swModel.CreatePlaneAtSurface(faceObj, swPlaneAtSurfaceCreationOptions_e.swPlaneAtSurfaceCreationOptions_NormalToSurface, Nothing)
+```
+
+This method automatically deselects the selected entities, so you don't need to worry about that. Also, it doesn't require you to use the SelectByID2 method, which makes things simpler.

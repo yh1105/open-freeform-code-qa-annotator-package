@@ -1,0 +1,39 @@
+The issue in your code is with the `ForEach` loop. In your code, you are trying to access the `properties` array using the `card` variable, which is of type `Unicards.HPropert`. However, you should directly use the `card` variable to access the properties of the `HPropert` struct.
+
+Here's the corrected code:
+
+```
+struct Card_cell_rowOfCheracteristics: View {
+
+    var data2: Unicards
+
+    var body: some View {
+        let properties = data2.properties!
+
+        return VStack() {
+            ScrollView(Axis.Set.horizontal) {
+                HStack {
+                    ForEach(properties) { card in
+                        VStack {
+                            Image()
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 34, height: 34)
+
+                            VStack {
+                                Text(card.label) // Accessing label property directly using card variable
+                                    .font(.system(size: 14))
+                                    .fontWeight(.medium)
+                                Text(card.value) // Accessing value property directly using card variable
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+In the corrected code, we are directly accessing the `label` and `value` properties of the `HPropert` struct using the `card` variable, which is of type `Unicards.HPropert`.

@@ -1,0 +1,13 @@
+It sounds like the AWS CLI is defaulting to using the `vi` editor as the default pager for displaying output. You can change the pager to something else, like `less`, by setting the `AWS_PAGER` environment variable.
+
+Try running the following command:
+
+```
+export AWS_PAGER="less"
+```
+
+This will set the `AWS_PAGER` environment variable to use `less` instead of `vi` as the default pager for displaying output.
+
+You can also add this line to your shell configuration file (e.g. `~/.bashrc` or `~/.zshrc`) to make the change persistent across shell sessions.
+
+After setting the `AWS_PAGER` environment variable, try running the `aws ec2 describe-instances` command again and see if the output is displayed correctly in the terminal.

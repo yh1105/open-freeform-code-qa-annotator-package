@@ -1,0 +1,28 @@
+The issue is likely due to the `row` class in your parent div. The CSS you've written is for vertical scrolling, but the `row` class (which is commonly used in frameworks like Bootstrap) is typically used for horizontal layouts.
+
+If you're using a CSS framework that defines `row` as a horizontal layout, it may be overriding your vertical scroll settings. Try removing the `row` class from your parent div:
+
+```html
+<div class="parent">
+  <section class="one">
+  </section>
+  <section class="two">
+  </section>
+  <section class="three">
+  </section>
+  <section class="four">
+  </section>
+</div>
+```
+
+Also, you have a redundant `scroll-snap-type` property in your `.parent` class. You can remove `scroll-snap-type: mandatory;` because `scroll-snap-type: y mandatory;` is enough for vertical scrolling.
+
+```css
+.parent {
+  height: 100vh;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+}
+```
+
+If you want to keep the `row` class for some reason, you need to make sure it doesn't conflict with your vertical scroll settings.

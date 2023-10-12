@@ -1,0 +1,7 @@
+Yes, you're correct that the `omp single` directive means that the block of code it encapsulates will be executed by only one thread. However, this doesn't mean that the tasks created within this block will also be executed by only one thread.
+
+The `omp task` directive is used to create a task that can be executed in parallel with the rest of the code. When a task is encountered, it is not immediately executed. Instead, it is put into a task pool that the OpenMP runtime system manages. The tasks in this pool can then be executed by any thread in the team, not just the one that encountered the task.
+
+In your example, one thread (due to `omp single`) is responsible for traversing the linked list and creating tasks (due to `omp task`) for each node. These tasks are then added to the task pool. The other threads in the team, which are not involved in the traversal of the list, can then pick up these tasks from the pool and execute them in parallel.
+
+So, while the creation of tasks is done by a single thread, the execution of these tasks is done in parallel by multiple threads. This is how parallelism is achieved in this example.

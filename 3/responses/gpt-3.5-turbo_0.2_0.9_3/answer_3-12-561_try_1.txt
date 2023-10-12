@@ -1,0 +1,11 @@
+There could be a few reasons why the errorCallback takes a long time to be called on iOS:
+
+1. Network connectivity issues: It's possible that the iOS device is experiencing network connectivity issues, which is causing the request to take longer to fail. You can try checking the device's network settings and ensuring that it has a stable connection.
+
+2. DNS resolution issues: The iOS device may be experiencing issues with DNS resolution, which can cause delays in establishing a connection to the server. You can try using a different DNS server or checking the DNS settings on the device.
+
+3. Firewall or security settings: It's possible that the iOS device has firewall or security settings that are blocking the request from reaching the server. You can try checking the device's security settings and ensuring that they allow the app to make network requests.
+
+4. Server-side issues: The delay could also be caused by issues on the server-side, such as high traffic or slow response times. You can try testing the server with other requests to see if it's experiencing any issues.
+
+Overall, it's important to investigate the root cause of the delay and address it accordingly. You can also try optimizing the code to handle network errors more efficiently, such as setting a timeout for the request.

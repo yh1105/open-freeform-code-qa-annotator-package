@@ -1,0 +1,99 @@
+To display the version of your React app in the footer in the format you specified, you can create a version file in your project's root directory and store the version number in it. Then, you can read the version number from the file and display it in the footer of your app.
+
+To increment the version number every time you deploy the app, you can create a script that prompts you for the type of increment you want to make (major, minor, or patch) and then updates the version number in the version file accordingly.
+
+Here are the steps you can follow to achieve this:
+
+1. Create a version file in your project's root directory. You can name it `version.txt` or any other name you prefer.
+
+2. In the version file, store the version number in the format `major.minor.patch`. For example, if your app's current version is 1.2.3, the version file should contain the text `1.2.3`.
+
+3. In your React app, create a component for the footer and import the version number from the version file. You can use the `fs` module in Node.js to read the version file. Here's an example:
+
+```
+import React from 'react';
+import fs from 'fs';
+
+const version = fs.readFileSync('version.txt', 'utf-8').trim();
+
+function Footer() {
+  return (
+    <footer>
+      Version {version}
+    </footer>
+  );
+}
+
+export default Footer;
+```
+
+4. Create a script in your `package.json` file that updates the version number in the version file. Here's an example:
+
+```
+"scripts": {
+  "version": "node scripts/version.js"
+}
+```
+
+5. Create a `version.js` file in a `scripts` directory in your project's root directory. In this file, write code that prompts you for the type of increment you want to make and updates the version number in the version file accordingly. Here's an example:
+
+```
+const fs = require('fs');
+const readline = require('readline');
+
+const versionFile = 'version.txt';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+fs.readFile(versionFile, 'utf-8', (err, data) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+
+  const [major, minor, patch] = data.trim().split('.');
+
+  rl.question('Which version number do you want to increment? (major/minor/patch) ', answer => {
+    let newMajor = major;
+    let newMinor = minor;
+    let newPatch = patch;
+
+    switch (answer) {
+      case 'major':
+        newMajor = parseInt(major) + 1;
+        newMinor = 0;
+        newPatch = 0;
+        break;
+      case 'minor':
+        newMinor = parseInt(minor) + 1;
+        newPatch = 0;
+        break;
+      case 'patch':
+        newPatch = parseInt(patch) + 1;
+        break;
+      default:
+        console.error('Invalid answer');
+        process.exit(1);
+    }
+
+    const newVersion = `${newMajor}.${newMinor}.${newPatch}`;
+
+    fs.writeFile(versionFile, newVersion, err => {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+
+      console.log(`Version updated to ${newVersion}`);
+      process.exit(0);
+    });
+  });
+});
+```
+
+6. Run the script by running `npm run version` in your terminal. The script will prompt you for the type of increment you want to make and update the version number in the version file accordingly.
+
+7. Finally, make sure to commit the updated version file to your version control system (e.g. Git) after running the script. This will ensure that the version number is incremented every time you deploy the app.

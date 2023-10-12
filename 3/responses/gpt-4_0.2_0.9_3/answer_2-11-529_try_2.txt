@@ -1,0 +1,19 @@
+You can create a helper function that uses `std::apply` to call the constructor of `T` with the arguments from the tuple. Here's how you can do it:
+
+```cpp
+template <typename T, typename Tuple>
+T* make_new_from_tuple(Tuple&& t) {
+    return std::apply([](auto&&... args) {
+        return new T(std::forward<decltype(args)>(args)...);
+    }, std::forward<Tuple>(t));
+}
+```
+
+You can use this function like this:
+
+```cpp
+auto aTuple = std::make_tuple(1, 1.5, std::string("Hello"));
+A* a = make_new_from_tuple<A>(std::move(aTuple));
+```
+
+This function will work with any tuple, as long as its elements can be used as arguments to the constructor of `T`. This includes tuples that contain `std::unique_ptr`, as long as the constructor of `T` accepts `std::unique_ptr` arguments.

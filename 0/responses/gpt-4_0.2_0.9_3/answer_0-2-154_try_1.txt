@@ -1,0 +1,39 @@
+The problem with your current approach is that you're not handling the nested tags correctly. You're only looking at the immediate children of each node, and if a child is an element, you're not looking at its children.
+
+You can solve this by using a recursive approach. Here's a modified version of your code that should handle nested tags correctly:
+
+```javascript
+export interface Phrase {
+    text: string;
+    format: string[];
+}
+
+export class HTMLParser {
+    public parse(text: string): Phrase[] {
+        const parser = new DOMParser();
+        const sourceDocument = parser.parseFromString(text, "text/html");
+        return this.parseChildren(sourceDocument.body, []);
+    }
+
+    private parseChildren(node: Node, parentTags: string[]): Phrase[] {
+        let phrases: Phrase[] = [];
+        Array.from(node.childNodes).forEach(child => {
+            if (child.nodeType === Node.ELEMENT_NODE && child instanceof HTMLElement) {
+                const tags = [...parentTags, child.tagName];
+                if (child.childNodes.length > 0) {
+                    phrases = phrases.concat(this.parseChildren(child, tags));
+                } else {
+                    phrases.push({ text: child.textContent, format: tags });
+                }
+            } else if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() !== '') {
+                phrases.push({ text: child.textContent, format: parentTags.length > 0 ? parentTags : null });
+            }
+        });
+        return phrases;
+    }
+}
+```
+
+In this version, `parseChildren` is a recursive function that takes a node and a list of tags from parent nodes. It iterates over the child nodes of the given node. If a child is an element, it adds the tag of the child to the list of tags and calls itself recursively with the child and the updated list of tags. If a child is a text node, it creates a `Phrase` object with the text of the child and the list of tags, and adds it to the list of phrases. The function returns the list of phrases.
+
+The `parse` function uses `parseChildren` to parse the child nodes of the body of the HTML document, and returns the resulting list of phrases.

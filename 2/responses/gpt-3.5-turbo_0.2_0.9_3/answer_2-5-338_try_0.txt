@@ -1,0 +1,29 @@
+The error message suggests that there is no serializer found for the `java.io.ByteArrayInputStream` class, which is a part of the `MultipartFile` object that you are trying to send in the request body. This is because the `MultipartFile` object is not serializable by default.
+
+To solve this issue, you can use a `ByteArrayResource` to wrap the contents of the `MultipartFile` object and send it as a byte array in the request body. Here's how you can modify your code to do this:
+
+```
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+MultiValueMap<String, Object> body = new LinkedMultiValueMap<>(); 
+body.add("circularAttachment", new ByteArrayResource(souqBean.getCircularAttachment().getBytes()) {
+    @Override
+    public String getFilename() {
+        return souqBean.getCircularAttachment().getOriginalFilename();
+    }
+});
+body.add("circularEntryId", souqBean.getCircularEntryId());
+body.add("circularTitle", souqBean.getCircularTitle());
+
+HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
+
+ResponseEntity<Boolean> response = restTemplate.postForEntity("http://localhost:8081/circular-save", entity, Boolean.class);
+status = response.getBody();
+```
+
+In this code, we are creating a `ByteArrayResource` object from the contents of the `MultipartFile` object using the `getBytes()` method. We are also overriding the `getFilename()` method to return the original filename of the `MultipartFile` object.
+
+Then, we are adding this `ByteArrayResource` object to the `MultiValueMap` instead of the `MultipartFile` object. This will allow us to send the contents of the file as a byte array in the request body.
+
+Finally, we are creating the `HttpEntity` object with the modified `MultiValueMap` and sending the request using `RestTemplate`.

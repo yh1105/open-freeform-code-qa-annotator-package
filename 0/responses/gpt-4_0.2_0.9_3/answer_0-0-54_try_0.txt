@@ -1,0 +1,41 @@
+You can use the `useState` hook to store the values of the `firstname` and `lastname` fields. Then, you can create a function that will be triggered when the button is clicked, and this function will log the current values of the `firstname` and `lastname` fields.
+
+Here is an example of how you can do this:
+
+```jsx
+import React, { useState } from 'react';
+import { render } from 'react-dom';
+
+export default function App() {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  const handleClick = () => {
+    console.log(`First Name: ${firstName}, Last Name: ${lastName}`);
+  }
+
+  return (
+    <div>
+      <InputField name="firstName" label="First Name" value={firstName} onChange={setFirstName} />
+      <InputField name="lastName" label="Last Name" value={lastName} onChange={setLastName} />
+      <button onClick={handleClick}>Submit</button>
+    </div>
+  );
+}
+
+function InputField({name, label, value, onChange}) {
+  return (
+    <div>
+      <label>{label}</label>
+      <input type="text" 
+      value={value} 
+      name={name}
+      onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+render(<App />, document.getElementById('root'));
+```
+
+In this example, the `App` component is maintaining the state of the `firstname` and `lastname` fields. The `InputField` component is a controlled component, which means that its value is being controlled by the parent `App` component. When the input field changes, it calls the `onChange` function passed in as a prop, which updates the state in the `App` component. When the button is clicked, the `handleClick` function is called, which logs the current values of the `firstname` and `lastname` fields.

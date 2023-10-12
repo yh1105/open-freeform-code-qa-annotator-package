@@ -1,0 +1,23 @@
+You can extract the breakpoints from the Tailwind config file by accessing the `theme` object and looking for the `screens` property. This property contains an object with the breakpoint names as keys and the corresponding screen sizes as values.
+
+Here's an example of how you can extract the breakpoints as mixins in SCSS:
+
+```
+@each $breakpoint, $size in theme('screens') {
+  @mixin #{$breakpoint} {
+    @media (min-width: #{$size}) {
+      @content;
+    }
+  }
+}
+```
+
+This will create mixins for each breakpoint defined in the Tailwind config file, which you can then use in your styles like this:
+
+```
+@include md {
+  // styles for medium screens and above
+}
+``` 
+
+Hope this helps!

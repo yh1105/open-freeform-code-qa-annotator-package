@@ -1,0 +1,37 @@
+In zsh, the tab key is usually represented as `accept-line` or `expand-or-complete`. If you want to use the tab key for accepting autosuggestions, you can add either of these to your `ZSH_AUTOSUGGEST_ACCEPT_WIDGETS` array.
+
+Here is how you can modify your configuration:
+
+```bash
+# Widgets that accept the entire suggestion
+(( ! ${+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS} )) && {
+        typeset -ga ZSH_AUTOSUGGEST_ACCEPT_WIDGETS
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+                forward-char
+                end-of-line
+                accept-line //my line
+                vi-forward-char
+                vi-end-of-line
+                vi-add-eol
+        )
+}
+```
+
+or
+
+```bash
+# Widgets that accept the entire suggestion
+(( ! ${+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS} )) && {
+        typeset -ga ZSH_AUTOSUGGEST_ACCEPT_WIDGETS
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+                forward-char
+                end-of-line
+                expand-or-complete //my line
+                vi-forward-char
+                vi-end-of-line
+                vi-add-eol
+        )
+}
+```
+
+Remember to source your zsh configuration file or restart your terminal session for the changes to take effect.

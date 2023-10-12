@@ -1,0 +1,11 @@
+It seems like this is a known issue with rust-analyzer. There are a few things you can try to work around it:
+
+1. Update rust-analyzer to the latest version. This issue may have been fixed in a more recent release.
+
+2. Try using the `#[cfg(test)]` attribute on the function itself instead of on the module. This may help rust-analyzer better understand the macro expansion.
+
+3. Use the `#[allow(unused_macros)]` attribute on the module. This will suppress the error, but it's not a great solution as it may hide other macro expansion errors.
+
+4. Use the Rust VSCode extension instead of rust-analyzer. While you've had better experiences with rust-analyzer, the official extension may not have this issue.
+
+I hope one of these solutions works for you!

@@ -1,0 +1,15 @@
+Yes, you can get the shape of the list without converting it into a numpy array. Since your list contains PyTorch tensors, you can use the `size()` method to get the shape of each tensor in the list. Here's an example:
+
+```
+my_list = [tensor1, tensor2, tensor3]
+for tensor in my_list:
+    print(tensor.size())
+```
+
+This will print the shape of each tensor in the list. If you want to get the shape of the entire list, you can use the `len()` function:
+
+```
+print(len(my_list))
+```
+
+This will print the number of tensors in the list.

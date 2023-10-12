@@ -1,0 +1,23 @@
+It seems like you are trying to patch the value of the multiselect dropdown with an array of numbers, but the dropdown options are objects with a label and value property. You need to map the array of numbers to an array of objects with the corresponding label and value properties.
+
+You can use the `map()` method to achieve this. Here's an example:
+
+```
+const selectedDays = [1, 2]; // example array of numbers
+const selectedDaysObjects = selectedDays.map(day => {
+  return this.excludeDays.find(d => d.value === day);
+});
+```
+
+This code will create a new array `selectedDaysObjects` that contains objects with the corresponding label and value properties from the `excludeDays` array.
+
+Then, you can use this new array to patch the value of the multiselect dropdown:
+
+```
+this.form.patchValue({
+  ... : ....
+  excludeDays: selectedDaysObjects
+});
+``` 
+
+This should select the correct options in the multiselect dropdown based on the array of numbers you received from the backend.

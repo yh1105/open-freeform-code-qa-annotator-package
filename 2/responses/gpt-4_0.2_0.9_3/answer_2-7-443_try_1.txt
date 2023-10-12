@@ -1,0 +1,35 @@
+The problem you're facing is due to the fact that Laravel's routing system doesn't support passing arrays as route parameters out of the box. The route parameters are expected to be simple scalar values like strings or integers.
+
+The error message you're seeing is because `serialize()` function in PHP returns a string containing a byte-stream representation of any value that can be stored in PHP. Laravel is trying to match this serialized string to a route parameter and failing.
+
+If you need to pass an array to a route, you can consider these options:
+
+1. **Convert the array to a query string**: You can convert your array to a query string and append it to your URL. Laravel provides a helper function `http_build_query()` to do this. Here's an example:
+
+```php
+$array = ['a' => 'one', 'b' => 1];
+$queryString = http_build_query($array);
+$url = route('route.name') . '?' . $queryString;
+```
+
+Then in your controller, you can access these values using the `request()` helper or `Request` facade:
+
+```php
+$a = request('a'); // 'one'
+$b = request('b'); // 1
+```
+
+2. **JSON encode the array**: Another option is to JSON encode the array and pass it as a single string parameter. However, you'll need to decode it in your controller:
+
+```php
+$array = ['a' => 'one', 'b' => 1];
+$url = route('route.name', ['array' => json_encode($array)]);
+```
+
+Then in your controller, you can decode this value:
+
+```php
+$array = json_decode($array, true);
+```
+
+Remember, both these methods have limitations. If your array is very large, you might exceed the maximum URL length of browsers and servers. Also, these methods expose your array data in the URL, which might not be desirable for sensitive data.

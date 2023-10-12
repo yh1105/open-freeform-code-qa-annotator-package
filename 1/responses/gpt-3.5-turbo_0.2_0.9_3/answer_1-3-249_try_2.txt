@@ -1,0 +1,14 @@
+Your code is almost correct, but it generates 11 random characters instead of 3 digits. Here's a modified version that generates 3 random digits and concatenates them with the 5 known characters to form a 16 character code:
+
+```
+import random
+import string
+
+known_chars = "NAA3U"
+random_chars = ''.join((random.choice(string.ascii_uppercase + string.digits) for codenum in range(11)))
+random_digits = ''.join((random.choice(string.digits) for codenum in range(3)))
+result = known_chars + random_chars + random_digits
+print(result)
+```
+
+This code first generates 11 random characters using `string.ascii_uppercase` and `string.digits`, just like your original code. It then generates 3 random digits using `string.digits`. Finally, it concatenates the 5 known characters, the 11 random characters, and the 3 random digits to form a 16 character code.

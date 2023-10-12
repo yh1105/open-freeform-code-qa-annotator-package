@@ -1,0 +1,17 @@
+You can achieve this by checking if the string contains `_` or not. If it does, then you can use the `split` function and join all elements after the first one. If it doesn't, then you can just return the string itself. Here is how you can do it:
+
+```python
+def get_string_after_underscore(s):
+    if '_' in s:
+        return '_'.join(s.split('_')[1:])
+    else:
+        return s
+```
+
+You can use this function like this:
+
+```python
+print(get_string_after_underscore('testing_abc'))  # Output: abc
+print(get_string_after_underscore('xyz'))  # Output: xyz
+print(get_string_after_underscore('testing_abc_bbc'))  # Output: abc_bbc
+```

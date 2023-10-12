@@ -1,0 +1,42 @@
+In C++, the size of an array must be a compile-time constant. This means that you can't create an array using a size that is determined at runtime, like the parameters of a function. 
+
+However, you can use a `std::vector` or `std::array` to create a dynamic array. A `std::vector` is a dynamic array that can grow and shrink at runtime. A `std::array` is a container that encapsulates fixed size arrays.
+
+Here is how you can modify your code to use `std::vector`:
+
+```cpp
+#include <vector>
+#include <string>
+#include <iostream>
+
+std::vector<std::vector<std::string>> my_2d_array(int N, int M) {
+    std::vector<std::vector<std::string>> A(N, std::vector<std::string>(M));
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            A[i][j] = std::to_string(i) + std::to_string(j);
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    std::vector<std::vector<std::string>> A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+    return 0;
+}
+```
+
+In this code, `std::vector<std::vector<std::string>>` creates a 2D vector of strings. The `std::vector<std::string>(M)` part creates a vector of strings with size M, and `std::vector<std::vector<std::string>>(N, std::vector<std::string>(M))` creates a vector of these vectors with size N, effectively creating a 2D array.
+
+Also, note that the `main` function should return an `int`, not `void`.

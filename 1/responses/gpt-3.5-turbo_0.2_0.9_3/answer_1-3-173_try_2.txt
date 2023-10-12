@@ -1,0 +1,44 @@
+Yes, you can use the `pandas.Period` function to convert your datetime object to a period object with a frequency of 'A' (annual). Then, you can use the `days_in_year` attribute to get the total number of days in the year.
+
+Here's an example code snippet:
+
+``` python
+import pandas as pd
+
+# example datetime object
+date = pd.to_datetime('2020-03-30')
+
+# convert to period object with frequency of 'A'
+year = date.to_period('A')
+
+# get total number of days in the year
+days_in_year = year.days_in_year
+
+print(days_in_year) # output: 366
+```
+
+If you have a DataFrame with a column of datetime objects, you can apply this method to the entire column using the `apply` function:
+
+``` python
+import pandas as pd
+
+# example DataFrame with datetime column
+df = pd.DataFrame({'date': ['2020-03-30', '2019-03-30']})
+df['date'] = pd.to_datetime(df['date'])
+
+# convert datetime column to period column with frequency of 'A'
+df['year'] = df['date'].apply(lambda x: x.to_period('A'))
+
+# get total number of days in each year
+df['days_in_year'] = df['year'].apply(lambda x: x.days_in_year)
+
+print(df)
+```
+
+This will output:
+
+```
+        date  year  days_in_year
+0 2020-03-30  2020           366
+1 2019-03-30  2019           365
+```

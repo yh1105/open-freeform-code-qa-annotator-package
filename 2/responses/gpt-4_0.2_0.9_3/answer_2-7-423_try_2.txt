@@ -1,0 +1,15 @@
+The issue you're experiencing might be due to the fact that PhpStorm is not able to detect the Xdebug extension when running PHPUnit tests. Here are a few steps you can take to troubleshoot and potentially resolve this issue:
+
+1. **Check Xdebug Installation**: Ensure that Xdebug is properly installed and enabled in your Docker container. You can do this by running `php -v` or `php -m` in the Docker container. If Xdebug is properly installed, you should see it listed in the output.
+
+2. **Check Xdebug Configuration**: Verify that Xdebug is correctly configured in your `php.ini` file. The `xdebug.remote_enable` directive should be set to `1`, and the `xdebug.idekey` should be set to `PHPSTORM`.
+
+3. **Check PhpStorm Configuration**: In PhpStorm, go to `Settings/Preferences | Languages & Frameworks | PHP | Debug` and ensure that the `Debug port` is set to `10000` (the same port you specified in your Docker configuration). Also, check the box that says `Can accept external connections`.
+
+4. **Check PhpStorm Interpreter**: In PhpStorm, go to `Settings/Preferences | Languages & Frameworks | PHP` and make sure that the CLI Interpreter is set to the correct Docker interpreter. If it's not, click on the `...` button next to the CLI Interpreter dropdown, click on the `+` button to add a new interpreter, select `From Docker, Vagrant, VM, WSL, Remote...`, and then select your Docker interpreter.
+
+5. **Check PhpStorm PHPUnit Configuration**: In PhpStorm, go to `Settings/Preferences | Languages & Frameworks | PHP | Test Frameworks` and make sure that PHPUnit is correctly configured to use the Docker interpreter and that the path to the PHPUnit library or the PHPUnit phar file is correctly set.
+
+6. **Restart PhpStorm**: Sometimes, simply restarting PhpStorm can resolve issues with detecting installed extensions.
+
+If you've checked all of these and are still experiencing the issue, it might be helpful to see the full output of your PHPUnit test run, as well as any relevant logs from PhpStorm or Docker.

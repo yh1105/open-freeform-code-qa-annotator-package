@@ -1,0 +1,17 @@
+The error message suggests that you need to specify the Go package name for your generated code. You can do this by adding a `go_package` option to your `.proto` file.
+
+For example, you can add the following line to your `simple.proto` file:
+
+```
+option go_package = "github.com/your-username/your-repo/your-package-name";
+```
+
+Replace `your-username`, `your-repo`, and `your-package-name` with your own values.
+
+Then, run the `protoc` command again with the `--go_out` flag and the `M` argument:
+
+```
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative simple.proto
+```
+
+This should generate the Go code for your `Person` message in the current directory.

@@ -1,0 +1,7 @@
+The issue is that TypeScript doesn't allow you to declare two mapped types in the same type declaration. This is because TypeScript doesn't know how to merge these two mapped types into one. 
+
+In your case, the `fruit` and `color` types don't overlap, so it's not an issue, but consider a case where they did overlap. For example, if `fruit` and `color` both had a value of `"red"`, TypeScript wouldn't know whether to make `"red"` a `number` or a `boolean`.
+
+The workaround you've found is the correct way to handle this. By using the intersection operator (`&`), you're telling TypeScript to merge these two types together. This works because the `fruit` and `color` types don't overlap. If they did overlap, the type on the right side of the `&` would overwrite the type on the left side. 
+
+So, the actual issue is that TypeScript doesn't allow multiple mapped types in the same type declaration because it doesn't know how to merge them. The solution is to use the intersection operator to merge the types manually.

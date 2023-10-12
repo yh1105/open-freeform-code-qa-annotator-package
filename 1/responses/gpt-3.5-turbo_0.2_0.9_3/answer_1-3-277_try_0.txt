@@ -1,0 +1,27 @@
+To implement the learning rate schedule suggested in the paper with Adam optimizer in PyTorch, you can use the `LambdaLR` scheduler provided by PyTorch. Here's an example code snippet:
+
+```python
+import torch.optim as optim
+from torch.optim.lr_scheduler import LambdaLR
+
+# Define your Adam optimizer with initial learning rate
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# Define the lambda function for learning rate schedule
+lr_lambda = lambda step: (1 + step / warmup_steps) * (model_size ** -0.5) / warmup_factor
+
+# Define the scheduler with the lambda function
+scheduler = LambdaLR(optimizer, lr_lambda)
+
+# Train your model in a loop
+for step in range(num_steps):
+    # Perform forward and backward pass
+    loss.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+
+    # Update the learning rate
+    scheduler.step()
+```
+
+In the above code, `lr_lambda` is the lambda function that implements the learning rate schedule suggested in the paper. `warmup_steps` and `warmup_factor` are hyperparameters that control the warmup phase of the learning rate schedule. `model_size` is the size of the model, which is used to scale the learning rate. Finally, `LambdaLR` is used to create a scheduler that updates the learning rate according to the lambda function.

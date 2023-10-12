@@ -1,0 +1,31 @@
+You can use the Intersection Observer API to detect whether an element is in the viewport or not. Here's a simple example of how you can use it:
+
+```javascript
+let options = {
+  root: document.querySelector('#parent'),
+  rootMargin: '0px',
+  threshold: 1.0
+}
+
+let callback = (entries, observer) => { 
+  entries.forEach(entry => {
+    // Each entry describes an intersection change for one observed
+    // target element
+    if(entry.isIntersecting){
+      console.log(entry.target.id + ' is in the viewport!');
+    }
+  });
+};
+
+let observer = new IntersectionObserver(callback, options);
+
+// Now we should tell our observer to observe a certain target (or targets)
+let targets = document.querySelectorAll('#parent > div');
+targets.forEach(target => observer.observe(target));
+```
+
+This code will log the id of each child div of #parent that is fully within the viewport. You can adjust the `threshold` option to change when the callback is invoked (1.0 means that 100% of the target is visible, 0.5 means 50%, etc.).
+
+Please note that the Intersection Observer API is not supported in all browsers (notably, IE does not support it). If you need to support all browsers, you may need to use a polyfill or a different method to detect whether an element is in the viewport.
+
+Also, make sure your divs have a unique id. In your current code, all divs have the same id, which is not valid HTML. You can use the `item.id` to give each div a unique id.

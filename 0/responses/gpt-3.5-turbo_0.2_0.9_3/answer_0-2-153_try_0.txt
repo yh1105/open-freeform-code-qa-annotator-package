@@ -1,0 +1,7 @@
+Yes, there is a shorter way to achieve the same result using the `border-t` utility class. You can simply add the `border-t` class along with the `border-blue-900` class to the element to apply the border only to the top edge. Here's an example:
+
+```
+<div class="border-t border-blue-900">foo</div>
+```
+
+This will apply a border only to the top edge of the element with a blue color. You can also adjust the width of the border by adding the `border-t-1` class (or any other number) to set the border width.

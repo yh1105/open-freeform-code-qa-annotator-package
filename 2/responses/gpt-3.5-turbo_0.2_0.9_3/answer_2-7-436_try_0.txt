@@ -1,0 +1,11 @@
+It looks like the issue is related to your PHP version. Laravel 9 requires PHP 8.0 or higher, so you'll need to make sure you have the correct version installed on your system.
+
+You can check your PHP version by running the following command in your terminal:
+
+```
+php -v
+```
+
+If you don't have PHP 8.0 or higher installed, you'll need to install it before you can install Laravel 9. You can download the latest version of PHP from the official website: https://www.php.net/downloads.php
+
+Once you have the correct version of PHP installed, you can try running the `composer create-project` command again to install Laravel 9.

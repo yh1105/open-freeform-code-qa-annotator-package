@@ -1,0 +1,30 @@
+It seems like you're trying to override a method in a vendor file, which is not recommended as it can cause issues with updates and compatibility. Instead, you can create a middleware that modifies the request object before it reaches the routing system.
+
+Here's an example of how you can achieve this:
+
+1. Create a new middleware using the command `php artisan make:middleware RemoveTrailingSlashMiddleware`.
+
+2. Open the newly created middleware file `app/Http/Middleware/RemoveTrailingSlashMiddleware.php` and modify the `handle` method as follows:
+
+```
+public function handle($request, Closure $next)
+{
+    $uri = $request->getRequestUri();
+    $request->server->set('REQUEST_URI', rtrim($uri, '/'));
+
+    return $next($request);
+}
+```
+
+3. Register the middleware in `app/Http/Kernel.php` by adding it to the `$middleware` array:
+
+```
+protected $middleware = [
+    // ...
+    \App\Http\Middleware\RemoveTrailingSlashMiddleware::class,
+];
+```
+
+4. Remove any changes you made to the vendor file `vendor/laravel/framework/Illuminate/Routing/CompileRouteCollection.php`.
+
+With this middleware in place, any request that has a trailing slash will have it removed before it reaches the routing system. This should achieve the same result as modifying the vendor file, but in a more maintainable and upgrade-friendly way.

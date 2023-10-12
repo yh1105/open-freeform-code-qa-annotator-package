@@ -1,0 +1,15 @@
+The error message you're seeing indicates that the response from your API call is not valid JSON. The '<' character is not a valid start of a JSON value, which suggests that the response might be HTML or XML.
+
+Here are a few things you can check:
+
+1. Check the URL of your API call: Make sure that the URL you're using in your Blazor app matches the route of your API controller. In your case, the URL should be "/api/Employee/Index". 
+
+2. Check the response from your API: You can use a tool like Postman to send a request to your API and see what the response looks like. If the response is not valid JSON, you'll need to fix this in your API code.
+
+3. Check the data returned by your API: The data returned by your API needs to match the structure of your Employee class in your Blazor app. If there are any mismatches, you'll need to fix these.
+
+4. Check the HTTP method: You're using a GET request in your Blazor app, so make sure your API method is also a GET method.
+
+5. Check the server logs: If you're still having trouble, check the server logs for any errors or warnings that might help you diagnose the problem.
+
+If you've checked all of these and you're still having trouble, please provide more information about your API code and the structure of your Employee class.

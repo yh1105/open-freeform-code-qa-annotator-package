@@ -1,0 +1,13 @@
+It seems like the issue is related to SSL verification. One possible solution is to update the SSL certificates on your system. You can try the following steps:
+
+1. Download the latest SSL certificates from the official website: https://curl.haxx.se/docs/caextract.html
+
+2. Save the downloaded file as `cacert.pem` in a directory on your system.
+
+3. Set the `SSL_CERT_FILE` environment variable to the path of the `cacert.pem` file. You can do this by running the following command in your terminal:
+
+   `export SSL_CERT_FILE=/path/to/cacert.pem`
+
+4. Try running the `pip install` command again.
+
+If this doesn't work, you can try upgrading your version of pip by running `pip install --upgrade pip`. If that still doesn't work, you can try using a different package manager like conda or easy_install.

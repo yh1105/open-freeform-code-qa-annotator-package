@@ -1,0 +1,19 @@
+It seems like you are looking for a way to use globbing to apply commands to specific files with certain extensions or patterns. While globbing can be useful for selecting files based on patterns, it may not always be the best solution for applying commands to specific files.
+
+For example, if you want to apply a command to all files with a certain extension, you can use the `find` command with the `-name` option:
+
+```
+find . -name "*.php" -exec grep "find me" {} \;
+```
+
+This will find all files with the `.php` extension in the current directory and its subdirectories, and then execute the `grep` command on each file.
+
+Similarly, if you want to copy all files with a certain extension to a new directory, you can use the `find` command with the `-exec` option:
+
+```
+find . -name "*.php" -exec cp {} /path/to/new/directory \;
+```
+
+This will find all files with the `.php` extension in the current directory and its subdirectories, and then copy each file to the specified directory.
+
+In general, it's a good idea to use the appropriate command for the task at hand, rather than trying to shoehorn globbing into a solution.

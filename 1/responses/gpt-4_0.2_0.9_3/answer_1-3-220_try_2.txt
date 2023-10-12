@@ -1,0 +1,31 @@
+There isn't a single function in boto3 that will list all resources across all AWS services, because boto3 is organized by service. You would need to call the list or describe function for each service that you're interested in. 
+
+Here's an example of how you might list all EC2 instances and S3 buckets:
+
+```python
+import boto3
+
+def list_ec2_instances():
+    ec2 = boto3.resource('ec2')
+    for instance in ec2.instances.all():
+        print(instance.id, instance.state)
+
+def list_s3_buckets():
+    s3 = boto3.resource('s3')
+    for bucket in s3.buckets.all():
+        print(bucket.name)
+
+if __name__ == "__main__":
+    list_ec2_instances()
+    list_s3_buckets()
+```
+
+You would need to do something similar for each service that you're interested in (RDS, DynamoDB, etc). 
+
+Also, please note that these scripts will list resources in the default region (as specified in your AWS config), so if you have resources in multiple regions, you'll need to specify the region when you create the resource object, like so:
+
+```python
+ec2 = boto3.resource('ec2', region_name='us-west-2')
+```
+
+Remember to replace 'us-west-2' with the actual region that you want to list resources for. You might need to run the script multiple times, once for each region.

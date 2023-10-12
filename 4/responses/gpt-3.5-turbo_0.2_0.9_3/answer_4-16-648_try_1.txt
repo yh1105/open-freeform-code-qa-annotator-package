@@ -1,0 +1,13 @@
+The error message "Read-only file system" indicates that the file system is mounted as read-only, which means you cannot create new directories or modify existing files. 
+
+You can try the following steps to resolve the issue:
+
+1. Check the file system status by running the command `mount`. This will show you the status of all mounted file systems.
+
+2. If the file system is mounted as read-only, you can try remounting it as read-write by running the command `mount -o remount,rw /`. This will remount the root file system as read-write.
+
+3. If the above command does not work, you may need to check if the file system is corrupted or damaged. You can run a file system check by running the command `fsck /dev/sda1` (replace `/dev/sda1` with the appropriate device name for your file system).
+
+4. If the file system check finds errors, you can try repairing them by running the command `fsck -y /dev/sda1`.
+
+Once you have resolved any issues with the file system, you should be able to create new directories in the main directory.

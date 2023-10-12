@@ -1,0 +1,85 @@
+The error message `Uncaught ReferenceError: __dirname is not defined` indicates that the `__dirname` variable is not defined in the context where it is being used. 
+
+In Electron, `__dirname` is a global variable that refers to the directory name of the current module. However, when using webpack to bundle your code, the `__dirname` variable is not available by default. 
+
+To fix this issue, you can add the following code to your webpack configuration file:
+
+```
+const path = require('path')
+
+module.exports = {
+  // ...
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+  // ...
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
+}
+```
+
+This will tell webpack to not replace `__dirname` and `__filename` with their values at build time, and instead keep them as-is. 
+
+Additionally, you can use the `electron` module instead of `ipcMain` to send and receive events between the main process and renderer process. Here's an updated version of your code:
+
+Component: Splash.vue
+```
+<template>
+    <div @click="open">open</div>      
+</template>
+
+<script>
+
+const { ipcRenderer } = require('electron')
+
+export default {
+    methods: {
+        open()
+        {
+            ipcRenderer.send('my-open-event')
+        }
+    }
+}
+</script>
+```
+
+background.js
+```
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+
+...
+
+ipcMain.on('my-open-event', async () => {
+    try {
+        "Will call some executable here";
+    } catch (e) {
+        console.error(e)
+    }
+})
+```
+
+main.js
+```
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+
+const { ipcRenderer } = require('electron')
+
+Vue.config.productionTip = false
+
+new Vue({
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+ipcRenderer.on('my-open-event', (event, arg) => {
+    console.log(event, arg)
+})
+```
+
+This should allow you to send and receive events between the renderer process and main process in your Electron app.

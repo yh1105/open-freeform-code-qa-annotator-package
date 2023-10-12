@@ -1,0 +1,31 @@
+The Maven Wrapper is a shell script used to automatically download and install the correct version of Maven for your project. It's a good way to ensure that everyone working on your project is using the same version of Maven.
+
+If you're having trouble with the Maven Wrapper using an older version of Java, it's likely because the `JAVA_HOME` environment variable is set to point to that older version. The Maven Wrapper uses the `JAVA_HOME` environment variable to find the Java installation to use.
+
+Here's how you can change the `JAVA_HOME` environment variable:
+
+1. Open a terminal.
+2. If you're using a Unix-based system like Linux or MacOS, enter the following command to open the bash profile file in a text editor:
+
+```bash
+nano ~/.bash_profile
+```
+
+If you're using Windows, you'll need to open the System Properties window, click on the "Environment Variables" button, then edit the `JAVA_HOME` variable in the System variables section.
+
+3. Add the following line to the file, replacing `/path/to/java` with the path to your Java installation:
+
+```bash
+export JAVA_HOME=/path/to/java
+```
+
+4. Save and close the file.
+5. If you're using a Unix-based system, enter the following command to reload the bash profile:
+
+```bash
+source ~/.bash_profile
+```
+
+Now, when you run the Maven Wrapper, it should use the correct version of Java.
+
+If you want to avoid downloading JDK from a remote source, you can manually install the JDK on your machine and then point the `JAVA_HOME` environment variable to that installation. You can download the JDK from the official Oracle website or use a package manager like `apt` for Ubuntu or `brew` for MacOS.

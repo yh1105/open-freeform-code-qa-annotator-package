@@ -1,0 +1,39 @@
+To handle nested tags, you can modify your `parseChildren` method to recursively parse child nodes of an element. Here's an updated implementation:
+```
+private parseChildren(toParse: NodeListOf<ChildNode>): Phrase[] {
+    const phrases: Phrase[] = [];
+    Array.from(toParse).forEach(child => {
+        if (child.nodeType === Node.ELEMENT_NODE && child instanceof HTMLElement) {
+            const childPhrases = this.parseChildren(child.childNodes);
+            const format = child.tagName.toLowerCase();
+            childPhrases.forEach(childPhrase => {
+                if (childPhrase.format) {
+                    childPhrase.format.unshift(format);
+                } else {
+                    childPhrase.format = [format];
+                }
+            });
+            phrases.push(...childPhrases);
+        } else {
+            const text = child.textContent.trim();
+            if (text) {
+                phrases.push({ text, format: null });
+            }
+        }
+    });
+    return phrases;
+}
+```
+This method recursively calls itself for each child element, and merges the resulting phrases with the current element's format applied to them. The `unshift` method is used to add the current element's format to the beginning of the child phrase's format array, so that the format is applied correctly to nested elements. The resulting phrases are then concatenated to the `phrases` array and returned.
+
+To use this updated method, you can modify your `parse` method to call `parseChildren` with the body element of the parsed document:
+```
+public parse(text: string): void {
+    const parser = new DOMParser();
+    const sourceDocument = parser.parseFromString(text, "text/html");
+    const phrases = this.parseChildren(sourceDocument.body.childNodes);
+    console.log("RESULT of CONVERSION", phrases);
+}
+```
+
+With these changes, your `HTMLParser` class should be able to correctly parse HTML strings with nested tags.

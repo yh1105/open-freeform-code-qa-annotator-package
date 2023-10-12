@@ -1,0 +1,26 @@
+The error message you're seeing indicates that Go is unable to find the specific version of the module you're trying to import. This could be due to a few reasons:
+
+1. **Network Issues**: Ensure that you have a stable internet connection and you are able to access the repository URL from your browser or using a git command.
+
+2. **Authentication Issues**: Since the repository is private, you need to make sure that your credentials are correctly set up on computer B. Go uses the same authentication as Git, so you can check if you're able to clone the repository using `git clone`.
+
+3. **Proxy Settings**: If you're using a proxy, you need to make sure that it's correctly configured. You can check your current settings with `go env`.
+
+4. **Incorrect Version**: The version `v0.1.5` might not exist in the repository. You can check the available versions in the repository and update your `go.mod` file accordingly.
+
+To debug this issue, you can use the `-x` flag with the `go build` command to print out more information about what's happening:
+
+```bash
+go build -x
+```
+
+This will print out all the commands that `go build` is running under the hood, which might give you more insight into what's going wrong.
+
+If you're still having trouble, you can try deleting your `go.sum` file and running `go build` again. The `go.sum` file is used to ensure that future downloads of these modules retrieve the same bits as the first download, to ensure the modules your project depends on do not change unexpectedly, whether for malicious, accidental, or other reasons. Go will automatically recreate the `go.sum` file as needed.
+
+```bash
+rm go.sum
+go build
+```
+
+Remember to check your `go.mod` file for any syntax errors or incorrect module paths.

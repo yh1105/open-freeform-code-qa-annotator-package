@@ -1,0 +1,23 @@
+The error message you're seeing is typically caused by Retrofit not being able to create a converter for your data model. In your case, it's the `JConfig` class. 
+
+The problem is likely due to the fact that you're using Moshi for JSON serialization/deserialization, but you haven't added the Moshi annotations to your `Config` data class. 
+
+You should add `@Json` annotations to the properties in your `Config` class, like this:
+
+```kotlin
+data class Config(
+    @Json(name = "codigo") var codigo: Int,
+    @Json(name = "tipo") var tipo: String,
+    @Json(name = "empresa") var empresa: Int,
+    @Json(name = "sucursal") var sucursal: Int,
+    @Json(name = "esquema") var esquema: Int,
+    @Json(name = "horainicio") var horainicio: String,
+    @Json(name = "horafinal") var horafinal: String,
+    @Json(name = "fecha") var fecha: String,
+    @Json(name = "seguimiento") var seguimiento: Int
+)
+```
+
+Also, make sure that the JSON response from your server matches the structure of your `JConfig` and `Config` classes. If there's a mismatch, Moshi won't be able to convert the JSON into your data classes, which would cause the error you're seeing.
+
+If you're still having trouble, you might want to try using a tool like [Postman](https://www.postman.com/) to inspect the actual JSON response from your server and make sure it matches your data classes.

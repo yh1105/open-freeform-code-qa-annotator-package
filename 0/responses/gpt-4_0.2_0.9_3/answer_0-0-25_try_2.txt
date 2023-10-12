@@ -1,0 +1,41 @@
+In React Navigation v5, the params are only passed to the screen you are navigating to, not to the nested navigators or screens. So, in your case, the params are passed to the `FollowingTabs` but not to the `PageScreen` or `GroupScreen`.
+
+However, you can pass the params to the nested screens by using the `initialParams` prop of the `Screen` component. You can access the params in the parent navigator and pass them to the child navigator like this:
+
+```jsx
+const Tabs = createMaterialTopTabNavigator();
+export const FollowingTabs = ({ route }) => {
+  const { isPublicProfile, firstName } = route.params;
+  return (
+    <Tabs.Navigator
+      initialRouteName='page'
+      lazy
+      swipeEnabled
+    >
+      <Tabs.Screen
+        component={PageScreen}
+        name='page'
+        options={{ tabBarLabel: '2 Pages' }}
+        initialParams={{ isPublicProfile, firstName }}
+      />
+      <Tabs.Screen
+        component={GroupScreen}
+        name='groups'
+        options={{ tabBarLabel: '3 Groups' }}
+        initialParams={{ isPublicProfile, firstName }}
+      />
+    </Tabs.Navigator>
+  );
+};
+```
+
+Now, you should be able to access the params in the `PageScreen` and `GroupScreen`:
+
+```jsx
+const PageScreen = ({ route }) => {
+  const { isPublicProfile, firstName } = route.params;
+  ...
+};
+```
+
+Please note that `initialParams` will only provide initial values for the params. If you navigate to the `PageScreen` or `GroupScreen` with new params, the new params will override the initial ones.

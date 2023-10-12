@@ -1,0 +1,21 @@
+You can use the `jq` command-line tool to achieve this. `jq` is a lightweight and flexible command-line JSON processor. Here's how you can use it to uglify your JSON:
+
+```
+$ echo '{ "foo": "lorem", "bar": "ipsum" }' | jq -c '.'
+```
+
+The `-c` option tells `jq` to output the result in compact (uglified) form. The `.` argument is a filter that selects the entire input object.
+
+The above command will output:
+
+```
+{"foo":"lorem","bar":"ipsum"}
+```
+
+You can then pipe this output to another command, such as `httpie`, like this:
+
+```
+$ echo '{ "foo": "lorem", "bar": "ipsum" }' | jq -c '.' | http POST http://example.com/api -j
+```
+
+The `-j` option tells `httpie` to read the request body as JSON.

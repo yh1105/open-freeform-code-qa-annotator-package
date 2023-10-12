@@ -1,0 +1,34 @@
+The error you're seeing is likely because the SHA hash you're trying to checkout doesn't exist in your repository. Here are a few things you can try:
+
+1. Verify the SHA hash: Make sure that the SHA hash you're trying to checkout actually exists in your repository. You can do this by running `git log` and looking for the SHA hash in the output.
+
+2. Use absolute path for the repository: Instead of using `cd` to change the current working directory, you can specify the repository directly in the `subprocess.check_output` call. This can help avoid issues with relative paths.
+
+3. Error handling: Add some error handling to your script to catch exceptions and print out useful debug information. This can help you figure out exactly what's going wrong.
+
+Here's how you might modify your script to incorporate these suggestions:
+
+```python
+import os
+import csv
+import subprocess
+
+with open(filename) as inputfile:
+    reader = csv.reader(inputfile, delimiter=",")
+    linecount = 0
+    for row in reader:
+        if linecount == 0:
+            linecount += 1
+        else:
+            repo = str(row[0])
+            sha = str(row[2])
+            specificfile = str(row[3])
+            linenum = int(row[4])
+            try:
+                subprocess.check_output(['git', '-C', repo, 'checkout', sha])
+                print("checkout done")
+            except subprocess.CalledProcessError as e:
+                print(f"Failed to checkout {sha} in repository {repo}. Error: {e}")
+```
+
+In this script, I've used the `-C` option with the `git` command to specify the repository, and I've added a `try`/`except` block to catch `CalledProcessError` exceptions and print out some useful debug information.

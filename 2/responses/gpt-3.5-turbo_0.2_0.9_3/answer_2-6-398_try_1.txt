@@ -1,0 +1,5 @@
+Yes, that's correct. The reason for this is that the `ILogger` interface is generic, and it needs to know the type of the class that is using it in order to properly log messages. 
+
+When you use `ILogger<MyClass>`, you are telling the logger that it should log messages for the `MyClass` class. If you were to use `ILogger<AnotherClass>`, it would log messages for that class instead.
+
+So, unfortunately, you will need to specify the type of the class that is using the logger every time you want to use it. Alternatively, you could create your own interface that inherits from `ILogger` and specify the type there, so you don't have to repeat it every time.

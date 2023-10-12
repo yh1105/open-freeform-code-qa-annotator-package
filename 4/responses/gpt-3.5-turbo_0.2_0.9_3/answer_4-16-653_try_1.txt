@@ -1,0 +1,14 @@
+You can use the `date` command to convert the date format in your file to the desired format. Here's an example script that you can use:
+
+```
+while read line
+do
+    date_str=`echo $line | awk '{ print $1 }'`
+    new_date=`date -d "$date_str" +"%d %b %Y"`
+    echo $new_date
+done < filename.txt
+```
+
+This script reads each line of the file `filename.txt`, extracts the date string from the first column using `awk`, and then uses the `date` command to convert the date string to the desired format. The `%d`, `%b`, and `%Y` are format codes that represent the day, month abbreviation, and year respectively. The resulting date string is then printed to the console.
+
+Note that the `date` command may not be available on all systems, so you may need to install it if it's not already installed.

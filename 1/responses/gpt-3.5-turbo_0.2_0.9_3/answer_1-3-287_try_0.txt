@@ -1,0 +1,52 @@
+The issue with the code you provided is that the `dataclass_json` decorator only adds methods to the class to serialize and deserialize the object to and from JSON. It does not actually change the behavior of the `json.dumps` function.
+
+To serialize a nested structure of dataclasses, you can modify the `default` method of the `json.JSONEncoder` class to handle dataclasses. Here's an example implementation:
+
+```
+import json
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+@dataclass_json
+@dataclass
+class Prod:
+    id: int
+    name: str
+    price: float
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+
+class DataclassEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if hasattr(obj, 'to_dict'):
+            return obj.to_dict()
+        elif isinstance(obj, list):
+            return [self.default(item) for item in obj]
+        else:
+            return super().default(obj)
+
+pjson = json.dumps(prods, cls=DataclassEncoder)
+print(pjson)
+```
+
+In this implementation, we define a custom `DataclassEncoder` class that inherits from `json.JSONEncoder`. We override the `default` method to check if the object being serialized has a `to_dict` method (which is added by the `dataclass_json` decorator). If it does, we call that method to get a dictionary representation of the object. If the object is a list, we recursively call `default` on each item in the list. Otherwise, we fall back to the default behavior of `json.JSONEncoder`.
+
+With this implementation, we can now serialize a nested structure of dataclasses to JSON:
+
+```
+@dataclass_json
+@dataclass
+class Order:
+    id: int
+    customer: str
+    products: List[Prod]
+
+order = Order(1, 'John Doe', prods)
+ojson = json.dumps(order, cls=DataclassEncoder)
+print(ojson)
+```
+
+Output:
+```
+{"id": 1, "customer": "John Doe", "products": [{"id": 1, "name": "A", "price": 25.3}, {"id": 2, "name": "B", "price": 79.95}]}
+```

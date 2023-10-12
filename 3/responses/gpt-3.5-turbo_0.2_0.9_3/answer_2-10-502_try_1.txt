@@ -1,0 +1,21 @@
+It seems like the linker is unable to find the `libpq.lib` library file required for linking. Here are a few things you can try:
+
+1. Make sure that you have installed the PostgreSQL development libraries on your system. You can download them from the official PostgreSQL website.
+
+2. Check if the `libpq.lib` file is present in the PostgreSQL installation directory. If it's not there, you may need to reinstall PostgreSQL and make sure to select the option to install the development libraries.
+
+3. If the `libpq.lib` file is present, make sure that the directory containing it is included in the `LIB` environment variable. You can check this by running `echo %LIB%` in the command prompt.
+
+4. If the `LIB` environment variable is not set correctly, you can set it manually by running the following command in the command prompt:
+```
+set LIB=C:\pgsql\lib;%LIB%
+```
+Replace `C:\pgsql\lib` with the path to the directory containing the `libpq.lib` file.
+
+5. If none of the above steps work, you can try specifying the path to the `libpq.lib` file explicitly using the `LIB` linker flag. You can do this by running the following command:
+```
+cargo install diesel_cli --no-default-features --features postgres --target x86_64-pc-windows-msvc -L "C:\pgsql\lib"
+```
+Replace `C:\pgsql\lib` with the path to the directory containing the `libpq.lib` file.
+
+I hope one of these solutions works for you. Let me know if you have any further questions or issues.

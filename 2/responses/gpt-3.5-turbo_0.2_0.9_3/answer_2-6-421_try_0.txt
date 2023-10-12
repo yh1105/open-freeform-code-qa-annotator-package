@@ -1,0 +1,23 @@
+You can use a boolean flag to indicate whether the data has been fetched or not. Set the flag to true after the data has been fetched and use it to conditionally render the data in the markup. Here's an example:
+
+```
+<Component1>
+  @if (IsDataFetched && Data != null)
+  {
+    @foreach (var item in Data) {
+      <Component2>
+    }
+  }
+</Componet1>
+
+@code{
+  private bool IsDataFetched = false;
+
+  protected override async Task OnInitializedAsync() {
+    Data = //data from dataBase
+    IsDataFetched = true;
+  }
+}
+```
+
+In this example, the `IsDataFetched` flag is initially set to false. After the data has been fetched in the `OnInitializedAsync()` method, the flag is set to true. In the markup, the data is only rendered if both the flag is true and the data is not null. This ensures that the data is only rendered after it has been fetched.

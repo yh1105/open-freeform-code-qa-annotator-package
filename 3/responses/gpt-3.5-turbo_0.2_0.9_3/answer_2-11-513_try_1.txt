@@ -1,0 +1,26 @@
+The warning "The return value of non-void function 'memset' shall be used" is because the `memset()` function returns a pointer to the memory block that was set. In your code, you are not using the return value of `memset()`, which is causing the warning.
+
+To fix this warning, you can assign the return value of `memset()` to a variable and then cast it to `void` to indicate that you are intentionally discarding the value. Here's an example:
+
+```
+void Test()
+{
+  void *ptr = memset(&mystruct, 0, sizeof(MY_STRUCT));
+  (void)ptr;
+}
+```
+
+This code assigns the return value of `memset()` to a `void*` variable called `ptr`, and then casts it to `void` to indicate that the value is intentionally being discarded.
+
+The warnings "Cast between types that are not both pointers or not pointers" and "object of pointer type 'void*' cast to unrelated type 'void'" are caused by the cast to `void` in the previous example. To avoid these warnings, you can simply remove the cast to `void`:
+
+```
+void Test()
+{
+  (void)memset(&mystruct, 0, sizeof(MY_STRUCT));
+}
+```
+
+This code still discards the return value of `memset()`, but without the cast to `void`. This should avoid the warnings you were seeing.
+
+In general, it's a good practice to always use the return value of functions, especially if they are not `void` functions. If you don't need the return value, you can assign it to a variable and then discard it, as shown in the first example. This can help avoid warnings and make your code more robust.

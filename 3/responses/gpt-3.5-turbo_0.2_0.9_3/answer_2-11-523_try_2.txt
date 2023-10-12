@@ -1,0 +1,5 @@
+The order of evaluation of function arguments in C++ is unspecified, which means that the compiler is free to evaluate them in any order it chooses. However, the order of evaluation of the operands of `operator!=` is well-defined: the left-hand operand is evaluated first, followed by the right-hand operand.
+
+Therefore, in the expression `lhs != std::exchange(lhs, rhs)`, the left-hand operand `lhs` is guaranteed to be evaluated before the right-hand operand `std::exchange(lhs, rhs)`. This means that the value of `lhs` is read before it is replaced by `rhs` in the call to `std::exchange`.
+
+So, the code you posted is correct and safe to use. The use of `std::exchange` in this case is a good example of how it can simplify code and make it more readable.

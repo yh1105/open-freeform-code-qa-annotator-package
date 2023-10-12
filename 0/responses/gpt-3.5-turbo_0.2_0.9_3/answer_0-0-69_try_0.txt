@@ -1,0 +1,36 @@
+The error message indicates that `__dirname` is not defined. This is because `__dirname` is a Node.js variable that is not available in the browser environment. In your case, you are trying to use it in a Vue component that is being compiled by webpack and executed in the browser.
+
+To fix this issue, you can use the `window.require` function to access the `ipcMain` module from the main process. Here's how you can modify your `Splash.vue` component to use `window.require`:
+
+```
+<template>
+    <div @click="open">open</div>      
+</template>
+
+<script>
+export default {
+    methods: {
+        open() {
+            const { ipcMain } = window.require('electron')
+            ipcMain.on('my-open-event', (event, arg) => {
+                console.log(event, arg)
+            })
+        }
+    }
+}
+</script>
+```
+
+By using `window.require`, you can access the `ipcMain` module from the main process and register an event listener for the `my-open-event` event.
+
+Note that you will also need to modify your `background.js` file to emit the `my-open-event` event when you want to trigger the event listener in your Vue component. Here's how you can modify your `background.js` file:
+
+```
+import { app, protocol, BrowserWindow } from 'electron'
+
+...
+
+app.emit('my-open-event', arg)
+```
+
+By emitting the `my-open-event` event, you can trigger the event listener that you registered in your Vue component.

@@ -1,0 +1,31 @@
+The issue you're facing might be due to the fact that the `Telephone` property is being set as a string somewhere in your code before you log it. The `parseInt` method should work correctly if used properly.
+
+Here's how you can do it:
+
+```javascript
+if (this.person.Telephone) {
+    this.person.Telephone = parseInt(this.person.Telephone);
+}
+```
+
+This will convert the `Telephone` property to a number if it's not undefined. 
+
+If you're still facing the issue, then you might want to check other parts of your code to see if the `Telephone` property is being set as a string after you've converted it to a number. 
+
+Also, ensure that the `Telephone` property is not being set as a string in the constructor of the `Person` class or anywhere else in your code.
+
+If the `Telephone` property is being set as a string in the constructor, you can convert it to a number like this:
+
+```javascript
+export class Person {
+    FirstName : string | undefined;
+    Telephone: number | undefined;
+
+    constructor(FirstName: string, Telephone: string) {
+        this.FirstName = FirstName;
+        this.Telephone = parseInt(Telephone);
+    }
+}
+```
+
+This will ensure that the `Telephone` property is always a number when a `Person` object is created.

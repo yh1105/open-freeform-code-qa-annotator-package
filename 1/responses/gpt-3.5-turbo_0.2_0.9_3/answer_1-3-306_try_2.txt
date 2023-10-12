@@ -1,0 +1,27 @@
+The error you are getting is because the `compare` function from `csv_diff` library returns a dictionary object, not a pandas DataFrame object. To save the result to a CSV file in an arranged way, you can convert the dictionary to a pandas DataFrame and then add extra columns for "added", "removed", and "changed" items.
+
+Here's an example code that should work:
+
+```
+import pandas as pd
+from csv_diff import load_csv, compare
+
+# Compare the two CSV files
+diff = compare(
+    load_csv(open("list1.csv"), key="ean"),
+    load_csv(open("list2.csv"), key="ean")
+)
+
+# Convert the dictionary to a pandas DataFrame
+df = pd.DataFrame.from_dict(diff)
+
+# Add extra columns for "added", "removed", and "changed" items
+df["added"] = df["added"].apply(lambda x: ", ".join([str(i) for i in x]))
+df["removed"] = df["removed"].apply(lambda x: ", ".join([str(i) for i in x]))
+df["changed"] = df["changed"].apply(lambda x: ", ".join([str(i) for i in x]))
+
+# Save the result to a CSV file
+df.to_csv("diff.csv", index=False)
+```
+
+This code should create a CSV file named "diff.csv" in the current directory with the following columns: "added", "changed", "columns_added", "columns_removed", "removed", and the original columns from the CSV files. The "added", "removed", and "changed" columns will contain the EAN codes of the items that were added, removed, or changed, respectively.

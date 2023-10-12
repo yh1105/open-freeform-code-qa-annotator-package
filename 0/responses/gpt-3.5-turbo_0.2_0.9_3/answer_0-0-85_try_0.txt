@@ -1,0 +1,20 @@
+Yes, it is possible to set the primary and secondary colors in your theme.js/theme.ts file. Here's an example of how you can do it using Material UI:
+
+```
+import { createTheme } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7bb9e8',
+    },
+    secondary: {
+      main: '#eb7f7f',
+    },
+  },
+});
+
+export default theme;
+```
+
+You can customize the primary and secondary colors by changing the hex values in the `main` property. You can also customize other aspects of your theme, such as typography, spacing, and breakpoints, by adding additional properties to the `createTheme` function.

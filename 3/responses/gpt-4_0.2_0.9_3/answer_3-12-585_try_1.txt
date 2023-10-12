@@ -1,0 +1,65 @@
+You can use the `color` package in Dart to manipulate colors. You can darken or lighten a color by changing its luminance. Here is how you can do it:
+
+First, add the `color` package to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  color: ^3.1.2
+```
+
+Then, you can use the following code to darken or lighten a color:
+
+```dart
+import 'package:color/color.dart';
+
+String toDarkColor(String hashColor){
+  // Convert the hash color to a RGB color
+  RgbColor rgbColor = hexToRgb(hashColor);
+
+  // Convert the RGB color to a HSL color
+  HslColor hslColor = rgbColor.toHslColor();
+
+  // Decrease the lightness by 20% to darken the color
+  hslColor.l = (hslColor.l * 0.8).clamp(0.0, 100.0);
+
+  // Convert the HSL color back to a RGB color
+  rgbColor = hslColor.toRgbColor();
+
+  // Convert the RGB color back to a hex color
+  return rgbToHex(rgbColor);
+}
+
+String toLightColor(String hashColor){
+  // Convert the hash color to a RGB color
+  RgbColor rgbColor = hexToRgb(hashColor);
+
+  // Convert the RGB color to a HSL color
+  HslColor hslColor = rgbColor.toHslColor();
+
+  // Increase the lightness by 20% to lighten the color
+  hslColor.l = (hslColor.l * 1.2).clamp(0.0, 100.0);
+
+  // Convert the HSL color back to a RGB color
+  rgbColor = hslColor.toRgbColor();
+
+  // Convert the RGB color back to a hex color
+  return rgbToHex(rgbColor);
+}
+
+RgbColor hexToRgb(String hexColor) {
+  hexColor = hexColor.replaceAll('#', '');
+  int r = int.parse(hexColor.substring(0, 2), radix: 16);
+  int g = int.parse(hexColor.substring(2, 4), radix: 16);
+  int b = int.parse(hexColor.substring(4, 6), radix: 16);
+  return RgbColor(r, g, b);
+}
+
+String rgbToHex(RgbColor rgbColor) {
+  String r = rgbColor.r.toRadixString(16).padLeft(2, '0');
+  String g = rgbColor.g.toRadixString(16).padLeft(2, '0');
+  String b = rgbColor.b.toRadixString(16).padLeft(2, '0');
+  return '#$r$g$b';
+}
+```
+
+In this code, `toDarkColor` and `toLightColor` functions take a hex color string as input, convert it to a `RgbColor`, then to a `HslColor`, adjust the lightness, convert it back to a `RgbColor`, and finally back to a hex color string. The `hexToRgb` and `rgbToHex` functions are helper functions to convert between hex color strings and `RgbColor` objects.

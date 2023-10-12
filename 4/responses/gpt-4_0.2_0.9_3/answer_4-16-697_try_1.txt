@@ -1,0 +1,23 @@
+The issue here is that the Docker `CMD` command does not run a login shell by default, so the `.bashrc` file is not sourced. 
+
+You can modify your `launch.sh` script to source the `.bashrc` file before running the `npm install` and `node index.js` commands. Here is how you can do it:
+
+```bash
+#!/bin/bash
+
+source $HOME/.bashrc
+
+cd /workspace/demo
+npm install
+node index.js
+```
+
+This will ensure that the `nvm` environment is properly set up before running the `npm` and `node` commands.
+
+Alternatively, you can modify the `CMD` in your Dockerfile to run a bash login shell which will source the `.bashrc` file:
+
+```Dockerfile
+CMD ["/bin/bash", "-l", "-c", "/workspace/launch.sh"]
+```
+
+The `-l` option tells bash to behave as a login shell, and the `-c` option tells it to execute the following command. This will ensure that the `.bashrc` file is sourced before running your `launch.sh` script.

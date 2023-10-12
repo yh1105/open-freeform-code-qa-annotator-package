@@ -1,0 +1,9 @@
+This seems to be an issue with rust-analyzer itself. Rust-analyzer is a very useful tool, but it's not perfect and sometimes it can show errors that don't actually exist. This is especially true when it comes to macros, as the error message suggests.
+
+If your code compiles and runs correctly, and the tests pass, then it's likely that the problem is with rust-analyzer and not your code. You can try to update rust-analyzer to the latest version, as the issue might have been fixed in a newer release.
+
+If the issue persists, you can report it to the rust-analyzer team. They are very responsive and will be able to help you out. You can report issues on their GitHub page: https://github.com/rust-analyzer/rust-analyzer/issues
+
+In the meantime, if the error is too distracting, you can disable error highlighting in VSCode for rust-analyzer. To do this, go to the settings (File > Preferences > Settings or Ctrl+,), search for "rust-analyzer.diagnostics.enable" and uncheck the box.
+
+Remember, this is just a workaround and not a solution. It's always better to report the issue so that it can be fixed in future versions of rust-analyzer.

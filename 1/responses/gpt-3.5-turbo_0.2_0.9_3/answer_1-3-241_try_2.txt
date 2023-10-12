@@ -1,0 +1,9 @@
+The behavior you are seeing is actually intended and not a bug. 
+
+When you use double square brackets `[['name']]` to select a column, you are creating a DataFrame with a single column, whereas using single square brackets `['name']` creates a Series. 
+
+When you assign a DataFrame to a DataFrame, pandas tries to align the columns and rows based on their labels. In your first example, since both `df[['name']]` and `df[['age']]` are DataFrames with a single column, pandas aligns them based on their column labels and assigns the values of `df[['age']]` to `df[['name']]`. 
+
+However, in your second example, when you use `df.loc[:, ['name']]`, you are selecting a DataFrame with a single column, and when you assign `df.loc[:, ['age']]` to it, pandas tries to align the columns and rows based on their labels. Since the column labels don't match, pandas assigns `NaN` values to `df.loc[:, ['name']]`.
+
+On the other hand, when you use `df.loc[:, 'name']`, you are selecting a Series, and when you assign `df.loc[:, 'age']` to it, pandas aligns the rows based on their labels and assigns the values of `df.loc[:, 'age']` to `df.loc[:, 'name']`.

@@ -1,0 +1,20 @@
+You can use the `:input` selector to select all input, textarea, select and button elements. Then you can filter the required elements using the `:required` selector and check if their values are empty.
+
+Here's an example code snippet that should work for your case:
+
+```
+document.getElementById("check").onclick = function () {
+  var allFieldsFilled = true;
+  $('#dynamic-form-fields :input:required').each(function() {
+    if ($(this).val() === '') {
+      allFieldsFilled = false;
+      return false; // exit the loop early
+    }
+  });
+  if (!allFieldsFilled) {
+    alert('error please fill all fields!');
+  }
+};
+```
+
+This code selects all required inputs inside the `dynamic-form-fields` div using the `:input:required` selector. Then it loops through each of them and checks if their value is empty. If it finds an empty required field, it sets the `allFieldsFilled` variable to false and exits the loop early. Finally, it checks if `allFieldsFilled` is still true and shows an error message if not.

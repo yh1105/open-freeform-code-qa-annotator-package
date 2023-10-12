@@ -1,0 +1,11 @@
+The error message indicates that the PHP curl extension is not enabled on your server, which is causing Composer to operate slower than normal. Additionally, the error message suggests that the "https://repo.packagist.org/packages.json" file could not be downloaded because the "allow_url_fopen" setting is disabled in your php.ini file.
+
+To resolve this issue, you need to enable the PHP curl extension and allow_url_fopen setting in your php.ini file. Here are the steps to do that:
+
+1. Login to your cPanel account and navigate to the "Select PHP Version" option.
+2. Click on the "Switch to PHP Options" button.
+3. Find the "curl" and "allow_url_fopen" options and set them to "On".
+4. Save the changes and exit the PHP Options screen.
+5. Run the "composer update" command again in the terminal.
+
+This should resolve the issue and allow Composer to operate normally. If you continue to experience issues, you may need to contact your hosting provider for further assistance.

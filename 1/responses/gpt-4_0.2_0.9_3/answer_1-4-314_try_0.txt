@@ -1,0 +1,54 @@
+You can use the `pandas` library to handle the dataframe and the `matplotlib` library to plot the bar chart. Here is a step-by-step guide:
+
+1. First, import the necessary libraries:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+2. Next, create your dataframe:
+
+```python
+data = {'Sex': ['Male', 'Female', 'Male', 'Female'],
+        'Var1': ['Yes', 'No', 'No', 'Yes'],
+        'Var2': ['No', 'Yes', 'No', 'Yes'],
+        'Var3': ['Yes', 'No', 'Yes', 'No']}
+df = pd.DataFrame(data)
+```
+
+3. Now, you need to count the "Yes" for each variable for both males and females. You can use the `groupby` function to group by 'Sex' and then apply a lambda function to count "Yes" in each column:
+
+```python
+df_count = df.groupby('Sex').apply(lambda x: x == 'Yes').sum().reset_index()
+```
+
+4. Finally, you can plot the bar chart. You can use a loop to create a bar for each variable:
+
+```python
+labels = df_count['Sex'].values
+var1_counts = df_count['Var1'].values
+var2_counts = df_count['Var2'].values
+var3_counts = df_count['Var3'].values
+
+x = np.arange(len(labels))  # the label locations
+width = 0.3  # the width of the bars
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width, var1_counts, width, label='Var1')
+rects2 = ax.bar(x, var2_counts, width, label='Var2')
+rects3 = ax.bar(x + width, var3_counts, width, label='Var3')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('Yes counts')
+ax.set_title('Yes counts by variable and sex')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+
+fig.tight_layout()
+
+plt.show()
+```
+
+This will create a bar chart with two bars for each variable (one for Males, one for Females) in the X axis and the "Yes" count in the Y axis.

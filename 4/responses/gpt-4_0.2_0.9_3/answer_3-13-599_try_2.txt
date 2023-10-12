@@ -1,0 +1,37 @@
+Jetpack Compose does not currently have a built-in NumberPicker widget like the traditional Android View system. However, you can create a custom one using the existing composables. Here is a simple example of how you might create a NumberPicker in Jetpack Compose:
+
+```kotlin
+@Composable
+fun NumberPicker(
+    range: IntRange,
+    selectedValue: Int,
+    onValueChange: (Int) -> Unit
+) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(scrollState)
+            .height(200.dp)
+            .width(50.dp)
+            .border(1.dp, Color.Black),
+        verticalArrangement = Arrangement.Center
+    ) {
+        range.forEach { number ->
+            Text(
+                text = number.toString(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onValueChange(number) },
+                textAlign = TextAlign.Center,
+                fontSize = if (number == selectedValue) 24.sp else 16.sp,
+                color = if (number == selectedValue) Color.Red else Color.Black
+            )
+        }
+    }
+}
+```
+
+This is a very basic example and does not include fling or snap to position functionality. For a more advanced NumberPicker, you might need to use `LazyColumn` with `LazyListState` to control the scroll position and animate scroll.
+
+Please note that Jetpack Compose is still under active development and the APIs can change. Always check the latest documentation for the most up-to-date information.

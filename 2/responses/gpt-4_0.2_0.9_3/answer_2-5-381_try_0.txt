@@ -1,0 +1,33 @@
+The issue you're facing is likely due to the incorrect path in your import statement. Protobuf compiler `protoc` uses the `src/main/proto` directory as the root directory for imports. 
+
+So, you should change your import statement from:
+
+```protobuf
+import "tech/tablesaw/service/common/column_type.proto";
+```
+
+to:
+
+```protobuf
+import "column_type.proto";
+```
+
+This is because both `column_metadata.proto` and `column_type.proto` are in the same directory, so you don't need to specify the full path.
+
+Also, make sure that the `src/main/proto` directory is correctly configured in your `build.gradle` file. You should have something like this in your `protobuf` block:
+
+```groovy
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+    srcDir 'src/main/proto'
+}
+```
+
+This tells Gradle to look for your `.proto` files in the `src/main/proto` directory.

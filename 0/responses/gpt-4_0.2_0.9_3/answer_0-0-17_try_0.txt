@@ -1,0 +1,47 @@
+In order to listen for the "enter" key press, you can use the `keydown` event. You can add a listener for this event to your editor. Here's how you can do it:
+
+First, you need to import `Key` from `prosemirror-commands` and `keydownHandler` from `prosemirror-keymap`:
+
+```javascript
+import { Key } from 'prosemirror-commands'
+import { keydownHandler } from 'prosemirror-keymap'
+```
+
+Then, you can create a new extension that listens for the "enter" key press:
+
+```javascript
+const enterKeyExtension = {
+  keys: {
+    Enter: (state, dispatch) => {
+      // Handle the enter key press here
+      console.log('Enter key pressed');
+      // If you want to prevent the default behavior of the enter key, return true
+      // Otherwise, return false
+      return false;
+    },
+  },
+};
+```
+
+Finally, you can add this extension to your editor:
+
+```javascript
+mounted() {
+  let editor = new Editor({
+    extensions: [
+      StarterKit,
+      keydownHandler(enterKeyExtension.keys),
+    ],
+    content: this.value
+  });
+
+  editor.on("update", e => {
+    console.log(e);
+    this.$emit("input", this.editor.getHTML());
+  });
+
+  this.editor = editor;
+}
+```
+
+Now, whenever the "enter" key is pressed, your handler function will be called. You can add your logic for submitting the chat and clearing the editor inside this function.

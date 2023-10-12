@@ -1,0 +1,18 @@
+You can optimize your script by using `awk` command. `awk` is a powerful tool for processing or analyzing text files, especially useful when you need to process data based on columns or rows. 
+
+Here is a script that should do the job:
+
+```bash
+awk -F'=' '
+  /^name/ {name=$2; next} 
+  /^value/ {print name"="$2}
+' input.txt > output.txt
+```
+
+This script works as follows:
+
+- `-F'='` sets the field separator to `=`.
+- `/^name/ {name=$2; next}` if the line starts with `name`, it saves the value (the second field) to the variable `name` and skips to the next line.
+- `/^value/ {print name"="$2}` if the line starts with `value`, it prints the previously saved name and the value (the second field).
+
+This script should be significantly faster than your original script because it processes the file line by line and doesn't use any external commands or regular expressions. It also writes the output directly to the output file, so it doesn't need to keep all the data in memory.

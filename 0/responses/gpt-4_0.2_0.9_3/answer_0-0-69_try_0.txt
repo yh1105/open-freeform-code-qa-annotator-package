@@ -1,0 +1,63 @@
+The error you're seeing is because you're trying to use `ipcMain` in a renderer process (Vue component). The `ipcMain` module cannot be used directly from the renderer process (Vue component). It is an instance of `EventEmitter` and it's a module used to communicate asynchronously from the main process to renderer processes.
+
+In Electron, there are two types of processes:
+
+1. Main Process: In Electron, the process that runs `package.json`'s `main` script is called the main process. The main process can display a GUI by creating web pages.
+
+2. Renderer Process: Since Electron uses Chromium for displaying web pages, Chromium's multi-process architecture is also used. Each web page in Electron runs in its own process, which is called the renderer process.
+
+In your case, the Vue component is running in the renderer process and you're trying to use `ipcMain` which is available only in the main process. To communicate from the renderer process to the main process, you should use `ipcRenderer`.
+
+Here's how you can fix your code:
+
+Component: Splash.vue
+```
+<template>
+    <div @click="open">open</div>      
+</template>
+
+<script>
+const { ipcRenderer } = require('electron')
+
+export default {
+    methods: {
+        open()
+        {
+            ipcRenderer.send('my-open-event', 'your argument here');
+        }
+    }
+}
+</script>
+```
+
+background.js
+```
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+
+...
+
+ipcMain.on('my-open-event', (event, arg) => {
+    try {
+        console.log(arg); // prints "your argument here"
+        "Will call some executable here";
+    } catch (e) {
+        console.error(e)
+    }
+})
+```
+
+main.js
+```
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+
+Vue.config.productionTip = false
+
+new Vue({
+  store,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+In the above code, when you click on the div in `Splash.vue`, it sends an event 'my-open-event' to the main process. The main process listens for 'my-open-event' and executes the code in the callback.

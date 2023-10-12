@@ -1,0 +1,48 @@
+The error message you received indicates that some of the Xdebug configuration settings have been renamed in version 3.0.0beta1. To fix this issue, you need to update your Xdebug configuration settings in your php.ini file or in your Xdebug configuration file.
+
+Here are the new configuration settings that you need to use:
+
+- `xdebug.mode` replaces `xdebug.remote_enable`
+- `xdebug.client_host` replaces `xdebug.remote_host`
+- `xdebug.start_with_request` replaces `xdebug.remote_mode`
+- `xdebug.client_port` replaces `xdebug.remote_port`
+
+To update your configuration settings, you can follow these steps:
+
+1. Locate your php.ini file. You can find the location of your php.ini file by running the following command in your terminal:
+
+   ```
+   php --ini
+   ```
+
+   This will display the location of your php.ini file.
+
+2. Open your php.ini file in a text editor.
+
+3. Search for the Xdebug configuration settings. If you don't find any Xdebug configuration settings, you can add them to the end of the file.
+
+4. Replace the old configuration settings with the new ones.
+
+   For example, if you had the following configuration settings:
+
+   ```
+   xdebug.remote_enable = 1
+   xdebug.remote_host = localhost
+   xdebug.remote_mode = req
+   xdebug.remote_port = 9000
+   ```
+
+   You should replace them with:
+
+   ```
+   xdebug.mode = debug
+   xdebug.client_host = localhost
+   xdebug.start_with_request = yes
+   xdebug.client_port = 9000
+   ```
+
+5. Save the changes to your php.ini file.
+
+6. Restart your web server to apply the changes.
+
+After updating your Xdebug configuration settings, you should be able to use Xdebug with PhpStorm 2020.1 without any issues.

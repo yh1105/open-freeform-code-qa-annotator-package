@@ -1,0 +1,17 @@
+The error you're seeing is due to a change in Spring Cloud 2020.0.2. The `spring.config.import` property is now required for Config Server clients. However, you mentioned that your project is not a Config Server client, so it seems like there might be a misconfiguration somewhere.
+
+You have the `spring-cloud-starter-config` dependency in your `build.gradle` file. This dependency is used for Config Server clients, which might be why Spring is expecting the `spring.config.import` property.
+
+If you're not using Config Server, you can try removing the `spring-cloud-starter-config` dependency from your `build.gradle` file:
+
+```groovy
+dependencies {
+    // Remove this line if you're not using Config Server
+    // implementation('org.springframework.cloud:spring-cloud-starter-config')
+    ...
+}
+```
+
+Then, try to rebuild your project and run your tests again.
+
+If you're still seeing the error after removing the dependency, it might be worth checking if there are any other dependencies or configurations in your project that might be causing Spring to think it's a Config Server client.

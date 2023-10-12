@@ -1,0 +1,37 @@
+It seems like you're having trouble with Docker on Windows Server 2019. Here are some steps you can take to troubleshoot and resolve the issue:
+
+1. **Check Docker Version**: Ensure that you have the correct version of Docker installed. Docker Desktop is not supported on Windows Server. You should be using Docker Enterprise Edition for Windows Server 2019.
+
+2. **Reinstall Docker**: If you have the wrong version of Docker installed, you will need to uninstall it and then reinstall the correct version. Here are the steps to do that:
+
+   - Uninstall Docker:
+     ```
+     Uninstall-Package -Name Docker -ProviderName DockerMsftProvider
+     ```
+   - Install Docker:
+     ```
+     Install-Package -Name Docker -ProviderName DockerMsftProvider
+     ```
+   - Restart the Docker service:
+     ```
+     Restart-Service Docker
+     ```
+
+3. **Check Docker Service**: Ensure that the Docker service is running. You can check this by running the following command in PowerShell:
+   ```
+   Get-Service Docker
+   ```
+   If the Docker service is not running, you can start it with the following command:
+   ```
+   Start-Service Docker
+   ```
+
+4. **Check Docker Configuration**: Ensure that Docker is configured to run in process isolation mode. You can check this by running the following command in PowerShell:
+   ```
+   docker info
+   ```
+   Look for the "Isolation" line in the output. If it's not set to "process", you can set it by modifying the Docker configuration file.
+
+5. **Check Docker Images**: Ensure that you are using Windows-based Docker images. Linux-based images will not work with process isolation on Windows Server.
+
+If you're still having trouble after trying these steps, please provide more information about your setup and the exact error messages you're seeing.

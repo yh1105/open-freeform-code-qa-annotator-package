@@ -1,0 +1,35 @@
+This error message indicates that there is a problem with the `postcss-scss` package. It seems like the package is not being loaded correctly or there is an issue with the package itself.
+
+Here are some steps you can try to resolve the issue:
+
+1. Clear the cache and reinstall the dependencies by running the following commands:
+```
+npm cache clean --force
+rm -rf node_modules
+npm install
+```
+
+2. Check if there are any updates available for the `postcss-scss` package by running the following command:
+```
+npm outdated postcss-scss
+```
+
+If there is an update available, try updating the package by running:
+```
+npm update postcss-scss
+```
+
+3. If the above steps do not work, try removing the `postcss-scss` package and reinstalling it by running the following commands:
+```
+npm uninstall postcss-scss
+npm install postcss-scss
+```
+
+4. If none of the above steps work, try downgrading the `postcss-scss` package to a previous version that was working by running the following command:
+```
+npm install postcss-scss@<version>
+```
+
+Replace `<version>` with the version number that was working previously.
+
+Hopefully, one of these steps will resolve the issue.

@@ -1,0 +1,36 @@
+The problem you're facing is due to the fact that the Angular Material Tab Group component doesn't automatically scroll to the selected tab. You can solve this by manually scrolling to the selected tab each time a tab is selected.
+
+You can use the selectedIndexChange event of the mat-tab-group to detect when a tab is selected, and then use the scrollLeft property of the mat-tab-label element to scroll to the selected tab.
+
+Here is an example of how you can do this:
+
+In your HTML:
+
+```html
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" (selectedIndexChange)="scrollToSelectedTab($event)">
+    <mat-tab label="Item-1"> Content 1 </mat-tab>
+    <mat-tab label="Item-2"> Content 2 </mat-tab>
+    <mat-tab label="Item-3"> Content 3 </mat-tab>
+    <mat-tab label="Item-4"> Content 4 </mat-tab>
+    <mat-tab label="Item-5"> Content 5 </mat-tab>
+    <mat-tab label="Item-6"> Content 6 </mat-tab>
+    <mat-tab label="Item-7"> Content 7 </mat-tab>
+    <mat-tab label="Item-8"> Content 8 </mat-tab>
+    <mat-tab label="Item-9"> Content 9 </mat-tab>
+    <mat-tab label="Item-10"> Content 10 </mat-tab>
+</mat-tab-group>
+```
+
+In your TypeScript:
+
+```typescript
+scrollToSelectedTab(index: number) {
+  const matTabGroup = document.querySelector('.mat-tab-group');
+  const matTabLabels = matTabGroup.querySelectorAll('.mat-tab-label');
+  const selectedMatTabLabel = matTabLabels[index];
+  
+  matTabGroup.scrollLeft = selectedMatTabLabel.offsetLeft;
+}
+```
+
+This will scroll to the selected tab each time a tab is selected. Note that this solution assumes that your mat-tab-group has the class .mat-tab-group, and your mat-tab-labels have the class .mat-tab-label. If your classes are different, you will need to adjust the querySelector and querySelectorAll calls accordingly.

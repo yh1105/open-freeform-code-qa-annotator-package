@@ -1,0 +1,54 @@
+To solve the problem of multiple workers having their own `meta` object, you can use a shared resource like a database or a cache to store the `meta` object. This way, all workers can access and modify the same object.
+
+For example, you can use a cache like Redis to store the `meta` object. Here's an example of how you can modify your code to use Redis:
+
+```
+from fastapi import FastAPI, status
+import redis
+
+class Meta:
+   def __init__(self, count):
+      self.count = count
+
+app = FastAPI()
+
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+# initialize the meta object in Redis
+if not redis_client.exists('meta'):
+    meta = Meta(0)
+    redis_client.set('meta', pickle.dumps(meta))
+
+# increases the count variable in the meta object by 1
+@app.get("/increment")
+async def increment():
+    meta = pickle.loads(redis_client.get('meta'))
+    meta.count += 1
+    redis_client.set('meta', pickle.dumps(meta))
+    return status.HTTP_200_OK
+
+# returns a json containing the current count from the meta object
+@app.get("/report")
+async def report():
+    meta = pickle.loads(redis_client.get('meta'))
+    return {'count':meta.count}
+
+# resets the count in the meta object to 0
+@app.get("/reset")
+async def reset():
+    meta = Meta(0)
+    redis_client.set('meta', pickle.dumps(meta))
+    return status.HTTP_200_OK
+```
+
+In this example, we're using the `redis` library to connect to a Redis instance running on `localhost` and port `6379`. We're also using the `pickle` module to serialize and deserialize the `Meta` object.
+
+When the service starts, we check if the `meta` object exists in Redis. If it doesn't, we create a new `Meta` object with a count of 0 and store it in Redis.
+
+In the `increment` endpoint, we load the `meta` object from Redis, increment the count, and store it back in Redis.
+
+In the `report` endpoint, we load the `meta` object from Redis and return the count.
+
+In the `reset` endpoint, we create a new `Meta` object with a count of 0 and store it in Redis.
+
+As for your side question, there's no way to force all workers to respond to a single call on an endpoint. Each worker is independent and handles requests separately. However, by using a shared resource like Redis, you can ensure that all workers are accessing and modifying the same data.

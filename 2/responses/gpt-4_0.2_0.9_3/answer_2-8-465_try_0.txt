@@ -1,0 +1,11 @@
+Go test caching is a feature introduced in Go 1.10 to avoid running the same tests when the code and the environment under which the tests are run remain the same. This can significantly speed up the testing process.
+
+If you want to disable this feature and force the tests to run every time, you can use the `-count=1` flag. This flag sets the cache identifier for the test binary, and by setting it to 1, you're effectively disabling the cache.
+
+So, you can run your tests like this:
+
+```bash
+go test -count=1 ./...
+```
+
+This will force Go to run all tests, even if it has cached results from previous runs.

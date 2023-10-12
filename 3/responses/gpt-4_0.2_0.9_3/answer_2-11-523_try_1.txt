@@ -1,0 +1,19 @@
+The `std::exchange` function is defined as follows:
+
+```cpp
+template< class T, class U = T >
+T exchange( T& obj, U&& new_val )
+{
+    T old_val = std::move(obj);
+    obj = std::forward<U>(new_val);
+    return old_val;
+}
+```
+
+This function provides a guarantee that the old value of `obj` is returned before the new value is assigned. This is because the old value is stored in `old_val` before the assignment takes place.
+
+In your case, `std::exchange(v, pmap[v])` will first store the current value of `v` and then assign `pmap[v]` to `v`. The stored value is then returned. This means that `v != std::exchange(v, pmap[v])` will compare the old value of `v` with the new value, not the new value with itself.
+
+As for the evaluation order, since C++17, the order of evaluation of the operands of almost all C++ operators, including `!=`, is sequenced from left to right. This means that the left-hand side operand `v` is evaluated (i.e., its value is read) before the right-hand side operand `std::exchange(v, pmap[v])`.
+
+So, in conclusion, your code is correct and there is no risk of a tautologous comparison.

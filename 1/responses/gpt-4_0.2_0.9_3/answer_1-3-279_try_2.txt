@@ -1,0 +1,30 @@
+The error message you're seeing is due to the Django process not having write permissions to the directory where it's trying to save the uploaded file. 
+
+The issue is likely with the `MEDIA_ROOT` setting in your `settings.py` file. 
+
+You have:
+
+```python
+MEDIA_ROOT = BASE_DIR / '/media/'
+```
+
+This is trying to use an absolute path `/media/`, which is a directory at the root of your filesystem. 
+
+Instead, you should use a path relative to your `BASE_DIR`. Change your `MEDIA_ROOT` to:
+
+```python
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+This will set your `MEDIA_ROOT` to a `media` directory in the same directory as your `BASE_DIR`.
+
+Also, make sure that the user running the Django process has write permissions to this directory. You can change the permissions of the directory by running the following command in your terminal:
+
+```bash
+sudo chown -R $USER:$USER /path/to/your/project/media
+sudo chmod -R 755 /path/to/your/project/media
+```
+
+Replace `/path/to/your/project/media` with the actual path to your `media` directory. 
+
+This command changes the owner of the directory to the current user and sets the correct permissions.

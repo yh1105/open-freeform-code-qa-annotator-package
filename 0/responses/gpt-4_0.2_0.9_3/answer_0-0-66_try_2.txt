@@ -1,0 +1,19 @@
+Yes, there is a way to run only one test in Cypress. You can use the `.only` method to specify the test you want to run. This method is added to either `it` or `describe` to isolate the test case or test suite respectively.
+
+Here is an example:
+
+```javascript
+describe('My Test Suite', () => {
+  it.only('My Test Case', () => {
+    // Your test code here
+  });
+
+  it('Another Test Case', () => {
+    // This test will be skipped
+  });
+});
+```
+
+In this example, only 'My Test Case' will be run, and 'Another Test Case' will be skipped.
+
+Remember to remove `.only` after you're done, to ensure all tests are being run as expected.

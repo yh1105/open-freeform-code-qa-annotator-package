@@ -1,0 +1,25 @@
+You can use the `:input` selector to select all form controls, including `input`, `textarea`, `select` and `button` elements. The `:required` selector can be used to select only the required fields. 
+
+Here's how you can modify your script to check all types of required fields:
+
+```javascript
+document.getElementById("check").onclick = function () {
+    var allFilled = true;
+    $('#dynamic-form-fields :input:required').each(function() {
+        if ($(this).val() === '') {
+            allFilled = false;
+            return false; // break out of the loop
+        }
+    });
+
+    if (!allFilled) {
+        alert('error please fill all fields!');
+    }
+};
+```
+
+This script will check all required fields under the `dynamic-form-fields` div. If it finds any empty required field, it will set `allFilled` to `false` and break out of the loop. If `allFilled` is `false` after the loop, it will show an alert.
+
+Note: This script assumes that you are using jQuery. If you are not using jQuery, you will need to use vanilla JavaScript to select and loop through the elements.
+
+Also, for radio buttons and checkboxes, you might want to check if any option is selected, not just if the value is empty. You can add a special case for those types of inputs.

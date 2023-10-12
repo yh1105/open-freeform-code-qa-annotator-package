@@ -1,0 +1,21 @@
+The errors you're encountering are due to incompatibility between TensorFlow and Numpy versions. TensorFlow 2.2.0 requires Numpy version >=1.19.2 and <1.20.0. However, the error `numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject` is usually encountered when using Numpy version <1.20.0.
+
+Here are a few steps you can try to solve these issues:
+
+1. **Create a new virtual environment**: This is to ensure that there are no conflicts with other installed packages. You can use `conda` or `virtualenv` to create a new environment.
+
+2. **Install the correct versions of TensorFlow and Numpy**: After creating the new environment, install TensorFlow 2.2.0 and Numpy 1.19.5. You can do this using pip:
+
+    ```bash
+    pip install tensorflow==2.2.0
+    pip install numpy==1.19.5
+    ```
+
+3. **Reinstall pycocotools**: The error `numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject` is related to the `pycocotools` package. After installing the correct versions of TensorFlow and Numpy, reinstall `pycocotools`:
+
+    ```bash
+    pip uninstall pycocotools
+    pip install pycocotools
+    ```
+
+4. **Run your script again**: After following the above steps, try running your script again. If you're still encountering errors, please provide the full error message and I'll be happy to assist you further.

@@ -1,0 +1,14 @@
+Yes, that is correct. The basic type check in VueJS prop validation will allow `null` and `undefined` values to pass any type validation. However, if you have specified a specific type for the prop, such as `String`, `Number`, or `Boolean`, and you pass a `null` value, you will receive a warning that the type check has failed. 
+
+In your example, you have specified that the `value` prop should be of type `String`, `Number`, or `Boolean`, but you are passing a `null` value. Therefore, you are receiving a warning that the type check has failed. If you want to allow `null` values for the `value` prop, you can add `null` to the list of allowed types like this:
+
+```
+props: {
+  value: {
+    type: [String, Number, Boolean, null],
+    required: true,
+  },
+},
+```
+
+This will allow `null` values to pass the type check for the `value` prop.

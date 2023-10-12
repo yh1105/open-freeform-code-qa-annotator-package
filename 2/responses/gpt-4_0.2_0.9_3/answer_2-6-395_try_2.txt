@@ -1,0 +1,45 @@
+In .NET 6, you can add XML comments to your minimal APIs by using the `Produces` and `ProducesResponseType` attributes. However, these attributes don't support XML comments directly. 
+
+To add XML comments, you need to create a separate method that includes your API logic and add XML comments to this method. Then, you can call this method in your minimal API route. Here's an example:
+
+```csharp
+/// <summary>
+/// This method returns a list of clients.
+/// </summary>
+/// <param name="repo">The client repository.</param>
+/// <returns>A list of clients.</returns>
+[HttpGet("/clients")]
+[Produces("application/json")]
+[ProducesResponseType(typeof(IEnumerable<ClientModel>), StatusCodes.Status200OK)]
+public async Task<IEnumerable<ClientModel>> GetClients(IClientRepository repo)
+{
+    var results = await repo.GetClientsAsync();
+    return mapper.Map<IEnumerable<ClientModel>>(results);
+}
+
+app.MapGet("/clients", GetClients);
+```
+
+In this example, the `GetClients` method includes XML comments that describe what the method does, its parameters, and its return value. These comments will be included in the Swagger UI.
+
+Remember to enable XML documentation in your project settings. In the `.csproj` file, add these lines:
+
+```xml
+<PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+</PropertyGroup>
+```
+
+Then, in your `Program.cs`, make sure to enable the inclusion of XML comments in Swagger:
+
+```csharp
+app.UseSwagger(c =>
+{
+    c.IncludeXmlComments("YourXmlFileName.xml");
+});
+```
+
+Replace `"YourXmlFileName.xml"` with the name of your XML documentation file. This file is usually named after your project, so if your project is named `MyProject`, the XML file would be `MyProject.xml`.
+
+Please note that this is a workaround because minimal APIs are a new feature in .NET 6 and some features like XML comments are not fully supported yet.

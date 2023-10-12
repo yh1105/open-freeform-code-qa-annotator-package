@@ -1,0 +1,38 @@
+You can change the height of the `mat-form-field` with `appearance="outline"` by overriding the default CSS styles. 
+
+Here's how you can do it:
+
+1. Add a CSS class to your `mat-form-field` in your HTML file:
+
+```html
+<mat-form-field appearance="outline" class="my-mat-form-field">
+  <mat-label>Input</mat-label>
+  <input matInput placeholder="Placeholder">
+</mat-form-field>
+```
+
+2. In your CSS file, override the default styles:
+
+```css
+.my-mat-form-field .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.my-mat-form-field .mat-form-field-flex {
+  padding: 0.5em 0.75em;  /* Adjust as needed */
+}
+
+.my-mat-form-field .mat-form-field-infix {
+  border-top: 0;
+}
+```
+
+The `padding-bottom` in `.mat-form-field-wrapper` is set to 0 to remove the extra space at the bottom of the form field.
+
+The `padding` in `.mat-form-field-flex` is adjusted to reduce the overall height of the form field. You can adjust these values as needed.
+
+The `border-top` in `.mat-form-field-infix` is set to 0 to remove the extra border at the top of the form field when it is not focused.
+
+Please note that these styles are specific to the outlined appearance of `mat-form-field`. If you use a different appearance, you may need to adjust different styles.
+
+Also, be aware that overriding the default styles may affect the look and feel of your form fields, and may cause issues with error messages, hints, and other features of `mat-form-field`. Always test thoroughly after making these changes.

@@ -1,0 +1,37 @@
+You can achieve this by using CSS to style your checkboxes. Here's a simple example of how you can do it:
+
+HTML:
+```html
+<input type="checkbox" id="checkbox" class="custom-checkbox" />
+<label for="checkbox"></label>
+```
+
+CSS:
+```css
+.custom-checkbox {
+    display: none;
+}
+
+.custom-checkbox + label {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+}
+
+.custom-checkbox:checked + label::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+```
+
+In this example, the actual checkbox is hidden (`display: none;`), and a label is used to create a custom checkbox look. The `::after` pseudo-element is used to create the black box in the middle when the checkbox is checked.
+
+Please note that this is a very basic example and you might need to adjust it to fit your design and requirements. Also, make sure that the checkbox and the label are correctly associated (the `for` attribute in the label matches the `id` of the checkbox), so that clicking the label will toggle the checkbox.

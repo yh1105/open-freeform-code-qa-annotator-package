@@ -1,0 +1,41 @@
+The error message is indicating that the `AppBarDesign` class can't be assigned to the `appBar` parameter of the `Scaffold` widget because `AppBarDesign` is not a subtype of `PreferredSizeWidget`. 
+
+In Flutter, the `appBar` parameter of the `Scaffold` widget expects a widget that implements `PreferredSizeWidget`. The `AppBar` widget is one such widget, which is why it's commonly used as the `appBar` parameter.
+
+In your code, you're trying to use `AppBarDesign` as the `appBar`, but `AppBarDesign` is a `StatelessWidget`, not a `PreferredSizeWidget`. 
+
+To fix this issue, you can make `AppBarDesign` return an `AppBar` directly, like this:
+
+```dart
+class AppBarDesign extends StatelessWidget {
+  AppBarDesign(Key key, this.title) : super(key: key);
+
+  final title;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title),
+    );
+  }
+}
+```
+
+Then, in `MyHomePage`, you can use `AppBarDesign` like this:
+
+```dart
+class MyHomePage extends StatelessWidget {
+  MyHomePage(Key key, this.title) : super(key: key);
+
+  final title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBarDesign(key, title),
+    );
+  }
+}
+```
+
+This way, `AppBarDesign` is still a `StatelessWidget`, but it returns an `AppBar`, which is a `PreferredSizeWidget`, so it can be used as the `appBar` parameter of the `Scaffold` widget.

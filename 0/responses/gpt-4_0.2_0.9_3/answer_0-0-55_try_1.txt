@@ -1,0 +1,49 @@
+The problem with your code is that the `myInterval` variable is not preserving its value between renders. This is because every time your component re-renders, a new `myInterval` variable is created. So when you call `clearInterval(myInterval)`, it's not clearing the interval you think it is.
+
+To solve this, you can use the `useRef` hook to store the interval ID. The `useRef` hook creates a mutable object with a `.current` property that you can change without causing a re-render.
+
+Here's how you can modify your code:
+
+```jsx
+import React, { useState, useEffect, useRef } from "react";
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef();
+
+  function startCounter() {
+    setIsRunning(true);
+    intervalRef.current = setInterval(() => setCounter((counter) => counter + 1), 1000);
+  }
+
+  function pauseCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+  }
+
+  function resetCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+    setCounter(0);
+  }
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={isRunning ? pauseCounter : startCounter}>
+        {isRunning ? "Pause" : "Start"}
+      </button>
+      <button onClick={resetCounter}>Reset</button>
+    </div>
+  );
+}
+```
+
+In this code, I've made the following changes:
+
+1. I've added the `useRef` hook and created a `intervalRef` variable to store the interval ID.
+2. I've split your `incrementCounter` function into two separate functions: `startCounter` and `pauseCounter`. This makes the code easier to understand and maintain.
+3. I've updated the `onClick` handler for the start/pause button to call `startCounter` or `pauseCounter` depending on whether the counter is currently running.
+4. I've updated the `resetCounter` function to clear the interval using `intervalRef.current`.
+5. I've removed the `flag` state variable and the `useEffect` hook because they are no longer needed.

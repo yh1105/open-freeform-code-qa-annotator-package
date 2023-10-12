@@ -1,0 +1,38 @@
+There isn't a direct standard-library tool in C++ to transform a vector into a vector of pairs. However, you can achieve this using the `std::transform` function from the `<algorithm>` library in combination with an iterator. Here is an example:
+
+```cpp
+#include <vector>
+#include <utility> // for std::pair
+#include <algorithm> // for std::transform
+#include <iterator> // for std::distance, std::begin, std::end
+
+int main() {
+    std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<std::pair<int, int>> goal;
+
+    // Ensure the origin vector has an even number of elements
+    if (origin.size() % 2 != 0) {
+        throw std::invalid_argument("The origin vector must have an even number of elements.");
+    }
+
+    // Resize the goal vector to half the size of the origin vector
+    goal.resize(origin.size() / 2);
+
+    // Use std::transform to populate the goal vector
+    std::transform(std::begin(origin), std::end(origin), std::begin(goal),
+        [&origin](int& n) {
+            // Calculate the index of n in the origin vector
+            int index = std::distance(std::begin(origin), &n);
+
+            // Return a pair of consecutive elements from the origin vector
+            return std::make_pair(origin[index], origin[index + 1]);
+        }
+    );
+
+    return 0;
+}
+```
+
+This code uses a lambda function with `std::transform` to create a pair of consecutive elements from the `origin` vector and store them in the `goal` vector. The `std::distance` function is used to calculate the index of the current element in the `origin` vector. 
+
+Please note that this code assumes that the `origin` vector always contains an even number of elements. If this is not the case, the code will throw an `std::invalid_argument` exception.

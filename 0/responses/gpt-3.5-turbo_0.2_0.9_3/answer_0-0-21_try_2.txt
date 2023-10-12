@@ -1,0 +1,16 @@
+You can use the Clipboard API to copy the text to the clipboard. Here's the updated `copyText` method:
+
+```
+copyText() {
+  const textField = document.createElement('textarea');
+  textField.innerText = this.text1;
+  document.body.appendChild(textField);
+  textField.select();
+  document.execCommand('copy');
+  textField.remove();
+}
+```
+
+This method creates a temporary `textarea` element, sets its value to the text you want to copy, appends it to the document body, selects the text, copies it to the clipboard using the `execCommand('copy')` method, and finally removes the temporary element from the document.
+
+Note that this method uses the `document.execCommand()` method, which is now deprecated. However, it still works in most modern browsers. Alternatively, you can use the newer Clipboard API, but it requires additional permissions and is not supported in all browsers.

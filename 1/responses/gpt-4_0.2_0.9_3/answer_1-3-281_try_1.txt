@@ -1,0 +1,37 @@
+The problem you're facing is due to the fact that you're using a dictionary to store the color of each letter. In Python, dictionaries can't have duplicate keys, so when you have a word with duplicate letters, the color of the last occurrence of that letter is the one that gets stored in the dictionary.
+
+To solve this issue, you should use a list to store the color of each letter instead of a dictionary. This way, you can handle words with duplicate letters correctly. Here's how you can modify your code:
+
+```python
+def wordcolor(self, choice, guess):
+    choiceword = list(choice)
+    guesslist = list(guess)
+
+    guesscolor = [''] * len(guesslist)  # Initialize the color list with empty strings
+
+    counter = 0
+    totalsame = 0
+    sameword = 0
+
+    while (counter < len(guesslist)):
+        if guesslist[counter] in choiceword:
+            totalsame += 1
+
+            if choiceword[counter] == guesslist[counter]:
+                print(f"The word at index {counter} is present in both strings in same place")
+                sameword += 1
+                guesscolor[counter] = "green"
+            else:
+                guesscolor[counter] = "orange"
+            counter += 1
+        else:
+            guesscolor[counter] = "red"
+            counter += 1
+
+    print(guesscolor)
+    print("There are " + str(totalsame) + " duplicate characters." + str(sameword) + " of them are in the same place")
+
+Game(0).wordcolor(choice, guessh)
+```
+
+In this modified version of your code, `guesscolor` is a list that stores the color of each letter in the guessed word. The color of the letter at index `i` in the guessed word is stored at index `i` in `guesscolor`. This way, you can handle words with duplicate letters correctly.

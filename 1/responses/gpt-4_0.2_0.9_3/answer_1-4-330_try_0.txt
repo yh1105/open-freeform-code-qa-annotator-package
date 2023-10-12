@@ -1,0 +1,18 @@
+Hi Rosalie,
+
+The email you received is about a change in how GitHub is handling authentication. They are moving away from password-based authentication for Git operations and are now requiring token-based authentication.
+
+Since you mentioned that you already created a personal access token a few months ago, you should be all set. However, the error message might be appearing because your Git client is still trying to authenticate using your old credentials (username and password).
+
+Here's how you can update your credentials on your Mac:
+
+1. Open Terminal.
+2. Enter the following command to bring up the keychain access: `open /Applications/Utilities/Keychain\ Access.app/`
+3. In the search bar in Keychain Access, search for `github.com`.
+4. Find the internet password for `github.com` and delete it.
+5. The next time you try to push to GitHub from your terminal, it will prompt you for your username and password. Here, enter your GitHub username and use the personal access token you created as the password.
+
+This should resolve the issue. If you continue to have problems, please let me know.
+
+Best,
+Your Assistant

@@ -1,0 +1,17 @@
+In SwiftUI, you can't directly initialize a `@Binding` variable. `@Binding` is used to create a two-way connection between a variable that's stored somewhere else.
+
+However, in your preview, you can use the `.constant()` function to create a binding to a constant value. This is useful in previews and other places where you don’t have a mutable value to bind to.
+
+Here is how you can do it:
+
+```swift
+#if DEBUG
+struct LoggedInView_Previews : PreviewProvider {
+    static var previews: some View {
+        LoggedInView(dismissView: .constant(false))
+    }
+}
+#endif
+```
+
+In this case, `.constant(false)` creates a binding to the constant value `false`. This is useful in previews and other places where you don’t have a mutable value to bind to.

@@ -1,0 +1,40 @@
+Yes, you can achieve this by using the `where` and `groupby` functions in pandas. Here's how you can do it:
+
+```python
+import pandas as pd
+
+df=pd.DataFrame()
+df['exchange'] = [1, 1, 1, 2, 3]
+df['type'] = ['deposit', 'deposit', 'trade', 'deposit', 'deposit']
+df['value'] = [10, 10, '30', '40', '100']
+df['value'] = df['value'].astype(int)  # Convert value to int for calculations
+
+# Create a new column 'balance' where type is 'deposit', else NaN
+df['balance'] = df['value'].where(df['type'] == 'deposit')
+
+# Forward fill the balance within each group of 'exchange'
+df['balance'] = df.groupby('exchange')['balance'].apply(lambda x: x.ffill().cumsum())
+
+# Fill NaN values with 0
+df['balance'] = df['balance'].fillna(0)
+
+print(df)
+```
+
+This will give you the desired output:
+
+```
+   exchange     type  value  balance
+0         1  deposit     10     10.0
+1         1  deposit     10     20.0
+2         1    trade     30     20.0
+3         2  deposit     40     40.0
+4         3  deposit    100    100.0
+```
+
+Here's what's happening:
+
+- `df['value'].where(df['type'] == 'deposit')` creates a new series where the value is the same as `df['value']` when `df['type']` is `'deposit'`, and `NaN` otherwise.
+- `groupby('exchange')` groups the DataFrame by the 'exchange' column.
+- `apply(lambda x: x.ffill().cumsum())` applies a function to each group separately. The function first forward fills the NaN values with the last valid observation within the group, and then calculates the cumulative sum.
+- `fillna(0)` replaces the remaining `NaN` values with `0`.

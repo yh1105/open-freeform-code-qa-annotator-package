@@ -1,0 +1,20 @@
+To enable 'ignoreundefinedproperties' in your Nodejs and Express application, you can use the `body-parser` middleware and set the `extended` option to `true`. Here's an example:
+
+```
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+// Enable 'ignoreundefinedproperties'
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Your routes and other middleware here
+
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
+```
+
+With this configuration, the `body-parser` middleware will parse the request body and set any undefined properties to `null` instead of throwing an error.

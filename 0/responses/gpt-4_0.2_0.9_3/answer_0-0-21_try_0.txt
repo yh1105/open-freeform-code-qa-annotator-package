@@ -1,0 +1,19 @@
+You can use the Clipboard API to copy text to the clipboard. Here's how you can do it:
+
+```javascript
+methods: {
+  copyText (){
+    navigator.clipboard.writeText(this.text1).then(function() {
+      /* clipboard successfully set */
+      console.log('Copying to clipboard was successful!');
+    }, function(err) {
+      /* clipboard write failed */
+      console.error('Could not copy text: ', err);
+    });
+  }
+}
+```
+
+This code will copy the content of `text1` to the clipboard when the button is clicked. The `navigator.clipboard.writeText` function is a promise that will either succeed or fail, and you can handle both cases in the `then` and `catch` callbacks.
+
+Please note that the Clipboard API might not be available or might be restricted in some browsers due to privacy settings. Always make sure to handle the case where it's not available or the operation fails.

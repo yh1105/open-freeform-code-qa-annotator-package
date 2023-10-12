@@ -1,0 +1,27 @@
+It seems like the EasyAdminBundle routes are not being loaded. 
+
+Make sure that the EasyAdminBundle is enabled in your `config/bundles.php` file. It should look something like this:
+
+```
+return [
+    // ...
+    EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+];
+```
+
+If the bundle is already enabled, try clearing the cache again with the following commands:
+
+```
+symfony console cache:clear
+symfony console cache:warmup
+```
+
+If that doesn't work, try removing the `var/cache` directory manually and then clearing the cache again:
+
+```
+rm -rf var/cache/*
+symfony console cache:clear
+symfony console cache:warmup
+```
+
+If the issue still persists, try checking the logs for any errors that might be related to the EasyAdminBundle. You can find the logs in the `var/log` directory.

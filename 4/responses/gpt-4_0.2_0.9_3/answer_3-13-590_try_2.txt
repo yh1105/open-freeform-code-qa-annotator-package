@@ -1,0 +1,9 @@
+The error message indicates that the style on the `TextInputLayout` component requires your app theme to be `Theme.MaterialComponents` (or a descendant).
+
+In your `AppTheme`, you have set the parent as `Theme.MaterialComponents.Light.NoActionBar`. This should be compatible with the `TextInputLayout` as it is a descendant of `Theme.MaterialComponents`.
+
+However, you mentioned that you are using `material_design_components_version = '1.1.0-alpha08'`. This is an alpha version and might contain bugs. I suggest you to update the Material Components library to the latest stable version. You can check the latest version on the [Google Maven repository](https://maven.google.com/web/index.html?q=material#com.google.android.material:material).
+
+Also, make sure that you have migrated your project to AndroidX, as the Material Components library is part of AndroidX. You can check this by looking at your import statements. If they start with `androidx.`, then you have migrated to AndroidX.
+
+If updating the library and checking AndroidX migration doesn't solve the issue, please check if you have overwritten the theme in any other place in your code, like in the activity or fragment where you are using the `TextInputLayout`. If you have, make sure that the overwritten theme is also a descendant of `Theme.MaterialComponents`.

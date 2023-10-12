@@ -1,0 +1,18 @@
+The issue is that `getCurrentPosition` is an asynchronous function, which means that the `else` block is executed before the user has a chance to allow or deny the geolocation request. To fix this, you can move the `else` block inside the `getCurrentPosition` callback function:
+
+```
+getUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.lat = position.coords.latitude;
+      this.lng = position.coords.longitude;
+    }, error => {
+      console.log("User denied geolocation request");
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+```
+
+In this updated code, if the user denies the geolocation request, the error callback function will be executed and the message "User denied geolocation request" will be logged to the console.

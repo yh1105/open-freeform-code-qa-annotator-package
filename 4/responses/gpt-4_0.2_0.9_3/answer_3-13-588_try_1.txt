@@ -1,0 +1,15 @@
+The error you're seeing is a known issue with the Kotlin plugin in Android Studio. It's not related to your code or the way you're using Safe Args. 
+
+Here are a few things you can try to resolve this issue:
+
+1. **Clean and Rebuild the project:** Go to `Build > Clean Project` then `Build > Rebuild Project`.
+
+2. **Invalidate Caches and Restart:** Go to `File > Invalidate Caches / Restart... > Invalidate and Restart`.
+
+3. **Update Kotlin Plugin:** Make sure you're using the latest version of the Kotlin plugin in Android Studio. You can check for updates by going to `Android Studio > Check for Updates...` on macOS or `Help > Check for Updates...` on Windows.
+
+4. **Update Android Studio:** Make sure you're using the latest version of Android Studio. You can check for updates by going to `Android Studio > Check for Updates...` on macOS or `Help > Check for Updates...` on Windows.
+
+5. **Delete the `.idea` folder:** Close Android Studio, delete the `.idea` folder in your project directory, and then reopen Android Studio. This will force Android Studio to recreate the project metadata.
+
+If none of these solutions work, you might want to consider filing a bug report with JetBrains, the creators of Kotlin.

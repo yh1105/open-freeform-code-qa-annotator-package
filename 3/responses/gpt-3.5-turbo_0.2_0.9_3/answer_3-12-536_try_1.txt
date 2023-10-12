@@ -1,0 +1,14 @@
+You can achieve this by using the `side` property of the `RoundedRectangleBorder` to set the color and width of the border. Here's an example:
+
+```
+new FlatButton(
+  child: new Text("Button text"),
+  onPressed: null,
+  shape: new RoundedRectangleBorder(
+    borderRadius: new BorderRadius.circular(30.0),
+    side: BorderSide(color: Colors.blue, width: 2.0),
+  ),
+)
+```
+
+In this example, the `side` property is set to a blue color with a width of 2.0. You can adjust the color and width to your liking.

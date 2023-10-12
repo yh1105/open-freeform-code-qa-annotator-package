@@ -1,0 +1,37 @@
+The error message suggests that the `index.android.bundle` file is not found or not packaged correctly for release. This file is the JavaScript bundle that your React Native app runs. In development, Metro serves this file, but for the release build, you need to bundle it with your app.
+
+Here are the steps to generate the `index.android.bundle`:
+
+1. Create a new folder in your project's directory named `assets` inside `android/app/src/main`.
+
+2. Run the following command in your project's root directory:
+
+```bash
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+
+This command creates the JavaScript bundle and the assets for the Android app.
+
+3. Now, you can create the release build:
+
+```bash
+npx react-native run-android --variant=release
+```
+
+If you're still having issues, check your `android/app/build.gradle` file. Make sure the `bundleInRelease` and `bundleInDebug` are set correctly:
+
+```groovy
+project.ext.react = [
+    enableHermes: false,  // clean and rebuild if changing
+    bundleInRelease: true,
+    bundleInDebug: true
+]
+```
+
+If you made changes to the `build.gradle` file, you need to clean and rebuild your project:
+
+```bash
+cd android && ./gradlew clean
+```
+
+Then, go back to your project's root directory and run the release build command again.

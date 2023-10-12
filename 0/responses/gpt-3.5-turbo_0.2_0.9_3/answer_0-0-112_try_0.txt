@@ -1,0 +1,21 @@
+The error message suggests that the browser process failed to launch because of a permission issue. You can try running the command with elevated privileges using `sudo`:
+
+```
+sudo node app.js
+```
+
+If that doesn't work, you can try changing the permissions of the Chromium executable file:
+
+```
+chmod +x /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium
+```
+
+This should give the executable file the necessary permissions to run. 
+
+Alternatively, you can try using the default executable path for Chromium:
+
+```
+const browser = await puppeteer.launch({headless:false, executablePath: 'chromium-browser'});
+```
+
+This should work if Chromium is installed on your system and added to the PATH environment variable.

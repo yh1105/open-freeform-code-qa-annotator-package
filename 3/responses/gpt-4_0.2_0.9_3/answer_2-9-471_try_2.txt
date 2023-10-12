@@ -1,0 +1,56 @@
+The error you're encountering is because TypeScript doesn't know how to handle non-code assets like images. When you import an image, TypeScript tries to find a module that matches the image file, but it can't find one, hence the error.
+
+Your approach to solve this is correct, you need to declare a module for jpg files in a `.d.ts` file. However, the issue might be with the location of your `index.d.ts` file and how you've included it in your `tsconfig.json`.
+
+The `index.d.ts` file should be in the root of your `src` directory, not in the root of your project. So your project structure should look like this:
+
+```
++ src
+  + assets
+    - image.jpg
+  + components
+    - Box.tsx
+    - App.tsx
+  - index.d.ts
+  - index.html
+  - index.tsx
+- tsconfig.json
+- tslint.json
+```
+
+And your `index.d.ts` file should look like this:
+
+```typescript
+declare module '*.jpg' {
+  const value: any;
+  export default value;
+}
+```
+
+Then, in your `tsconfig.json` file, you should include the `src` directory like this:
+
+```json
+{
+  "compilerOptions": {
+    ...
+  },
+  "include": ["src"]
+}
+```
+
+This tells TypeScript to include all `.ts` and `.tsx` files in the `src` directory, as well as all `.d.ts` files.
+
+Now you should be able to import your image in your `App.tsx` file like this:
+
+```typescript
+import * as React from 'react';
+import img from '../assets/image.jpg';
+
+const Box = props => {
+  // do things...
+}
+
+export default Box;
+```
+
+This will import the image as a string containing the URL of the image, which you can then use in your React component.

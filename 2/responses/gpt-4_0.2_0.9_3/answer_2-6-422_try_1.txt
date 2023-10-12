@@ -1,0 +1,22 @@
+The error message you're seeing is usually caused by a mismatch between the state of your database and the state of your migrations. 
+
+Here are some steps you can take to resolve this issue:
+
+1. **Revert to the previous state**: If you have any data in your database that you need to keep, make sure to back it up before proceeding. Then, use the `Update-Database` command with the name of the last migration that was successfully applied to your database. This will revert your database to the state it was in when that migration was applied.
+
+2. **Remove the problematic migration**: After you've reverted to the previous state, you can use the `Remove-Migration` command to remove the migration that's causing the problem.
+
+3. **Add a new migration**: Once the problematic migration has been removed, you can make the necessary changes to your model and add a new migration with the `Add-Migration` command.
+
+4. **Update the database**: Finally, use the `Update-Database` command to apply the new migration to your database.
+
+Here's how you can do this:
+
+```bash
+Update-Database -Context TodoItemsContext -Migration TodoItems_Initial
+Remove-Migration -Context TodoItemsContext
+Add-Migration -Context TodoItemsContext AddDescription
+Update-Database -Context TodoItemsContext
+```
+
+If you don't care about the data in your database, you could also consider deleting and recreating the database. This can often be a quicker solution, but it's not suitable for all situations, especially when you have important data in your database.

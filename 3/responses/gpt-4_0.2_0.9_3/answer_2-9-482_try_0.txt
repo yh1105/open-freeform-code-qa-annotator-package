@@ -1,0 +1,13 @@
+The error you're seeing is due to a change in Ruby 3.0 that makes YAML loading safer by default. It now only allows loading of basic Ruby objects unless you specify otherwise. This is to prevent potential security issues with loading arbitrary objects from YAML.
+
+The `permitted_classes` option allows you to specify additional classes that can be loaded. However, you're seeing an error with `Symbol` because it's not in the list of permitted classes.
+
+You can add `Symbol` to the list of permitted classes like this:
+
+```ruby
+hsh = YAML.load_file(some_file_name, permitted_classes: [Matrix, OpenStruct, Symbol])
+```
+
+If you have other classes that need to be loaded, you can add them to the list as well. If you're not sure what classes need to be loaded, you might need to add them one at a time as you encounter errors.
+
+However, be aware that allowing arbitrary classes to be loaded from YAML can be a security risk. Only add classes to the `permitted_classes` list if you trust the source of the YAML file and you're sure that loading those classes won't cause any issues.

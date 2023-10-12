@@ -1,0 +1,59 @@
+In Java, you can use the `getClass()` method to get the class of an object. However, this method is not applicable to primitive types. Here's an example:
+
+```java
+Integer a = 12;
+System.out.println(a.getClass().getSimpleName()); // Integer
+
+String str = "Hello";
+System.out.println(str.getClass().getSimpleName()); // String
+
+Float f = 12.3f;
+System.out.println(f.getClass().getSimpleName()); // Float
+```
+
+For primitive types, you can use wrapper classes to get the type. For example:
+
+```java
+int a = 12;
+System.out.println(((Object) a).getClass().getSimpleName()); // Integer
+```
+
+But this approach is not efficient because it involves boxing and unboxing of primitive types.
+
+Another approach is to create a utility method that returns the type of a variable based on its value. This method can handle both objects and primitive types:
+
+```java
+public static String getType(Object obj) {
+    if (obj instanceof Integer) {
+        return "int";
+    } else if (obj instanceof String) {
+        return "String";
+    } else if (obj instanceof Float) {
+        return "float";
+    } else if (obj instanceof Double) {
+        return "double";
+    } else if (obj instanceof Boolean) {
+        return "boolean";
+    } else if (obj instanceof Long) {
+        return "long";
+    } else if (obj instanceof Byte) {
+        return "byte";
+    } else if (obj instanceof Short) {
+        return "short";
+    } else if (obj instanceof Character) {
+        return "char";
+    } else {
+        return obj.getClass().getSimpleName();
+    }
+}
+```
+
+You can use this method like this:
+
+```java
+System.out.println(getType("Hello")); // String
+System.out.println(getType(12)); // int
+System.out.println(getType(12.3f)); // float
+```
+
+This method works for both objects and primitive types. However, it's not a perfect solution because it doesn't handle arrays and other complex data types.

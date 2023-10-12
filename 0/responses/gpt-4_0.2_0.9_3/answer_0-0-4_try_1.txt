@@ -1,0 +1,21 @@
+`Pressable` is a new core component introduced in React Native 0.63. It is a more flexible, extensible alternative to the existing touchable components like `TouchableOpacity`, `TouchableHighlight`, etc.
+
+Here are some differences between `Pressable` and `TouchableOpacity`:
+
+1. **Event Handling**: `Pressable` provides more event handlers than `TouchableOpacity`. It includes `onPress`, `onLongPress`, `onPressIn`, `onPressOut`, and `onPressMove`. This gives you more control over the press events.
+
+2. **Styling**: `Pressable` introduces a new way to handle styles. It accepts a function as its `style` prop, which receives an object indicating whether the component is currently pressed. This allows you to change styles based on the press state. `TouchableOpacity` doesn't have this feature.
+
+3. **Hover, Focus, Blur Events**: `Pressable` also supports `onHoverIn`, `onHoverOut`, `onFocus`, `onBlur` events which are not available in `TouchableOpacity`.
+
+4. **Hit Slop**: Both `Pressable` and `TouchableOpacity` support hit slop, but `Pressable` allows you to specify different values for each side (top, bottom, left, right), while `TouchableOpacity` applies the same value to all sides.
+
+5. **Ripple Effect**: `Pressable` supports ripple effect on Android, which is not available in `TouchableOpacity`.
+
+When to use them:
+
+- Use `TouchableOpacity` when you need a simple button with an opacity effect on press, and you don't need to handle many different press events.
+
+- Use `Pressable` when you need more control over the press events, want to change styles based on the press state, or need to support hover, focus, blur events. It's also a good choice when you want to create a button with a ripple effect on Android.
+
+In general, `Pressable` is more flexible and powerful, and it's likely to replace the existing touchable components in the future. However, `TouchableOpacity` is simpler and easier to use, so it might be a better choice for simple use cases.

@@ -1,0 +1,36 @@
+The problem you're facing is due to the fact that each worker process in FastAPI runs in its own memory space. Therefore, they cannot directly share Python objects with each other. This is a common issue when dealing with multi-process architectures.
+
+One common solution to this problem is to use a shared storage that all processes can access. This could be a database, a key-value store like Redis, or even a file on disk. The choice of storage depends on your specific use case.
+
+Here's an example of how you could modify your code to use Redis as a shared storage:
+
+```python
+from fastapi import FastAPI, status
+import redis
+
+app = FastAPI()
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+
+# increases the count variable in the redis store by 1
+@app.get("/increment")
+async def increment():
+    r.incr('count')
+    return status.HTTP_200_OK
+
+# returns a json containing the current count from the redis store
+@app.get("/report")
+async def report():
+    count = r.get('count')
+    return {'count': int(count) if count else 0}
+
+# resets the count in the redis store to 0
+@app.get("/reset")
+async def reset():
+    r.set('count', 0)
+    return status.HTTP_200_OK
+```
+
+In this example, all worker processes will share the same 'count' value in the Redis store. When you increment the count, it will be incremented in the Redis store and will be visible to all worker processes. Similarly, when you reset the count, it will be reset in the Redis store and this will also be visible to all worker processes.
+
+As for your side question, in a multi-process architecture, you cannot force all workers to respond to a single call on an endpoint. Each request is handled by a single worker process. However, by using a shared storage as shown above, you can ensure that all workers have a consistent view of the data.

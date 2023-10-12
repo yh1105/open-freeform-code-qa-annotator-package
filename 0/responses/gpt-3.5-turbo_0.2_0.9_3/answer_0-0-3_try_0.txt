@@ -1,0 +1,23 @@
+It seems like there is an issue with the gradlew.bat file. You can try the following steps to resolve the issue:
+
+1. Close your project and open the Android Studio.
+2. Click on "File" -> "Invalidate Caches / Restart".
+3. In the pop-up window, click on "Invalidate and Restart".
+4. Wait for Android Studio to restart.
+5. Open your project again and try running the "react-native link" command.
+
+If the above steps do not work, you can try the following:
+
+1. Open the "android" folder in your project.
+2. Delete the "gradle" folder.
+3. Run the "react-native link" command again.
+
+If the issue still persists, you can try updating your gradle version. To do this, follow these steps:
+
+1. Open the "android" folder in your project.
+2. Open the "gradle/wrapper" folder.
+3. Open the "gradle-wrapper.properties" file.
+4. Change the "distributionUrl" to the latest version of gradle. For example, "distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-all.zip".
+5. Save the file and run the "react-native link" command again.
+
+I hope this helps you resolve the issue.

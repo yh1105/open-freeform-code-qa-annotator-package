@@ -1,0 +1,21 @@
+Yes, you are correct that the second approach is the correct way to handle null safety in this case. However, if you need to do this for several variable values, it would be a good idea to create a function that handles the conversion for you. Here's an example of how you could create a function to convert a nullable string to an int:
+
+```
+int? parseInt(String? value) {
+  if (value == null) {
+    return null;
+  }
+  return int.parse(value);
+}
+```
+
+You can then use this function to convert your string values to int values:
+
+```
+final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
+int? id = parseInt(routeArgs["id"]);
+int? otherValue = parseInt(routeArgs["otherValue"]);
+```
+
+This way, you can handle null values without having to repeat the same code for each variable.

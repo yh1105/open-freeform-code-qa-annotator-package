@@ -1,0 +1,27 @@
+This issue can be caused by various reasons, but here are some steps you can try to resolve it:
+
+1. **Clean the project**: In Xcode, go to `Product -> Clean Build Folder`. This will remove all the build files and force Xcode to recompile everything.
+
+2. **Delete Derived Data**: Go to `Window -> Organizer -> Projects -> Your Project -> Delete Derived Data`. Derived Data includes all the indexes, build products, and logs. Sometimes, these files can become corrupted and cause issues.
+
+3. **Update CocoaPods**: Make sure you're using the latest version of CocoaPods. You can update it by running `sudo gem install cocoapods` in the terminal.
+
+4. **Reinstall Pods**: Delete the `Pods` directory, `Podfile.lock`, and `YourProject.xcworkspace`. Then run `pod install` again.
+
+5. **Check Swift Version**: Make sure all your Pods are compatible with the Swift version you're using. You can specify the Swift version for each Pod in the `Podfile` like this:
+    ```
+    post_install do |installer|
+        installer.pods_project.targets.each do |target|
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '5.0'
+            end
+        end
+    end
+    ```
+    Replace '5.0' with your Swift version.
+
+6. **Check for Swift Compiler - Language settings**: Go to `Build Settings -> Swift Compiler - Language` and check if the `Swift Language Version` is set correctly.
+
+7. **Check for Errors in Your Code**: Sometimes, the error can be caused by your own code. Check if there are any Swift files with errors.
+
+If none of the above solutions work, it might be a bug in Xcode 10.0. You can report it to Apple through their bug reporting system.

@@ -1,0 +1,23 @@
+You can use the `uname -m` command to get the machine hardware name. On M1 Macs, this command returns "arm64". Here's how you can use this in a shell script:
+
+```bash
+if [ "$(uname -m)" = "arm64" ]; then
+    echo "Running on M1"
+else
+    echo "Not running on M1"
+fi
+```
+
+This script will print "Running on M1" if it's running on an M1 Mac, and "Not running on M1" otherwise.
+
+Please note that this will also return "arm64" on other arm64 machines, not just M1 Macs. If you need to specifically target M1 Macs, you can use the `sysctl -n machdep.cpu.brand_string` command, which gives more detailed information about the CPU:
+
+```bash
+if [ "$(uname -m)" = "arm64" ] && [ "$(sysctl -n machdep.cpu.brand_string)" = "Apple M1" ]; then
+    echo "Running on M1"
+else
+    echo "Not running on M1"
+fi
+```
+
+This script will only print "Running on M1" if it's running on an M1 Mac.

@@ -1,0 +1,27 @@
+This error message indicates that the PowerShell execution policy on your Windows 10 machine is preventing the execution of scripts. To resolve this issue, you can change the execution policy to allow script execution. Here are the steps to do that:
+
+1. Open PowerShell as an administrator. You can do this by right-clicking on the PowerShell icon and selecting "Run as administrator".
+
+2. Run the following command to check the current execution policy:
+
+   ```
+   Get-ExecutionPolicy
+   ```
+
+   This command will return the current execution policy. If the policy is set to "Restricted", then scripts are not allowed to run.
+
+3. To change the execution policy to allow script execution, run the following command:
+
+   ```
+   Set-ExecutionPolicy RemoteSigned
+   ```
+
+   This command will set the execution policy to "RemoteSigned", which allows locally created scripts to run.
+
+4. After changing the execution policy, try running the `expo --version` command again in the Visual Studio Code terminal. It should now work without any errors.
+
+Note: Changing the execution policy can be a security risk, so it's important to understand the implications before making any changes. You can learn more about PowerShell execution policies by running the following command:
+
+```
+Get-Help about_Execution_Policies
+```

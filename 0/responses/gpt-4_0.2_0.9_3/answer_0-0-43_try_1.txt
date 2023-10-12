@@ -1,0 +1,11 @@
+The `--downlevelIteration` flag is necessary when targeting ES5 and lower because these versions of ECMAScript do not natively support the iteration protocols introduced in ES6, which include the spread operator `...` for non-array objects.
+
+In ES6 and later, you can use the spread operator with any iterable object. This includes built-in String, Array, array-like objects (e.g., arguments or NodeList), TypedArray, Map, Set, and user-defined iterables.
+
+However, in ES5 and earlier, the spread operator can only be used with actual arrays. Therefore, TypeScript needs to generate additional code to allow the spread operator to work with other iterable objects when targeting these older versions of ECMAScript.
+
+The `--downlevelIteration` flag tells TypeScript to generate this additional code. This code uses the `Symbol.iterator` method to create a simple iterator over the iterable object, which can then be spread into an array.
+
+The downside of using `--downlevelIteration` is that it increases the size of the generated JavaScript code, as you mentioned. It also requires a polyfill for `Symbol.iterator` in environments that do not support it natively, such as Internet Explorer.
+
+In your example, `Array(3).keys()` returns an `Array Iterator` object, not an actual array. Therefore, you need to use `--downlevelIteration` to allow the spread operator to work with it when targeting ES5.

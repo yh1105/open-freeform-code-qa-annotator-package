@@ -1,0 +1,24 @@
+The error message you're seeing is related to Laravel Telescope. It seems like Telescope is trying to access an array offset on a null value, which is not allowed in PHP 7.4. 
+
+You can try the following solutions:
+
+1. **Disable Telescope for testing environment**: You can disable Telescope in your testing environment by updating the `register` method in `App\Providers\TelescopeServiceProvider`:
+
+```php
+public function register()
+{
+    $this->hideSensitiveRequestDetails();
+
+    if ($this->app->isLocal()) {
+        $this->app->register(TelescopeServiceProvider::class);
+    }
+}
+```
+
+2. **Update Telescope to the latest version**: There's a chance that this issue has been fixed in a later version of Telescope. You can update Telescope by running `composer update laravel/telescope`.
+
+3. **Check your database configuration**: Make sure your database configuration is correct in your `.env` file. The `DB_CONNECTION` should be set to `sqlite` and `DB_DATABASE` to `:memory:` for testing.
+
+4. **Check if you're running the latest version of Laravel 6.x**: Laravel 6.15 is not the latest version of Laravel 6.x. The latest version is Laravel 6.20.26. You can update Laravel by running `composer update laravel/framework`.
+
+5. **Downgrade PHP version**: If none of the above solutions work, you might need to downgrade your PHP version to 7.3. You can use a tool like phpbrew to manage multiple PHP versions on your machine.

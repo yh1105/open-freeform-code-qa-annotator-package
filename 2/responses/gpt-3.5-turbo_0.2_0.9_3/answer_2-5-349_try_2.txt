@@ -1,0 +1,11 @@
+To send a path variable in a POST request using Postman, you can follow these steps:
+
+1. Open Postman and create a new request.
+2. Select the HTTP method as POST.
+3. Enter the URL with the path variable in the format `http://localhost:8080/api/v1/customers/{code}`. Replace `{code}` with the actual value of the path variable.
+4. Go to the Body tab and select the raw option.
+5. Select the format of the request body, such as JSON or XML.
+6. Enter the request body in the format specified by the selected format.
+7. Click on the Send button to send the request.
+
+In the above example, you can send a POST request to `http://localhost:8080/api/v1/customers/123` with the request body in JSON format. The value of the path variable `code` will be `123`.

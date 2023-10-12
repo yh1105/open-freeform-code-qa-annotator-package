@@ -1,0 +1,25 @@
+You can use the `pip` package to programmatically check if a package is at its latest version and return a boolean value. Here's an example script:
+
+```
+import pip
+
+def is_latest_version(package_name):
+    # Get the package information
+    package_info = pip.get_installed_distributions()
+    # Find the package in the list
+    for package in package_info:
+        if package.key == package_name:
+            # Check if the package is at its latest version
+            latest_version = pip.get_latest_version(package_name)
+            return package.version == latest_version
+    # If the package is not found, return False
+    return False
+```
+
+You can call this function with the name of the package you want to check, and it will return `True` if the package is at its latest version, and `False` otherwise. For example:
+
+```
+package_name = 'gekko'
+is_latest = is_latest_version(package_name)
+print(f"{package_name} is at its latest version: {is_latest}")
+```

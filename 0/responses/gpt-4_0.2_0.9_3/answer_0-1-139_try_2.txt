@@ -1,0 +1,44 @@
+In Tailwind CSS, you can create responsive components by using the `@apply` directive in combination with the responsive variants. However, you can't directly use `@apply` with responsive variants. You'll need to create a new class and then use that class in your HTML.
+
+Here's an example:
+
+```css
+/* tailwind.config.js */
+module.exports = {
+  theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
+  },
+  variants: {},
+  plugins: [],
+}
+```
+
+```css
+/* styles.css */
+@layer components {
+  .tablet-portrait {
+    @apply block;
+  }
+  @screen md {
+    .tablet-portrait {
+      @apply hidden;
+    }
+  }
+}
+```
+
+In the above example, the `.tablet-portrait` class will apply `display: block;` by default, and `display: none;` on medium screens and above.
+
+You can then use this class in your HTML:
+
+```html
+<div class="tablet-portrait">This will be hidden on medium screens and above.</div>
+```
+
+This is how you can abstract breakpoints as components in Tailwind CSS. It's a bit different from how you would do it in SCSS, but it's just as powerful and flexible.

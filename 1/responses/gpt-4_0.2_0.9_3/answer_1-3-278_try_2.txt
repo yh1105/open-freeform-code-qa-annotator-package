@@ -1,0 +1,31 @@
+The `asdict` function doesn't provide a way to customize how individual fields are serialized. However, you can create your own function to convert the dataclass to a dictionary and handle the Enum fields as you want. Here's an example:
+
+```python
+from dataclasses import dataclass, fields
+from enum import Enum
+
+@dataclass
+class Foobar:
+  name: str
+  template: "FoobarEnum"
+
+class FoobarEnum(Enum):
+  FIRST = "foobar"
+  SECOND = "baz"
+
+def dataclass_to_dict(dataclass_instance):
+    result = {}
+    for field in fields(dataclass_instance):
+        value = getattr(dataclass_instance, field.name)
+        if isinstance(value, Enum):
+            result[field.name] = value.value
+        else:
+            result[field.name] = value
+    return result
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(dataclass_to_dict(foobar))  # {'name': 'John', 'template': 'foobar'}
+```
+
+In this function, we iterate over the fields of the dataclass instance, check if the field is an instance of Enum, and if so, we use the `value` attribute of the Enum. Otherwise, we use the field value as is.

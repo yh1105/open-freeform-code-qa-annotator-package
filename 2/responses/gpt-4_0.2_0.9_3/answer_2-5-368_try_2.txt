@@ -1,0 +1,45 @@
+Sure, here's a step-by-step guide on how to enable Dev Tools in IntelliJ IDEA 2021.2 and observe the changes in code without having to restart the Tomcat server.
+
+1. **Install and Enable Dev Tools**
+
+   First, you need to add the Spring Boot DevTools dependency to your project. If you're using Maven, add the following dependency to your `pom.xml`:
+
+   ```xml
+   <dependencies>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-devtools</artifactId>
+           <optional>true</optional>
+       </dependency>
+   </dependencies>
+   ```
+
+   If you're using Gradle, add the following dependency to your `build.gradle`:
+
+   ```groovy
+   dependencies {
+       developmentOnly("org.springframework.boot:spring-boot-devtools")
+   }
+   ```
+
+   After adding the dependency, make sure to re-import the changes in your Maven or Gradle project in IntelliJ IDEA.
+
+2. **Enable Automatic Restart**
+
+   By default, any changes in your code will trigger a restart of the application. However, you need to ensure that the "Update" action is set to "Update classes and resources" in IntelliJ IDEA.
+
+   To do this, go to `Run -> Edit Configurations... -> Spring Boot -> [Your application] -> Update action` and select `Update classes and resources`.
+
+3. **Enable Automatic Build**
+
+   To make sure that your code is automatically compiled after you save changes, go to `File -> Settings (Preferences for macOS) -> Build, Execution, Deployment -> Compiler` and check `Build project automatically`.
+
+4. **Enable Hot Swapping**
+
+   Hot swapping allows the Java Virtual Machine (JVM) to update classes without restarting the entire application. To enable hot swapping in IntelliJ IDEA, go to `Run -> Edit Configurations... -> Spring Boot -> [Your application] -> Running Application Update Policy` and select `On frame deactivation`.
+
+5. **Start Your Application**
+
+   Now, you can start your Spring Boot application in IntelliJ IDEA. Any changes you make in your code will be automatically compiled and updated in the running application, without having to restart the Tomcat server.
+
+Please note that not all changes can be hot-swapped. Some changes, like adding new methods or classes, will still require a full restart.

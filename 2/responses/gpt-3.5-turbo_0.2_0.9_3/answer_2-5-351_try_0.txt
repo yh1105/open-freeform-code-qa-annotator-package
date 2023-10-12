@@ -1,0 +1,24 @@
+The error message indicates that the `resttemplate` library is not recognized by the openapi-generator-gradle-plugin. Instead, you can use the `spring-mvc` library to generate the RestTemplate code.
+
+To do this, change the `library` property in your `openApiGenerate` configuration to `"spring-mvc"`:
+
+```
+openApiGenerate {
+    generatorName = "spring"
+    library = "spring-mvc"
+    inputSpec = "$rootDir/openapi-contracts/src/main/resources/openapi/api.yml".toString()
+    outputDir = "$project.buildDir/generated/openapi"
+    apiPackage = "ru.openapi.api.v1"
+    modelPackage = "ru.openapi.model.v1"
+    enablePostProcessFile = true
+    configOptions = [
+            dateLibrary         : "java8",
+            useBeanValidation   : "true",
+            enableBuilderSupport: "true",
+            interfaceOnly       : "true",
+            delegatePattern     : "true"
+    ]
+}
+```
+
+Then, regenerate the server code using the `gradle openApiGenerate` command. This should generate the RestTemplate code for you.

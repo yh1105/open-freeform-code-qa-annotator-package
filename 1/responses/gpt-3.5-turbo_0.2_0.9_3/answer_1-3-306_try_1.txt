@@ -1,0 +1,24 @@
+The `compare` function from `csv_diff` library returns a dictionary object, not a pandas DataFrame. Therefore, you need to convert the dictionary to a DataFrame before saving it to a CSV file. Here's how you can modify your code to achieve this:
+
+```
+import pandas as pd
+from csv_diff import load_csv, compare
+
+diff = compare(
+    load_csv(open("list1.csv"), key="ean"),
+    load_csv(open("list2.csv"), key="ean")
+)
+
+# Create a DataFrame from the dictionary
+df = pd.DataFrame.from_dict(diff)
+
+# Add extra columns for 'added', 'removed', and 'changed'
+df['added'] = df['added'].apply(lambda x: ', '.join([str(i) for i in x]))
+df['removed'] = df['removed'].apply(lambda x: ', '.join([str(i) for i in x]))
+df['changed'] = df['changed'].apply(lambda x: ', '.join([str(i) for i in x]))
+
+# Save the DataFrame to a CSV file
+df.to_csv('diff.csv', index=False)
+```
+
+This code creates a DataFrame from the dictionary returned by `compare` function. Then, it adds three extra columns for 'added', 'removed', and 'changed' items in the dictionary. These columns contain comma-separated values of the corresponding lists in the dictionary. Finally, the DataFrame is saved to a CSV file using the `to_csv` method. The `index=False` argument is used to exclude the index column from the output file.

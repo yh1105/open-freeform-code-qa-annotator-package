@@ -1,0 +1,59 @@
+The error message is indicating that the namespace `std::filesystem` is not declared. This is because you're including the experimental version of the filesystem library, but you're trying to use the finalized C++17 version of the library in your code.
+
+In your `main.cpp` file, you have included `<experimental/filesystem>`, but you're trying to use `std::filesystem::directory_iterator`. The `std::filesystem` namespace is not available under `<experimental/filesystem>`. 
+
+If you want to use the experimental filesystem library, you should change `std::filesystem::directory_iterator` to `std::experimental::filesystem::directory_iterator`.
+
+Here is the corrected `main.cpp`:
+
+```cpp
+#include <experimental/filesystem>
+#include <iostream>
+#include <vector>
+#include <string>
+
+namespace fs = std::experimental::filesystem;
+
+int main(int argc, char** argv)
+{
+    std::string imageDirectory = "./image";
+    std::vector<std::string> imagePath;
+
+    for (const auto& entry: fs::directory_iterator(imageDirectory))
+    {
+        imagePath.push_back(entry.path());
+        std::cout << entry.path() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+However, if you want to use the C++17 version of the filesystem library, you should include `<filesystem>` instead of `<experimental/filesystem>`. 
+
+Here is the corrected `main.cpp` for C++17:
+
+```cpp
+#include <filesystem>
+#include <iostream>
+#include <vector>
+#include <string>
+
+namespace fs = std::filesystem;
+
+int main(int argc, char** argv)
+{
+    std::string imageDirectory = "./image";
+    std::vector<std::string> imagePath;
+
+    for (const auto& entry: fs::directory_iterator(imageDirectory))
+    {
+        imagePath.push_back(entry.path());
+        std::cout << entry.path() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+Also, make sure your compiler supports C++17 and the filesystem library. If you're using GCC, version 8 or later is required. If you're using Clang, version 7 or later is required. If you're using Microsoft Visual Studio, version 2017 or later is required.

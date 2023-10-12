@@ -1,0 +1,13 @@
+The error message `Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]` indicates that there is not enough storage space on your emulator to install the new app. This is not a bug, but a limitation of the storage capacity of your emulator.
+
+Here are a few solutions you can try:
+
+1. **Increase the storage of your emulator**: You can do this by editing the settings of your emulator in the Android Virtual Device (AVD) Manager. Increase the "Internal Storage" size to a larger value.
+
+2. **Clear Cache and Data of your Apps**: Sometimes, apps can store a lot of cache and data which can fill up your storage. Go to the settings of your emulator, find the list of apps, and clear the cache and data for some of them.
+
+3. **Uninstall unnecessary apps**: If there are apps on your emulator that you don't need, uninstall them to free up some space.
+
+4. **Create a new emulator with more storage**: If none of the above solutions work, you can create a new emulator with a larger storage capacity.
+
+Remember, each app you install takes up some storage space, so if you're planning to install multiple apps, you'll need to ensure your emulator has enough storage to accommodate them all.

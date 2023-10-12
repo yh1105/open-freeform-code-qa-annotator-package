@@ -1,0 +1,16 @@
+The output you're getting is because the SQL*Plus command is also printing the connection and disconnection messages, along with the result of your query. You can suppress these messages by using the `-s` option with SQL*Plus, which runs it in silent mode.
+
+Also, to get only the value of the size, you can use the `awk` command to filter out the required line. Here's how you can modify your script:
+
+```bash
+size=$(${PATH_TO_CLIENT}sqlplus -s $IMPUSER/$IMPPWD@$ENDPOINT << EOF
+SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF
+select sum(bytes)/1024/1024/1024 Size_GB from dba_segments where owner = 'XXXX' group by owner;
+exit;
+EOF
+)
+size=$(echo $size | awk '{print $NF}')
+echo "Total data is ${size}"
+```
+
+In this script, `SET PAGESIZE 0 FEEDBACK OFF VERIFY OFF HEADING OFF ECHO OFF` is used to turn off all the unnecessary output from SQL*Plus. The `awk '{print $NF}'` command prints the last field of the last line of the output, which should be the size value you're interested in.

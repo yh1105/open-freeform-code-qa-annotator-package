@@ -1,0 +1,16 @@
+The warning message you are getting is because the `memset()` function returns a pointer to the destination buffer, which you are not using in your code. To fix this warning, you can simply assign the return value of `memset()` to a variable of type `void*` and then cast it to the original type of the buffer. Here's an example:
+
+```
+void* ptr = memset(&mystruct, 0, sizeof(MY_STRUCT));
+(void)ptr; // to suppress unused variable warning
+```
+
+This code assigns the return value of `memset()` to a variable of type `void*`, which can hold any pointer type. Then, the `(void)ptr` statement is used to suppress the warning about the unused variable.
+
+As for the new warnings you are getting, they are caused by the cast from `void*` to `void`. To avoid these warnings, you can simply remove the cast, since it is not necessary. Here's the updated code:
+
+```
+memset(&mystruct, 0, sizeof(MY_STRUCT));
+```
+
+This code should not generate any warnings.

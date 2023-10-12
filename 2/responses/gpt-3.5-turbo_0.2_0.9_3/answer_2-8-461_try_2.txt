@@ -1,0 +1,31 @@
+It seems like there is a type mismatch between the `com2` column in your `DataCom_travel` table and the value being passed in the bulk insert. 
+
+Make sure that the `com2` column in your table is of type `text` or `varchar` if you are passing a string value. If it is of type `integer`, you will need to convert the value to an integer before passing it in the insert statement.
+
+You can also try using the `NamedExec` function instead of `MustExec` to pass in a struct with named fields instead of positional arguments. This can make your code more readable and easier to maintain. Here's an example:
+
+```
+type Travel struct {
+    Com1 string `db:"com1"`
+    Com2 string `db:"com2"`
+    Path string `db:"path"`
+    Time int    `db:"time"`
+}
+
+tx := db.MustBegin()
+for _, result := range results {
+    travel := Travel{
+        Com1: result.Com1,
+        Com2: result.Com2,
+        Path: result.Path,
+        Time: result.Time,
+    }
+    queryInsert := `INSERT INTO "DataCom_travel" (com1,com2,path,time) VALUES (:com1,:com2,:path,:time)`
+    tx.NamedExec(queryInsert, travel)
+    queryUpdate := `UPDATE "DataCom_commcombinaison" set done = TRUE WHERE com1 = :com1 and com2 = :com2`
+    tx.NamedExec(queryUpdate, travel)
+}
+tx.Commit()
+```
+
+This code uses a struct to represent the data being inserted, and the `NamedExec` function to pass in the struct with named fields. This can make it easier to read and maintain your code.

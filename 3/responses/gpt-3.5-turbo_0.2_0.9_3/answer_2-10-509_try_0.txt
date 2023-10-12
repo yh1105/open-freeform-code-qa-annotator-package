@@ -1,0 +1,19 @@
+You can use the `chunks` method of the `Vec` to group the elements into pairs, and then use the `collect` method to create a `HashMap` from the pairs. Here's an example:
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let vec = vec!["key1", "value1", "key2", "value2", "key3", "value3"];
+    let map: HashMap<_, _> = vec.chunks(2).map(|chunk| (chunk[0], chunk[1])).collect();
+    println!("{:?}", map);
+}
+```
+
+This will output:
+
+```
+{"key1": "value1", "key2": "value2", "key3": "value3"}
+```
+
+The `chunks` method groups the elements into pairs of two, and the `map` method transforms each pair into a tuple `(key, value)`. Finally, the `collect` method creates a `HashMap` from the tuples.

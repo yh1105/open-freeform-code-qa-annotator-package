@@ -1,0 +1,15 @@
+The error message suggests that there is an issue with the YAML parser in the `psych` gem. Here are a few things you can try:
+
+1. Try running `bundle exec rails s` instead of `rails s`. This will ensure that you are using the correct version of Rails and its dependencies.
+
+2. Check if any of the gems in your Gemfile have a dependency on an older version of the `psych` gem. You can do this by running `bundle show --dependencies | grep psych`. If you find any gems that depend on an older version of `psych`, try updating them to a version that is compatible with Ruby 3.1.1.
+
+3. Try updating the `psych` gem to the latest version by running `bundle update psych`. This may fix any issues with the YAML parser.
+
+4. If none of the above steps work, you can try removing the `psych` gem from your Gemfile and using the built-in YAML parser in Ruby instead. To do this, remove the `psych` gem from your Gemfile and add the following line at the top of your `config/application.rb` file:
+
+   ```ruby
+   require 'yaml'
+   ```
+
+   This will ensure that Rails uses the built-in YAML parser instead of the `psych` gem. However, note that this may cause compatibility issues with other gems that depend on `psych`.

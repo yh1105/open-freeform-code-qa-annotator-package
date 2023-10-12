@@ -1,0 +1,17 @@
+The error you're encountering is related to the compatibility of Devise with Ruby 3.0.0. The Devise version you're using (4.8.0) is not fully compatible with Ruby 3.0.0.
+
+The issue is that Ruby 3.0.0 removed the `Module#ref` method which is used in Devise 4.8.0. This is why you're seeing the `undefined method 'reference' for ActiveSupport::Dependencies:Module (NoMethodError)` error.
+
+To fix this issue, you have two options:
+
+1. Downgrade your Ruby version to 2.7.x or lower. This can be done by modifying your `.ruby-version` file or through your version manager (like RVM or rbenv).
+
+2. Upgrade your Devise gem to a version that supports Ruby 3.0.0. At the time of writing, Devise has not released a version that supports Ruby 3.0.0, but you can use the master branch from the GitHub repository which has the necessary fixes. You can do this by changing your Gemfile to:
+
+```ruby
+gem 'devise', github: 'heartcombo/devise'
+```
+
+Then run `bundle install` to install the gem from the GitHub repository.
+
+Remember to always check the compatibility of your gems with your Ruby version to avoid these kinds of issues.

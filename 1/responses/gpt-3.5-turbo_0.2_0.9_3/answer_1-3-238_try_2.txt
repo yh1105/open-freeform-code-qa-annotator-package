@@ -1,0 +1,15 @@
+It looks like the error is in your base.html template, specifically in the line where you are loading the bootstrap stylesheet. Instead of using a static file, you are linking to a CDN. 
+
+Try changing this line:
+
+```
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+```
+
+to:
+
+```
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+```
+
+This should fix the error and allow your templates to render properly.

@@ -1,0 +1,3 @@
+The convention for character names used in Zsh is to use the name of the character preceded by "self-insert-". For example, the character "a" would be named "self-insert-a". 
+
+In the provided code, "tab-char" is used to refer to the tab key. This is the convention used in Zsh for the tab character.

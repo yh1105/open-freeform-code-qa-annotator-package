@@ -1,0 +1,7 @@
+It seems like you have an issue with uninstalling the `wrapt` package. One solution is to force uninstall it using the `--ignore-installed` flag. Try running the following command:
+
+```
+pip install tensorflow-gpu~=1.14 --ignore-installed wrapt
+```
+
+This should force the installation of `tensorflow-gpu~=1.14` and ignore any issues with the `wrapt` package.

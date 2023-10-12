@@ -1,0 +1,7 @@
+Having separate pipelines for specific requests is not necessarily a bad practice or idea. In fact, it can be a good way to keep your code organized and maintainable. 
+
+However, it's important to consider the overall design of your application and whether having separate pipelines will lead to duplication of code or unnecessary complexity. 
+
+If the logic for RequestOne and RequestTwo is significantly different and cannot be easily combined into a single pipeline, then having separate pipelines may be the best approach. 
+
+Just make sure that you are following good coding practices, such as keeping your code DRY (Don't Repeat Yourself) and avoiding unnecessary complexity.

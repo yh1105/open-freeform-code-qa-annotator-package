@@ -1,0 +1,41 @@
+Unfortunately, passing parameters from a parent navigator to a child navigator is not currently supported in React Navigation. The issue you found on GitHub is still open and there is no official solution yet.
+
+However, there are some workarounds you can try. One option is to use a state management library like Redux or Context API to store the parameters and access them in the child navigator screens. Another option is to pass the parameters down as props to the child navigator screens instead of using the `route.params` object.
+
+Here's an example of passing parameters as props to the child navigator screens:
+
+```
+const FollowingTabs = ({ route }) => {
+  const { isPublicProfile, firstName } = route.params;
+
+  return (
+    <Tabs.Navigator
+      initialRouteName='page'
+      lazy
+      swipeEnabled
+    >
+      <Tabs.Screen
+        component={() => <PageScreen isPublicProfile={isPublicProfile} firstName={firstName} />}
+        name='page'
+        options={{ tabBarLabel: '2 Pages' }}
+      />
+      <Tabs.Screen
+        component={() => <GroupScreen isPublicProfile={isPublicProfile} firstName={firstName} />}
+        name='groups'
+        options={{ tabBarLabel: '3 Groups' }}
+      />
+    </Tabs.Navigator>
+  );
+};
+```
+
+Then in the child navigator screens, you can access the props directly:
+
+```
+const PageScreen = ({ isPublicProfile, firstName }) => {
+  // use isPublicProfile and firstName here
+  ...
+};
+```
+
+I hope this helps!

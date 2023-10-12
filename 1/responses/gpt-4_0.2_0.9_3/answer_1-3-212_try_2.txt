@@ -1,0 +1,32 @@
+You can use the `Self` type variable from the `typing` module to indicate that a method of a class returns an instance of that class. This is useful for methods or classes that are meant to be used with method chaining, where the return type of a method is the class instance itself.
+
+Here is how you can modify your code:
+
+```python
+from __future__ import annotations
+from typing import TypeVar
+
+T = TypeVar('T', bound='M')
+
+class M:
+    def set_width(self: T, width: int) -> T:
+        self.width = width
+        return self
+
+    def set_height(self: T, height: int) -> T:
+        self.height = height
+        return self
+
+class M3D(M):
+    def set_depth(self: T, depth: int) -> T:
+        self.depth = depth
+        return self
+```
+
+Now you can use method chaining as you intended:
+
+```python
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+This will not raise any mypy errors because the `set_width` and `set_height` methods are now correctly typed to return an instance of the subclass `M3D` when called on an instance of `M3D`.

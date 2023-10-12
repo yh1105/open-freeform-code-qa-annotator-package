@@ -1,0 +1,15 @@
+The Dart analyzer is still giving you the warning because the Dart type system can't infer that the `myMap[1]` will definitely not be `null` even inside the `if (myMap.containsKey(1))` block. 
+
+This is because Dart's type system does not track the state of your objects. It doesn't know that you've just checked that the key `1` exists in the map. All it knows is that the `[]` operator on a `Map` can return `null`, so it warns you about the potential `null`.
+
+To avoid the warning, you can use the `!` operator to tell the Dart analyzer that you're sure the value won't be `null`:
+
+```dart
+void foo(Map<int, String> myMap) {
+  if (myMap.containsKey(1)) {
+    String s = myMap[1]!;
+  }
+}
+```
+
+The `!` operator will throw an error at runtime if the value is `null`, but in this case, you've already checked that the key exists in the map, so it should be safe.

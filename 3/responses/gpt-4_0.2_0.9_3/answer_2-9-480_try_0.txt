@@ -1,0 +1,31 @@
+The error message you're seeing is due to a missing library in Ruby 3.0.0. The library `rexml` which is required by `kramdown` is not bundled by default in Ruby 3.0.0. 
+
+To fix this issue, you need to add `rexml` and `webrick` to your Gemfile. `webrick` is also not bundled by default in Ruby 3.0.0 and it's required by Jekyll to serve your site locally.
+
+Here is how you can modify your Gemfile:
+
+```ruby
+source "https://rubygems.org"
+gem 'jekyll-scholar', group: :jekyll_plugins
+
+# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
+# uncomment the line below. To upgrade, run `bundle update github-pages`.
+gem "github-pages", "~> 204", group: :jekyll_plugins
+
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+  gem "jekyll-feed", "~> 0.6"
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Performance-booster for watching directories on Windows
+gem "wdm", "~> 0.1.0" if Gem.win_platform?
+
+# Add these lines
+gem 'rexml', '~> 3.2', '>= 3.2.5'
+gem 'webrick', '~> 1.7'
+```
+
+After modifying the Gemfile, run `bundle install` to install the new gems. Then, you should be able to run `bundle exec jekyll serve` without any issues.

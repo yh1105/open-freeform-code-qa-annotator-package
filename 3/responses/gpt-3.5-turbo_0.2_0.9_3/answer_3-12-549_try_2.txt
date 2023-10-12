@@ -1,0 +1,9 @@
+The issue is that when you assign `mylist = mynewlist`, you are not creating a new list, but rather pointing `mylist` to the same list object as `mynewlist`. Therefore, when you clear `mylist`, you are also clearing `mynewlist`.
+
+To copy the values of `mynewlist` to `mylist` without affecting `mynewlist`, you can use the `addAll` method instead of assigning the list directly. Here's how you can modify your code:
+
+```
+mylist.addAll(mynewlist);
+```
+
+This will add all the elements of `mynewlist` to `mylist` without affecting `mynewlist`.

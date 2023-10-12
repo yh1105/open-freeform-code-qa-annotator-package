@@ -1,0 +1,29 @@
+Yes, you can achieve a nested omit with Typescript by using the `Pick` and `Exclude` utility types together. Here's an example of how you can create a `CampaignFormValues` type that omits the `optionalAttributes` and `mandatoryAttributes` from the `attributeValues` property:
+
+```
+type OmitNested<T, K extends keyof T> = T extends object
+  ? {
+      [P in keyof T]: P extends K
+        ? never
+        : P extends keyof Pick<T, P>
+        ? OmitNested<T[P], K>
+        : T[P]
+    }
+  : T;
+
+export type CampaignFormValues = OmitNested<
+  Campaign,
+  'attributeValues' | 'optionalAttributes' | 'mandatoryAttributes'
+> & {
+  attributeValues?: OmitNested<
+    Campaign['attributeValues'],
+    'optionalAttributes' | 'mandatoryAttributes'
+  >;
+};
+```
+
+The `OmitNested` type recursively iterates over all properties of the input type `T` and omits any properties that match the key `K`. It uses the `Pick` utility type to select only the keys that are present in the current property, and then recursively applies the `OmitNested` type to the selected keys.
+
+In the `CampaignFormValues` type, we use `OmitNested` to remove the `optionalAttributes` and `mandatoryAttributes` from the root level of the `Campaign` interface, and also from the `attributeValues` property. We then add back the `attributeValues` property with the modified type that omits the nested properties.
+
+With this type, you can safely use it in your form without exposing the `optionalAttributes` and `mandatoryAttributes` properties.

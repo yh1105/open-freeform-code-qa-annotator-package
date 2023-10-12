@@ -1,0 +1,109 @@
+To achieve the desired behavior, you can wrap your `Scaffold` with a `GestureDetector` and listen to the `onTap` event to dismiss the keyboard. You can also use a `Stack` widget to position the bottom navigation bar at the bottom of the screen and use a `Visibility` widget to show/hide it when the keyboard is displayed.
+
+Here's an example implementation:
+
+```
+class _AppHomeViewState extends State<AppHomeView>
+    with TickerProviderStateMixin {
+  TabController tabController;
+  bool isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    tabController.addListener(handleTabSelection);
+
+    // Add a listener to detect keyboard visibility
+    KeyboardVisibility.onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Dismiss the keyboard when tapping outside the search field
+        FocusScope.of(context).unfocus();
+      },
+      child: Stack(
+        children: [
+          TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: tabController,
+            children: <Widget>[
+              HomeView(),
+              SearchView(),
+              OrdersView(),
+              ProfileView(),
+            ],
+          ),
+          Visibility(
+            visible: !isKeyboardVisible,
+            child: Container(
+              height: 48,
+              decoration: BoxDecoration(
+                color: StyledColors.BACKGROUND_COLOR,
+                boxShadow: [
+                  BoxShadow(
+                    color: StyledColors.FORGROUND_COLOR.withOpacity(0.16),
+                    blurRadius: 12,
+                    offset: Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: _buildTabBar(context),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabBar(BuildContext context) {
+    return TabBar(
+      controller: tabController,
+      tabs: <Widget>[
+        Tab(
+          icon: Icon(
+            Icons.store,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.search,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.receipt,
+            size: 28,
+          ),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.person,
+            size: 28,
+          ),
+        )
+      ],
+      indicatorColor: Colors.transparent,
+      unselectedLabelColor: StyledColors.MEDIUM_GREY,
+      labelColor: StyledColors.PRIMARY_COLOR,
+    );
+  }
+
+  void handleTabSelection() {
+    setState(() {});
+  }
+}
+```
+
+In this implementation, we use the `KeyboardVisibility` package to detect the keyboard visibility. When the keyboard is visible, we hide the bottom navigation bar using the `Visibility` widget. When the keyboard is dismissed, the bottom navigation bar is shown again.

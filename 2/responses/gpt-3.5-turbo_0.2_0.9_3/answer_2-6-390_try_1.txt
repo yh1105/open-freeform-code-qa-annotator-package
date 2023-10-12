@@ -1,0 +1,32 @@
+The error message "Bearer error="invalid_token", error_description="The issuer is invalid"" indicates that the token you are using is not valid for the API you are trying to access. 
+
+One possible reason for this could be that the `apiName` parameter in the `AddIdentityServerAuthentication` method is not set correctly. Make sure that the `apiName` parameter matches the name of the API resource defined in the IdentityServer configuration.
+
+Another possible reason could be that the `Authority` parameter is not set correctly. Make sure that the `identityUrl` parameter matches the URL of the IdentityServer instance that issued the token.
+
+You can also try to debug the issue by checking the token's claims. You can decode the token using a tool like [jwt.io](https://jwt.io/) and check if it contains the correct audience (`aud`) and issuer (`iss`) claims.
+
+If none of these solutions work, you can try enabling logging for the authentication middleware by adding the following code to the `Configure` method in your `Startup.cs` file:
+
+```
+app.UseAuthentication();
+app.Use(async (context, next) =>
+{
+    var user = context.User;
+    if (user?.Identity?.IsAuthenticated == true)
+    {
+        var claims = user.Claims.Select(c => $"{c.Type}: {c.Value}");
+        var identity = user.Identity;
+        var authenticationType = identity.AuthenticationType;
+        var isAuthenticated = identity.IsAuthenticated;
+        var name = identity.Name;
+        var label = $"{authenticationType} {isAuthenticated} {name}";
+        var separator = new string('-', 50);
+        var message = $"{separator}\n{label}\n{string.Join("\n", claims)}\n{separator}\n";
+        Console.WriteLine(message);
+    }
+    await next();
+});
+```
+
+This will log the claims of the authenticated user and can help you identify any issues with the authentication process.

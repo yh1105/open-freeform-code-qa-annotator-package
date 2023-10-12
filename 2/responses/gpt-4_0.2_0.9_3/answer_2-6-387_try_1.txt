@@ -1,0 +1,22 @@
+The error message you're seeing suggests that the table "Keys" does not exist in your SQLite database. This table is used by IdentityServer4 to store keys for signing tokens.
+
+When you upgrade from ASP.NET Core 5.0 to 6.0, you also need to update your IdentityServer4 to IdentityServer5 or Duende IdentityServer, as IdentityServer4 is not compatible with .NET 6.0.
+
+Here are the steps you need to follow:
+
+1. Update your IdentityServer4 to IdentityServer5 or Duende IdentityServer. You can do this by changing the package reference in your .csproj file. For example:
+
+```xml
+<PackageReference Include="Duende.IdentityServer" Version="5.*" />
+```
+
+2. Update your database schema. IdentityServer5 or Duende IdentityServer may require a different database schema than IdentityServer4. You can do this by creating a new migration:
+
+```bash
+dotnet ef migrations add UpdateIdentityServer --context AppDbContext
+dotnet ef database update --context AppDbContext
+```
+
+3. Update your code to use the new APIs provided by IdentityServer5 or Duende IdentityServer. The exact changes you need to make will depend on your code, but you can refer to the [Duende IdentityServer documentation](https://duendesoftware.com/docs/identityserver/v5/upgrades/to_v5) for guidance.
+
+If you're still having trouble after following these steps, please provide more details about your code and I'll be happy to help further.

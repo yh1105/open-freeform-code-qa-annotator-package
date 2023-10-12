@@ -1,0 +1,35 @@
+In Angular, you can use the `*ngIf` directive to conditionally include a template based on the value of an expression. If the expression evaluates to true, then the template is included. If it evaluates to false, then the template is not included.
+
+In your case, you can use `*ngIf` to conditionally hide or show the password input field based on the value of `isHidden`. Here's how you can do it:
+
+```html
+<div class="container">
+
+  <div class="cont-login">
+    <div class="login-pane">
+
+      <div>
+        <p class="inner log-labels">Your password</p>
+        <input class="txt" type="password" [(ngModel)]="input_pw" *ngIf="!isHidden">
+      </div>
+
+      <div>
+        <input class="btn" type="submit" value="Login">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+```
+
+In the above code, the password input field will only be included in the DOM if `isHidden` is false. If `isHidden` is true, then the password input field will not be included in the DOM.
+
+Please note that `*ngIf` actually removes and recreates elements in the DOM. If you want to simply hide and show elements without removing them from the DOM, you can use `[hidden]` like this:
+
+```html
+<input class="txt" type="password" [(ngModel)]="input_pw" [hidden]="isHidden">
+```
+
+In this case, the password input field will always be in the DOM, but it will be hidden if `isHidden` is true and shown if `isHidden` is false.

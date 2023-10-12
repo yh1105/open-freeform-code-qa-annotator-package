@@ -1,0 +1,28 @@
+The issue with the `querySelector` line is that it is looking for an element with both the `accordion` and `active` classes, but the `active` class is only added later in the code. So, it won't find any element with both classes at the beginning. Instead, you can simply remove the `active` class from all the accordion elements before adding it to the clicked one. Here's the updated code:
+
+```
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      // remove active class from all accordions
+      for (var j = 0; j < acc.length; j++) {
+        acc[j].classList.remove('active');
+      }
+      
+      // add active class to this one
+      this.classList.add("active");
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+Regarding the second issue, the `classList.toggle("active")` line is toggling the `active` class, so you don't need to add it again with `classList.add("active")`. You can remove that line.

@@ -1,0 +1,28 @@
+The issue you're encountering is due to the lifecycle of Blazor components. The `OnAfterRenderAsync` method is called after the component has finished rendering. However, at the time of the first render, the `TabSet` component might not have been fully initialized yet, which is why the `tabSet` reference is null.
+
+To solve this issue, you can use the `OnAfterRenderAsync` method to set up a flag indicating that the component has been rendered at least once. Then, in the `OnParametersSet` or `OnParametersSetAsync` method, you can check this flag and attach the event handler if the component has been rendered:
+
+```csharp
+private bool isRendered;
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if(firstRender)
+    {
+        isRendered = true;
+    }       
+}
+
+protected override void OnParametersSet()
+{
+    if(isRendered && tabSet != null)
+    {
+        tabSet.TabChanged -= TabChanged; // To ensure the event is not attached multiple times
+        tabSet.TabChanged += TabChanged;
+    }
+}
+```
+
+In this code, `OnAfterRenderAsync` sets the `isRendered` flag to true after the first render. Then, `OnParametersSet` checks this flag and the `tabSet` reference, and if they are both valid, it attaches the event handler. The `tabSet.TabChanged -= TabChanged;` line is used to ensure that the event is not attached multiple times if `OnParametersSet` is called multiple times.
+
+This way, the event handler is attached only after the `TabSet` component has been rendered and initialized, and it is attached only once.

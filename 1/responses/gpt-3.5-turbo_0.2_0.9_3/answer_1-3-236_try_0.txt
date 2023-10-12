@@ -1,0 +1,11 @@
+If you have already disabled Jedi in your settings.json file but it is still showing error messages, you may need to check if there are any other extensions or settings that are conflicting with your linter. 
+
+Here are some steps you can take to troubleshoot the issue:
+
+1. Check if there are any other extensions installed that may be using Jedi. You can do this by going to the Extensions tab in VS Code and searching for "Jedi". If there are any extensions that use Jedi, try disabling them and see if that resolves the issue.
+
+2. Check if there are any other settings that may be conflicting with your linter. You can do this by going to the Settings tab in VS Code and searching for "python.linting". Look for any settings that may be overriding your linter settings and try disabling them.
+
+3. Try restarting VS Code after making any changes to your settings.json file or disabling conflicting extensions. This may help to refresh the settings and resolve any conflicts.
+
+If none of these steps resolve the issue, you may need to consider using a different linter or seeking further assistance from the VS Code community.

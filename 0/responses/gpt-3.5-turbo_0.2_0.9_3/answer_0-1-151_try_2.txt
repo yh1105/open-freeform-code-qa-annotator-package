@@ -1,0 +1,13 @@
+It sounds like you are experiencing issues with the asset pipeline in your Rails application. The asset pipeline is responsible for compiling and serving your application's static assets, including CSS files.
+
+One possible solution is to disable asset pipeline caching in your development environment. To do this, you can add the following line to your `config/environments/development.rb` file:
+
+```
+config.assets.digest = false
+```
+
+This will disable the generation of unique asset filenames based on their content, which should make it easier to see changes to your CSS files without having to recompile the assets.
+
+Another option is to use a tool like Guard to automatically recompile your assets whenever a file changes. Guard can be configured to watch your CSS files and automatically recompile them whenever changes are detected. This can save you time and make it easier to see changes in real-time.
+
+I hope this helps! Let me know if you have any further questions.

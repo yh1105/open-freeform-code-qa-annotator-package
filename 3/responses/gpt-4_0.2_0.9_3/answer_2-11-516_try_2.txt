@@ -1,0 +1,16 @@
+The term "operator" in C++ is used to refer to a symbol that tells the compiler to perform specific mathematical or logical manipulations. C++ is rich in built-in operators and provides the following types of operators:
+
+- Arithmetic Operators
+- Relational Operators
+- Logical Operators
+- Bitwise Operators
+- Assignment Operators
+- Misc Operators
+
+The `new` keyword in C++ is often referred to as an operator because it performs a specific operation: it allocates memory dynamically on the heap and returns a pointer to the first byte of the allocated memory. However, technically speaking, `new` is not an operator in the same sense as, for example, the addition operator `+` or the assignment operator `=`. 
+
+The `new` keyword is part of a special kind of expression in C++ called a "new expression". A new expression begins with the `new` keyword, followed by an optional sequence of new-placement arguments enclosed in parentheses, followed by the type of object to allocate, and optionally an initializer.
+
+The term "new operator" is often used interchangeably with "new expression", but this can be confusing because there is also a function called `operator new` which is called by new expressions to allocate raw memory. 
+
+So, to answer your question, while it's common to hear `new` referred to as an "operator", it's more accurate to say that `new` is a keyword that is used as part of a new expression. The term "new operator" is often used colloquially to refer to a new expression, but it's important to understand the distinction between a new expression and the `operator new` function.

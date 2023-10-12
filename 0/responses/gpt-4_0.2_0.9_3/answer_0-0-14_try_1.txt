@@ -1,0 +1,16 @@
+The code you provided seems correct. The `Switch` component is correctly placed inside a `Form.Item` and the `valuePropName` is set to "checked" which is the correct prop for a `Switch` component.
+
+The `onCreate` function should receive an object with the values of the form fields. The key of each value is the `name` prop of the corresponding `Form.Item`. In your case, the `Switch` value should be under the key "switch".
+
+Here is an example of how you can use the values inside the `onCreate` function:
+
+```jsx
+const onCreate = (values) => {
+  console.log('Received values from form: ', values);
+  console.log('Switch value: ', values.switch);
+}
+```
+
+If you are not receiving the value from the switch, it might be because the `Switch` component is not being triggered or the form is not being submitted correctly. Make sure that the `Switch` component is working as expected (you can test it by adding an `onChange` prop and logging the value) and that the form submission is working correctly.
+
+If you are still having issues, please provide more details about the problem and I'll be glad to help you further.

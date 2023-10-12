@@ -1,0 +1,17 @@
+The issue you're experiencing seems to be related to the environment variable `$CATALINA_HOME`. This variable should be set to the path where Tomcat is installed. If this variable is not set correctly, the script will not be able to find the `setclasspath.sh` file, even if it exists and has the correct permissions.
+
+Here are a few steps you can take to troubleshoot this issue:
+
+1. **Check the value of `$CATALINA_HOME`**: You can do this by adding `echo $CATALINA_HOME` in your `catalina.sh` script. The output should be `/usr/local/tomcat`.
+
+2. **Set `$CATALINA_HOME` manually**: If `$CATALINA_HOME` is not set correctly, you can set it manually in your `catalina.sh` script by adding the line `CATALINA_HOME=/usr/local/tomcat` at the beginning of the script.
+
+3. **Check the value of `$CATALINA_HOME` in the Dockerfile**: If you're using a Dockerfile to build your image, make sure that `$CATALINA_HOME` is set correctly. You can do this by adding the line `ENV CATALINA_HOME /usr/local/tomcat` in your Dockerfile.
+
+4. **Check the value of `$CATALINA_HOME` in the container**: If you're able to get into the container, you can check the value of `$CATALINA_HOME` by running `echo $CATALINA_HOME` in the shell.
+
+5. **Check the Docker image**: It's possible that the Docker image you're using has some issues. You can try using a different image or version to see if the problem persists.
+
+6. **Check the Docker run command**: Make sure that you're not overriding the `$CATALINA_HOME` environment variable in your Docker run command.
+
+If none of these steps solve the issue, it's possible that there's a problem with the Tomcat installation itself. In this case, you might want to consider reinstalling Tomcat or using a different method to deploy your application.

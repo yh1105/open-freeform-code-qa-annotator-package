@@ -1,0 +1,47 @@
+The issue you're facing is because of the way you're using the `render` prop in your `Route` components. When you use the `render` prop, the component you're rendering will be mounted regardless of the route, because the `render` function is always called.
+
+To fix this, you should use the `component` prop instead of `render`. This will ensure that the component is only loaded when the route matches. Here's how you can modify your routes:
+
+```jsx
+<Switch>
+    <Route exact path="/" component={Home} />
+
+    <Route exact path="/profile/:id" component={Profile} />
+
+    <Route exact path="/feed" render={(props) => <Feed isLogged={isLogged} user={user} {...props} />} />
+
+    <Route
+        exact
+        path="/settings"
+        render={(props) => (
+            <Settings isLight={isLight} setIsLight={setIsLight} handleClick={handleClick} showBtn={showBtn} {...props} />
+        )}
+    />
+    <Route component={NotFound} />
+</Switch>
+```
+
+For the `Feed` and `Settings` components, since you're passing props to them, you can continue using the `render` prop, but you should pass the route props to them using `{...props}`. This will ensure that the components have access to the `match`, `location`, and `history` props provided by the `Route` component.
+
+As for `MenuAppBar` and `SnackAlert`, if you don't want to lazy load them, you should import them normally at the top of your file:
+
+```jsx
+import MenuAppBar from "./components/MenuAppBar";
+import SnackAlert from "./components/SnackAlert";
+```
+
+And then use them without `Suspense`:
+
+```jsx
+<MenuAppBar
+    isLogged={isLogged}
+    setIsLogged={setIsLogged}
+    user={user}
+    setUser={setUser}
+    isLight={isLight}
+    setIsLight={setIsLight}
+/>
+<SnackAlert severity={severity} errorMsg={errorMsg} setOpenError={setOpenError} openError={openError} />
+```
+
+This should fix your issue and ensure that your components are only loaded when their routes match.

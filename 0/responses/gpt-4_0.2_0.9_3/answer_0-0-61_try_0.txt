@@ -1,0 +1,24 @@
+The Material-UI theme does not apply to the body element of the HTML document, it only applies to the components that are children of the `ThemeProvider` or `MuiThemeProvider` component.
+
+To change the background color of the body element dynamically, you can use the `useEffect` hook in your root component (in this case, `App`) to apply the background color to the body element whenever the theme changes.
+
+Here is an example:
+
+```jsx
+import React, { useEffect } from 'react';
+import { useTheme } from '@material-ui/core/styles';
+
+function App() {
+  const theme = useTheme();
+
+  useEffect(() => {
+    document.body.style.backgroundColor = theme.palette.background.default;
+  }, [theme]);
+
+  // rest of your component
+}
+```
+
+In this example, the `useTheme` hook is used to get the current theme. The `useEffect` hook is then used to apply the background color of the current theme to the body element whenever the theme changes.
+
+This way, you can change the background color of the body element dynamically based on the current Material-UI theme.

@@ -1,0 +1,30 @@
+To mock a class with `@ConfigurationProperties` annotation, you can use the `@TestConfiguration` annotation to create a test configuration class that provides the mocked bean.
+
+Here's an example:
+
+```
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ActiveProfiles("test")
+public class SomeServiceTest {
+    @Autowired
+    private SomeService someService;
+
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        @Primary
+        public SomeProperties someProperties() {
+            SomeProperties someProperties = Mockito.mock(SomeProperties.class);
+            // Set up the mock properties here
+            return someProperties;
+        }
+    }
+
+    // Your test cases here
+}
+```
+
+In the `TestConfig` class, you can create a mocked bean for `SomeProperties` and set up the mock properties as needed. The `@Primary` annotation is used to indicate that this bean should be used instead of the real bean in the test context.
+
+Note that you don't need to use `@EnableConfigurationProperties` in the test class, as it's already enabled by default in the `@SpringBootTest` annotation.

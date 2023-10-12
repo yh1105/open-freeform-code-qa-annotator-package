@@ -1,0 +1,14 @@
+It's possible that there are conflicting dependencies in your environment that are preventing the installation of the desired version of Node.js. You can try creating a new environment and installing Node.js in that environment to see if that resolves the issue. Here are the steps to create a new environment and install Node.js:
+
+1. Create a new environment: `conda create -n myenv`
+2. Activate the new environment: `conda activate myenv`
+3. Install Node.js: `conda install -c conda-forge nodejs==14.4.0`
+
+If this still doesn't work, you can try using `pip` to install Node.js instead of `conda`. Here are the steps to install Node.js using `pip`:
+
+1. Create a new environment: `conda create -n myenv`
+2. Activate the new environment: `conda activate myenv`
+3. Install `pip` in the environment: `conda install pip`
+4. Install Node.js using `pip`: `pip install nodejs==14.4.0`
+
+I hope this helps!

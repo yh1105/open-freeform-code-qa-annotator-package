@@ -1,0 +1,13 @@
+Based on the information you provided, it seems like you are doing things correctly. However, there are a few things you could check:
+
+1. **Token Generation**: Ensure that the token you are generating for the user is correct. You can do this by running `php artisan tinker` and then `User::find(1)->createToken('token-name');` (replace `1` with the id of the user you are testing with). This will return a `PersonalAccessTokenResult` object, and you can get the token by accessing the `accessToken` property (`$token->accessToken`).
+
+2. **Token Usage**: In Postman, make sure you are using the `Bearer Token` type in the `Authorization` tab and pasting the token into the `Token` field.
+
+3. **Route Definition**: In your `api.php` file, make sure the route is defined correctly. The `apiResource` method should be used like this: `Route::apiResource('documents', 'DocumentHandlerController')->middleware('auth:sanctum');`
+
+4. **Middleware**: The `Authenticate` middleware you posted seems to always return a `401 Unauthorized` response. Laravel's default `Authenticate` middleware redirects unauthenticated users to the login page for session-based authentication, or sends a `401 Unauthorized` response for token-based authentication. If you are using a custom `Authenticate` middleware, make sure it's correctly checking if the user is authenticated before returning a `401 Unauthorized` response.
+
+5. **Sanctum Configuration**: Ensure that you have correctly configured Sanctum. In your `config/auth.php` file, the `api` guard's driver should be `sanctum`.
+
+If you have checked all these and you are still having issues, please provide more information about your setup and the exact error message you are getting.

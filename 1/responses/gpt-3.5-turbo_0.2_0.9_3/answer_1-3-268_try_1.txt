@@ -1,0 +1,13 @@
+The 403 error you are seeing indicates that you do not have permission to access the resource you are trying to view. This could be due to a number of reasons, including incorrect file permissions, authentication issues, or network connectivity problems.
+
+Here are a few things you can try to resolve the issue:
+
+1. Check the file permissions: Make sure that the tfevent file you are trying to access has the correct permissions set. You can do this by right-clicking on the file and selecting "Properties" or "Get Info" depending on your operating system. Make sure that the file is readable by the user running the TensorBoard process.
+
+2. Check your authentication credentials: If you are accessing a resource that requires authentication, make sure that you have the correct credentials and that they are entered correctly. You may need to check with the resource owner to ensure that you have the correct credentials.
+
+3. Check your network connectivity: If you are accessing the resource over a network, make sure that you have a stable and reliable connection. You may need to check with your network administrator to ensure that there are no network issues that could be causing the problem.
+
+4. Try a different browser: If you are still having issues, try accessing the resource using a different browser. This can help to rule out any browser-specific issues that may be causing the problem.
+
+If none of these steps resolve the issue, you may need to seek further assistance from the TensorBoard community or the resource owner.

@@ -1,0 +1,9 @@
+It looks like the issue is with the import statement in your `column_metadata.proto` file. Instead of:
+```
+import "tech/tablesaw/service/common/column_type.proto";
+```
+Try using:
+```
+import "column_type.proto";
+```
+Since both protobuf files are in the same directory, you can use a relative path to import one into the other.

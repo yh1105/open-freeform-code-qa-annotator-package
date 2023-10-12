@@ -1,0 +1,18 @@
+The issue is that the `OnAfterRenderAsync` method is called after the component has rendered, so on the first render, the `tabSet` reference is still null. One solution is to use the `OnInitialized` method to assign the reference to `tabSet` instead of `OnAfterRenderAsync`. Here's how you can modify your code:
+
+```
+<TabSet @ref="tabSet">
+ ...
+</TabSet>
+
+@code {
+    private TabSet tabSet;   
+
+    protected override void OnInitialized()
+    {
+        tabSet.TabChanged += TabChanged;
+    }
+}
+```
+
+This way, the reference to `tabSet` is assigned when the component is initialized, which happens before the first render.

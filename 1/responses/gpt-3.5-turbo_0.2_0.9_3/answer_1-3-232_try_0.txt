@@ -1,0 +1,13 @@
+The issue is that the `tf` module is not defined in the scope of the `Lambda` layer when you load the model. To fix this, you can add an import statement for `tf` in the file where you load the model:
+
+```
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+def learning(test_samples):
+    model = load_model('my_model.h5', custom_objects={'<lambda>': lambda x: tf.reduce_mean(x, axis=1)})
+    # rest of the code
+```
+
+In the `load_model` function, you can pass a dictionary of custom objects to be used when loading the model. In this case, you can define a lambda function that performs the same operation as the `Lambda` layer in the original code, and pass it as a custom object with the name `<lambda>`. This will allow the model to be loaded correctly with the `Lambda` layer.

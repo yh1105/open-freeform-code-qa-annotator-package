@@ -1,0 +1,71 @@
+You're right, you need to convert your `StatelessWidget` to a `StatefulWidget` to be able to change the state of your checkboxes and dropdown menu. Here's how you can do it:
+
+1. First, define your `StatefulWidget`:
+
+```dart
+class DetailPage extends StatefulWidget {
+  final Activity activity;
+  DetailPage({Key key, this.activity}) : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+```
+
+2. Then, define your `State` class:
+
+```dart
+class _DetailPageState extends State<DetailPage> {
+  bool _mappedCheckboxValue = false;
+  bool _rtCheckboxValue = false;
+  String _dropdownValue = 'Now (Default)';
+
+  @override
+  Widget build(BuildContext context) {
+    // Your existing code goes here, but with some modifications
+  }
+}
+```
+
+3. Now, you can use `_mappedCheckboxValue` and `_rtCheckboxValue` for your checkboxes' values and `_dropdownValue` for your dropdown menu's value. Also, you can change these values in the `onChanged` callbacks:
+
+```dart
+final mappedCheckbox = CheckboxListTile(
+  title: Text("Mapped"),
+  value: _mappedCheckboxValue,
+  onChanged: (newValue) {
+    setState(() {
+      _mappedCheckboxValue = newValue;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+);
+
+final rtCheckBox = CheckboxListTile(
+  title: Text("Real-time Tracking"),
+  value: _rtCheckboxValue,
+  onChanged: (newValue) {
+    setState(() {
+      _rtCheckboxValue = newValue;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+);
+
+final dropdown = DropdownButton<String>(
+  value: _dropdownValue,
+  items: <String>['Now (Default)', 'B', 'C', 'D'].map((String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(value),
+    );
+  }).toList(),
+  onChanged: (newValue) {
+    setState(() {
+      _dropdownValue = newValue;
+    });
+  },
+);
+```
+
+In the `onChanged` callbacks, we're using `setState` to tell Flutter that it needs to re-run the `build` method because the state has changed. This will cause the widgets to be rebuilt with the new values.

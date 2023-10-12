@@ -1,0 +1,5 @@
+Option 1 is a valid solution in Kotlin as well. You can use the ArrayList constructor with an initial capacity to improve performance. Kotlin's MutableList interface is implemented by both ArrayList and LinkedList, so you can use either of them depending on your use case.
+
+Option 2 is also valid. In practice, the performance difference between using an ArrayList with an initial capacity and using a MutableList without an initial capacity is usually negligible. Unless you are dealing with very large data sets or performance-critical code, you may not notice any difference in performance.
+
+In summary, you can use either option 1 or 2 depending on your specific use case. If you are dealing with large data sets or performance-critical code, using an ArrayList with an initial capacity may provide a slight performance boost. Otherwise, using a MutableList without an initial capacity is perfectly fine.

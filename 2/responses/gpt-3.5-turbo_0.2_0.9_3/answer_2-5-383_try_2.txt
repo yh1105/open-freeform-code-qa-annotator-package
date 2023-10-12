@@ -1,0 +1,46 @@
+The error message suggests that the `dataSource` property is missing or not properly configured. In your `DatabaseConfig.java` file, you are using `@ConfigurationProperties(prefix = "spring.datasource")` to create the `DataSource` bean. This means that the properties for the `DataSource` should be defined in the `application.yml` file under the `spring.datasource` prefix.
+
+In your `application.yml` file, you have defined the `datasource` property with a lowercase "s". Try changing it to uppercase "S" to match the prefix in the `DatabaseConfig.java` file:
+
+```
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/test
+    username: test
+    password: 1234
+    tomcat:
+      max-idle: 2
+      max-active: 3
+    type: com.zaxxer.hikari.HikariDataSource
+```
+
+If this doesn't work, you can try removing the `@ConfigurationProperties` annotation from the `dataSource()` method in `DatabaseConfig.java` and manually configuring the `DataSource` bean:
+
+```
+@Configuration
+public class DatabaseConfig {
+    @Bean
+    @Primary
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/test");
+        config.setUsername("test");
+        config.setPassword("1234");
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setMaximumPoolSize(3);
+        config.setMinimumIdle(2);
+        return new HikariDataSource(config);
+    }
+
+    @Bean
+    public SimpleMailMessage templateSimpleMessage() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText(
+                "This is the test email template for your email:\n%s\n");
+        return message;
+    }
+}
+```
+
+This should create a `DataSource` bean with the correct configuration.

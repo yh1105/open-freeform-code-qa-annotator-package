@@ -1,0 +1,50 @@
+One solution to this problem is to combine the two scripts into one file and run them in the same thread. You can use the `schedule` module to schedule the data mining script to run at regular intervals and update the database. Then, you can use the `Dash` framework to create the webpage and display the data from the database in real-time.
+
+Here's an example of how you can combine the two scripts:
+
+```python
+import schedule
+import time
+import dash
+import dash_bootstrap_components as dbc
+import finance_data as fd
+import home_page as hp
+import data_base as db
+
+# Initialize the database
+database = db.dataBase()
+
+# Define the data mining function
+def data_mining():
+    dataMiningScript = fd.financeData(database, 1600)
+    # Schedule the function to run every 5 minutes
+    schedule.every(5).minutes.do(data_mining)
+
+# Define the Dash app
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+homepage = hp.homepage(database)
+homepage.timeUpdateCallback(app)
+homepage.gaugeRefreshCallback(app)
+
+# Define the layout
+app.layout = homepage.layoutMaker()
+
+# Define the update function
+def update():
+    homepage.updateData(database)
+    time.sleep(1)
+
+# Run the app
+if __name__ == "__main__":
+    # Schedule the data mining function to run every 5 minutes
+    schedule.every(5).minutes.do(data_mining)
+    # Run the app
+    while True:
+        update()
+        app.run_server(debug=True)
+        schedule.run_pending()
+```
+
+In this example, the `data_mining` function is scheduled to run every 5 minutes using the `schedule` module. The `update` function is called in an infinite loop to update the data in the database and run the Dash app. The `schedule.run_pending()` function is used to check if there are any scheduled tasks that need to be run.
+
+Note that you may need to modify the `update` function to update the data in the database based on the data mining script. You may also need to modify the `homepage.updateData` function to retrieve the data from the database and update the webpage.

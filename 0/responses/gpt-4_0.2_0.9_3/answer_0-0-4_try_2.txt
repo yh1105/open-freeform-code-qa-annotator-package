@@ -1,0 +1,19 @@
+`Pressable` is a new core component introduced in React Native 0.63. It is designed to handle various states of press interactions in a more unified and extendable way. 
+
+Here are some key differences between `Pressable` and `TouchableOpacity`:
+
+1. **State Control**: `Pressable` gives you more control over the component's visual feedback on different states of interaction like press in, press out, long press, etc. You can change the style of the component based on these states. This is something `TouchableOpacity` doesn't provide.
+
+2. **Hit Slop**: Both `Pressable` and `TouchableOpacity` support hit slop, but `Pressable` provides more flexibility by allowing you to specify different hit slop values for different sides (top, left, bottom, right).
+
+3. **Long Press**: `Pressable` provides a separate `onLongPress` event, which is not available in `TouchableOpacity`.
+
+4. **Children as Function**: `Pressable` allows you to use a function as children. The function receives a boolean indicating whether the component is currently pressed. This is a powerful feature that allows you to customize the component's appearance based on its press state.
+
+5. **Hover, Focus, Pressed States**: `Pressable` can handle hover, focus, and pressed states, which is useful for platforms like web, desktop, and TV platforms. `TouchableOpacity` does not have this feature.
+
+When to use them:
+
+- Use `TouchableOpacity` when you need a simple button with an opacity effect on press and don't need to control different interaction states. It's simpler and has been around for a long time, so it's well-tested and widely used.
+
+- Use `Pressable` when you need more control over the component's visual feedback on different interaction states, or when you're targeting platforms like web, desktop, and TV. It's more flexible and powerful, but also more complex and newer, so it might have some issues that haven't been discovered yet.

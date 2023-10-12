@@ -1,0 +1,59 @@
+It seems like you want to install Python 3.7.0 in a clean environment and then use pip to install another application. Here are the steps to do this:
+
+1. First, update your package list:
+```bash
+sudo apt-get update
+```
+
+2. Install the necessary packages:
+```bash
+sudo apt-get install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
+```
+
+3. Install Python3 and pip:
+```bash
+sudo apt-get install python3-pip python3-dev
+```
+
+4. If you want to install a specific version of Python, you can do it from the source. Here is how you can install Python 3.7.0:
+
+```bash
+wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
+tar xvf Python-3.7.0.tgz
+cd Python-3.7.0
+./configure --enable-optimizations
+make
+sudo make altinstall
+```
+
+5. Verify the installation:
+```bash
+python3.7 -V
+```
+
+6. Now, you can create a virtual environment to install your application in a clean environment. First, install the `python3.7-venv` package:
+```bash
+sudo apt-get install python3.7-venv
+```
+
+7. Create a new virtual environment:
+```bash
+python3.7 -m venv myenv
+```
+
+8. Activate the virtual environment:
+```bash
+source myenv/bin/activate
+```
+
+9. Now, you are in a clean environment. You can use pip to install your application:
+```bash
+pip install your_application
+```
+
+10. When you are done, you can deactivate the virtual environment:
+```bash
+deactivate
+```
+
+Please replace `your_application` with the name of the application you want to install.

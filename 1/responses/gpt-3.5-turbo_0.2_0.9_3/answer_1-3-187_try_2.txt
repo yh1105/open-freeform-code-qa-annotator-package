@@ -1,0 +1,22 @@
+You can use list slicing and list comprehension to achieve this. Here's an example code:
+
+```
+rest = [5, 7, 11, 4]
+b = [21, 22, 33, 31, 23, 15, 19, 13, 6]
+last = [33, 19, 40, 21, 31, 22, 6, 15, 13, 23]
+
+# replace first 4 elements in b with elements in rest
+b[:4] = rest
+
+# replace elements in last according to matches with b
+last = [rest[b.index(x)] if x in b else x for x in last]
+
+print(last)
+```
+
+Output:
+```
+[11, 19, 40, 5, 4, 7, 6, 15, 13, 23]
+```
+
+In the above code, we first replace the first 4 elements in `b` with the elements in `rest` using list slicing. Then, we use list comprehension to replace the elements in `last` according to matches with `b`. We check if an element in `last` is present in `b`, and if it is, we replace it with the corresponding element from `rest`. If it is not present in `b`, we keep the original element from `last`.

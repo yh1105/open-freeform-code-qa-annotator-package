@@ -1,0 +1,17 @@
+You should stick with `std::string` for UTF-8 encoding. The reason is that UTF-8 is a variable-length encoding, and each character can take 1 to 4 bytes. `std::string` is a byte-oriented container, which is suitable for UTF-8.
+
+However, as you've noticed, functions like `str[i]`, `std::string::size()`, `std::string::find_first_of()`, and `std::regex` can give unexpected results because they operate on bytes, not on Unicode code points or graphemes.
+
+Here are some tips on how to handle these issues:
+
+1. **Indexing (`str[i]`)**: You should avoid direct indexing into a UTF-8 string, because it might split a multi-byte character. Instead, you can use a UTF-8 library to iterate over the string by Unicode code points or graphemes.
+
+2. **Size (`std::string::size()`)**: This function returns the number of bytes, not the number of characters. If you need the number of Unicode code points or graphemes, you can use a UTF-8 library to count them.
+
+3. **Searching (`std::string::find_first_of()`)**: This function works on bytes, so it might give incorrect results if the search string contains multi-byte characters. You can use a UTF-8 library to perform the search correctly.
+
+4. **Regular expressions (`std::regex`)**: The standard C++ regular expression library doesn't support UTF-8 directly. You can use a third-party library that supports UTF-8, or you can convert the string to `std::wstring` and use `std::wregex`.
+
+There are several libraries available that can help you handle UTF-8 strings correctly, such as ICU, Boost.Locale, and utfcpp.
+
+Remember, `std::wstring` is not a solution for handling UTF-8, because the size of `wchar_t` is platform-dependent and might not be large enough to hold all Unicode characters. On Windows, `wchar_t` is 16 bits and used for UTF-16. On Unix-like systems, `wchar_t` is 32 bits and used for UTF-32. Neither is suitable for UTF-8.

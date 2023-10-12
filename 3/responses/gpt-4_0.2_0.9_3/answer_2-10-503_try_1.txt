@@ -1,0 +1,17 @@
+Yes, your approach is correct. The `values()` method of a `HashMap` returns an iterator over the values of the map. Since these values are references, you need to clone them to get owned versions that can be collected into a `Vec`.
+
+Here is the code you provided:
+
+```rust
+all_scores = Vec::from_iter(score_table.values().cloned());
+```
+
+This code is correct and idiomatic. It creates a new vector `all_scores` that contains all the values from `score_table`, each cloned.
+
+However, you can simplify this code a bit by using the `collect()` method, which is a more idiomatic way to transform an iterator into a collection:
+
+```rust
+let all_scores: Vec<Score> = score_table.values().cloned().collect();
+```
+
+This code does exactly the same thing as your original code, but it's a bit shorter and more idiomatic. The `collect()` method is very flexible and can transform an iterator into a variety of different collections, not just `Vec`. The type of the collection is inferred from the context, or can be specified explicitly, as in this case.

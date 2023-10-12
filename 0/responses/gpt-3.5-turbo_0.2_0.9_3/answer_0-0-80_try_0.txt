@@ -1,0 +1,13 @@
+You can use the `[attr.disabled]` binding to conditionally disable the select element based on the value of the `editable` variable. Here's how you can do it:
+
+```
+<select [(ngModel)]="myList" [attr.disabled]="!editable ? true : null">
+  <option value="option1">Option 1</option>
+  <option value="option2">Option 2</option>
+  <option value="option3">Option 3</option>
+</select>
+```
+
+In this example, the `editable` variable is a boolean that determines whether the select element should be disabled or not. If `editable` is `false`, the `[attr.disabled]` binding will set the `disabled` attribute to `true`, effectively disabling the select element. If `editable` is `true`, the `[attr.disabled]` binding will set the `disabled` attribute to `null`, which has no effect and leaves the select element enabled.
+
+Note that we're using the `[attr.disabled]` binding instead of the `disabled` property binding because `disabled` is not a valid property of the `select` element in Angular. Instead, we're setting the `disabled` attribute using the `[attr.disabled]` binding.

@@ -1,0 +1,13 @@
+It seems like you've accidentally left out some details in your question. Specifically, you mentioned that you get a "below command" when you do `npm -v`, but you didn't actually provide the output or error message you're seeing. 
+
+However, I can provide some general advice for troubleshooting npm installation issues:
+
+1. **Reinstall Node.js and npm**: Sometimes, the easiest solution is to just uninstall and then reinstall Node.js and npm. You can uninstall with `sudo apt-get remove nodejs` and `sudo apt-get remove npm`, and then reinstall with `sudo apt-get install -y nodejs`.
+
+2. **Use a Node Version Manager**: Node Version Manager (nvm) is a tool that allows you to easily install, update and switch between different versions of Node.js. To install nvm, you can use the following command: `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash`. Then, you can install Node.js with `nvm install node`.
+
+3. **Check your PATH**: The `whereis` command you mentioned can be used to check if Node.js and npm are correctly installed in a directory that's included in your system's PATH. The output of `whereis node` and `whereis npm` should point to the directories where Node.js and npm are installed, respectively. If they're not in your PATH, you can add them with `export PATH=$PATH:/path/to/node` and `export PATH=$PATH:/path/to/npm`.
+
+4. **Check permissions**: If you're seeing an EACCES error, it means you don't have the necessary permissions to install npm packages. You can fix this by either using a Node version manager like nvm, or by changing the permissions of your .npm directory with `sudo chown -R $(whoami) ~/.npm`.
+
+If none of these solutions work, please provide the exact error message you're seeing when you run `npm -v`, and I'll be able to give more specific advice.

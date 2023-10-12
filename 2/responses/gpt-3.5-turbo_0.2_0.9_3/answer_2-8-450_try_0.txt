@@ -1,0 +1,58 @@
+To create the JSON object in Go, you can define a struct for the client and another struct for the entire object. Here's an example code that should work for you:
+
+```
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "strings"
+)
+
+type Client struct {
+    Hostname string `json:"Hostname"`
+    IP       string `json:"IP"`
+    MacAddr  string `json:"MacAddr"`
+}
+
+type Clients struct {
+    Clients []Client `json:"Clients"`
+}
+
+func main() {
+    input := `hostname1 192.168.1.0 F0:F0:F0:F0:F0
+hostname2 192.168.1.1 12:34:56:78`
+
+    clients := []Client{}
+    for _, line := range strings.Split(input, "\n") {
+        if line != "" {
+            s := strings.Split(line, " ")
+            client := Client{
+                Hostname: s[0],
+                IP:       s[1],
+                MacAddr:  s[2],
+            }
+            clients = append(clients, client)
+        }
+    }
+
+    obj := Clients{
+        Clients: clients,
+    }
+
+    jsonBytes, err := json.Marshal(obj)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Println(string(jsonBytes))
+}
+```
+
+In this code, we define two structs: `Client` and `Clients`. `Client` represents each client object in the JSON, and `Clients` represents the entire JSON object.
+
+We then parse the input string and create a slice of `Client` objects. Finally, we create a `Clients` object and set its `Clients` field to the slice of `Client` objects we just created.
+
+We then use the `json.Marshal` function to convert the `Clients` object to a JSON string, which we print to the console.
+
+This should output the JSON object you're looking for.

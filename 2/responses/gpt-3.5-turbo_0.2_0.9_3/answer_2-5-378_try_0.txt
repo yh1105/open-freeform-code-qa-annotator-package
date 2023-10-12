@@ -1,0 +1,39 @@
+In JUnit 5, you can use the `@CsvSource` annotation to read test data from a CSV file. Here's an example:
+
+```
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+public class Test {
+
+    @ParameterizedTest
+    @CsvSource({
+        "a,0,0.0",
+        "abcde,1,1.01",
+        "a-b-c,999,999.0"
+    })
+    public void shouldCalculateDiscount(String column1, long column2, double column3) {
+        assertEquals(5, column1.length());
+        assertEquals(column3, column2, 0.0001);
+    }
+}
+```
+
+In this example, the `@CsvSource` annotation is used to provide the test data directly in the code. However, you can also read the test data from a CSV file by using the `@CsvFileSource` annotation. Here's an example:
+
+```
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+public class Test {
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/test-data.csv")
+    public void shouldCalculateDiscount(String column1, long column2, double column3) {
+        assertEquals(5, column1.length());
+        assertEquals(column3, column2, 0.0001);
+    }
+}
+```
+
+In this example, the `@CsvFileSource` annotation is used to read the test data from a CSV file located in the `src/test/resources` directory. The `resources` attribute specifies the path to the CSV file relative to the `src/test/resources` directory.

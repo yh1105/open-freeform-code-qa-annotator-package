@@ -1,0 +1,38 @@
+Yes, in Laravel 8, you can install Bootstrap using the following command:
+
+```
+npm install bootstrap
+```
+
+After installing Bootstrap, you can compile your assets using Laravel Mix by running the following command:
+
+```
+npm run dev
+```
+
+This will compile your assets and create a `public/css/app.css` file that includes Bootstrap. You can then include this file in your HTML templates to use Bootstrap styles.
+
+Alternatively, you can use a package like `laravel-mix-bootstrap` to simplify the installation process. To install this package, run the following command:
+
+```
+npm install laravel-mix-bootstrap --save-dev
+```
+
+After installing the package, you can include Bootstrap in your Laravel Mix configuration file (`webpack.mix.js`) like this:
+
+```
+const mix = require('laravel-mix');
+const bootstrap = require('laravel-mix-bootstrap');
+
+mix.js('resources/js/app.js', 'public/js')
+   .sass('resources/sass/app.scss', 'public/css')
+   .webpackConfig({
+       plugins: [
+           bootstrap({
+               // Options go here
+           })
+       ]
+   });
+```
+
+This will automatically download and include Bootstrap in your project, and you can customize the installation by passing options to the `bootstrap()` function.

@@ -1,0 +1,17 @@
+It seems that the Xdebug configuration is correct, but PhpStorm is not detecting the Xdebug extension. Here are some steps you can try to resolve the issue:
+
+1. Make sure that the Xdebug extension is installed and enabled in the Docker container. You can check this by running `php -m` in the container and looking for `xdebug` in the list of installed modules.
+
+2. Check that the correct PHP interpreter is selected in PhpStorm. Go to `Settings > Languages & Frameworks > PHP` and make sure that the interpreter you are using for the Docker container is selected.
+
+3. Verify that the correct Xdebug port is set in both the Docker container and PhpStorm. In your `docker-compose.yml` file, you have set the Xdebug port to `10000`. Make sure that this port is also set in PhpStorm under `Settings > Languages & Frameworks > PHP > Debug > Xdebug`.
+
+4. Try disabling any firewalls or antivirus software that may be blocking the Xdebug connection.
+
+5. Check that the `xdebug.remote_enable` option is set to `On` in the `docker-php-ext-xdebug.ini` file.
+
+6. Make sure that the `PHPSTORM` IDE key is set correctly in the `docker-php-ext-xdebug.ini` file.
+
+7. Try restarting both the Docker container and PhpStorm.
+
+Hopefully, one of these steps will help resolve the issue and allow you to debug PHPUnit with Xdebug in PhpStorm.

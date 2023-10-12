@@ -1,0 +1,11 @@
+It seems like there is an issue with the command prompt (cmd) on your system. You can try the following steps to resolve the issue:
+
+1. Check if the "cmd" program is installed on your system. You can do this by opening the command prompt and typing "cmd" and pressing enter. If it opens, then it is installed.
+
+2. If "cmd" is installed, try running NetBeans as an administrator. Right-click on the NetBeans icon and select "Run as administrator".
+
+3. If running NetBeans as an administrator doesn't work, try reinstalling NetBeans and make sure to install it in a directory that doesn't have any spaces in the path.
+
+4. If none of the above steps work, you can try reinstalling the Java Development Kit (JDK) and make sure to select the option to add it to the system path during installation.
+
+Hopefully, one of these steps will resolve the issue and allow you to build your project successfully.

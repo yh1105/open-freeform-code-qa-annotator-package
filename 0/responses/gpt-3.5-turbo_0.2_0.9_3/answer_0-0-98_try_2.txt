@@ -1,0 +1,82 @@
+To display the version of your React app in the footer in the format you specified, you can create a version file in your project's root directory and store the version number in it. Then, you can import the version number into your React component and display it in the footer.
+
+To increment the version number every time you deploy the app, you can use a build tool like Webpack or Gulp to automate the process. You can create a script that prompts you to choose whether to increment the major, minor, or patch version number and then updates the version file accordingly.
+
+Here's an example of how you can achieve this using Node.js and the `readline` module:
+
+1. Create a version file in your project's root directory:
+
+```
+// version.js
+module.exports = '1.0.0';
+```
+
+2. Import the version number into your React component and display it in the footer:
+
+```
+import React from 'react';
+import version from './version';
+
+function Footer() {
+  return (
+    <footer>
+      <p>Version {version}</p>
+    </footer>
+  );
+}
+
+export default Footer;
+```
+
+3. Create a script to update the version file:
+
+```
+// update-version.js
+const fs = require('fs');
+const readline = require('readline');
+
+const versionFile = './version.js';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Which version number do you want to increment? (major/minor/patch) ', (answer) => {
+  const version = require(versionFile);
+  const [major, minor, patch] = version.split('.');
+
+  switch (answer) {
+    case 'major':
+      fs.writeFileSync(versionFile, `module.exports = '${Number(major) + 1}.0.0';`);
+      break;
+    case 'minor':
+      fs.writeFileSync(versionFile, `module.exports = '${major}.${Number(minor) + 1}.0';`);
+      break;
+    case 'patch':
+      fs.writeFileSync(versionFile, `module.exports = '${major}.${minor}.${Number(patch) + 1}';`);
+      break;
+    default:
+      console.log('Invalid choice');
+  }
+
+  rl.close();
+});
+```
+
+4. Add a `postbuild` script to your `package.json` file to run the `update-version.js` script after each deployment:
+
+```
+// package.json
+{
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postbuild": "node update-version.js"
+  }
+}
+```
+
+Now, every time you run `npm run build`, the `postbuild` script will prompt you to choose which version number to increment and update the version file accordingly. The new version number will be displayed in the footer of your React app.

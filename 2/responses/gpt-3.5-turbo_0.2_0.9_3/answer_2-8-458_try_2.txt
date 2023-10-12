@@ -1,0 +1,13 @@
+It looks like the issue is with the import path of your `project/game` package. The error message indicates that Go is looking for the package in the GOROOT directory, which is not where your package is located.
+
+To fix this, you need to make sure that the import path for your `project/game` package is correct. In your case, it should be `project/game` since that is the directory structure you have.
+
+You can check the import path in your Go files by looking at the `import` statements. For example, if you have a file `game_stuff.go` in the `project/game` directory, the import statement should look like this:
+
+```
+import "project/game/entity"
+```
+
+If the import path is incorrect, you can fix it by updating the import statement in your Go files.
+
+Once you have fixed the import path, try building your project again and see if the error goes away.

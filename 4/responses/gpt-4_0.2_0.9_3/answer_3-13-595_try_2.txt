@@ -1,0 +1,23 @@
+The issue you're facing might be related to the changes in the way that Android 10 (API level 29) and higher versions handle file storage. 
+
+Starting from Android 10, apps must use the `MediaStore` API or the system file picker to access media files in shared storage, even if they have the `READ_EXTERNAL_STORAGE` permission. Direct file paths are no longer suitable. 
+
+However, if you still want to use the direct file path method, you can opt-out of this behavior for now by adding `android:requestLegacyExternalStorage="true"` to the `<application>` element in your app's manifest file. 
+
+Here's how you can do it:
+
+```xml
+<manifest ... >
+  <!-- This attribute is "false" by default on apps targeting
+       Android 10 or higher. -->
+  <application android:requestLegacyExternalStorage="true" ... >
+    ...
+  </application>
+</manifest>
+```
+
+This will let your app use the old way of handling file storage until you update your code to use the `MediaStore` API or the system file picker. 
+
+Remember, this is a temporary solution. Starting from Android 11 (API level 30), the system ignores the `requestLegacyExternalStorage` attribute, and the `MediaStore` API or the system file picker will be the only ways to access media files in shared storage. 
+
+So, it's recommended to update your code to use the `MediaStore` API or the system file picker to ensure your app continues to work properly in the future.

@@ -1,0 +1,9 @@
+To fix the first error, you need to add the `ACCESS_FINE_LOCATION` permission to your manifest file. Add the following line below the `ACCESS_COARSE_LOCATION` permission:
+
+```
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+```
+
+To fix the second error, make sure that you have defined the `MainActivity` class in your project. Check that the package name and class name are correct and that the file exists in the correct directory.
+
+To fix the third error, remove the `android:icon` attribute from the `<application>` tag. This attribute is not allowed in this location.

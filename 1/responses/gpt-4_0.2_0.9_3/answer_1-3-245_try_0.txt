@@ -1,0 +1,27 @@
+The error message `ModuleNotFoundError: No module named 'app'` is indicating that Python cannot find the module named 'app'. This is likely because the Dockerfile is not correctly copying the app directory into the Docker image.
+
+In your Dockerfile, you have specified `COPY ./app /app` which means you are copying the contents of your local `app` directory to the `/app` directory in the Docker image. However, the error message suggests that Python is not able to find the `app` module, which means the `app` directory might not be correctly copied.
+
+Here's how you can modify your Dockerfile:
+
+```Dockerfile
+FROM python:3.8
+WORKDIR /app 
+
+COPY requirements.txt .
+RUN pip install --requirement requirements.txt
+
+COPY ./app .
+
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]
+```
+
+In this Dockerfile:
+
+- `COPY requirements.txt .` copies the `requirements.txt` file to the working directory in the Docker image.
+- `RUN pip install --requirement requirements.txt` installs the Python dependencies.
+- `COPY ./app .` copies the contents of the local `app` directory to the working directory in the Docker image.
+- `CMD ["uvicorn", "main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]` starts the FastAPI application.
+
+Please make sure that your `main.py` file is inside the `app` directory and `app` is specified in your `main.py` file as `app = FastAPI()`. If your `main.py` is in the root directory, then you should copy it separately using `COPY ./main.py .` and change the CMD to `CMD ["uvicorn", "main:app", "--host=0.0.0.0" , "--reload" , "--port", "8000"]`.

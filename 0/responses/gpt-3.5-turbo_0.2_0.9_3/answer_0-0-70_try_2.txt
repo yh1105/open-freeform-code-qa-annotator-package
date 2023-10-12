@@ -1,0 +1,30 @@
+The warning message is indicating that the `updatedcount` event listener is not being properly inherited by the parent component. This is likely because the parent component is rendering a fragment or text node instead of a single root element.
+
+To fix this, you can declare the `emits` option in the child component to explicitly specify which events it emits. In your case, you can add `emits: ['updatedcount']` to the child component's options:
+
+```
+<script>
+import useStore from "../store/store.js";
+export default {
+  name: "HelloWorld",
+  emits: ['updatedcount'], // add this line
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+</script>
+```
+
+This tells Vue that the `HelloWorld` component emits the `updatedcount` event, and allows the parent component to properly inherit the event listener.
+
+With this change, the warning message should disappear and the `mydata` function in the parent component should be called with the emitted data from the child component.

@@ -1,0 +1,33 @@
+The error message you're seeing is `System.FieldAccessException: Field 'Microsoft.Maui.Controls.VisualElement:ZIndexProperty' is inaccessible from method 'Ventas_Citel.Views.Login.Login:InitializeComponent ()'`. This suggests that there's a problem with accessing the `ZIndexProperty` of a `VisualElement` in your `Login` view's `InitializeComponent` method.
+
+This issue might be related to the Linker behavior in Release mode. The Linker strips out some metadata and code that it thinks isn't being used to reduce the size of the final binary. This can sometimes cause issues if you're using reflection or certain libraries that rely on that metadata.
+
+Here are a few things you can try to fix this issue:
+
+1. **Check your XAML**: Make sure you're not using `ZIndexProperty` in your `Login` view's XAML file. If you are, try removing it to see if that fixes the issue.
+
+2. **Linker Configuration**: Try changing the Linker behavior to see if that fixes the issue. You can do this by going to the project properties -> Build -> Android Build -> Linker properties and changing the "Linking" option to "Sdk Assemblies Only". This will make the Linker less aggressive and might fix the issue.
+
+3. **Preserve Attribute**: If the above steps don't work, you can try adding the `[Preserve]` attribute to your `Login` view and `LoginViewModel`. This will tell the Linker not to strip out any metadata or code from these classes. Here's how you can do this:
+
+```csharp
+[Preserve(AllMembers = true)]
+public partial class Login : ContentPage
+{
+    // ...
+}
+
+[Preserve(AllMembers = true)]
+public partial class LoginViewModel : BaseViewModel
+{
+    // ...
+}
+```
+
+Remember to add `using System.Runtime.CompilerServices;` at the top of your file to use the `Preserve` attribute.
+
+4. **Update Libraries**: Make sure all your NuGet packages and libraries are up to date. Sometimes these kinds of issues can be caused by bugs in older versions of libraries.
+
+5. **Clean and Rebuild**: Try cleaning and rebuilding your solution. Sometimes build issues can be caused by stale build artifacts.
+
+If none of these steps work, please provide more information about your `Login` view's XAML file and any other code that might be relevant.

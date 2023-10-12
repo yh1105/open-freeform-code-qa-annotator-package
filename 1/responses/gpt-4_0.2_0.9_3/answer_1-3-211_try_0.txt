@@ -1,0 +1,37 @@
+Yes, you can achieve this using the `groupby` and `apply` functions in pandas. Here is how you can do it:
+
+```python
+import pandas as pd
+
+df=pd.DataFrame()
+df['exchange'] = [1, 1, 1, 2, 3]
+df['type'] = ['deposit', 'deposit', 'trade', 'deposit', 'deposit']
+df['value'] = [10, 10, '30', '40', '100']
+
+# Convert the 'value' column to numeric
+df['value'] = pd.to_numeric(df['value'])
+
+# Create a new column 'balance' where 'type' is 'deposit', else NaN
+df['balance'] = df['value'].where(df['type'] == 'deposit')
+
+# Group by 'exchange' and forward fill the 'balance' column
+df['balance'] = df.groupby('exchange')['balance'].apply(lambda x: x.ffill().cumsum())
+
+# Forward fill the 'balance' column
+df['balance'] = df['balance'].ffill()
+
+print(df)
+```
+
+This will give you the desired output:
+
+```
+   exchange     type  value  balance
+0         1  deposit     10     10.0
+1         1  deposit     10     20.0
+2         1    trade     30     20.0
+3         2  deposit     40     40.0
+4         3  deposit    100    100.0
+```
+
+In this code, we first convert the 'value' column to numeric. Then we create a new column 'balance' where we copy the 'value' where 'type' is 'deposit', else we put NaN. Then we group by 'exchange' and forward fill the 'balance' column within each group and calculate the cumulative sum. Finally, we forward fill the 'balance' column to fill the NaN values.

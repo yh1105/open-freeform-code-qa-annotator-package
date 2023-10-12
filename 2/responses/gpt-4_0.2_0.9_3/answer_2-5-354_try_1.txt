@@ -1,0 +1,67 @@
+The error message is indicating that Hibernate is having trouble mapping the `List<User>` in your `UserRole` class. This is likely due to missing annotations on the `List<User>` field.
+
+In your `UserRole` class, you should annotate the `List<User>` field with `@OneToMany` and specify the `mappedBy` attribute. This attribute should be the name of the field in the `User` class that represents the `UserRole`. In your case, it's `userRole`.
+
+Here is how you should modify your `UserRole` class:
+
+```java
+@Entity
+@Table(name="user_role")
+public class UserRole {
+
+    .......
+
+    @OneToMany(mappedBy="userRole",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> users;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public long getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(long role_id) {
+        this.role_id = role_id;
+    }
+
+    .........
+
+}
+```
+
+In the `User` class, you should annotate the `UserRole` field with `@ManyToOne` and `@JoinColumn` annotations. Here is how you should modify your `User` class:
+
+```java
+@Entity
+@Table(name="user")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    ..........
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private UserRole userRole;
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    .......
+}
+```
+
+This should resolve the error you're seeing. If you still encounter issues, please let me know.

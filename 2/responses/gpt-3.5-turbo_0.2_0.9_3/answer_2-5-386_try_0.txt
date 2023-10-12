@@ -1,0 +1,7 @@
+Yes, you have understood the process correctly. Here are the answers to your other questions:
+
+1. Yes, you can use IntelliJ artifacts to create the .jar file. You don't need a specific plugin for that. You can create an artifact by going to File > Project Structure > Artifacts and then add a new artifact of type "JAR". You can then configure the output directory and the main class for the artifact.
+
+2. No, you don't need to include the dependencies in the .jar file. The dependencies will be included in the customized runtime image created by JLink. However, you need to make sure that your project is using modular dependencies, which means that the dependencies are declared in the module-info.java file. If you are using non-modular dependencies, you will need to include them in the runtime image manually.
+
+I hope this helps! Let me know if you have any other questions.

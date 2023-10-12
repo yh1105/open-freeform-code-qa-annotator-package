@@ -1,0 +1,44 @@
+The error message suggests that the Flutter framework is receiving a stack trace from the `stack_trace` package, where it was expecting a stack trace from the Dart VM or the web. This can happen if `FlutterError.demangleStackTrace` was not set in an environment that propagates non-standard stack traces to the framework, such as during tests.
+
+However, the error message also suggests that the error-causing widget was `MaterialApp`. This might be because you are wrapping `MaterialApp` inside another `MaterialApp` in your `HelloWorld` widget.
+
+Here is the problematic code:
+
+```dart
+class HelloWorld extends StatelessWidget {
+  const HelloWorld({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        theme: …,
+        home: const App(),
+      );
+}
+```
+
+And in your `main.dart`:
+
+```dart
+runApp(const ProviderScope(child: MaterialApp(home: HelloWorld())));
+```
+
+You are essentially nesting two `MaterialApp` widgets, which is not recommended. The `MaterialApp` should be at the root of your widget tree and there should only be one.
+
+To fix this, you should remove the `MaterialApp` from your `HelloWorld` widget:
+
+```dart
+class HelloWorld extends StatelessWidget {
+  const HelloWorld({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => const App();
+}
+```
+
+And then in your `main.dart`, you can wrap `HelloWorld` with `MaterialApp`:
+
+```dart
+runApp(const ProviderScope(child: HelloWorld()));
+```
+
+This way, `MaterialApp` is only used once and at the root of your widget tree.

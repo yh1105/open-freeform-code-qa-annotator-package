@@ -1,0 +1,64 @@
+It seems like you've solved your problem by converting your class component to a function component and using the useHistory hook. This is a good approach as hooks make your code more readable and easier to manage.
+
+However, I noticed that you're still using `withRouter` at the end of your file to export your component. Since you're using hooks now, you don't need to use `withRouter` anymore. The `useHistory` hook gives you access to the history instance that you may use to navigate.
+
+So, you can change your export default line from:
+
+```jsx
+export default withRouter(CustomerLoginPage);
+```
+
+to:
+
+```jsx
+export default CustomerLoginPage;
+```
+
+Also, it's a good practice to use controlled components in React. This means that the React state should be the "single source of truth" and control the component. Instead of getting the value from the DOM with `document.getElementById`, you should store your input values in the state and update them with an `onChange` handler.
+
+Here's how you can do it:
+
+```jsx
+function CustomerLoginPage () {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  const loginButtonClicked = () =>{ 
+    let path = '/customerhomepage'; 
+    history.push(path);
+  }
+
+  const backButtonClicked = () => {
+    let path = '/main'; 
+    history.push(path);
+  }
+
+  const handleSubmit = () => {
+    if (username !== 'customer' || password !== 'customer') {
+      alert("Wrong username or password!");
+    } else {
+      loginButtonClicked();
+    }
+  }
+  
+  return (
+    <div class="App-header">
+      <button id="backButton" onClick={backButtonClicked}>Go Back</button>
+      <h4>Login with your customer account</h4>
+      <br />
+      <input id="customerLoginUsername" placeholder=" Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+      <input id="customerLoginPassword" type="password" placeholder=" Password" value={password} onChange={e => setPassword(e.target.value)}></input>
+      <br />
+      <button id="customerLoginButton" onClick={handleSubmit}> 
+        Login
+      </button>
+      <div className="content"></div>
+    </div>
+  );
+}
+
+export default CustomerLoginPage;
+```
+
+In this code, `useState` is a hook that lets you add React state to function components. The `onChange` handler updates the state every time the user types into the input fields.

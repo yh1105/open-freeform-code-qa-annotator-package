@@ -1,0 +1,34 @@
+The issue you're facing is due to the way Laravel handles route parameters. When you define a route with a parameter, Laravel expects a single value for that parameter. When you try to pass an array, Laravel can't handle it because it's expecting a single value, not a collection of values.
+
+The `serialize()` function in PHP generates a storable representation of a value. This is useful for storing or passing PHP values around without losing their type and structure. However, Laravel's routing system doesn't understand this serialized string as a valid parameter.
+
+If you want to pass an array to a route, you have a few options:
+
+1. **Convert the array to a query string**: You can convert the array to a query string and append it to the URL. This way, you can access the values in your controller using the `request()` helper or `Request` facade.
+
+```php
+$queryString = http_build_query($array);
+$url = route('route.name') . '?' . $queryString;
+```
+
+In your controller, you can access the values like this:
+
+```php
+$valueA = request('a');
+$valueB = request('b');
+```
+
+2. **Pass the array as a single encoded string**: You can encode the array into a JSON string and pass it as a single parameter. In your controller, you can then decode the string back into an array.
+
+```php
+$json = json_encode($array);
+$url = route('route.name', ['array' => $json]);
+```
+
+In your controller, you can decode the string like this:
+
+```php
+$array = json_decode($array, true);
+```
+
+Remember that both of these methods have limitations. If your array is very large, you might exceed the maximum URL length. Also, since the data is in the URL, it's visible to the user and can be manipulated by them. If you need to pass sensitive data or large amounts of data, consider using a POST request instead.

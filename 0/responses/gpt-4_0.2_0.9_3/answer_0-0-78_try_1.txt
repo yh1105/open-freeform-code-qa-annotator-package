@@ -1,0 +1,17 @@
+Vue Router doesn't have a built-in way to prevent a route from being added to the history. However, you can use a workaround to achieve this.
+
+You can use `replace()` method instead of `push()` method. The `replace()` method doesn't add a new record but replaces the current record in the history stack.
+
+So, instead of:
+
+```javascript
+this.$router.push({path: "/loading"});
+```
+
+You can use:
+
+```javascript
+this.$router.replace({path: "/loading"});
+```
+
+This way, when the user clicks the back button on the results page, they will be taken back to the main screen instead of the loading screen.

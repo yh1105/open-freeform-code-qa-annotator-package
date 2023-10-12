@@ -1,0 +1,28 @@
+You can use the `pip show` command to get the current version of a package, and the `pip search` command to get the latest version. Then, you can compare these two versions to see if they match. Here's a Python script that does this:
+
+```python
+import subprocess
+import re
+
+def is_latest_version(package):
+    # Get the current version
+    current_version = subprocess.getoutput(f'pip show {package}').split('\n')
+    current_version = [line for line in current_version if 'Version' in line][0]
+    current_version = re.search(r'Version: (.*)', current_version).group(1)
+
+    # Get the latest version
+    latest_version = subprocess.getoutput(f'pip search {package}').split('\n')
+    latest_version = [line for line in latest_version if package in line][0]
+    latest_version = re.search(r'\((.*)\)', latest_version).group(1)
+
+    # Compare the versions
+    return current_version == latest_version
+
+print(is_latest_version('gekko'))  # Replace 'gekko' with your package
+```
+
+This script will return `True` if the package is at its latest version, and `False` otherwise.
+
+Please note that this script might not work if the output of `pip show` or `pip search` is not in English or if the format changes in future versions of pip. Also, it assumes that the package name appears only once in the output of `pip search`, which might not be the case for all packages.
+
+Also, note that `pip search` is currently disabled due to PyPI/Warehouse issue #824, so this script will not work until that issue is resolved. As an alternative, you might want to use an API like the PyPI JSON API to get the latest version of a package.

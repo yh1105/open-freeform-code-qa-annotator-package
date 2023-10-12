@@ -1,0 +1,42 @@
+The `java.lang.AbstractMethodError` is usually thrown when an application tries to call an abstract method. However, in your case, it's more likely due to a version mismatch between the libraries you're using.
+
+The `AbstractMethodError` can occur if you have different versions of the same library in your classpath. The JVM might load classes from the older version of the library, but your code might call methods that only exist in the newer version.
+
+In your case, the issue might be related to the version of the `hamcrest` library. REST Assured uses `hamcrest` for assertions, and it seems like there's a conflict between the version of `hamcrest` that REST Assured expects and the version that's being loaded at runtime.
+
+To resolve this issue, you can try the following steps:
+
+1. Exclude the `hamcrest` library from the `spring-boot-starter-test` dependency in your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+2. Add the `hamcrest` library that matches the version that REST Assured expects:
+
+```xml
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest</artifactId>
+    <version>2.2</version>
+    <scope>test</scope>
+</dependency>
+```
+
+3. Clean and rebuild your project. If you're using Maven, you can do this by running `mvn clean install` in your terminal.
+
+After following these steps, try running your tests again. The `AbstractMethodError` should be resolved, and your tests should pass.

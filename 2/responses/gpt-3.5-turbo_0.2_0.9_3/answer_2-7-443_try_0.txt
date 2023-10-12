@@ -1,0 +1,31 @@
+When you pass an array as a route parameter, Laravel tries to match each key in the array to a corresponding route parameter. That's why you're getting the error message about missing parameters.
+
+To pass an array as a route parameter, you can use the `implode()` function to convert the array to a string with a separator, and then pass that string as the route parameter. For example:
+
+```
+$array = [
+  'a' => 'one',
+  'b' => 1,
+  // ...
+];
+
+$routeParam = implode(',', $array);
+
+route('route.name', ['array' => $routeParam]);
+```
+
+In your route definition, you can then use a regular expression to match the string and convert it back to an array:
+
+```
+Route::get('/example/{array}', function ($arrayParam) {
+  $array = [];
+  $items = explode(',', $arrayParam);
+  foreach ($items as $item) {
+    $parts = explode(':', $item);
+    $array[$parts[0]] = $parts[1];
+  }
+  // ...
+});
+```
+
+The error message you're seeing is the serialized version of the array. `serialize()` converts the array to a string that can be stored or transmitted, but it's not suitable for passing as a route parameter. To use `serialize()`, you would need to unserialize the string in your route definition, but that's more complicated than using `implode()` and `explode()`.

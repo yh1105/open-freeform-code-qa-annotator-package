@@ -1,0 +1,15 @@
+The error message you're seeing is typically due to a script failing during the build process. In your case, it seems like the script `swift_lint_check.sh` is causing the issue.
+
+Here are a few things you can try:
+
+1. **Check the script:** Open the `swift_lint_check.sh` file and check if there's anything in the script that could be causing the issue. Make sure all the paths and commands in the script are correct.
+
+2. **Check the permissions:** Make sure that the script has the correct permissions to run. You can change the permissions of the script by running `chmod +x swift_lint_check.sh` in the terminal.
+
+3. **Run the script manually:** Try running the script manually in the terminal to see if it runs correctly. If it doesn't, the error messages you get might give you a clue as to what's going wrong.
+
+4. **Check your SwiftLint version:** If you're using SwiftLint in your `swift_lint_check.sh` script, make sure you're using a version that's compatible with your Swift version.
+
+5. **Check for SwiftLint errors:** If you're using SwiftLint, make sure your code doesn't have any linting errors that could be causing the script to fail.
+
+6. **Disable the script:** As a last resort, if you can't figure out what's wrong with the script, you can try disabling it to see if that fixes the issue. You can do this by going to the Build Phases tab in your Xcode project, finding the Run Script phase that's running your script, and commenting out the line that runs the script. But keep in mind that this is just a temporary solution and you should try to fix the script as soon as possible.

@@ -1,0 +1,35 @@
+This issue might be due to corruption in your Excel workbook. Here are some steps you can try to recover your VBA modules:
+
+1. **Try to Open and Repair the Workbook**: Open Excel, go to File > Open, navigate to your workbook, but don't open it yet. Instead, click on the arrow next to the Open button, and select Open and Repair.
+
+2. **Save the Workbook in a Different Format**: Open the workbook, then go to File > Save As, and choose a different format like Excel Binary Workbook (.xlsb) or Excel 97-2003 Workbook (.xls). After saving, close the workbook and reopen it in the new format.
+
+3. **Import the Modules into a New Workbook**: If you can still see the modules in the VBA editor, try to export them (right-click on the module > Export File). Then, create a new workbook and import the modules (right-click in the Project Explorer of the VBA editor > Import File).
+
+4. **Use a VBA Code to Export the Modules**: If you can't manually export the modules, you can use a VBA code to do it. Here's an example:
+
+    ```vba
+    Sub ExportAllCode()
+        Dim wb As Workbook
+        Dim obj As Object
+        Dim i As Integer
+
+        Set wb = ThisWorkbook
+        i = 1
+
+        With wb.VBProject
+            For Each obj In .VBComponents
+                Select Case obj.Type
+                    Case vbext_ct_ClassModule, vbext_ct_MSForm, vbext_ct_StdModule
+                        obj.Export "C:\YourPath\" & obj.Name & i & ".cls"
+                        i = i + 1
+                End Select
+            Next obj
+        End With
+    End Sub
+    ```
+    This code will export all your modules, class modules and userforms into .cls files. You can then import these files into a new workbook.
+
+5. **Use a Third-Party Tool**: If none of the above methods work, you might need to use a third-party tool to recover your workbook. There are several tools available online, both free and paid.
+
+Remember to always keep a backup of your workbooks to prevent data loss.

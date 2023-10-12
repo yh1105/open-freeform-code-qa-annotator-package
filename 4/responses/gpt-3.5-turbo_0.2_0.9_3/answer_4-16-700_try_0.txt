@@ -1,0 +1,11 @@
+One way to optimize this task in bash is to use awk instead of a for loop. Awk is a powerful tool for text processing and can handle this task much faster than a bash loop.
+
+Here's an example awk command that should do what you need:
+
+```
+awk '/name=/ {name=$2} /value=/ {if (name) print name "=" $2; name=""}' input.txt > output.txt
+```
+
+This command uses two regular expressions to match lines that start with "name=" and "value=". When a line starting with "name=" is found, it saves the name in a variable. When a line starting with "value=" is found, it prints the name and value as a pair, and resets the name variable.
+
+This command should be much faster than your original bash script, even for large files.

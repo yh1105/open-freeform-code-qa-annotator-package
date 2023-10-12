@@ -1,0 +1,35 @@
+In C++, the standard library does not provide a direct way to set the affinity of a thread (i.e., binding a thread to a specific CPU core). This is because C++ aims to provide a platform-independent interface, and thread affinity is a concept that doesn't make sense on all platforms.
+
+However, on platforms where it does make sense, you can use platform-specific APIs to set the thread affinity. For example, on Linux, you can use the `pthread_setaffinity_np` function, and on Windows, you can use the `SetThreadAffinityMask` function.
+
+Here is an example of how you can set the affinity of a thread to a specific CPU core on Linux:
+
+```cpp
+#include <pthread.h>
+#include <iostream>
+
+void set_affinity(std::thread& t, int core_id) {
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(core_id, &cpuset);
+
+    int rc = pthread_setaffinity_np(t.native_handle(), sizeof(cpu_set_t), &cpuset);
+    if (rc != 0) {
+        std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
+    }
+}
+
+int main() {
+    std::thread t([] {
+        // Do some work...
+    });
+
+    set_affinity(t, 2);  // Bind the thread to core 2
+
+    t.join();
+
+    return 0;
+}
+```
+
+Please note that setting the thread affinity can have complex effects on the performance of your program, and it's generally recommended to let the operating system's scheduler handle the placement of threads on cores unless you have a specific reason to do otherwise.

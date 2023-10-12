@@ -1,0 +1,26 @@
+The error message suggests that there is an issue with uninstalling the `wrapt` package. You can try to force uninstall it using the `--force` flag:
+
+```
+sudo pip uninstall wrapt --force
+```
+
+Then, try installing TensorFlow-GPU again:
+
+```
+pip install tensorflow-gpu~=1.14
+```
+
+If this still doesn't work, you can try upgrading `pip` and then installing TensorFlow-GPU again:
+
+```
+pip install --upgrade pip
+pip install tensorflow-gpu~=1.14
+```
+
+Regarding the `ModuleNotFoundError` for TensorFlow, it seems like TensorFlow is not installed on your system. You can install it using:
+
+```
+pip install tensorflow
+```
+
+Make sure to install the version that is compatible with your system and the other packages you are using.

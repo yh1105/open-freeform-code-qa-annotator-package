@@ -1,0 +1,59 @@
+It is generally not recommended to create a ViewModel instance in the constructor parameters of a Composable function. This is because Composable functions are meant to be pure functions and should not have any side effects. Creating a ViewModel instance in the constructor parameters can lead to unexpected behavior and make it difficult to test the Composable function.
+
+Instead, you can pass the ViewModel instance as a parameter to the Composable function. This way, you can control the lifecycle of the ViewModel and ensure that it is properly initialized before being used in the Composable function.
+
+In your case, since you have multiple Composable functions that require the same ViewModel instance, you can pass the ViewModel instance as a parameter to the top-level Composable function and then pass it down to the child Composable functions as needed.
+
+For example:
+
+```
+@Composable
+fun InputScreen(viewModel: InputViewModel) {
+    val optionData = viewModel.optionData ?: return
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Input(optionData, viewModel)
+        Spacer()
+        OnSubmitPulse(viewModel)
+    }
+}
+
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel) {
+    var value by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column {
+        InputItem(viewModel)
+    }
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    Image()
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    Column {
+        InputWithUnitContainer(viewModel)
+        InputWithUnitContainer(viewModel)
+    }
+}
+
+@Composable
+fun InputWithUnitContainer(viewModel: InputViewModel) {
+    Row() {
+        Text()
+        TextField(value = "")
+        Text()
+    }
+}
+```
+
+By passing the ViewModel instance as a parameter to each Composable function, you can ensure that each function has access to the same instance of the ViewModel and can update and retrieve data as needed.

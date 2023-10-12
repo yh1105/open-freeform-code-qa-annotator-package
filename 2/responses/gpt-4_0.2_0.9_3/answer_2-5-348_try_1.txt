@@ -1,0 +1,13 @@
+This error is due to a bug in the JDK (Java Development Kit) version 1.8.0_131 and later versions on Windows. The bug is related to the handling of quotes in the command line arguments. 
+
+To resolve this issue, you can try the following solutions:
+
+1. **Downgrade your JDK version**: You can try downgrading your JDK to a version before 1.8.0_131. This is not the best solution as you might need the latest JDK for other purposes.
+
+2. **Upgrade NetBeans**: Upgrade your NetBeans to the latest version. The NetBeans team has provided a fix for this bug in the later versions.
+
+3. **Modify the `nbactions.xml` file**: You can modify the `nbactions.xml` file in your project folder. Replace all the `\"` with `\\\"`. This solution might not work for all cases.
+
+4. **Use a different IDE**: If none of the above solutions work, you can try using a different IDE like IntelliJ IDEA or Eclipse. These IDEs do not have this bug.
+
+Remember to backup your project before trying these solutions.

@@ -1,0 +1,29 @@
+Yes, you can use the `pandas.Period` function to convert your datetime to a period object with a frequency of 'A' (annual). Then, you can access the `year` attribute of the period object to get the year, and use the `pandas.Period.range` function to generate a range of dates for the entire year. Finally, you can use the `len` function to get the total number of days in the year.
+
+Here's an example code snippet:
+
+```python
+import pandas as pd
+
+# Example datetime
+dt = pd.to_datetime('2020-03-30')
+
+# Convert to period object with frequency of 'A'
+period = dt.to_period('A')
+
+# Get year from period object
+year = period.year
+
+# Generate range of dates for entire year
+year_range = pd.period_range(start=period, end=period+1, freq='D')
+
+# Get total number of days in year
+total_days = len(year_range)
+
+print(f"Year: {year}, Total days: {total_days}")
+```
+
+Output:
+```
+Year: 2020, Total days: 366
+```

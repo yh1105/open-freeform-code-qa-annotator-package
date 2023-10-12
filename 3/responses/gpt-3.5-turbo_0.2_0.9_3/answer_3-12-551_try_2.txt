@@ -1,0 +1,23 @@
+The error message is indicating that the `AppBarDesign` class is not compatible with the `PreferredSizeWidget` type that is expected by the `appBar` property of the `Scaffold` widget. 
+
+To fix this error, you can make the `AppBarDesign` class extend the `PreferredSizeWidget` class and implement the `preferredSize` property. Here is an updated version of the `AppBarDesign` class:
+
+```
+class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
+  AppBarDesign(Key key, this.title) : super(key: key);
+
+  final title;
+
+  @override
+  Widget build(BuildContext context) {
+    return new AppBar(
+      title: new Text(title),
+    );
+  }
+
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+}
+```
+
+By implementing the `PreferredSizeWidget` interface, the `AppBarDesign` class now has a `preferredSize` property that returns the size of the app bar. The `kToolbarHeight` constant is used to specify the height of the app bar.

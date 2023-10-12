@@ -1,0 +1,32 @@
+The error you're seeing is due to a conflict between the pip version installed by your system and the one you've installed/upgraded manually.
+
+Here are the steps to fix this issue:
+
+1. First, uninstall pip3:
+    ```
+    sudo apt-get remove python3-pip
+    sudo apt-get autoremove
+    ```
+
+2. Then, reinstall pip3:
+    ```
+    sudo apt-get install python3-pip
+    ```
+
+3. After that, check the version of pip3:
+    ```
+    pip3 --version
+    ```
+    It should show the version of pip installed.
+
+4. Now, you can install Jupyter Notebook:
+    ```
+    pip3 install jupyter
+    ```
+
+5. To run Jupyter Notebook, use the following command:
+    ```
+    jupyter notebook
+    ```
+
+Remember, you should not use `sudo` with `pip3 install` because it can lead to permission and environment issues. If you encounter permission errors, it's better to use a virtual environment or use the `--user` option with pip3 install.

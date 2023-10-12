@@ -1,0 +1,24 @@
+JUnit 5 provides a way to parameterize tests using the `@ParameterizedTest` annotation along with the `@CsvFileSource` annotation. The `@CsvFileSource` annotation allows you to specify a CSV file from which the test data will be loaded.
+
+Here is an example of how you can use these annotations to load test data from a CSV file:
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+public class Test {
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/test-data.csv", numLinesToSkip = 1)
+    public void shouldCalculateDiscount(String column1, long column2, double column3) {
+        assertEquals(5, column1.length());
+        assertEquals(column3, column2, 0.0001);
+    }
+}
+```
+
+In this example, the `@CsvFileSource` annotation specifies that the test data should be loaded from a CSV file named `test-data.csv` located in the resources directory. The `numLinesToSkip` attribute is used to skip the header line in the CSV file.
+
+Each line in the CSV file will be used to invoke the `shouldCalculateDiscount` test method once, with the values from the line being passed as arguments to the test method.
+
+Note: The CSV file should be located in the classpath. If you're using a typical Maven project structure, you can put the CSV file in the `src/test/resources` directory.

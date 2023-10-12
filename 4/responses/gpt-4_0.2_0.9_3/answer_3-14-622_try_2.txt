@@ -1,0 +1,24 @@
+The error message is telling you that the `fill(_:)` method expects a type that conforms to the `ShapeStyle` protocol. In SwiftUI, `Color` is a type that conforms to `ShapeStyle`, but your custom `RedView` does not.
+
+To make your `RedView` conform to `ShapeStyle`, you need to implement the required methods of the `ShapeStyle` protocol. However, `ShapeStyle` is not a protocol designed to be conformed to by your custom types. It's more of an 'umbrella' protocol for several types provided by SwiftUI, like `Color`, `Gradient`, etc.
+
+If you want to use a custom view as a fill for a shape, you can use the `fill(_:content:)` method, which takes a `ShapeStyle` and a closure that returns a `View`. Here's how you can do it:
+
+```swift
+struct MyContentView: View {
+    var body: some View {
+        Circle()
+            .fill(style: Color.red) { RedView() }
+    }
+}
+
+struct RedView: View {
+    var body: some View {
+        Color.red
+    }
+}
+```
+
+In this code, `Color.red` is used as the `ShapeStyle`, and `RedView()` is returned from the closure to be used as the fill for the `Circle`. However, this still uses `Color.red` directly, which you said you wanted to avoid.
+
+Unfortunately, there's no way to make a custom `View` conform to `ShapeStyle` without using one of the types that already conform to `ShapeStyle` (like `Color` or `Gradient`) directly. The `ShapeStyle` protocol is not designed to be conformed to by custom types.

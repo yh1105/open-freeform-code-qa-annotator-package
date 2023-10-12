@@ -1,0 +1,22 @@
+In Dart, when you assign one list to another like `mylist = mynewlist;`, you're not creating a new list, you're just creating a new reference to the existing list. So when you clear `mylist`, it also clears `mynewlist` because they're pointing to the same list.
+
+To create a new list with the same elements, you need to create a new list and add all elements from the existing list. You can do this with the `List.from()` constructor:
+
+```dart
+mylist = List.from(mynewlist);
+```
+
+This will create a new list with all elements from `mynewlist`, so when you clear `mylist`, it won't affect `mynewlist`.
+
+Here's how you can modify your third button's `onPressed` function:
+
+```dart
+onPressed: () {
+  setState(() {
+    print('clicked 3rd');
+    print(mylist.length);
+    print(mynewlist.length);
+    mylist = List.from(mynewlist);
+  });
+},
+```

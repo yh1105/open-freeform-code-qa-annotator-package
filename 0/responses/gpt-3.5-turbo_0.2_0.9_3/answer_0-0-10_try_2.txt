@@ -1,0 +1,13 @@
+You can try using the `cy.get()` command to select the div with class `WildnessText-kRKTej` and then use the `.invoke('text')` method to get its text value. Here's an example:
+
+```
+cy.get('.WildnessText-kRKTej')
+  .invoke('text')
+  .should('eq', 'Wildness')
+  .then((text) => {
+    // do something with the text value
+    console.log(text)
+  })
+``` 
+
+This should select the div with class `WildnessText-kRKTej` and get its text value, which should be "Wildness".

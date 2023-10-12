@@ -1,0 +1,19 @@
+In Rails 6, you can import your own JavaScript files by using the `import` statement in your `application.js` file. Here's an example:
+
+1. Create a new folder under `app/javascript` called `custom_js`.
+2. Add your JavaScript files to the `custom_js` folder.
+3. In `application.js`, add the following line to import your JavaScript files:
+
+```
+import '../custom_js/your_file_name.js';
+```
+
+Make sure to replace `your_file_name.js` with the actual name of your JavaScript file.
+
+You can also use the `require` statement to import your JavaScript files:
+
+```
+require('../custom_js/your_file_name.js');
+```
+
+After importing your JavaScript files, you can use them in your Rails application.

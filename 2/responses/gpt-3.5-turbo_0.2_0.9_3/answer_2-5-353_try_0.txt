@@ -1,0 +1,18 @@
+Starting from Spring Boot 2.4.0, the `spring.profiles.include` property no longer works as before. Instead, you need to use the `spring.config.activate.on-profile` property to activate additional profiles.
+
+To achieve the same result as before migration, you can modify your `application-dev.properties` file as follows:
+
+```
+# Profiles    
+spring.config.activate.on-profile=auth
+```
+
+This will activate the `auth` profile in addition to the `dev` profile when running your application with the `dev` profile.
+
+Note that the `spring.config.activate.on-profile` property can also be used to activate multiple profiles by separating them with a comma. For example:
+
+```
+spring.config.activate.on-profile=auth,db
+```
+
+This will activate both the `auth` and `db` profiles in addition to the `dev` profile.

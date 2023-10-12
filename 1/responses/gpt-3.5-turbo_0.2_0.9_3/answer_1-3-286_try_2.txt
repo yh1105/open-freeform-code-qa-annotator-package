@@ -1,0 +1,20 @@
+The issue with your code is that you are trying to access the variable `a` outside of the `try` block. If the user inputs a string, the `try` block will fail and `a` will not be defined, causing a `NameError` when you try to check if `a == "Done"` in the `except` block.
+
+To fix this, you can move the `if a == "Done":` check inside the `try` block, and use a `break` statement to exit the loop when the user inputs "Done". Here's the updated code:
+
+```
+s = set()
+print('Please type the number, when you are done please type "Done":')
+while True:
+    try:
+        a = input()
+        if a == "Done":
+            break
+        s.add(int(a))
+    except ValueError:
+        print('Integer only, please re-type:')
+        continue
+print(s)
+```
+
+In this version, we first read the user input as a string using `input()`, and then check if it's equal to "Done" inside the `try` block. If it is, we use `break` to exit the loop. If it's not, we try to convert it to an integer using `int(a)` and add it to the set. If the conversion fails (i.e., the user input is not a valid integer), we catch the `ValueError` exception and ask the user to re-type.

@@ -1,0 +1,12 @@
+To calculate the end time in hours, you need to add the duration to the starting hour and handle the case where the result is greater than 23 (since hours are in the range 0..23). Here's the updated code:
+
+```
+hour = int(input("Starting time (hours): "))
+mins = int(input("Starting time (minutes): "))
+dura = int(input("Event duration (minutes): "))
+mins = (mins + dura) % 60
+hour = (hour + (mins + dura) // 60) % 24
+print(hour, ":", mins, sep='')
+```
+
+In this code, we first calculate the new value of `mins` as before. Then we calculate the number of hours that have passed by adding `dura` to `mins` and integer dividing the result by 60 (to get the number of hours). We add this value to the starting hour and take the result modulo 24 to handle the case where the end time is on the next day. Finally, we print the result as before.

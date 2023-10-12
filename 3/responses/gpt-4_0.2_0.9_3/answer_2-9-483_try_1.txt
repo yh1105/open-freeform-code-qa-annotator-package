@@ -1,0 +1,33 @@
+In Rails 6, the JavaScript asset pipeline has been replaced with Webpacker. This means that the way you include JavaScript files has changed.
+
+Here's how you can include your custom JavaScript files:
+
+1. Create a new folder under `app/javascript/packs`, let's say `custom_js`, and put your JavaScript files there.
+
+2. In your `application.js` file, you can import your custom JavaScript files like this:
+
+```javascript
+import './custom_js/my_file.js'
+```
+
+Replace `my_file.js` with the name of your JavaScript file. If you have multiple files, you can import them one by one.
+
+3. In your layout file (usually `application.html.erb`), make sure you have this line in your head tag:
+
+```html
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+```
+
+This line will include the `application.js` file and all the files you imported in it.
+
+4. Restart your Rails server to make sure the changes take effect.
+
+Remember that with Webpacker, you're working with modules, so if you want to make a function available globally (like for use in inline JavaScript), you'll need to attach it to the `window` object. For example:
+
+```javascript
+window.myFunction = function() {
+  // your code here
+}
+```
+
+This is a bit different from the old asset pipeline where all JavaScript files were concatenated into one file and all functions were globally available.

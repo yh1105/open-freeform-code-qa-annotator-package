@@ -1,0 +1,39 @@
+The issue is that `@Mock` or `@MockBean` will create a mock of the class, which means it won't have any of its properties set. 
+
+If you want to load properties from a properties file, you should use `@TestPropertySource` annotation and `@Autowired` the `SomeProperties` class in your test. 
+
+Here is how you can do it:
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SomeService.class)
+@TestPropertySource(locations="classpath:application-test.properties")
+public class SomeServiceTest {
+
+    @Autowired
+    private SomeService someService;
+
+    @Autowired
+    private SomeProperties someProperties;
+}
+```
+
+In this case, `SomeProperties` will be an actual bean with properties loaded from the `application-test.properties` file, not a mock. 
+
+If you still need to mock some methods of `SomeProperties`, you can use `@SpyBean` instead of `@Autowired`. This will create a spy of the `SomeProperties` bean, which is a real object with all properties set, but you can still stub its methods if needed:
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SomeService.class)
+@TestPropertySource(locations="classpath:application-test.properties")
+public class SomeServiceTest {
+
+    @Autowired
+    private SomeService someService;
+
+    @SpyBean
+    private SomeProperties someProperties;
+}
+```
+
+Remember to have `application-test.properties` file in your test resources with the properties you want to set for `SomeProperties`. The properties should be prefixed with `report` as you have specified in `@ConfigurationProperties(prefix = "report")`.

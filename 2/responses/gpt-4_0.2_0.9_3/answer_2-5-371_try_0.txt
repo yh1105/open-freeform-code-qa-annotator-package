@@ -1,0 +1,26 @@
+In Android, there isn't an exact equivalent to Xcode's auto-resize feature. However, you can achieve similar results by using different techniques. 
+
+In your case, you can use the `ConstraintLayout` to create responsive layouts. You've already used it in your XML, but you need to adjust the constraints and dimensions of your `ImageView` to make it responsive.
+
+Here is how you can modify your `ImageView`:
+
+```xml
+<ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="#1750DF"
+    android:scaleType="fitXY"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+```
+
+In this example, I've set the `layout_width` and `layout_height` to `0dp`. This means the `ImageView` will stretch to meet the constraints defined by `layout_constraintStart_toStartOf`, `layout_constraintEnd_toEndOf`, `layout_constraintTop_toTopOf`, and `layout_constraintBottom_toBottomOf`.
+
+The `scaleType` attribute is set to `fitXY`, which scales the image to fit the entire area of the `ImageView`, changing the aspect ratio of the image if necessary.
+
+This should make your `ImageView` responsive and it should resize based on the screen size.
+
+Remember, designing for multiple screen sizes in Android involves more than just making your `ImageView` responsive. You should also consider using different layouts and resources for different screen sizes and densities. You can create these different layouts and resources in the `res` directory of your project.

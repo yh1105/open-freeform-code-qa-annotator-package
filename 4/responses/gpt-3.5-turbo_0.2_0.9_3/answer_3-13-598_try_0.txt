@@ -1,0 +1,11 @@
+Yes, it is possible to create similar scope functions in JavaScript/TypeScript. There are several libraries available that provide similar functionality. Some of the popular ones are:
+
+1. Lodash: Lodash provides a `_.tap` function that allows you to pass an object to a function and then return the object. This is similar to Kotlin's `apply` function.
+
+2. Ramda: Ramda provides several functions that can be used as scope functions. For example, `R.tap` is similar to Lodash's `_.tap`, and `R.pipe` can be used to chain functions together.
+
+3. Underscore.js: Underscore.js provides a `_.chain` function that allows you to chain functions together. This is similar to Kotlin's `with` function.
+
+4. RxJS: RxJS provides several operators that can be used as scope functions. For example, `tap` can be used to perform side effects on an observable, and `map` can be used to transform the values emitted by an observable.
+
+Overall, there are several libraries available that provide similar functionality to Kotlin's scope functions in JavaScript/TypeScript.

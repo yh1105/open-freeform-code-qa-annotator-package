@@ -1,0 +1,12 @@
+The `f` in `print(f"...")` stands for "formatted string". It is a feature introduced in Python 3.6 that allows you to embed expressions inside string literals, using curly braces `{}`. 
+
+In the example you provided, the expressions inside the curly braces are `args.input_directory` and `args.output_directory`. These expressions are evaluated and their values are inserted into the string at the corresponding curly brace locations.
+
+For example, if `args.input_directory` is `"/path/to/input/directory"` and `args.output_directory` is `"/path/to/output/directory"`, the output of the two `print` statements would be:
+
+```
+Input directory: /path/to/input/directory
+Output directory: /path/to/output/directory
+```
+
+The `f` before the string literal tells Python to treat the string as a formatted string and to evaluate any expressions inside the curly braces.

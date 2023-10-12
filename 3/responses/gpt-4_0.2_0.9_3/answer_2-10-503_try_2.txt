@@ -1,0 +1,9 @@
+Yes, your approach is correct. The `values()` method returns an iterator over the values of the HashMap, and `cloned()` creates an iterator that clones the items from the original iterator. Then `Vec::from_iter()` collects these cloned items into a vector.
+
+However, you can simplify your code by using the `collect()` method, which is a more idiomatic way to convert an iterator into a collection in Rust. Here's how you can do it:
+
+```rust
+let all_scores: Vec<Score> = score_table.values().cloned().collect();
+```
+
+This line does exactly the same thing as your code, but it's more concise and idiomatic. The type annotation (`Vec<Score>`) is necessary to tell the `collect()` method what type of collection you want to create.

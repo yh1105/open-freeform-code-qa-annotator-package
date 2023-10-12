@@ -1,0 +1,14 @@
+Yes, you're right. Testing on actual numbers instead of the string that Cypress found could be expensive and might not be the best approach. This issue is likely due to floating point precision in JavaScript, which can sometimes lead to unexpected results.
+
+A better approach would be to parse the returned width to a fixed number of decimal places before comparing it. This way, you can avoid the precision issue. Here's how you can do it:
+
+```javascript
+cy.get('.target').then(($el) => {
+  const width = parseFloat($el.css('width'));
+  expect(width).to.be.closeTo(200, 1); // The second parameter is the precision
+});
+```
+
+In this code, we're using the `parseFloat` function to convert the width to a floating point number. Then, we're using the `expect` function's `closeTo` method to check if the width is close to 200 within a precision of 1.
+
+This way, even if the width is `200.0000000000032038879956012px`, the test will still pass because it's close enough to `200px`.

@@ -1,0 +1,19 @@
+In PowerShell, you can't directly output bold text using the "Write-Host" cmdlet. However, you can use colors to differentiate the output and make it more readable. Here is an example:
+
+```powershell
+Write-Host "This is a message" -ForegroundColor Green
+```
+
+In this example, the text "This is a message" will be printed in green color.
+
+If you are writing scripts for a web-based environment or a tool that supports HTML, you could use HTML tags to make text bold. But this won't work in a standard PowerShell console.
+
+If you are using PowerShell 7.1 or later, you can use ANSI escape sequences to make text bold, but this will only work in some terminals that support it.
+
+```powershell
+Write-Host "`e[1mThis is a bold message`e[0m"
+```
+
+In this example, "`e[1m" is the ANSI escape sequence for bold text, and "`e[0m" resets it. Please note that this might not work in all terminals.
+
+Remember that "Write-Host" is generally not recommended for most scripts because it interferes with the pipeline and it's not possible to suppress or capture its output. Consider using "Write-Output" or "Write-Verbose" instead.

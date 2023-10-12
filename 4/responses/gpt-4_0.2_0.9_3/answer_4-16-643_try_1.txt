@@ -1,0 +1,13 @@
+You can use the `trap` command in bash to capture the command that is about to be executed. The `DEBUG` trap is executed before every simple command, for command, case command, select command, every arithmetic for command, and before the first command executes in a shell function.
+
+Here is a simple example of how you can change the terminal title to the current command:
+
+```bash
+trap 'echo -ne "\033]0;${PWD} ($BASH_COMMAND)\007"' DEBUG
+```
+
+This will change the terminal title before executing each command. `${PWD}` is the current working directory and `${BASH_COMMAND}` is the command currently being executed or about to be executed.
+
+You can add this line to your `.bashrc` or `.bash_profile` to make it permanent for all your terminal sessions.
+
+Please note that this will not work perfectly with complex commands, especially those involving pipes (`|`) and redirections (`>`, `>>`, `<`). This is because `${BASH_COMMAND}` will only contain the part of the pipeline that is currently being executed. If you need more advanced handling of complex commands, you might need to use more advanced scripting or a different shell that supports this feature better.

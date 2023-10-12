@@ -1,0 +1,42 @@
+In ASP.NET Core, you can use the built-in dependency injection system to create a service that can be used to store and retrieve global data. Here's how you can do it:
+
+1. First, create a class to hold your global data. This class can have properties for each piece of data you want to store.
+
+```csharp
+public class GlobalData
+{
+    public string MyVariable { get; set; }
+    // Add other properties as needed
+}
+```
+
+2. Register this class as a singleton service in your `Startup.cs` file. Singleton services are created the first time they're requested (or when `Startup.ConfigureServices` is run if you specify an instance there) and every subsequent request uses the same instance.
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<GlobalData>();
+    // Add other services
+}
+```
+
+3. Now, you can inject this service into your controllers or other services to access your global data.
+
+```csharp
+public class MyController : Controller
+{
+    private readonly GlobalData _globalData;
+
+    public MyController(GlobalData globalData)
+    {
+        _globalData = globalData;
+    }
+
+    public IActionResult Index()
+    {
+        // Use _globalData.MyVariable here
+    }
+}
+```
+
+This way, you can store data that is shared across different parts of your application. However, be aware that this data is not persisted across application restarts, and it is not shared across multiple instances of your application if you're running in a load-balanced environment. If you need to share data across multiple instances or persist data across restarts, you'll need to use a database or some other form of persistent storage.

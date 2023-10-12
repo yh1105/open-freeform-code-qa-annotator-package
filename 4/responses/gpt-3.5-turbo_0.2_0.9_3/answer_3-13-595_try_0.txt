@@ -1,0 +1,41 @@
+The issue might be related to the file permissions. Starting from Android 10 (API level 29), the access to external storage is restricted by default. You need to request the `WRITE_EXTERNAL_STORAGE` permission in your app's manifest file and also request the permission at runtime.
+
+To request the permission at runtime, you can use the following code:
+
+```
+if (ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) != PackageManager.PERMISSION_GRANTED
+) {
+    ActivityCompat.requestPermissions(
+        activity,
+        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+        REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION
+    )
+}
+```
+
+Replace `context` with your app's context and `activity` with your current activity. Also, define the `REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION` constant with a unique integer value.
+
+After requesting the permission, you can check if it is granted or not in the `onRequestPermissionsResult` method:
+
+```
+override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<String>,
+    grantResults: IntArray
+) {
+    if (requestCode == REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Permission granted, you can now create the file
+        } else {
+            // Permission denied, show a message to the user
+        }
+    }
+}
+```
+
+Make sure to handle the permission request result accordingly.
+
+Also, starting from Android 11 (API level 30), you need to use the `MediaStore` API to save files to external storage. You can check if your app is running on Android 11 or higher and use the `MediaStore` API instead of creating a file directly on the file system.

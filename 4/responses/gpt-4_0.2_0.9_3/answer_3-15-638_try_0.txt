@@ -1,0 +1,36 @@
+The SelectByID2 method is used to select an entity in the SolidWorks graphics area. The parameters for this method are:
+
+- Name: The name of the entity to select.
+- Type: The type of the entity to select.
+- X, Y, Z: The coordinates of the entity to select.
+- Append: Whether to add this entity to the current selection list.
+- Mark: The selection mark for this entity.
+- Callout: The callout for this entity.
+- SelectOption: The selection option for this entity.
+
+In your case, you are trying to select a face and a point. The issue you are facing might be due to the fact that you are not providing the correct parameters to the SelectByID2 method.
+
+Here is a possible solution:
+
+1. Get the name of the face and the point. You can do this by using the GetEntityName method on the face and point objects.
+
+2. Use the SelectByID2 method to select the face and the point. Make sure to provide the correct parameters. For example, the type should be "FACE" for the face and "DATUMPOINT" for the point. The X, Y, Z coordinates should be the coordinates of the face and point. The Append parameter should be True if you want to add this entity to the current selection list. The Mark parameter can be 0 if you don't want to assign a selection mark to this entity. The Callout parameter can be Nothing if you don't want to assign a callout to this entity. The SelectOption parameter can be 0 if you don't want to use any special selection options.
+
+Here is an example of how to use the SelectByID2 method:
+
+```vba
+Dim faceName As String
+Dim pointName As String
+
+' Get the name of the face and the point
+faceName = faceObj.GetEntityName
+pointName = pointObj.GetEntityName
+
+' Select the face
+swModel.Extension.SelectByID2(faceName, "FACE", 0, 0, 0, False, 0, Nothing, 0)
+
+' Select the point
+swModel.Extension.SelectByID2(pointName, "DATUMPOINT", 0, 0, 0, True, 0, Nothing, 0)
+```
+
+After selecting the face and the point, you can use the InsertRefPlane method to create a reference plane.

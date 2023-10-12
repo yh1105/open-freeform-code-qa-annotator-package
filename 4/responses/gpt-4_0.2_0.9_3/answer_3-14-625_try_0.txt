@@ -1,0 +1,23 @@
+To detect if the keyboard is present when a button is pressed, you can use the `InputMethodManager` in Android. Here is a simple way to do it:
+
+```java
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isAcceptingText()) { // verify if the soft keyboard is open
+            Log.d("keyboard", "Software Keyboard was shown");
+        } else {
+            Log.d("keyboard", "Software Keyboard was not shown");
+        }
+    }
+});
+```
+
+In this code, `getSystemService(Context.INPUT_METHOD_SERVICE)` returns a InputMethodManager for accessing input methods. `isAcceptingText()` checks whether the soft input area is active, if it is active that means keyboard is open.
+
+Please note that this method only works for detecting software keyboards. If you are using a hardware keyboard, it won't be detected. 
+
+Also, this method might not work on all devices or all keyboards as some might not correctly implement the `isAcceptingText()` method. 
+
+If you are trying to detect whether the keyboard is open in order to adjust your layout, you might want to look into `android:windowSoftInputMode` attribute in your manifest file. This attribute allows you to specify how your UI should respond when the soft keyboard is displayed.

@@ -1,0 +1,57 @@
+It is generally not recommended to create a global instance of a ViewModel in an Activity. Instead, you should create a ViewModel instance for each composable that needs it. This will help you to keep your code modular and testable.
+
+You can create a ViewModel instance in the constructor parameters of each composable function that needs it. This way, you can pass the same instance of the ViewModel to all the child composable functions.
+
+Here is an example:
+
+```
+@Composable
+fun Input(optionData: OptionData, viewModel: InputViewModel = viewModel()) {
+    viewModel.optionData = optionData
+    var value by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        InputItem(viewModel)
+        Spacer()
+        OnSubmitPulse(viewModel)
+    }
+}
+
+@Composable
+fun InputItem(viewModel: InputViewModel) {
+    Image()
+    PulsePressure(viewModel)
+}
+
+@Composable
+fun PulsePressure(viewModel: InputViewModel) {
+    Column {
+        InputWithUnitContainer(viewModel)
+        InputWithUnitContainer(viewModel)
+    }
+}
+
+@Composable
+fun InputWithUnitContainer(viewModel: InputViewModel) {
+    Row() {
+        Text()
+        TextField(value = "")
+        Text()
+    }
+}
+
+@Composable
+fun OnSubmitPulse(viewModel: InputViewModel) {
+    // Submit button logic
+}
+```
+
+In this example, we are passing the same instance of the InputViewModel to all the child composable functions. This way, they can all access the same data and methods from the ViewModel.
+
+I hope this helps! Let me know if you have any further questions.

@@ -1,0 +1,25 @@
+To make a color darker or lighter, you can manipulate the RGB values of the color. Here's how you can implement the `toDarkColor` and `toLightColor` functions in Dart:
+
+```
+import 'dart:ui';
+
+Color toDarkColor(String hashColor) {
+  Color color = Color(int.parse(hashColor.substring(1), radix: 16));
+  int red = (color.red * 0.8).round();
+  int green = (color.green * 0.8).round();
+  int blue = (color.blue * 0.8).round();
+  return Color.fromRGBO(red, green, blue, 1);
+}
+
+Color toLightColor(String hashColor) {
+  Color color = Color(int.parse(hashColor.substring(1), radix: 16));
+  int red = (color.red * 1.2).round();
+  int green = (color.green * 1.2).round();
+  int blue = (color.blue * 1.2).round();
+  return Color.fromRGBO(red, green, blue, 1);
+}
+```
+
+In the `toDarkColor` function, we multiply the RGB values by 0.8 to make the color darker. In the `toLightColor` function, we multiply the RGB values by 1.2 to make the color lighter. We then create a new `Color` object using the modified RGB values and return it. 
+
+Note that the `Color.fromRGBO` constructor takes four arguments: the red, green, and blue values (each ranging from 0 to 255) and the opacity (ranging from 0 to 1). We set the opacity to 1 to make the color fully opaque.

@@ -1,0 +1,20 @@
+The issue you're facing is due to the inconsistent placement of the `lang` attribute in the HTML tag. In some cases, it might be the third attribute, while in others, it might be the second, fourth, etc. 
+
+A more reliable way to extract the language code would be to use a regular expression that specifically targets the `lang` attribute, regardless of its position in the tag. 
+
+Here's how you can do it using `grep` with a Perl-compatible regular expression (`-P`):
+
+```bash
+curl -Ls stick-it.app | grep -oP '(?<=lang=")[^"]*'
+```
+
+This command will output the value of the `lang` attribute, regardless of its position in the tag. 
+
+Here's how it works:
+
+- `-o` tells `grep` to only output the part of the line that matches the pattern.
+- `-P` enables Perl-Compatible Regular Expressions.
+- `(?<=lang=")` is a positive lookbehind assertion that matches the `lang="` string but doesn't include it in the output.
+- `[^"]*` matches any number of characters that are not a double quote (`"`), which effectively captures the value of the `lang` attribute.
+
+Please note that `-P` option might not be available in all `grep` versions. If it's not available in your version, you might need to use a different tool that supports Perl-Compatible Regular Expressions, such as `perl` or `pcregrep`.

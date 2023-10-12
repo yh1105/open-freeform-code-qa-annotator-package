@@ -1,0 +1,47 @@
+To post data to a URL in Flutter WebView, you can use the `postUrl` method provided by the `webview_flutter` package. However, as of now, this method is only available for Android.
+
+Here's a simple example of how you can use it:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('WebView Example')),
+        body: WebView(
+          initialUrl: '',
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController webViewController) {
+            webViewController.postUrl(
+              url: 'https://your-url.com',
+              headers: <String, String>{
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              postData: <String, String>{
+                'key1': 'value1',
+                'key2': 'value2',
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this example, we're creating a WebView and using the `postUrl` method to send a POST request to 'https://your-url.com'. The headers and body of the request are specified in the `headers` and `postData` parameters, respectively.
+
+Please note that the `postUrl` method is not yet available for iOS. If you need to send a POST request in a WebView on iOS, you may need to use a different package or implement a workaround, such as loading a local HTML file that sends a POST request using JavaScript.
+
+Also, ensure that you have added the internet permission in your AndroidManifest.xml file if you are testing on Android:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```

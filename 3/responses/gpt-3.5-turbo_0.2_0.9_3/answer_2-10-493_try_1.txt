@@ -1,0 +1,24 @@
+One way to achieve this is by implementing the `From` trait for your `Source` struct, which will allow you to convert it into a `Message` struct. Here's an example implementation:
+
+```
+impl From<Source> for Message {
+    fn from(source: Source) -> Self {
+        Message {
+            id: 0, // set to default value
+            email: source.email.to_string(),
+            name: source.name.to_string(),
+        }
+    }
+}
+```
+
+With this implementation, you can now convert a `Source` struct into a `Message` struct using the `into()` method:
+
+```
+let source = Source { email: "test@example.com".into(), name: "John Doe".into() };
+let message: Message = source.into();
+```
+
+This will create a new `Message` struct with the `email` and `name` fields populated from the `Source` struct. You can also set the `id` field to a non-default value if needed.
+
+Note that this implementation assumes that the `Email` and `Name` types have a `to_string()` method that returns a `String`. If they don't, you'll need to implement the `From` trait for those types as well.

@@ -1,0 +1,22 @@
+The formatting of your `pubspec.yaml` file seems to be incorrect. Here's the corrected version:
+
+```
+name: jsondata 
+description: A new Flutter application.
+
+dependencies:  
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.0
+
+dev_dependencies:   
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+```
+
+Make sure to follow the indentation and spacing as shown above. Also, ensure that the `loadjson` folder containing the `person.json` file is in the root directory of your project.

@@ -1,0 +1,13 @@
+The error message "No FontName. Skipping." suggests that the `extrafont` package is unable to find the name of the font in the .ttf files. This could be due to several reasons:
+
+1. The .ttf files might be corrupt or not properly formatted.
+2. The font files might not contain a FontName, which is required by `extrafont`.
+3. There might be a compatibility issue between the `extrafont` package and the font files.
+
+Here are some suggestions to overcome this issue:
+
+1. Check the integrity of the .ttf files. You can do this by trying to install the fonts manually on your system. If the fonts install correctly, then the files are likely not corrupt.
+2. Try using a different set of font files. If other font files work correctly, then the issue might be with the specific font files you are trying to use.
+3. Try updating the `extrafont` package to the latest version. There might be a bug in the version you are using that has been fixed in a later version.
+
+The warning messages are related to the system calls that `extrafont` is making to extract the .afm files from the .ttf files. The status 1 indicates that the command did not execute successfully. This is likely related to the "No FontName. Skipping." issue. Once you resolve that issue, these warning messages should also be resolved.

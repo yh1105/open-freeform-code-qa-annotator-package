@@ -1,0 +1,17 @@
+The error message you're seeing suggests that you're trying to generate a component outside of an Angular project. Here are some steps you can take to resolve this issue:
+
+1. **Check your current directory**: Make sure you are in the correct directory where your Angular project is located. You can use the `pwd` command (print working directory) in the terminal to see your current directory. If you are not in the correct directory, navigate to it using the `cd` command followed by the path to your Angular project.
+
+2. **Check if angular.json file exists**: Angular CLI uses `angular.json` file to identify the root of an Angular workspace. If this file is missing, you will get the error you're seeing. Make sure this file exists in the root directory of your project.
+
+3. **Reinstall Angular CLI**: If you're in the correct directory and the `angular.json` file exists, there might be an issue with your Angular CLI installation. Try reinstalling it using the following commands:
+
+   ```
+   npm uninstall -g @angular/cli
+   npm cache verify
+   npm install -g @angular/cli@latest
+   ```
+
+4. **Create a new Angular project**: If none of the above solutions work, you can try creating a new Angular project using `ng new your-project-name` and then try generating your component in the new project.
+
+Remember to replace `your-project-name` with the name of your project.

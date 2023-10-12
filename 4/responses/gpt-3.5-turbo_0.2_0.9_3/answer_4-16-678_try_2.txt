@@ -1,0 +1,29 @@
+It sounds like the output of the `aws` command is being piped to the `vi` editor instead of being displayed in the terminal. This can happen if the `EDITOR` environment variable is set to `vi` or if the `aws` command is aliased to `vi` in your shell configuration.
+
+To check if `EDITOR` is set to `vi`, you can run the following command in your terminal:
+
+```
+echo $EDITOR
+```
+
+If it returns `vi`, you can unset it by running:
+
+```
+unset EDITOR
+```
+
+If that doesn't work, you can try running the `aws` command with the `-T` option to disable the use of the pager:
+
+```
+aws ec2 describe-instances --output json -T
+```
+
+This should output the JSON string directly to the terminal.
+
+If you want to make this change permanent, you can add the following line to your shell configuration file (e.g. `~/.bashrc` or `~/.zshrc`):
+
+```
+export AWS_PAGER=""
+```
+
+This will disable the use of the pager for all `aws` commands.

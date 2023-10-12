@@ -1,0 +1,39 @@
+It seems like you have set up Sanctum correctly, but there might be an issue with how you are generating and using the token.
+
+Here are some steps you can follow to troubleshoot the issue:
+
+1. Make sure that you have installed and configured Sanctum correctly. You can check the official documentation for more information.
+
+2. Generate a new token for the user using the `createToken` method. You can do this in your controller or in a separate command. Here is an example:
+
+```
+$user = User::find(1);
+$token = $user->createToken('token-name')->plainTextToken;
+```
+
+3. Make sure that you are using the correct token in Postman. You can check the token by printing it in your controller or by checking the `personal_access_tokens` table in your database.
+
+4. Check if the token is being passed correctly in the request. You can do this by adding a middleware to your route that logs the request headers. Here is an example:
+
+```
+Route::middleware(['auth:sanctum', function ($request, $next) {
+    Log::info($request->headers->all());
+    return $next($request);
+}])->apiResource('/documents','DocumentHandlerController');
+```
+
+5. If the token is being passed correctly, check if the user is authenticated in your controller. You can do this by calling the `user` method on the request object. Here is an example:
+
+```
+public function index(Request $request)
+{
+    $user = $request->user();
+    if ($user) {
+        return response()->json(['Success'],Response::HTTP_OK);
+    } else {
+        return response()->json(['Unauthorized'],Response::HTTP_UNAUTHORIZED);
+    }
+}
+```
+
+I hope this helps you troubleshoot the issue. Let me know if you have any further questions.

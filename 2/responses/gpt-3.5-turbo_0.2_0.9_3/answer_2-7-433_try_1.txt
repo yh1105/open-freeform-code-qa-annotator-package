@@ -1,0 +1,20 @@
+The error message indicates that the PHP curl extension is not enabled on your server, and that the allow_url_fopen setting is disabled in your php.ini file. 
+
+To resolve this issue, you can try the following steps:
+
+1. Enable the PHP curl extension: 
+   - Login to your cPanel account and go to the "Select PHP Version" option.
+   - Click on the "curl" extension to enable it.
+   - Save the changes.
+
+2. Enable allow_url_fopen in php.ini file:
+   - Login to your cPanel account and go to the "Select PHP Version" option.
+   - Click on the "Switch to PHP Options" button.
+   - Find the "allow_url_fopen" option and set it to "On".
+   - Save the changes.
+
+3. Restart the Apache server:
+   - Go to the "Restart Services" option in cPanel.
+   - Click on the "Restart Apache" button.
+
+After completing these steps, try running the "composer update" command again and see if the issue is resolved.

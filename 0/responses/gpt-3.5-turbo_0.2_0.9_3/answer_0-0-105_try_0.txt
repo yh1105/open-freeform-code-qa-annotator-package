@@ -1,0 +1,7 @@
+It is not common to use both Cypress and Jest together in a single project. While it is possible to use both, it can lead to confusion and maintenance issues, as you have mentioned. 
+
+Most developers and teams choose one testing library that best suits their needs and stick with it. If you are testing primarily for end-to-end functionality, Cypress is a great choice. If you are testing primarily for unit testing, Jest is a popular option. 
+
+However, it is important to note that there are other testing libraries available that may better suit your needs, such as Mocha, Chai, and Enzyme. It is worth exploring these options to find the best fit for your project. 
+
+In summary, while it is possible to use both Cypress and Jest together, it is not a common practice. Most developers and teams choose one testing library that best suits their needs and stick with it.

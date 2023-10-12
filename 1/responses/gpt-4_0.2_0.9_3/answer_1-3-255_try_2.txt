@@ -1,0 +1,45 @@
+The error message indicates that there is a problem with the CMake installation. The OpenCV Python package is trying to build from source, which requires CMake. 
+
+Here are some steps you can try:
+
+1. Install CMake in your Docker container. You can do this by adding the following line to your Dockerfile:
+
+```Dockerfile
+RUN apt-get update && apt-get install -y cmake
+```
+
+Then, rebuild your Docker image and try again.
+
+2. If you still encounter the same issue, it might be due to the fact that OpenCV Python wheels are not available for ARM architecture, which is used by Jetson Nano. In this case, you will need to build OpenCV from source. Here is a general outline of the steps you need to follow:
+
+- Install the necessary dependencies:
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+```
+
+- Clone the OpenCV repository:
+
+```bash
+$ git clone https://github.com/opencv/opencv.git
+$ cd opencv
+$ git checkout 4.4.0
+```
+
+- Create a build directory and run CMake:
+
+```bash
+$ mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+```
+
+- Build and install OpenCV:
+
+```bash
+$ make -j$(nproc)
+$ sudo make install
+```
+
+Please note that building OpenCV from source can take a long time and requires a lot of resources. You might need to increase the resources available to your Docker container.

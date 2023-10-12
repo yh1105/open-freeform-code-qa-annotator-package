@@ -1,0 +1,40 @@
+The type union constraint `*A | *B` in Go generics (v1.18) is used to specify that a type parameter can be one of several types. However, it doesn't imply that the methods of these types are accessible through the type parameter. 
+
+In your case, the `some` method is not accessible through the type parameter `T` because `T` is not guaranteed to have a `some` method. Even though both `*A` and `*B` have a `some` method, the type union constraint `*A | *B` doesn't mean that `T` has a `some` method. 
+
+The type union constraint is useful when you want to write a function that can take arguments of several types and you want to perform operations that are valid for all these types. However, if you want to call methods on these types, you need to use a type switch or type assertion to determine the actual type of the argument and then call the method on it.
+
+Here is how you can modify your code to make it work:
+
+```go
+type A struct {
+}
+
+type B struct {
+}
+
+type AB interface {
+    *A | *B
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T AB](x T) bool {
+    switch v := x.(type) {
+    case *A:
+        return v.some()
+    case *B:
+        return v.some()
+    default:
+        panic("unexpected type")
+    }
+}
+```
+
+In this code, the `some` function uses a type switch to determine the actual type of `x` and then calls the `some` method on it.

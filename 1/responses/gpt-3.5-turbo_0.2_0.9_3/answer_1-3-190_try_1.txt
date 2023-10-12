@@ -1,0 +1,5 @@
+Your idea of using Celery to run an MQTT client in a separate process is a good approach. Celery is designed to handle long-running tasks, so it should work well for this use case. 
+
+Another option to directly integrate Django with MQTT is to use the Django-MQTT package. This package provides a Django app that can be used to connect to an MQTT broker and subscribe to topics. It also provides a Django model to store received messages. However, it does not support MQTT over websockets, so you would need to use a broker that supports MQTT over TCP.
+
+Overall, using Celery to run an MQTT client in a separate process is a good approach and should work well for your use case.

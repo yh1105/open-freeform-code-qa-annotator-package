@@ -1,0 +1,46 @@
+The error message indicates that the key you're trying to find in the dictionary is null. This is likely because you're trying to read from the console and there's no more input.
+
+You should add a check to see if the input from the console is null or empty before trying to find it in the dictionary. Also, you need to keep reading the lines until there is no more input. Here's how you can modify your code:
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class Solution 
+{
+    static void Main(String[] args) 
+    {
+        string number = Console.ReadLine();
+        int n;
+        Int32.TryParse(number, out n);
+
+        var phoneBook = new Dictionary<string, string>();
+
+        for(int i = 0; i < n; i++)
+        {
+            string name = Console.ReadLine();
+            string phoneNumber = Console.ReadLine();
+            phoneBook.Add(name, phoneNumber);
+        }
+
+        string x;
+        while((x = Console.ReadLine()) != null)
+        {
+            if(string.IsNullOrEmpty(x) || !phoneBook.ContainsKey(x))
+            {
+                Console.WriteLine("Not Found");
+            }
+            else
+            {
+                string result = phoneBook[x];
+                Console.Write(x);
+                Console.Write("=");
+                Console.WriteLine(result);
+            }
+        }
+    }
+}
+```
+
+This code will keep reading lines from the console until there's no more input. It will also check if the input is null or empty before trying to find it in the dictionary. If the key is not found in the dictionary, it will print "Not Found". If the key is found, it will print the key and its corresponding value.

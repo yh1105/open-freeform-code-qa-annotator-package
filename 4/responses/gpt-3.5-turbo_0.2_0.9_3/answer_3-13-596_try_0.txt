@@ -1,0 +1,38 @@
+Yes, you can disable the generation of the `*.plain.jar` file by adding the following line to your `build.gradle` file:
+
+```
+bootJar {
+    plain = false
+}
+```
+
+This will disable the generation of the plain jar file and only generate the regular jar file. Your `build.gradle` file should now look like this:
+
+```
+plugins {
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    plain = false
+}
+```

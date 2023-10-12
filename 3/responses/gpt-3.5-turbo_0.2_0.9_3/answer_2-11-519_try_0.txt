@@ -1,0 +1,7 @@
+The error message is informing you that the `<experimental/filesystem>` header is deprecated and will be removed in the future. Instead, you should use the `<filesystem>` header, which provides the same functionality but is part of the C++17 standard.
+
+To fix the error, you need to replace the line `#include <experimental/filesystem>` with `#include <filesystem>`. Then, you need to replace the line `namespace fs = std::experimental::filesystem;` with `namespace fs = std::filesystem;`.
+
+If you still get the error after making these changes, you can define `_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING` before including any headers in your code. You can do this by adding `#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING` at the top of your main cpp file, before any other headers are included.
+
+If none of these solutions work, you may need to update your compiler to a version that supports the `<filesystem>` header.

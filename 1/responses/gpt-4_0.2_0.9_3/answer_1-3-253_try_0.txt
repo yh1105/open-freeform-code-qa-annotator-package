@@ -1,0 +1,27 @@
+The operation you're trying to perform is quite computationally expensive because you're creating a large number of groups due to the fine granularity of your bins. Here are a few suggestions to speed up the process:
+
+1. **Reduce the number of bins**: If the precision of your bins is not critical, you could reduce the number of bins. This will directly reduce the number of groups and speed up the computation.
+
+2. **Use `transform` instead of `agg`**: If you're performing the same operation on all columns, you can use `transform` instead of `agg`. This can be faster because it avoids the overhead of constructing a new DataFrame.
+
+3. **Use `numba`**: If you're comfortable with using external libraries, you could use `numba`, a just-in-time compiler for Python that can significantly speed up numerical computations.
+
+Here's an example of how you could use `transform`:
+
+```python
+df.groupby(['a_bins','b_bins','c_bins'])['value'].transform('mean')
+```
+
+And here's an example of how you could use `numba`:
+
+```python
+from numba import jit
+
+@jit(nopython=True)
+def fast_mean(data):
+    return data.mean()
+
+df.groupby(['a_bins','b_bins','c_bins']).agg({'value': fast_mean})
+```
+
+As for your second question, you can still use the `loc` function to find the mean value for a specific group as you did in your example. Just make sure to convert your input values to the corresponding bin labels.

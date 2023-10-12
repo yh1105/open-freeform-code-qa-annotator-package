@@ -1,0 +1,36 @@
+You can implement this learning rate schedule manually in PyTorch. Here is a simple example of how you can do it:
+
+```python
+import torch
+import math
+
+class CustomLR:
+    def __init__(self, model_size, factor=1, warmup=4000):
+        self.model_size = model_size
+        self.factor = factor
+        self.warmup = warmup
+        self.step_num = 0
+
+    def step(self):
+        self.step_num += 1
+        return self.factor * (self.model_size ** (-0.5) * min(self.step_num ** (-0.5), self.step_num * self.warmup ** (-1.5)))
+
+model_size = 512
+optimizer = torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9)
+scheduler = CustomLR(model_size)
+
+for epoch in range(num_epochs):
+    for batch in dataloader:
+        optimizer.zero_grad()
+        output = model(batch)
+        loss = criterion(output, target)
+        loss.backward()
+        lr = scheduler.step()
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        optimizer.step()
+```
+
+In this code, `CustomLR` is a learning rate scheduler that implements the formula from the paper. The learning rate is updated before each step of the optimizer. The initial learning rate is set to 0 because it will be updated by the scheduler before the first step.
+
+Please note that this is a basic implementation and might need to be adjusted based on your specific use case. For example, you might want to move the learning rate update to a separate function if you want to change the learning rate more frequently.

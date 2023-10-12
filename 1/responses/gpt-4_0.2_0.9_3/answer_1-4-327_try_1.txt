@@ -1,0 +1,22 @@
+In R, when you have two columns with the same name, you can access them using their index in the dataframe. 
+
+In your case, you can access the second column named "a" in the dataframe "d3" by using its index. Here is how you can do it:
+
+```r
+d3[,2]
+```
+
+This will select the second column of the dataframe "d3". 
+
+If you want to rename the columns to avoid confusion, you can do it like this:
+
+```r
+names(d3) <- c("a1", "a2")
+```
+
+Now you can access the columns by their new names:
+
+```r
+d3$a1  # for the first column
+d3$a2  # for the second column
+```

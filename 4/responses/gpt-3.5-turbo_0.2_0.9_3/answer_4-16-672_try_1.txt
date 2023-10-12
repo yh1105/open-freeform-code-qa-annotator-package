@@ -1,0 +1,14 @@
+You can use the `$(cat file)` syntax to insert the contents of the file into the script. Here's an updated version of your script:
+
+```
+#!/bin/bash
+
+cat << EOF > test.sh
+#!/bin/bash
+some commands
+$(cat file)
+some commands
+EOF
+```
+
+This will insert the contents of `file` into the script at the location where `$(cat file)` appears. When you run `./run.sh`, it will create `test.sh` with the desired output.

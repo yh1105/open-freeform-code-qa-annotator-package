@@ -1,0 +1,13 @@
+The `if_else()` function from `dplyr` is type-stable, meaning that it checks if the output type for both the `true` and `false` conditions are the same. This is a feature of `if_else()` and is intended to prevent unexpected output types which can sometimes occur with `base::ifelse()`. 
+
+In your case, `min` and `max` are both functions, so they are of the same type. However, `if_else()` does not support function type. This is why you are getting an error.
+
+If you want to return a function based on a condition, you can use the `base::ifelse()` or a simple `if` and `else` construct. Here's an example:
+
+```r
+x <- 2
+fun <- if (x == 2) min else max
+fun(c(1,2,3))  # will return 1
+```
+
+In this example, `fun` will be assigned the function `min` if `x` is 2, otherwise it will be assigned the function `max`. Then you can use `fun` as a function.

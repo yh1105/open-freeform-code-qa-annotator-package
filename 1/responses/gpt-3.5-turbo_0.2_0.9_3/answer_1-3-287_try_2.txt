@@ -1,0 +1,24 @@
+To serialize nested dataclasses, you can modify the `default` method of the `EnhancedJSONEncoder` class to recursively serialize any nested dataclasses. Here's an updated version of the `EnhancedJSONEncoder` class:
+
+```
+class EnhancedJSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if dataclasses.is_dataclass(o):
+            return dataclasses.asdict(o, dict_factory=dict)
+        elif isinstance(o, (list, tuple)):
+            return [self.default(item) for item in o]
+        elif isinstance(o, dict):
+            return {key: self.default(value) for key, value in o.items()}
+        return super().default(o)
+```
+
+This implementation checks if the object is a dataclass and serializes it using `dataclasses.asdict`. If the object is a list, tuple, or dictionary, it recursively serializes each item in the container. Finally, if the object is not a dataclass or container, it falls back to the default serialization behavior.
+
+You can use this updated `EnhancedJSONEncoder` class with your `jdump` method to serialize nested dataclasses:
+
+```
+def jdump(foo):
+    return json.dumps(foo, cls=EnhancedJSONEncoder)
+```
+
+With these changes, you should be able to serialize nested dataclasses without encountering the `TypeError`.

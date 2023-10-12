@@ -1,0 +1,32 @@
+The error message suggests that the condition `mask_black == cv2.bitwise_not(mask_black)` is ambiguous because it compares two arrays element-wise and returns an array of Boolean values. To fix this, you can use the `np.array_equal()` function to compare two arrays for equality. Here's an example:
+
+```
+import numpy as np
+import cv2
+
+# create a black mask
+mask_black = np.zeros((100, 100), dtype=np.uint8)
+
+# invert the mask
+mask_not = cv2.bitwise_not(mask_black)
+
+# compare the two masks for equality
+if np.array_equal(mask_black, mask_not):
+    print("The masks are equal")
+else:
+    print("The masks are not equal")
+```
+
+In your case, you can modify your code as follows:
+
+```
+mask_black = cv2.inRange(hsv, low_black, high_black)
+mask_not = cv2.bitwise_not(mask_black)
+
+if np.array_equal(mask_black, cv2.bitwise_and(mask_black, mask_not)):
+    # black background detected, white line to be detected
+    # do something
+else:
+    # white background detected, black line to be detected
+    # do something else
+```

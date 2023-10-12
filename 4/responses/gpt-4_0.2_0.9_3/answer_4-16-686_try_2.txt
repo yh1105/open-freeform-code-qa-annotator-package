@@ -1,0 +1,24 @@
+The error message `the job spec is invalid ... the field is immutable` typically means that you're trying to update a field on a Kubernetes object that cannot be updated once the object is created. 
+
+In your case, it seems like you're trying to update the `args` field of a container in a Job. Once a Job is created, the `args` field is immutable and cannot be updated. If you need to change the `args` field, you would need to delete and recreate the Job.
+
+However, the issue you're facing might be due to the way you're defining your `args` in the yaml file. In Kubernetes, `args` should be a list of strings, not a single string. 
+
+Try to split your bash script into separate strings like this:
+
+```yaml
+args:
+  - "/cloud_sql_proxy -instances=xxxxxxxxxxx:europe-west1:xxxxxxxxxxx=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &"
+  - "CHILD_PID=$!"
+  - "(while true; do echo 'waiting for termination file'; if [[ -f '/tmp/pod/main-terminated' ]]; then kill ; echo 'Killed  as the main container terminated.'; fi; sleep 1; done) &"
+  - "wait"
+  - "if [[ -f '/tmp/pod/main-terminated' ]]; then exit 0; echo 'Job completed. Exiting...'; fi"
+```
+
+If this doesn't work, you might need to put your bash script into a separate script file, add it to your Docker image, and then call that script in your `args` field like this:
+
+```yaml
+args: ["/path/to/your/script.sh"]
+```
+
+Remember to make your script executable (`chmod +x /path/to/your/script.sh`) in your Dockerfile before you run it.

@@ -1,0 +1,25 @@
+You can use the `stringr` package's `str_replace_all()` function in combination with a regular expression to accomplish this. The regular expression `"(?<=\")([^,]*),([^,]*)(?=\")"` will match any comma that is surrounded by any characters except commas and is within quotes. Here's how you can use it:
+
+```r
+library(stringr)
+
+string <- c("1, 2, \"something, else\"", "3, 5, \"more, more, more\"", "6, \"commas, are fun\", \"no, they are not\"")
+
+new_string <- str_replace_all(string, "(?<=\")([^,]*),([^,]*)(?=\")", "\\1 \\2")
+
+print(new_string)
+```
+
+This will replace all commas inside quotes with a space. However, this will only work for two words separated by a comma inside quotes. If you have more than two words separated by commas inside quotes, you can use the following code:
+
+```r
+new_string <- str_replace_all(string, "(?<=\")([^,]*),([^,]*)(?=\")", "\\1 \\2")
+
+while(any(str_detect(new_string, "(?<=\")([^,]*),([^,]*)(?=\")"))){
+  new_string <- str_replace_all(new_string, "(?<=\")([^,]*),([^,]*)(?=\")", "\\1 \\2")
+}
+
+print(new_string)
+```
+
+This will keep replacing commas inside quotes until there are no more left. Note that this code uses a while loop, which can be dangerous if not used correctly (it can create infinite loops). In this case, the condition for the loop to continue is that there are still commas inside quotes, so it should be safe.

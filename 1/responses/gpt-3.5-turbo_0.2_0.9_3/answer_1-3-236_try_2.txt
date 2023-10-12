@@ -1,0 +1,19 @@
+If the `"python.linting.jediEnabled": false` line is greyed out, it means that it is being overridden by another setting. You can try adding the following line to your settings.json file to completely disable Jedi:
+
+```
+"python.jediEnabled": false
+```
+
+If that doesn't work, you can try disabling Jedi in your virtual environment by adding the following line to your activate script:
+
+```
+export JEDI_SKIP_LOOKUP="true"
+```
+
+If you're using a conda environment, you can disable Jedi by running the following command:
+
+```
+conda config --set jedi_enabled false
+```
+
+After making any changes, be sure to restart your editor for the changes to take effect.

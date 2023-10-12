@@ -1,0 +1,39 @@
+You can achieve this by using the `which` function in combination with the `==` operator to find the indices of the minimum values. Then, you can use these indices to get the row names. Here is a function that does this:
+
+```r
+get_min_values <- function(df) {
+  result <- data.frame()
+  for (col in names(df)) {
+    min_val <- min(df[[col]])
+    min_indices <- which(df[[col]] == min_val)
+    rownames <- row.names(df[min_indices,])
+    freq_times <- length(min_indices)
+    result <- rbind(result, data.frame(min.value = min_val, column = col, rowname = paste(rownames, collapse = ","), freq.times = freq_times))
+  }
+  return(result)
+}
+
+get_min_values(cars)
+```
+
+This function iterates over each column in the dataframe, finds the minimum value, finds the indices of this minimum value, gets the row names of these indices, and counts the number of indices. It then adds this information to the result dataframe.
+
+You can do the same for the maximum values:
+
+```r
+get_max_values <- function(df) {
+  result <- data.frame()
+  for (col in names(df)) {
+    max_val <- max(df[[col]])
+    max_indices <- which(df[[col]] == max_val)
+    rownames <- row.names(df[max_indices,])
+    freq_times <- length(max_indices)
+    result <- rbind(result, data.frame(max.value = max_val, column = col, rowname = paste(rownames, collapse = ","), freq.times = freq_times))
+  }
+  return(result)
+}
+
+get_max_values(cars)
+```
+
+This function works the same way as the previous one, but finds the maximum values instead of the minimum values.

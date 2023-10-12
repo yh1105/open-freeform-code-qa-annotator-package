@@ -1,0 +1,56 @@
+You can use the Intersection Observer API to detect when an element is in the viewport. Here's a basic example of how you can use it:
+
+First, you need to assign a ref to each div you want to observe:
+
+```jsx
+<div id="parent">
+    {data.map(item => (
+        <div id={item.id} ref={ref => this[item.id] = ref}>{item.title}</div>
+    ))}
+</div>
+```
+
+Then, you can create an Intersection Observer in your component:
+
+```jsx
+componentDidMount() {
+    const options = {
+        root: null, // relative to document viewport 
+        rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+        threshold: 0.5 // visible amount of item shown in relation to root
+    };
+
+    this.observer = new IntersectionObserver(this.handleObserver.bind(this), options);
+    data.forEach(item => {
+        this.observer.observe(this[item.id]);
+    });
+}
+```
+
+The callback function `handleObserver` will be called every time a target element enters or exits the viewport:
+
+```jsx
+handleObserver(entities, observer) {
+    entities.forEach(entity => {
+        if (entity.isIntersecting) {
+            // The div is in the viewport
+            console.log(entity.target.id + ' is in the viewport!');
+        } else {
+            // The div is not in the viewport
+            console.log(entity.target.id + ' is not in the viewport!');
+        }
+    });
+}
+```
+
+Don't forget to disconnect the observer when the component unmounts:
+
+```jsx
+componentWillUnmount() {
+    data.forEach(item => {
+        this.observer.unobserve(this[item.id]);
+    });
+}
+```
+
+This is a basic example and you might need to adjust it to fit your needs. For example, you might want to adjust the `threshold` option or use the `root` option to observe the visibility relative to a parent element instead of the whole viewport.

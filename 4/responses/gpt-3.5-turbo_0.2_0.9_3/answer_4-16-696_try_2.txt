@@ -1,0 +1,12 @@
+The issue with your command is that the `sed` command is not properly escaping the `?` character. The `?` character has a special meaning in regular expressions, so you need to escape it with a backslash `\` to treat it as a literal character.
+
+Here's the corrected command:
+```
+find . -type f -name '*\?*' -exec sh -c 'mv "$1" "$(echo "$1" | sed "s/\?.*//g")"' _ {} \;
+```
+
+In this command, we're using `sh -c` to execute the `mv` command with the correct filename. The `sed` command is now properly escaping the `?` character with a backslash.
+
+Also, we're using `_` as a placeholder for the `$0` argument, which is normally used to pass the name of the shell script being executed. Since we're not using a shell script, we don't need to pass any arguments to it.
+
+This command should now properly rename all files with a `?` character in their name.

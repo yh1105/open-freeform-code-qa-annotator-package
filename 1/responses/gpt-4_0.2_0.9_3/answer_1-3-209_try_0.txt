@@ -1,0 +1,21 @@
+You can plot the mean of each x-element as a small horizontal bar by using the `pointplot` function from seaborn. This function will plot the mean (or other estimator) of `y` for each level of `x`. Here is how you can do it:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+planets = sns.load_dataset("planets")
+
+# Create the stripplot
+sns.stripplot(x="method", y="distance", data=planets, size=4, color=".7")
+
+# Add the pointplot (with bars representing the confidence interval around the mean)
+sns.pointplot(x="method", y="distance", data=planets, color=".1", ci="sd", join=False, estimator=np.mean)
+
+plt.xticks(rotation=45, ha="right")
+plt.show()
+```
+
+In this code, the `pointplot` function is used with the `estimator` parameter set to `np.mean` to compute the mean of `y` for each level of `x`. The `ci` parameter is set to `"sd"` to compute the standard deviation of `y` for each level of `x` and use it as the size of the bars representing the confidence interval around the mean. The `join` parameter is set to `False` to avoid drawing a line connecting the means. The `color` parameter is set to `".1"` to make the bars black.
+
+Note: You need to import numpy as `np` to use `np.mean` as the estimator.

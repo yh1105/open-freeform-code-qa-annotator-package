@@ -1,0 +1,29 @@
+It seems like the issue is related to SSL verification. One possible solution is to update the SSL certificates on your system. You can try the following steps:
+
+1. Download the latest SSL certificates from the certifi package by running the following command:
+
+   ```
+   pip install --upgrade certifi
+   ```
+
+2. Set the SSL_CERT_FILE environment variable to point to the location of the new certificates. For example, on Windows, you can run the following command:
+
+   ```
+   set SSL_CERT_FILE=C:\Python37\Lib\site-packages\certifi\cacert.pem
+   ```
+
+   On Linux or macOS, you can run:
+
+   ```
+   export SSL_CERT_FILE=/usr/local/lib/python3.7/site-packages/certifi/cacert.pem
+   ```
+
+3. Try running the pip install command again.
+
+If the above steps don't work, you can try disabling SSL verification altogether by running the following command:
+
+```
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org dedupe --disable-pip-version-check --no-cache-dir
+```
+
+This will bypass SSL verification and install the package. However, keep in mind that disabling SSL verification can be a security risk, so it's not recommended to do this on a regular basis.

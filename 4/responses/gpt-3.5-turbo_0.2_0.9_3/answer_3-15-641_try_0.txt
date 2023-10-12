@@ -1,0 +1,60 @@
+It sounds like you're facing a few different challenges with your spreadsheet and its integration with SharePoint. Here are a few suggestions that might help:
+
+1. Use the SharePoint REST API to create folders and files: You can use VBA to make HTTP requests to the SharePoint REST API, which will allow you to create folders and files on SharePoint. Here's an example of how to create a folder using the REST API:
+
+```
+Dim http As Object
+Set http = CreateObject("MSXML2.XMLHTTP")
+
+Dim url As String
+url = "https://your.sharepoint.com/sites/your-site/_api/web/folders"
+
+Dim body As String
+body = "{ '__metadata': { 'type': 'SP.Folder' }, 'ServerRelativeUrl': '/sites/your-site/your-folder' }"
+
+http.Open "POST", url, False
+http.setRequestHeader "Accept", "application/json;odata=verbose"
+http.setRequestHeader "Content-Type", "application/json;odata=verbose"
+http.setRequestHeader "X-RequestDigest", "your-request-digest"
+http.send body
+```
+
+You'll need to replace the URL with your own SharePoint site and folder, and you'll need to obtain a request digest token to authenticate your request. You can find more information about the SharePoint REST API here: https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/complete-basic-operations-using-sharepoint-rest-endpoints.
+
+2. Use the OneDrive API to determine the local path: If you're using OneDrive to sync your SharePoint files locally, you can use the OneDrive API to determine the local path of the synced folder. Here's an example of how to get the local path of a file using the OneDrive API:
+
+```
+Dim http As Object
+Set http = CreateObject("MSXML2.XMLHTTP")
+
+Dim url As String
+url = "https://graph.microsoft.com/v1.0/me/drive/root:/path/to/your/file"
+
+http.Open "GET", url, False
+http.setRequestHeader "Authorization", "Bearer your-access-token"
+http.send
+
+Dim response As Object
+Set response = JsonConverter.ParseJson(http.responseText)
+
+Dim localPath As String
+localPath = response("parentReference")("path")
+```
+
+You'll need to replace the URL with the path to your own file, and you'll need to obtain an access token to authenticate your request. You can find more information about the OneDrive API here: https://docs.microsoft.com/en-us/graph/api/resources/onedrive?view=graph-rest-1.0.
+
+3. Use the Windows API to open the file location: If you're unable to determine the local path of the file using the SharePoint or OneDrive APIs, you can use the Windows API to open the file location directly. Here's an example of how to open the file location using the Windows API:
+
+```
+Dim path As String
+path = "https://your.sharepoint.com/sites/your-site/your-file.xlsx"
+
+Dim shell As Object
+Set shell = CreateObject("WScript.Shell")
+
+shell.Run "explorer.exe /select," & Replace(path, "/", "\"), 1, True
+```
+
+This will open the file location in Windows Explorer and select the file. You can then use VBA to parse the path and extract the folder information you need.
+
+I hope one of these suggestions helps you solve your problem! Let me know if you have any questions or need further assistance.

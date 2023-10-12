@@ -1,0 +1,63 @@
+Yes, there are ways to query and enforce thread affinity in C++. Thread affinity refers to the ability to control which CPU cores a thread is allowed to run on. This can be useful in situations where you want to optimize performance by ensuring that certain threads are always running on the same core.
+
+In C++, you can use the `std::thread::native_handle()` function to get the underlying native thread handle, which can be used to set the thread affinity. The native handle is specific to the operating system, so the method for setting thread affinity will vary depending on the platform.
+
+On Windows, you can use the `SetThreadAffinityMask()` function to set the affinity mask for a thread. The affinity mask is a bit mask that specifies the set of processors on which a thread is allowed to run. You can create an affinity mask using the `DWORD_PTR` data type and the `SetThreadAffinityMask()` function.
+
+On Linux, you can use the `pthread_setaffinity_np()` function to set the CPU affinity for a thread. This function takes a `cpu_set_t` data type as an argument, which is a set of CPUs that the thread is allowed to run on.
+
+Here's an example of how to set the thread affinity on Windows:
+
+```
+#include <windows.h>
+#include <thread>
+
+void my_thread_func() {
+    // Get the native handle for the current thread
+    HANDLE thread_handle = GetCurrentThread();
+
+    // Set the affinity mask to CPU 0
+    DWORD_PTR affinity_mask = 1;
+    SetThreadAffinityMask(thread_handle, affinity_mask);
+}
+
+int main() {
+    // Create a new thread
+    std::thread my_thread(my_thread_func);
+
+    // Wait for the thread to finish
+    my_thread.join();
+
+    return 0;
+}
+```
+
+And here's an example of how to set the thread affinity on Linux:
+
+```
+#include <pthread.h>
+#include <thread>
+
+void my_thread_func() {
+    // Get the native handle for the current thread
+    pthread_t thread_handle = pthread_self();
+
+    // Set the CPU affinity to CPU 0
+    cpu_set_t cpu_set;
+    CPU_ZERO(&cpu_set);
+    CPU_SET(0, &cpu_set);
+    pthread_setaffinity_np(thread_handle, sizeof(cpu_set_t), &cpu_set);
+}
+
+int main() {
+    // Create a new thread
+    std::thread my_thread(my_thread_func);
+
+    // Wait for the thread to finish
+    my_thread.join();
+
+    return 0;
+}
+```
+
+Note that setting thread affinity can have unintended consequences if not done carefully. For example, if you set the affinity for a thread to a single core, that thread will not be able to take advantage of any additional cores that become available. Additionally, setting the affinity for a thread can interfere with the operating system's ability to schedule threads efficiently. So, use thread affinity judiciously and only when it's necessary to optimize performance.

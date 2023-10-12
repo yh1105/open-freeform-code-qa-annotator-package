@@ -1,0 +1,66 @@
+To use Jetpack Compose in your existing Android Studio project, you need to make sure you have the correct setup. Here are the steps:
+
+1. **Update Android Studio**: Jetpack Compose requires Android Studio Arctic Fox (2020.3.1) or later. You can download it from the official Android Developer website.
+
+2. **Update Gradle**: Jetpack Compose requires Gradle 7.0 or later. You can update Gradle by changing the Gradle version in your project-level `build.gradle` file:
+
+    ```groovy
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.0'
+    }
+    ```
+
+3. **Update Kotlin Plugin**: Jetpack Compose also requires Kotlin 1.5.10 or later. You can update the Kotlin version in your project-level `build.gradle` file:
+
+    ```groovy
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+    }
+    ```
+
+4. **Enable Jetpack Compose**: In your app-level `build.gradle` file, set the `compose` option to `true` inside the `android` block:
+
+    ```groovy
+    android {
+        ...
+        composeOptions {
+            kotlinCompilerExtensionVersion '1.0.0'
+            kotlinCompilerVersion '1.5.10'
+        }
+    }
+    ```
+
+5. **Add Jetpack Compose dependencies**: Still in your app-level `build.gradle` file, add the necessary dependencies for Jetpack Compose:
+
+    ```groovy
+    dependencies {
+        implementation 'androidx.compose.ui:ui:1.0.0'
+        implementation 'androidx.compose.material:material:1.0.0'
+        implementation 'androidx.compose.ui:ui-tooling:1.0.0'
+        implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+        implementation 'androidx.activity:activity-compose:1.3.0'
+    }
+    ```
+
+6. **Sync your project**: Click on "Sync Now" in the top right corner of the build.gradle file or from the File menu, choose "Sync Project with Gradle Files".
+
+7. **Use Jetpack Compose**: Now you can start using Jetpack Compose in your project. For example, you can create a new Composable function:
+
+    ```kotlin
+    @Composable
+    fun Greeting(name: String) {
+        Text(text = "Hello $name!")
+    }
+    ```
+
+8. **Preview your Composable**: You can preview your Composable function in Android Studio:
+
+    ```kotlin
+    @Preview
+    @Composable
+    fun PreviewGreeting() {
+        Greeting("Android")
+    }
+    ```
+
+Remember to import the necessary Compose functions (`@Composable`, `Text`, etc.) from the `androidx.compose` package.

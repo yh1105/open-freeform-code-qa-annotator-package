@@ -1,0 +1,26 @@
+You can use the `weekday` property of `DateTime` to get the day of the week as an integer, where 1 represents Monday and 7 represents Sunday. Then, you can convert this integer to a string representation of the day of the week.
+
+However, if you want to get the name of the day of the week directly, you can use the `DateFormat` class from the `intl` package in Dart. Here's how you can do it:
+
+```dart
+import 'package:intl/intl.dart';
+
+DateTime date = DateTime.now();
+String dayName = DateFormat('EEEE').format(date);
+
+print(dayName); // Prints the name of the day of the week
+```
+
+In this code, 'EEEE' is a format that represents the full name of the day of the week. When you call `DateFormat('EEEE').format(date)`, it formats the given date as the full name of the day of the week.
+
+Please note that you need to add the `intl` package to your `pubspec.yaml` file to use the `DateFormat` class:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: ^0.17.0
+```
+
+After adding this, run `flutter pub get` in your terminal to fetch the package.

@@ -1,0 +1,29 @@
+The MISRA warning you're seeing is because the `memset()` function returns a pointer to the memory area it has set, and MISRA rules require that you do something with that return value. However, in most cases, programmers don't use the return value of `memset()`, because they know where they're setting memory and don't need the function to tell them.
+
+The warning you're seeing after your attempted fix is because you're trying to cast the return value of `memset()` to `void`, which is not a pointer type. The `(void)` cast is often used to explicitly ignore a return value, but it seems that your MISRA checker is not happy with this.
+
+One way to satisfy the MISRA rule could be to assign the return value of `memset()` to a variable, like this:
+
+```c
+void* p = memset(&mystruct, 0, sizeof(MY_STRUCT));
+```
+
+However, this will likely lead to another MISRA warning, because you're not using the `p` variable. To avoid this, you could use the `p` variable in a way that doesn't change the behavior of your program, like this:
+
+```c
+void* p = memset(&mystruct, 0, sizeof(MY_STRUCT));
+if (p != &mystruct) {
+    /* This should never happen */
+    assert(false);
+}
+```
+
+This code will cause your program to abort if `memset()` returns a value other than the address of `mystruct`, which should never happen. This satisfies the MISRA rule, because you're doing something with the return value of `memset()`, but it doesn't change the behavior of your program, because the `if` condition should never be true.
+
+However, it's worth noting that using `memset()` to initialize a struct is not always safe, because it doesn't work with non-trivial types and it doesn't handle padding bytes correctly. A safer way to initialize your struct would be to use designated initializers, like this:
+
+```c
+mystruct = (MY_STRUCT){ .flag = false, .check = false, .val_1 = 0, .val_2 = 0 };
+```
+
+This code explicitly sets each member of `mystruct` to zero (or `false` for the `bool` members), which is safer and more portable than using `memset()`.

@@ -1,0 +1,26 @@
+The `class_names` parameter in `shap.summary_plot` does not change the order of the classes, it just changes the labels. The order of the classes is determined by the model itself. In the case of XGBoost, the classes are ordered by their encoded numerical value. 
+
+In your case, the classes are encoded as follows: 'a' -> 0, 'b' -> 1, 'c' -> 2. This is because when you fit the model, the classes are automatically encoded in alphabetical order. 
+
+If you want to be sure about the order of the classes, you can check the `classes_` attribute of the model after fitting it:
+
+```python
+print(model.classes_)
+```
+
+This will print the classes in the order used by the model.
+
+Regarding the mean SHAP values, you can calculate them by taking the mean of the absolute SHAP values for each feature:
+
+```python
+mean_shap_values = np.mean(np.abs(shap_values), axis=0)
+```
+
+This will give you a 1D array with the mean absolute SHAP value for each feature. If you want to create a DataFrame with the feature names and their corresponding mean SHAP values, you can do the following:
+
+```python
+mean_shap_values_df = pd.DataFrame(mean_shap_values, columns=['Mean SHAP Value'])
+mean_shap_values_df['Feature'] = X_test.columns
+```
+
+This will give you a DataFrame with the mean SHAP values for each feature.

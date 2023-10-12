@@ -1,0 +1,52 @@
+The issue you're experiencing is due to the changes in Material-UI from version 4 to version 5. In version 5, Material-UI was renamed to MUI and the way to access the theme has been changed.
+
+In your code, you're trying to access the theme using `makeStyles` from `@material-ui/styles`, which is the version 4 way of doing things. In version 5, you should use `styled` or `sx` prop for styling.
+
+Here's how you can modify your `Header` component to use the `styled` function:
+
+```jsx
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/system';
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 10 : 0,
+  });
+}
+
+const ToolbarMargin = styled('div')(({ theme }) => ({
+  ...theme.mixins.toolbar,
+}));
+
+function Header() {
+  return (
+    <React.Fragment>
+      <ElevationScroll>
+        <AppBar color="primary">
+          <Toolbar>
+            <Typography variant="h3" component="h3">
+              Nome de teste
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <ToolbarMargin />
+    </React.Fragment>
+  );
+}
+
+export default Header;
+```
+
+In this code, I've replaced the `makeStyles` function with the `styled` function from `@mui/system`. The `styled` function allows you to create a styled component, in this case `ToolbarMargin`, which has the styles from `theme.mixins.toolbar`.

@@ -1,0 +1,9 @@
+It seems like you've already identified the issue and found that it was on Microsoft's end. This error message usually indicates that the user doesn't have the necessary permissions to perform the operation, but since you're using a Global Admin account and haven't made any changes to the roles, it's unlikely to be the cause in this case.
+
+Microsoft's Exchange Online can occasionally have issues that result in errors like this. It's always a good idea to check the service health dashboard in the Microsoft 365 admin center or the Microsoft 365 status on Twitter to see if there are any known issues.
+
+In your case, it seems like the issue (EX280152) has been identified and is being fixed by Microsoft. If you're still experiencing the problem, you might want to try again later. If the issue persists, you should contact Microsoft support for further assistance.
+
+Remember to keep your Exchange Online Management module updated to the latest version to ensure you have the latest fixes and improvements. You can update it using the `Update-Module -Name ExchangeOnlineManagement` command in PowerShell.
+
+I'm glad to hear that your issue is being resolved. If you have any other questions or run into any other issues, feel free to ask.

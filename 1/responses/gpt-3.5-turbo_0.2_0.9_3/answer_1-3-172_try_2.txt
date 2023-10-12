@@ -1,0 +1,20 @@
+You can use the `forestplot` function from the `pyforestplot` package to create a forest plot in Python. Here's an example:
+
+```python
+import pandas as pd
+import pyforestplot as pfp
+
+# create a dataframe with the data
+data = pd.DataFrame({
+    'study': ['Study 1', 'Study 2', 'Study 3'],
+    'rr': [1.23, 0.98, 1.56],
+    'ci_l': [0.87, 0.65, 1.12],
+    'ci_u': [1.74, 1.32, 2.01],
+    'weight': [0.25, 0.35, 0.4]
+})
+
+# create the forest plot
+pfp.forestplot(data, x='rr', ci_l='ci_l', ci_u='ci_u', weight='weight', study_id='study')
+```
+
+This will create a forest plot with the risk ratios (`rr`) and confidence intervals (`ci_l` and `ci_u`) for each study, as well as the study weights (`weight`). The `study` column is used as the study identifier. You can customize the appearance of the plot using the various options available in the `forestplot` function.

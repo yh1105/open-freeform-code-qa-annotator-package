@@ -1,0 +1,29 @@
+The issue seems to be that you're adding the "active" class and then immediately toggling it off again. This is why `document.querySelector(".accordion.active");` is not finding any element, because the "active" class is being removed right after it's added. 
+
+Here's the corrected JavaScript code:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      const active = document.querySelector(".accordion.active");
+      console.log(active);
+      if (active) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+I removed the line `this.classList.toggle("active");` because it was toggling off the "active" class right after it was added. Now, when you click on an accordion, it should add the "active" class to it, and if there was another accordion that was active, it should remove the "active" class from it.

@@ -1,0 +1,11 @@
+The error message you're seeing indicates that the 'node-sass' module, which is required by Angular, is not installed in your project.
+
+You can fix this issue by installing 'node-sass' using npm (Node Package Manager). Here are the steps:
+
+1. Open your terminal.
+2. Navigate to your project directory using the `cd` command. For example, if your project is in a folder named 'my-angular-app' on your desktop, you would use the command `cd Desktop/my-angular-app`.
+3. Once you're in your project directory, install 'node-sass' by running the following command: `npm install node-sass`.
+
+After the installation is complete, try running `ng serve` again. The error should be resolved and your Angular application should start as expected.
+
+If you still encounter the error, it might be due to version compatibility issues. In that case, you might need to install a specific version of 'node-sass' that is compatible with your project. You can do this by specifying the version number in the install command, like so: `npm install node-sass@4.14.1`. Replace '4.14.1' with the version number that is compatible with your project.

@@ -1,0 +1,13 @@
+It seems like there is an issue with the OpenSSL library. You can try installing OpenSSL using Homebrew by running the following command:
+
+```
+brew install openssl
+```
+
+After installing OpenSSL, try reinstalling Ruby 2.1.2 using RVM:
+
+```
+rvm reinstall 2.1.2 --with-openssl-dir=`brew --prefix openssl`
+```
+
+This should install Ruby 2.1.2 with the correct OpenSSL library. Once the installation is complete, try running `gem list` and `ruby -r openssl -e 'puts OpensSSL::OPENSSL_VERSION'` again to see if the errors have been resolved.

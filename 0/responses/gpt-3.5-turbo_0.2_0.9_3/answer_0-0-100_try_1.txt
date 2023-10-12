@@ -1,0 +1,35 @@
+It looks like you are facing a dependency conflict issue between `eslint` and `react-scripts`. One possible solution is to update the `eslint` version to a compatible one with `react-scripts`. You can try running the following command to install a compatible version of `eslint`:
+
+```
+npm install eslint@6.8.0 --save-dev
+```
+
+Then, update your `.eslintrc` file to use the installed version of `eslint`:
+
+```
+{
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
+```
+
+If this doesn't work, you can try removing the `babel-eslint` package and using the default parser that comes with `eslint`. To do this, remove `"parser": "babel-eslint"` from your `.eslintrc` file and run the following command to uninstall `babel-eslint`:
+
+```
+npm uninstall babel-eslint --save-dev
+```
+
+Then, run the linter again and see if it works.

@@ -1,0 +1,19 @@
+Yes, you can create a function to handle this conversion. This function will take a `String?` as input and return an `int?`. If the input is not null, it will parse the string to an integer, otherwise it will return null. Here is an example:
+
+```dart
+int? parseInt(String? value) {
+  if (value != null) {
+    return int.parse(value);
+  }
+  return null;
+}
+```
+
+Then you can use this function to parse your id:
+
+```dart
+final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+int? id = parseInt(routeArgs["id"]);
+```
+
+This way, you can reuse the `parseInt` function for other variables as well.

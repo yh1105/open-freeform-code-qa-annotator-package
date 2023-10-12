@@ -1,0 +1,27 @@
+It seems like the issue is with the node-sass package which requires node-gyp and Python to be installed. You can try installing a version of node-sass that does not require node-gyp and Python by running the following command:
+
+```
+npm install node-sass@4.14.1
+```
+
+This version of node-sass does not require node-gyp and Python to be installed.
+
+Alternatively, you can install Python and add it to your system's PATH environment variable. You can download Python from the official website and follow the installation instructions.
+
+Once Python is installed, you can set the PYTHON environment variable to the path of the Python executable. You can do this by running the following command:
+
+```
+set PYTHON=C:\Python27\python.exe
+```
+
+Replace `C:\Python27\python.exe` with the path to your Python executable.
+
+After setting the PYTHON environment variable, try running the build again. It should work now.
+
+If you are still facing issues, you can try upgrading node-gyp to the latest version by running the following command:
+
+```
+npm install -g node-gyp
+```
+
+This should update node-gyp to the latest version and fix any issues related to it.

@@ -1,0 +1,30 @@
+To get the current host being used by the application, you can use the `java.sql.DatabaseMetaData` interface which can provide comprehensive information about the database as a whole.
+
+Here's how you can modify your `getDataSourceProperties()` method to get the current host:
+
+```java
+public String[] getDataSourceProperties() {
+    String[] dataSourceProperties = new String[2];
+    HikariDataSource dataSource = getDataSourceFromHibernateEntityManager();
+    if(dataSource.getJdbcUrl() != null){
+        dataSourceProperties[0] = dataSource.getJdbcUrl();
+        dataSourceProperties[1] = dataSource.getDataSourceClassName();
+    }
+    try {
+        Connection connection = dataSource.getConnection();
+        DatabaseMetaData metaData = connection.getMetaData();
+        String url = metaData.getURL();
+        String host = url.substring(url.indexOf("@") + 1, url.indexOf(":"));
+        dataSourceProperties[0] = host;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return dataSourceProperties;
+}
+```
+
+This will give you the host name of the database currently being used by the application. However, please note that this will only give you the host name, not the port or the service name. If you need those as well, you will need to parse them out of the URL string.
+
+Also, please note that this solution assumes that the host name is always immediately after the "@" symbol and before the ":" symbol in the URL. If your URL format changes, you will need to adjust the substring indices accordingly.
+
+Finally, please be aware that this solution opens a new connection to the database every time it is called. Depending on your application's requirements and the load on your database, this may not be the best solution. If you find that this is causing performance issues, you may want to consider caching the host name or finding another way to determine the current host.

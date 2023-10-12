@@ -1,0 +1,52 @@
+The error message suggests that the `ListView` inside your `ListForm` widget has an unbounded height. This can happen when a scrollable widget is nested inside another scrollable widget, or when the `ListView` is not given a specific height or is not wrapped in a widget that constrains its height.
+
+To fix this, you can wrap your `ListView` inside an `Expanded` widget to make it take up all the available space in the `Row`. Here's the updated `ListForm` widget code:
+
+```
+class ListForm extends StatefulWidget {
+  @override
+  ListFormState createState() => new ListFormState();
+}
+
+class ListFormState extends State<ListForm> {
+  List<String> products = ["Test1", "Test2", "Test3"];
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new Center(
+        child: new Column(
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                Expanded(
+                  child: new ListView.builder(
+                      itemCount: products.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return new Text(products[index]);
+                      }),
+                ),
+                new IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  onPressed: () {},
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            new TextField(
+              decoration: new InputDecoration(hintText: "Prodotto"),
+              onSubmitted: (String str) {
+                setState(() {
+                  products.add(str);
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+This should fix the error and allow your `ListView` to be displayed properly.

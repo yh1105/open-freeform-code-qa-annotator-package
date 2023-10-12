@@ -1,0 +1,45 @@
+To make your widget rebuild on listening to the changes you made using the Provider package, you need to use the `Consumer` widget or `Provider.of<T>(context)` method in your widget tree. Here is a simple example:
+
+```dart
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyModel>(
+      builder: (context, myModel, child) {
+        return Text(myModel.someValue);
+      },
+    );
+  }
+}
+```
+
+In this example, whenever `someValue` changes in your `MyModel`, `MyWidget` will rebuild with the new value.
+
+If you want to use `Provider.of<T>(context)` method, you can do it like this:
+
+```dart
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final myModel = Provider.of<MyModel>(context);
+    return Text(myModel.someValue);
+  }
+}
+```
+
+In both cases, your widget will rebuild whenever the provided model changes.
+
+Remember to provide your model above your widgets in the widget tree:
+
+```dart
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MyModel(),
+      child: MyApp(),
+    ),
+  );
+}
+```
+
+In your case, you should store your data from the backend in your model and notify listeners whenever the data changes. Then, use `Consumer` or `Provider.of<T>(context)` in your widgets that should rebuild when the data changes.

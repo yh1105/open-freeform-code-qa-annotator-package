@@ -1,0 +1,13 @@
+The issue with using `if_else()` to output a function is that it is designed to output a vector of the same length as the input condition. In your example, the condition `x == 2` is a scalar, so `if_else()` is trying to output a vector of length 1, which is causing the error.
+
+To output a function using `if_else()`, you can use the `rep()` function to repeat the function you want to output to match the length of the input condition. Here's an example:
+
+```
+library(dplyr)
+
+x <- 2
+if_else(rep(x == 2, 3), min, max)
+#> function (..., na.rm = FALSE)  .Primitive("min")
+```
+
+In this example, `rep(x == 2, 3)` creates a vector of length 3 with the value `TRUE` repeated 3 times, which matches the length of the output vector. The `if_else()` function then outputs the `min()` function as a function.

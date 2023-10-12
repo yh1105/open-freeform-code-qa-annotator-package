@@ -1,0 +1,33 @@
+The reason why you are seeing the logs in that order is because the `onItemSelectedListener` is triggered only when an item is selected in the spinner. Until then, the `itemSelected` variable remains empty. When an item is selected, the `onItemSelected` method is called and the `itemSelected` variable is assigned the selected item from the list. That's why you see the log with `itemSelected` value after the log without any value.
+
+If you want to return the selected item from the function, you can't do it synchronously because the selection happens asynchronously. One way to achieve this is by using a callback function. Here's an example:
+
+```
+fun Spinner.setupListWithAdapter(list: MutableList<String>, callback: (String) -> Unit) {
+    val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, list)
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    this.adapter = adapter
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            val itemSelected = list[p2]
+            Log.e("categoryLog","1 : " + itemSelected)
+            callback(itemSelected)
+        }
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+        }
+    }
+}
+```
+
+In this modified function, instead of returning the selected item, we pass a callback function as a parameter. The callback function takes a `String` parameter, which is the selected item from the spinner. When an item is selected, we call the callback function with the selected item as the argument.
+
+To use this function, you can pass a lambda function as the callback parameter. Here's an example:
+
+```
+spinner.setupListWithAdapter(list) { selectedItem ->
+    // Do something with the selected item
+    Log.e("categoryLog", "Selected item: $selectedItem")
+}
+```
+
+In this example, we pass a lambda function that takes the selected item as a parameter and logs it. You can replace the log statement with any other code that you want to execute with the selected item.

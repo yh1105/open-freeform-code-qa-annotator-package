@@ -1,0 +1,17 @@
+The code you've written is for transferring SPL tokens, not native SOL. Anchor currently does not have a built-in way to transfer native SOL in a similar way to how it handles SPL tokens.
+
+To transfer native SOL, you would need to use the system program's `transfer` instruction. Here's an example of how you might do this:
+
+```rust
+solana_program::system_instruction::transfer(
+    &source_user_info.key,
+    &destination_user_info.key,
+    amount,
+)
+```
+
+In this case, `source_user_info.key` is the public key of the account sending the SOL, `destination_user_info.key` is the public key of the account receiving the SOL, and `amount` is the amount of SOL to be transferred (in lamports).
+
+Remember that the source account must sign the transaction, so it needs to be provided as a signer when you call your instruction.
+
+As for the `PROGRAM_ACCOUNT`, in the context of SPL tokens, it would be the Token program's address (`anchor_spl::token::TOKEN_PROGRAM_ID`). But again, this is not applicable when transferring native SOL.

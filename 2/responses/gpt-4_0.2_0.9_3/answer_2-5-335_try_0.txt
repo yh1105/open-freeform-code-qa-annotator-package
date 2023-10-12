@@ -1,0 +1,19 @@
+In Dart and Flutter, you can use the `print()` function to log data to the console. However, sometimes the IDE console might not display the logs properly. 
+
+Here's how you can print to the console in Dart/Flutter:
+
+```dart
+print('Hello, Console');
+```
+
+If you're not seeing any output in IntelliJ IDEA, it might be because of the following reasons:
+
+1. You're looking at the wrong console. In IntelliJ IDEA, there are multiple places where console output can appear. Make sure you're looking at the right one. For a Flutter app, you should be looking at the "Run" tab.
+
+2. Your app might not be running in debug mode. Make sure you're running your app in debug mode to see console output.
+
+3. There might be an issue with your IntelliJ IDEA setup. Try restarting IntelliJ IDEA or invalidating the cache and restarting (File -> Invalidate Caches / Restart).
+
+4. If you're using an emulator or a real device, try to check the logs using the 'adb logcat' command in the terminal. This will show you all the logs from your device.
+
+If none of these work, you might want to consider using a logging package like `logger`. This package provides a nice, clean way to log messages and includes additional features like logging levels and log formatting.

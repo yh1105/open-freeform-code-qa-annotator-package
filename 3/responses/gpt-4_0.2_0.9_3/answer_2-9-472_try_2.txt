@@ -1,0 +1,42 @@
+The error you're encountering is related to the `node-sass` package, which is a library that provides binding for Node.js to LibSass, the C version of the popular stylesheet preprocessor, Sass.
+
+It seems like the version of Node.js you're using on Heroku (v16.13.1) is not compatible with the version of `node-sass` specified in your `package.json` file (v7.0.0).
+
+`node-sass` has been deprecated and is no longer maintained. It's recommended to switch to `sass` (Dart Sass) which is the primary implementation of Sass and will receive all updates and bug fixes.
+
+Here's what you can do:
+
+1. Remove `node-sass` from your project:
+
+```bash
+yarn remove node-sass
+```
+
+2. Add `sass` to your project:
+
+```bash
+yarn add sass
+```
+
+3. Update your `package.json` file to reflect the change:
+
+```json
+"dependencies": {
+  ...
+  "sass": "^1.43.4",
+  ...
+}
+```
+
+4. Commit your changes and push to Heroku again.
+
+If you still encounter issues, you might want to specify the Node.js and Yarn versions in the `engines` field of your `package.json` file. This will ensure that Heroku uses the same versions that you're using locally. For example:
+
+```json
+"engines": {
+  "node": "12.22.7",
+  "yarn": "1.22.17"
+}
+```
+
+Remember to commit your changes before pushing to Heroku.

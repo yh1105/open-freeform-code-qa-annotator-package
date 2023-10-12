@@ -1,0 +1,15 @@
+The `--skip-tests` option is not supported when generating a new module with routing and a component in Angular CLI. This is because the `--skip-tests` option is only applicable to the `ng generate component` command and not the `ng generate module` command.
+
+However, you can achieve your goal by generating the module and component separately. First, generate the module with routing:
+
+```
+ng generate module --name asdf --module app --route asdf --routing true --dry-run
+```
+
+Then, generate the component within the module and use the `--skip-tests` option:
+
+```
+ng generate component asdf/asdf --skip-tests --dry-run
+```
+
+This way, you can generate a module with routing and a component without generating the test file for the component.

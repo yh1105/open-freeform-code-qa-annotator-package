@@ -1,0 +1,42 @@
+Based on your description, it seems like you're trying to automate the process of creating folders and files on SharePoint using VBA and also trying to retrieve the local path of the SharePoint file.
+
+Unfortunately, VBA doesn't support creating folders or files on SharePoint directly. However, you can use the SharePoint REST API to create folders and files. You can call the REST API from VBA using the `MSXML2.ServerXMLHTTP` object. Here is an example of how to create a folder using the SharePoint REST API:
+
+```vba
+Sub CreateFolder()
+
+    Dim objXMLHTTP As Object
+    Set objXMLHTTP = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+
+    Dim strURL As String
+    strURL = "https://<your-sharepoint-site>/_api/web/folders"
+
+    objXMLHTTP.Open "POST", strURL, False
+    objXMLHTTP.setRequestHeader "Content-Type", "application/json;odata=verbose"
+    objXMLHTTP.setRequestHeader "Accept", "application/json;odata=verbose"
+    objXMLHTTP.setRequestHeader "X-RequestDigest", "<your-form-digest-value>"
+
+    Dim strBody As String
+    strBody = "{ '__metadata': { 'type': 'SP.Folder' }, 'ServerRelativeUrl': '/Shared Documents/<your-folder-name>' }"
+
+    objXMLHTTP.send strBody
+
+End Sub
+```
+Please replace `<your-sharepoint-site>`, `<your-form-digest-value>`, and `<your-folder-name>` with your actual SharePoint site URL, form digest value, and folder name respectively.
+
+To retrieve the local path of the SharePoint file, you can use the `ActiveWorkbook.Path` property in VBA. This property returns the complete, saved path to the workbook file, including the name of the workbook. If the workbook has never been saved, this property returns an empty string.
+
+```vba
+Sub GetLocalPath()
+
+    Dim strPath As String
+    strPath = ActiveWorkbook.Path
+
+    MsgBox strPath
+
+End Sub
+```
+Please note that the `ActiveWorkbook.Path` property will return the SharePoint URL if the workbook is opened from SharePoint. If you want to get the local path of the synced SharePoint folder, you may need to parse the SharePoint URL and replace it with the local path manually.
+
+I hope this helps! If you have any further questions, please let me know.

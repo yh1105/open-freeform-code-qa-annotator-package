@@ -1,0 +1,25 @@
+The error you're encountering is because the `appBar` property of the `Scaffold` widget expects a widget of type `PreferredSizeWidget`. The `AppBar` widget in Flutter implements `PreferredSizeWidget`, which is why it can be used as an `appBar`.
+
+However, in your code, you're trying to use your custom `AppBarDesign` widget as an `appBar`. The `AppBarDesign` widget is a `StatelessWidget` and does not implement `PreferredSizeWidget`, hence the error.
+
+To fix this, you need to make your `AppBarDesign` widget implement `PreferredSizeWidget`. Here's how you can do it:
+
+```dart
+class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
+  AppBarDesign(Key key, this.title) : super(key: key);
+
+  final title;
+
+  @override
+  Widget build(BuildContext context) {
+    return new AppBar(
+      title: new Text(title),
+    );
+  }
+
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+}
+```
+
+In the above code, `PreferredSizeWidget` is implemented and `preferredSize` is overridden to return the height of the `AppBar` which is `kToolbarHeight`. Now, you can use `AppBarDesign` as an `appBar` in your `Scaffold`.

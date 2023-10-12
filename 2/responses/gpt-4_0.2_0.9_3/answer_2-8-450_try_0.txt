@@ -1,0 +1,43 @@
+In Go, you can use the `encoding/json` package to create JSON objects. Here's how you can modify your `parselines` function to create the JSON object you want:
+
+First, define a struct to represent a client:
+
+```go
+type Client struct {
+    Hostname string `json:"Hostname"`
+    IP       string `json:"IP"`
+    MacAddr  string `json:"MacAddr"`
+}
+```
+
+Then, modify your `parselines` function to create a slice of `Client` objects and marshal it into JSON:
+
+```go
+func parselines(line string) string {
+    var clients []Client
+
+    for _, line := range strings.Split(line, "\n") {
+        if line != "" {
+            s := strings.Split(line, " ")
+            host, ip, mac := s[0], s[1], s[2]
+            clients = append(clients, Client{Hostname: host, IP: ip, MacAddr: mac})
+        }
+    }
+
+    // Create a map to hold the clients slice
+    clientMap := make(map[string][]Client)
+    clientMap["Clients"] = clients
+
+    // Marshal the map into JSON
+    json, err := json.Marshal(clientMap)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    return string(json)
+}
+```
+
+This function now returns a string of JSON that represents the clients. If you want to print it, you can do so with `fmt.Println(parselines(yourInput))`.
+
+Note that the `json:"Hostname"` syntax in the `Client` struct is a struct tag. It tells the `json.Marshal` function to use "Hostname" as the JSON key for the `Hostname` field. Without it, the JSON key would be the same as the field name in the struct (i.e., "Hostname").

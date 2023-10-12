@@ -1,0 +1,25 @@
+The error message indicates that the `mariadb_config` utility is not found. This utility is provided by the `libmariadb-dev` package. You can install it using the following command:
+
+```bash
+sudo apt-get install libmariadb-dev
+```
+
+After installing `libmariadb-dev`, you should be able to install the `mariadb` Python package using `pip3`:
+
+```bash
+pip3 install mariadb
+```
+
+If you still encounter issues, it's possible that the `mariadb_config` utility is not in your `PATH`. You can find its location using the `find` command:
+
+```bash
+sudo find / -name "mariadb_config"
+```
+
+If the utility is located in a directory that's not in your `PATH`, you can add it to your `PATH` using the `export` command. For example, if `mariadb_config` is located in `/usr/local/mariadb/bin`, you would use the following command:
+
+```bash
+export PATH=$PATH:/usr/local/mariadb/bin
+```
+
+You can add this line to your `.bashrc` or `.bash_profile` file to make this change permanent. After updating your `PATH`, try installing the `mariadb` Python package again.

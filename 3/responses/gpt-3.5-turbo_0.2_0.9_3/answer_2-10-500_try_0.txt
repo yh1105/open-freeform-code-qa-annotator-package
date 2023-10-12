@@ -1,0 +1,14 @@
+You can use the `sort_by_key` method in combination with a closure that maps each element to its corresponding index in the ordering vector. Here's an example:
+
+```
+let i = vec![0, 3, 2, 1];
+let mut v = vec!["a", "b", "c", "d"];
+
+v.sort_by_key(|&x| i[x]);
+
+assert_eq!(v, &["a", "d", "c", "b"]);
+```
+
+The closure `|&x| i[x]` maps each element `x` to its corresponding index in the ordering vector `i`. The `sort_by_key` method then sorts the vector `v` based on these indices.
+
+Note that this method sorts the vector in-place, so it doesn't allocate any additional memory.

@@ -1,0 +1,11 @@
+This is not a bug, but rather a feature of how pandas handles DataFrame indexing. 
+
+When you use double brackets `[[ ]]`, you are selecting a DataFrame. When you use single brackets `[ ]`, you are selecting a Series. 
+
+When you use `df[['name']] = df[['age']]`, you are replacing the 'name' DataFrame with the 'age' DataFrame. 
+
+However, when you use `df.loc[:, ['name']] = df.loc[:, ['age']]`, you are trying to replace the 'name' DataFrame with the 'age' Series, which leads to a mismatch in dimensions and results in NaN values.
+
+When you use `df.loc[:, 'name'] = df.loc[:, 'age']`, you are replacing the 'name' Series with the 'age' Series, which works as expected.
+
+So, this is not a bug, but rather a feature of how pandas handles DataFrame indexing. It's important to be aware of the difference between a DataFrame and a Series when performing operations like this.

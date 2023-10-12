@@ -1,0 +1,74 @@
+You can achieve this by creating a list of images and a function to pick images. Here is a simple example of how you can do it:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class BusinessProfilePage extends StatefulWidget {
+  @override
+  _BusinessProfilePageState createState() => _BusinessProfilePageState();
+}
+
+class _BusinessProfilePageState extends State<BusinessProfilePage> {
+  List<XFile> _imageFileList;
+
+  final ImagePicker _picker = ImagePicker();
+
+  _imgFromGallery() async {
+    XFile image = await _picker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
+
+    setState(() {
+      _imageFileList.add(image);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BusinessProfile"),
+      ),
+      body: GridView.count(
+        crossAxisCount: 3,
+        children: List.generate(5, (index) {
+          return Center(
+            child: _imageFileList.length > index
+                ? Image.file(File(_imageFileList[index].path))
+                : IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: _imgFromGallery,
+                  ),
+          );
+        }),
+      ),
+    );
+  }
+}
+```
+
+In this code, we are generating a grid of 5 elements. If the image for the index exists, it shows the image, otherwise it shows a button to pick an image from the gallery.
+
+Please note that you need to add the following permissions to your AndroidManifest.xml file:
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+```
+
+And for iOS, add the following permissions to your Info.plist file:
+
+```xml
+<key>NSPhotoLibraryUsageDescription</key>
+<string>App needs access to the photo library</string>
+```
+
+Also, make sure to add the image_picker package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  image_picker: ^0.8.4+2
+```

@@ -1,0 +1,13 @@
+The error message you're seeing is because the `<experimental/filesystem>` header is deprecated in C++17 and has been replaced by `<filesystem>`. 
+
+You can try the following steps to resolve this issue:
+
+1. Make sure your compiler supports C++17 and you have enabled it. If you're using GCC, you can enable C++17 by adding `-std=c++17` to your compiler flags. If you're using Visual Studio, you can set the C++ language standard to C++17 in the project properties.
+
+2. Replace `#include <experimental/filesystem>` with `#include <filesystem>` in your code.
+
+3. Replace `namespace fs = std::experimental::filesystem;` with `namespace fs = std::filesystem;` in your code.
+
+4. If you're using Visual Studio, you might need to link against the filesystem library. You can do this by adding `stdc++fs` to your linker flags.
+
+If you're still having issues after trying these steps, please provide more information about your development environment and the exact error message you're seeing.

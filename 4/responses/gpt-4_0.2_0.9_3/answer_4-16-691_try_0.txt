@@ -1,0 +1,41 @@
+The error message `bash: flutter: command not found` means that Flutter is not added to your system path. Here are the steps to add Flutter to your system path:
+
+1. **Find the path to your Flutter bin directory.** It's usually in the place where you installed Flutter. For example, if you installed Flutter in your home directory, the path would be `~/flutter/bin`.
+
+2. **Add the Flutter bin directory to your system path.** The process to do this depends on your operating system:
+
+   - **On macOS and Linux:**
+
+     Open `$HOME/.bashrc` or `$HOME/.zshrc` file in a text editor. If you're using another shell, the file you need to open may be different. Add the following line to the end of the file:
+
+     ```
+     export PATH="$PATH:`<your_flutter_directory>`/flutter/bin"
+     ```
+
+     Replace `<your_flutter_directory>` with the path where you installed Flutter.
+
+     Save the file and exit the text editor. Then, run the following command in your terminal to refresh your system path:
+
+     ```
+     source $HOME/.bashrc
+     ```
+
+     or
+
+     ```
+     source $HOME/.zshrc
+     ```
+
+   - **On Windows:**
+
+     Right click on 'My Computer' and click on 'Properties'. Then, click on 'Advanced system settings'. In the System Properties window, click on 'Environment Variables'.
+
+     In the Environment Variables window, under 'System variables', click on 'Path' and then click on 'Edit'. In the Edit Environment Variable window, click on 'New' and then add the full path to the Flutter bin directory.
+
+3. **Verify that Flutter has been added to your system path.** Close and reopen your terminal, navigate to your Flutter project directory, and then run the following command:
+
+   ```
+   flutter doctor
+   ```
+
+   If Flutter has been added to your system path correctly, you should see output indicating that Flutter is checking your system for compatibility. If you still see the `bash: flutter: command not found` error, Flutter has not been added to your system path correctly.

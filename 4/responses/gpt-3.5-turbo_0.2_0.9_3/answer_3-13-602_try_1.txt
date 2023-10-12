@@ -1,0 +1,19 @@
+The error message suggests that the `HomeActivity` is not attached to the `CoreApplication` annotated with `@HiltAndroidApp`. 
+
+Make sure that the `CoreApplication` class is declared in the `AndroidManifest.xml` file as the `android:name` attribute of the `<application>` tag. For example:
+
+```
+<application
+    android:name=".CoreApplication"
+    ...
+```
+
+Also, make sure that the `HomeActivity` is declared in the `AndroidManifest.xml` file with the `android:name` attribute pointing to the fully qualified name of the `HomeActivity` class. For example:
+
+```
+<activity
+    android:name="com.example.vcare.home.HomeActivity"
+    ...
+```
+
+If the issue persists, try cleaning and rebuilding the project, and ensure that all dependencies are up to date.

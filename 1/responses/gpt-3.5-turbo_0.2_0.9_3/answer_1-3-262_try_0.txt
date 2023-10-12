@@ -1,0 +1,33 @@
+It seems like there might be an issue with your pip3 installation. You can try uninstalling and reinstalling pip3 to see if that resolves the issue. Here are the steps to do so:
+
+1. Uninstall pip3 by running the following command:
+
+   ```
+   sudo apt-get remove python3-pip
+   ```
+
+2. Reinstall pip3 by running the following command:
+
+   ```
+   sudo apt-get install python3-pip
+   ```
+
+3. Once pip3 is installed, try running the following command to install Jupyter Notebook:
+
+   ```
+   pip3 install jupyter
+   ```
+
+If you still encounter issues, you can try running the following command to upgrade pip:
+
+```
+python3 -m pip install --upgrade pip
+```
+
+Then try installing Jupyter Notebook again using the command:
+
+```
+pip3 install jupyter
+```
+
+I hope this helps! Let me know if you have any further questions.

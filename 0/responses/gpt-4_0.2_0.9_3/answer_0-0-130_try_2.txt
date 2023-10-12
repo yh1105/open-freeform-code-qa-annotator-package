@@ -1,0 +1,32 @@
+The error you're seeing is because the `TextEncoder` class is not available in the Node.js environment by default. It's a global class in browsers, but not in Node.js. 
+
+You can solve this by polyfilling `TextEncoder` in your test setup file. Here's how you can do it:
+
+1. First, install the `text-encoding` package if you haven't already:
+
+   ```
+   npm install --save text-encoding
+   ```
+
+2. Then, create a setup file for Jest. You can name it `setupTests.js` and put it in your `src` directory. In this file, import `TextEncoder` from `text-encoding` and assign it to the global object:
+
+   ```javascript
+   import { TextEncoder, TextDecoder } from 'text-encoding';
+   
+   global.TextEncoder = TextEncoder;
+   global.TextDecoder = TextDecoder;
+   ```
+
+3. Finally, tell Jest to use this setup file. In your `package.json`, add a `jest` field (or modify it if it already exists) to include a `setupFiles` array:
+
+   ```json
+   "jest": {
+     "setupFiles": ["<rootDir>/src/setupTests.js"]
+   }
+   ```
+
+   Replace `<rootDir>` with the path to your `src` directory if it's different.
+
+Now, when you run your tests, `TextEncoder` should be defined and your tests should pass.
+
+As for the `--env` option, it sets the environment in which Jest runs. By default, Jest uses a browser-like environment through `jsdom`. If you set `--env=node`, Jest will use a Node.js environment. This is why `document` is not defined when you use `--env=node`, because `document` is a browser API. You should keep using `--env=jsdom` if your code relies on browser APIs.

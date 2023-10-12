@@ -1,0 +1,41 @@
+The issue you're facing is indeed related to the order of operations during the Heroku build process. By default, Heroku runs `assets:precompile` before it runs the build scripts defined in your `package.json`. This is why your `application.js` file is not being found during the asset compilation phase.
+
+To solve this, you can use a custom buildpack that allows you to run your own custom tasks during the build process. The [heroku-buildpack-run](https://github.com/weibeld/heroku-buildpack-run) is one such buildpack.
+
+Here are the steps to use it:
+
+1. Add the buildpack to your application:
+
+```bash
+heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
+```
+
+2. Create a `.buildpack-run.sh` file in the root directory of your application. This file will contain the commands you want to run during the build process. In your case, you want to run your `build` and `build:css` scripts before the asset compilation phase:
+
+```bash
+#!/bin/bash
+
+yarn build
+yarn build:css
+```
+
+3. Make sure the `.buildpack-run.sh` file is executable:
+
+```bash
+chmod +x .buildpack-run.sh
+```
+
+4. Commit the `.buildpack-run.sh` file to your repository:
+
+```bash
+git add .buildpack-run.sh
+git commit -m "Add custom buildpack run script"
+```
+
+5. Deploy your application to Heroku:
+
+```bash
+git push heroku master
+```
+
+With these changes, your `build` and `build:css` scripts will run before the asset compilation phase, ensuring that your `application.js` file is present when `assets:precompile` is run.

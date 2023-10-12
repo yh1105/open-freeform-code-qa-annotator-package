@@ -1,0 +1,47 @@
+To generate a `HashMap<String, Integer>` that contains prefixes and their occurrences, you can iterate through the list of strings and generate all possible prefixes for each string. Then, you can add each prefix to the `HashMap` and increment its count if it already exists in the map. Here's an example implementation:
+
+```
+HashMap<String, Integer> prefixMap = new HashMap<String, Integer>();
+
+for (String str : strList) {
+    for (int i = 1; i <= str.length(); i++) {
+        String prefix = str.substring(0, i);
+        if (prefixMap.containsKey(prefix)) {
+            prefixMap.put(prefix, prefixMap.get(prefix) + 1);
+        } else {
+            prefixMap.put(prefix, 1);
+        }
+    }
+}
+
+for (Map.Entry<String, Integer> entry : prefixMap.entrySet()) {
+    if (entry.getValue() >= 2) {
+        System.out.println(entry.getKey() + " -> " + entry.getValue());
+    }
+}
+```
+
+To generate a `HashMap<String, Integer>` that contains suffixes and their occurrences, you can iterate through the list of strings and generate all possible suffixes for each string. Then, you can add each suffix to the `HashMap` and increment its count if it already exists in the map. Here's an example implementation:
+
+```
+HashMap<String, Integer> suffixMap = new HashMap<String, Integer>();
+
+for (String str : strList) {
+    for (int i = str.length(); i >= 1; i--) {
+        String suffix = str.substring(i);
+        if (suffixMap.containsKey(suffix)) {
+            suffixMap.put(suffix, suffixMap.get(suffix) + 1);
+        } else {
+            suffixMap.put(suffix, 1);
+        }
+    }
+}
+
+for (Map.Entry<String, Integer> entry : suffixMap.entrySet()) {
+    if (entry.getValue() >= 2) {
+        System.out.println(entry.getKey() + " -> " + entry.getValue());
+    }
+}
+```
+
+Note that in both cases, we only print out entries that have a count of 2 or more. You can adjust this threshold as needed.

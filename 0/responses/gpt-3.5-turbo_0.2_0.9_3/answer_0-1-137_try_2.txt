@@ -1,0 +1,27 @@
+The issue seems to be with the format of your `$theme-colors` variable. Bootstrap's `variables.scss` file expects the `$theme-colors` variable to be a map of color names and their corresponding values in hex format. 
+
+Try updating your `$theme-colors` variable to match this format:
+
+```
+$theme-colors: (
+  "primary": #your-color-here,
+);
+```
+
+Make sure to replace `#your-color-here` with the hex code of the color you want to use for the primary theme color.
+
+Also, make sure that you have imported the `functions` and `mixins` files from Bootstrap's `scss` directory before importing the `variables` and `bootstrap` files. Your SCSS file should look something like this:
+
+```
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$theme-colors: (
+  "primary": #your-color-here,
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+```
+
+After making these changes, try compiling your SCSS file again and see if the error persists.

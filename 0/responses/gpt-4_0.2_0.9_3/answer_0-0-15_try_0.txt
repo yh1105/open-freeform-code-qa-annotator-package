@@ -1,0 +1,17 @@
+The error message you're seeing usually indicates that the module you're trying to import is not exporting what you think it's exporting. In this case, it seems like `API` is not being recognized as a class.
+
+Here are a few things you can try:
+
+1. **Check your class definition**: Make sure that your `API` class is defined correctly and that it can be instantiated. You can try to log the `API` object in your test file to see what it actually is.
+
+2. **Check your import/export statements**: Make sure that you're exporting and importing the `API` class correctly. If you're using named exports, you should import the class like this: `import { API } from "utils/API";`.
+
+3. **Check your mock files**: If you're using Jest and you have mock files for your modules, make sure that they're correctly mocking the `API` class. If you're mocking the `API` module, you should return a constructor function from your mock file.
+
+4. **Check your Jest configuration**: Make sure that your Jest configuration is correct and that it's not causing any issues with your modules. You can try to create a minimal Jest configuration to see if the problem persists.
+
+5. **Check your Babel configuration**: If you're using Babel, make sure that your Babel configuration is correct and that it's not causing any issues with your modules. You can try to create a minimal Babel configuration to see if the problem persists.
+
+6. **Check your Webpack configuration**: If you're using Webpack, make sure that your Webpack configuration is correct and that it's not causing any issues with your modules. You can try to create a minimal Webpack configuration to see if the problem persists.
+
+Without seeing your actual code and configuration, it's hard to say what exactly is causing the issue. But these are some common things you can check when you're seeing this kind of error.

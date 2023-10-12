@@ -1,0 +1,21 @@
+To install a specific version of Python 3 using brew on macOS, you can use the following command:
+
+```
+brew install python@3.6
+```
+
+This will install the latest version of Python 3.6 available in the Homebrew repository. If you want to install a specific version of Python 3.6, you can use the following command:
+
+```
+brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/<commit-hash>/Formula/python.rb
+```
+
+Replace `<commit-hash>` with the commit hash of the version you want to install. You can find the commit hash by browsing the Homebrew/core repository on GitHub and looking for the commit that corresponds to the version you want to install.
+
+For example, to install Python 3.6.5, you can use the following command:
+
+```
+brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/6f6d9fb7e9f4d4b9f7e7f3d4d2a5c2d1f4e6d5f2/Formula/python.rb
+```
+
+This will install Python 3.6.5 on your system.

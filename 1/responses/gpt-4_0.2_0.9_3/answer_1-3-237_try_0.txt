@@ -1,0 +1,37 @@
+Testing a function that doesn't return anything can be a bit tricky, but it's not impossible. In your case, the function is modifying a global list. So, you can check the state of this list before and after the function call to verify if the function is working as expected. Here's an example of how you can do it:
+
+```python
+import unittest
+
+list = []
+
+def myfunc(link):
+    # [code block]
+    list.append(value)
+
+class TestMyFunc(unittest.TestCase):
+    def setUp(self):
+        # Clear the list before each test
+        list.clear()
+
+    def test_myfunc(self):
+        # Test with a specific link
+        myfunc('http://example.com')
+        # Check if the list contains the expected value
+        self.assertEqual(list, [expected_value])
+
+    def test_myfunc_with_different_link(self):
+        # Test with a different link
+        myfunc('http://another-example.com')
+        # Check if the list contains the expected value
+        self.assertEqual(list, [another_expected_value])
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+In this example, `unittest` is a built-in Python module for testing your code. `setUp` is a special method that is called before each test. We use it to clear the list so that each test starts with an empty list. Then we have two test cases: `test_myfunc` and `test_myfunc_with_different_link`. In each test case, we call `myfunc` with a specific link and then check if the list contains the expected value.
+
+Please replace `expected_value` and `another_expected_value` with the actual values you expect the function to append to the list for the given links.
+
+Remember, the key to testing functions that don't return anything is to check the side effects of the function (i.e., how the function changes the state of the program). In this case, the side effect is the change in the global list.

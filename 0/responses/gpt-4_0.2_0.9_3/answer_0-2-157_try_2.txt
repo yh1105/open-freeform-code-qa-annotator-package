@@ -1,0 +1,17 @@
+The warning you're seeing is due to a change in how `::v-deep` is used in Vue 3. It's no longer used as a combinator, but as a function. 
+
+Your current usage:
+```css
+.parent ::v-deep .child {
+   ...
+}
+```
+
+Should be updated to:
+```css
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+In this updated usage, `.child` is the inner selector and is passed as an argument to the `::v-deep` function. This should resolve the warning you're seeing.

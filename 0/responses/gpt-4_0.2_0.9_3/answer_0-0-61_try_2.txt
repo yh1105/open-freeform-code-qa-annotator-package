@@ -1,0 +1,41 @@
+The Material-UI theme does not automatically apply the background color to the body of the document. It only applies to the components that are using the theme. 
+
+If you want to apply the background color to the body of the document, you can do it in your root component (App component in your case) using the `CssBaseline` component from Material-UI. 
+
+Here is how you can do it:
+
+```jsx
+import React from 'react';
+import { ThemeProvider, createMuiTheme, CssBaseline } from '@material-ui/core';
+
+const themeLight = createMuiTheme({
+  palette: {
+    type: 'light',
+    background: {
+      default: "#e4f0e2"
+    }
+  },
+});
+
+const themeDark = createMuiTheme({
+  palette: {
+    type: 'dark',
+    background: {
+      default: "#222222",
+    }
+  },
+});
+
+function App() {
+  return (
+    <ThemeProvider theme={themeDark}>
+      <CssBaseline />
+      {/* other components */}
+    </ThemeProvider>
+  );
+}
+
+export default App;
+```
+
+The `CssBaseline` component sets a baseline CSS for Material-UI to build upon. It includes a background color style rule which uses the `theme.palette.background.default` value. So, when you wrap your app with the `ThemeProvider` and use the `CssBaseline` component, it will apply the background color to the body of the document.

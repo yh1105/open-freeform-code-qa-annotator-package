@@ -1,0 +1,68 @@
+Yes, you can use `AnimatableData` to animate the text content change without the ellipsis. Here's how you can modify your code to achieve this:
+
+```
+import SwiftUI
+
+struct ContentView: View {
+    @State var shortString = true
+    @State private var textWidth: CGFloat = 0
+    
+    var body: some View {
+        VStack {
+            Text(shortString ? "This is short." : "This is considerably longer.")
+                .font(.title)
+                .fixedSize(horizontal: false, vertical: true)
+                .overlay(GeometryReader { proxy in
+                    Color.clear
+                        .preference(key: TextWidthPreferenceKey.self, value: proxy.size.width)
+                })
+                .onPreferenceChange(TextWidthPreferenceKey.self) { width in
+                    withAnimation {
+                        self.textWidth = width
+                    }
+                }
+                .modifier(TextWidthModifier(textWidth: textWidth))
+            Button(action: {self.shortString.toggle()}) {
+                Text("Toggle").padding()
+            }
+        }
+    }
+}
+
+struct TextWidthModifier: AnimatableModifier {
+    var textWidth: CGFloat = 0
+    
+    var animatableData: CGFloat {
+        get { textWidth }
+        set { textWidth = newValue }
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .frame(width: textWidth, alignment: .leading)
+    }
+}
+
+struct TextWidthPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+```
+
+Here's what's happening:
+
+1. We add a `TextWidthModifier` that takes the `textWidth` as an animatable parameter and sets the frame width of the `Text` to that value.
+2. We add a `TextWidthPreferenceKey` that stores the width of the `Text` in a preference.
+3. We add an overlay to the `Text` that reads the width of the `Text` using a `GeometryReader` and sets the value of the `TextWidthPreferenceKey`.
+4. We add an `onPreferenceChange` modifier to the `Text` that animates the change of the `textWidth` parameter when the preference value changes.
+
+With these modifications, the `Text` content change is animated smoothly without the ellipsis.

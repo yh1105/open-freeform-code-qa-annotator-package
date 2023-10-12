@@ -1,0 +1,17 @@
+The issue you're facing is likely due to the incorrect path in the import statement. The path should be relative to the source directory where you have your proto files.
+
+In your case, the protobuf files are located in `src/main/proto/tech/tablesaw/service/common/`. So, you don't need to specify the full path in the import statement. 
+
+Change your import statement in `column_metadata.proto` from:
+
+```protobuf
+import "tech/tablesaw/service/common/column_type.proto";
+```
+
+to:
+
+```protobuf
+import "column_type.proto";
+```
+
+This should resolve the issue. The protobuf compiler will now be able to find the `column_type.proto` file in the same directory as `column_metadata.proto`.

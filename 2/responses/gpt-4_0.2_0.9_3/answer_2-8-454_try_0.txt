@@ -1,0 +1,30 @@
+The best practice for structuring Go projects with multiple modules is to have a single `go.mod` file at the root of your project and then organize your code into packages (not modules) based on their functionality. Each package should be in its own directory under the root of the project. 
+
+In your case, you would have:
+
+```
+project
+├── go.mod
+├── main.go
+└── players
+    ├── players.go
+    └── players_test.go
+```
+
+And your `go.mod` file would look like:
+
+```
+module github.com/<name>/<project>
+
+go 1.14
+```
+
+Then, in your `main.go` file, you can import the `players` package like this:
+
+```go
+import "github.com/<name>/<project>/players"
+```
+
+This approach is simpler and more idiomatic in Go. It avoids the complexity of managing multiple modules and makes the import paths more straightforward.
+
+Creating a separate module for each package or making every module its own repository is usually not necessary unless the packages are intended to be used independently by different projects. In that case, each package would indeed be its own module and would have its own `go.mod` file. But for most projects, a single module with multiple packages is the recommended approach.

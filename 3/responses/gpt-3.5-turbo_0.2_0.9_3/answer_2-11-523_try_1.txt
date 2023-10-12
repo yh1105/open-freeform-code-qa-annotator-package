@@ -1,0 +1,5 @@
+The order of evaluation of function arguments in C++ is unspecified, which means that the compiler is free to evaluate them in any order it chooses. However, the order of evaluation of the operands of the `!=` operator is well-defined, and the left-hand operand is always evaluated before the right-hand operand.
+
+In your code, `lhs` is `v` and `rhs` is `std::exchange(v, pmap[v])`. According to the rules of the `!=` operator, `v` is evaluated first, and then `std::exchange(v, pmap[v])` is evaluated. This means that the value of `v` is read before it is modified by `std::exchange`.
+
+Therefore, your code is correct and safe to use. The `!=` operator guarantees that the left-hand operand is evaluated before the right-hand operand, so there is no risk of the right-hand operand being evaluated before the left-hand operand.

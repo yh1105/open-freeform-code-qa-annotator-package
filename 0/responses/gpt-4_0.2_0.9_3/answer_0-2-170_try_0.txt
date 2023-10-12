@@ -1,0 +1,50 @@
+You can achieve this using jQuery and CSS. Here's a simple example:
+
+HTML:
+
+```html
+<div class="col-md-12">
+  <div class="col-md-6 tab" id="tab1">
+        <p>TAB1</p>
+  </div>
+  <div class="col-md-6 tab" id="tab2">
+        <p>TAB2</p>
+  </div>
+</div>
+<div class="col-md-6">
+<span id="underline" style="height:10px;background-color:"></span>
+</div>
+```
+
+CSS:
+
+```css
+#underline {
+  position: absolute;
+  width: 0;
+  transition: all 0.5s ease;
+}
+```
+
+jQuery:
+
+```javascript
+$('.tab').click(function() {
+  var tabId = $(this).attr('id');
+  var underline = $('#underline');
+  
+  if(tabId == 'tab1') {
+    underline.css('left', '0');
+    underline.css('width', '50%');
+  } else if(tabId == 'tab2') {
+    underline.css('left', '50%');
+    underline.css('width', '50%');
+  }
+});
+```
+
+In this example, when you click on a tab, the jQuery function checks the id of the clicked tab. If it's "tab1", it moves the underline to the left and sets its width to 50%. If it's "tab2", it moves the underline to the right (50% from the left) and sets its width to 50%.
+
+The CSS transition property makes the change in position and width happen smoothly over 0.5 seconds.
+
+Please note that this is a very basic example and you might need to adjust it to fit your needs. For instance, you might need to adjust the values for the left property and width property depending on the actual widths of your tabs.

@@ -1,0 +1,24 @@
+It seems like the issue is with the `join_axes` argument, which is no longer supported in Pandas 1.0. You can try removing this argument from your code and see if it works:
+
+```
+import pandas_profiling
+from pandas_profiling import ProfileReport
+
+profile = ProfileReport(data)
+```
+
+If this still doesn't work, you can try updating your pandas-profiling package to the latest version by running the following command in your conda environment:
+
+```
+conda install -c conda-forge pandas-profiling
+```
+
+Then try running your code again. This should resolve any compatibility issues with Pandas 1.0. 
+
+Alternatively, you can try using the `pandas.DataFrame.profile_report()` method to generate the profile report directly from your DataFrame:
+
+```
+data.profile_report()
+```
+
+This method is available in Pandas 1.0 and should work without any additional packages.

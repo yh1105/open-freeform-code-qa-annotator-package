@@ -1,0 +1,39 @@
+The issue might be due to the fact that `~/.bash_profile` or `~/.profile` is not being sourced when you open a new terminal. 
+
+Here are the steps to set the environment variable:
+
+1. Open the terminal.
+
+2. Open `~/.bash_profile` with a text editor. You can use nano for this:
+
+   ```
+   nano ~/.bash_profile
+   ```
+
+3. Add the following line at the end of the file:
+
+   ```
+   export JBOSS_HOME=/Users/{USERNAME}/Desktop/jboss7
+   ```
+
+   Replace `{USERNAME}` with your actual username.
+
+4. Save the changes and exit the text editor. If you're using nano, you can do this by pressing `Ctrl + X`, then `Y` to confirm the save, and finally `Enter` to confirm the file name.
+
+5. Now, you need to source `~/.bash_profile` so that the changes take effect in the current terminal:
+
+   ```
+   source ~/.bash_profile
+   ```
+
+6. You can now check if the environment variable is set correctly:
+
+   ```
+   echo $JBOSS_HOME
+   ```
+
+   This should output `/Users/{USERNAME}/Desktop/jboss7`.
+
+If you still face the issue, you can add the `export` line to `~/.bashrc` instead of `~/.bash_profile` or `~/.profile`. The `~/.bashrc` file is sourced every time you open a new terminal, so this should definitely work.
+
+If you're using a shell other than bash, like zsh for example (which is the default in macOS Catalina and later), you should add the `export` line to `~/.zshrc` instead.

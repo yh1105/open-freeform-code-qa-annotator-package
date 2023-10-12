@@ -1,0 +1,38 @@
+The error message indicates that the `settings` module is not configured properly. You can try the following steps to resolve the issue:
+
+1. Make sure that the `DJANGO_SETTINGS_MODULE` environment variable is set to the correct value. In your case, it should be set to `first_django_project.settings`.
+
+2. Make sure that the `settings` module is imported and configured properly in your `poppulate_first_app.py` file. You can add the following code at the beginning of the file:
+
+```
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'first_django_project.settings')
+import django
+django.setup()
+```
+
+3. Make sure that the `INSTALLED_APPS` setting in your `settings.py` file includes the `first_app` app. You can add it to the list of installed apps like this:
+
+```
+INSTALLED_APPS = [
+    'first_app',
+    # ...
+]
+```
+
+4. Make sure that the `DATABASES` setting in your `settings.py` file is configured properly. In your case, you are using the default SQLite database, so the `DATABASES` setting should look like this:
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+
+5. Make sure that you are running the `poppulate_first_app.py` file from the correct directory. You should be in the same directory as the file, or you can specify the full path to the file when running it.
+
+6. Make sure that you have activated the virtual environment before running the `poppulate_first_app.py` file. You can activate the virtual environment by running the `source venv/bin/activate` command in the terminal.
+
+If none of these steps work, you can try creating a new Django project and app from scratch and see if you still encounter the same error.

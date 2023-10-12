@@ -1,0 +1,17 @@
+You can use the `jq` command-line tool to achieve this. `jq` is a lightweight and flexible command-line JSON processor that can be used to manipulate and transform JSON data.
+
+To uglify your JSON, you can use the following command:
+
+```
+jq -c . input.json
+```
+
+This will read the JSON data from the `input.json` file and output it in a compact format. The `-c` option tells `jq` to output the data in a compact form, and the `.` argument specifies that the entire input should be processed.
+
+If you want to pass the JSON data directly to another command, you can use command substitution to capture the output of the `jq` command and use it as input to the next command. For example, to pass the uglified JSON to `httpie`, you can use the following command:
+
+```
+http POST http://example.com/api data="$(jq -c . input.json)"
+```
+
+This will send a POST request to `http://example.com/api` with the uglified JSON data as the request body. The `$()` syntax is used to capture the output of the `jq` command and insert it into the `data` parameter of the `http` command.

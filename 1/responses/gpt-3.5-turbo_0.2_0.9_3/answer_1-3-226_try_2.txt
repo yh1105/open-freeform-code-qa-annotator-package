@@ -1,0 +1,14 @@
+You can achieve this by checking if the string contains `_` using the `in` operator and then splitting the string accordingly. Here's an example code snippet that should work for you:
+
+```
+string = "testing_abc_bbc"
+
+if "_" in string:
+    split_string = "_".join(string.split("_")[1:])
+else:
+    split_string = string
+
+print(split_string)
+```
+
+This code first checks if the string contains `_` using the `in` operator. If it does, it splits the string using `_` as the delimiter and joins all the elements after the first element using `_` again. If it doesn't contain `_`, it simply assigns the original string to the `split_string` variable.

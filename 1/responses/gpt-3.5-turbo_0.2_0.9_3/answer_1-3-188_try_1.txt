@@ -1,0 +1,23 @@
+You can use the following code to extract the tradingsymbol for the given instrument_token:
+
+```python
+import pandas as pd
+
+# create a sample dataframe
+df = pd.DataFrame({'instrument_token': [12295681, 12295682, 12295683],
+                   'exchange': ['NSE', 'NSE', 'NSE'],
+                   'tradingsymbol': ['UBL19JANFUT', 'UBL20JANFUT', 'UBL21JANFUT']})
+
+# search for the given instrument_token and extract the related tradingsymbol
+instrument_token = 12295682
+tradingsymbol = df.loc[df['instrument_token'] == instrument_token, 'tradingsymbol'].iloc[0]
+
+print(tradingsymbol)
+```
+
+Output:
+```
+UBL20JANFUT
+```
+
+In this code, we first create a sample dataframe with the given columns. Then, we search for the given instrument_token using the `loc` function and extract the related tradingsymbol using the `iloc` function. Finally, we print the extracted tradingsymbol.

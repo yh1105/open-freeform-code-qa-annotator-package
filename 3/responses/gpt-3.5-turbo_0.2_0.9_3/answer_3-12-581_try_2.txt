@@ -1,0 +1,25 @@
+The error message suggests that the `ListView` inside your `ListForm` widget was given unbounded height. This usually happens when a scrollable widget is nested inside another scrollable widget. In this case, the `ListView` is inside a `Row` widget which is inside a `Column` widget. The `Column` widget is scrollable by default, so nesting a `ListView` inside it can cause issues.
+
+To fix this, you can wrap the `ListView` inside an `Expanded` widget. This will allow the `ListView` to take up all the remaining space in the `Row`. Here's the updated code for the `Row` widget:
+
+```
+new Row(
+  children: <Widget>[
+    new Expanded(
+      child: new ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return new Text(products[index]);
+        }
+      ),
+    ),
+    new IconButton(
+      icon: Icon(Icons.remove_circle),
+      onPressed: () { },
+    )
+  ],
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+),
+```
+
+This should fix the error and allow the `ListView` to be displayed properly.

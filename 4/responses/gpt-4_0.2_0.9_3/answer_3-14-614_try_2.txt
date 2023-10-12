@@ -1,0 +1,17 @@
+If your SwiftUI preview is not showing up, there could be several reasons for this. Here are some steps you can take to troubleshoot:
+
+1. **Check your macOS and Xcode versions**: SwiftUI requires macOS Catalina and Xcode 11 or later. Make sure your software is up to date.
+
+2. **Check your device and OS in the preview**: Make sure you're previewing for a device that supports SwiftUI. Also, ensure that the OS version in the preview is compatible with SwiftUI.
+
+3. **Try to resume the preview**: Sometimes, the preview might not show up because it's paused. You can resume it by clicking on the "Resume" button in the top-right corner of the canvas.
+
+4. **Clean and rebuild your project**: You can do this by going to "Product" > "Clean Build Folder" and then "Product" > "Build" in the Xcode menu.
+
+5. **Restart Xcode**: Sometimes, Xcode might have a glitch that can be fixed by simply restarting the software.
+
+6. **Check your code for errors**: If there are any errors in your code, the preview might not show up. Make sure your code compiles without errors.
+
+7. **Try creating a new SwiftUI file**: If none of the above steps work, try creating a new SwiftUI file and see if the preview shows up there. If it does, there might be something wrong with your original file.
+
+If you're still having trouble, please provide more information about your setup (macOS version, Xcode version, etc.) and any error messages you're seeing.

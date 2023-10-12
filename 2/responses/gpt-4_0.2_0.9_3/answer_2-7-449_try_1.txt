@@ -1,0 +1,64 @@
+Modifying vendor files directly is not recommended because your changes will be lost when you update the package. Instead, you should override the specific functionality you need to change.
+
+In your case, you're trying to override a method in the `CompiledRouteCollection` class. However, this class is not bound in the Laravel service container, so you can't simply swap it out with your own version.
+
+Instead, you might need to extend the `Router` class and override the method that creates the `CompiledRouteCollection` instance, so that it uses your custom class instead. Then you can bind your custom router in the service container.
+
+Here's an example of how you might do this:
+
+1. Create your custom `CompiledRouteCollection` class:
+
+```php
+namespace App\Helpers;
+
+use Illuminate\Http\Request;
+
+class CompiledRouteCollection extends \Illuminate\Routing\CompiledRouteCollection
+{
+    protected function requestWithoutTrailingSlash(Request $request)
+    {
+        $trimmedRequest = Request::createFromBase($request);
+
+        $parts = explode('?', $request->server->get('REQUEST_URI'), 2);
+
+        $trimmedRequest->server->set(
+            'REQUEST_URI', rtrim($parts[0], '').(isset($parts[1]) ? '?'.$parts[1] : '')
+        );
+
+        return $trimmedRequest;
+    }
+}
+```
+
+2. Create a custom `Router` class that uses your `CompiledRouteCollection`:
+
+```php
+namespace App\Helpers;
+
+use Illuminate\Routing\Router as BaseRouter;
+
+class Router extends BaseRouter
+{
+    protected function compileRoutes()
+    {
+        foreach ($this->routes as $domain => $routes) {
+            foreach ($routes as $uri => $route) {
+                $this->compiledRoutes[$domain][$uri] = new CompiledRouteCollection($route);
+            }
+        }
+    }
+}
+```
+
+3. Bind your custom `Router` in your `AppServiceProvider`:
+
+```php
+public function register()
+{
+    $this->app->singleton('router', function ($app) {
+        return new \App\Helpers\Router($app['events'], $app);
+    });
+}
+```
+
+Please note that this is a simplified example and might not work out of the box, depending on your specific use case and Laravel version. You might need to adjust it to fit your needs.

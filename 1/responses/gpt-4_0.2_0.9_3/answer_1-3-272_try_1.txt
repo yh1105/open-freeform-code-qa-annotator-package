@@ -1,0 +1,20 @@
+The issue here is that the yaml.load_all function does not perform environment variable substitution. You can add this functionality by using the os.path.expandvars function, which replaces environment variables in a string.
+
+Here is the modified script:
+
+```python
+import yaml
+import os
+import sys
+
+stream = open("sample.yml", "r")
+docs = yaml.load_all(stream)
+for doc in docs:
+    for k,v in doc.items():
+        if isinstance(v, str):  # Check if the value is a string
+            v = os.path.expandvars(v)  # Replace environment variables in the string
+        print(k, "->", v)
+    print("\n")
+```
+
+This script will replace ${PATH} with the actual value of the PATH environment variable in the yaml file.

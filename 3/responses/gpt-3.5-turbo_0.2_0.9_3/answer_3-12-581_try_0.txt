@@ -1,0 +1,48 @@
+The error message suggests that the `ListView` inside your `ListForm` widget is being given unbounded height. This can happen when a scrollable widget is nested inside another scrollable widget, and the inner widget is not given a fixed height.
+
+To fix this, you can wrap your `ListView` inside an `Expanded` widget, which will give it a flexible height that expands to fill the available space. Here's how you can modify your `ListFormState` class to do this:
+
+```
+class ListFormState extends State<ListForm> {
+  List<String> products = ["Test1", "Test2", "Test3"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return Text(products[index]);
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  onPressed: () {},
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            TextField(
+              decoration: InputDecoration(hintText: "Prodotto"),
+              onSubmitted: (String str) {
+                setState(() {
+                  products.add(str);
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+By wrapping the `ListView` inside an `Expanded` widget, it will now have a flexible height that expands to fill the available space. This should fix the error you were seeing.

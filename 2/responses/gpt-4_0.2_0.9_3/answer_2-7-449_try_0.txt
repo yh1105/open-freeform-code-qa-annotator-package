@@ -1,0 +1,34 @@
+Modifying vendor files directly is not recommended because your changes will be lost when you update the package. Instead, you should extend the class and override the method you want to change. 
+
+However, in your case, it seems like you're trying to override a class that is not being resolved out of the container, which is why your alias isn't working. 
+
+The `CompiledRouteCollection` class is not a service that is bound to the service container, so you can't swap it out using an alias in the `AppServiceProvider`. 
+
+Unfortunately, Laravel's routing component doesn't provide an easy way to swap out the `CompiledRouteCollection` class. You might need to extend or override a larger part of the routing component to achieve this.
+
+Another approach could be to handle this at the web server level. For example, if you're using Apache, you could use mod_rewrite to remove the trailing slash before the request even hits your Laravel application.
+
+If you're trying to remove trailing slashes from URLs, you might consider handling this in middleware instead. Here's a simple example:
+
+```php
+namespace App\Http\Middleware;
+
+use Illuminate\Http\Request;
+use Closure;
+
+class TrimTrailingSlash
+{
+    public function handle(Request $request, Closure $next)
+    {
+        if (preg_match('/.+\/$/', $request->getRequestUri())) {
+            return redirect(rtrim($request->getRequestUri(), '/'), 301);
+        }
+
+        return $next($request);
+    }
+}
+```
+
+This middleware will permanently redirect any URLs with a trailing slash to the same URL without the trailing slash. You can add this middleware to your global middleware stack in the `app/Http/Kernel.php` file. 
+
+Remember, it's always better to avoid modifying vendor files directly. Try to find a solution that works within the framework's intended extension points.

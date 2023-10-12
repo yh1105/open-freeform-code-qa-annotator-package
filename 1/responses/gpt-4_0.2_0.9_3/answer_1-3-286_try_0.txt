@@ -1,0 +1,21 @@
+The issue here is that when an exception occurs, the variable `a` doesn't get assigned any value because the line `a = int(input())` fails. So, when you try to check `if a == "Done":` in the exception block, it throws an error because `a` is not defined.
+
+You should first take the input as a string, check if it is "Done", if not, then try to convert it to an integer. Here is the corrected code:
+
+```python
+s = set()
+print('Please type the number, when you are done please type "Done":')
+while True:
+    a = input()
+    if a == "Done":
+        break
+    try:
+        a = int(a)
+        s.add(a)
+    except ValueError:
+        print('Integer only, please re-type:')
+        continue
+print(s)
+```
+
+In this code, we first take the input as a string. If the input is "Done", we break the loop. If not, we try to convert the input to an integer. If the conversion fails (i.e., the input is not an integer), we catch the `ValueError` exception and ask the user to re-type the input. If the conversion is successful, we add the integer to the set.

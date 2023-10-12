@@ -1,0 +1,28 @@
+Yes, it is possible to use Provider for a single widget with multiple ChangeNotifier classes. You can use the MultiProvider widget to provide multiple instances of ChangeNotifier classes to your widget tree.
+
+Here's an example:
+
+```
+return MultiProvider(
+  providers: [
+    ChangeNotifierProvider<Notifier1>(create: (_) => Notifier1()),
+    ChangeNotifierProvider<Notifier2>(create: (_) => Notifier2()),
+    ChangeNotifierProvider<Notifier3>(create: (_) => Notifier3()),
+    ChangeNotifierProvider<Notifier4>(create: (_) => Notifier4()),
+  ],
+  child: CurvedNavigationBar(
+    items: [
+      // your items here
+    ],
+    onTap: (index) {
+      // update the corresponding notifier here
+    },
+  ),
+);
+```
+
+In this example, we're using the MultiProvider widget to provide instances of Notifier1, Notifier2, Notifier3, and Notifier4 to our widget tree. Then, we're using the CurvedNavigationBar widget and updating the corresponding notifier in the onTap method.
+
+Alternatively, you could also use a single class that extends ChangeNotifier and update values in that class. This would simplify your code and make it easier to manage. You would only need to use a single Consumer to listen for updated values.
+
+Ultimately, the decision on whether to use multiple ChangeNotifier classes or a single class depends on the complexity of your app and your personal preference.

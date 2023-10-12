@@ -1,0 +1,7 @@
+The `__peg_parser__` keyword is a bit of an easter egg in Python 3.9. It's not a keyword that you can actually use in your code like `if`, `for`, `while`, etc. 
+
+The PEG in `__peg_parser__` stands for Parsing Expression Grammar. In Python 3.9, the old LL(1) parser was replaced with a new PEG-based parser. This was a significant change in how Python parses code.
+
+The `__peg_parser__` keyword was added to the `keyword.kwlist` as a bit of an inside joke by the Python developers. If you try to use it, Python gives you a `SyntaxError` with the message "You found it!", which is not a standard error message you'd get for using an invalid keyword.
+
+So, in short, `__peg_parser__` is not a keyword you can use in your code. It's just a little easter egg left by the Python developers.

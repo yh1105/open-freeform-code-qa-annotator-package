@@ -1,0 +1,30 @@
+You can use the `Self` type variable from the `typing` module to achieve this. The `Self` type variable is a special type variable that is implicitly bound to the type of the containing class. This means that using `Self` as a return type of a method will ensure that the method returns an instance of the current class:
+
+```python
+from __future__ import annotations
+from typing import Self
+
+class M:
+    def set_width(self, width: int) -> Self:
+        self.width = width
+        return self
+
+    def set_height(self, height: int) -> Self:
+        self.height = height
+        return self
+
+class M3D(M):
+    def set_depth(self, depth: int) -> Self:
+        self.depth = depth
+        return self
+```
+
+Now, you can chain methods as you wanted:
+
+```python
+cube = M3D().set_width(2).set_height(3).set_depth(5)
+```
+
+This will not raise any mypy errors, because `set_width` and `set_height` are now correctly typed to return an instance of the current class (`M3D` in this case), which does have a `set_depth` method.
+
+Please note that the `Self` type hint is available starting from Python 3.11. If you're using an older version of Python, you might not be able to use this feature.

@@ -1,0 +1,17 @@
+It seems like the issue is with the `path_provider` plugin. The error log indicates that the method `getApplicationDocumentsDirectory` is not implemented in the plugin. Here are some steps you can try to resolve the issue:
+
+1. Make sure that you have added the `path_provider` plugin to your `pubspec.yaml` file and have run `flutter pub get` to install it.
+
+2. Check if you have imported the `path_provider` package in your Dart file where you are using it. You can import it like this:
+
+   ```
+   import 'package:path_provider/path_provider.dart';
+   ```
+
+3. Try running `flutter clean` to clear the build cache and then run `flutter pub get` to reinstall the dependencies.
+
+4. If the above steps don't work, try upgrading the `path_provider` plugin to the latest version by running `flutter pub upgrade`.
+
+5. If none of the above steps work, try deleting the `pubspec.lock` file and then running `flutter pub get` to regenerate it.
+
+Hopefully, one of these steps will resolve the issue and your app will no longer freeze on the splash screen.

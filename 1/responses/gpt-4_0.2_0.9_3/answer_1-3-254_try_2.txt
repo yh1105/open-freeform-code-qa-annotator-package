@@ -1,0 +1,25 @@
+Yes, you can display the counted value of the histogram aggregate in Plotly.Express histogram by using the `fig.data` attribute to access the calculated histogram data and then adding annotations to the figure for each bar in the histogram. Here is an example:
+
+```python
+import pandas as pd
+import plotly.express as px
+
+df = pd.DataFrame({"A":[1,1,1,2,2,3,3,3,4,4,4,5]})
+fig = px.histogram(df, x="A")
+
+for trace in fig.data:
+    trace.name = ''  # remove legend
+    fig.add_trace(go.Scatter(
+        x=trace.x,
+        y=trace.y,
+        mode='text',
+        text=trace.y,
+        textposition='middle center',
+        showlegend=False,
+        hoverinfo='none'
+    ))
+
+fig.show()
+```
+
+In this code, `fig.data` is a tuple that contains the data for each trace in the figure. For a histogram, each trace corresponds to a bar in the histogram. The `x` and `y` attributes of each trace correspond to the position and height of the bar, respectively. The `add_trace` method is used to add a scatter plot to the figure for each bar in the histogram, where the `text` attribute is set to the height of the bar, and the `mode` attribute is set to 'text' to display the text. The `textposition` attribute is set to 'middle center' to position the text in the middle of the bar. The `showlegend` attribute is set to False to hide the legend, and the `hoverinfo` attribute is set to 'none' to disable the hover information for the scatter plot.

@@ -1,0 +1,24 @@
+For Scenario #1, you can try downgrading numpy to a version < 1.20.0 as suggested by the error message. You can use the following command to install a specific version of numpy:
+
+```
+pip install numpy==1.19.3
+```
+
+For Scenario #2, you can try upgrading numpy to a version >= 1.20.0 as suggested by the online recommendation. You can use the following command to upgrade numpy:
+
+```
+pip install numpy --upgrade
+```
+
+Regarding the `ValueError: numpy.ndarray size changed` error, it seems to be related to a binary incompatibility issue between numpy and pycocotools. You can try upgrading pycocotools to the latest version using the following command:
+
+```
+pip install pycocotools --upgrade
+```
+
+If the issue persists, you can try uninstalling and reinstalling pycocotools using the following commands:
+
+```
+pip uninstall pycocotools
+pip install pycocotools
+```

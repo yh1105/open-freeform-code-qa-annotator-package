@@ -1,0 +1,13 @@
+The error message you're seeing suggests that the Python interpreter you're using in Atom or PyCharm doesn't have the BeautifulSoup module installed.
+
+Here are a few things you can try:
+
+1. **Check the Python interpreter**: Make sure that the Python interpreter you're using in Atom or PyCharm is the same one where you installed BeautifulSoup. You can check the Python interpreter in PyCharm by going to `File > Settings > Project > Python Interpreter`. In Atom, you can check the Python interpreter by looking at the settings of the Python package you're using (like `python-auto-activate` or `autocomplete-python`).
+
+2. **Install BeautifulSoup for Python 2.7**: If you're using Python 2.7 in Atom or PyCharm, you'll need to install BeautifulSoup for that version of Python. You can do this by running `pip install beautifulsoup4` in your terminal.
+
+3. **Use a virtual environment**: If you're working on a specific project, it might be a good idea to use a virtual environment. This allows you to install Python modules for that specific project, without affecting your global Python installation. You can create a virtual environment using the `venv` module in Python 3. Once you've created and activated the virtual environment, you can install BeautifulSoup using `pip install beautifulsoup4`.
+
+4. **Check the PATH**: Make sure that the Python interpreter where you installed BeautifulSoup is included in your system's PATH. You can check this by running `echo $PATH` in your terminal. If the Python interpreter isn't included in the PATH, you can add it by modifying your `.bashrc` or `.bash_profile` file.
+
+I hope this helps! Let me know if you have any other questions.

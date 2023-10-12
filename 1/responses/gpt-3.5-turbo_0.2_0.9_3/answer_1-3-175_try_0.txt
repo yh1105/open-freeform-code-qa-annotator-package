@@ -1,0 +1,19 @@
+One approach to solve this problem is to use the `exceptAll` method to find the rows that are different between the two data frames. Then, you can use the `array` and `when` functions to create a new column that contains the names of the columns with different values.
+
+Here's an example code snippet that should achieve the desired result:
+
+```
+from pyspark.sql.functions import array, col, when
+
+# Find the rows that are different between the two data frames
+diff_df = df1.exceptAll(df2)
+
+# Create a new column that contains the names of the columns with different values
+column_names = array([when(col(c1) != col(c2), c1).otherwise(None) for c1, c2 in zip(df1.columns, df2.columns)])
+diff_df = diff_df.withColumn("column_names", column_names)
+
+# Join the original data frame with the new column
+result_df = df2.join(diff_df.select("id", "column_names"), "id", "left_outer")
+```
+
+This code should produce a data frame `result_df` that has the desired `column_names` column. Note that the `left_outer` join is used to ensure that all rows from `df2` are included in the result, even if there are no differences with `df1`.

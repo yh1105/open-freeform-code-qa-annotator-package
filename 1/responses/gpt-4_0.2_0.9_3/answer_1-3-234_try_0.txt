@@ -1,0 +1,25 @@
+The errors you're encountering are due to incompatibilities between different versions of TensorFlow, NumPy, and possibly other libraries. Here are some steps you can take to resolve these issues:
+
+1. **Create a new virtual environment**: This is generally a good practice to avoid conflicts between different projects that may require different versions of the same libraries. You can use `conda` or `virtualenv` to create a new environment.
+
+2. **Install the correct versions of the libraries**: TensorFlow 2.2.0 requires NumPy version >=1.16.0 and <1.19.0. So, you can try installing NumPy 1.18.5 which is the latest version in this range. You can do this with the following command:
+
+    ```
+    pip install numpy==1.18.5
+    ```
+
+3. **Reinstall TensorFlow**: After installing the correct version of NumPy, reinstall TensorFlow 2.2.0 with the following command:
+
+    ```
+    pip install tensorflow==2.2.0
+    ```
+
+4. **Reinstall pycocotools**: The second error you're encountering is related to the `pycocotools` library. You can try reinstalling it with the following command:
+
+    ```
+    pip install pycocotools
+    ```
+
+5. **Check other dependencies**: Make sure that other libraries required by your project are installed and their versions are compatible with TensorFlow 2.2.0.
+
+After following these steps, try running your script again. If you still encounter errors, please provide the full error messages and I'll be glad to help you further.

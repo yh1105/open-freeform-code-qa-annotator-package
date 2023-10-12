@@ -1,0 +1,49 @@
+The issue you're facing is because the `json.dumps()` method doesn't know how to serialize your custom `Prod` dataclass. You need to tell it how to convert your dataclass into a JSON serializable format.
+
+The `dataclass_json` decorator you're using is from the `dataclasses_json` library, which provides its own methods for serializing and deserializing dataclasses to/from JSON. 
+
+Here's how you can use it:
+
+```python
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+@dataclass_json
+@dataclass
+class Prod:
+    id: int
+    name: str
+    price: float
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+
+# Use the to_json() method provided by the dataclass_json decorator
+pjson = Prod.schema().dumps(prods, many=True)
+```
+
+In the above code, `Prod.schema().dumps(prods, many=True)` is used to serialize a list of `Prod` instances to a JSON string. The `many=True` argument is used to indicate that we're serializing a list of objects, not just a single object.
+
+If you want to stick with using `json.dumps()`, you can do so by providing a custom encoder that knows how to serialize your `Prod` dataclass:
+
+```python
+import json
+from dataclasses import dataclass, asdict
+
+@dataclass
+class Prod:
+    id: int
+    name: str
+    price: float
+
+class ProdEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Prod):
+            return asdict(obj)
+        return super().default(obj)
+
+prods = [Prod(1,'A',25.3),Prod(2,'B',79.95)]
+
+pjson = json.dumps(prods, cls=ProdEncoder)
+```
+
+In this code, `ProdEncoder` is a custom JSON encoder that converts `Prod` instances into dictionaries using the `asdict()` function from the `dataclasses` module. This dictionary can then be serialized to JSON by the `json.dumps()` method.

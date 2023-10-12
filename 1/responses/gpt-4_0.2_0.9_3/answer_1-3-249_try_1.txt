@@ -1,0 +1,33 @@
+Your current code generates a 16-character string where the first 5 characters are "NAA3U" and the remaining 11 characters are randomly chosen from uppercase letters and digits. However, it doesn't guarantee that there will be exactly 3 digits in the entire string.
+
+Here is a Python code snippet that ensures the generated code has exactly 3 digits:
+
+```python
+import random
+import string
+
+# Known characters
+known_chars = "NAA3U"
+
+# Generate 3 random digits
+digits = ''.join(random.choice(string.digits) for _ in range(3))
+
+# Generate 8 random uppercase letters
+letters = ''.join(random.choice(string.ascii_uppercase) for _ in range(8))
+
+# Combine all parts
+combined = known_chars + digits + letters
+
+# Convert to list to allow shuffling
+combined_list = list(combined)
+
+# Shuffle to ensure randomness
+random.shuffle(combined_list)
+
+# Convert back to string
+result = ''.join(combined_list)
+
+print(result)
+```
+
+This code first generates the known characters, 3 random digits, and 8 random uppercase letters separately. Then it combines them, shuffles the combined string to ensure randomness, and finally converts it back to a string.

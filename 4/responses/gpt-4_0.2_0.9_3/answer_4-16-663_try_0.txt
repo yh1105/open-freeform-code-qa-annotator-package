@@ -1,0 +1,28 @@
+Based on your description, it seems like you want to use a single glob pattern that can match files in the current directory and all subdirectories, but only for certain file extensions. Unfortunately, there's no single glob pattern that can do this in all shells. However, there are a few ways to achieve this depending on the shell and tools you're using.
+
+1. **Bash with globstar option**: If you're using Bash, you can enable the `globstar` shell option, which allows the `**` pattern to match all files and zero or more directories and subdirectories. If the pattern is followed by a `/`, only directories and subdirectories match.
+
+    ```bash
+    shopt -s globstar
+    grep -r "find me" **/*.php
+    ```
+
+    This will search for the string "find me" in all `.php` files in the current directory and all subdirectories.
+
+2. **find command**: Another way to achieve this is using the `find` command, which can search for files in a directory hierarchy. You can use it with the `-exec` option to run a command on each file that matches certain criteria.
+
+    ```bash
+    find . -name "*.php" -exec grep "find me" {} \;
+    ```
+
+    This will find all `.php` files in the current directory and all subdirectories, and run the `grep "find me"` command on each of them.
+
+3. **grep with --include option**: As you mentioned, `grep` has an `--include` option that you can use to only search in files that match a certain pattern.
+
+    ```bash
+    grep -r --include="*.php" "find me" .
+    ```
+
+    This will do a recursive search in the current directory, but only in files that match the `*.php` pattern.
+
+Remember that these methods are not using a single glob pattern, but they achieve the same result. If you need to use this with other commands, you might need to find similar options or ways to use them with these commands.

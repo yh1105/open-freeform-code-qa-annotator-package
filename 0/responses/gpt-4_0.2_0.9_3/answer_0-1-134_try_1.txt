@@ -1,0 +1,16 @@
+The feature you're referring to is called "Emmet" which is a plugin for many popular text editors that helps you write HTML and CSS code quickly using abbreviations. For example, typing `.classname` and then pressing `Tab` will automatically expand to `<div class="classname"></div>`.
+
+If this isn't working for you, it's possible that either your text editor doesn't support Emmet, or it's not enabled. You didn't mention which text editor you're currently using, but most modern ones like Visual Studio Code, Atom, and Sublime Text all support Emmet.
+
+As for whether you should switch to Sublime, it really depends on your personal preference. Sublime is a very powerful and fast text editor with a lot of features and plugins, including Emmet. However, other text editors like Visual Studio Code and Atom also have similar features and might be easier to use for beginners. 
+
+I would recommend trying out a few different text editors to see which one you like best. It's also worth noting that the text editor is just a tool, and it's more important to understand the underlying concepts of web design and development. 
+
+If you're using Visual Studio Code, Emmet is built-in and should work out of the box. If it's not working, you might want to check your settings or see if there's a conflict with another extension. If you're using a different text editor, you might need to install Emmet as a plugin. 
+
+Here's how you can do it in some popular text editors:
+
+- **Sublime Text**: Go to `Preferences > Package Control > Install Package`, then search for `Emmet` and install it.
+- **Atom**: Go to `Atom > Preferences > Install`, then search for `emmet` and install it.
+
+After installing Emmet, you should be able to use the `.classname` shortcut to quickly create divs with a class.

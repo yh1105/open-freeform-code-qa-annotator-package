@@ -1,0 +1,25 @@
+You can use the `groupby` method to group the data by 'ID' and 'Date', and then use the `agg` method to aggregate the data for each group. Here's the code to achieve this:
+
+```
+df1['Date'] = pd.to_datetime(df1['Date']) # convert 'Date' column to datetime format
+df2 = df1.groupby(['ID', pd.Grouper(key='Date', freq='D')]).agg({
+    'Name': lambda x: x.dropna().iloc[0] if not x.isna().all() else np.nan,
+    'Height': lambda x: x.dropna().iloc[0] if not x.isna().all() else np.nan,
+    'Weight': lambda x: x.dropna().iloc[0] if not x.isna().all() else np.nan,
+    'Gender': lambda x: x.dropna().iloc[0] if not x.isna().all() else np.nan,
+    'Interests': lambda x: ','.join(x.dropna().unique()) if not x.isna().all() else np.nan
+}).reset_index()
+
+df2['Date'] = df2['Date'].dt.strftime('%Y-%m-%d') # convert 'Date' column back to string format
+df2 = df2[['ID', 'Date', 'Name', 'Height', 'Weight', 'Gender', 'Interests']] # reorder columns
+df2
+```
+
+This should give you the desired output:
+
+```
+  ID        Date Name  Height  Weight  Gender       Interests
+0  A  2021-09-20   xx   174.0    74.0    Male  Hiking,Sports
+1  B  2021-09-01   yy   160.0    58.0  Female         Singing
+2  B  2021-09-02  NaN     NaN     NaN     NaN         Singing
+```

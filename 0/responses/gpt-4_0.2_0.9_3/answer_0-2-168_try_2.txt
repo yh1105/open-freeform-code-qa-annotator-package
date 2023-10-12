@@ -1,0 +1,9 @@
+The `rel="noopener noreferrer"` attribute is not meant to prevent someone with access to the Developer Tools from modifying the page's HTML. It's meant to protect users from a specific type of vulnerability called "tabnapping" or "reverse tabnapping".
+
+When you open a link in a new tab with `target="_blank"`, the new page can access the original page via the `window.opener` property. This can be exploited by malicious websites to redirect the original page to a different URL, which can be used for phishing attacks.
+
+The `rel="noopener"` attribute prevents the new page from accessing the `window.opener` property. The `rel="noreferrer"` attribute goes a step further and also prevents the Referer header from being sent to the new page.
+
+If someone has access to the Developer Tools and can modify the page's HTML, they can do a lot more than just remove the `rel` attribute. They could inject scripts, modify the page's content, etc. But this requires either physical access to the machine or remote access via some sort of malware, both of which are much bigger security issues than a potential tabnapping attack.
+
+In other words, the `rel="noopener noreferrer"` attribute is not meant to protect against someone with access to the Developer Tools. It's meant to protect regular users who are just clicking on links.

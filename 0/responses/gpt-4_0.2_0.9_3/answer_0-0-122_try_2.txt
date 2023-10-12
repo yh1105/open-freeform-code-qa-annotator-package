@@ -1,0 +1,11 @@
+You can install a specific version of `npm` using the `npm install -g npm@version` command. Replace `version` with the version number you want to install. 
+
+For example, if you want to install `npm` version 6.14.13, you would use the following command:
+
+```bash
+npm install -g npm@6.14.13
+```
+
+This command will install `npm` version 6.14.13 globally on your system. 
+
+After running the command, you can verify that the correct version has been installed by running `npm -v`. This command will display the version of `npm` that is currently active on your system.

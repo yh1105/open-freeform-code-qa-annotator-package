@@ -1,0 +1,48 @@
+The issue you're facing is due to the fixed pixel values you're using for margins and widths. When you zoom in or out, the pixel values remain the same, causing the layout to disorient. 
+
+A better approach would be to use relative units like percentages or viewport units (vw, vh) instead of fixed pixel values. This way, the layout will adjust according to the screen size or zoom level. 
+
+Here's an example of how you can modify your button styles:
+
+```python
+style={
+    'color': 'white',
+    'backgroundColor': '#101820',
+    'fontSize': '15px ',
+    'marginLeft': '2%',
+    'marginRight': '2%',
+    'width': '15%',
+    'height': '50px'
+}
+```
+
+In this example, the marginLeft, marginRight, and width are set as a percentage of the parent container's width. You might need to adjust the percentages to fit your layout.
+
+Also, you might want to consider using a responsive grid system like the one provided by Bootstrap. This can help you create a layout that adjusts better to different screen sizes. 
+
+For example, you can divide your Navbar into 12 columns and assign each button to a specific number of columns. This way, the buttons will adjust their size and position according to the screen size. 
+
+Here's an example of how you can do this:
+
+```python
+dbc.Row(
+    [
+        dbc.Col([button1], width=2),
+        dbc.Col([button2], width=2),
+        dbc.Col([button3], width=2),
+        dbc.Col([button4], width=2),
+        dbc.Col([button5], width=2),
+    ],
+    style={
+        'textAlign': 'center',
+        'position': 'sticky',
+        'backgroundColor': '#101820',
+        'display': 'flex',
+        'marginRight': '0px',
+    },
+)
+```
+
+In this example, each button is assigned to a column of width 2. The total width of the row is 12, so this layout will fit perfectly on all screen sizes. 
+
+Again, you might need to adjust the column widths to fit your layout.

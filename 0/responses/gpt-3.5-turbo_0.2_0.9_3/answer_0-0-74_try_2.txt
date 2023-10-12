@@ -1,0 +1,26 @@
+You can use `window.history.state` to get the previous URL in Next.js. Here's an example of how you can use it:
+
+```
+componentDidMount() {
+  window.history.pushState({ url: this.props.router.asPath }, '', this.props.router.asPath);
+}
+
+componentWillUnmount() {
+  window.history.back();
+}
+
+componentWillReceiveProps(nextProps) {
+  const { url } = window.history.state || {};
+  if (url) {
+    this.props.router.push(url);
+  } else {
+    this.props.router.push('/');
+  }
+}
+```
+
+In the `componentDidMount` method, you push the current URL to the history state. In the `componentWillUnmount` method, you go back to the previous page.
+
+In the `componentWillReceiveProps` method, you check if there is a previous URL in the history state. If there is, you use `router.push` to go to that URL. If there isn't, you go to the main page (`/`).
+
+Note that this solution assumes that the user has a history stack. If the user doesn't have a history stack, the `window.history.state` will be `null` and you will always go to the main page.

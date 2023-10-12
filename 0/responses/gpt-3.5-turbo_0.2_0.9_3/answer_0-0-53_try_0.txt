@@ -1,0 +1,62 @@
+The issue is with the way you are adding the `onclick` event to the button. Instead of using the `onclick` attribute, you should use the `onClick` prop in React. Also, you should move the `myFunction` function outside of the `render` method. Here's the updated code:
+
+```
+import React, { Component } from 'react'
+import { Alert } from 'react-alert'
+
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageURL: '',
+    };
+
+    this.handleUploadImage = this.handleUploadImage.bind(this);
+    this.showUploadMessage = this.showUploadMessage.bind(this);
+  }
+
+  handleUploadImage(ev) {
+    ev.preventDefault();
+
+    const data = new FormData();
+    data.append('file', this.uploadInput.files[0]);
+    data.append('filename', this.fileName.value);
+
+    fetch('http://localhost:8000/upload', {
+      method: 'POST',
+      body: data,
+    }).then((response) => {
+      response.json().then((body) => {
+        this.setState({ imageURL: `http://localhost:8000/${body.file}` });
+      });
+    });
+  }
+
+  showUploadMessage() {
+    alert("Your file is being uploaded!");
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleUploadImage}>
+        <div>
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+        </div>
+        <div>
+          <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+        </div>
+        <br />
+        <div>
+          <button onClick={this.showUploadMessage}>Upload</button>
+        </div>
+        <img src={this.state.imageURL} alt="img" />
+      </form>
+    );
+  }
+}
+
+export default Main;
+```
+
+In this updated code, the `showUploadMessage` function is defined outside of the `render` method and is bound to the component instance in the constructor. Then, the `onClick` prop is used to attach the function to the button. This way, the function will only be called when the button is clicked.

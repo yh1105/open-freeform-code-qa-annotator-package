@@ -1,0 +1,17 @@
+In C#, the `&&` operator is a short-circuit operator, meaning if the first condition is `false`, it won't evaluate the second condition. However, in the case of `await` in an `if` statement, both `await` calls will be executed because the `await` keyword will cause the method to pause and wait for the task to complete.
+
+So in your example:
+```csharp
+if( await first_check() && await second_check() )
+    // ???
+```
+Both `first_check()` and `second_check()` will be awaited, regardless of the result of `first_check()`. This is because the `await` keyword causes the method to pause and wait for the task to complete, so `first_check()` has to complete before `second_check()` can even start.
+
+If you want to short-circuit the evaluation, you can do something like this:
+```csharp
+if (await first_check() && await second_check())
+    // ???
+```
+This will only call `second_check()` if `first_check()` returns `true`.
+
+This is because the `&&` operator is short-circuiting, so if the first operand is `false`, the second operand is not evaluated. However, because you're using `await`, the first task has to complete before the second one can start.

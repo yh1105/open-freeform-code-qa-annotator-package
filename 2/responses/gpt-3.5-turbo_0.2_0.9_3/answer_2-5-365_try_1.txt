@@ -1,0 +1,20 @@
+The error message suggests that `expressJwt` is not a function. This could be due to a few reasons:
+
+1. Incorrect import: Make sure that you are importing `expressJwt` correctly. It should be imported from the `jsonwebtoken` package like this:
+
+```
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"],
+  userProperty: "auth",
+});
+```
+
+2. Incorrect package installation: Make sure that you have installed the `express-jwt` package correctly. You can do this by running `npm install express-jwt` in your project directory.
+
+3. Version incompatibility: Make sure that the version of `express-jwt` you are using is compatible with your other dependencies. You can check the version compatibility by looking at the `package.json` file or by running `npm ls express-jwt` in your project directory.
+
+If none of these solutions work, please provide more information about your project setup and any other error messages you may be seeing.

@@ -1,0 +1,9 @@
+The `--downlevelIteration` flag is necessary because TypeScript transpiles to ES5 by default, and ES5 does not support the spread operator `...` for arbitrary iterators. In ES6 and later, the spread operator can be used with any iterable, but in ES5 it can only be used with arrays.
+
+When you enable `--downlevelIteration`, TypeScript will generate additional code to allow the spread operator to work with any iterable, not just arrays. This is why your code works once you enable this flag.
+
+The downside of enabling `--downlevelIteration` is that it can significantly increase the size of the generated JavaScript code, especially if you're using the spread operator in a loop. This is because TypeScript has to include a helper function in the generated code for each use of the spread operator with an iterable. This can potentially slow down your code and increase memory usage.
+
+In your specific example, `[...Array(3).keys()]`, the `Array(3).keys()` expression returns an `Array Iterator`, which is not an array and therefore cannot be spread into an array in ES5. When you enable `--downlevelIteration`, TypeScript generates code that converts the `Array Iterator` into an array before spreading it.
+
+In conclusion, whether or not to use `--downlevelIteration` depends on your specific use case. If you need to support ES5 and you're using the spread operator with iterables frequently, then you might need to enable it. However, be aware of the potential performance implications.

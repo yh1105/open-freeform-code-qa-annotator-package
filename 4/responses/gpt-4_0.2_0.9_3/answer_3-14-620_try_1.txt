@@ -1,0 +1,54 @@
+You can use a ScrollView instead of a List and use the ScrollViewReader to scroll to a specific item. Here's a simple example:
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        ScrollView {
+            ScrollViewReader { value in
+                Button("Jump to #50") {
+                    value.scrollTo(50, anchor: .top)
+                }
+
+                ForEach(0..<100) { i in
+                    Text("Example \(i)")
+                        .frame(width: 300, height: 300)
+                        .background(colors[i % colors.count])
+                        .id(i)
+                }
+            }
+        }
+    }
+}
+```
+
+In this example, when you press the "Jump to #50" button, the ScrollView will scroll to the item with id 50.
+
+However, this feature is only available in iOS 14.0 and later. For iOS 13.x, you might need to use a workaround. Here's a simple one:
+
+```swift
+struct ContentView: View {
+    @State private var target: Int?
+    
+    var body: some View {
+        VStack {
+            Button("Jump to #50") {
+                self.target = 50
+            }
+            
+            List(0..<100) { i in
+                if self.target == i {
+                    Text("Example \(i)")
+                        .frame(width: 300, height: 300)
+                        .background(Color.red)
+                        .onAppear { self.target = nil }
+                } else {
+                    Text("Example \(i)")
+                        .frame(width: 300, height: 300)
+                }
+            }
+        }
+    }
+}
+```
+
+In this example, when you press the "Jump to #50" button, the List will update and the item with index 50 will have a red background. When this item appears, the target is set to nil and the List updates again to remove the red background. This will cause the List to scroll to the item with index 50.

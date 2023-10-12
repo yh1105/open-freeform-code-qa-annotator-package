@@ -1,0 +1,14 @@
+This error occurs because the version of Jacoco you are using is not compatible with the version of Java you are using. Jacoco 0.8.6 requires Java 9 or higher, but it seems that your project is using an older version of Java.
+
+To fix this issue, you can either upgrade your Java version to Java 9 or higher, or downgrade your Jacoco version to a version that is compatible with your current Java version.
+
+You can also try adding the following lines to your build.gradle file to force the use of a specific Java version:
+
+```
+compileTestJava {
+    options.compilerArgs << "-source" << "1.8"
+    options.compilerArgs << "-target" << "1.8"
+}
+```
+
+This will force the use of Java 8 for your test code, which should be compatible with Jacoco 0.8.6.

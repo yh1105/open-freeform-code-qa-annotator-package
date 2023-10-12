@@ -1,0 +1,7 @@
+You can modify your second approach to only consider columns 456:555. Here's how you can do it:
+
+```r
+final[rowSums(is.na(final[, 456:555])) != (555-456+1), ]
+```
+
+This will keep rows where the number of NA values in columns 456:555 is not equal to the total number of these columns, i.e., it will remove rows where all values in these columns are NA.

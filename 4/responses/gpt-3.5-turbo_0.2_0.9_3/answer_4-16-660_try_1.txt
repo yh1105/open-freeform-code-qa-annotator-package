@@ -1,0 +1,10 @@
+You can add the `Az.Accounts` module as a dependency in your Azure DevOps pipeline. Here's how:
+
+1. Go to your Azure DevOps project and select the pipeline you want to modify.
+2. Click on the "Edit" button to open the pipeline editor.
+3. Find the PowerShell task that invokes your script and click on it to open its settings.
+4. Scroll down to the "Advanced" section and click on the "Add" button next to "Inline Script".
+5. In the new field that appears, add the following command: `Install-Module -Name Az.Accounts -Force`.
+6. Save your changes and run the pipeline again.
+
+This will install the `Az.Accounts` module on the agent machine before running your script, so it should be able to find and load the module without any issues.

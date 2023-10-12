@@ -1,0 +1,20 @@
+Yes, Dart's `Duration` class only supports time durations in terms of days, hours, minutes, seconds, and microseconds. For more complex date manipulations like adding or subtracting months or years, you can use the `DateTime` class along with the `intl` package.
+
+Here's an example of how you can subtract 6 months from a date:
+
+```dart
+import 'package:intl/intl.dart';
+
+void main() {
+  DateTime now = DateTime.now();
+  DateTime sixMonthsAgo = DateTime(now.year, now.month - 6, now.day);
+
+  print(DateFormat('yyyy-MM-dd').format(sixMonthsAgo));
+}
+```
+
+In this code, we're creating a new `DateTime` object with the current year and day, but with the month subtracted by 6. Note that Dart's `DateTime` constructor automatically adjusts the year if the month is less than 1 or greater than 12.
+
+The `intl` package also provides a lot of other useful features for internationalization, like formatting dates, numbers, and strings.
+
+If you want a more comprehensive date manipulation library similar to moment.js, you might want to check out the `date_utils` package. It provides a lot of additional functionality for working with dates in Dart.

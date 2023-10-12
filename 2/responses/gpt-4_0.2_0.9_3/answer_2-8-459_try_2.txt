@@ -1,0 +1,23 @@
+The error message `unknown revision v0.1.5` indicates that Go is unable to find the specified version of the module in your private repository. Here are a few things you can try to debug this issue:
+
+1. **Check the version**: Ensure that the version `v0.1.5` of `github.ibm.com/kms/key-protect-client` actually exists in your private repository. If not, you may need to push this version to the repository or adjust your `go.mod` file to require a version that does exist.
+
+2. **Check your GOPRIVATE environment variable**: Go 1.13 introduced the `GOPRIVATE` environment variable, which you can use to specify a comma-separated list of glob patterns (like `github.ibm.com/kms/*`) for paths that should always be fetched privately. If you're using Go 1.13 or later, try setting this variable and see if it resolves your issue.
+
+    ```bash
+    export GOPRIVATE=github.ibm.com/kms/*
+    ```
+
+3. **Check your Git configuration**: Ensure that Git is correctly configured to access your private repository. You can do this by trying to manually clone the repository using Git. If this fails, you may need to update your Git configuration or SSH keys.
+
+4. **Check your network connection**: If you're on a different network with computer B, there might be network restrictions preventing you from accessing the private repository. Try switching networks or disabling any VPNs or proxies to see if this resolves the issue.
+
+5. **Clear your Go module cache**: Sometimes, issues can be caused by a corrupted module cache. You can clear your module cache by running `go clean -modcache`.
+
+6. **Increase verbosity of `go get`**: You can use the `-x` flag with `go get` to see more details about what's happening. This might give you more information about why the module fetch is failing.
+
+    ```bash
+    go get -x github.ibm.com/kms/key-protect-client@v0.1.5
+    ```
+
+Remember to replace `github.ibm.com/kms/*` and `github.ibm.com/kms/key-protect-client@v0.1.5` with your actual repository path and version.

@@ -1,0 +1,35 @@
+In Go, you can achieve this by using interface composition. This is similar to inheritance in other languages, but it's more flexible because it allows you to mix and match different interfaces to get exactly the behavior you want.
+
+In your case, you can define a new interface that includes both the `Card` interface and the `fmt.Stringer` interface. Here's how you can do it:
+
+```go
+type CardStringer interface {
+    Card
+    fmt.Stringer
+}
+```
+
+Then, you can change your `NewCard` function to return a `CardStringer` instead of a `Card`:
+
+```go
+func NewCard(num int) CardStringer {
+    newCard := card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+
+    return &newCard
+}
+```
+
+Now, you can use the `String` method on any value that is a `CardStringer`:
+
+```go
+func TestString(t *testing.T) {
+    card := NewCard(0)
+    assert.EqualValues(t, "AceHearts ", card.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```
+
+This way, you don't have to add the `String` method to your `Card` interface, and you can still use it where you need it. This is one of the strengths of Go's interface system: it allows you to define exactly the behavior you need, without forcing you to add unnecessary methods to your types.

@@ -1,0 +1,31 @@
+The reason why the log with value `2` is printed before the log with value `1` is because the `onItemSelectedListener` is triggered only when an item is selected from the spinner. Until an item is selected, the value of `itemSelected` remains empty. Therefore, when you call the function, the log with value `2` is printed first because it is outside the `onItemSelectedListener`.
+
+To fix this, you can use a callback function to return the selected item from the spinner. Here's an example:
+
+```
+fun Spinner.setupListWithAdapter(list: MutableList<String>, callback: (String) -> Unit) {
+    val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, list)
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    this.adapter = adapter
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            val itemSelected = list[p2]
+            callback(itemSelected)
+        }
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+        }
+    }
+}
+```
+
+In this updated function, instead of returning the selected item, we pass a callback function as a parameter. The callback function takes the selected item as a parameter and returns nothing. When an item is selected from the spinner, we call the callback function with the selected item as the argument.
+
+To use this function, you can pass a lambda function as the callback parameter. Here's an example:
+
+```
+spinner.setupListWithAdapter(listOf("Item 1", "Item 2", "Item 3")) { selectedItem ->
+    Log.d("Selected Item", selectedItem)
+}
+```
+
+In this example, we pass a list of items to the `setupListWithAdapter` function and a lambda function as the callback parameter. The lambda function takes the selected item as a parameter and logs it to the console. When an item is selected from the spinner, the lambda function is called with the selected item as the argument.

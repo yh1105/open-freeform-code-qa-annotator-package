@@ -1,0 +1,17 @@
+The Dart analyzer is still giving you the same warning because even though you have checked if the key exists in the map, the Dart static analyzer does not take this into account when checking types. 
+
+The Dart analyzer does not perform flow analysis to the extent of understanding that `myMap.containsKey(1)` ensures that `myMap[1]` will not return `null`. 
+
+Therefore, when you try to assign `myMap[1]` to `String s`, it still sees the potential for a `null` value, hence the warning.
+
+To fix this, you can use the `!` operator to tell the Dart analyzer that you are sure that the value will not be `null`:
+
+```dart
+void foo(Map<int, String> myMap) {
+  if (myMap.containsKey(1)) {
+    String s = myMap[1]!;
+  }
+}
+```
+
+This tells Dart that you are sure that `myMap[1]` is not `null`, and it will not give you a warning. However, if `myMap[1]` is `null`, this will cause a runtime error.

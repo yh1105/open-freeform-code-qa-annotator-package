@@ -1,0 +1,36 @@
+Yes, it seems that R 4.0 requires a newer version of `libc6` than what is available in Ubuntu 18.04. You can try upgrading to Ubuntu 20.04 which has `libc6` version 2.31, which should be compatible with R 4.0. Alternatively, you can try installing R 4.0 from source, which may require additional dependencies to be installed. Here are the steps to install R 4.0 from source:
+
+1. Install the necessary dependencies:
+
+```
+sudo apt-get update
+sudo apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+```
+
+2. Download the R 4.0 source code from the R website:
+
+```
+wget https://cran.r-project.org/src/base/R-4/R-4.0.0.tar.gz
+```
+
+3. Extract the source code:
+
+```
+tar -xzf R-4.0.0.tar.gz
+```
+
+4. Configure the build:
+
+```
+cd R-4.0.0
+./configure --prefix=/usr/local --enable-R-shlib
+```
+
+5. Build and install R:
+
+```
+make
+sudo make install
+```
+
+After these steps, R 4.0 should be installed on your system.

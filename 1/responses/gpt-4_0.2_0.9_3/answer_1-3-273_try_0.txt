@@ -1,0 +1,20 @@
+The issue you are facing is quite common and can be resolved by following these steps:
+
+1. First, make sure that you have installed `ipykernel` in your new environment. You can do this by activating your environment and then installing `ipykernel`:
+
+    ```bash
+    conda activate myenv
+    conda install ipykernel
+    ```
+
+2. Next, you need to add your new environment to Jupyter. You can do this by running the following command:
+
+    ```bash
+    python -m ipykernel install --user --name=myenv
+    ```
+
+    Replace `myenv` with the name of your environment. This command will add your environment to Jupyter.
+
+3. Now, you should be able to see your new environment as a kernel in Jupyter Lab. If you still can't see it, try restarting Jupyter Lab.
+
+Remember, you need to do this for each new environment you create. This process ensures that Jupyter is aware of your new environments and can use them as kernels.

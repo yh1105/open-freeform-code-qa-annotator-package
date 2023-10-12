@@ -1,0 +1,17 @@
+You can use the `thenComparing` method of the `Comparator` interface to add a secondary sort. This method returns a lexicographic-order comparator with another comparator. If two elements are equal by the original comparator, then the secondary comparator is used.
+
+Here's how you can modify your `sortAsc` method to sort by description length first, and then alphabetically if the lengths are equal:
+
+```java
+public List<Article> sortAsc() {
+    removeNull();
+    return articles.stream()
+            .sorted(Comparator.comparingInt((Article a) -> a.getDescription().length())
+                    .thenComparing(Article::getDescription))
+            .collect(Collectors.toList());
+}
+```
+
+In this code, `Comparator.comparingInt((Article a) -> a.getDescription().length())` sorts the articles by the length of their descriptions. If two articles have descriptions of the same length, `.thenComparing(Article::getDescription)` sorts those articles alphabetically by description.
+
+You don't need to use your `ComparatorAppController` for this situation. The `Comparator` interface provides the methods you need to sort the articles as you want.

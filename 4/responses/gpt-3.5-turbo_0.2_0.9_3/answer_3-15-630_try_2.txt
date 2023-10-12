@@ -1,0 +1,16 @@
+To split the data across columns, you can use the "Text to Columns" feature in Excel. Here's how:
+
+1. Select the cells containing the data you want to split.
+2. Go to the "Data" tab in the Excel ribbon.
+3. Click on the "Text to Columns" button.
+4. In the "Convert Text to Columns Wizard" dialog box, select "Delimited" and click "Next".
+5. Choose the delimiter that separates the data (in this case, a comma) and click "Next".
+6. Choose the destination for the split data (either a new column or an existing one) and click "Finish".
+
+To split the data down into rows, you can use the "Transpose" function in Excel. Here's how:
+
+1. Copy the cells containing the data you want to split.
+2. Right-click on a new cell where you want the split data to appear and select "Paste Special".
+3. In the "Paste Special" dialog box, check the "Transpose" box and click "OK".
+
+The "Text to Columns" method is preferred when splitting data across columns because it allows you to choose the delimiter and the destination for the split data. The "Transpose" method is preferred when splitting data down into rows because it is a quick and easy way to flip the orientation of the data.

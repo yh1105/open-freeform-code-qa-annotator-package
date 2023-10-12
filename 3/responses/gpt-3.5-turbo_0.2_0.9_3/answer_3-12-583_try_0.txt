@@ -1,0 +1,57 @@
+To fix the first error "No location permissions are defined in the manifest", you need to add the following permission in your AndroidManifest.xml file:
+
+```
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+This permission is required to access the device's GPS location.
+
+Regarding the second error "Attribute android:icon is not allowed here", it seems like you have added the android:icon attribute in the wrong place. The android:icon attribute should be added inside the <application> tag, not inside the <manifest> tag. So, your AndroidManifest.xml file should look like this:
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.agent">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <application
+        android:label="agent"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <meta-data
+              android:name="io.flutter.embedding.android.SplashScreenDrawable"
+              android:resource="@drawable/launch_background"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+</manifest>
+```
+
+Finally, to fix the third error "Unresolved class 'MainActivity'", make sure that you have a MainActivity class in your project. If you don't have one, create a new file called MainActivity.java in the android/app/src/main/java/com/example/agent/ directory with the following code:
+
+```
+package com.example.agent;
+
+import io.flutter.embedding.android.FlutterActivity;
+
+public class MainActivity extends FlutterActivity {
+}
+```
+
+This should resolve the error.

@@ -1,0 +1,105 @@
+To achieve the desired output, you can use a `GridView` with a `crossAxisCount` of 5 to display the images. Here's an example code that you can modify to fit your needs:
+
+```
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class BusinessProfilePage extends StatefulWidget {
+  @override
+  _BusinessProfilePageState createState() => _BusinessProfilePageState();
+}
+
+class _BusinessProfilePageState extends State<BusinessProfilePage> {
+  List<File> images = [];
+
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        images.add(File(pickedFile.path));
+      });
+    }
+  }
+
+  Widget _buildImagePicker() {
+    return GestureDetector(
+      onTap: pickImage,
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildImage(File image) {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: FileImage(image),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              images.remove(image);
+            });
+          },
+          child: Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.close, size: 15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Business Profile'),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Business Profile Pictures', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 16),
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 5,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              children: [
+                ...images.map((image) => _buildImage(image)),
+                if (images.length < 5) _buildImagePicker(),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this code, the `_buildImagePicker` method returns a container with an "add" icon that triggers the `pickImage` method when tapped. The `_buildImage` method returns a container with the selected image and a "close" icon that removes the image from the list when tapped. The `GridView` displays the images and the image picker in a grid layout. Note that the `GridView` has a `shrinkWrap` property set to `true` to allow it to be embedded in a `Column`.

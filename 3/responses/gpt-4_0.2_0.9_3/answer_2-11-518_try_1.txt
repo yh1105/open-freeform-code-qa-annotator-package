@@ -1,0 +1,15 @@
+You're correct that smart pointers can often eliminate the need for user-defined destructors, copy constructors, copy assignment operators, move constructors, and move assignment operators. They are a great tool for managing resources and can simplify code significantly.
+
+However, there are still cases where you might need to define these special member functions yourself:
+
+1. **Performance considerations**: Smart pointers do add a level of indirection and can have performance implications. In performance-critical code, you might want to manage resources manually.
+
+2. **Custom behavior**: If you need to perform some custom action when copying, assigning, or destroying objects, you'll need to define these functions yourself. For example, you might want to log when an object is destroyed, or implement some sort of copy-on-write behavior.
+
+3. **Managing non-memory resources**: Smart pointers are great for managing memory, but there are other resources that might need management as well. For example, you might have a class that opens a file or a network connection. In these cases, you'll need a destructor to close the file or connection when the object is destroyed, and you'll likely want to disable copying and provide a move constructor and move assignment operator.
+
+4. **Legacy code and APIs**: If you're working with older code or APIs that don't use smart pointers, you might need to manage resources manually.
+
+5. **Ownership semantics**: Unique ownership (std::unique_ptr) and shared ownership (std::shared_ptr) might not fit the ownership semantics of your use case. In such cases, you might need to implement your own resource management code.
+
+So while smart pointers can often simplify code and eliminate the need for these special member functions, there are still cases where you might need to define them yourself.

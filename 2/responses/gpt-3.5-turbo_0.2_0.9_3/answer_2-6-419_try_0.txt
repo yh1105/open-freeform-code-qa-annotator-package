@@ -1,0 +1,5 @@
+Your approach is correct. You can pass multiple arguments from child to parent upon onClick event in child component by defining a method in the parent component and passing it as a parameter to the child component. In the child component, you can call the method with the required arguments using the @onclick directive.
+
+In your example, you are passing two arguments, name and id, to the ItemClicked method in the parent component. In the parent component, you can define the ItemClicked method with the same signature as in the child component. When the user clicks on the span element in the child component, the ItemClicked method in the parent component will be called with the corresponding arguments.
+
+Make sure that the types of the arguments in the child component and the parent component match. Also, ensure that the method name and parameter names are the same in both components.

@@ -1,0 +1,17 @@
+There isn't a direct standard-library tool to transform a vector into a vector of pairs. However, you can achieve this using a combination of standard-library tools in a concise way. Here's an example using iterators and the `std::pair` constructor:
+
+```cpp
+#include <vector>
+#include <utility>
+
+std::vector<int> origin {1, 2, 3, 4, 5, 6, 7, 8};
+std::vector<std::pair<int, int>> goal;
+
+for (auto it = origin.begin(); it != origin.end(); std::advance(it, 2)) {
+    goal.emplace_back(*it, *(it + 1));
+}
+```
+
+In this code, we create an iterator `it` that goes through the `origin` vector. We advance this iterator by 2 in each iteration of the loop, and use the `emplace_back` function to add a pair of the current and next elements to the `goal` vector.
+
+This code assumes that the `origin` vector always contains an even number of elements, as you mentioned. If there's a chance it might not, you should add error checking to prevent out-of-bounds access.

@@ -1,0 +1,50 @@
+You can extract the host name from the database URL by using regular expressions. Here's an updated version of your `getServiceStatus()` method that extracts the host name and displays it in the healthcheck:
+
+```
+@GetMapping(path = "/healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
+public String getServiceStatus() {
+    String[] activeProfiles = environment.getActiveProfiles();
+    final BeanWrapper accessor = PropertyAccessorFactory.forBeanPropertyAccess(dataSource);
+    final String driverClassName = String.valueOf(accessor.getPropertyValue("driverClassName"));
+    String url = null;
+
+    if (activeProfiles[1].equals("external_tomcat")) {
+        url = String.valueOf(accessor.getPropertyValue("url"));
+    } else {
+        try {
+            String[] dataSourceProperties = nameService.getDataSource();
+            url = dataSourceProperties[0];
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+        }
+    }
+
+    String version = buildProperties.getVersion();
+    String buildTimestamp = String.valueOf(buildProperties.getTime());
+    BigDecimal count = nameService.getCount("Table_name_of_database");
+
+    // Extract host name from database URL
+    String host = "";
+    Pattern pattern = Pattern.compile("HOST=([^\\)]+)");
+    Matcher matcher = pattern.matcher(url);
+    if (matcher.find()) {
+        host = matcher.group(1);
+    }
+
+    StringBuilder result = new StringBuilder("Hello")
+            .append("\nversion    :\t")
+            .append(version)
+            .append("\nbuild      :\t")
+            .append(buildTimestamp)
+            .append("\ndatasource :\t")
+            .append(driverClassName)
+            .append("\ndb url     :\t")
+            .append(host)
+            .append("\ndb status  :\tok  ")
+            .append(count.intValue())
+            .append(")");
+    return result.toString();
+}
+```
+
+This code uses a regular expression to extract the host name from the `url` variable. The regular expression matches the string "HOST=" followed by one or more characters that are not a closing parenthesis. The `Matcher.find()` method searches for the first occurrence of this pattern in the `url` string, and the `Matcher.group(1)` method returns the text that matched the first group (i.e. the host name). The host name is then appended to the healthcheck output.

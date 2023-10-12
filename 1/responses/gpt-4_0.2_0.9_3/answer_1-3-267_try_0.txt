@@ -1,0 +1,20 @@
+The message "Not creating XLA devices, tf_xla_enable_xla_devices not set" is not an error but a warning from TensorFlow 2.4.1. This is because TensorFlow 2.4.1 has XLA (Accelerated Linear Algebra) support but it's not enabled by default. XLA is a domain-specific compiler for linear algebra that can further optimize TensorFlow computations.
+
+However, this warning should not prevent your program from running. If your program is not running, the issue lies elsewhere.
+
+Here are a few things you can try:
+
+1. Check your code for any errors. Make sure all the required files and dependencies are in place.
+
+2. Ensure that your server is running correctly. The URL http://0.0.0.0:4567/ suggests that you are running a local server. Make sure that the server is started correctly and is not being blocked by any firewall or security settings.
+
+3. If you are using a GPU, make sure that TensorFlow is able to access it. You can check this by running the following code:
+
+```python
+import tensorflow as tf
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+```
+
+If the output is 0, TensorFlow is not able to access your GPU. You may need to update your GPU drivers or CUDA toolkit.
+
+4. If you are still facing issues, please provide more details about the error or issue you are facing. The more information you provide, the easier it will be to help you.

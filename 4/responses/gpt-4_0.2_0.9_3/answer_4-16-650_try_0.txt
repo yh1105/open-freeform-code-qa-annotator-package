@@ -1,0 +1,27 @@
+No problem at all! Here's how you can do it in PowerShell:
+
+First, you can read the text file and store each line in an array with the `Get-Content` cmdlet:
+
+```powershell
+$arrayFromFile = Get-Content -Path "C:\USER\Documents\Collections\collection.txt"
+```
+
+Then, you can iterate over each element in the array and run your command:
+
+```powershell
+foreach ($x in $arrayFromFile) {
+    newman run $x
+}
+```
+
+So, your complete script would look like this:
+
+```powershell
+$arrayFromFile = Get-Content -Path "C:\USER\Documents\Collections\collection.txt"
+
+foreach ($x in $arrayFromFile) {
+    newman run $x
+}
+```
+
+This script reads the file `collection.txt`, stores each line as an element in the array `$arrayFromFile`, and then runs the `newman run` command for each element in the array.

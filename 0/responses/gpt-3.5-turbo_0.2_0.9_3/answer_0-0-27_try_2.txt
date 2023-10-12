@@ -1,0 +1,14 @@
+It seems like you are using a wrong URI for your GraphQL server. The URI you are using is a demo server provided by Apollo Client, which may not have the data you are trying to fetch. You should replace it with the URI of your own GraphQL server.
+
+If you don't have a GraphQL server yet, you can create one using tools like Apollo Server or Hasura. Once you have a server, replace the URI in your `ApolloClient` configuration with the URI of your server.
+
+For example, if you are using Apollo Server, your `ApolloClient` configuration may look like this:
+
+```
+const apolloClient = new ApolloClient({
+    uri: 'http://localhost:4000/graphql', // replace with your server URI
+    cache: new InMemoryCache(),
+});
+```
+
+Make sure to replace `http://localhost:4000/graphql` with the actual URI of your server.

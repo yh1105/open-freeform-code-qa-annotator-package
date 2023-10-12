@@ -1,0 +1,46 @@
+The AppBar widget in Flutter is quite flexible and can be customized to a great extent. However, to achieve the layout you want, you might need to create a custom AppBar. Here's a sample code snippet that might help you:
+
+```dart
+appBar: PreferredSize(
+  preferredSize: Size.fromHeight(60.0), // here the desired height
+  child: AppBar(
+    backgroundColor: Colors.white,
+    elevation: 0,
+    leading: IconButton(
+      icon: Icon(Icons.menu, color: Colors.black),
+      onPressed: () {
+        // handle your drawer here
+      },
+    ),
+    title: Text(
+      'Title',
+      style: TextStyle(color: Colors.black),
+    ),
+    actions: <Widget>[
+      IconButton(
+        icon: Icon(Icons.search, color: Colors.black),
+        onPressed: () {
+          // handle your actions here
+        },
+      ),
+      IconButton(
+        icon: Icon(Icons.notifications, color: Colors.black),
+        onPressed: () {
+          // handle your actions here
+        },
+      ),
+    ],
+    bottom: PreferredSize(
+      child: Container(
+        color: Colors.grey,
+        height: 1.0,
+      ),
+      preferredSize: Size.fromHeight(1.0),
+    ),
+  ),
+),
+```
+
+In this code, I have used the `PreferredSize` widget to set a custom height for the AppBar. The `leading` property is used to set the drawer icon, the `title` property is used to set the title, and the `actions` property is used to set the action icons. The `bottom` property is used to set a grey line at the bottom of the AppBar.
+
+Please replace the `Colors.white`, `Colors.black`, and `Colors.grey` with your custom colors. Also, handle the drawer and actions in the `onPressed` methods of the respective `IconButton` widgets.

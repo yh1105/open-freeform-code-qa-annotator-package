@@ -1,0 +1,14 @@
+In order to prevent the user from accessing inner pages of the app after logging out, you need to clear the navigation stack. This way, when the user presses the back button, they won't be able to navigate back to the previous pages.
+
+In Flutter, you can use `pushAndRemoveUntil` method to push a new route and clear all the previous routes. Here's an example:
+
+```dart
+Navigator.of(context).pushAndRemoveUntil(
+  MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+  (Route<dynamic> route) => false,
+);
+```
+
+In this code, `pushAndRemoveUntil` pushes the `LoginPage` and removes all the routes below it. The `(Route<dynamic> route) => false` part is a condition that specifies which routes to remove. In this case, it's set to `false`, which means all routes are removed.
+
+This way, when the user logs out and is redirected to the login page, they won't be able to navigate back to the previous pages by pressing the back button.

@@ -1,0 +1,17 @@
+The error you're encountering is likely due to a null safety issue. Flutter 2.0 introduced null safety, which means that variables can't be null unless you explicitly allow them to be. This is a breaking change, and it can cause issues if your code or any packages you're using haven't been updated to handle null safety.
+
+The error message "Expected a value of type 'SkDeletable', but got one of type 'Null'" suggests that somewhere in your code (or in a package you're using), a value of type 'SkDeletable' is expected, but a null value is being provided instead.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Check your code:** Look through your code to see if there are any places where you're providing a null value where a 'SkDeletable' is expected. If you find any, you'll need to update your code to ensure that a 'SkDeletable' is always provided.
+
+2. **Check your packages:** If you're using any packages in your project, check to see if they've been updated to support null safety. If they haven't, you may need to find an alternative package that does support null safety, or you may need to fork the package and update it yourself.
+
+3. **Migrate your code to null safety:** If you haven't already, you should migrate your code to null safety. This will help you catch and fix any potential null safety issues in your code. You can use the Dart migration tool to help with this.
+
+4. **Check Flutter version:** Make sure you're using the correct Flutter version. Some packages may not be compatible with the latest version of Flutter. You can check the Flutter version by running `flutter --version` in your terminal.
+
+5. **Clean and get packages:** Try running `flutter clean` and then `flutter pub get` in your terminal. This will clean your build and fetch the necessary packages again.
+
+If none of these steps resolve your issue, you may need to provide more information or share your code so that someone can help you diagnose the problem.

@@ -1,0 +1,7 @@
+The Python `match`/`case` structure, introduced in Python 3.10, is not implemented as a hash table or lookup table. Instead, it's implemented as a linear sequence of comparisons, similar to a series of `if`/`elif` statements. This means that the time complexity of a `match` statement is O(n), where n is the number of `case` clauses.
+
+In your example, the `match` statement checks each `case` clause in order, from top to bottom. If the input is '0', it matches the first `case` clause, so the `match` statement completes after one comparison. If the input is '1', it doesn't match the first `case` clause, so the `match` statement checks the second `case` clause, and so on.
+
+This is why the time taken increases with the value of the input: the `match` statement has to check more `case` clauses before it finds a match. For '7', it has to check all the `case` clauses, which takes the longest time.
+
+This behavior is different from some other programming languages, like C or Java, where a `switch` statement is often implemented as a jump table, providing constant-time access to each case. However, Python's `match` statement is more flexible than a `switch` statement, as it can match on different types of patterns, not just constant values. This flexibility comes at the cost of linear time complexity.

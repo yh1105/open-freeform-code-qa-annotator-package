@@ -1,0 +1,61 @@
+It seems like the issue is related to running Chrome as root. Lambda runs containers as the root user by default, which can cause issues with Chrome and other applications that require non-root access. To fix this, you can add a user to the Dockerfile and switch to that user before running Chrome.
+
+Here's an updated Dockerfile that adds a user and switches to that user before installing Chrome and Chromedriver:
+
+```
+# 1) DOWNLOAD BASE IMAGE.
+FROM public.ecr.aws/lambda/python:3.8
+
+# 2) DEFINE GLOBAL ARGS.
+ARG MAIN_FILE="main.py"
+ARG ENV_FILE="params.env"
+ARG REQUIREMENTS_FILE="requirements.txt"
+ARG FUNCTION_ROOT="."
+ARG RUNTIME_VERSION="3.8"
+
+# 3) COPY FILES.
+# Copy The Main .py File.
+COPY ${MAIN_FILE} ${LAMBDA_TASK_ROOT}
+# Copy The .env File.
+COPY ${ENV_FILE} ${LAMBDA_TASK_ROOT}
+# Copy The requirements.txt File.
+COPY ${REQUIREMENTS_FILE} ${LAMBDA_TASK_ROOT}
+# Copy Helpers Folder.
+COPY helpers/ ${LAMBDA_TASK_ROOT}/helpers/
+# Copy Private Folder.
+COPY priv/ ${LAMBDA_TASK_ROOT}/priv/
+# Copy Source Data Folder.
+COPY source_data/ ${LAMBDA_TASK_ROOT}/source_data/
+
+# 4) INSTALL DEPENDENCIES.
+RUN --mount=type=cache,target=/root/.cache/pip python3.8 -m pip install --upgrade pip
+RUN --mount=type=cache,target=/root/.cache/pip python3.8 -m pip install wheel
+RUN --mount=type=cache,target=/root/.cache/pip python3.8 -m pip install urllib3
+RUN --mount=type=cache,target=/root/.cache/pip python3.8 -m pip install -r requirements.txt --default-timeout=100
+
+# 5) ADD USER AND SWITCH TO USER.
+RUN useradd -ms /bin/bash lambdauser
+USER lambdauser
+
+# 6) DOWNLOAD & INSTALL CHROMEIUM + CHROMEDRIVER.
+#RUN yum -y upgrade
+RUN sudo yum -y install wget unzip libX11 nano wget unzip xorg-x11-xauth xclock xterm
+
+# Install Chrome
+RUN wget https://intoli.com/install-google-chrome.sh
+RUN bash install-google-chrome.sh
+
+# Install Chromedriver
+RUN wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+RUN unzip ./chromedriver_linux64.zip
+RUN rm ./chromedriver_linux64.zip
+RUN mv -f ./chromedriver /usr/local/bin/chromedriver
+RUN chmod 755 /usr/local/bin/chromedriver
+
+# 7) SET CMD OF HANDLER.
+CMD [ "main.lambda_handler" ]
+```
+
+Note the addition of the `USER` and `useradd` commands, which add a user named `lambdauser` and switch to that user before installing Chrome and Chromedriver.
+
+You can then rebuild and push the updated image to ECR, and try running the Lambda function again. This should hopefully resolve the issue with Chrome crashing.

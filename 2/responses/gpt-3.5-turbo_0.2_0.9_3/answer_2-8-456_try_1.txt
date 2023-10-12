@@ -1,0 +1,51 @@
+One solution to this problem is to create a new interface that embeds the `Card` interface and adds the `String()` method. This way, any type that implements the `Card` interface will also implement the new interface and have the `String()` method available.
+
+Here's an example of how you can define the new interface:
+
+```
+type Stringer interface {
+    Card
+    String() string
+}
+```
+
+Now, you can modify your `card` struct to implement this new interface:
+
+```
+type card struct {
+    cardNum int
+    face    string
+    suit    string
+}
+
+func NewCard(num int) Stringer {
+    newCard := card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+
+    return &newCard
+}
+
+func (c *card) GetFace() string {
+    return c.face
+}
+
+func (c *card) GetSuit() string {
+    return c.suit
+}
+
+func (c *card) String() string {
+    return fmt.Sprintf("%s%s ", c.GetFace(), c.GetSuit())
+}
+```
+
+Now, you can use the `String()` method on any type that implements the `Stringer` interface, including the `card` type returned by `NewCard()`.
+
+```
+func TestString(t *testing.T) {
+    card := NewCard(0)
+    assert.EqualValues(t, "AceHearts ", card.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```

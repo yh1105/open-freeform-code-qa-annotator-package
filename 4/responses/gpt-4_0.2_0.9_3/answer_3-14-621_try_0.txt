@@ -1,0 +1,33 @@
+The error you're seeing is because `@State` variables are designed to be managed by SwiftUI, and you're not supposed to change them outside of the SwiftUI view's body. 
+
+However, you can use a different property wrapper, `@StateObject`, to create a custom ObservableObject that can be initialized with a value. Here's an example:
+
+```swift
+class TextModel: ObservableObject {
+    @Published var fullText: String
+
+    init(fullText: String) {
+        self.fullText = fullText
+    }
+}
+
+struct StateFromOutside: View {
+    let list = [
+        "a": "Letter A",
+        "b": "Letter B",
+        // ...
+    ]
+
+    @StateObject var textModel: TextModel
+
+    init(letter: String) {
+        _textModel = StateObject(wrappedValue: TextModel(fullText: list[letter] ?? ""))
+    }
+
+    var body: some View {
+        TextField("Enter text", text: $textModel.fullText)
+    }
+}
+```
+
+In this example, `TextModel` is a class that conforms to `ObservableObject` and has a `@Published` property `fullText`. You can initialize `TextModel` with a value for `fullText`, and SwiftUI will observe changes to `fullText` and update the view as needed.

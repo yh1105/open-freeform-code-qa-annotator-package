@@ -1,0 +1,62 @@
+The issue seems to be with the way you've set up your project structure and the way you're trying to resolve the paths. 
+
+Here's a step-by-step guide on how you can set up absolute imports in your project:
+
+1. **Update `tsconfig.json`**
+
+In your `tsconfig.json`, you need to specify the `baseUrl` and `paths`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "*": ["src/*"]
+    }
+    // other options...
+  },
+  "include": ["src"]
+}
+```
+
+This tells TypeScript to use `src` as the base directory for resolving modules.
+
+2. **Update webpack configuration**
+
+You also need to update your webpack configuration to resolve modules from the `src` directory:
+
+```js
+const path = require('path');
+
+module.exports = {
+  // other options...
+  resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
+};
+```
+
+This tells webpack to look into `src` and `node_modules` when resolving modules.
+
+3. **Update `.env` file**
+
+In your `.env` file, you need to specify `NODE_PATH`:
+
+```
+NODE_PATH=src/
+```
+
+This tells Node.js to include `src` in the module resolution paths.
+
+4. **Restart your development server**
+
+After making these changes, you need to restart your development server for the changes to take effect.
+
+With these changes, you should be able to use absolute imports in your project. For example, if you have a component at `src/components/MyComponent.tsx`, you can import it like this:
+
+```js
+import MyComponent from 'components/MyComponent';
+```
+
+If you're still having issues, it could be due to the unconventional project structure. You might want to consider restructuring your project to follow the typical structure for a React app, where the `src` directory is at the root of the project.

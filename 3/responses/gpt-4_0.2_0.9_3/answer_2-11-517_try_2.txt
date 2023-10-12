@@ -1,0 +1,56 @@
+In C++, string interpolation as you've described it in C# or JavaScript is not directly supported. However, there are several ways to format strings in C++.
+
+1. **Using `std::stringstream` or `std::ostringstream`:**
+
+```cpp
+#include <sstream>
+
+int myVariable = 123;
+std::ostringstream ss;
+ss << "My variable has value " << myVariable;
+std::string s = ss.str();
+```
+
+2. **Using `std::to_string`:**
+
+```cpp
+int myVariable = 123;
+std::string s = "My variable has value " + std::to_string(myVariable);
+```
+
+3. **Using `printf` or `sprintf` (C style):**
+
+```cpp
+int myVariable = 123;
+char s[50];
+sprintf(s, "My variable has value %d", myVariable);
+```
+
+4. **Using `boost::format` (if you are using Boost library):**
+
+```cpp
+#include <boost/format.hpp>
+
+int myVariable = 123;
+std::string s = (boost::format("My variable has value %1%") % myVariable).str();
+```
+
+5. **Using `fmt` library (modern and type-safe formatting library):**
+
+```cpp
+#include <fmt/core.h>
+
+int myVariable = 123;
+std::string s = fmt::format("My variable has value {}", myVariable);
+```
+
+The `fmt` library is part of the {fmt} project and its format API is included in C++20 as `std::format`. So, in C++20 you can do:
+
+```cpp
+#include <format>
+
+int myVariable = 123;
+std::string s = std::format("My variable has value {}", myVariable);
+```
+
+Please note that `std::format` is not yet widely supported in all compilers as of the time of writing this.

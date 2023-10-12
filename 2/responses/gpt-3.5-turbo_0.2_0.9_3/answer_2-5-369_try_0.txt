@@ -1,0 +1,8 @@
+It looks like you are missing the "Local Changes" tab in the Git tool window. You can enable it by following these steps:
+
+1. Open the Git tool window by clicking on the "Git" tab at the bottom of the screen.
+2. Click on the gear icon in the top right corner of the Git tool window.
+3. Select "Local Changes" from the dropdown menu.
+4. The "Local Changes" tab should now appear in the Git tool window.
+
+If you still can't see your local changes, make sure that you have made changes to files that are tracked by Git. If you have made changes to untracked files, they will not appear in the "Local Changes" tab until you stage them. You can stage untracked files by right-clicking on them in the Project tool window and selecting "Git -> Add".

@@ -1,0 +1,15 @@
+The Dart static analyzer is not smart enough to infer that `myMap[1]` will not be `null` inside the `if (myMap.containsKey(1))` block. Even though logically we know that if `myMap.containsKey(1)` is true, `myMap[1]` will not be `null`, the Dart analyzer does not make this inference.
+
+The Dart analyzer sees `myMap[1]` as an operation that can potentially return `null`, because the `Map` operator `[]` is defined to return `null` if the key is not present in the map. Therefore, it warns you that you are trying to assign a potentially `null` value to a non-nullable variable.
+
+You can fix this by using the `!` operator to tell the Dart analyzer that you are sure that `myMap[1]` will not be `null` at this point:
+
+```dart
+void foo(Map<int, String> myMap) {
+  if (myMap.containsKey(1)) {
+    String s = myMap[1]!;
+  }
+}
+```
+
+The `!` operator converts a nullable type to a non-nullable type, and will throw an exception at runtime if the value is `null`. In this case, you are sure that `myMap[1]` will not be `null`, so it is safe to use the `!` operator.

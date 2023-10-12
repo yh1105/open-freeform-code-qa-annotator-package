@@ -1,0 +1,22 @@
+You are almost there. You just need to iterate over the inner lists as well. Here's how you can do it:
+
+```python
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]]]
+
+for sublist1 in a:
+    for sublist2 in sublist1:
+        print(sublist2)
+```
+
+This will print:
+
+```python
+[0, 0]
+[3, 0]
+[1, 0]
+[4, 0]
+[2, 0]
+[6, 0]
+```
+
+This is because the outer loop iterates over the first level of lists, the inner loop iterates over the second level of lists, and the print statement prints the third level of lists.

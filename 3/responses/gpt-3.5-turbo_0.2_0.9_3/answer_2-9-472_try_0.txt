@@ -1,0 +1,15 @@
+The error message suggests that there is an issue with the `node-sass` package during the build process. This could be due to a version incompatibility or an issue with the installation.
+
+Here are some steps you can try to resolve the issue:
+
+1. Update the `node-sass` package to the latest version by running `yarn add node-sass@latest` or `npm install node-sass@latest`.
+
+2. If updating the package does not work, try removing the `node-sass` package and installing it again by running `yarn remove node-sass` and then `yarn add node-sass` or `npm uninstall node-sass` and then `npm install node-sass`.
+
+3. Check if there are any other dependencies that may be causing conflicts with `node-sass`. You can try removing or updating these dependencies to see if it resolves the issue.
+
+4. If none of the above steps work, try deleting the `node_modules` folder and running `yarn install` or `npm install` again to reinstall all dependencies.
+
+5. If the issue persists, you can try downgrading the Node.js version to a lower version that is compatible with the dependencies in your project. You can do this by updating the `engines` field in your `package.json` file to a lower version of Node.js, such as `"node": "14.x"`.
+
+6. If you are still unable to resolve the issue, you can try reaching out to the Heroku support team for further assistance.

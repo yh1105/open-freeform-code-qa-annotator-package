@@ -1,0 +1,32 @@
+The error message "Expected 2D array, got 1D array instead" is because the `predict()` method expects a 2D array as input, but you are passing a 1D array. To fix this, you can reshape the input array to have a shape of `(1, 2)` using the `reshape()` method. Here's the updated code:
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import style
+style.use("ggplot")
+from sklearn import svm
+
+x = [1, 5, 1.5, 8, 1, 9]
+y = [2, 8, 1.8, 8, 0.6, 11]
+
+plt.scatter(x,y)
+plt.show()
+
+X = np.array([[1,2],
+             [5,8],
+             [1.5,1.8],
+             [8,8],
+             [1,0.6],
+             [9,11]])
+
+y = [0,1,0,1,0,1]
+X = X.reshape(-1, 2)
+
+clf = svm.SVC(kernel='linear', C = 1.0)
+clf.fit(X,y)
+
+print(clf.predict([[0.58,0.76]]))
+```
+
+Note that `X.reshape(-1, 2)` reshapes `X` to have 2 columns and an unknown number of rows, which is inferred from the size of `X`. This ensures that the input to `predict()` is a 2D array with shape `(1, 2)`.

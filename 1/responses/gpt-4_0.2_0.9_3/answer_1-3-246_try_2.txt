@@ -1,0 +1,13 @@
+It seems like you've done most of the steps correctly. Here are a few things you could check or try:
+
+1. **IAM Permissions:** Make sure the service account you created has the `roles/cloudfunctions.invoker` role at the project level. This will allow the service account to invoke any Cloud Function in the project. You can do this by going to the IAM page in the Google Cloud Console, finding the service account, and adding the role.
+
+2. **Audience Field:** The audience field should be set to the URL of the function you are trying to invoke. This is the same URL you put in the `URL` field of the Cloud Scheduler job.
+
+3. **OIDC token:** Make sure you have selected `Add OIDC token` in the `Auth header` field of the Cloud Scheduler job. The `Service account` field should be the email of the service account you created.
+
+4. **Function Permissions:** Make sure the function you are trying to invoke has the correct permissions. You can do this by going to the Cloud Functions page in the Google Cloud Console, clicking on the function, and then clicking on the `PERMISSIONS` tab. There should be a role for `allUsers` with the `Cloud Functions Invoker` role. If it's not there, you can add it by clicking `ADD MEMBER`, entering `allUsers` in the `New members` field, selecting `Cloud Functions Invoker` from the `Role` dropdown, and clicking `SAVE`.
+
+5. **Re-enable Cloud Scheduler API:** If none of the above works, you could try disabling and then re-enabling the Cloud Scheduler API. This will create a new service account for the Cloud Scheduler, which might fix the issue.
+
+If you're still having issues after trying these steps, it might be a good idea to reach out to Google Cloud Support for further assistance.

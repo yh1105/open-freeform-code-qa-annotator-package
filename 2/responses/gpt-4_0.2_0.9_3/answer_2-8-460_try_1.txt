@@ -1,0 +1,11 @@
+You can achieve this by iterating over the map and printing each key-value pair. Here is an example of how you can do it:
+
+```go
+for key, value := range getUsersAppInfo[0] {
+    fmt.Printf("%s value is %v\n", key, value)
+}
+```
+
+In this code, `getUsersAppInfo[0]` is used to access the first map in the slice. The `range` keyword is used to iterate over each key-value pair in the map. The `Printf` function is used to print the key and value in the desired format.
+
+Please note that this assumes `getUsersAppInfo` is a slice of maps. If it's a single map, you can remove the `[0]` index.

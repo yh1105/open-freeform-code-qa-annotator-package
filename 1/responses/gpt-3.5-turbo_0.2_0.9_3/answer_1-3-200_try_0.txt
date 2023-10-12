@@ -1,0 +1,38 @@
+The error message you are receiving indicates that the `git checkout` command is failing. This could be due to a number of reasons, such as the specified commit hash not existing in the repository or the repository not being in a clean state.
+
+To troubleshoot this issue, you can try the following:
+
+1. Check that the specified commit hash exists in the repository by running the command `git log` and looking for the commit hash in the output.
+
+2. Ensure that the repository is in a clean state by running the command `git status`. If there are any uncommitted changes or untracked files, you may need to commit or stash them before running the `git checkout` command.
+
+3. Try running the `git checkout` command manually in the terminal to see if it produces any errors or prompts for input.
+
+4. Add the `stderr=subprocess.STDOUT` parameter to the `subprocess.check_output` call to capture any error messages that may be returned by the `git checkout` command.
+
+5. Consider using the `subprocess.run` method instead of `subprocess.check_output` to capture both the output and return code of the `git checkout` command. This can help provide more information about the error.
+
+Here is an updated version of your code that includes some of these suggestions:
+
+```
+with open(filename) as inputfile:
+    reader = csv.reader(inputfile, delimiter=",")
+    linecount = 0
+    for row in reader:
+        if linecount == 0:
+            linecount += 1
+        else:
+            repo = str(row[0])
+            sha = str(row[2])
+            specificfile = str(row[3])
+            linenum = int(row[4])
+            cl("cd", repo)
+            try:
+                subprocess.run(['git', 'checkout', sha], check=True, stderr=subprocess.STDOUT)
+                print("checkout done")
+                git("checkout", "-")
+            except subprocess.CalledProcessError as e:
+                print("Error: ", e.output.decode())
+``` 
+
+This code will capture any error messages produced by the `git checkout` command and print them to the console. It also uses the `subprocess.run` method to capture both the output and return code of the command.

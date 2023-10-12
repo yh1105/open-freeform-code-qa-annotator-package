@@ -1,0 +1,25 @@
+The error message suggests that there is an issue with linking the C library against JNA. This could be due to a mismatch in architecture between the JNA library and the Cassandra installation.
+
+One solution to this problem is to try installing the JNA library separately and then linking it to Cassandra. You can do this by following these steps:
+
+1. Download the JNA library from the official website: https://github.com/java-native-access/jna
+
+2. Extract the downloaded archive and copy the JAR file to the Cassandra lib directory:
+
+   ```
+   cp jna-<version>.jar /opt/homebrew/opt/cassandra/lib/
+   ```
+
+3. Set the `jna.library.path` system property to the Cassandra lib directory:
+
+   ```
+   export JVM_OPTS="$JVM_OPTS -Djna.library.path=/opt/homebrew/opt/cassandra/lib/"
+   ```
+
+4. Start Cassandra again:
+
+   ```
+   /opt/homebrew/opt/cassandra/bin/cassandra -f
+   ```
+
+This should resolve the issue and allow you to start Cassandra successfully.

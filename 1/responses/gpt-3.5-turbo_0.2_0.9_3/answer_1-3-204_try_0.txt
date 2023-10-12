@@ -1,0 +1,11 @@
+The issue with your code is that the `rename()` method does not have a `columns` parameter. Instead, you should use the `index` parameter to rename the index of the resulting series. Here's the corrected code:
+
+```
+import pandas as pd
+import numpy as np
+datain = np.loadtxt(datafile)
+df = pd.DataFrame(data = datain, columns = ["t","p","x","y","z"])
+avg = df.groupby(["t"], sort=False)["p"].mean().rename(index={1:"mean"})
+```
+
+This should rename the index of the resulting series to "mean".

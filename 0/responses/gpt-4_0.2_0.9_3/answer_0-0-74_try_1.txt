@@ -1,0 +1,38 @@
+Next.js doesn't provide a built-in way to get the previous URL. However, you can achieve this by using a custom middleware in your `_app.js` file. This middleware will store the current URL in a cookie before rendering a new page. Then, you can read this cookie to get the previous URL.
+
+Here's an example of how you can do this:
+
+1. Install `js-cookie` and `next-cookies`:
+
+```bash
+npm install js-cookie next-cookies
+```
+
+2. In your `_app.js` file, add a middleware that sets a cookie with the current path:
+
+```jsx
+import App from 'next/app';
+import Router from 'next/router';
+import Cookies from 'js-cookie';
+
+Router.events.on('routeChangeStart', (url) => {
+  Cookies.set('previousUrl', url, { expires: 7 });
+});
+
+class MyApp extends App {
+  // your code...
+}
+
+export default MyApp;
+```
+
+3. Now, you can get the previous URL from the cookie:
+
+```jsx
+import { parseCookies } from 'nookies';
+
+const cookies = parseCookies();
+const previousUrl = cookies.previousUrl;
+```
+
+This will give you the previous URL before the page was rendered. Remember that this will only work on the client side, as cookies are not accessible on the server side during server-side rendering (SSR). If you need to access the previous URL on the server side, you may need to implement a different solution, such as storing the previous URL in a session.

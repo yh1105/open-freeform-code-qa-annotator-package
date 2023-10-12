@@ -1,0 +1,10 @@
+In C# 9.0 and later, you can define additional constructors for a record type. However, these constructors must call the primary constructor first. Here is how you can define a parameterless constructor for your `Person` record:
+
+```csharp
+public record Person(int Id, string FirstName, string LastName)
+{
+    public Person() : this(0, string.Empty, string.Empty) { }
+}
+```
+
+In this code, the `Person()` constructor calls the primary constructor `Person(int Id, string FirstName, string LastName)` with default values. This is necessary because in a record type, the compiler generates a constructor with the same parameters as the record declaration (the primary constructor), and any additional constructors must call the primary constructor.

@@ -1,0 +1,15 @@
+The error message you're seeing typically means that the `startup.sh` script does not have execute permissions. In Unix-like operating systems, in order to run a script directly from the command line, you need to have execute (`x`) permissions on the script file.
+
+You can add execute permissions to the `startup.sh` script with the following command:
+
+```
+chmod +x startup.sh
+```
+
+After running this command, you should be able to start the script with `./startup.sh nginx:start`.
+
+If you still encounter issues, it could be due to the following reasons:
+
+1. The file system is mounted with `noexec` option. You can check this by running `mount` command.
+2. The script does not have a proper shebang at the top. The shebang is the first line in the script and it specifies the interpreter for the script. For a shell script, it should be `#!/bin/sh` or `#!/bin/bash`.
+3. The user you are running the script as does not have the necessary permissions. In this case, you may need to run the script as a different user or modify the file permissions appropriately.

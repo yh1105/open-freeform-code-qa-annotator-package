@@ -1,0 +1,13 @@
+Based on the error message, it seems like the issue is with the `ZIndexProperty` field in the `Microsoft.Maui.Controls.VisualElement` class. The error message says that the field is inaccessible from the `Ventas_Citel.Views.Login.Login:InitializeComponent()` method.
+
+One possible solution is to update the `Microsoft.Maui.Controls` package to the latest version. It's possible that the version you're using has a bug that causes this issue.
+
+Another possible solution is to modify the `Proguard` configuration file to exclude the `ZIndexProperty` field from being obfuscated. This can be done by adding the following line to the `proguard.cfg` file:
+
+```
+-keep class Microsoft.Maui.Controls.VisualElement { public static readonly Microsoft.Maui.Controls.BindableProperty ZIndexProperty; }
+```
+
+This will prevent the `ZIndexProperty` field from being obfuscated, which should fix the issue.
+
+If neither of these solutions work, you may need to debug the issue further by looking at the stack trace and identifying where the issue is occurring. You can also try running the app in release mode with a debugger attached to see if you can catch any exceptions or errors.

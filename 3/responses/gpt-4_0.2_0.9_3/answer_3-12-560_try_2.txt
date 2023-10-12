@@ -1,0 +1,21 @@
+`MaterialStateProperty` is a class in Flutter that represents a property (like color, padding, etc.) which can have different values depending on the state of the widget (like pressed, hovered, focused, etc.). 
+
+In the context of `ButtonStyle`, you can use `MaterialStateProperty` to change the background color of a button depending on its state. Here is an example:
+
+```dart
+ThemeData(
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed))
+            return Colors.blue; // color when button is pressed
+          return Colors.red; // default color
+        },
+      ),
+    ),
+  ),
+),
+```
+
+In this example, the button's background color will be red by default, but when the button is pressed, the color will change to blue.

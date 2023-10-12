@@ -1,0 +1,25 @@
+The AWS CLI uses a pager program to handle its output by default. This is why you are seeing the interactive pager for each command. You can disable this behavior by setting the AWS_PAGER environment variable to an empty string.
+
+You can do this in your script like this:
+
+```bash
+for x in 1 2 3; do 
+  AWS_PAGER="" aws sqs purge-queue --queue-url https://sqs.<aws-region>.amazonaws.com/<id>/<env>-$x-<queueName>.fifo; 
+done
+```
+
+Or you can set it once in your shell session before running the script:
+
+```bash
+export AWS_PAGER=""
+```
+
+Then run your script:
+
+```bash
+for x in 1 2 3; do 
+  aws sqs purge-queue --queue-url https://sqs.<aws-region>.amazonaws.com/<id>/<env>-$x-<queueName>.fifo; 
+done
+```
+
+This will prevent the AWS CLI from using a pager for its output.

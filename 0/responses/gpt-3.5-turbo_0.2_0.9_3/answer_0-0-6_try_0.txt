@@ -1,0 +1,7 @@
+Glad to hear that you were able to fix the issue! Switching to a function component and using `useHistory` hook is a good approach for handling redirects in React. 
+
+Using `withRouter` HOC is also a good practice when you need to access the `history` object in a class component. However, it's not necessary in function components when using `useHistory` hook. 
+
+Also, using `BrowserRouter` instead of `HashRouter` is a good choice if you want to have cleaner URLs without the hash symbol. 
+
+Overall, great job on resolving the issue and improving your code!

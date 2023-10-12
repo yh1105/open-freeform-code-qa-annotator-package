@@ -1,0 +1,34 @@
+The error message "invalid target release: 11" means that the Java compiler version that IntelliJ IDEA is using does not support Java 11. 
+
+Here are some steps you can follow to resolve this issue:
+
+1. **Check the Project SDK**: Go to `File > Project Structure > Project` and check the `Project SDK` field. It should be set to your installed JDK 11. If it's not, change it to JDK 11.
+
+2. **Check the Module SDK**: In the same `Project Structure` window, go to `Modules`, select your module, and check the `Module SDK` field. It should also be set to JDK 11. If it's not, change it to JDK 11.
+
+3. **Check the Java Compiler version**: Go to `File > Settings > Build, Execution, Deployment > Compiler > Java Compiler` and check the `Target bytecode version` for your module. It should be set to 11. If it's not, change it to 11.
+
+4. **Check the Maven Compiler Plugin**: If you're using Maven, check the configuration of the Maven Compiler Plugin in your `pom.xml` file. It should look something like this:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+    <configuration>
+        <source>11</source>
+        <target>11</target>
+    </configuration>
+</plugin>
+```
+
+5. **Check the Gradle Java version**: If you're using Gradle, check the Java version in your `build.gradle` file. It should look something like this:
+
+```groovy
+sourceCompatibility = '11'
+targetCompatibility = '11'
+```
+
+As for the JDK and JRE folders, starting from Java 9, Oracle provides JDK distributions only. The JRE is essentially a subset of the JDK and its use is not recommended for most development scenarios. So it's normal to see only the JDK folder for Java 11.
+
+If you've checked all these settings and you're still getting the error, you might need to restart IntelliJ IDEA or invalidate the caches (`File > Invalidate Caches / Restart...`) to make sure the changes take effect.

@@ -1,0 +1,19 @@
+If you want to use the same version of Java that is used by the Maven task, you can try to locate the path to the Java executable that is used by the Maven task. 
+
+To do this, you can run the following command in your terminal or command prompt:
+
+```
+mvn -version
+```
+
+This will display the version of Maven and the path to the Java executable that is used by Maven. 
+
+Once you have the path to the Java executable, you can use it to run Maven using the Maven wrapper. 
+
+For example, if the path to the Java executable is `/usr/bin/java`, you can run the Maven wrapper using the following command:
+
+```
+./mvnw -Dmaven.compiler.executable=/usr/bin/java clean install
+```
+
+This will use the Java executable located at `/usr/bin/java` to run Maven.

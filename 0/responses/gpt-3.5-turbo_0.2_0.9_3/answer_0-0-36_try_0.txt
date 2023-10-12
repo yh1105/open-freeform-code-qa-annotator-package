@@ -1,0 +1,3 @@
+To perform a client-side reload, you can use the `window.location.reload()` method. This will reload the current page in the browser and trigger a client-side rendering, which will call the `getInitialProps` function again.
+
+So, instead of using `Router.replace('/')`, you can use `window.location.reload()` to reload the page after creating a new data. This will ensure that the `getInitialProps` function is called in the browser and the data is loaded again.

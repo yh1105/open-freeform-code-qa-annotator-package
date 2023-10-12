@@ -1,0 +1,45 @@
+The issue is that the `name` and `age` tags in the `User` struct are not being used in the code, and therefore are considered unused by the linter. To fix this, you can use the tags in the `JSONEncode` function to generate the JSON keys instead of using the struct field names directly. Here's an updated version of the `JSONEncode` function that uses the tags:
+
+```
+func JSONEncode(v interface{}) ([]byte, error) {
+    refObjVal := reflect.ValueOf(v)
+    refObjTyp := reflect.TypeOf(v)
+    buf := bytes.Buffer{}
+    if refObjVal.Kind() != reflect.Struct {
+        return buf.Bytes(), fmt.Errorf(
+            "val of kind %s is not supported",
+            refObjVal.Kind(),
+        )
+    }
+    buf.WriteString("{")
+    pairs := []string{}
+    for i := 0; i < refObjVal.NumField(); i++ {
+        structFieldRefObj := refObjVal.Field(i)
+        structFieldRefObjTyp := refObjTyp.Field(i)
+
+        switch structFieldRefObj.Kind() {
+        case reflect.String:
+            strVal := structFieldRefObj.Interface().(string)
+            key := structFieldRefObjTyp.Tag.Get("name")
+            pairs = append(pairs, `"`+key+`":"`+strVal+`"`)
+        case reflect.Int64:
+            intVal := structFieldRefObj.Interface().(int64)
+            key := structFieldRefObjTyp.Tag.Get("age")
+            pairs = append(pairs, `"`+key+`":`+strconv.FormatInt(intVal, 10))
+        default:
+            return buf.Bytes(), fmt.Errorf(
+                "struct field with name %s and kind %s is not supprted",
+                structFieldRefObjTyp.Name,
+                structFieldRefObj.Kind(),
+            )
+        }
+    }
+
+    buf.WriteString(strings.Join(pairs, ","))
+    buf.WriteString("}")
+
+    return buf.Bytes(), nil
+}
+```
+
+With this change, the linter should no longer complain about the unused tags.

@@ -1,0 +1,54 @@
+The issue here is that the second element in the `"edges"` array is an empty string, which cannot be converted to an `int`. To solve this, you can create a custom `JsonConverter` for the `Edges` property that handles empty strings by setting them to `null`, which will then be ignored by the `NullValueHandling.Ignore` setting. Here's an example implementation:
+
+```
+public class IntListConverter : JsonConverter<List<int>>
+{
+    public override List<int> ReadJson(JsonReader reader, Type objectType, List<int> existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        var list = new List<int>();
+        while (reader.Read())
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Integer:
+                    list.Add(Convert.ToInt32(reader.Value));
+                    break;
+                case JsonToken.String:
+                    if (string.IsNullOrEmpty((string)reader.Value))
+                    {
+                        list.Add(default);
+                    }
+                    else
+                    {
+                        list.Add(Convert.ToInt32(reader.Value));
+                    }
+                    break;
+                case JsonToken.EndArray:
+                    return list;
+            }
+        }
+        return list;
+    }
+
+    public override void WriteJson(JsonWriter writer, List<int> value, JsonSerializer serializer)
+    {
+        throw new NotImplementedException();
+    }
+}
+```
+
+Then, you can apply this converter to the `Edges` property like this:
+
+```
+public class Redacted
+{
+    ...
+
+    [JsonProperty("edges", ItemConverterType = typeof(IntListConverter), NullValueHandling = NullValueHandling.Ignore)]
+    public List<int> Edges { get; set; } = new();
+
+    ...
+}
+```
+
+With this setup, the empty string in the `"edges"` array will be converted to `null`, which will then be ignored by the `NullValueHandling.Ignore` setting.

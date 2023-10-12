@@ -1,0 +1,19 @@
+The error you're seeing is due to the fact that the `@NotEmpty` and `@NotBlank` annotations are part of the Bean Validation 2.0 specification, which is implemented by Hibernate Validator 6.0.0.Final and later. 
+
+However, the version of Hibernate Validator that is being used in your application is 5.3.5.Final-redhat-2, which is part of the Bean Validation 1.1 specification and does not include these annotations.
+
+The version of Hibernate Validator is being determined by the version of Spring Boot you're using. Spring Boot 2.0.4.RELEASE depends on Hibernate Validator 5.3.7.Final, which is why you're seeing this version being used.
+
+To resolve this issue, you can override the Hibernate Validator version in your `pom.xml` to use a version that includes the Bean Validation 2.0 specification. You can do this by adding the following to your `pom.xml`:
+
+```xml
+<properties>
+    <hibernate-validator.version>6.0.11.Final</hibernate-validator.version>
+</properties>
+```
+
+This will tell Maven to use Hibernate Validator 6.0.11.Final instead of the version specified by Spring Boot.
+
+However, please note that Spring Boot 2.0.x is not officially compatible with Hibernate Validator 6.x. For full compatibility with Hibernate Validator 6.x, you should upgrade to Spring Boot 2.3.x or later.
+
+If upgrading Spring Boot is not an option, you might need to stick with the annotations available in Bean Validation 1.1, such as `@NotNull` and `@Size(min=1)`, to achieve similar validation.

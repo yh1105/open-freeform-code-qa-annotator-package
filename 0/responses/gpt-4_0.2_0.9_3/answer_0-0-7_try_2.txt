@@ -1,0 +1,29 @@
+The error message you're getting suggests that the JSON value you're trying to parse into an integer is not a valid integer. 
+
+The `parseInt` function you're using should work correctly if the string you're trying to parse is a valid integer. 
+
+Here's an example of how you can use `parseInt`:
+
+```javascript
+let str = "1478525";
+let num = parseInt(str);
+console.log(num); // 1478525
+```
+
+In your case, you should make sure that the `telephone` variable you're trying to parse is a string that represents a valid integer. 
+
+If `telephone` is a property of `this.person` and it's a string, you should be able to parse it like this:
+
+```javascript
+this.person.Telephone = parseInt(this.person.Telephone);
+```
+
+If `parseInt` still doesn't work, you could try using the `Number` function instead:
+
+```javascript
+this.person.Telephone = Number(this.person.Telephone);
+```
+
+This will convert the string to a number if it's a valid number. 
+
+If none of these solutions work, you might want to check the value of `this.person.Telephone` before you try to parse it. It's possible that it's not a string, or not a string that represents a valid integer.

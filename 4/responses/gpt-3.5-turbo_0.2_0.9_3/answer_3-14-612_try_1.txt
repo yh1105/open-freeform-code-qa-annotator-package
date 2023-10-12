@@ -1,0 +1,26 @@
+To parse the JSON and get the value, you can use the `JSONSerialization` class in Swift. Here's an example of how you can parse the JSON and get the price value:
+
+```
+func api() {
+    guard let url = URL(string: "https://sochain.com//api/v2/get_price/DOGE/USD") else { return }
+
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let dataDict = json["data"] as? [String: Any],
+               let prices = dataDict["prices"] as? [[String: Any]],
+               let price = prices.first?["price"] as? String {
+                print("Price: \(price)")
+            }
+        } catch let error as NSError {
+            print("Failed to load: \(error.localizedDescription)")
+        }
+    }
+
+    task.resume()
+}
+```
+
+This code uses `JSONSerialization` to parse the JSON data and extract the `price` value from the first element in the `prices` array. Note that the `price` value is a string, so you may need to convert it to a numeric type if you need to perform calculations with it.

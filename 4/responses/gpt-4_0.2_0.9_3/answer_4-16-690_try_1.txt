@@ -1,0 +1,17 @@
+Setting environment variables in `~/.bash_profile` or `~/.profile` should work, but you need to make sure that these files are actually being sourced when you start a new terminal session. 
+
+Here are a few things you can check:
+
+1. Make sure you replace `{USERNAME}` with your actual username in the path.
+
+2. Make sure you have the correct permissions to read the file. You can check this with `ls -l ~/.bash_profile` and `ls -l ~/.profile`. If you don't have read permissions, you can add them with `chmod +r ~/.bash_profile` and `chmod +r ~/.profile`.
+
+3. Try sourcing the file manually with `source ~/.bash_profile` or `. ~/.bash_profile` (the same for `~/.profile`). If this works, it means the file is not being sourced automatically when you start a new terminal session.
+
+4. Check if your terminal is using bash. You can do this with `echo $SHELL`. If it's not using bash, you might need to add the export to a different file. For example, if you're using zsh, you would add it to `~/.zshrc`.
+
+5. If you're using a system with Systemd, you might need to use the `systemctl --user import-environment` command to import the environment variables.
+
+6. If none of the above work, you can try adding the export to `~/.bashrc` instead. This file is sourced for interactive non-login shells, while `~/.bash_profile` is sourced for login shells.
+
+Remember to open a new terminal session (or source the file manually) after making any changes, as changes to these files won't affect existing sessions.

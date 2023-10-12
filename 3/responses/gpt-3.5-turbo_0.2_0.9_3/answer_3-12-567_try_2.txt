@@ -1,0 +1,36 @@
+To achieve the desired alignment, you can use the `MainAxisAlignment.spaceBetween` property for the `Row` widget and wrap the first two `Container` widgets in a `Row` widget with `MainAxisAlignment.start` property. Here's an updated code snippet:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          child: Icon(Icons.comment),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+        Container(
+          child: Text(
+            snapshot.data![index].comments.toString(),
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          margin: EdgeInsets.only(left: 5.0),
+        ),
+      ],
+    ),
+    Container(
+      child: Text(
+        snapshot.data![index].date.toString(),
+      ),
+      margin: EdgeInsets.only(right: 5.0),
+    ),
+  ],
+);
+```
+
+This will align the first two widgets to the left and the third widget to the right with space in between.

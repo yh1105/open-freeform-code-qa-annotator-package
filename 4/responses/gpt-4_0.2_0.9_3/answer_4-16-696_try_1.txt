@@ -1,0 +1,13 @@
+The issue here is that the `$(echo {} | sed 's/\?.*//g')` part is evaluated before the `find` command is run, so it doesn't replace `{}` with the filename. You need to use a shell to execute the `mv` command so that the replacement is done for each file.
+
+Here is the corrected command:
+
+```bash
+find . -type f -name '*\?*' -exec sh -c 'mv "$0" "$(echo $0 | sed 's/\?.*//g')"' {} \;
+```
+
+This command will find all files (`-type f`) in the current directory (`.`) and its subdirectories whose names contain a question mark (`*\?*`). For each of these files, it will execute (`-exec`) the command `sh -c 'mv "$0" "$(echo $0 | sed 's/\?.*//g')"' {} \;`.
+
+The `sh -c` part runs a shell and executes the command given as a string. The `{}` is passed as an argument to the shell and can be accessed as `$0` inside the command string. The `mv` command renames the file by removing the part after the question mark.
+
+Please note that this command will fail if there are multiple files in the same directory that have the same name before the question mark. You might want to add some error checking to handle this case.

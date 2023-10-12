@@ -1,0 +1,31 @@
+In order to change the background color of the selected button, you need to update the color property of the button in the onPressed() method. You can do this by creating a variable to keep track of the selected button index and updating the color of the button based on its index.
+
+Here's an updated version of your code that should work:
+
+```
+int _selectedIndex = -1;
+
+List<Widget> _makeZoneList(List<Zone> zones) {
+  List<Widget> buttons = new List();
+  for (int i = 0; i < zones.length; i++) {
+    buttons.add(RaisedButton(
+        color: _selectedIndex == i
+            ? AppColors.primaryColor
+            : AppColors.white,
+        onPressed: () {
+          setState(() {
+            if (_selectedIndex == i) {
+              _selectedIndex = -1;
+            } else {
+              _selectedIndex = i;
+            }
+            print(zones[i].isSelected.toString());
+          });
+        },
+        child: Text(zones.elementAt(i).text)));
+  }
+  return buttons;
+}
+```
+
+In this updated code, we added a new variable `_selectedIndex` to keep track of the selected button index. We also updated the color property of the button based on whether its index matches the `_selectedIndex`. Finally, we updated the `onPressed()` method to update the `_selectedIndex` variable and call `setState()` to trigger a UI update.

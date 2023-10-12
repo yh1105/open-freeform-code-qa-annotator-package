@@ -1,0 +1,13 @@
+The `disabled` attribute is a boolean attribute. When it is present, regardless of its actual value, the element is disabled. This means that setting `disabled="false"` will actually disable the element.
+
+In Angular, you can conditionally add or remove the `disabled` attribute by binding it to a null value to remove it, or to an empty string to add it.
+
+So, you can try this:
+
+```html
+<select [attr.disabled]="editable ? null : ''">
+...
+</select>
+```
+
+In this case, if `editable` is `true`, `null` will be returned and the `disabled` attribute will be removed. If `editable` is `false`, an empty string will be returned and the `disabled` attribute will be added, disabling the select element.

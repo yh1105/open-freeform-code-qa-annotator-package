@@ -1,0 +1,13 @@
+It's not necessarily a bad practice to have two separate pipelines for two very specific requests. The Mediator pattern and CQRS are all about decoupling and separation of concerns. If you have two different types of requests that require different handling, it makes sense to separate them into different pipelines. 
+
+However, there are a few things to consider:
+
+1. **Code Duplication**: If there's a lot of shared logic between the two pipelines, you might end up with code duplication. You should consider abstracting the shared logic into a common method or class.
+
+2. **Complexity**: Having multiple pipelines can increase the complexity of your codebase. You need to ensure that the benefits of having separate pipelines outweigh the added complexity.
+
+3. **Maintainability**: More pipelines mean more code to maintain. If the logic for handling requests changes, you might need to update it in multiple places.
+
+4. **Consistency**: If you have other requests that are handled by a generic pipeline, introducing specific pipelines might make your codebase less consistent.
+
+In conclusion, it's not a bad idea or practice to have separate pipelines for different requests if they have different requirements. Just make sure to manage the potential downsides.

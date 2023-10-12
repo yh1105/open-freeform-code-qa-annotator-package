@@ -1,0 +1,37 @@
+You can use multiprocessing in Python to run these two tasks concurrently. Here's how you can do it:
+
+```python
+from multiprocessing import Process
+
+def run_dash():
+    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+    database=db.dataBase()
+    homepage=hp.homepage(database)
+    homepage.timeUpdateCallback(app)
+    homepage.gaugeRefreshCallback(app)
+    app.layout = homepage.layoutMaker()
+
+    if __name__ == "__main__":
+        app.run_server(debug=True)
+
+def run_data_mining():
+    database=db.dataBase()
+    dataMiningScript= fd.financeData(database,1600)
+
+if __name__ == "__main__":
+    # Create two processes
+    p1 = Process(target=run_dash)
+    p2 = Process(target=run_data_mining)
+
+    # Start both processes
+    p1.start()
+    p2.start()
+
+    # Wait for both processes to finish
+    p1.join()
+    p2.join()
+```
+
+This way, both the Dash server and the data mining script will run concurrently. The `Process` class in Python's multiprocessing module is used to create separate processes. The `start()` method starts the execution of these processes and the `join()` method makes sure that the main process waits until both processes have finished their execution.
+
+Please note that multiprocessing creates separate processes and not threads. Each Python process gets its own Python interpreter and memory space so the Global Interpreter Lock (GIL) is not a problem. This is why multiprocessing can truly leverage multiple CPUs and cores while multithreading in Python cannot due to the GIL.

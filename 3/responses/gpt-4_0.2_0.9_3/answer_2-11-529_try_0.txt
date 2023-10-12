@@ -1,0 +1,24 @@
+In C++, you can use `std::apply` to apply a function to a tuple's elements as arguments. Here's how you can use it to create a new object from a tuple:
+
+```cpp
+template <typename T, typename Tuple>
+T* make_new_from_tuple(Tuple&& t)
+{
+    return std::apply([](auto&&... args) {
+        return new T(std::forward<decltype(args)>(args)...);
+    }, std::forward<Tuple>(t));
+}
+```
+
+In this function, `std::apply` is used to call a lambda function that creates a new `T` object with the tuple's elements as arguments. The `std::forward` function is used to preserve the value category (lvalue or rvalue) of the tuple's elements.
+
+Here's how you can use this function with your `A` struct:
+
+```cpp
+auto aTuple = std::make_tuple(1, 1.5, std::string("Hello"));
+A* a = make_new_from_tuple<A>(std::move(aTuple));
+```
+
+This will create a new `A` object with the values `(1, 1.5, "Hello")`.
+
+If your tuple contains a `std::unique_ptr`, you can still use this function. The `std::forward` function will ensure that the `std::unique_ptr` is moved correctly. However, you need to make sure that the tuple is an rvalue (either a temporary or moved lvalue), because you can't copy a `std::unique_ptr`.

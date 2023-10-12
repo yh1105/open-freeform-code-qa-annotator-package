@@ -1,0 +1,30 @@
+Yes, you can customize the error messages displayed by SignalR in your ASP.NET Core application. 
+
+To disable the "Attempting to reconnect to the server" message, you can set the `reconnectInterval` option to a very high value or set it to `null` in your SignalR configuration. This will prevent SignalR from attempting to reconnect to the server.
+
+To customize the "Disconnected from server. Reload page ..." message, you can handle the `onclose` event in your SignalR client code and display a custom message to the user. Here's an example:
+
+```javascript
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .build();
+
+connection.onclose(function (error) {
+    // Display a custom message to the user
+    alert("You have been disconnected from the server. Please refresh the page to reconnect.");
+});
+
+connection.start();
+```
+
+You can also translate the error messages to another language by providing localized versions of the messages in your application's resource files. To do this, you can create a new resource file for the desired language and add the translated messages. Then, you can use the `ResourceManager` class to retrieve the appropriate message based on the user's language preference. Here's an example:
+
+```csharp
+// Get the localized error message
+var errorMessage = Resources.DisconnectedFromServerMessage;
+
+// Display the error message to the user
+Response.Write(errorMessage);
+```
+
+I hope this helps! Let me know if you have any further questions.

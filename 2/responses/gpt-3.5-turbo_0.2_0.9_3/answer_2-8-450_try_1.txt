@@ -1,0 +1,59 @@
+To create the JSON object in Go, you can define a struct that matches the structure of the JSON object and then use the `encoding/json` package to marshal the struct into JSON.
+
+Here's an example implementation based on your code:
+
+```
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
+
+type Client struct {
+	Hostname string `json:"Hostname"`
+	IP       string `json:"IP"`
+	MacAddr  string `json:"MacAddr"`
+}
+
+type Clients struct {
+	Clients []Client `json:"Clients"`
+}
+
+func main() {
+	lines := `example.com 127.0.0.1 mactonight
+foo.biz 0.0.0.0 12:34:56:78`
+
+	clients := []Client{}
+	for _, line := range strings.Split(lines, "\n") {
+		if line != "" {
+			s := strings.Split(line, " ")
+			host, ip, mac := s[0], s[1], s[2]
+			client := Client{Hostname: host, IP: ip, MacAddr: mac}
+			clients = append(clients, client)
+		}
+	}
+
+	c := Clients{Clients: clients}
+	jsonBytes, err := json.Marshal(c)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(string(jsonBytes))
+}
+```
+
+In this implementation, we define two structs: `Client` and `Clients`. `Client` represents a single client object with `Hostname`, `IP`, and `MacAddr` fields. `Clients` represents the top-level object with a `Clients` field that is an array of `Client` objects.
+
+We then parse the input lines and create a `Client` object for each line. We append each `Client` object to a slice of `Client` objects.
+
+Finally, we create a `Clients` object with the slice of `Client` objects and marshal it into JSON using `json.Marshal`. We print the resulting JSON string to the console.
+
+This should output the following JSON string:
+
+```
+{"Clients":[{"Hostname":"example.com","IP":"127.0.0.1","MacAddr":"mactonight"},{"Hostname":"foo.biz","IP":"0.0.0.0","MacAddr":"12:34:56:78"}]}
+```

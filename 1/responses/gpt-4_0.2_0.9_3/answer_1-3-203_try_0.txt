@@ -1,0 +1,23 @@
+The M1 Max chip is Apple's own silicon, which uses the ARM64 architecture, different from the x86_64 architecture that Intel chips use. This difference in architecture can cause some compatibility issues with software that was originally designed for Intel chips, including Python and its packages.
+
+From your test results, it seems that running Python and numpy natively on the M1 Max chip (Miniforge) is slightly faster than running them through Rosetta 2 (Anaconda), which is Apple's technology for translating software written for Intel chips to work on their own silicon.
+
+However, the performance difference between running the code in Terminal and PyCharm is negligible, which suggests that the IDE doesn't significantly affect the speed of the code.
+
+The comparison results you mentioned are significantly faster, but it's not clear what setup they used. It's possible that they used a different version of Python or numpy, or a different method of installing them, or even a different machine with a faster CPU.
+
+Here are some suggestions to improve the speed of your Python code on the M1 Max:
+
+1. Use the latest version of Python and numpy: The latest versions often have performance improvements and bug fixes. You can check your Python version with `python --version` and your numpy version with `import numpy; print(numpy.__version__)` in Python.
+
+2. Use native ARM64 versions of Python and its packages: Running software natively on the M1 Max chip is generally faster than running it through Rosetta 2. You can install the ARM64 version of Python through Miniforge, and install numpy with `conda install numpy`.
+
+3. Use optimized libraries: Some libraries, like TensorFlow, have versions optimized for Apple's silicon. You can install them with `conda install -c apple tensorflow-deps; python -m pip install tensorflow-macos; python -m pip install tensorflow-metal`.
+
+4. Use a profiler to optimize your code: A profiler can help you find the parts of your code that are taking the most time, so you can focus on optimizing them. Python's built-in cProfile module can be a good starting point.
+
+5. Consider using a GPU or other hardware accelerators: If your work involves a lot of numerical computations, like machine learning, using a GPU or other hardware accelerators can significantly speed up your code. However, this may require changing your code to use libraries that support these accelerators, like TensorFlow or PyTorch.
+
+6. Consider using cloud computing: If local speed is not sufficient, you can consider using cloud computing services, like AWS or Google Cloud, which can provide more powerful machines for running your code. However, this can increase costs.
+
+Remember, the performance can vary depending on the specific code and setup, so it's a good idea to do your own benchmarks to find the best setup for your needs.

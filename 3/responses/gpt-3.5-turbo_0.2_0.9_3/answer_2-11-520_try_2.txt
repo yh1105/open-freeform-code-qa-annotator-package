@@ -1,0 +1,38 @@
+The issue with your code is that you are trying to override the `operator==` function of the `IClient` class, but it is not declared as a virtual function. Therefore, the `override` keyword is not applicable here.
+
+To fix this issue, you need to declare the `operator==` function as virtual in the `IClient` class. Here is the updated code:
+
+```
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+template <typename T>
+class IClient {
+ public:
+  virtual const std::vector<T>& getID() = 0;
+  virtual bool isEqual(const std::vector<T>& anotherID) = 0;
+  virtual bool operator==(const IClient& anotherClient) const = 0;
+};
+
+class SeviceClient : public IClient<int8_t> {
+  const std::vector<int8_t> ID;
+
+ public:
+  SeviceClient(const std::vector<int8_t>& ID) : ID(std::move(ID)) {}
+  SeviceClient(const std::vector<int8_t>&& ID) : ID(std::move(ID)) {}
+
+  const std::vector<int8_t>& getID() override {
+      return ID;
+  }
+  bool isEqual(const std::vector<int8_t>& anotherID) override {
+      return true;
+  }
+  bool operator==(const IClient<int8_t>& anotherClient) const override {
+      return true;
+  }
+};
+```
+
+Note that I also added the `const` keyword to the `operator==` function, as it should not modify the object.

@@ -1,0 +1,11 @@
+It sounds like the issue might be related to authentication. Here are a few things you can try to debug the issue:
+
+1. Check that your GitHub credentials are properly configured on computer B. You can do this by running `git config --list` and checking that your `user.name` and `user.email` are set correctly. You can also try running `git clone` on the dependent repo to see if you can access it directly.
+
+2. Check that your `GOPRIVATE` environment variable is set correctly. If the dependent repo is private, you need to set `GOPRIVATE` to include the domain name. For example, if the dependent repo is hosted on `github.ibm.com`, you would set `GOPRIVATE=github.ibm.com`.
+
+3. Check that your `GONOPROXY` and `GONOSUMDB` environment variables are set correctly. If the dependent repo is hosted on a private server, you need to set `GONOPROXY` to exclude the server from the proxy lookup. You also need to set `GONOSUMDB` to exclude the server from the checksum database lookup. For example, if the dependent repo is hosted on `github.ibm.com`, you would set `GONOPROXY=github.ibm.com` and `GONOSUMDB=github.ibm.com`.
+
+4. Check that your `go.mod` file is correct. Make sure that the version constraint for the dependent repo is correct and that the module path is correct.
+
+If none of these steps help, you can try running `go env` on both computers and comparing the output to see if there are any differences that might be causing the issue. You can also try running `go mod download` to force the download of all dependencies and see if that resolves the issue.

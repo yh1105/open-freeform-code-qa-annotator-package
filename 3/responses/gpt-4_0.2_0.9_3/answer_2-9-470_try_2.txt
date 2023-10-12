@@ -1,0 +1,28 @@
+The error message you're seeing is indicating that the ffi gem is unable to find the libffi.so.6 library. This is likely because the upgrade to your OS included an upgrade to libffi, which incremented the version number of the shared library, and the ffi gem is still looking for the old version.
+
+You can check the version of libffi that you have installed by running:
+
+```bash
+find /usr -name 'libffi.so*'
+```
+
+If you see libffi.so.7 (or a higher version), but not libffi.so.6, that's the problem.
+
+There are a few ways you can resolve this issue:
+
+1. **Install an older version of libffi that includes libffi.so.6.** This might not be the best solution, as it could potentially cause conflicts with other software that expects the newer version.
+
+2. **Create a symbolic link from libffi.so.6 to the version you have.** This is a bit of a hack, and it might not work if the ABI has changed between versions, but it's worth a try. You can do this with a command like:
+
+```bash
+sudo ln -s /usr/lib/x86_64-linux-gnu/libffi.so.7 /usr/lib/x86_64-linux-gnu/libffi.so.6
+```
+
+3. **Reinstall the ffi gem.** This is probably the best solution. The ffi gem includes a C extension that links against libffi.so.6 at install time. If you reinstall the gem, it should link against the correct version. You can do this with:
+
+```bash
+gem uninstall ffi
+gem install ffi
+```
+
+If you're using bundler, you might need to run `bundle install` again after reinstalling the ffi gem.

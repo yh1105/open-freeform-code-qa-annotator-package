@@ -1,0 +1,7 @@
+You can modify the second code you provided to include only columns 456:555 by subsetting the data frame before checking for NAs. Here's an example:
+
+```
+final[rowSums(is.na(final[, 456:555])) != ncol(final[, 456:555]), ]
+```
+
+This code first subsets the data frame to include only columns 456:555 (`final[, 456:555]`), then checks for rows with at least one non-NA value in those columns (`rowSums(is.na(final[, 456:555])) != ncol(final[, 456:555])`). Finally, it returns the subset of the original data frame (`final[...]`).

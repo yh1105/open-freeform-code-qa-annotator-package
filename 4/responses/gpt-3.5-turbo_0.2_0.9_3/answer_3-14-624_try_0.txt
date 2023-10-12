@@ -1,0 +1,13 @@
+The error message you are seeing is related to a script that is failing during the build process. In this case, it looks like the script is related to a Swift lint check. Here are a few things you can try to resolve the issue:
+
+1. Check the script: Take a look at the script that is failing (`../BuildSupport/swift_lint_check.sh`) and see if you can identify any issues with it. If you are not familiar with the script, you may want to reach out to the developer who wrote it for assistance.
+
+2. Update Xcode: Make sure you are using the latest version of Xcode. You can check for updates in the App Store or by going to Xcode -> Preferences -> Updates.
+
+3. Clean the build folder: In addition to cleaning the project, you can also try cleaning the build folder. To do this, hold down the Option key while selecting Product -> Clean Build Folder.
+
+4. Disable the script: If you are not using the Swift lint check script, you can try disabling it by removing it from the Build Phases -> Run Script section of your project.
+
+5. Reset your keychain: If none of the above solutions work, you can try resetting your keychain. To do this, go to Keychain Access -> Preferences -> Reset My Default Keychain. Note that this will delete all of your saved passwords and certificates, so make sure you have backups before proceeding.
+
+Hopefully one of these solutions will help you resolve the issue. If not, you may want to reach out to Apple Developer Support for further assistance.

@@ -1,0 +1,23 @@
+To use `@Parcelize` instead of `annotation class Parcelize` from `kotlinx.android.parcel`, you need to add the following dependencies to your app's `build.gradle` file:
+
+```
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.0"
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "org.jetbrains.kotlinx:kotlinx-parcelize-runtime:1.2.1"
+}
+```
+
+After adding these dependencies, you can use `@Parcelize` instead of `annotation class Parcelize`. Here's an example:
+
+```
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class User(val name: String, val age: Int) : Parcelable
+```
+
+Note that `@Parcelize` is only available for classes that implement the `Parcelable` interface.

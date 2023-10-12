@@ -1,0 +1,19 @@
+To write test cases for a function that doesn't return anything, you can check if the function is modifying the list correctly. Here's an example of how you can write test cases for your function:
+
+```
+import unittest
+
+class TestMyFunc(unittest.TestCase):
+    def setUp(self):
+        self.link = "https://example.com"
+        self.expected_list = [1, 2, 3]
+
+    def test_myfunc(self):
+        myfunc(self.link)
+        self.assertEqual(list, self.expected_list)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+In this example, we are creating a test case that sets up the link and the expected list. Then, we call the `myfunc` function with the link and check if the `list` variable has been modified correctly. If the `list` variable matches the `expected_list`, the test case passes. If not, the test case fails. You can add more test cases with different links and expected lists to ensure that the function is working correctly.

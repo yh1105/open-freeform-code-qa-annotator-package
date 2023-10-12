@@ -1,0 +1,28 @@
+In the newer versions of the `androidx.lifecycle:lifecycle-viewmodel` library, the `ViewModelProvider.of()` method has been deprecated. You should now use the `ViewModelProvider` constructor directly.
+
+Here's how you can do it:
+
+```kotlin
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+
+        val model = ViewModelProvider(this).get(SheduleViewModel::class.java)
+
+    }
+}
+```
+
+In this code, `this` refers to the `MainActivity` which is the `ViewModelStoreOwner`. The `ViewModelProvider` constructor takes a `ViewModelStoreOwner` as a parameter. The `ViewModelStoreOwner` is typically the `Activity` or `Fragment` that is capable of retaining a `ViewModel` across configuration changes.
+
+Also, you should use `binding.lifecycleOwner = this` instead of `binding.setLifecycleOwner(this)`. The `setLifecycleOwner()` method is deprecated and replaced with the `lifecycleOwner` property.

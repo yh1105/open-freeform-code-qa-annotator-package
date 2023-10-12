@@ -1,0 +1,16 @@
+You can use `sns.pointplot` to plot the mean of each x-element (`method`) as a small horizontal bar. You can set `join=False` to avoid the line between points and `ci=None` to avoid the confidence interval around the mean. Here's how you can do it:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+planets = sns.load_dataset("planets")
+
+sns.stripplot(x="method", y="distance", data=planets, size=4, color=".7")
+sns.pointplot(x="method", y="distance", data=planets, join=False, ci=None, color='r', markers='_')
+
+plt.xticks(rotation=45, ha="right")
+plt.show()
+```
+
+In this code, `sns.pointplot` is used to plot the mean of `distance` for each `method`. The `join=False` option is used to avoid drawing a line between the points, and `ci=None` is used to avoid drawing a confidence interval around the mean. The color of the mean line is set to red (`color='r'`) and the marker is set to underscore (`markers='_'`) to make it look like a small horizontal bar.

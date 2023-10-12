@@ -1,0 +1,20 @@
+It seems like the issue is with the Kotlin random function. One possible solution is to use the Java random function instead. You can try replacing the `getNextChoice()` and `getNextImage()` functions with the following Java-based functions:
+
+```
+private fun getNextChoice(): Int {
+    return Random().nextInt(2)
+}
+
+private fun getNextImage(imageList: Array<Image>): Int {
+    val listSize = imageList.size
+    var imageId: Int
+    do {
+        imageId = Random().nextInt(listSize)
+    } while (imageList[imageId].played)
+
+    imageList[imageId].played = true
+    return imageList[imageId].image
+}
+```
+
+This should generate new random numbers each time the app is opened. Let me know if this helps.

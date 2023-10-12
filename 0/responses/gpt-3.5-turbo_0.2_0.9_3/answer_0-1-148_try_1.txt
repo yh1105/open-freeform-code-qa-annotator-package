@@ -1,0 +1,20 @@
+You can achieve this by using the `group` feature in Tailwind CSS. Here's how you can modify your code to achieve the desired result:
+
+```
+<ul class="border-solid border-b border-black">
+  <template v-for="(item, index) in items">
+    <li
+      :key="`item-${index}`"
+      class="group last:border-b-0"
+    >
+      Item
+    </li>
+  </template>
+</ul>
+```
+
+In this code, we have added the `group` class to the parent `ul` element. Then, we have used the `last:border-b-0` class on the `li` element to remove the bottom border from the last item in the list.
+
+The `group` class is used to create a context for the child elements. This allows us to use the `last` pseudo-class variant on the `li` element, which targets the last child of the `ul` element. The `border-b-0` class is used to remove the bottom border from the last item in the list.
+
+I hope this helps! Let me know if you have any further questions.

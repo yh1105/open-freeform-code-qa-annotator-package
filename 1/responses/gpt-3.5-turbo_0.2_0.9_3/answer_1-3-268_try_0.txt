@@ -1,0 +1,19 @@
+The 403 error indicates that you do not have permission to access the resource. This could be due to a number of reasons, such as incorrect file permissions or authentication issues.
+
+Here are a few things you can try to resolve the issue:
+
+1. Check the file permissions: Make sure that the tfevent file has the correct permissions and that you have read access to it. You can check the file permissions by running the following command in a terminal:
+
+```
+ls -l path/to/logs
+```
+
+2. Check the log directory path: Make sure that the path to the log directory is correct and that it points to the directory where the tfevent file is located.
+
+3. Clear browser cache: Try clearing your browser cache and cookies and then reload the page.
+
+4. Use a different browser: Try using a different browser to see if the issue persists.
+
+5. Check your network connection: Make sure that you have a stable network connection and that there are no firewall or proxy issues that are blocking your access to the resource.
+
+If none of these solutions work, you may want to try reaching out to the Tensorboard Github community for further assistance.

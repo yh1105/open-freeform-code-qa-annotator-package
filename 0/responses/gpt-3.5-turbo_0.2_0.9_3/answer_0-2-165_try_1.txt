@@ -1,0 +1,27 @@
+It seems like the issue is with the `querySelector` method. Instead of using `querySelector`, you can try using `getElementsByClassName` to retrieve the active accordion element. Here's the updated code:
+
+```
+document.addEventListener("DOMContentLoaded", function(event) {
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      var active = document.getElementsByClassName("accordion active")[0];
+      console.log(active);
+      if (active) {
+        active.classList.remove('active'); // remove active class from accordions
+      }
+      this.classList.add("active"); // add it to this one
+      
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+});
+```
+
+In addition, you have `this.classList.toggle("active");` which is toggling the "active" class twice. You can remove this line of code.

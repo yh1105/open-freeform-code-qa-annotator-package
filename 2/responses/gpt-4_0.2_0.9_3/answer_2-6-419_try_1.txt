@@ -1,0 +1,43 @@
+Your code seems to be correct. However, you need to define the `ItemClicked` event in the child component and pass it to the parent component. Here's how you can do it:
+
+Child Razor:
+
+```csharp
+@code {
+    [Parameter]
+    public EventCallback<(string, int)> ItemClicked { get; set; }
+
+    private async Task OnClick(string name, int id)
+    {
+        await ItemClicked.InvokeAsync((name, id));
+    }
+}
+
+@foreach( var item in items)
+{
+  @foreach( var score in item.scores)
+  {
+    <span @onclick="() => OnClick(item.name, score.id)"> 
+      @item.name 
+    </span>
+  }
+}
+```
+
+Parent Razor:
+
+```csharp
+<Child ItemClicked="ItemClicked"/>
+
+@code{
+    private void ItemClicked((string Name, int Id) data)
+    {
+        Console.WriteLine(data.Name);
+        Console.WriteLine(data.Id);
+    }
+}
+```
+
+In the child component, we define a method `OnClick` that calls the `ItemClicked` event with the parameters. The `ItemClicked` event is defined as a `Parameter` so it can be set from the parent component.
+
+In the parent component, we pass the `ItemClicked` method to the child component. This method will be called when the `ItemClicked` event is invoked in the child component.

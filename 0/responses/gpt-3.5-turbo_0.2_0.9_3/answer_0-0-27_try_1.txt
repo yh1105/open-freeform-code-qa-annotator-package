@@ -1,0 +1,9 @@
+The issue might be related to the `uri` you are using in your `ApolloClient`. The `uri` you are using (`https://48p1r2roz4.sse.codesandbox.io`) is a demo server provided by Apollo Client, and it might not be working properly at the moment.
+
+You can try using a different GraphQL API endpoint to test your code. Here are a few options:
+
+- [GraphQL Pokemon API](https://graphql-pokemon2.vercel.app/)
+- [SpaceX GraphQL API](https://api.spacex.land/graphql/)
+- [Rick and Morty GraphQL API](https://rickandmortyapi.com/graphql)
+
+Replace the `uri` in your `ApolloClient` with one of the above endpoints and see if it works. If it does, then the issue was with the demo server provided by Apollo Client.

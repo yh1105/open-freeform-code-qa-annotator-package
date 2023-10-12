@@ -1,0 +1,11 @@
+It's difficult to determine the exact cause of the issue without more information about your GitLab CI configuration and the error message. However, here are a few suggestions that might help you resolve the issue:
+
+1. Check the logs: The error message "ERROR: Job failed: exit code 1" is a generic error message that indicates that the job has failed. You should check the logs to see if there are any specific error messages that can help you identify the issue.
+
+2. Check the GitLab CI configuration: Make sure that your GitLab CI configuration is correct and that it is not causing any issues. You can try running the job locally to see if it works as expected.
+
+3. Check the master branch: Since the issue is only happening on the master branch, you should check if there are any differences between the master branch and the other branches. It's possible that there is a configuration issue or a problem with the code on the master branch.
+
+4. Check the file-based variables: The error message "Cleaning up file based variables" indicates that there might be an issue with the file-based variables. Make sure that the file-based variables are set up correctly and that they are not causing any issues.
+
+5. Contact GitLab support: If none of the above suggestions work, you can contact GitLab support for further assistance. They might be able to help you identify the issue and provide a solution.

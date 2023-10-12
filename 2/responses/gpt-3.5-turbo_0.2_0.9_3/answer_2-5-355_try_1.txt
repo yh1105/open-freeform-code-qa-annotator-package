@@ -1,0 +1,7 @@
+You can try the following steps to uninstall Eclipse Mars 2:
+
+1. Go to the installation folder of Eclipse Mars 2.
+2. Look for a file named "uninstall.exe" or "unins000.exe" and double-click on it.
+3. Follow the prompts to uninstall Eclipse Mars 2.
+
+If you can't find an uninstaller file in the installation folder, you can try using a third-party uninstaller tool like Revo Uninstaller. This tool can help you remove any leftover files and registry entries associated with Eclipse Mars 2.

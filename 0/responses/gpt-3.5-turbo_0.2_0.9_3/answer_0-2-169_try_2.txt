@@ -1,0 +1,61 @@
+Yes, you can add a hidden input field to the form with the XSRF token value. Here is an updated code snippet:
+
+```
+import com.onresolve.scriptrunner.runner.rest.common.CustomEndpointDelegate
+import groovy.transform.BaseScript
+
+import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.MultivaluedMap
+import javax.ws.rs.core.Response
+
+@BaseScript CustomEndpointDelegate delegate
+
+showCloneEazyBIAccounts() { MultivaluedMap queryParams ->
+
+def dialog =
+    """<section role="dialog" id="sr-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true" data-aui-remove-on-hide="true">
+        <header class="aui-dialog2-header">
+            <h2 class="aui-dialog2-header-main">Clone EazyBI Accounts by Model</h2>
+            <a class="aui-dialog2-header-close">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+        <div class="aui-dialog2-content">
+            <form class="aui" action="/rest/scriptrunner/latest/custom/cloneJE2Cube" method="post">
+                <div class="field-group">
+                    <label for="accountNames">Account Names <span class="aui-icon icon-required"></span></label>
+                    <input class="text medium-field" type="text"id="accountNames" name="accountNames" placeholder="Cubo 1, Cubo 2...">
+                </div>
+                <div class="field-group">
+                    <label for="projectKeys">Project Keys <span class="aui-icon icon-required"></span></label>
+                    <input class="text medium-field" type="text"id="projectKeys" name="projectKeys" placeholder="JESC, JEBACK....">
+                </div>
+                <div class="field-group">
+                    <label for="model">Model <span class="aui-icon icon-required"></span></label>
+                    <select class="select" id="model" name="model">
+                        <option>Select</option>
+                        <option>JESC</option>
+                        <option>JEBACK</option>
+                        <option>COM</option>
+                        <option>AGILE</option>
+                    </select>
+                </div>
+                <input type="hidden" name="atl_token" value="${request.getAttribute("com.atlassian.xsrf.token")}" />
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Clone" id="clone-button">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <footer class="aui-dialog2-footer">
+             <div class="aui-dialog2-footer-hint"></div>
+        </footer>
+    </section>
+    """
+
+Response.ok().type(MediaType.TEXT_HTML).entity(dialog.toString()).build()
+}
+```
+
+Note that the XSRF token value is obtained using `${request.getAttribute("com.atlassian.xsrf.token")}` and added as a hidden input field with the name `atl_token`. This should resolve the XSRF check failed error.

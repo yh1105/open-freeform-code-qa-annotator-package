@@ -1,0 +1,10 @@
+To get the value of the switch, you need to access it from the `values` object that is passed to the `onCreate` function. You can do this by using the name of the `Form.Item` that contains the switch. In your case, the name is "switch". Here's an updated `onCreate` function that logs the value of the switch:
+
+```
+const onCreate = (values) => {
+  console.log('Description:', values.description)
+  console.log('Chargable:', values.switch)
+}
+```
+
+This should log the value of the switch (true or false) when the "Save" button is clicked.

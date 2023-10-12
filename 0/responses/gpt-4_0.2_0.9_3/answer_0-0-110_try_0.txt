@@ -1,0 +1,7 @@
+Unfortunately, as of now, React does not provide a hook equivalent to `componentDidCatch`. Error boundaries, as of the current version of React (17.x), can only be class components.
+
+React team has mentioned that they are considering adding this feature in the future, but for now, you will have to use class components to catch errors in the component tree.
+
+Here's a link to the official React documentation on error boundaries: https://reactjs.org/docs/error-boundaries.html
+
+So, for now, you will have to stick with your class component for error handling.

@@ -1,0 +1,15 @@
+Based on the error message, it seems like the OpenSSL library is not installed on your system. You can try installing it using the following command:
+
+```
+sudo apt-get install libssl-dev
+```
+
+Once the installation is complete, try running the command again:
+
+```
+ruby -r openssl -e 'puts OpenSSL::OPENSSL_VERSION'
+```
+
+If the command runs successfully, you should see the version of OpenSSL installed on your system.
+
+Regarding the gem installation errors, it's hard to say without more information. Can you provide the error message you are seeing when running `gem list`?

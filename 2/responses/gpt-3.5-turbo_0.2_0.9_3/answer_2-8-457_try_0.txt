@@ -1,0 +1,30 @@
+It seems like the issue is related to the fact that the debugger is not able to run under Rosetta, which is required for running x86_64 binaries on Apple M1 machines. One possible solution is to install the arm64 version of dlv-dap, which is compatible with Apple M1 machines.
+
+You can try the following steps to install the arm64 version of dlv-dap:
+
+1. Uninstall the existing version of dlv-dap by running the following command in the terminal:
+
+   ```
+   go clean -modcache
+   go get github.com/golang/vscode-go/tools/gopls@latest
+   go get github.com/go-delve/delve/cmd/dlv@latest
+   ```
+
+2. Download the arm64 version of dlv-dap from the official repository by running the following command in the terminal:
+
+   ```
+   GOARCH=arm64 go get github.com/golang/vscode-go/tools/dlv-dap@latest
+   ```
+
+3. Update the launch.json file in your VSCode project to use the arm64 version of dlv-dap. You can do this by adding the following configuration:
+
+   ```
+   "debugAdapter": "dlv-dap",
+   "debugAdapterPath": "${workspaceFolder}/bin/dlv-dap",
+   ```
+
+   Make sure to replace `${workspaceFolder}` with the actual path to your project folder.
+
+4. Save the changes to the launch.json file and try running the debugger again.
+
+I hope this helps! Let me know if you have any further questions.

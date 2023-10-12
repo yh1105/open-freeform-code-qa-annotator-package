@@ -1,0 +1,41 @@
+In NestJS, optional parameters are not defined in the route itself but are accessed through the `@Query()` decorator in your route handler. 
+
+Here's how you can achieve this:
+
+1. Define your route in your controller:
+
+```typescript
+@Controller('route')
+export class YourController {
+  @Get(':param1/config/:param2?/:param3?')
+  async yourMethod(
+    @Param('param1') param1: string,
+    @Param('param2') param2?: string,
+    @Param('param3') param3?: string,
+  ) {
+    // Your logic here
+  }
+}
+```
+
+In this case, `param2` and `param3` are optional. If they are not provided in the URL, their value will be `undefined`.
+
+2. Use the parameters in your method:
+
+```typescript
+@Controller('route')
+export class YourController {
+  @Get(':param1/config/:param2?/:param3?')
+  async yourMethod(
+    @Param('param1') param1: string,
+    @Param('param2') param2?: string,
+    @Param('param3') param3?: string,
+  ) {
+    console.log(param1, param2, param3);
+  }
+}
+```
+
+In this example, if you access `/route/aa/config/bb/cc`, it will log `aa bb cc`. If you access `/route/aa/config/bb`, it will log `aa bb undefined`. If you access `/route/aa/config`, it will log `aa undefined undefined`.
+
+Please note that the order of the parameters in the URL matters. If you provide `param3` but not `param2`, `param3` will be considered as `param2`.

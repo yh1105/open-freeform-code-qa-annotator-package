@@ -1,0 +1,42 @@
+To use Jetpack Compose in an existing Android Studio project, you need to follow these steps:
+
+1. Update your Android Studio to the latest version (4.2 or later) that supports Jetpack Compose.
+
+2. Add the following dependencies to your project's build.gradle file:
+
+```
+dependencies {
+    def compose_version = '1.0.0'
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+}
+```
+
+3. In your activity or fragment, create a Composable function that will be used to render your UI using Jetpack Compose. For example:
+
+```
+@Composable
+fun MyComposableFunction() {
+    MaterialTheme {
+        // Your UI code goes here
+    }
+}
+```
+
+4. In your activity or fragment, replace the existing setContentView() method with setContent() and pass in your Composable function. For example:
+
+```
+class MyActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyComposableFunction()
+        }
+    }
+}
+```
+
+5. Build and run your project to see your UI rendered using Jetpack Compose.
+
+Note: You may need to update your project's minimum SDK version to 21 or later to use Jetpack Compose.

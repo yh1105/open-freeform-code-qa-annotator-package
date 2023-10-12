@@ -1,0 +1,11 @@
+The error message indicates that there is not enough storage space on the emulator to install the second app. This is not a bug, but rather a limitation of the emulator.
+
+To overcome this limitation, you can try one of the following solutions:
+
+1. Increase the storage space of the emulator: You can create a new emulator with a larger storage capacity or increase the storage capacity of the existing emulator. To do this, go to the AVD Manager, select the emulator, click on "Edit" and then increase the "Internal storage" value.
+
+2. Clear the data of the first app: Instead of deleting the first app, you can try clearing its data. To do this, go to the emulator's settings, select "Apps & notifications", find the first app and click on "Storage". Then click on "Clear storage" and "Clear cache". This will free up some space on the emulator and allow you to install the second app.
+
+3. Use a physical device: If you have a physical Android device, you can connect it to your computer and run the apps on it instead of the emulator. This will eliminate the storage limitation issue.
+
+I hope one of these solutions works for you.

@@ -1,0 +1,79 @@
+Based on your requirements, here is a modified version of the code that should split the data into multiple sheets within the same workbook and format it as per your expected format:
+
+```
+Sub Split_Data()
+    
+    Dim wb As Workbook
+    Dim myfilename As String
+    Dim lr As Long
+    Dim ws As Worksheet
+    Dim vcol, i As Integer
+    Dim icol As Long
+    Dim myarr As Variant
+    Dim title As String
+    Dim titlerow As Integer
+    Dim dest As String
+    Dim destRange As Range
+    
+    myfilename = "C:\Macro\XD MIS Report.xlsx"
+    Set wb = Workbooks.Open(myfilename)
+    
+    'Format the data
+    With wb.Sheets("XD MIS")
+        .Cells.Select
+        .Selection.EntireColumn.Hidden = False
+        .Selection.EntireRow.Hidden = False
+        .Columns("B:F").Delete Shift:=xlToLeft
+        .Columns("D:E").Delete Shift:=xlToLeft
+        .Columns("H:H").Delete Shift:=xlToLeft
+        .Columns("K:L").Delete Shift:=xlToLeft
+        .Columns("D:D").Cut
+        .Columns("K:K").Insert Shift:=xlToRight
+        .Range("K1").Value = "Remarks"
+        .Columns("J:J").Copy
+        .Columns("K:K").PasteSpecial Paste:=xlPasteFormats
+        .Columns("H:H").Insert Shift:=xlToRight
+        .Range("H1").Value = "Packing Type"
+        .Columns("B:B").Copy
+        .Columns("A:A").PasteSpecial Paste:=xlPasteFormats
+        .Range("A2").FormulaR1C1 = "=COUNTIF(R[-1]C[6]:RC[6],RC[6])"
+        .Range("A2").AutoFill Destination:=.Range("A2:A" & .Cells(.Rows.Count, "C").End(xlUp).Row)
+        .Columns("A:A").Copy
+        .Columns("A:A").PasteSpecial Paste:=xlPasteValues
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).Borders.LineStyle = xlContinuous
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).Borders.Weight = xlThin
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).Font.Name = "Calibri"
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).Font.Size = 11
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).VerticalAlignment = xlCenter
+        .Range("A1:L" & .Cells(.Rows.Count, "C").End(xlUp).Row).HorizontalAlignment = xlCenter
+    End With
+    
+    'Split the data into multiple sheets
+    Set ws = wb.Sheets("XD MIS")
+    vcol = Application.InputBox(prompt:="Which column would you like to filter by?", title:="Filter column", Default:="3", Type:=1)
+    lr = ws.Cells(ws.Rows.Count, vcol).End(xlUp).Row
+    title = "A1"
+    titlerow = ws.Range(title).Cells(1).Row
+    icol = ws.Columns.Count
+    ws.Cells(1, icol) = "Unique"
+    For i = 2 To lr
+        On Error Resume Next
+        If ws.Cells(i, vcol) <> "" And Application.WorksheetFunction.Match(ws.Cells(i, vcol), ws.Columns(icol), 0) = 0 Then
+            ws.Cells(ws.Rows.Count, icol).End(xlUp).Offset(1) = ws.Cells(i, vcol)
+        End If
+    Next
+
+    myarr = Application.WorksheetFunction.Transpose(ws.Columns(icol).SpecialCells(xlCellTypeConstants))
+    ws.Columns(icol).Clear
+
+    For i = 2 To UBound(myarr)
+        ws.Range(title).AutoFilter field:=vcol, Criteria1:=myarr(i) & ""
+        dest = myarr(i) & ""
+        If Not Evaluate("=ISREF('" & dest & "'!A1)") Then
+            Sheets.Add(after:=Worksheets(Worksheets.Count)).Name = dest
+        Else
+            Sheets(dest).Move after:=Worksheets(Worksheets.Count)
+        End If
+        Set destRange = Sheets(dest).Range("A1")
+        ws.Range("A" & titlerow & ":L" & lr).Copy destRange
+        destRange.CurrentRegion.B

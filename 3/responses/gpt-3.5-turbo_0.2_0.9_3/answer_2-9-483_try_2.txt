@@ -1,0 +1,21 @@
+In Rails 6, you can load your own JavaScript files by using the `javascript_pack_tag` helper method in your layout file. Here's how you can do it:
+
+1. Create a new folder for your JavaScript files under `app/javascript`. For example, you can create a folder called `custom`.
+
+2. Create a new JavaScript file inside the folder you just created. For example, you can create a file called `custom.js` inside `app/javascript/custom`.
+
+3. In your layout file (usually `app/views/layouts/application.html.erb`), add the following line inside the `head` tag:
+
+   ```
+   <%= javascript_pack_tag 'custom' %>
+   ```
+
+   This will include the `custom.js` file in your application.
+
+4. Restart your Rails server and refresh your page. Your JavaScript file should now be loaded.
+
+Note that the `javascript_pack_tag` method assumes that your JavaScript file is located in `app/javascript/packs`. If you want to load a file from a different folder, you can specify the path relative to `app/javascript`:
+
+```
+<%= javascript_pack_tag 'path/to/custom' %>
+```

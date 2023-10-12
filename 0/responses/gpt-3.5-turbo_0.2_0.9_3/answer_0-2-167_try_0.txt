@@ -1,0 +1,13 @@
+There could be several reasons why the live server extension is not updating the browser after saving your files. Here are a few things you can try:
+
+1. Check if the live server is running: Make sure that the live server is running by clicking on the "Go Live" button in the bottom right corner of your VS Code window. If it's not running, start it by clicking on the button.
+
+2. Check the file path: Make sure that the file path in your browser matches the file path in your VS Code editor. If the file path is different, the live server will not be able to update the browser.
+
+3. Clear your browser cache: Sometimes, the browser cache can prevent the live server from updating the browser. Try clearing your browser cache and refreshing the page.
+
+4. Check for errors: Check the console in your browser for any errors that might be preventing the live server from updating the browser. Fix any errors that you find.
+
+5. Restart VS Code: If none of the above solutions work, try restarting VS Code and starting the live server again.
+
+Hopefully, one of these solutions will help you resolve the issue.

@@ -1,0 +1,13 @@
+This error occurs when there is a mismatch between the Gradle version used by Android Studio and the Gradle version specified in the project's build.gradle file. 
+
+To resolve this issue, you can try the following steps:
+
+1. Check the Gradle version specified in the project's build.gradle file and make sure it matches the version used by Android Studio. You can check the version used by Android Studio by going to File > Project Structure > Project and looking at the Gradle version.
+
+2. If the Gradle version specified in the build.gradle file is different from the version used by Android Studio, update the version in the build.gradle file to match the version used by Android Studio.
+
+3. If the Gradle version specified in the build.gradle file is correct, try cleaning and rebuilding the project. You can do this by going to Build > Clean Project and then Build > Rebuild Project.
+
+4. If the issue persists, try deleting the .gradle folder in the project directory and then rebuilding the project. This folder contains cached Gradle files and deleting it can sometimes resolve issues with Gradle.
+
+5. If none of the above steps work, try updating Android Studio to the latest version and then rebuilding the project. Sometimes, updating Android Studio can resolve issues with Gradle.

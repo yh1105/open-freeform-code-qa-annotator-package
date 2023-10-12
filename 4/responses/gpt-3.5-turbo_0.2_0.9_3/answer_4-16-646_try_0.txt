@@ -1,0 +1,9 @@
+The error message you are seeing indicates that the version of pdftk you are trying to use is not compatible with the CPU architecture of your Mac. This is likely because pdftk was compiled for an older version of MacOS that used a different CPU architecture.
+
+Unfortunately, pdftk is no longer actively maintained and does not support MacOS Catalina or newer versions. However, there are alternative tools that you can use to manipulate PDF files on your Mac.
+
+One popular alternative is to use the built-in Preview app that comes with MacOS. Preview has many features for editing and manipulating PDF files, including merging, splitting, and rearranging pages.
+
+Another option is to use a third-party tool like Adobe Acrobat or PDF Expert. These tools offer more advanced features for working with PDF files, but they also come with a cost.
+
+If you still want to use pdftk, you may need to try running it in a virtual machine or using a compatibility layer like Wine. However, these solutions can be complex and may not work reliably.

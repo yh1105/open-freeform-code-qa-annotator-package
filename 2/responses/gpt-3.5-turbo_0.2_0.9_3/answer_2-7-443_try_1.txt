@@ -1,0 +1,24 @@
+When you pass an array as a route parameter, Laravel expects the array keys to match the parameter names in the route definition. In your case, you are trying to pass an array with keys `a`, `b`, etc. to a route parameter named `array`, which won't work.
+
+To pass an array as a route parameter, you can use the `json_encode` function to convert the array to a JSON string, and then pass it as a parameter to the route. Here's an example:
+
+```
+$array = [
+  'a' => 'one',
+  'b' => 1,
+  // ...
+];
+
+$route = route('route.name', ['array' => json_encode($array)]);
+```
+
+In your route definition, you can then use the `json_decode` function to convert the JSON string back to an array:
+
+```
+Route::get('/example/{array}', function ($array) {
+    $array = json_decode($array, true);
+    // ...
+});
+```
+
+Regarding the error you are seeing, it looks like you are passing a serialized string to the route parameter instead of a JSON string. The error message is showing the serialized string, which is not what Laravel expects.

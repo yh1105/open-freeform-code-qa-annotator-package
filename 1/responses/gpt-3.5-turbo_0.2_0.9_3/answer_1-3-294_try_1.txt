@@ -1,0 +1,12 @@
+This error message indicates that the `collections_abc` module is not found in the `six.moves` module. This could be caused by a version mismatch between the `google-api-python-client` library and the `six` library.
+
+You can try upgrading the `six` library to the latest version by running `pip install --upgrade six`. If that doesn't work, you can try downgrading the `google-api-python-client` library to a previous version that is known to work with the `six` library version you have installed.
+
+Another possible solution is to explicitly import the `collections_abc` module from the `collections` package instead of relying on the `six` module. You can modify the line in `discovery.py` to:
+
+```
+if isinstance(client_options, collections.abc.Mapping):
+        client_options = google.api_core.client_options.from_dict(client_options)
+```
+
+This should avoid any version conflicts with the `six` module.

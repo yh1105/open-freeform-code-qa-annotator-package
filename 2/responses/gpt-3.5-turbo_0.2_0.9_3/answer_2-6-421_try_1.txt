@@ -1,0 +1,40 @@
+You can use a boolean flag to indicate whether the data has been fetched or not. Initially, set the flag to false and update it to true after fetching the data. Then, in the markup, check the flag instead of the data itself. Here's an example:
+
+```
+<Component1>
+  @if (IsDataFetched)
+  {
+    @if (Data != null)
+    {
+      @foreach (var item in Data) {
+        <Component2>
+      }
+    }
+    else
+    {
+      <p>No data found.</p>
+    }
+  }
+  else
+  {
+    <p>Loading data...</p>
+  }
+</Component1>
+
+@code{
+  private bool IsDataFetched = false;
+
+  protected override async Task OnInitializedAsync() {
+    Data = await GetDataFromDatabase();
+    IsDataFetched = true;
+  }
+
+  private async Task<List<MyData>> GetDataFromDatabase() {
+    // Fetch data from database
+  }
+}
+```
+
+In this example, we added a boolean flag `IsDataFetched` and set it to false initially. In the markup, we first check if the data has been fetched by checking the `IsDataFetched` flag. If it is false, we display a "Loading data..." message. If it is true, we check if the `Data` is null or not and display the appropriate message or render the `Component2` component. 
+
+By doing this, the data check will only be executed after the data has been fetched.

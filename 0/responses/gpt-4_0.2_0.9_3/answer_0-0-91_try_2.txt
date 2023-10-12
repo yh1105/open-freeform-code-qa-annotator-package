@@ -1,0 +1,7 @@
+The error message indicates that the template you're trying to use is not found. This is because you're repeating the "react-native-template-" part in your command. The correct command should be:
+
+```bash
+npx react-native init MyApp --template typescript
+```
+
+This command will create a new React Native project named "MyApp" using the TypeScript template. The "react-native-template-" prefix is automatically added by the CLI, so you only need to specify the name of the template after that prefix.

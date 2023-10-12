@@ -1,0 +1,11 @@
+It looks like you have successfully installed Xdebug on your Mac m1. To confirm that Xdebug is installed and working properly, you can create a PHP file with the following code:
+
+```
+<?php
+phpinfo();
+?>
+```
+
+Save the file as `info.php` in your web server's document root directory (e.g. `/Library/WebServer/Documents/`), and then access the file in your web browser by going to `http://localhost/info.php`. This should display a page with information about your PHP installation, including a section on Xdebug if it is installed correctly.
+
+You can also test Xdebug by setting a breakpoint in your PHP code and using a debugging client like VS Code or PhpStorm to step through the code and inspect variables.

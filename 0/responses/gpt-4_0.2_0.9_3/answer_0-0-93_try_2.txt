@@ -1,0 +1,17 @@
+The issue you're facing is likely due to the mismatch between the structure of the data you're trying to patch and the structure of the data that the `p-multiSelect` component expects.
+
+The `p-multiSelect` component expects an array of objects, where each object has a `label` and a `value` property. However, you're trying to patch an array of numbers.
+
+To solve this issue, you need to convert your array of numbers back to the original structure, i.e., an array of objects. Here's how you can do it:
+
+```javascript
+let excludeDaysNumbers = [1, 2]; // This should be your converted array of numbers
+let patchedExcludeDays = this.excludeDays.filter(day => excludeDaysNumbers.includes(day.value));
+
+this.form.patchValue({
+  ... : ....
+  excludeDays: patchedExcludeDays
+});
+```
+
+In this code, `filter` is used to create a new array with all elements that pass the test implemented by the provided function. The `includes` method is used to determine whether an array includes a certain value among its entries.

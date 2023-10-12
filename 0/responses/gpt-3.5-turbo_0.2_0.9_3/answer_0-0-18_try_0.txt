@@ -1,0 +1,41 @@
+There is no built-in method or function in React that resets the state back to its initial values. However, you can create a separate object that holds the initial state values and use it to reset the state. Here's an example:
+
+```
+const Signup = () => {
+    const initialState = {
+        username: '',
+        email: '',
+        password: '',
+        passwordConfirmation: ''
+    }
+
+    const [state, setState] = useState(initialState)
+
+    const clearState = () => {
+        setState(initialState)
+    }
+
+    const handleSubmit = signupUser => e => {
+        e.preventDefault()
+        signupUser().then(data => {
+            console.log(data)
+            clearState()
+        })
+    }
+
+    const handleChange = e => {
+        const { name, value } = e.target
+        setState(prevState => ({ ...prevState, [name]: value }))
+    }
+
+    return <JSX />
+}
+
+export default Signup
+```
+
+In this example, we create an `initialState` object that holds the initial values for each piece of state. We then use `useState` to initialize the state with the `initialState` object. 
+
+In the `clearState` function, we simply call `setState` with the `initialState` object to reset the state.
+
+Note that we also need to update the `handleChange` function to use the `setState` function to update the state. We use the spread operator to copy the previous state and then update the specific property with the new value.

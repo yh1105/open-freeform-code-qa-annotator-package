@@ -1,0 +1,5 @@
+Yes, using `cloned()` to create a new `Vec` with cloned values is a good way to collect the values of a `HashMap` into a `Vec`. 
+
+The `cloned()` method creates a new iterator that clones each element of the original iterator, which in this case are references to `Score` objects. This allows you to create a new `Vec` of `Score` objects instead of a `Vec` of references to `Score` objects.
+
+Using `Vec::from_iter(score_table.values().cloned())` is a concise and efficient way to achieve your goal.

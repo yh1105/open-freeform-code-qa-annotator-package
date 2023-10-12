@@ -1,0 +1,37 @@
+You can use the pandas library to manipulate your data and matplotlib to plot your data. Here is a step-by-step guide:
+
+1. First, you need to reshape your dataframe from wide format to long format using the `melt` function in pandas. This will make your data easier to plot.
+
+2. Then, you can use the `groupby` function to count the number of "Yes" for each sex and variable.
+
+3. Finally, you can use the `bar` function from matplotlib to create your bar plot.
+
+Here is a code snippet that does this:
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# assuming df is your dataframe
+df = pd.DataFrame({
+    'Sex': ['Male', 'Female', 'Male', 'Female'],
+    'Var1': ['Yes', 'No', 'No', 'Yes'],
+    'Var2': ['No', 'Yes', 'No', 'Yes'],
+    'Var3': ['Yes', 'No', 'Yes', 'No']
+})
+
+# reshape the dataframe
+df_melt = df.melt(id_vars='Sex', var_name='Variable', value_name='Value')
+
+# count the number of "Yes" for each sex and variable
+df_count = df_melt[df_melt['Value'] == 'Yes'].groupby(['Sex', 'Variable']).size().reset_index(name='Count')
+
+# create the bar plot
+fig, ax = plt.subplots()
+df_count[df_count['Sex'] == 'Male'].plot(x='Variable', y='Count', ax=ax, kind='bar', color='b', position=1, width=0.4)
+df_count[df_count['Sex'] == 'Female'].plot(x='Variable', y='Count', ax=ax, kind='bar', color='r', position=0, width=0.4)
+ax.set_ylabel('Yes count')
+plt.show()
+```
+
+In this code, `df_melt` is the reshaped dataframe, `df_count` is the dataframe with the counts of "Yes", and `fig, ax = plt.subplots()` creates a figure and a set of subplots. The `plot` function is then used to create the bar plot. The `position` parameter is used to position the bars for 'Male' and 'Female' side by side, and the `width` parameter is used to set the width of the bars.

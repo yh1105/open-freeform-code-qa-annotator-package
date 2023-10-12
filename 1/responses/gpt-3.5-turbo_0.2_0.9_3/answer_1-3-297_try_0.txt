@@ -1,0 +1,21 @@
+To import existing resources listed on a map, you need to use the `for_each` meta-argument in your resource block. Here's an example of how you can import the existing S3 buckets using the `for_each` meta-argument:
+
+```
+resource "aws_s3_bucket" "bucket" {
+  for_each = var.s3_replication
+  bucket   = each.value.source
+  #other configuration
+}
+```
+
+To import the existing S3 buckets, you can use the following command:
+
+```
+terraform import aws_s3_bucket.bucket["logs"] logs_bucket
+```
+
+This command will import the `logs_bucket` as the `logs` resource in the `aws_s3_bucket.bucket` resource block.
+
+You can repeat this command for each of the S3 buckets that you want to import. Make sure to replace `logs_bucket` with the name of the existing S3 bucket that you want to import.
+
+Once you have imported the S3 buckets, you can apply the configuration to update the resources.

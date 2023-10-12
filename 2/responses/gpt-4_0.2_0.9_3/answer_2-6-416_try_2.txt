@@ -1,0 +1,17 @@
+The problem you're facing is likely due to the fact that Entity Framework 6.4.4 is not compatible with .NET 6.0. EF 6.4.4 is designed to work with .NET Framework, not .NET Core or .NET 5.0 and later.
+
+To solve this problem, you should use Entity Framework Core which is designed to work with .NET Core and .NET 5.0 and later, including .NET 6.0.
+
+Here are the steps to install Entity Framework Core:
+
+1. Right-click on your project in Solution Explorer and select "Manage NuGet Packages..."
+
+2. In the NuGet Package Manager, search for "Microsoft.EntityFrameworkCore".
+
+3. Select the package and click "Install" to add it to your project.
+
+4. Repeat the process for "Microsoft.EntityFrameworkCore.Design" and "Microsoft.EntityFrameworkCore.SqlServer" (or the provider that matches your database system).
+
+5. After installing these packages, you should be able to use Entity Framework Core in your project.
+
+Remember, EF Core has some differences in API and behavior compared to EF 6. So, you might need to adjust your code accordingly.

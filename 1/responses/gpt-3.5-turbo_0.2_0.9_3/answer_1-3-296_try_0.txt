@@ -1,0 +1,20 @@
+The error message suggests that some of the images in your dataset are not in the expected format (JPEG, PNG, GIF, BMP). You can try to identify the problematic images by printing out their filenames and checking their file extensions. 
+
+You can use the following code to print out the filenames of the images that are causing the error:
+
+```
+import os
+
+for root, dirs, files in os.walk('/content/drive/MyDrive/fi_dataset/train'):
+    for file in files:
+        if file.endswith('.jpg'):
+            try:
+                img = keras.preprocessing.image.load_img(os.path.join(root, file))
+                keras.preprocessing.image.img_to_array(img)
+            except Exception as e:
+                print(f"Error processing {os.path.join(root, file)}: {e}")
+```
+
+This code will try to load each image in the dataset and convert it to a NumPy array. If an error occurs, it will print out the filename and the error message.
+
+Once you have identified the problematic images, you can either remove them from the dataset or convert them to the expected format using a tool like ImageMagick or Pillow.

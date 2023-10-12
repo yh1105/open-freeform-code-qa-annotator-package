@@ -1,0 +1,16 @@
+The error message suggests that the `settings` module is not properly configured. You need to make sure that the `DJANGO_SETTINGS_MODULE` environment variable is set to the correct value, which is `first_django_project.settings`.
+
+You can set the environment variable in your terminal before running the script:
+
+```
+export DJANGO_SETTINGS_MODULE=first_django_project.settings
+```
+
+Alternatively, you can set the environment variable in your Python script before calling `django.setup()`:
+
+```
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'first_django_project.settings')
+```
+
+Make sure to add this code before the line `django.setup()`.

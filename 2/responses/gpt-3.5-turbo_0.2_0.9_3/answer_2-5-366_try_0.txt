@@ -1,0 +1,15 @@
+Based on the error message, it seems like there is a version incompatibility issue between Spring Cloud and OpenFeign. 
+
+You are using Spring Cloud Hoxton.SR8, which is compatible with OpenFeign 2.2.3.RELEASE. However, you are using OpenFeign 2.2.5.RELEASE, which may not be compatible with Spring Cloud Hoxton.SR8.
+
+To fix this issue, you can try downgrading OpenFeign to version 2.2.3.RELEASE by updating the dependency in your pom.xml file:
+
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.2.3.RELEASE</version>
+</dependency>
+```
+
+After updating the dependency, try running your Spring Boot application again.

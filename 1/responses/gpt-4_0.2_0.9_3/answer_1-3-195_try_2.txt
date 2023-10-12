@@ -1,0 +1,56 @@
+Here is a solution to your problem:
+
+1- The issue with the plot not being cleared when deselecting a checkbox is due to the fact that each time you call `plot.plot()`, it adds a new item to the plot. So, when you deselect a checkbox, it only removes the last curve added, not all of them. To fix this, you can store all the curves in a list and remove them all when deselecting a checkbox.
+
+2- To avoid duplicating code for each checkbox, you can create a dictionary where the keys are the checkbox texts and the values are the corresponding data sets. Then, you can create the checkboxes in a loop and use a lambda function to pass the checkbox text to the `todo` function. This way, you can determine which data set to plot based on the checkbox text.
+
+Here is the modified code:
+
+```python
+from PyQt5 import QtWidgets, QtGui
+import numpy as np
+import sys
+import pyqtgraph as pg
+
+app = QtWidgets.QApplication(sys.argv)
+
+x = np.linspace(0, 3.14, 100)
+data_sets = {'A1': np.sin(x), 'A2': np.cos(x)}  # Dictionary of data sets
+curves = {}  # Dictionary to store the curves
+
+# This function is called whenever the state of checkboxes changes
+def todo(checkbox_text):
+    if checkboxes[checkbox_text].isChecked():
+        curves[checkbox_text] = plot.plot(x, data_sets[checkbox_text], pen='r' if checkbox_text == 'A1' else 'y')
+    else:
+        if checkbox_text in curves:
+            plot.removeItem(curves[checkbox_text])
+            del curves[checkbox_text]
+
+# A widget to hold all of my future widgets
+widget_holder = QtGui.QWidget()
+
+# Making a pyqtgraph plot widget
+plot = pg.PlotWidget()
+
+# Setting the layout
+layout = QtGui.QGridLayout()
+widget_holder.setLayout(layout)
+
+# Adding the widgets to the layout
+checkboxes = {}
+for i, checkbox_text in enumerate(data_sets.keys()):
+    checkboxes[checkbox_text] = QtWidgets.QCheckBox()
+    checkboxes[checkbox_text].setText(checkbox_text)
+    checkboxes[checkbox_text].stateChanged.connect(lambda state, checkbox_text=checkbox_text: todo(checkbox_text))
+    layout.addWidget(checkboxes[checkbox_text], 0, i)
+
+layout.addWidget(plot, 1, 0, 3, 1)
+
+widget_holder.adjustSize()
+widget_holder.show()
+
+sys.exit(app.exec_())
+```
+
+This code should work for any number of checkboxes and data sets. Just add more data sets to the `data_sets` dictionary and the corresponding checkboxes will be created automatically.

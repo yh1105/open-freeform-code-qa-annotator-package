@@ -1,0 +1,5 @@
+It sounds like you're referring to a feature called "Emmet" which is a plugin for many text editors that helps you write HTML and CSS faster. You can write shorthand code like `.classname` and Emmet will automatically expand it to `<div class="classname"></div>` when you press tab.
+
+If this isn't working for you, it's possible that you don't have Emmet installed or enabled in your text editor. You didn't mention which text editor you're currently using, but you can usually find Emmet in the plugin or extension marketplace for your editor.
+
+As for switching to Sublime, it's a popular text editor and many developers find it very efficient and user-friendly. However, whether it's "better" or "easier" than your current editor depends on your personal preferences and needs. Sublime, Atom, and Visual Studio Code are all solid choices with similar features, so you might want to try them out and see which one you like best. They all support Emmet, so you'll be able to use the `.classname` shortcut in any of them once you have Emmet installed and enabled.

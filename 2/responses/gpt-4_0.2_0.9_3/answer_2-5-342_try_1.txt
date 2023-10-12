@@ -1,0 +1,41 @@
+Yes, the `setView` method is deprecated starting from API 30. Instead of using `setView`, you can create a custom `Toast` using a `Snackbar`. The `Snackbar` provides more control over the UI and is more flexible in terms of customization.
+
+Here's a simple example of how you can create a custom `Snackbar`:
+
+```java
+public void showSnackbar(View view, String message, int duration) {
+    Snackbar snackbar = Snackbar.make(view, "", duration);
+    Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+
+    TextView textView = layout.findViewById(com.google.android.material.R.id.snackbar_text);
+    textView.setVisibility(View.INVISIBLE);
+
+    View customView = getLayoutInflater().inflate(R.layout.my_custom_layout, null);
+    layout.addView(customView, 0);
+
+    snackbar.show();
+}
+```
+
+In this example, `my_custom_layout` is your custom layout file. You can design it as you want.
+
+Remember to call `showSnackbar` method from the main thread, and pass the root view of your layout as the first parameter.
+
+If you still want to use `Toast`, you can create a custom `Toast` using a `Toast` factory method:
+
+```java
+LayoutInflater inflater = getLayoutInflater();
+View layout = inflater.inflate(R.layout.custom_toast_layout,
+                               (ViewGroup) findViewById(R.id.custom_toast_container));
+
+TextView text = (TextView) layout.findViewById(R.id.text);
+text.setText("This is a custom toast");
+
+Toast toast = new Toast(getApplicationContext());
+toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+toast.setDuration(Toast.LENGTH_LONG);
+toast.setView(layout);
+toast.show();
+```
+
+In this example, `custom_toast_layout` is your custom layout file, and `custom_toast_container` is the id of the root view in your custom layout.

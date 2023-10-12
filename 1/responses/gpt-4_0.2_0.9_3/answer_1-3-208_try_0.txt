@@ -1,0 +1,21 @@
+The issue with your code is that you are checking if the entire input string is within the `correct` string, not if each character of the input string is within the `correct` string. 
+
+You can fix this by iterating over each character in the input string and checking if it is in the `correct` string. If you find a character that is not in the `correct` string, you can print a failure message and break the loop. If you make it through the entire string without finding any incorrect characters, you can print a success message.
+
+Here's how you can modify your code:
+
+```python
+import string
+
+text = input("Enter: ")
+correct = string.ascii_letters + string.digits
+
+for char in text:
+    if char not in correct:
+        print("Failure")
+        break
+else:  # This else corresponds to the for loop, not the if statement
+    print("Success")
+```
+
+In this code, the `else` block after the `for` loop will only execute if the `for` loop completes without encountering a `break` statement. This means that if any character in `text` is not in `correct`, the program will print "Failure" and then stop checking the rest of the characters. If all characters in `text` are in `correct`, the program will print "Success".

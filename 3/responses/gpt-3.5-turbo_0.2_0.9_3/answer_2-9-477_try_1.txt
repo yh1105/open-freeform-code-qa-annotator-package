@@ -1,0 +1,13 @@
+It seems like there might be an issue with the installation of some dependencies needed for Ruby. One thing you can try is to install the missing dependencies manually using Homebrew. 
+
+First, make sure Homebrew is up to date by running `brew update`. Then, try installing the dependencies mentioned in the error message by running:
+
+```
+brew install openssl readline zlib libyaml
+```
+
+After that, try installing Ruby again using `rbenv install`. 
+
+If that doesn't work, you can also try updating your version of rbenv by running `brew upgrade rbenv` and then trying the installation again. 
+
+If you're still having issues, you can try looking at the log file mentioned in the error message (`/var/folders/rn/c7nmr3x12gg5r8qwsr4ty8hh0000gn/T/ruby-build.20210209143107.60561.log`) to see if there are any more specific error messages that might help diagnose the issue.

@@ -1,0 +1,21 @@
+It seems that the EasyAdminBundle routes are not being loaded. 
+
+You can try to manually import the EasyAdminBundle routes in your `config/routes.yaml` file by adding the following line:
+
+```
+# config/routes.yaml
+
+easy_admin_bundle:
+    resource: '@EasyAdminBundle/Controller/'
+    type: annotation
+    prefix: /admin
+```
+
+After adding this line, clear the cache and try accessing the `/admin` route again. 
+
+```
+symfony console cache:clear
+symfony console router:match /admin
+```
+
+This should load the EasyAdminBundle routes and you should be able to access the `/admin` route.

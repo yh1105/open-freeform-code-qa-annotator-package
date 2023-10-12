@@ -1,0 +1,46 @@
+You can convert the hashtable to a PSCustomObject using the `PSCustomObject` type accelerator. This will make it easier to navigate the hashtable by property name. Here's how you can do it:
+
+```powershell
+$psdnode = Import-PowerShellDataFile .\nodefile.psd1
+
+# Convert the hashtable to a PSCustomObject
+$psdnode = [PSCustomObject]$psdnode
+
+# Now you can navigate the hashtable by property name
+$psdnode.AllNodes
+$psdnode.NonNodeData
+```
+
+However, this will only convert the top-level hashtable to a PSCustomObject. If you want to convert all nested hashtables to PSCustomObjects as well, you will need to use a recursive function:
+
+```powershell
+function ConvertTo-PSCustomObject {
+    param(
+        [Parameter(ValueFromPipeline)]
+        [PSObject]$InputObject
+    )
+
+    process {
+        if ($InputObject -is [System.Collections.Hashtable]) {
+            $InputObject = [PSCustomObject]$InputObject
+            foreach ($property in $InputObject.PSObject.Properties) {
+                if ($property.Value -is [System.Collections.Hashtable]) {
+                    $property.Value = ConvertTo-PSCustomObject -InputObject $property.Value
+                }
+                elseif ($property.Value -is [System.Collections.ArrayList] -and $property.Value -ne $null) {
+                    for ($i = 0; $i -lt $property.Value.Count; $i++) {
+                        if ($property.Value[$i] -is [System.Collections.Hashtable]) {
+                            $property.Value[$i] = ConvertTo-PSCustomObject -InputObject $property.Value[$i]
+                        }
+                    }
+                }
+            }
+        }
+        return $InputObject
+    }
+}
+
+$psdnode = Import-PowerShellDataFile .\nodefile.psd1 | ConvertTo-PSCustomObject
+```
+
+This function will convert all hashtables in the input object to PSCustomObjects, including nested hashtables. Now, you should be able to navigate the data structure more easily.

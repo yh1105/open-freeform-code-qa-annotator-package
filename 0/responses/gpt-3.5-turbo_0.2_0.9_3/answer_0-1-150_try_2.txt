@@ -1,0 +1,18 @@
+To create a triangle with Tailwind CSS, you can use the border property to create a triangle shape. Here's an example:
+
+```
+<div class="w-0 h-0 border-t-8 border-r-8 border-b-0 border-l-8 border-gray-900"></div>
+```
+
+This will create a triangle with a border width of 8 pixels and a gray color. You can adjust the border width and color to your liking. 
+
+To add a tail to the triangle, you can use the ::before or ::after pseudo-elements and position them accordingly. Here's an example:
+
+```
+<div class="relative">
+  <div class="w-0 h-0 border-t-8 border-r-8 border-b-0 border-l-8 border-gray-900"></div>
+  <div class="absolute w-4 h-4 bg-gray-900 bottom-0 left-0 transform rotate-45"></div>
+</div>
+```
+
+In this example, we've added a small square to the bottom left of the triangle using the ::after pseudo-element. We've positioned it absolutely and rotated it 45 degrees to create the tail. You can adjust the size and position of the tail to your liking.

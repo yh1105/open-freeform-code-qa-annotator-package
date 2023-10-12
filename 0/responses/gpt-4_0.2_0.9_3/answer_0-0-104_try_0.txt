@@ -1,0 +1,51 @@
+React Native's `Button` component is quite limited in terms of customization. It doesn't support focus events out of the box. However, you can use the `TouchableHighlight` or `TouchableOpacity` components to achieve this functionality. 
+
+You can use the `onFocus` and `onBlur` events to change the style of the button when it is focused or blurred. These events are not officially documented in React Native, but they work on TV devices. 
+
+Here's an example:
+
+```jsx
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+
+const MyButton = (props) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleOnFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleOnBlur = () => {
+    setIsFocused(false);
+  };
+
+  return (
+    <TouchableHighlight
+      style={isFocused ? styles.focusedButton : styles.button}
+      onPress={() => {props.addNumber(1)}}
+      onFocus={handleOnFocus}
+      onBlur={handleOnBlur}
+      underlayColor="#DDDDDD"
+    >
+      <Text>1</Text>
+    </TouchableHighlight>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+  },
+  focusedButton: {
+    backgroundColor: '#AAAAAA',
+    padding: 10,
+  },
+});
+
+export default MyButton;
+```
+
+In this example, when the button is focused, the `onFocus` event is triggered, which changes the state `isFocused` to `true`. This changes the style of the button to `styles.focusedButton`. When the button is blurred, the `onBlur` event is triggered, which changes the state `isFocused` to `false`, changing the style of the button back to `styles.button`.
+
+Please note that this solution might not work on all platforms, as the `onFocus` and `onBlur` events are not officially supported by React Native.

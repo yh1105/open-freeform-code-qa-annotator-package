@@ -1,0 +1,17 @@
+The error message you're seeing is indicating that the `Authority` URL you're using for your JWT Bearer authentication is not using HTTPS. This is a requirement for production environments, as indicated by the `RequireHttpsMetadata = true` setting in your `AddJwtBearer` configuration.
+
+The `Authority` URL is used to retrieve the public signing keys that are used to validate the JWT token. This URL must be secured with HTTPS to prevent man-in-the-middle attacks.
+
+You mentioned that you have set `AzureAd:Authority` to `https://login.microsoftonline.com/` in your app service settings. However, the error message suggests that the `Authority` URL being used is not using HTTPS.
+
+Here are a few things you can check:
+
+1. Ensure that the `AzureAd:Authority` setting in your app service is indeed set to `https://login.microsoftonline.com/` and not `http://login.microsoftonline.com/` (note the 's' in 'https').
+
+2. Check the `authSettings.Authority` and `authSettings.TenantId` values at runtime to ensure they are what you expect. It's possible that these values are not being correctly loaded from your app service settings.
+
+3. If you're using a custom domain for your Azure AD tenant, ensure that it is correctly configured to use HTTPS.
+
+4. If you're running in a development environment and you want to bypass the HTTPS requirement for testing purposes, you can set `RequireHttpsMetadata = false`. However, this should not be done in a production environment.
+
+If you've checked all of these and you're still seeing the error, it would be helpful to see more of your code to further diagnose the issue.

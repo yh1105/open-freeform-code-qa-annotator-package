@@ -1,0 +1,32 @@
+You can use the `idxmax` function to find the index of the maximum date for each group. Then, use the `loc` function to assign the string "latest" to the new column at these indices. Here is how you can do it:
+
+```python
+# First, create a new column 'Latest' and initialize it with empty strings
+df['Latest'] = ''
+
+# Filter the dataframe where Value is 1
+df1 = df[df['Value'] == 1]
+
+# Find the index of the maximum date for each ID
+idx = df1.groupby('ID')['Date'].idxmax()
+
+# Assign the string 'latest' to the 'Latest' column at these indices
+df.loc[idx, 'Latest'] = 'Latest'
+```
+
+This will give you the desired output.
+
+For your edited question, you can sort the dataframe by 'Date' and 'ID 2' in descending order before finding the index of the maximum date. This way, in case of a tie in 'Date', the maximum 'ID 2' will be selected.
+
+```python
+# Sort the dataframe by 'Date' and 'ID 2' in descending order
+df1 = df1.sort_values(['Date', 'ID 2'], ascending=False)
+
+# Find the index of the maximum date for each ID
+idx = df1.groupby('ID')['Date'].idxmax()
+
+# Assign the string 'latest' to the 'Latest' column at these indices
+df.loc[idx, 'Latest'] = 'Latest'
+```
+
+This will give you the desired output where the 'Latest' string is assigned to the row with the maximum 'Date' and 'ID 2' for each 'ID'.

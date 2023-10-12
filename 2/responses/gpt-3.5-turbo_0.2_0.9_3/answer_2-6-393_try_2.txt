@@ -1,0 +1,32 @@
+The error message suggests that synchronous reads are not supported. This means that you need to use an asynchronous method to read the stream. You can modify your code to use the asynchronous method `CopyToAsync` instead of `CopyTo` to read the stream. Here's an updated version of your method:
+
+```
+public async Task<byte[]> ConvertFileToByteArrayAsync(IBrowserFile file)
+{
+    using var memoryStream = new MemoryStream();
+    await file.OpenReadStream().CopyToAsync(memoryStream);
+    memoryStream.Seek(0, SeekOrigin.Begin);
+
+    using var image = Image.Load(memoryStream);
+    image.Mutate(x => x.Resize(new ResizeOptions
+    {
+        Mode = ResizeMode.Min,
+        Size = new Size(128)
+    }));
+
+    memoryStream.SetLength(0);
+    if (file.ContentType == "image/png")
+    {
+        await image.SaveAsPngAsync(memoryStream);
+    }
+    else
+    {
+        await image.SaveAsJpegAsync(memoryStream);
+    }
+
+    var byteFile = memoryStream.ToArray();
+    return byteFile;
+}
+```
+
+In this updated version, we first create a `MemoryStream` to hold the contents of the file. We then use the asynchronous `CopyToAsync` method to read the contents of the file stream into the memory stream. We then reset the position of the memory stream to the beginning using `Seek`. We then load the image from the memory stream and perform the image processing. We then reset the length of the memory stream to 0 using `SetLength` to clear the contents of the memory stream. Finally, we save the processed image to the memory stream and return the contents of the memory stream as a byte array.

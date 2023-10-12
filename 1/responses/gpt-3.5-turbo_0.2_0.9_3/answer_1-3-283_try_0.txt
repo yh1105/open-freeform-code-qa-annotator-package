@@ -1,0 +1,35 @@
+Yes, you can speed up the execution time of your function by using multiprocessing. One way to do this is to split the matrix creation into smaller chunks and process them in parallel using multiple processes. Here's an example implementation using the `multiprocessing` module:
+
+```
+import numpy as np
+import multiprocessing as mp
+
+def createMatrixChunk(start, end, n):
+    chunk = []
+    for j in range(start, end):
+        row = []
+        for i in range(1, n+1):
+            value = 1/(i+j-1)
+            row.append(value)
+        chunk.append(row)
+    return chunk
+
+def createMatrix(n, num_processes=4):
+    pool = mp.Pool(num_processes)
+    chunk_size = n // num_processes
+    results = []
+    for i in range(num_processes):
+        start = i * chunk_size + 1
+        end = (i+1) * chunk_size + 1 if i < num_processes-1 else n+1
+        results.append(pool.apply_async(createMatrixChunk, args=(start, end, n)))
+    pool.close()
+    pool.join()
+    matrix = []
+    for result in results:
+        matrix += result.get()
+    return np.array(matrix)
+```
+
+In this implementation, the `createMatrixChunk` function creates a chunk of the matrix from `start` to `end` rows. The `createMatrix` function splits the matrix creation into `num_processes` chunks and processes them in parallel using the `multiprocessing.Pool` class. The results from each process are collected and concatenated to form the final matrix.
+
+You can adjust the `num_processes` parameter to control the number of processes used for parallel processing. Keep in mind that using too many processes can lead to diminishing returns due to overhead costs.

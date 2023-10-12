@@ -1,0 +1,7 @@
+The `rel="noopener noreferrer"` attribute is not meant to prevent someone from using Developer Tools to manipulate the HTML on their own browser. It's meant to protect users from a specific type of vulnerability known as "tabnapping" or "reverse tabnapping".
+
+When you open a new window using `target="_blank"`, the new page runs on the same process as your page and with the `window.opener` property, it can potentially navigate your page to a different URL. This can be used in phishing attacks where the new page navigates the original page to a fake version of a website and prompts the user to enter their credentials.
+
+By using `rel="noopener"`, you're preventing the new page from having the ability to manipulate `window.opener`. The `noreferrer` part also prevents the new page from knowing where the traffic came from, which can be useful for privacy reasons.
+
+As for your question, yes, if someone with malicious intent has access to the Developer Tools and can remove these attributes, then the vulnerability is still there. But this would require the user to intentionally do this, which is unlikely in most cases. The attribute is there to protect users from unknowingly being exploited by this vulnerability.

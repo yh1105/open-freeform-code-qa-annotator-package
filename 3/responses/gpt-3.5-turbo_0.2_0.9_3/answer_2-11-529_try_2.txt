@@ -1,0 +1,43 @@
+Unfortunately, there is no standard library function that does exactly what you're asking for. However, you can write your own function to achieve this. Here's an example implementation:
+
+```
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<Args...> args)
+{
+    auto ptr = new T(std::forward<Args>(std::get<Args>(args))...);
+    return ptr;
+}
+```
+
+This function takes a tuple of arguments and creates a new instance of `T` using those arguments. It then returns a raw pointer to the newly created object.
+
+You can use this function like this:
+
+```
+auto aTuple = std::make_tuple(1, 1.5, std::string("Hello"));
+A* aPtr = make_new_from_tuple<A*>(aTuple);
+```
+
+This will create a new instance of `A` using the arguments in `aTuple`, and return a raw pointer to that object.
+
+If your tuple contains a `unique_ptr` that you want to forward, you can modify the function like this:
+
+```
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<Args...> args)
+{
+    auto ptr = new T(std::forward<Args>(std::get<Args>(args))...);
+    return ptr;
+}
+
+template<typename T, typename... Args>
+T* make_new_from_tuple(std::tuple<std::unique_ptr<T>, Args...> args)
+{
+    auto ptr = std::get<std::unique_ptr<T>>(args).release();
+    return ptr;
+}
+```
+
+This version of the function will handle tuples that contain a `unique_ptr` as the first argument. It will release the `unique_ptr` and return a raw pointer to the object it was pointing to.
+
+I hope this helps! Let me know if you have any further questions.

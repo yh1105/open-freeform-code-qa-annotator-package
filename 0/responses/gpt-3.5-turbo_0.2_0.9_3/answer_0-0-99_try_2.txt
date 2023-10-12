@@ -1,0 +1,36 @@
+For allowing only numbers, positive and negative, the Validators.pattern should be:
+
+`Validators.pattern("^[+-]?[0-9]+$")`
+
+For allowing only numbers, positive and negative, optionally with up to 2 decimal places, the Validators.pattern should be:
+
+`Validators.pattern("^[+-]?[0-9]+(?:\.[0-9]{1,2})?$")`
+
+You can use these patterns in your Angular 5 code as follows:
+
+```
+import { Validators } from '@angular/forms';
+
+// For allowing only numbers, positive and negative
+const numberPattern = Validators.pattern("^[+-]?[0-9]+$");
+
+// For allowing only numbers, positive and negative, optionally with up to 2 decimal places
+const decimalPattern = Validators.pattern("^[+-]?[0-9]+(?:\.[0-9]{1,2})?$");
+```
+
+Then you can use these patterns in your form controls like this:
+
+```
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+constructor(private fb: FormBuilder) {}
+
+ngOnInit() {
+  this.myForm = this.fb.group({
+    numberField: ['', [Validators.required, numberPattern]],
+    decimalField: ['', [Validators.required, decimalPattern]]
+  });
+}
+```
+
+I hope this helps! Let me know if you have any other questions.

@@ -1,0 +1,32 @@
+In ASP.NET Core, you can return a JSON response with a status code using the `Ok` method for a 200 status code, or the `StatusCode` method for other status codes. Here's an example:
+
+```csharp
+public IActionResult GetResourceData()
+{
+    return Ok(new { response = "Hello" });
+}
+```
+
+This will return a 200 status code with the JSON response `{"response":"Hello"}`.
+
+If you want to return a different status code, you can use the `StatusCode` method:
+
+```csharp
+public IActionResult GetResourceData()
+{
+    return StatusCode(201, new { response = "Created" });
+}
+```
+
+This will return a 201 status code with the JSON response `{"response":"Created"}`.
+
+You don't need to use the `Json` method when returning a response with `Ok` or `StatusCode`, as these methods automatically serialize the object to JSON. The `Json` method is used when you want to return a JSON response directly, without any status code:
+
+```csharp
+public IActionResult GetResourceData()
+{
+    return Json(new { response = "Hello" });
+}
+```
+
+This will return a 200 status code with the JSON response `{"response":"Hello"}`, just like the `Ok` method.

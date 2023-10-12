@@ -1,0 +1,17 @@
+It seems like you've done most of the steps correctly, but the PERMISSION_DENIED error suggests that the service account you're using doesn't have the right permissions to invoke the Cloud Function.
+
+Here are a few things you could try:
+
+1. **Check the service account permissions again**: Make sure that the service account you're using has the `roles/cloudfunctions.invoker` role. This role allows the service account to invoke the Cloud Function.
+
+2. **Check the audience field**: The audience field in the Cloud Scheduler job should be set to the URL of the Cloud Function you're trying to invoke.
+
+3. **Check the service account email**: Make sure you're using the correct service account email in the Cloud Scheduler job.
+
+4. **Check the Cloud Function permissions**: Go to the Cloud Function details page in the Google Cloud Console, click on the "Permissions" tab, and make sure that the service account is listed there with the `roles/cloudfunctions.invoker` role.
+
+5. **Re-deploy the Cloud Function**: Sometimes, changes to the service account permissions might not take effect immediately. Try re-deploying the Cloud Function and see if that helps.
+
+6. **Check the Cloud Scheduler logs**: The logs might provide more details about why the invocation is failing. You can view the logs in the Google Cloud Console.
+
+If none of these steps work, you might want to consider creating a new project and trying the same steps there. Sometimes, there might be project-level settings or permissions that are causing the issue.

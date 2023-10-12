@@ -1,0 +1,21 @@
+The issue with your code is that it's distributing the remainder one by one to each group. To distribute the remainder by adding 2 to each group in succession, you need to modify your code a bit. Here's how you can do it:
+
+```python
+num = 100
+parts = num//30  #Number of parts into which 'num' is to be divided
+
+def split(a, b):
+    base = a//b
+    remainder = a%b
+    result = [base] * b
+    i = 0
+    while remainder > 0:
+        result[i] += 2
+        remainder -= 2
+        i = (i + 1) % b
+    return result
+
+print(split(num, parts))
+```
+
+In this code, we first calculate the base value for each group. Then, we distribute the remainder by adding 2 to each group in succession. The variable `i` is used to keep track of which group to add to. If we reach the end of the list of groups, we wrap around to the beginning again using the modulo operator `%`.

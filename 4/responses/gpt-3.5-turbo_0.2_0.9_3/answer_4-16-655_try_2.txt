@@ -1,0 +1,18 @@
+The variable expansion in the `GIT_BRANCH` definition looks correct, so the issue might be with the `echo` command. 
+
+Try enclosing the variable in double quotes to ensure that any special characters are properly interpreted:
+```
+job1:
+  script:
+    - echo "$GIT_BRANCH"
+```
+
+If that doesn't work, you can try using `set -x` to enable debugging and see what's happening with the variable expansion:
+```
+job1:
+  script:
+    - set -x
+    - echo $GIT_BRANCH
+```
+
+This will print the expanded value of `$GIT_BRANCH` to the console, along with any other commands that are executed. You can use this output to help diagnose the issue.

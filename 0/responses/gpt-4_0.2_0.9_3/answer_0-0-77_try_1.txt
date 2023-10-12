@@ -1,0 +1,33 @@
+Axios does not send cookies by default. You need to set the `withCredentials` option to `true` in the global axios defaults. This will make axios send cookies in all requests.
+
+Here is how you can do it:
+
+```javascript
+axios.defaults.withCredentials = true;
+```
+
+After setting this, axios will automatically include cookies in all requests.
+
+Please note that for CORS requests, the server must also allow credentials. You can do this in your Express.js server by setting the `Access-Control-Allow-Credentials` header to `true`.
+
+Here is how you can do it:
+
+```javascript
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  // other headers...
+  next();
+});
+```
+
+Also, make sure that you're setting the `Access-Control-Allow-Origin` header to the exact origin of the client, not `*`, because the `*` value doesn't work with credentials.
+
+```javascript
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://your-client-origin.com');
+  // other headers...
+  next();
+});
+```
+
+Replace `'http://your-client-origin.com'` with the actual origin of your client.

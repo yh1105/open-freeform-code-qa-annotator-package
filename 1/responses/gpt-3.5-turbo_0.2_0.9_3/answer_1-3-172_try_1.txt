@@ -1,0 +1,19 @@
+You can use the `forestplot` function from the `pyforestplot` package to create a forest plot in Python. Here's an example of how to use it:
+
+```python
+import pandas as pd
+import pyforestplot as pfp
+
+# Create a dataframe with the study names, effect sizes, and confidence intervals
+data = pd.DataFrame({
+    'study': ['Study 1', 'Study 2', 'Study 3'],
+    'effect_size': [0.5, 0.8, 1.2],
+    'lower_ci': [0.3, 0.6, 1.0],
+    'upper_ci': [0.7, 1.0, 1.5]
+})
+
+# Create a forest plot
+pfp.forestplot(data, x='effect_size', ci_low='lower_ci', ci_high='upper_ci', study_name='study')
+```
+
+This will create a forest plot with the effect sizes and confidence intervals for each study. You can customize the plot by changing the colors, adding labels, and adjusting the layout.

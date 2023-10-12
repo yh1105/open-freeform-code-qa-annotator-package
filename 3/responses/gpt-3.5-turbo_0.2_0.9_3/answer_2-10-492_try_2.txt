@@ -1,0 +1,41 @@
+To transfer native SOL directly into the event account's vault address in an anchor smart contract instruction, you can use the `system_instruction::transfer` method instead of the `token::transfer` method. The `system_instruction::transfer` method is used to transfer native SOL from one account to another.
+
+Here is an example of how you can use the `system_instruction::transfer` method to transfer native SOL to the event account's vault address:
+
+```
+use solana_program::{
+    program_error::ProgramError,
+    pubkey::Pubkey,
+    system_instruction::{self, transfer},
+};
+
+// Define the event account's vault address
+let event_vault_address = Pubkey::new_from_array([0u8; 32]); // Replace with actual event vault address
+
+// Define the source account's address
+let source_account_address = Pubkey::new_from_array([0u8; 32]); // Replace with actual source account address
+
+// Define the amount of SOL to transfer
+let amount = 1000000000; // 1 SOL
+
+// Create the transfer instruction
+let transfer_instruction = transfer(&source_account_address, &event_vault_address, amount);
+
+// Send the transfer instruction
+let accounts = vec![
+    AccountMeta::new(source_account_address, true),
+    AccountMeta::new_readonly(event_vault_address, false),
+    AccountMeta::new_readonly(sysvar::rent::id(), false),
+];
+let instruction = Instruction {
+    program_id: system_program::id(),
+    accounts,
+    data: transfer_instruction.try_to_vec().unwrap(),
+};
+msg!("Sending transfer instruction...");
+invoke(&instruction)?;
+```
+
+In the above example, `event_vault_address` is the address of the event account's vault, `source_account_address` is the address of the account that is transferring SOL, and `amount` is the amount of SOL to transfer. The `transfer_instruction` is created using the `system_instruction::transfer` method, and the instruction is sent using the `invoke` function.
+
+Note that you will need to have enough SOL in the `source_account_address` account to cover the transfer. Also, make sure to replace the placeholder values with the actual values for your specific use case.

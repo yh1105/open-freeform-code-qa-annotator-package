@@ -1,0 +1,25 @@
+The issue you're facing is related to the way ASP.NET Core's JSON serializer works. It only serializes properties, not fields. In your `City` class, you've defined `CityName`, `AssociatedCities`, `Province`, and `Status` as fields, not properties. 
+
+To resolve this issue, you should change these fields to properties. Here's how you can do it:
+
+```csharp
+public class City
+{
+    public string CityName { get; set; }
+    public string AssociatedCities { get; set; } 
+    public string Province { get; set; }
+    public int Status { get; set; }
+
+    public City(string cityName, string associatedCities, string province, int status)
+    {
+        this.CityName = cityName;
+        this.AssociatedCities = associatedCities;
+        this.Province = province;
+        this.Status = status;
+    }
+}
+```
+
+In C#, properties are defined with `{ get; set; }` syntax, which creates a getter and a setter method for the property. These methods are used to retrieve and update the value of the property, respectively. 
+
+After making these changes, your API should return the expected JSON response.

@@ -1,0 +1,30 @@
+You can use the `Stream.filter()` method to filter out the subjects with `status = false`. Here's how you can do it:
+
+```java
+class Student{
+    String name;
+    List<Subject> subjects1;
+    List<Subject> subjects2;
+    List<Subject> subjects3;
+    // getters & setters
+
+    public void removeInvalidSubjects() {
+        subjects1 = subjects1.stream().filter(Subject::isStatus).collect(Collectors.toList());
+        subjects2 = subjects2.stream().filter(Subject::isStatus).collect(Collectors.toList());
+        subjects3 = subjects3.stream().filter(Subject::isStatus).collect(Collectors.toList());
+    }
+}
+
+class Subject{
+    String sub;
+    Integer marks;
+    boolean status;
+    // getters & setters
+
+    public boolean isStatus() {
+        return status;
+    }
+}
+```
+
+In the `removeInvalidSubjects()` method, we are filtering out the subjects with `status = false` from each list and then collecting the remaining subjects back into the list. The `Subject::isStatus` method reference is used to pass the `status` field of each `Subject` object to the `filter()` method. If `status` is `false`, the `filter()` method excludes the `Subject` object from the stream.

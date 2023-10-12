@@ -1,0 +1,43 @@
+The issue you're facing is likely due to the fact that Create React App (CRA) doesn't support customizing the webpack configuration out of the box, unless you eject or use a tool like `react-app-rewired` or `customize-cra`.
+
+However, CRA does support absolute imports. You can set up a `jsconfig.json` or `tsconfig.json` in your project root to specify the `baseUrl`. Here's how you can do it:
+
+1. Create a `jsconfig.json` or `tsconfig.json` file in your project root if it doesn't exist already.
+
+2. Add the following configuration:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
+}
+```
+
+3. Now you can import files from the `src` directory like this:
+
+```jsx
+import MyComponent from 'components/MyComponent';
+```
+
+Instead of:
+
+```jsx
+import MyComponent from '../../../components/MyComponent';
+```
+
+In your case, since you're using TypeScript and your source files are in the `client` directory, your `tsconfig.json` should look like this:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "client"
+  },
+  "include": ["client"]
+}
+```
+
+This should work without any additional configuration or plugins. If you're still having issues, make sure your paths are correct and that you're importing from the correct directory.
+
+Also, note that the `NODE_PATH` environment variable is deprecated in Create React App and should not be used.

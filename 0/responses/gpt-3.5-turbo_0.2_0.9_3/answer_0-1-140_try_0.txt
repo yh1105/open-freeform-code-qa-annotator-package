@@ -1,0 +1,13 @@
+With Font Awesome 5, the font family name has changed. You need to use the following font family name:
+
+```
+font-family: "Font Awesome 5 Free";
+```
+
+Also, make sure that you have included the Font Awesome 5 CSS file in your project. You can include it using the following code:
+
+```
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-4oV9txTYmz8v+6Xz6TiQqVgXuZxO+KaS40+q9yZzP5TCF0sw7I1lZg6QL0UuZ/hU" crossorigin="anonymous">
+```
+
+Make sure that you have included this code before your custom CSS code.

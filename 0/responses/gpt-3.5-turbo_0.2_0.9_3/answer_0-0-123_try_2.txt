@@ -1,0 +1,59 @@
+Yes, you can achieve this by using the `Pick` and `Exclude` utility types in combination with the `Omit` type. Here's how you can do it:
+
+```
+type DeepOmit<T, K> = T extends object
+  ? T extends infer O
+    ? { [P in keyof O]: P extends K ? never : DeepOmit<O[P], K> }
+    : never
+  : T;
+
+type CampaignFormValues = Omit<Campaign, 'attributeValues'> & {
+  attributeValues: {
+    values?: { [key: string]: unknown };
+  };
+};
+
+type CampaignAttribute = {
+  name: string;
+  type: string;
+};
+
+type Campaign = {
+  id: string;
+  orders?: number;
+  avgOrderValue?: number;
+  optionalAttributes: string[];
+  attributeValues: {
+    optionalAttributes: CampaignAttribute[];
+    mandatoryAttributes: CampaignAttribute[];
+    values?: { [key: string]: unknown };
+  };
+  created: number;
+  lastUpdated: number;
+};
+
+type CampaignFormValues = Omit<Campaign, 'attributeValues'> & {
+  attributeValues: {
+    values?: { [key: string]: unknown };
+  };
+};
+
+const campaignFormValues: CampaignFormValues = {
+  id: '123',
+  orders: 10,
+  avgOrderValue: 100,
+  optionalAttributes: ['attr1', 'attr2'],
+  attributeValues: {
+    values: {
+      attr1: 'value1',
+      attr2: 'value2',
+    },
+  },
+  created: 123456,
+  lastUpdated: 123456,
+};
+```
+
+In this example, we define a `DeepOmit` type that recursively omits the specified keys from an object. We then use this type to omit the `mandatoryAttributes` and `optionalAttributes` keys from the `attributeValues` property of the `Campaign` interface. Finally, we define a new `CampaignFormValues` type that includes all the properties of the `Campaign` interface except for the `attributeValues.mandatoryAttributes` and `attributeValues.optionalAttributes` properties. We also add a new `attributeValues.values` property to the type to replace the omitted properties.
+
+With this type, you can create a new object that has the same properties as the `Campaign` interface, except for the omitted properties.

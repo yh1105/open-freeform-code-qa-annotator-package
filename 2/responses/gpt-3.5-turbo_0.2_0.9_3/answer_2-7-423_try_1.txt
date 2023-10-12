@@ -1,0 +1,15 @@
+Based on the information provided, it seems that the Xdebug extension is properly configured and enabled in your Docker container. However, the error message suggests that the PhpStorm Debugger extension is not detected. 
+
+Here are some steps you can try to resolve the issue:
+
+1. Make sure that the PhpStorm Debugger extension is installed and enabled in your browser. You can check this by going to your browser's extensions page and verifying that the PhpStorm Debugger extension is present and enabled.
+
+2. Check that the correct port is set in your PhpStorm configuration. In your screenshot, the port is set to 9000, but in your Dockerfile, the Xdebug remote port is set to 10000. Make sure that the port number matches in both places.
+
+3. Verify that the correct IDE key is set in your Xdebug configuration. In your Dockerfile, the IDE key is set to "PHPSTORM". Make sure that this matches the IDE key set in your PhpStorm configuration.
+
+4. Try restarting your Docker container and PhpStorm to see if that resolves the issue.
+
+5. If none of the above steps work, try enabling the "Force break at first line when no path mapping specified" option in your PhpStorm configuration. This can sometimes help with debugging issues.
+
+Hopefully, one of these steps will help you resolve the issue and get your debugger working properly.

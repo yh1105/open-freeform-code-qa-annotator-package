@@ -1,0 +1,27 @@
+The warning you're seeing is because Vue 3 requires you to explicitly define the custom events a component can emit. This is a new feature in Vue 3 that helps to make the component's API more clear.
+
+In your child component, you're emitting an event called "updatedcount", but you haven't declared it in your component's definition. 
+
+You can fix this by adding an `emits` option to your component definition, like this:
+
+```javascript
+export default {
+  name: "HelloWorld",
+  emits: ['updatedcount'], // Add this line
+  setup(_,{ emit }) {
+    const store = useStore();
+
+    const fired = () => {
+      store.count++;
+      emit("updatedcount", store.count);
+    };
+
+    return {
+      store,
+      fired
+    };
+  },
+};
+```
+
+The `emits` option is an array that lists the names of the events that this component can emit. Now Vue knows that "updatedcount" is a custom event, and the warning should disappear.

@@ -1,0 +1,15 @@
+The error message you're seeing is related to the integrity check that npm performs to ensure the package contents match their expected values. The error is saying that the checksum of the package content does not match the expected value.
+
+Here are a few steps you can try to resolve this issue:
+
+1. **Update npm**: Your npm version is quite old. The latest version of npm has made several improvements, including to the way it handles package integrity. You can update npm using the command `sudo npm install -g npm@latest`.
+
+2. **Clear npm cache**: You've already tried this, but after updating npm, it's worth trying again. Use the command `npm cache clean --force`.
+
+3. **Delete node_modules folder**: Sometimes, the problem can be with a corrupted package in the node_modules folder. Delete this folder using the command `rm -rf node_modules`.
+
+4. **Delete package-lock.json file**: You've already done this, but it's worth doing again after the previous steps. Use the command `rm package-lock.json`.
+
+5. **Reinstall packages**: Now try reinstalling your packages with `npm install`.
+
+If you're still having problems after these steps, it's possible there's a problem with the package you're trying to install, or with the npm registry. You might want to try installing a different version of the package, or contacting the package maintainer for help.

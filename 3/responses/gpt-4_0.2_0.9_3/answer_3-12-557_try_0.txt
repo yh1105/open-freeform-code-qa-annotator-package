@@ -1,0 +1,81 @@
+You can use the shared_preferences package to store the user's login details. Here's how you can modify your code to do that:
+
+First, add the shared_preferences package to your pubspec.yaml file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.6
+```
+
+Then, you can modify your _login function to store the token in shared preferences when the login is successful:
+
+```dart
+_login(username, password) async {
+    setState(() {
+        loading = true;
+    });
+
+    var body = json.encode({
+        "username": username,
+        "password": password,
+    });
+
+    Map < String, String > headers = {
+        'Content-type': 'application/json',
+            'Accept': 'application/json',
+    };
+
+    await http
+        .post("${GlobalVar.Ip}/wp-json/jwt-auth/v1/token",
+            body: body, headers: headers)
+        .then((response) async {
+            var body = json.decode(response.body);
+
+            if (response.statusCode == 200) {
+                // Store the token in shared preferences
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setString('token', body['token']);
+
+                loading = false;
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+            } else {
+                // TODO: alert message
+                final snackBar = SnackBar(
+                    content: Text(body['message'].toString().trim()),
+                );
+                _scaffoldKey.currentState.showSnackBar(snackBar);
+            }
+            setState(() {
+                loading = false;
+            });
+        });
+}
+```
+
+And then, you can modify your _fetchSessionAndNavigate function to check if the token exists in shared preferences:
+
+```dart
+_fetchSessionAndNavigate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+
+    if (token != null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext ctx) => HomePage()));
+    }
+}
+```
+
+This way, the user will stay logged in until the token is removed from shared preferences. You can remove the token when the user logs out:
+
+```dart
+_logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+}
+```
+
+Remember to call _logout when the user clicks the logout button.

@@ -1,0 +1,58 @@
+To create a `Signer` object with the solana-wallet adapter, you can use the `wallet.publicKey` property to get the public key of the connected wallet, and then use the `Keypair.fromSecretKey()` method from the `@solana/web3.js` library to create a `Keypair` object from the secret key of the wallet. Finally, you can use the `Signer.fromKeypair()` method from the `@solana/web3.js` library to create a `Signer` object from the `Keypair` object.
+
+Here's an example of how you can modify your code to get the `Signer` object:
+
+```
+import { Keypair, Signer } from '@solana/web3.js'
+
+const SendTransaction: React.FC<Props> = ({ children }) => {
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction, wallet } = useWallet()
+
+    const onSendSPLTransaction = useCallback(
+        async (toPubkey: string, amount: number) => {
+            if (!toPubkey || !amount) return
+            const toastId = toast.loading('Processing transaction...')
+
+            try {
+                if (!publicKey) throw new WalletNotConnectedError()
+                const toPublicKey = new PublicKey(toPubkey)
+                const mint = new PublicKey('Mint address')
+                const payer = Keypair.fromSecretKey(wallet.secretKey) // get the payer Signer
+                const token = new Token(connection, mint, TOKEN_PROGRAM_ID, payer)
+                const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+
+                const transaction = new Transaction().add(
+                    Token.createTransferInstruction(
+                        TOKEN_PROGRAM_ID,
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        [],
+                        amount // transfer the specified amount
+                    )
+                )
+
+                const signer = Signer.fromKeypair(payer) // create the Signer object
+                const signature = await sendTransaction(transaction, connection, [signer]) // sign the transaction with the Signer
+
+                const response = await connection.confirmTransaction(signature, 'processed')
+                console.log('response', response)
+                toast.success('Transaction sent', {
+                    id: toastId,
+                })
+            } catch (error) {
+                toast.error(`Transaction failed: ${error.message}`, {
+                    id: toastId,
+                })
+            }
+        },
+        [publicKey, sendTransaction, connection, wallet.secretKey]
+    )
+
+    return <>{children(onSendSPLTransaction)}</>
+}
+```
+
+Note that you also need to pass the `Signer` object to the `sendTransaction()` method as an array argument.

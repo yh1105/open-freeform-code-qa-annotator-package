@@ -1,0 +1,78 @@
+You can use a library like PHP Simple HTML DOM Parser to parse the HTML content from the Excel file and then extract the text and formatting information from it. You can then use this information to generate the HTML code that you need for your bulk import.
+
+Here's an example of how you can use this library:
+
+1. Install the PHP Simple HTML DOM Parser library using Composer:
+
+```
+composer require sunra/php-simple-html-dom-parser
+```
+
+2. Load the Excel file using a library like PHPExcel:
+
+```
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+$reader = IOFactory::createReader('Xlsx');
+$spreadsheet = $reader->load('path/to/excel/file.xlsx');
+$worksheet = $spreadsheet->getActiveSheet();
+```
+
+3. Loop through the cells in the worksheet and extract the HTML content:
+
+```
+use Sunra\PhpSimple\HtmlDomParser;
+
+foreach ($worksheet->getRowIterator() as $row) {
+    $cellIterator = $row->getCellIterator();
+    $cellIterator->setIterateOnlyExistingCells(false);
+
+    foreach ($cellIterator as $cell) {
+        $html = $cell->getValue();
+
+        // Parse the HTML content using PHP Simple HTML DOM Parser
+        $dom = HtmlDomParser::str_get_html($html);
+
+        // Extract the text and formatting information from the parsed HTML
+        $text = $dom->plaintext;
+        $bold = $dom->find('strong');
+        $italic = $dom->find('em');
+        $underline = $dom->find('u');
+        $paragraphs = $dom->find('p');
+        $lineBreaks = $dom->find('br');
+
+        // Generate the HTML code for the product description
+        $descriptionHtml = '';
+
+        if (!empty($bold)) {
+            $descriptionHtml .= '<strong>' . $bold[0]->plaintext . '</strong>';
+        }
+
+        $descriptionHtml .= '<br />';
+
+        foreach ($paragraphs as $paragraph) {
+            $descriptionHtml .= '<p>';
+
+            if (!empty($bold)) {
+                $descriptionHtml .= '<strong>' . $bold[0]->plaintext . '</strong>';
+            }
+
+            if (!empty($italic)) {
+                $descriptionHtml .= '<em>' . $italic[0]->plaintext . '</em>';
+            }
+
+            if (!empty($underline)) {
+                $descriptionHtml .= '<u>' . $underline[0]->plaintext . '</u>';
+            }
+
+            $descriptionHtml .= $paragraph->plaintext . '</p>';
+        }
+
+        if (!empty($lineBreaks)) {
+            $descriptionHtml .= '<br />';
+        }
+    }
+}
+```
+
+This code will extract the text and formatting information from the HTML content in each cell and generate the HTML code that you need for your bulk import. You can then save this HTML code to your database.

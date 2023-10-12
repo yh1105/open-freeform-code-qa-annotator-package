@@ -1,0 +1,8 @@
+Yes, you can achieve this using pandas' `groupby`, `cumsum`, and `where` functions. Here's the code:
+
+```
+df['value'] = pd.to_numeric(df['value']) # convert 'value' column to numeric
+df['balance'] = df.groupby('exchange')['value'].apply(lambda x: x.where(df['type'] == 'deposit').cumsum())
+```
+
+This code first converts the `"value"` column to numeric using `pd.to_numeric`. Then, it groups the DataFrame by `"exchange"` and applies a lambda function to the `"value"` column. The lambda function uses `where` to replace non-deposit rows with `NaN` and then applies `cumsum` to get the cumulative sum of the deposit values. Finally, the result is assigned to a new column `"balance"`.

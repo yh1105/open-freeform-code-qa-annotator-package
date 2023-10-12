@@ -1,0 +1,15 @@
+You can calculate the end hour by adding the start hour to the total hours of the duration. The total hours of the duration can be calculated by integer division of the duration by 60. However, you also need to add the hours from the minutes calculation (mins + dura) divided by 60. Finally, you need to take the result modulo 24 to get the hour in 24-hour format. Here is the code:
+
+```python
+hour = int(input("Starting time (hours): "))
+mins = int(input("Starting time (minutes): "))
+dura = int(input("Event duration (minutes): "))
+
+# calculate the end time
+mins = (mins + dura) % 60
+hour = (hour + dura // 60 + (mins + dura) // 60) % 24
+
+print(hour, ":", mins, sep='')
+```
+
+This code will work for any number of minutes, even if the duration is more than 24 hours (1440 minutes).

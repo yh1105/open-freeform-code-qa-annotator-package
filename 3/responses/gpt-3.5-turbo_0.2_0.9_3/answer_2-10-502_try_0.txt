@@ -1,0 +1,19 @@
+It looks like the build is failing because it can't find the `libpq.lib` library file. This library is required for building the `diesel_cli` crate with PostgreSQL support.
+
+Here are a few things you can try:
+
+1. Make sure that you have installed the PostgreSQL development files on your system. On Windows, you can download the PostgreSQL installer from the official website and select the "Development files" option during installation.
+
+2. Check that the `libpq.lib` file is present in the PostgreSQL installation directory. On Windows, this is typically located in `C:\Program Files\PostgreSQL\<version>\lib`.
+
+3. If the `libpq.lib` file is not present in the PostgreSQL installation directory, you can try downloading it from a third-party source. However, be careful when downloading files from unknown sources.
+
+4. You can also try specifying the path to the `libpq.lib` file using the `LIB` environment variable. For example, you can run the following command before running the `cargo install` command:
+
+   ```
+   set LIB=C:\Program Files\PostgreSQL\<version>\lib
+   ```
+
+   Replace `<version>` with the version of PostgreSQL you have installed.
+
+Hopefully, one of these solutions will help you resolve the issue and successfully install the `diesel_cli` crate with PostgreSQL support.

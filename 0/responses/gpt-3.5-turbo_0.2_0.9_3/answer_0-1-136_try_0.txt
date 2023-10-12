@@ -1,0 +1,33 @@
+It seems that you have set the `scroll-snap-type` property twice in your CSS, which is causing the vertical snap scrolling to not work. You should remove the second `scroll-snap-type` property and keep only the first one. Here's the corrected CSS code:
+
+```
+.parent {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  scroll-snap-points-y: repeat(100vh);
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.one {
+  background-color: red;
+}
+
+.two {
+  background-color: blue;
+}
+
+.three {
+  background-color: grey;
+}
+
+.four {
+  background-color: green;
+}
+```
+
+This should fix the issue and enable vertical snap scrolling on your page.

@@ -1,0 +1,41 @@
+To change the outline color of an outlined variant `TextField`, you can use the `MuiOutlinedInput` key in your theme's `overrides` section. Here's an example:
+
+```javascript
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        position: 'relative',
+        '& $notchedOutline': {
+          borderColor: 'red',
+        },
+        '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+          borderColor: 'yellow',
+          // @default hover color
+        },
+        '&$focused $notchedOutline': {
+          borderColor: 'green',
+          borderWidth: 1,
+        },
+      },
+    },
+  },
+});
+
+function OutlinedTextField() {
+  return (
+    <MuiThemeProvider theme={theme}>
+      <TextField variant="outlined" label="Custom CSS" />
+    </MuiThemeProvider>
+  );
+}
+
+export default OutlinedTextField;
+```
+
+In this example, the outline color is set to red by default, yellow when hovered, and green when focused. You can change these colors to whatever you want.
+
+Please note that you need to wrap your component with `MuiThemeProvider` and pass your custom theme to it. This will apply your custom styles to all components within the `MuiThemeProvider`. If you want to apply the styles to a specific component only, you can create a new theme provider just for that component.

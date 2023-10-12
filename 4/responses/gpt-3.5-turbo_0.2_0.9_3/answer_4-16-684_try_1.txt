@@ -1,0 +1,17 @@
+To reference an environment variable in a GitHub Actions workflow, you can use the `${{ env.VARIABLE_NAME }}` syntax. In your case, you can try using `${{ env.CURRENT_BRANCH }}` in the `ref` field of the `actions/checkout` step.
+
+Here's an updated version of your workflow with the correct syntax:
+
+```
+run: |
+  $branchName = $Env:GITHUB_REF -replace "refs/heads/", ""
+  echo "CURRENT_BRANCH=${branchName}" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+
+- name: Checkout repo  
+  uses: actions/checkout@v2
+  with:
+    repository: 'MyOrg/MyRepo'
+    ref: ${{ env.CURRENT_BRANCH }}
+```
+
+This should evaluate the `CURRENT_BRANCH` environment variable and use its value as the `ref` parameter for the `actions/checkout` step.

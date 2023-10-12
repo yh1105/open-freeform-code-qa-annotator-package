@@ -1,0 +1,30 @@
+The error message is pretty clear. It says that you are using the same `AdWidget` in more than one place in your widget tree. 
+
+The `AdWidget` is a widget that wraps an `Ad` object. The `Ad` object is a representation of the ad that is being shown. Each `Ad` object can only be associated with one `AdWidget`. If you try to associate the same `Ad` object with more than one `AdWidget`, you will get the error that you are seeing.
+
+In your case, you are creating a new `AdWidget` for each item in your list, but you are using the same `Ad` object (`posts[index]`) for each of them. This is what is causing the error.
+
+To fix this, you need to make sure that you are creating a new `Ad` object for each `AdWidget`. One way to do this is to create a new `Ad` object in your `itemBuilder` function, like this:
+
+```dart
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if(posts[index] is Post) {
+      return posts[index];
+    } else {
+      final ad = AdmobService.createBannerAd()..load(); // create a new Ad object
+      final Container adContainer = Container(
+        alignment: Alignment.center,
+        child: AdWidget(key: UniqueKey(), ad: ad),
+        height: 50,
+      );
+      return adContainer;
+    }
+  },
+  itemCount: posts.length,
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+);
+```
+
+In this code, `AdmobService.createBannerAd()` is a hypothetical function that creates a new `Ad` object. You would need to replace this with your actual function for creating ads.

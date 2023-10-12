@@ -1,0 +1,54 @@
+The issue here is that you're trying to use `ipcMain` in the renderer process (Vue component), while it should be used in the main process (Electron's main process). 
+
+In Electron, there are two types of processes: 
+
+1. The Main process - which can make use of all Node.js APIs and Electron's APIs. It's responsible for creating windows in GUI-based desktop applications. The script that runs the Main process is usually named `main.js`.
+
+2. The Renderer process - which is a web page running in its own process. Each web page in Electron runs in its own process, which is called the Renderer process. The Renderer process can use a subset of the Node.js APIs.
+
+`ipcMain` is an instance of the EventEmitter class. When used in the Main process, it handles asynchronous and synchronous messages sent from a renderer process (web page). Messages sent from a renderer will be emitted to this module.
+
+On the other hand, `ipcRenderer` is an instance of the EventEmitter class. It provides a few methods that can communicate synchronously and asynchronously from the renderer process (web page) to the main process.
+
+In your case, you should use `ipcRenderer` in your Vue component to send events to the main process, and `ipcMain` in the main process to listen to those events.
+
+Here's how you can do it:
+
+Component: Splash.vue
+```javascript
+<template>
+    <div @click="open">open</div>      
+</template>
+
+<script>
+const { ipcRenderer } = require('electron')
+
+export default {
+    methods: {
+        open() {
+            ipcRenderer.send('my-open-event', 'some argument');
+        }
+    }
+}
+</script>
+```
+
+background.js
+```javascript
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+
+...
+
+ipcMain.on('my-open-event', (event, arg) => {
+    try {
+        console.log(arg) // prints "some argument"
+        // "Will call some executable here";
+    } catch (e) {
+        console.error(e)
+    }
+})
+```
+
+This way, when you click on the div in your Vue component, it will send an event named 'my-open-event' to the main process, which will be listening for this event and execute the code in the callback function.
+
+Also, please note that `__dirname` is a Node.js global variable that gets the directory name of the current module. It seems like you're trying to use it in the renderer process, which is a common source of confusion. In Electron, Node.js globals are not available in the renderer process unless `nodeIntegration` is set to `true`. However, enabling `nodeIntegration` is not recommended for security reasons. Instead, you can use `preload` scripts to selectively enable features in the renderer process.

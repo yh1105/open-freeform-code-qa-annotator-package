@@ -1,0 +1,73 @@
+In C++, the size of an array must be known at compile-time, which means that you cannot use a variable to specify the size of an array. However, there are alternatives to achieve what you want.
+
+One option is to use dynamic memory allocation with pointers. You can allocate memory for a 2D array using a pointer to a pointer, and then use nested loops to initialize the elements. Here's an example:
+
+```
+int** my_2d_array(int N, int M) {
+    int** A = new int*[N];
+    for (int i = 0; i < N; i++) {
+        A[i] = new int[M];
+        for (int j = 0; j < M; j++) {
+            A[i][j] = i * 10 + j;
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    int** A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    // Free the memory
+    for (int i = 0; i < N; i++) {
+        delete[] A[i];
+    }
+    delete[] A;
+}
+```
+
+Note that you need to free the memory allocated with `new` using `delete` to avoid memory leaks.
+
+Another option is to use a one-dimensional array and compute the indices using some arithmetic. For example, to access the element at row `i` and column `j` in a 2D array of size `N` by `M`, you can use the formula `A[i * M + j]`. Here's an example:
+
+```
+int* my_2d_array(int N, int M) {
+    int* A = new int[N * M];
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            A[i * M + j] = i * 10 + j;
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    int* A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i * M + j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    // Free the memory
+    delete[] A;
+}
+```
+
+Note that you only need to free the memory allocated with `new` using `delete[]` in this case.

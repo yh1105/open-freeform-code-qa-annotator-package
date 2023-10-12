@@ -1,0 +1,15 @@
+The error you're encountering might be due to the fact that the `OrderedModel` is not directly accessible from `statsmodels.miscmodels.ordinal_model`. The `OrderedModel` is not a part of the official `statsmodels` package yet. It's still in the development phase and not officially released.
+
+However, you can use the `OrderedModel` from the development version of `statsmodels`. You can install the development version of `statsmodels` using the following command:
+
+```bash
+pip install git+https://github.com/statsmodels/statsmodels
+```
+
+After installing the development version, you should be able to import `OrderedModel` as follows:
+
+```python
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+```
+
+Please note that since this is a development version, it might not be stable and could potentially have bugs. If you encounter issues, you might want to consider using other stable packages or functions to build your Ordered Probit model. For example, you can use the `OrderedLogit` function from the `mord` package as an alternative.

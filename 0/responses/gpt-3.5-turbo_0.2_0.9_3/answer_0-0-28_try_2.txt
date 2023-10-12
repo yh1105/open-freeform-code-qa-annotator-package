@@ -1,0 +1,67 @@
+One solution is to add a state variable to your modal component to keep track of whether it is open or closed. Then, in the `componentDidMount` and `componentWillUnmount` methods, you can conditionally set the `overflow` style based on the state of the modal.
+
+Here's an example implementation:
+
+```
+export class Modal extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  componentDidMount() {
+    if (this.state.isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'unset';
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isOpen !== prevState.isOpen) {
+      if (this.state.isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+    }
+  }
+
+  render() {
+    const { isOpen } = this.state;
+    const { showAt, show, sectionName, modalTypeStyle, modalTypeSize, arrowShape, arrowTypeStyle, className, children } = this.props;
+
+    return (
+      <React.Fragment>
+        {showAt ?
+          show ?
+            <div style={style} className={`${sectionName} ${modalTypeStyle ? modalTypeStyle : styles.modalWhite} ${modalTypeSize ? modalTypeSize : styles.modalSmall} ${!showAt ? styles.modalWhiteFixed : ""}`}>
+              {arrowShape ? <div className={arrowTypeStyle ? arrowTypeStyle : styles.triangleToprightWhite} /> : null}
+              {children}
+            </div>
+            : null
+          :
+          show ?
+            <div className={`${className} ${styles.modal}`}>
+              <div style={style} className={`${sectionName} ${modalTypeStyle ? modalTypeStyle : styles.modalWhite} ${modalTypeSize ? modalTypeSize : styles.modalSmall} ${!showAt ? styles.modalWhiteFixed : ""}`}>
+                {arrowShape ? <div className={arrowTypeStyle ? arrowTypeStyle : styles.triangleToprightWhite} /> : null}
+                {children}
+              </div>
+            </div> :
+            null}
+      </React.Fragment>
+    )
+  }
+}
+```
+
+In this implementation, the `isOpen` state variable is initialized to `false` in the constructor. Then, in the `componentDidMount` method, the `overflow` style is only set to `'hidden'` if the modal is currently open (`isOpen` is `true`). In the `componentWillUnmount` method, the `overflow` style is always set to `'unset'`.
+
+In the `componentDidUpdate` method, we check if the `isOpen` state has changed since the last update. If it has, we conditionally set the `overflow` style based on the new value of `isOpen`.
+
+Finally, we update the `render` method to use the `isOpen` state variable instead of `this.props.show` to determine whether the modal is open or closed.

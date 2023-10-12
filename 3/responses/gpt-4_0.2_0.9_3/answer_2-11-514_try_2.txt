@@ -1,0 +1,58 @@
+Yes, it's possible to create a function that takes multiple parameters of the same type using variadic templates in C++14. Here is a simple example:
+
+```cpp
+#include <array>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <typename T, std::size_t N>
+void fun(const std::array<T, N>& arr)
+{
+    // You can access the elements of arr here
+}
+
+int main()
+{
+    std::array<Foo, 3> arr = { { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} } };
+    fun(arr);
+
+    return 0;
+}
+```
+
+In this example, the function `fun` takes a `std::array` of `T` with size `N`. This allows you to pass in a fixed number of arguments of the same type. The number of arguments is known at compile time because it's the size of the `std::array`.
+
+In C++17, you can use `std::apply` to call a function with a tuple of arguments. This can be useful if you want to pass the arguments to another function inside `fun`. Here is an example:
+
+```cpp
+#include <array>
+#include <tuple>
+
+struct Foo
+{
+    int a, b, c;
+};
+
+template <typename T, std::size_t N>
+void fun(const std::array<T, N>& arr)
+{
+    auto func = [](const auto&... args) {
+        // You can use args here
+    };
+
+    std::apply(func, arr);
+}
+
+int main()
+{
+    std::array<Foo, 3> arr = { { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} } };
+    fun(arr);
+
+    return 0;
+}
+```
+
+In this example, `std::apply` is used to call `func` with the elements of `arr` as arguments. This allows you to use the arguments individually inside `func`.

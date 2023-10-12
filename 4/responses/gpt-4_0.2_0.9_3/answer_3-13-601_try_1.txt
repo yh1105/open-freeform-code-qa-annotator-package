@@ -1,0 +1,40 @@
+The `@Parcelize` annotation is now part of `kotlinx.parcelize` package in Kotlin 1.4.20 and above. The `kotlin-android-extensions` plugin is deprecated and is replaced by `kotlin-parcelize` plugin.
+
+Here are the steps to replace `annotation class Parcelize` from `package kotlinx.android.parcel` with `@Parcelize` which is not coming from the `kotlin-android-extensions` plugin:
+
+1. First, you need to remove `kotlin-android-extensions` from your `build.gradle` (Module: app) file:
+
+```groovy
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    // Remove this line
+    // id 'kotlin-android-extensions'
+}
+```
+
+2. Then, you need to add `kotlin-parcelize` plugin to your `build.gradle` (Module: app) file:
+
+```groovy
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
+```
+
+3. Now, you can replace the import statement in your Kotlin files:
+
+Replace this line:
+
+```kotlin
+import kotlinx.android.parcel.Parcelize
+```
+
+with this line:
+
+```kotlin
+import kotlinx.parcelize.Parcelize
+```
+
+4. Finally, you need to rebuild your project. If there are no other issues, your project should now build successfully with the new `@Parcelize` annotation.

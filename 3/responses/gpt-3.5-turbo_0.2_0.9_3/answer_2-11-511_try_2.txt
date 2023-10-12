@@ -1,0 +1,42 @@
+In C++, the size of an array must be known at compile-time, which means that the size must be a constant expression. Therefore, you cannot use a variable to specify the size of an array.
+
+One way to achieve your goal is to use a dynamic array, such as a vector. A vector is a container that can dynamically resize itself, which means that you can specify the size of the vector at runtime.
+
+Here's an example of how you can use a vector to create a 2D array:
+
+```
+#include <iostream>
+#include <vector>
+
+std::vector<std::vector<int>> my_2d_array(int N, int M) {
+    std::vector<std::vector<int>> A(N, std::vector<int>(M));
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            A[i][j] = i * 10 + j;
+        }
+    }
+    return A;
+}
+
+int main() {
+    int N = 4;
+    int M = 3;
+
+    std::vector<std::vector<int>> A = my_2d_array(N, M);
+
+    // Print the array A
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            std::cout << A[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+In this example, `my_2d_array` returns a vector of vectors, where the outer vector has size `N` and the inner vectors have size `M`. The elements of the array are initialized to the value `i * 10 + j`, which corresponds to the position of the element.
+
+Note that you need to include the `<vector>` header to use vectors. Also, the `main` function should return an `int`.

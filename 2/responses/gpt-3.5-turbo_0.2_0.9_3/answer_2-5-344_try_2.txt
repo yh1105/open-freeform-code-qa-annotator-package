@@ -1,0 +1,50 @@
+The `java.lang.AbstractMethodError` occurs when a class that implements an interface or extends an abstract class does not implement all the abstract methods of the interface or abstract class. In your case, it seems that there is a version conflict between `rest-assured` and `spring-mock-mvc` dependencies.
+
+To resolve this issue, you can try the following:
+
+1. Remove the `rest-assured` dependency from your `pom.xml` file and use only the `spring-mock-mvc` dependency. `spring-mock-mvc` already includes `rest-assured` as a transitive dependency.
+
+2. Update the version of `spring-mock-mvc` to the latest version (currently `2.0.5.RELEASE`) which is compatible with `rest-assured` version `4.3.0`.
+
+Here's the updated `pom.xml` file:
+
+```
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- JUnit -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>spring-mock-mvc</artifactId>
+        <version>2.0.5.RELEASE</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>json-path</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/xml-path -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>xml-path</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+</dependencies>
+```
+
+After making these changes, run `mvn clean test` to execute the test. It should pass without any errors.

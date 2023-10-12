@@ -1,0 +1,29 @@
+It seems like you want to use a glob expression to match all files with a specific extension in the current directory and all its subdirectories. The globbing feature you're referring to is called "globstar". It's a feature in Bash 4.0 and later that allows you to use `**` to match all files and zero or more directories and subdirectories.
+
+To enable globstar, you can use the command `shopt -s globstar`.
+
+Then, you can use it like this:
+
+```bash
+ls **/*.php
+```
+
+This will list all PHP files in the current directory and all its subdirectories. 
+
+However, if you want to avoid duplicate entries when directories are also matched, you can use the `find` command instead:
+
+```bash
+find . -name "*.php"
+```
+
+This will find all PHP files in the current directory and all its subdirectories, without returning duplicates.
+
+For `grep`, you can use the `-r` (or `--recursive`) option to read all files under each directory, and the `--include` option to search only files that match the file pattern. Here's how you can use it:
+
+```bash
+grep -r --include="*.php" "find me" .
+```
+
+This will search for the string "find me" in all PHP files in the current directory and all its subdirectories.
+
+These commands should work with any other command that accepts file names as arguments. However, the exact syntax might vary depending on the command. For example, some commands might not support the `**` glob, or might require a different option to recurse into subdirectories.

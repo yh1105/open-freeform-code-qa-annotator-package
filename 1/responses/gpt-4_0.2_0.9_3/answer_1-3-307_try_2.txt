@@ -1,0 +1,23 @@
+The error you're encountering might be due to the fact that the `OrderedModel` is not directly under `statsmodels.miscmodels`. It's actually under `statsmodels.miscmodels.ordinal_model`.
+
+However, as of the latest version of `statsmodels` (0.12.2), there is no `OrderedModel` in `statsmodels.miscmodels.ordinal_model`. The `statsmodels` package does not currently have a built-in function for ordered probit models.
+
+If you want to build an ordered probit model, you might need to use a different package or write your own function. One option is to use the `mord` package in Python, which is a Python package that provides implementations of some ordinal regression methods.
+
+Here is an example of how you can use it:
+
+```python
+import mord
+import numpy as np
+from sklearn.datasets import make_classification
+
+X, y = make_classification(n_samples=1000, n_features=20, n_informative=15, n_redundant=5, random_state=42)
+y = np.round(y)
+
+model = mord.OrdinalRidge()
+model.fit(X, y)
+
+predictions = model.predict(X)
+```
+
+In this example, `mord.OrdinalRidge()` is used to create an ordered probit model. The model is then trained using `model.fit(X, y)`, and predictions can be made using `model.predict(X)`.

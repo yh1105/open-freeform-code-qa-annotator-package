@@ -1,0 +1,19 @@
+Go test uses caching to avoid running unnecessary tests. If the test binary and all its inputs remain unchanged, the test result will be retrieved from the cache instead of running the test again. 
+
+If you want to disable this caching behavior, you can use the `-count=1` flag. This flag specifies the number of times to run each test and it bypasses the cache. 
+
+Here is how you can use it:
+
+```bash
+go test -count=1 ./...
+```
+
+This will run all tests in your current directory and its subdirectories, and it will bypass the cache. 
+
+Alternatively, you can use the `go clean -testcache` command to clean the test cache:
+
+```bash
+go clean -testcache
+```
+
+After running this command, the next time you run `go test`, all tests will be run again regardless of whether they were run before.

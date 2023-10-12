@@ -1,0 +1,29 @@
+You can extract the breakpoints from the Tailwind config file by accessing the `theme` object and looking for the `screens` property. This property contains an object with the breakpoints defined in your Tailwind configuration.
+
+Here's an example of how you can extract the breakpoints and use them in your own mixins:
+
+```
+// Import the Tailwind configuration
+const tailwindConfig = require('tailwindcss/defaultConfig');
+
+// Extract the breakpoints from the configuration
+const breakpoints = tailwindConfig.theme.screens;
+
+// Define your own mixin using the breakpoints
+const tabletPortrait = (content) => `
+  @media (min-width: ${breakpoints.md}) {
+    ${content}
+  }
+`;
+
+// Use the mixin in your CSS
+.my-class {
+  ${tabletPortrait(`
+    color: red;
+  `)}
+}
+```
+
+In this example, we're importing the default Tailwind configuration and extracting the breakpoints from the `screens` property. We then define our own mixin using the `md` breakpoint and use it in our CSS.
+
+You can define your own mixins for each breakpoint by accessing the corresponding key in the `screens` object. For example, `breakpoints.sm` for the small breakpoint.

@@ -1,0 +1,39 @@
+The behavior you're seeing is due to how the Microsoft.Extensions.Logging library is designed. When you add logging services to your service collection using `AddLogging()`, it adds a bunch of services related to logging, but it does not add a service for `ILogger`. Instead, it adds a service for `ILogger<T>`, where `T` is the type that will be using the logger.
+
+This is why you're able to resolve `ILogger<MyClass>` but not `ILogger`. The `ILogger<T>` interface is designed to automatically include the name of the `T` type in all log messages, which can be very helpful for tracking where log messages are coming from.
+
+If you want to avoid having to specify the type every time you inject a logger, you could create a wrapper class around `ILogger<T>` that takes a string for the category name instead of a type. Here's an example:
+
+```csharp
+public class MyLogger : ILogger
+{
+    private readonly ILogger _logger;
+
+    public MyLogger(IServiceProvider serviceProvider, string categoryName)
+    {
+        _logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(categoryName);
+    }
+
+    // Implement ILogger methods, forwarding calls to _logger
+}
+```
+
+Then you can register `MyLogger` as a service in your `Main` method:
+
+```csharp
+var services = new ServiceCollection()
+    .AddLogging(logging => logging.AddConsole())
+    .AddSingleton<MyLogger>()
+    .BuildServiceProvider();
+```
+
+And inject it like this:
+
+```csharp
+public MyClass(MyLogger logger)
+{
+    _logger = logger;
+}
+```
+
+This way, you can control the category name for each instance of `MyLogger` without having to specify a type.

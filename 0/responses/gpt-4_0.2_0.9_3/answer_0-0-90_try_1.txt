@@ -1,0 +1,41 @@
+The issue you're facing is due to the fact that all your routes are being loaded at the same time because they are all under the same `Suspense` component. 
+
+The `Suspense` component is used to wrap lazy components and display some fallback content while the lazy component is being loaded. However, in your case, all your routes are under the same `Suspense` component which means they will all start loading at the same time when any of the routes are accessed.
+
+To fix this issue, you need to wrap each route with its own `Suspense` component. Here's how you can do it:
+
+```jsx
+<Switch>
+    <Route exact path="/">
+        <Suspense fallback={<div>Loading...</div>}>
+            <Home />
+        </Suspense>
+    </Route>
+
+    <Route exact path="/profile/:id">
+        <Suspense fallback={<div>Loading...</div>}>
+            <Profile />
+        </Suspense>
+    </Route>
+
+    <Route exact path="/feed">
+        <Suspense fallback={<div>Loading...</div>}>
+            <Feed isLogged={isLogged} user={user} />
+        </Suspense>
+    </Route>
+
+    <Route exact path="/settings">
+        <Suspense fallback={<div>Loading...</div>}>
+            <Settings isLight={isLight} setIsLight={setIsLight} handleClick={handleClick} showBtn={showBtn} />
+        </Suspense>
+    </Route>
+
+    <Route>
+        <Suspense fallback={<div>Loading...</div>}>
+            <NotFound />
+        </Suspense>
+    </Route>
+</Switch>
+```
+
+This way, each route will only start loading when it is accessed, achieving the lazy loading effect you want.

@@ -1,0 +1,27 @@
+You can achieve this by splitting the PATH environment variable into an array of directories and then checking if your specified directory is in that array. Here is a function that does exactly that:
+
+```powershell
+function FolderIsInPATH($Path_to_directory) {
+    # Get the PATH environment variable and split it into an array of directories
+    $PATH_directories = $env:PATH -split ';'
+
+    # Check if the specified directory is in the array
+    if ($PATH_directories -contains $Path_to_directory) {
+        return $true
+    } else {
+        return $false
+    }
+}
+```
+
+You can use this function like this:
+
+```powershell
+if (FolderIsInPATH("C:\Windows\System32")) {
+    Write-Host "The directory is in PATH"
+} else {
+    Write-Host "The directory is not in PATH"
+}
+```
+
+This will print "The directory is in PATH" if "C:\Windows\System32" is in your PATH, and "The directory is not in PATH" otherwise.

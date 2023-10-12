@@ -1,0 +1,53 @@
+As of now, Jetpack Compose does not have a built-in NumberPicker widget. However, you can create your own custom NumberPicker using the LazyColumn and ScrollState. Here's a simple example of how you can do it:
+
+```kotlin
+@Composable
+fun NumberPicker(
+    range: IntRange,
+    selectedValue: MutableState<Int>,
+    modifier: Modifier = Modifier
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
+
+    LazyColumn(
+        modifier = modifier,
+        state = rememberLazyListState(),
+        verticalArrangement = Arrangement.Center
+    ) {
+        items(range.toList()) { number ->
+            Text(
+                text = number.toString(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        coroutineScope.launch {
+                            scrollState.animateScrollToItem(number)
+                        }
+                        selectedValue.value = number
+                    },
+                textAlign = TextAlign.Center,
+                style = if (selectedValue.value == number) {
+                    TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                } else {
+                    TextStyle(fontWeight = FontWeight.Normal, fontSize = 16.sp)
+                }
+            )
+        }
+    }
+}
+```
+
+In this example, a `LazyColumn` is used to display the numbers. When a number is clicked, it becomes the selected value and the list scrolls to that number. The selected number is displayed in bold and larger font size.
+
+You can use this `NumberPicker` in your UI like this:
+
+```kotlin
+@Composable
+fun MyScreen() {
+    val selectedValue = remember { mutableStateOf(0) }
+    NumberPicker(range = 0..100, selectedValue = selectedValue)
+}
+```
+
+This is a very basic example and you might need to adjust it according to your needs. For example, you might want to add animations or customize the appearance of the numbers.

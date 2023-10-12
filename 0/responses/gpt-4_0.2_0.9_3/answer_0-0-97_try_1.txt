@@ -1,0 +1,31 @@
+The problem you're facing is due to the fact that the Angular Material Tab component does not automatically scroll to the selected tab. You have to manually scroll to the selected tab. 
+
+You can achieve this by using the `selectedTabChange` event of the `mat-tab-group` and the `scrollTo` method of the `Element`.
+
+Here's how you can do it:
+
+1. Add a template reference variable to the `mat-tab-group`:
+
+```html
+<mat-tab-group #tabGroup (selectedTabChange)="onTabChange($event)" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+```
+
+2. In your component, add the `onTabChange` method:
+
+```typescript
+@ViewChild('tabGroup') tabGroup: MatTabGroup;
+
+onTabChange(event: MatTabChangeEvent) {
+  const tab = this.tabGroup._tabs.find((t, i) => i === event.index);
+  if (tab) {
+    const label = document.querySelector(`.mat-tab-labels .mat-tab-label:nth-child(${event.index + 1})`);
+    if (label) {
+      label.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  }
+}
+```
+
+This will scroll to the selected tab when you change tabs.
+
+Please note that this solution uses the `_tabs` property of `MatTabGroup` which is a private property and may change in future versions of Angular Material. Use this solution with caution.

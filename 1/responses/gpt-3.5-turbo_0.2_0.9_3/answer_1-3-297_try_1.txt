@@ -1,0 +1,24 @@
+To import existing resources listed on a map, you need to use the `for_each` meta-argument in your resource block. Here's an example of how you can import the existing S3 buckets:
+
+```
+resource "aws_s3_bucket" "bucket" {
+  for_each = var.s3_replication
+  bucket   = each.value.source
+  # other configuration
+
+  lifecycle {
+    ignore_changes = [
+      # Add any attributes that should be ignored during updates
+    ]
+  }
+}
+```
+
+Then, you can run the following command to import the existing S3 buckets:
+
+```
+terraform import aws_s3_bucket.bucket["logs"] logs_bucket
+terraform import aws_s3_bucket.bucket["security"] cloudtrail_bucket
+```
+
+Make sure to replace `logs_bucket` and `cloudtrail_bucket` with the actual names of your existing S3 buckets. Also, note that you need to use the keys from your `s3_replication` map to reference the resources in Terraform.

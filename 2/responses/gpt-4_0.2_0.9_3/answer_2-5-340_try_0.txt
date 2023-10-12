@@ -1,0 +1,28 @@
+The issue with your code is that you have an empty `else if` statement. This is considered bad form because it can be confusing to other programmers who might read your code. They might wonder if you forgot to add code in that block or if it's intentionally left blank. It also makes your code less readable and harder to maintain.
+
+The `else if` statement `else if (! seesWater(AHEAD));` doesn't actually prevent the rest of the conditions from running. It's just an empty statement that does nothing. If `!seesWater(AHEAD)` is true, the program does nothing and then moves on to the next `else if` statement.
+
+If you want to stop the rest of the conditions from running if `!seesWater(AHEAD)` is true, you can use a return statement or throw an exception, depending on the context of your code.
+
+Here's how you can rewrite your code:
+
+```java
+if (! seesWater(LEFT))
+{
+    turn(LEFT);
+}
+else if (! seesWater(AHEAD))
+{
+    // Do nothing
+}
+else if (! seesWater(RIGHT))
+{
+    turn(RIGHT);
+}
+else
+{
+    turn180();
+}
+```
+
+In this version, if `!seesWater(AHEAD)` is true, the program will do nothing and then skip the rest of the `else if` and `else` statements. This is because only one block of code in an `if-else if-else` chain will be executed. Once a condition is met, the rest are skipped.

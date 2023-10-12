@@ -1,0 +1,38 @@
+The `kotlin-android-extensions` plugin is deprecated. If you want to use `@Parcelize`, you should use the `kotlin-parcelize` plugin instead.
+
+Here are the steps to replace `annotation class Parcelize` from `package kotlinx.android.parcel` with `@Parcelize` from the `kotlin-parcelize` plugin:
+
+1. Remove `kotlin-android-extensions` from your `build.gradle` file.
+
+2. Add `kotlin-parcelize` to your `build.gradle` file:
+
+```groovy
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
+```
+
+3. Replace the import statement in your Kotlin files:
+
+Replace this:
+
+```kotlin
+import kotlinx.android.parcel.Parcelize
+```
+
+with this:
+
+```kotlin
+import kotlinx.parcelize.Parcelize
+```
+
+4. Now you can use `@Parcelize` annotation:
+
+```kotlin
+@Parcelize
+data class User(val firstName: String, val lastName: String) : Parcelable
+```
+
+Remember to rebuild your project after making these changes.

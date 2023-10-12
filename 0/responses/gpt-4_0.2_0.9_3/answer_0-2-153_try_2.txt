@@ -1,0 +1,44 @@
+In Tailwind CSS, you can apply a border to only one side of an element by using the `border-{t|r|b|l}-{size}` classes. 
+
+For example, if you want to apply a border to the top of an element, you can use the `border-t-{size}` class. Here's an example:
+
+```html
+<div class="border-t-2 border-blue-900">foo</div>
+```
+
+In this example, a 2px blue border will be applied to the top of the div.
+
+If you want to apply a border to the right, bottom, or left of an element, you can use the `border-r-{size}`, `border-b-{size}`, or `border-l-{size}` classes, respectively.
+
+However, if you want to make your code shorter and more maintainable, you can create a custom class in your CSS file and use it in your HTML. Here's an example:
+
+```css
+.border-top {
+  border-width: 0;
+  border-top-width: 1px;
+}
+```
+
+Then, in your HTML, you can use this class like this:
+
+```html
+<div class="border-top border-blue-900">foo</div>
+```
+
+This way, you only need to specify the border color in your HTML, and the border size and position are defined in your CSS.
+
+As for the JIT mode in Tailwind CSS, it currently doesn't support passing parameters to classes. However, you can use the `@apply` directive in your CSS to create custom classes that apply multiple utility classes. Here's an example:
+
+```css
+.border-top {
+  @apply border-0 border-t-1 border-blue-900;
+}
+```
+
+Then, in your HTML, you can use this class like this:
+
+```html
+<div class="border-top">foo</div>
+```
+
+This way, you can apply multiple utility classes with a single custom class.

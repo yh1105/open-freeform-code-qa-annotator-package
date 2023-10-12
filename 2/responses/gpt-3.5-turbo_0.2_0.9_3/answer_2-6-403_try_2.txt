@@ -1,0 +1,23 @@
+In .NET Core, you can use the `JsonResult` class to return JSON data with a HTTP status code. Here's an example:
+
+```
+public IActionResult GetResourceData()
+{
+    return Json(new { response = "Hello" });
+}
+```
+
+This will return a JSON response with a HTTP status code of 200 (OK).
+
+If you want to return a different HTTP status code, you can use the `StatusCode` method like this:
+
+```
+public IActionResult GetResourceData()
+{
+    return StatusCode(404, new { error = "Resource not found" });
+}
+```
+
+This will return a JSON response with a HTTP status code of 404 (Not Found).
+
+Hope this helps!

@@ -1,0 +1,28 @@
+The error message you're seeing is due to a missing library in Ruby 3.0.0. The library `rexml` is a default gem in Ruby 3.0.0, but it's not automatically required when Ruby starts up. The `kramdown` gem, which is a dependency of Jekyll, needs `rexml` and is trying to require it, but it's not finding it because it's not automatically loaded in Ruby 3.0.0.
+
+You can solve this issue by adding `gem 'rexml'` to your Gemfile. This will ensure that the `rexml` gem is included in your bundle when you run `bundle install`.
+
+Here's what your Gemfile should look like after adding `gem 'rexml'`:
+
+```ruby
+source "https://rubygems.org"
+gem 'jekyll-scholar', group: :jekyll_plugins
+gem 'rexml'
+
+# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
+# uncomment the line below. To upgrade, run `bundle update github-pages`.
+gem "github-pages", "~> 204", group: :jekyll_plugins
+
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+  gem "jekyll-feed", "~> 0.6"
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Performance-booster for watching directories on Windows
+gem "wdm", "~> 0.1.0" if Gem.win_platform?
+```
+
+After you've added `gem 'rexml'` to your Gemfile, run `bundle install` again to install the `rexml` gem. Then try running `bundle exec jekyll serve` again. It should work now.

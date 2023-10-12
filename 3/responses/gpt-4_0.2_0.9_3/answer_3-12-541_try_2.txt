@@ -1,0 +1,49 @@
+The issue you're experiencing is due to the fact that Flutter's `build` method is not being called again after you change the state of your `Zone` objects. This means that the UI is not being updated to reflect the changes in your data.
+
+To fix this, you need to ensure that the `build` method is called again after you change the state of your `Zone` objects. You can do this by calling `setState` in the parent widget that contains your `_zoneBody` method.
+
+Here's an example of how you might do this:
+
+```dart
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  List<Zone> zones = [...]; // your list of zones
+
+  @override
+  Widget build(BuildContext context) {
+    return _zoneBody();
+  }
+
+  Widget _zoneBody() {
+    return Padding(
+      padding: EdgeInsets.all(32),
+      child: Wrap(
+        spacing: 6.0,
+        children: _makeZoneList(zones),
+      ),
+    );
+  }
+
+  List<Widget> _makeZoneList(List<Zone> zones) {
+    List<Widget> buttons = [];
+    for (int i = 0; i < zones.length; i++) {
+      buttons.add(RaisedButton(
+        color: zones[i].isSelected ? AppColors.primaryColor : AppColors.white,
+        onPressed: () {
+          setState(() {
+            zones[i].isSelected = !zones[i].isSelected;
+          });
+        },
+        child: Text(zones.elementAt(i).text),
+      ));
+    }
+    return buttons;
+  }
+}
+```
+
+In this example, we've moved the `zones` list to the state of the parent widget, and we're calling `setState` in the parent widget's `onPressed` callback. This ensures that the `build` method is called again after the state of the `Zone` objects changes, which updates the UI to reflect the new state.

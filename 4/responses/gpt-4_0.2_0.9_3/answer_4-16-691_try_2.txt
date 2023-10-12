@@ -1,0 +1,28 @@
+The error message you're seeing typically means that Flutter is not added to your system path. Here's how you can add Flutter to your system path:
+
+1. **Find your Flutter Directory**: First, you need to find where your Flutter SDK is installed. If you don't remember where you installed it, you can search for it in your file system.
+
+2. **Update System Path**:
+
+   - **For Windows**:
+
+     - Right-click on 'My Computer' and click on 'Properties'.
+     - Click on 'Advanced system settings'.
+     - Click on 'Environment Variables'.
+     - Under 'System Variables', find the 'Path' variable, select it and click on 'Edit'.
+     - In the 'Variable value' field, append the full path of the 'flutter/bin' directory in the Flutter SDK installation path, separated by a semicolon from the existing entry. Do not remove any existing entries.
+     - Click on 'OK' and close all windows.
+     - Restart Android Studio and try running the Flutter command again.
+
+   - **For macOS/Linux**:
+
+     - Open Terminal.
+     - Type `nano ~/.bash_profile` for Bash or `nano ~/.zshrc` for Zsh.
+     - Add the following line at the end of the file: `export PATH="$PATH:`<path to your flutter directory>`/flutter/bin"`.
+     - Press `CTRL + X` to exit, then `Y` to confirm the changes, and finally `Enter` to save the file.
+     - Run `source ~/.bash_profile` for Bash or `source ~/.zshrc` for Zsh to update the current terminal window.
+     - Verify the installation by running `flutter doctor` in the terminal.
+
+Remember to replace `<path to your flutter directory>` with your actual Flutter SDK path.
+
+3. **Verify Installation**: After you've added Flutter to your system path, you can verify that it's correctly installed by opening a new terminal window and running the command `flutter doctor`. This command checks your environment and displays a report of the status of your Flutter installation. If Flutter is correctly installed, you should see a check mark next to each item in the report.

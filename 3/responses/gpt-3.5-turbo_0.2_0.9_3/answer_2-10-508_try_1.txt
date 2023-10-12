@@ -1,0 +1,13 @@
+The `#[allow(dead_code)]` attribute is used to suppress the "unused variable" warning that the Rust compiler generates when a variable is declared but not used. However, in your example, the variable `x` is not actually dead code, as it is being used to assign the value `0`. 
+
+If you want to test the `#[allow(dead_code)]` attribute, you can try declaring a variable that is not used anywhere in the code, like this:
+
+```
+fn main() {
+    #[allow(dead_code)]
+    let x = 0;
+    let y = 1;
+}
+```
+
+In this case, the `y` variable is not used anywhere in the code, so the Rust compiler will generate a "unused variable" warning. Adding the `#[allow(dead_code)]` attribute before the `y` variable declaration will suppress this warning.

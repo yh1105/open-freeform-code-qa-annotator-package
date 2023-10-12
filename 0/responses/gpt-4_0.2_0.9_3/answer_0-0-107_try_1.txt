@@ -1,0 +1,21 @@
+The error message you're seeing is related to PowerShell's execution policy, which is a safety feature that controls the conditions under which PowerShell loads configuration files and runs scripts. This feature helps prevent the execution of malicious scripts.
+
+You can change the execution policy by running a command in your PowerShell. Here's how:
+
+1. Open PowerShell as an administrator. You can do this by searching for "PowerShell" in the Start menu, right-clicking on the "Windows PowerShell" result, and selecting "Run as administrator".
+
+2. Run the following command:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+This command sets the execution policy for the current user (you) to "RemoteSigned", which means that PowerShell will run scripts that you've written and scripts from trusted publishers, but it will not run scripts downloaded from the internet unless they have a trusted signature.
+
+3. PowerShell will ask you to confirm the change. Type "Y" and press Enter to confirm.
+
+4. Try running your `expo --version` command again.
+
+If you still encounter the error, you might need to set the execution policy at a different scope. You can do this by running the `Set-ExecutionPolicy` command again, but replacing `CurrentUser` with `LocalMachine`. This will apply the policy to all users on your computer. Be aware that this requires administrative privileges.
+
+Please note that changing the execution policy can have security implications, so you should only do it if you understand what it means and you trust the scripts that you're running.

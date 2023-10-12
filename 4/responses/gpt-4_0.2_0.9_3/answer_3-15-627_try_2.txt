@@ -1,0 +1,15 @@
+It seems like you're trying to explain how to create a calendar in VBA that doesn't depend on any ocx or 32bit/64bit and can be freely distributed with your project, similar to the Windows 10 calendar. However, your message seems to be cut off and incomplete.
+
+Here's a general guide on how you can create a calendar in VBA:
+
+1. **Create a UserForm**: In VBA, go to the "Insert" menu and select "UserForm". This will create a new form where you can add controls.
+
+2. **Add Controls**: From the "Toolbox", drag and drop the "Label", "ComboBox", and "CommandButton" controls onto the form. You'll need 42 labels (for the days), 2 combo boxes (for the month and year), and 4 command buttons (for navigating through the calendar).
+
+3. **Configure the Controls**: Set the properties of the controls to match your desired appearance and functionality. For example, you can set the "Caption" property of the labels to the corresponding day numbers, and the "List" property of the combo boxes to the month names and years.
+
+4. **Write the Code**: In the "Code" window, write the VBA code that will update the calendar based on the selected month and year, and navigate through the calendar when the command buttons are clicked. You can use the "DateSerial" function to get the date for a specific day, month, and year, and the "Weekday" function to get the day of the week.
+
+5. **Test the Calendar**: Run the UserForm to test the calendar. You should be able to select a month and year from the combo boxes, see the corresponding calendar in the labels, and navigate through the calendar with the command buttons.
+
+Remember, this is a basic guide and you might need to adjust it based on your specific needs and preferences.

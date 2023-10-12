@@ -1,0 +1,3 @@
+1. Unfortunately, it is not possible to convert an OpenSSH private key to an RSA private key. The two formats are not interchangeable. You will need to generate a new RSA private key if that is the format required by the server.
+
+2. If you do generate a new RSA private key, you will also need to generate a new public key (id_rsa.pub) and send it to the server administrator. The public key is used by the server to authenticate you when you connect using your private key. The format of the public key does not matter, as long as it matches the format expected by the server.

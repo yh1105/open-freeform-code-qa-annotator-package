@@ -1,0 +1,43 @@
+The error you're encountering seems to be related to the version of Ruby you're trying to install and the version of macOS you're using. Ruby 2.5.3 is quite old and may not be compatible with macOS Big Sur. 
+
+However, if you still want to install this specific version of Ruby, you can try the following steps:
+
+1. Make sure you have the latest versions of rbenv and ruby-build. You can update them using Homebrew:
+
+```bash
+brew upgrade rbenv ruby-build
+```
+
+2. Install the older version of OpenSSL:
+
+```bash
+brew install openssl@1.0
+```
+
+3. Set the OpenSSL path for the Ruby installation:
+
+```bash
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl@1.0`" rbenv install 2.5.3
+```
+
+This will tell the Ruby installation to use the older version of OpenSSL, which should be compatible with Ruby 2.5.3.
+
+If you don't specifically need Ruby 2.5.3, I would recommend installing a newer version of Ruby that is compatible with macOS Big Sur. You can install the latest version of Ruby with:
+
+```bash
+rbenv install 3.0.0
+```
+
+Remember to set the global version after the installation:
+
+```bash
+rbenv global 3.0.0
+```
+
+And then verify that the new version is being used:
+
+```bash
+ruby -v
+```
+
+This should output something like `ruby 3.0.0p0 (2020-12-25 revision 95aff21468)`.

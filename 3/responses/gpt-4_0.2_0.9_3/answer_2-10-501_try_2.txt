@@ -1,0 +1,18 @@
+The error message you're seeing is because the `mdns` crate requires a Tokio runtime to be running, but the version of Tokio you're using (0.3.3) is not compatible with the `mdns` crate. The `mdns` crate is using Tokio 0.2.x internally, and Tokio does not guarantee compatibility between different minor versions.
+
+You can solve this issue by downgrading your Tokio version to 0.2.x. Here's how you can do it:
+
+1. Change your `Cargo.toml` to use Tokio 0.2.x:
+
+```toml
+[dependencies]
+mdns = "1.1.0"
+futures-util = "0.3.8"
+tokio = { version = "0.2", features = ["full"] }
+```
+
+2. Run `cargo update` to update your dependencies.
+
+3. Now, your code should work as expected.
+
+Please note that downgrading the Tokio version might affect other parts of your application if they rely on features or fixes that were introduced in Tokio 0.3.x. If that's the case, you might need to look for a different mDNS library that supports Tokio 0.3.x, or consider running the mDNS code in a separate thread with its own Tokio 0.2.x runtime.

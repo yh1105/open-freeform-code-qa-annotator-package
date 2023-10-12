@@ -1,0 +1,27 @@
+Yes, you can display the counted value of the histogram aggregate in Plotly.Express histogram. However, it's not as straightforward as with the bar plot because the histogram's height is calculated during the plotting. 
+
+Here's a workaround using `numpy.histogram` to calculate the histogram values first, then plot it as a bar plot:
+
+```python
+import pandas as pd
+import numpy as np
+import plotly.express as px
+
+# Your data
+df = pd.DataFrame({"A":[1,1,1,2,2,3,3,3,4,4,4,5]})
+
+# Calculate histogram values
+hist, edges = np.histogram(df["A"], bins=range(1,7))
+
+# Create a new DataFrame for plotting
+df_hist = pd.DataFrame({"val": edges[:-1], "height": hist})
+
+# Create a bar plot with text labels
+fig = px.bar(df_hist, x="val", y="height", text="height")
+
+fig.show()
+```
+
+This will create a bar plot that looks like a histogram, with the counted values displayed on top of each bar. 
+
+Please note that this workaround might not be suitable for all use cases, especially when you have a large number of bins or non-integer bin edges. In such cases, you might need to adjust the binning process accordingly.

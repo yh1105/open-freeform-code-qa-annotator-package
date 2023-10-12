@@ -1,0 +1,9 @@
+In Android Studio or IntelliJ, you can use the Refactor feature to extract a widget into a method. Here are the steps:
+
+1. Select the widget you want to extract. In your case, select the widget starting from `Container(` to the corresponding closing parenthesis `),`.
+
+2. Press `Ctrl + Alt + M` on Windows/Linux or `Cmd + Option + M` on Mac. This is the shortcut for the "Extract Method" refactoring.
+
+3. A dialog will appear asking you to name the new method. Enter the name and press `Enter`.
+
+This will create a new method with the selected widget and replace the original widget with a call to the new method. This can help simplify complex layouts by breaking them down into smaller, more manageable methods.

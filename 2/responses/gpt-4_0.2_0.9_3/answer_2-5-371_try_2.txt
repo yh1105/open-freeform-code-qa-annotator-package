@@ -1,0 +1,31 @@
+In Android, you can use the concept of "ConstraintLayout" and "aspect ratio" to make your ImageView resize according to the screen size. 
+
+The aspect ratio is defined as the ratio of the width to the height of an image. In ConstraintLayout, you can set the dimension ratio of a view. 
+
+Here's how you can do it:
+
+1. Set the width of the ImageView to "0dp" (which means MATCH_CONSTRAINT).
+2. Set the height of the ImageView to "wrap_content".
+3. Set the dimensionRatio attribute to the aspect ratio you want. For example, if you want a square image, you can set it to "1:1".
+
+Here's an example:
+
+```xml
+<ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="#1750DF"
+    android:scaleType="fitXY"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintDimensionRatio="1:1" />
+```
+
+In this example, the ImageView will always maintain a 1:1 aspect ratio, regardless of the screen size. It will resize itself to fill the width of the screen, and its height will be adjusted to maintain the aspect ratio.
+
+Remember, the aspect ratio you set should match the aspect ratio of the image you're displaying, otherwise the image might be stretched or squished to fit the view.
+
+Also, note that the scaleType attribute is set to "fitXY", which means the image will be scaled to fit the view, potentially changing the aspect ratio of the image. If you want to maintain the aspect ratio of the image, you can use "centerCrop" or "fitCenter" instead.

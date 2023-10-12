@@ -1,0 +1,25 @@
+The error message suggests that you are trying to reuse the same `AdWidget` instance in multiple places in the widget tree. To solve this, you need to create a new instance of `AdWidget` for each ad object.
+
+One way to do this is to generate a unique key for each `AdWidget` instance using the `UniqueKey` widget. You can modify your code as follows:
+
+```
+return ListView.builder(
+  itemBuilder: (context, index) {
+    if (posts[index] is Post) {
+      return posts[index];
+    } else {
+      final ad = posts[index] as BannerAd;
+      return Container(
+        alignment: Alignment.center,
+        child: AdWidget(key: UniqueKey(), ad: ad),
+        height: 50,
+      );
+    }
+  },
+  itemCount: posts.length,
+  controller: scrollController,
+  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+);
+```
+
+This should create a new `AdWidget` instance with a unique key for each ad object, and prevent the error you are seeing.

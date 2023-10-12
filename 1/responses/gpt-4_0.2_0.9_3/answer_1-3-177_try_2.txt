@@ -1,0 +1,23 @@
+The PyQt5-tools package does not include the Qt Designer by default. The Qt Designer is a tool that is part of the binary distribution of Qt. It is not included in the PyQt5 package or the PyQt5-tools package.
+
+If you want to use the Qt Designer, you have two options:
+
+1. Install the full Qt SDK: This includes the Qt Designer, but it's a large download and install. You can download it from the official Qt website.
+
+2. Install the standalone Qt Designer: This is a smaller download and install, but it may not be compatible with the latest version of PyQt5. You can download it from the official Qt website.
+
+Once you have installed the Qt Designer, you can find the designer.exe file in the bin directory of the Qt installation.
+
+If you want to use PyQt5-tools, you can try to install it using the following command:
+
+```
+pip install pyqt5-tools
+```
+
+After the installation, you can find the designer.exe file in the Scripts directory of your Python installation. The path should be something like this:
+
+```
+C:\Users\YourUsername\AppData\Local\Programs\Python\PythonVersion\Scripts
+```
+
+Please replace "YourUsername" and "PythonVersion" with your actual username and Python version.

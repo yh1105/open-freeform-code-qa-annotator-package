@@ -1,0 +1,22 @@
+You can use pandas library to achieve this. Here's the code:
+
+```python
+import pandas as pd
+
+# create the dataframe
+df = pd.DataFrame({'instrument_token': [12295681, 12295682, 12295683],
+                   'exchange_token': [123, 124, 125],
+                   'tradingsymbol': ['UBL19JANFUT', 'UBL20JANFUT', 'UBL21JANFUT']})
+
+# search for the instrument_token and extract the related tradingsymbol
+result = df.loc[df['instrument_token'] == 12295682, 'tradingsymbol'].iloc[0]
+
+print(result)
+```
+
+Output:
+```
+UBL20JANFUT
+```
+
+In this code, we first create a dataframe with the given data. Then we use the `loc` method to filter the rows where the `instrument_token` column is equal to 12295682. Finally, we extract the `tradingsymbol` value from the filtered row using the `iloc` method.

@@ -1,0 +1,46 @@
+Yes, you can set the primary and secondary colors in your theme.js or theme.ts file in a similar way to how you've done it with Material UI. Here's how you can do it:
+
+If you're using JavaScript:
+
+```javascript
+export const theme = {
+  colors: {
+    primary: "#7bb9e8",
+    secondary: "#eb7f7f",
+  },
+};
+```
+
+If you're using TypeScript:
+
+```typescript
+interface Theme {
+  colors: {
+    primary: string;
+    secondary: string;
+  };
+}
+
+export const theme: Theme = {
+  colors: {
+    primary: "#7bb9e8",
+    secondary: "#eb7f7f",
+  },
+};
+```
+
+Then, you can use these colors in your components like this:
+
+```javascript
+import { theme } from './theme';
+
+function MyComponent() {
+  return (
+    <div style={{ color: theme.colors.primary, backgroundColor: theme.colors.secondary }}>
+      Hello, world!
+    </div>
+  );
+}
+```
+
+Please note that this is a very basic example. Depending on your project setup and requirements, you might want to use a more sophisticated theming solution, such as styled-components' `ThemeProvider` or Emotion's `ThemeProvider`.

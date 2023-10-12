@@ -1,0 +1,26 @@
+The `ext-zip` is a PHP extension, not a Composer package. This means that it needs to be installed on your PHP environment, not via Composer.
+
+If you are using a Unix-like operating system, you can install the `zip` extension with the following commands:
+
+```bash
+sudo apt-get update
+sudo apt-get install php-zip
+```
+
+If you are using Windows, you can enable the extension by editing your `php.ini` file:
+
+1. Open your `php.ini` file (you can find its location by running `php --ini`).
+2. Find the line `;extension=zip`.
+3. Uncomment this line by removing the semicolon at the start.
+4. Save the `php.ini` file.
+5. Restart your web server.
+
+After installing or enabling the `zip` extension, you should be able to use the `ZipArchive` class in your PHP code.
+
+If you still see the warning in PHPStorm, you may need to update PHPStorm's interpreter settings to make sure it's using the correct PHP version.
+
+If you're using Docker, you'll need to ensure the `zip` extension is installed in the Docker image you're using for your PHP environment. This will depend on the specific image you're using, but in a Dockerfile it might look something like this:
+
+```Dockerfile
+RUN docker-php-ext-install zip
+```

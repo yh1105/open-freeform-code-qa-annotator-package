@@ -1,0 +1,16 @@
+You can use the `loc` function in pandas to locate the row and then extract the value of the 'tradingsymbol' column. Here's how you can do it:
+
+```python
+# Assuming your dataframe is named df
+tradingsymbol_value = df.loc[df['instrument_token'] == 12295682, 'tradingsymbol'].values[0]
+print(tradingsymbol_value)
+```
+
+This will print the 'tradingsymbol' value corresponding to the 'instrument_token' 12295682. If there are multiple rows with the same 'instrument_token', this will return the 'tradingsymbol' of the first one. If you want all 'tradingsymbol's for this 'instrument_token', you can remove `.values[0]`:
+
+```python
+tradingsymbol_values = df.loc[df['instrument_token'] == 12295682, 'tradingsymbol']
+print(tradingsymbol_values)
+```
+
+This will return a Series with all 'tradingsymbol' values corresponding to the 'instrument_token' 12295682.

@@ -1,0 +1,24 @@
+The formatting of your `pubspec.yaml` file is incorrect. The `flutter:` and `assets:` fields are not properly indented. Here's the corrected version:
+
+```yaml
+name: jsondata 
+description: A new Flutter application.
+
+dependencies:  
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.0
+
+dev_dependencies:   
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+```
+
+In YAML files, indentation is crucial. It's used to determine the structure of the data. The `flutter:` and `assets:` fields should be at the same level of indentation, and the path to your assets should be indented under the `assets:` field. 
+
+Also, ensure that the path to your JSON file is correct and that the file exists at that location. The path is relative to the location of the `pubspec.yaml` file. If your file is not in the `loadjson` directory at the root of your project, you'll need to update the path.

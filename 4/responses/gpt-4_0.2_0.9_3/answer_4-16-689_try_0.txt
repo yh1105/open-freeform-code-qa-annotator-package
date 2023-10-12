@@ -1,0 +1,9 @@
+You can use the following command in CMD to open Windows Explorer at "This PC":
+
+```cmd
+explorer.exe /e,::{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+```
+
+This command uses the CLSID (Class Identifier) for "This PC", which is `{20D04FE0-3AEA-1069-A2D8-08002B30309D}`. The `/e` switch tells Explorer to open a specific folder or directory.
+
+You can also create a shortcut with this command. Just right-click on the desktop, select "New" > "Shortcut", and then enter the command above.

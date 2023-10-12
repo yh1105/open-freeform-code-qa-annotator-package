@@ -1,0 +1,23 @@
+The error message you're seeing is because the `operator==` in your `SeviceClient` class is not matching the signature of the `operator==` in your `IClient` class. 
+
+In your `IClient` class, you've declared `operator==` as:
+```cpp
+virtual bool operator==(const IClient& anotherClient) = 0;
+```
+This means that any class that inherits from `IClient` must provide an `operator==` that takes a `const IClient&` as an argument.
+
+However, in your `SeviceClient` class, you've declared `operator==` as:
+```cpp
+bool operator==(const SeviceClient& anotherClient) override;
+```
+This does not match the signature in `IClient`, because it takes a `const SeviceClient&` instead of a `const IClient&`. 
+
+When you change the `operator==` in `SeviceClient` to take a `const IClient<int8_t>&`, it matches the signature in `IClient`, so the compiler is happy.
+
+So yes, your solution is correct. You should override `operator==` in `SeviceClient` as follows:
+```cpp
+bool operator==(const IClient<int8_t>& anotherClient) override {
+    // your implementation here
+}
+```
+Just make sure that your implementation of `operator==` correctly compares `SeviceClient` objects. You may need to use `dynamic_cast` or `static_cast` to downcast the `IClient<int8_t>&` to a `SeviceClient&` so you can access `SeviceClient`'s members and methods.

@@ -1,0 +1,5 @@
+This error message usually occurs when you are trying to access a variable or object that is null. In your case, it seems like you are trying to access an object of type 'SkDeletable' that is null.
+
+To fix this issue, you need to identify the variable or object that is null and initialize it properly before accessing it. You can use null safety features introduced in Flutter 2.0 to avoid such issues in the future.
+
+You can also try running your code with the Dart DevTools debugger to identify the exact line of code that is causing the error. This will help you to debug the issue more efficiently.

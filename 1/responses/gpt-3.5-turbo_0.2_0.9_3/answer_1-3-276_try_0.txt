@@ -1,0 +1,9 @@
+The error message suggests that the issue is caused by an in-place operation that modifies a variable needed for gradient computation. In your code, the most likely culprit is the line `dec_text_tensor.data = dec_text_tensor.data[order]`. This line modifies the `data` attribute of `dec_text_tensor` in-place, which may cause issues with gradient computation.
+
+To fix this, you can try creating a new tensor instead of modifying the existing one in-place:
+
+```
+dec_text_tensor = dec_text_tensor[order].clone().detach()
+```
+
+This creates a new tensor that is a copy of the original tensor, and detaches it from the computation graph to avoid any issues with gradient computation.

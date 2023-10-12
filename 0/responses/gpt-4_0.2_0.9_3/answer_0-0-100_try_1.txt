@@ -1,0 +1,40 @@
+The error you're seeing is because `create-react-app` comes with its own ESLint configuration and it doesn't allow overriding the parser. 
+
+You can't use `babel-eslint` as the parser in a `create-react-app` project without ejecting or using a workaround like `react-app-rewired` to override the configuration.
+
+Here are a few options to solve this issue:
+
+1. **Ejecting the configuration**: You can run `npm run eject` to expose all the configuration files. However, this is a one-way operation and you can't go back. If you're sure you want to do this, you can then install and use `babel-eslint` as your parser.
+
+2. **Using react-app-rewired**: This is a package that allows you to customize the configuration of `create-react-app` without ejecting. You can install it and then create a `config-overrides.js` file in your root directory where you can specify `babel-eslint` as your parser. Here's an example:
+
+    ```javascript
+    module.exports = function override(config, env) {
+      config.module.rules.push({
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
+        enforce: 'pre',
+        use: [
+          {
+            options: {
+              parser: 'babel-eslint',
+              // Other ESLint options
+            },
+            loader: require.resolve('eslint-loader'),
+          },
+        ],
+        include: paths.appSrc,
+      });
+
+      return config;
+    };
+    ```
+
+3. **Using a different ESLint configuration**: If you don't need to use `babel-eslint` as your parser, you can use the ESLint configuration that comes with `create-react-app` and extend it as needed. You can add your own rules in the `rules` section of your `.eslintrc` file.
+
+4. **Creating a new app with a custom template**: If you're starting a new project, you can create a new app with a custom template that includes your preferred ESLint configuration. For example, you can use the `cra-template-eslint` template:
+
+    ```bash
+    npx create-react-app my-app --template eslint
+    ```
+
+Remember that the best solution depends on your specific needs and constraints.

@@ -1,0 +1,29 @@
+The issue you are facing is due to the asynchronous nature of the `OnInitializedAsync()` method. The `if` condition in the markup is executed before the `OnInitializedAsync()` method is completed, hence the `Data` variable is still null at that point.
+
+To fix this issue, you can use a boolean flag to indicate whether the data has been fetched or not. You can set this flag to true after the data has been fetched, and then use this flag in the `if` condition to check whether the data has been fetched or not.
+
+Here's an updated code snippet that demonstrates this approach:
+
+```
+<Component1>
+  @if (IsDataFetched && Data != null)
+  {
+    @foreach (var item in Data) {
+      <Component2>
+    }
+  }
+</Componet1>
+
+@code{
+  private bool IsDataFetched = false;
+
+  protected override async Task OnInitializedAsync() {
+    Data = await GetDataFromDatabase();
+    IsDataFetched = true;
+  }
+}
+```
+
+In this code, we have added a boolean flag `IsDataFetched` that is initially set to false. After the data has been fetched, we set this flag to true. In the `if` condition, we check whether the `IsDataFetched` flag is true and whether the `Data` variable is not null. This ensures that the `if` condition is executed only after the data has been fetched.
+
+I hope this helps you to fix the issue. Let me know if you have any further questions.

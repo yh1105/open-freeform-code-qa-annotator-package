@@ -1,0 +1,5 @@
+Your code looks fine, but make sure that the image file "hologram.jpg" is in the same directory as your HTML file. If the image file is in a different directory, you need to specify the correct path to the image file. 
+
+Also, make sure that the image file name and extension are correct. If the file name or extension is incorrect, the image will not display.
+
+If the issue persists, try clearing your browser cache and reloading the page. Sometimes, the browser cache can cause images not to display properly.

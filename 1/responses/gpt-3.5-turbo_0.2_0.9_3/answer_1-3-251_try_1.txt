@@ -1,0 +1,19 @@
+It seems like the `mariadb_config` utility is not installed on your system. You can try installing it using the following command:
+
+```
+sudo apt-get install libmariadb-dev
+```
+
+After installing `libmariadb-dev`, try running `pip3 install mariadb` again. If it still doesn't work, you can try setting the `mariadb_config` option in the `site.cfg` file as suggested in the error message. Here's how you can do it:
+
+1. Create a `site.cfg` file in the same directory where you are running the `pip3 install mariadb` command.
+2. Add the following lines to the `site.cfg` file:
+
+```
+[mariadb_config]
+mariadb_config = /usr/bin/mariadb_config
+```
+
+3. Save the `site.cfg` file and try running `pip3 install mariadb` again.
+
+This should hopefully resolve the issue.

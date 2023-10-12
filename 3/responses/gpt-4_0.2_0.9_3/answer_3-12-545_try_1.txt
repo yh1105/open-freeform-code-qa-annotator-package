@@ -1,0 +1,29 @@
+The error message is indicating that you're trying to send a JSON body with a POST request, but the body is not properly formatted as JSON. 
+
+In Dart, when you're sending JSON data, you need to encode it using `json.encode()`. 
+
+Here's how you can modify your code:
+
+```dart
+import 'dart:convert';
+
+Map<String,String> headers = {
+  'Content-Type':'application/json',
+  'authorization':'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='
+};
+
+var body = json.encode({
+  "grant_type":"password",
+  "username":"******",
+  "password":"*****",
+  "scope":"offline_access"
+});
+
+var response = await post(
+  Urls.getToken,
+  headers: headers,
+  body: body,
+);
+```
+
+This will convert your Dart map into a JSON string, which can then be sent in the body of your POST request.

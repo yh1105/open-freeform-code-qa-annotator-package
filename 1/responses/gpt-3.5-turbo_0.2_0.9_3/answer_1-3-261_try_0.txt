@@ -1,0 +1,3 @@
+The error message you are receiving indicates that the video you are trying to download is no longer available on YouTube. HTTP Error 410 means that the requested resource is no longer available and has been permanently removed. 
+
+You can try downloading a different video to see if the issue persists. If the issue persists, you can try using a different library or tool to download YouTube videos. There are several other libraries available for Python that can be used to download YouTube videos, such as youtube-dl and pafy.

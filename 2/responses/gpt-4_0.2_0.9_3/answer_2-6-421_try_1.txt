@@ -1,0 +1,29 @@
+The `OnInitializedAsync()` method is called when the component is initialized, but before the component is rendered for the first time. As it is an asynchronous method, it doesn't block the rendering process. So, the component will be rendered even if the `OnInitializedAsync()` method hasn't completed yet.
+
+In your case, the component is being rendered before the data is fetched from the database. That's why the `if` condition is checked before the data is available.
+
+To fix this issue, you can introduce a boolean flag that indicates whether the data has been loaded or not. You can set this flag to `true` after the data is fetched from the database. In your markup, you can then check this flag before rendering the data.
+
+Here is an example:
+
+```csharp
+<Component1>
+  @if (IsDataLoaded)
+  {
+    @foreach (var item in Data) {
+      <Component2>
+    }
+  }
+</Component1>
+
+@code{
+  private bool IsDataLoaded = false;
+
+  protected override async Task OnInitializedAsync() {
+    Data = //data from dataBase
+    IsDataLoaded = true;
+  }
+}
+```
+
+In this example, the `foreach` loop will only be executed after the data is loaded from the database.

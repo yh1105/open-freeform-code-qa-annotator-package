@@ -1,0 +1,27 @@
+The error message indicates that the Gradle build tool is unable to find the Java Development Kit (JDK) on your system. You need to install the JDK and set the JAVA_HOME environment variable to its installation directory.
+
+Here are the steps to install the JDK and set the JAVA_HOME environment variable:
+
+1. Download the JDK from the official website: https://www.oracle.com/java/technologies/javase-downloads.html
+
+2. Install the JDK on your system.
+
+3. Set the JAVA_HOME environment variable to the installation directory of the JDK. The exact steps to set the environment variable depend on your operating system.
+
+   - On Windows: 
+     - Open the Control Panel and go to System and Security > System > Advanced system settings.
+     - Click the Environment Variables button.
+     - Under System Variables, click the New button.
+     - Enter JAVA_HOME as the variable name and the installation directory of the JDK as the variable value (e.g. C:\Program Files\Java\jdk1.8.0_281).
+     - Click OK to save the variable.
+
+   - On macOS or Linux:
+     - Open a terminal window.
+     - Enter the following command to open the .bash_profile file: `nano ~/.bash_profile`
+     - Add the following line to the file: `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_281.jdk/Contents/Home` (replace the path with the installation directory of the JDK).
+     - Press Ctrl+X to exit nano and save the file.
+     - Enter the following command to reload the .bash_profile file: `source ~/.bash_profile`
+
+4. Restart your terminal or command prompt to apply the changes.
+
+After setting the JAVA_HOME environment variable, try running the `react-native link` command again and see if the error is resolved.

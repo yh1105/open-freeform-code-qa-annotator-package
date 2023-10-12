@@ -1,0 +1,31 @@
+The error message you're seeing is due to a missing library in Ruby 3.0.0. The library `rexml` is a default gem in Ruby 3.0.0, but it is not automatically required when Ruby starts. The `kramdown` gem, which is a dependency of Jekyll, is trying to require `rexml/parsers/baseparser` and failing because `rexml` has not been required yet.
+
+To fix this issue, you can manually require `rexml` in your project. Add the following line to your `Gemfile`:
+
+```ruby
+gem 'rexml', '~> 3.2.4'
+```
+
+Then run `bundle install` to install the gem.
+
+If this doesn't work, another solution would be to downgrade your Ruby version to 2.7.2, which doesn't have this issue. You can use a Ruby version manager like `rbenv` or `rvm` to easily switch between Ruby versions.
+
+To install `rbenv` you can use Homebrew:
+
+```bash
+brew install rbenv
+```
+
+Then you can install Ruby 2.7.2:
+
+```bash
+rbenv install 2.7.2
+```
+
+And set it as the default version for your project:
+
+```bash
+rbenv local 2.7.2
+```
+
+After that, try running `bundle exec jekyll serve` again.

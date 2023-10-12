@@ -1,0 +1,59 @@
+To open WhatsApp from your Flutter app, you can use the `url_launcher` package. This package allows you to open URLs in the mobile platform. It supports both Android and iOS.
+
+First, you need to add `url_launcher` to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.0.16
+```
+
+Then, run `flutter pub get` to fetch the package.
+
+Now, you can use the `launch` method from `url_launcher` to open WhatsApp. Here's a simple example:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Launch WhatsApp'),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: _launchWhatsApp,
+            child: Text('Open WhatsApp'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _launchWhatsApp() async {
+    const url = 'https://wa.me/<number>?text=Hello'; // replace <number> with the receiver's phone number
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+```
+
+In this example, when the button is pressed, it will attempt to open WhatsApp with a pre-filled message of "Hello" to the number specified in the URL.
+
+Please replace `<number>` with the receiver's phone number in international format (i.e., without '+' and with country code). For example, for a US number (123) 456-7890, use 11234567890.
+
+Please note that the user must have WhatsApp installed on their device for this to work. If WhatsApp is not installed, an error will be thrown.
+
+Also, note that this will not work in a webview, as webviews do not have access to the device's installed apps. This will only work in a full Flutter app.

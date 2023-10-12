@@ -1,0 +1,26 @@
+To set the selected values in the multiselect dropdown, you need to pass an array of selected values to the `ngModel` or `formControlName` property of the `p-multiSelect` component. In your case, you can pass the converted array of `excludeDays` to the `formControlName` property like this:
+
+```
+<div class="col-12" style="width: auto;">
+  <p-multiSelect [options]="excludeDays" optionLabel="label" defaultLabel="Select day" formControlName="excludeDays" [ngModel]="excludeDaysArray"></p-multiSelect> 
+</div>
+```
+
+Here, `excludeDaysArray` is the converted array of `excludeDays` that you want to select in the dropdown. You can set this value in the `ngOnInit` method of your component like this:
+
+```
+ngOnInit() {
+  // Convert the backend data string to an array of numbers
+  const excludeDaysArray = this.backendDataString.split(',').map(Number);
+  
+  // Set the value of the excludeDays form control
+  this.form.patchValue({
+    excludeDays: excludeDaysArray
+  });
+
+  // Set the value of the excludeDaysArray property
+  this.excludeDaysArray = excludeDaysArray;
+}
+```
+
+Here, `backendDataString` is the string value that you receive from the backend, and `excludeDaysArray` is the converted array of numbers that you want to select in the dropdown. You can set the value of the `excludeDays` form control using the `patchValue` method of the `form` object, and then set the value of the `excludeDaysArray` property to the same value. This will select the appropriate values in the multiselect dropdown.

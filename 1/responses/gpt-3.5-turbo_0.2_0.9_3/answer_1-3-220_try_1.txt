@@ -1,0 +1,31 @@
+Yes, you can use the `boto3` library to get a list of all the resources in your AWS account. Here's an example code snippet that you can use:
+
+```python
+import boto3
+
+# Create a session using your AWS credentials
+session = boto3.Session(
+    aws_access_key_id='YOUR_ACCESS_KEY',
+    aws_secret_access_key='YOUR_SECRET_KEY',
+    region_name='YOUR_REGION'
+)
+
+# Create a client for each service you want to list resources for
+ec2_client = session.client('ec2')
+s3_client = session.client('s3')
+rds_client = session.client('rds')
+
+# Get a list of all resources for each service
+ec2_resources = ec2_client.describe_instances()
+s3_resources = s3_client.list_buckets()
+rds_resources = rds_client.describe_db_instances()
+
+# Print the results
+print(ec2_resources)
+print(s3_resources)
+print(rds_resources)
+```
+
+This code creates a session using your AWS credentials, and then creates a client for each service you want to list resources for (in this example, EC2, S3, and RDS). You can add more clients for other services as needed.
+
+Once you have the clients, you can use the appropriate `describe` or `list` function to get a list of all the resources for each service. The results will be returned as a dictionary, which you can then print or process as needed.

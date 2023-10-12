@@ -1,0 +1,50 @@
+You can call the `_showDialog()` method inside the `initState()` method of your main screen widget. This method is called only once when the widget is first inserted into the widget tree. Here's an example:
+
+```
+class MyMainScreenWidget extends StatefulWidget {
+  @override
+  _MyMainScreenWidgetState createState() => _MyMainScreenWidgetState();
+}
+
+class _MyMainScreenWidgetState extends State<MyMainScreenWidget> {
+  bool _showAlertDialog = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_showAlertDialog) {
+      _showDialog();
+    }
+  }
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // your widget build code here
+  }
+}
+```
+
+In this example, the `_showAlertDialog` flag is set to `true`, so the `_showDialog()` method will be called inside the `initState()` method. You can replace this flag with your own condition based on your app state data.

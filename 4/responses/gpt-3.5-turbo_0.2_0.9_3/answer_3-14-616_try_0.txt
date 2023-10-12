@@ -1,0 +1,46 @@
+The issue is with the `ForEach` loop. The loop variable `card` is already an element of the `properties` array, so you don't need to access it using the index. Instead of using `properties[card]`, you can simply use `card` to access the properties of the element.
+
+Here's the updated code:
+
+```
+struct Card_cell_rowOfCheracteristics: View {
+
+    var data2: Unicards
+
+    var body: some View {
+        let properties = data2.properties!
+
+        return VStack() {
+
+            ScrollView(Axis.Set.horizontal) {
+
+                HStack {
+
+                    ForEach(properties) { card in
+                        VStack {
+                            Image()
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 34, height: 34)
+
+                            VStack {
+                                Text(card.label)
+                                    .font(.system(size: 14))
+                                    .fontWeight(.medium)
+                                Text(card.value)
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct Card_cell_rowOfCheracteristics_Previews: PreviewProvider {
+    static var previews: some View {
+        Card_cell_rowOfCheracteristics(data2: PlatesData[0])
+    }
+}
+```

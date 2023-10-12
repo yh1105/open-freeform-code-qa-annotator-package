@@ -1,0 +1,40 @@
+The problem you're facing is a common one when dealing with multiple worker processes. Each worker process in FastAPI (or any other ASGI server like Uvicorn or Hypercorn) runs in its own separate memory space. This means that they don't share variables or objects in memory. This is why each worker has its own separate instance of the `meta` object.
+
+To share data between workers, you need to use a shared storage that all workers can access. This could be a database, a cache like Redis, or a message queue like RabbitMQ. 
+
+Here's an example of how you could modify your code to use Redis as a shared counter storage:
+
+```python
+from fastapi import FastAPI, status
+import aioredis
+
+app = FastAPI()
+
+@app.on_event("startup")
+async def startup_event():
+    app.state.redis = await aioredis.create_redis_pool('redis://localhost')
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    app.state.redis.close()
+    await app.state.redis.wait_closed()
+
+@app.get("/increment")
+async def increment():
+    await app.state.redis.incr('count')
+    return status.HTTP_200_OK
+
+@app.get("/report")
+async def report():
+    count = await app.state.redis.get('count', encoding='utf-8')
+    return {'count': count}
+
+@app.get("/reset")
+async def reset():
+    await app.state.redis.set('count', 0)
+    return status.HTTP_200_OK
+```
+
+In this example, Redis is used as a shared storage for the counter. The `incr` command atomically increments the counter, and the `get` command retrieves the current count. The `set` command is used to reset the counter to 0.
+
+As for your side question, there's no built-in way to force all workers to respond to a single call on an endpoint. However, you could use a similar approach to the one above: when the `/reset` endpoint is called, it could send a message to a shared queue or pub/sub channel, and all workers could listen for messages on that channel and reset their state when they receive a message.

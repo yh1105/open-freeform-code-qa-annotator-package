@@ -1,0 +1,41 @@
+Yes, you can definitely set primary and secondary colors in your theme.js or theme.ts file. The code you've provided is a perfect example of how to do it using Material-UI's `createTheme` function in a React project.
+
+Here's how you can do it:
+
+```javascript
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7bb9e8',
+    },
+    secondary: {
+      main: '#eb7f7f',
+    },
+  },
+});
+
+export default theme;
+```
+
+In this code, `createTheme` is a function from Material-UI that generates a theme object. Inside this function, you can specify the primary and secondary colors of your theme by providing an object to the `palette` property. The `main` property inside `primary` and `secondary` objects is used to specify the main color for each.
+
+After defining the theme, you can use it in your components with the `ThemeProvider` component from Material-UI:
+
+```javascript
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      {/* Your components go here */}
+    </ThemeProvider>
+  );
+}
+
+export default App;
+```
+
+In this code, `ThemeProvider` is a React component that applies a theme to all its child components. You pass the theme object to the `theme` prop of `ThemeProvider`. Now, all your components inside `ThemeProvider` will have access to the theme.

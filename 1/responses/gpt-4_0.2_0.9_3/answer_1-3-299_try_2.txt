@@ -1,0 +1,15 @@
+The error is because you're trying to convert a list of strings (which are actually percentages) to integers. You need to convert these percentages to float values before plotting. Here's how you can do it:
+
+```python
+import matplotlib.pyplot as plt
+
+my_dict = {'Southampton': '33.7%', 'Cherbourg': '55.36%', 'Queenstown': '38.96%'}
+
+# Convert the percentage strings to float values
+my_dict = {k: float(v.strip('%')) for k, v in my_dict.items()}
+
+plt.bar(my_dict.keys(), my_dict.values())
+plt.show()
+```
+
+This code will create a bar plot with the keys of the dictionary on the x-axis and the values on the y-axis. The `strip('%')` function is used to remove the '%' sign from the values, and then they are converted to float.

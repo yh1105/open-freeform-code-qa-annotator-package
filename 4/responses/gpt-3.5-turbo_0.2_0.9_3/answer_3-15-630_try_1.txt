@@ -1,0 +1,11 @@
+To split the data either across to columns or down into rows, you can use the following methods:
+
+1. Splitting Across Columns:
+   - Method 1: Use the Text to Columns feature in Excel. Select the column with the data, go to the Data tab, click on Text to Columns, choose Delimited, select the delimiter (comma in this case), and choose where you want to split the data (either into new columns or overwrite the existing ones).
+   - Method 2: Use the Split function in Google Sheets. In a new column, use the formula =SPLIT(A2,",") where A2 is the cell with the data you want to split. This will split the data into new columns.
+
+2. Splitting Down into Rows:
+   - Method 1: Use the Text to Columns feature in Excel. Select the column with the data, go to the Data tab, click on Text to Columns, choose Delimited, select the delimiter (comma in this case), and choose to split the data into new rows.
+   - Method 2: Use the Split function in Google Sheets. In a new row, use the formula =TRANSPOSE(SPLIT(A2,",")) where A2 is the cell with the data you want to split. This will split the data into new rows.
+
+The preferred method would depend on the specific use case and personal preference. However, the Text to Columns feature in Excel is a quick and easy way to split data across columns, while the Split function in Google Sheets is a flexible option for splitting data in any direction.

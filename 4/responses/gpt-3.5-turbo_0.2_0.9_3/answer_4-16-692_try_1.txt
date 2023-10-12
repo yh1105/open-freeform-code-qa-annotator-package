@@ -1,0 +1,21 @@
+Yes, Windows Terminal is a great tool for managing multiple terminal sessions in one place. To add SSH connections to Windows Terminal, you can follow these steps:
+
+1. Open Windows Terminal and click on the down arrow icon in the tab bar to open the drop-down menu.
+2. Click on "Settings" to open the settings file in your default text editor.
+3. Scroll down to the "profiles" section and add a new profile for your SSH connection. Here's an example:
+
+```
+{
+    "guid": "{YOUR_GUID_HERE}",
+    "name": "SSH Connection",
+    "commandline": "ssh user@hostname",
+    "icon": "C:\\path\\to\\icon.png"
+}
+```
+
+Replace `{YOUR_GUID_HERE}` with a unique identifier for this profile. You can generate a new GUID using an online tool. Replace `user@hostname` with your SSH username and hostname. Replace `C:\\path\\to\\icon.png` with the path to an icon file for this profile (optional).
+
+4. Save the settings file and close the text editor.
+5. Click on the down arrow icon again and select "SSH Connection" (or whatever you named your profile) to open the SSH session in a new tab.
+
+That's it! You can now use Windows Terminal to manage your SSH connections alongside other terminal sessions.

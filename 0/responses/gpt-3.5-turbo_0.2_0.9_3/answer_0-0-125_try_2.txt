@@ -1,0 +1,19 @@
+When you run `npm install -g @vue/cli`, it installs the latest version of the Vue CLI globally on your system. However, it does not update the version of Vue.js in your project's `package.json` file.
+
+To update the version of Vue.js in your project, you need to run the following command in your project directory:
+
+```
+npm install vue@latest --save
+```
+
+This will install the latest version of Vue.js and update the version in your `package.json` file.
+
+Alternatively, you can specify the version of Vue.js you want to install by running:
+
+```
+npm install vue@2.6.11 --save
+```
+
+Replace `2.6.11` with the version you want to install.
+
+After installing the latest version of Vue.js, you can verify the version by running `vue --version` in your project directory.

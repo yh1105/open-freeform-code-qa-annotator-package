@@ -1,0 +1,27 @@
+You can achieve the desired layout by wrapping the second and third child widgets in a `Flexible` widget instead of an `Expanded` widget. Here's the updated code:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.start,
+  mainAxisSize: MainAxisSize.min,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Flexible(
+      child: Text(
+        'on the right hand corner to start a new chat.',
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    )
+  ],
+)
+```
+
+By using `Flexible` instead of `Expanded`, the second and third child widgets will take up only as much space as they need, allowing them to be aligned correctly with the first child widget. If the text in the third child widget exceeds the available space, it will wrap to the next line.

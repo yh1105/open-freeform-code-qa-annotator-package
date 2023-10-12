@@ -1,0 +1,29 @@
+Your script seems to be on the right track, but there are a few issues. The `while -r read line` is incorrect, it should be `while IFS= read -r line`. Also, the `date` command is not used correctly. Here's a corrected version of your script:
+
+```bash
+while IFS= read -r line
+do
+    year=$(echo "$line" | awk -F"T" '{ print substr($1,1,4) }')
+    month=$(echo "$line" | awk -F"T" '{ print substr($1,6,2) }')
+    day=$(echo "$line" | awk -F"T" '{ print substr($1,9,2) }')
+
+    case "$month" in
+        "01") month="JAN" ;;
+        "02") month="FEB" ;;
+        "03") month="MAR" ;;
+        "04") month="APR" ;;
+        "05") month="MAY" ;;
+        "06") month="JUN" ;;
+        "07") month="JUL" ;;
+        "08") month="AUG" ;;
+        "09") month="SEP" ;;
+        "10") month="OCT" ;;
+        "11") month="NOV" ;;
+        "12") month="DEC" ;;
+    esac
+
+    echo "$day $month $year"
+done < /f/filename.txt
+```
+
+This script reads the file line by line, splits the date into year, month, and day, converts the month from a number to a three-letter abbreviation, and then prints the date in the desired format.

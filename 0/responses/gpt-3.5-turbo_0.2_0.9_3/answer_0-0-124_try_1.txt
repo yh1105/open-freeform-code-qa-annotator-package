@@ -1,0 +1,10 @@
+You're on the right track with using the `container` parameter to limit the search to a specific area of the DOM. However, the order of the parameters is important. The first parameter should be the text you're searching for, and the second parameter should be the container you want to search within. 
+
+So your second example is closer to what you want, but it's finding multiple elements with the same text because it's searching the entire document. To limit the search to the container, you can use the `within` method, like this:
+
+```
+const container = getByTestId('my-test-id');
+expect(within(container).getByText('some text')).toBeTruthy();
+```
+
+This should find the element with the text "some text" that is inside the container with the test ID "my-test-id".

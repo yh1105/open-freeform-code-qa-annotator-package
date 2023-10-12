@@ -1,0 +1,34 @@
+In ASP.NET Core, you can use the `IHttpContextAccessor` service to create a global variable. Here's how you can do it:
+
+1. Add the `Microsoft.AspNetCore.Http` package to your project.
+
+2. In your `Startup.cs` file, add the following code to the `ConfigureServices` method:
+
+```csharp
+services.AddHttpContextAccessor();
+```
+
+3. In your controller or service, inject the `IHttpContextAccessor` service:
+
+```csharp
+private readonly IHttpContextAccessor _httpContextAccessor;
+
+public MyController(IHttpContextAccessor httpContextAccessor)
+{
+    _httpContextAccessor = httpContextAccessor;
+}
+```
+
+4. To set a global variable, use the `HttpContext` property of the `IHttpContextAccessor` service:
+
+```csharp
+_httpContextAccessor.HttpContext.Items["<variableName>"] = <value>;
+```
+
+5. To retrieve the global variable, use the `HttpContext` property again:
+
+```csharp
+var myVariable = _httpContextAccessor.HttpContext.Items["<variableName>"];
+```
+
+Note that the `Items` property of the `HttpContext` object is a dictionary, so you can store any type of data in it. Also, the data stored in the `Items` dictionary is only available for the current request, so if you need to persist data across multiple requests, you'll need to use a different approach, such as a database or a cache.

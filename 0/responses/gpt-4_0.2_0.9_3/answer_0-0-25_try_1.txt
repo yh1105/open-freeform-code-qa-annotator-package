@@ -1,0 +1,48 @@
+In React Navigation, the parameters are passed to the specific screen, not to the whole navigator. So, when you navigate to the 'following' screen, the parameters are available only in that screen. The child screens of the 'following' screen do not have access to these parameters.
+
+However, there are a few ways to pass parameters to child screens:
+
+1. **Pass parameters when navigating to child screens**: When you navigate to a child screen, you can pass parameters to it. But this might not be feasible in your case as you are not directly navigating to the child screens.
+
+2. **Use Context API**: You can create a context and provide it in the parent screen. The child screens can then consume this context to get the parameters. Here is an example:
+
+```jsx
+import React, { createContext, useContext } from 'react';
+
+// Create a context
+const ParamsContext = createContext();
+
+// Provide the context in the parent screen
+export const FollowingTabs = ({ route }) => (
+  <ParamsContext.Provider value={route.params}>
+    <Tabs.Navigator
+      initialRouteName='page'
+      lazy
+      swipeEnabled
+    >
+      <Tabs.Screen
+        component={PageScreen}
+        name='page'
+        options={{ tabBarLabel: '2 Pages' }}
+      />
+      <Tabs.Screen
+        component={GroupScreen}
+        name='groups'
+        options={{ tabBarLabel: '3 Groups' }}
+      />
+    </Tabs.Navigator>
+  </ParamsContext.Provider>
+);
+
+// Consume the context in the child screen
+const PageScreen = () => {
+  const params = useContext(ParamsContext);
+  const { isPublicProfile, firstName } = params;
+
+  // ...
+};
+```
+
+3. **Use Redux or other state management libraries**: If you are using Redux or any other state management library, you can store the parameters in the global state and access it in any screen.
+
+Regarding the GitHub issue you mentioned, it is about passing parameters to nested navigators, not to child screens. It is a different scenario.

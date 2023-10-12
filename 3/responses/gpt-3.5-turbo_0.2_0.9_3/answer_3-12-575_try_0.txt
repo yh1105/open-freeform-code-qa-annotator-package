@@ -1,0 +1,72 @@
+To post data to the URL body in Flutter WebView, you can use the `postUrl` method of the `WebView` class. Here's an example:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:convert';
+
+class MyWebView extends StatefulWidget {
+  @override
+  _MyWebViewState createState() => _MyWebViewState();
+}
+
+class _MyWebViewState extends State<MyWebView> {
+  final _webViewKey = GlobalKey<WebViewContainerState>();
+  final _url = 'https://example.com';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WebViewContainer(
+        key: _webViewKey,
+        initialUrl: _url,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _postData();
+        },
+        child: Icon(Icons.send),
+      ),
+    );
+  }
+
+  void _postData() async {
+    final postData = {'name': 'John', 'age': 30};
+    final postDataString = json.encode(postData);
+    final headers = {'Content-Type': 'application/json'};
+    await _webViewKey.currentState.webView.postUrl(
+      _url,
+      Uint8List.fromList(postDataString.codeUnits),
+      headers,
+    );
+  }
+}
+
+class WebViewContainer extends StatefulWidget {
+  final String initialUrl;
+
+  const WebViewContainer({Key key, this.initialUrl}) : super(key: key);
+
+  @override
+  WebViewContainerState createState() => WebViewContainerState();
+}
+
+class WebViewContainerState extends State<WebViewContainer> {
+  final _webViewKey = GlobalKey<WebViewState>();
+  WebView get webView => _webViewKey.currentState;
+
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      key: _webViewKey,
+      initialUrl: widget.initialUrl,
+    );
+  }
+}
+```
+
+In this example, we have a `MyWebView` widget that contains a `WebViewContainer` widget. The `WebViewContainer` widget is responsible for rendering the web view. We also have a floating action button that triggers the `_postData` method when pressed.
+
+The `_postData` method creates a JSON object and converts it to a string using the `json.encode` method. It then creates a `headers` map with the `Content-Type` set to `application/json`. Finally, it calls the `postUrl` method of the `WebView` widget, passing in the URL, the post data as a `Uint8List`, and the headers.
+
+Note that the `postUrl` method is an asynchronous method, so we need to use the `await` keyword to wait for it to complete.

@@ -1,0 +1,7 @@
+It is true that `std::string` is a good choice for handling UTF-8 strings in C++. However, you need to be careful when using functions like `str[i]`, `std::string::size()`, `std::string::find_first_of()` or `std::regex` as they may not work as expected with UTF-8 strings.
+
+If you want to stick with `std::string`, you can use libraries like ICU or Boost.Locale to handle UTF-8 strings properly. These libraries provide functions that work with UTF-8 strings and can handle complex operations like normalization, collation, and regular expressions.
+
+Alternatively, you can switch to `std::wstring` which is designed to work with wide characters and can handle UTF-8 strings properly. However, keep in mind that `std::wstring` may not be as efficient as `std::string` and may require more memory.
+
+In summary, if you want to stick with `std::string`, use libraries like ICU or Boost.Locale to handle UTF-8 strings properly. If you want to switch to `std::wstring`, keep in mind that it may not be as efficient as `std::string` and may require more memory.

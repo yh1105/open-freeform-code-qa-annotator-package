@@ -1,0 +1,21 @@
+The `dd()` function in Laravel uses the Symfony VarDumper component, which has a default maximum depth level of 20. This means that any array or object that is nested more than 20 levels deep will not be fully displayed.
+
+You can change this default maximum depth level by creating a new instance of the `VarDumper` class and calling the `setMaxDepth()` method on it. However, this is not recommended because it can lead to performance issues if the depth level is set too high.
+
+Instead of trying to increase the maximum depth level, a better approach might be to limit the amount of data that you are trying to dump at once. For example, instead of dumping an entire collection, you could dump only the first few items in the collection.
+
+If you need to inspect a large amount of data, you might want to consider using a debugging tool like Xdebug or Laravel Debugbar. These tools provide a more user-friendly interface for inspecting data and can handle larger amounts of data more efficiently than `dd()`.
+
+Alternatively, you can use the `toArray()` or `toJson()` methods to convert the collection to an array or JSON format, which can then be inspected more easily. For example:
+
+```php
+dd($collection->toArray());
+```
+
+or
+
+```php
+dd($collection->toJson());
+```
+
+These methods will give you a more manageable representation of the data that you can then inspect in your browser or text editor.

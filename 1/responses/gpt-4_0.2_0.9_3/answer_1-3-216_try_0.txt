@@ -1,0 +1,7 @@
+Yes, you can run Homebrew and install dev tools like Python, Node etc. on a MacBook Pro with an M1 ARM processor. 
+
+Homebrew has been updated to work on Apple's M1 ARM architecture. However, not all packages may be available or fully functional, as the transition to the new architecture is still ongoing. 
+
+For Python, Node, and many other popular tools, there are versions available that work on the M1 ARM architecture. You may need to use Rosetta 2, Apple's technology for translating software compiled for Intel processors to work on ARM architecture, for some tools or packages that haven't been updated yet.
+
+Remember to always check the official documentation or community forums for the most up-to-date and detailed information.

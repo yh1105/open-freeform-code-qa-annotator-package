@@ -1,0 +1,29 @@
+The `java.lang.AbstractMethodError` is usually thrown when an application tries to call an abstract method. However, in your case, it seems like the error is due to a version conflict between different libraries in your project.
+
+The `hamcrest` library is a dependency for `JUnit` and `RestAssured`. The version of `hamcrest` that `JUnit` uses might be different from the one that `RestAssured` uses. This can cause a conflict and result in the `AbstractMethodError`.
+
+To resolve this issue, you can try excluding the `hamcrest` library from the `JUnit` dependency and add it separately in your `pom.xml` file. Here is how you can do it:
+
+```xml
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest-all</artifactId>
+    <version>1.3</version>
+    <scope>test</scope>
+</dependency>
+```
+
+This will ensure that the same version of `hamcrest` is used throughout your project, which should resolve the `AbstractMethodError`.

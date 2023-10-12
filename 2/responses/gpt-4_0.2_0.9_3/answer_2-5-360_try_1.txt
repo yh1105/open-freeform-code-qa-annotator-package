@@ -1,0 +1,46 @@
+The issue here is not about the data type. It's about the property key you are trying to access. In your `data.yml` file, the property key is `main.header.info` but you are trying to access `main.header1.info` which does not exist. 
+
+Also, there's a typo in your `@Value` annotation. You have an extra backtick (`) before the property key. 
+
+Here's the corrected code:
+
+```java
+@Component
+@PropertySource(value = "classpath:data.yml", factory = YamlPropertySourceFactory.class)
+public class SomeClass {
+    @Value("${main.header.info}")
+    private long info;
+    ...
+}
+```
+
+In addition, Spring does not natively support YAML for `@PropertySource`. You need to create a custom PropertySourceFactory to handle YAML files. Here's an example:
+
+```java
+public class YamlPropertySourceFactory implements PropertySourceFactory {
+
+    @Override
+    public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
+        YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
+        factory.setResources(resource.getResource());
+
+        Properties properties = factory.getObject();
+
+        return new PropertiesPropertySource(resource.getResource().getFilename(), properties);
+    }
+}
+```
+
+Don't forget to import the necessary classes:
+
+```java
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.core.io.support.EncodedResource;
+import org.springframework.core.io.support.PropertySourceFactory;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import java.io.IOException;
+import java.util.Properties;
+```
+
+Now, Spring should be able to load properties from your YAML file and inject them into your fields.

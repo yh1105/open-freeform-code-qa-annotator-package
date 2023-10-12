@@ -1,0 +1,30 @@
+Yes, you can specify the type of `previousPieceSelected` directly in the state definition. Here's how you can do it:
+
+```ts
+export const useStore = defineStore("game", {
+  state: (): {
+    moves: Move[],
+    gameBoard: Board,
+    playerTurn: PieceColor,
+    previousPieceSelected: Piece | undefined
+  } => ({
+    moves: [],
+    gameBoard: getInitialBoard(),
+    playerTurn: PieceColor.White,
+    previousPieceSelected: undefined
+  }),
+  actions: {
+    changePlayer() {
+      this.playerTurn =
+        this.playerTurn === PieceColor.White
+          ? PieceColor.Black
+          : PieceColor.White;
+    },
+    updatePreviousPieceSelected(piece: Piece | undefined ) {
+      this.previousPieceSelected = piece
+    }
+  }
+})
+```
+
+In this way, you're specifying the type of the state directly in the `state` function, and TypeScript will infer the types of the properties correctly. This is a more explicit way to define the state and it's more readable and maintainable than using a separate function to initialize `previousPieceSelected`.

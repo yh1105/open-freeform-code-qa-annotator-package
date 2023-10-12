@@ -1,0 +1,45 @@
+In Vue 3, the `reactive` object is mutable, but you can't assign a new object to it directly. Instead, you can use the `toRefs` function to convert the reactive object to a set of refs, then you can change the properties of the reactive object.
+
+Here's how you can reset the `view` and `config` reactive objects:
+
+```javascript
+import { reactive, toRefs } from 'vue';
+
+setup(props, context){
+  // states
+  const DataTable = reactive((null as unknown) as DataTable);
+  const PolicyForm = reactive((null as unknown) as PolicyForm);
+  let view = reactive(resetViewState());
+  let config = reactive(
+    (resetPreRegisterConfig() as unknown) as PreRegisterConfig
+  );
+  // methods:
+  const fetchProfilelist = (
+    pagination: Pagination{ page:1, size:15},
+    sort_label: string = ""
+  ) => {
+    DataTable.fetchTablelist(api_fetchProfilelist, pagination, sort_label);
+  };
+  const pageRefresh = () => {
+    const newViewState = resetViewState();
+    const newConfig = resetPreRegisterConfig();
+    Object.keys(view).forEach(key => {
+      view[key] = newViewState[key];
+    });
+    Object.keys(config).forEach(key => {
+      config[key] = newConfig[key];
+    });
+    fetchProfilelist();
+  };
+  return {
+    DataTable,
+    PolicyForm,
+    view,
+    config,
+    fetchProfilelist,
+    pageRefresh
+  }
+}
+```
+
+In the `pageRefresh` method, we're creating new objects `newViewState` and `newConfig` by calling the reset functions. Then, we're iterating over the keys of the `view` and `config` objects and assigning the corresponding values from the new objects. This way, we're effectively resetting the `view` and `config` objects without creating new reactive objects.

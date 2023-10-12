@@ -1,0 +1,36 @@
+The union type constraint in Go generics (v1.18) is used to specify that a type parameter can be one of several types. However, it doesn't mean that the type parameter will have the methods of those types. It's just a constraint on the type parameter.
+
+In your code, the `AB` type is a union of `*A` and `*B`. But when you use `T AB` in the `some` function, it doesn't mean that `T` will have the `some` method. It just means that `T` can be either `*A` or `*B`.
+
+If you want to call a method on `T`, you need to define that method in an interface and use that interface as the type parameter. Here's how you can do it:
+
+```go
+type A struct {
+}
+
+type B struct {
+}
+
+type SomeInterface interface {
+    some() bool
+}
+
+type AB interface {
+    SomeInterface
+    ~*A | ~*B
+}
+
+func (a *A) some() bool {
+    return true
+}
+
+func (b *B) some() bool {
+    return false
+}
+
+func some[T AB](x T) bool {
+    return x.some()
+}
+```
+
+In this code, `SomeInterface` is an interface that has the `some` method. `AB` is a type that is a union of `*A` and `*B` and also implements `SomeInterface`. The `some` function takes a type parameter `T` that is `AB`, which means it can be either `*A` or `*B` and has the `some` method.

@@ -1,0 +1,19 @@
+The error message suggests that there is a circular import between `authentication.models` and `corporate.models.section`. This means that `authentication.models` is trying to import something from `corporate.models.section`, while `corporate.models.section` is also trying to import something from `authentication.models`. 
+
+To fix this, you can try moving the import of `get_sentinel` inside the `Section` model class, like this:
+
+```
+from django.conf import settings
+from .room import Room
+
+class Section(models.Model):
+    ...
+    from authentication.models import get_sentinel
+    boss = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel), ...)
+    surrogate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel), ...)
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, ...)
+    is_subordinate_to = models.ForeignKey('self', on_delete=models.SET_NULL, ...)
+    ...
+```
+
+This way, the import of `get_sentinel` will only happen when the `Section` model is being defined, and not when `corporate.models` is being imported.

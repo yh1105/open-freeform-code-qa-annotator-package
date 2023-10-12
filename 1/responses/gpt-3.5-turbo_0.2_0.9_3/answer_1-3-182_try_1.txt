@@ -1,0 +1,45 @@
+Yes, you can achieve this by using Streamlit's `beta_container` and `beta_columns` components. Here's an example implementation:
+
+`Home.py`:
+```
+import streamlit as st
+from pages import Page_1, Page_2
+
+# Define your logo and title
+logo = "https://via.placeholder.com/150"
+title = "My Streamlit App"
+
+# Create a container for the logo and title
+header_container = st.beta_container()
+col1, col2 = header_container.beta_columns([1, 3])
+with col1:
+    st.image(logo, width=100)
+with col2:
+    st.title(title)
+
+# Create a sidebar with navigation links
+st.sidebar.markdown("## Navigation")
+pages = {
+    "Home": Home,
+    "Page 1": Page_1,
+    "Page 2": Page_2
+}
+selection = st.sidebar.radio("", list(pages.keys()))
+
+# Display the selected page
+page = pages[selection]
+with st.beta_container():
+    page.app()
+```
+
+`Page_1.py` and `Page_2.py`:
+```
+import streamlit as st
+
+def app():
+    st.markdown("## Page 1")
+```
+
+Note that we've defined a `app()` function in each page file, which is called in the `Home.py` file to display the selected page.
+
+With this implementation, the logo and title will be displayed on top of the navigation links in the sidebar. You can customize the logo and title by changing the `logo` and `title` variables in the `Home.py` file.

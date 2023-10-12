@@ -1,0 +1,13 @@
+There could be a few reasons why you are unable to run Flipper on your macOS. Here are some troubleshooting steps you can try:
+
+1. Check your macOS version: Flipper requires macOS 10.13 or later to run. Make sure your macOS version is compatible with Flipper.
+
+2. Check your Flipper version: Make sure you have downloaded the latest version of Flipper from the official website. Older versions may not be compatible with your macOS version.
+
+3. Check your security settings: macOS has a security feature called Gatekeeper that prevents apps from unidentified developers from running. You may need to adjust your security settings to allow Flipper to run. To do this, go to System Preferences > Security & Privacy > General, and under "Allow apps downloaded from," select "App Store and identified developers."
+
+4. Check for any conflicting software: Some antivirus or firewall software may prevent Flipper from running. Try disabling any such software temporarily and see if Flipper runs.
+
+5. Try running Flipper from the terminal: Open the Terminal app and navigate to the directory where you have downloaded Flipper. Then run the command `open Flipper.app` to launch the app.
+
+If none of these steps work, you can try contacting Flipper support for further assistance.

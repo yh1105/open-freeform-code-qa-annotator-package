@@ -1,0 +1,26 @@
+The error message you received indicates that `process` is not defined. This is likely because `process` is a global object in Node.js, but it is not available in the browser environment where your Vue application is running.
+
+To use environment variables in a Vue application, you can use the `dotenv` package to load environment variables from a `.env` file. Here's how you can do it:
+
+1. Install the `dotenv` package:
+
+```
+npm install dotenv --save-dev
+```
+
+2. Create a `.env` file in the root of your project and define your environment variables:
+
+```
+APP_ENV=prod
+```
+
+3. In your Vue application, import `dotenv` and call `config()` to load the environment variables:
+
+```
+import dotenv from 'dotenv';
+dotenv.config();
+
+const isProduct = process.env.APP_ENV === "prod";
+```
+
+Now you should be able to use `process.env` to access your environment variables. Note that you should never commit your `.env` file to source control, as it may contain sensitive information.

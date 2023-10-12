@@ -1,0 +1,12 @@
+Yes, you can use the `filter` method on `Option` to achieve this. Here's how you can do it:
+
+```rust
+fn main() {
+    let mut foo: Option<u8> = None;
+    if foo.filter(|&x| x >= 5).is_none() {
+        foo = Some(5);
+    }
+}
+```
+
+In this code, `filter` takes a closure that returns `true` if the value should be kept and `false` otherwise. If the `Option` is `None`, or the closure returns `false`, `filter` will return `None`. Then, `is_none` checks if the result is `None`, and if so, replaces `foo` with `Some(5)`.

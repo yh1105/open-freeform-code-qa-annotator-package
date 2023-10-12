@@ -1,0 +1,105 @@
+To achieve the desired output, you can use a `GridView` widget with a `crossAxisCount` of 5 to display the images. Here's an example code that you can use as a starting point:
+
+```
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ImagePickerPage extends StatefulWidget {
+  @override
+  _ImagePickerPageState createState() => _ImagePickerPageState();
+}
+
+class _ImagePickerPageState extends State<ImagePickerPage> {
+  List<File> _images = [];
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().getImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _images.add(File(pickedFile.path));
+      });
+    }
+  }
+
+  Widget _buildImagePicker() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: _images.length + 1,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 5,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return GestureDetector(
+            onTap: () => _showImagePicker(context),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(Icons.add),
+            ),
+          );
+        } else {
+          return Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.file(
+              _images[index - 1],
+              fit: BoxFit.cover,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _showImagePicker(BuildContext context) async {
+    final source = await showDialog<ImageSource>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Select Image Source'),
+        actions: [
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('CANCEL'),
+          ),
+          FlatButton(
+            onPressed: () => Navigator.pop(context, ImageSource.camera),
+            child: Text('CAMERA'),
+          ),
+          FlatButton(
+            onPressed: () => Navigator.pop(context, ImageSource.gallery),
+            child: Text('GALLERY'),
+          ),
+        ],
+      ),
+    );
+    if (source != null) {
+      await _pickImage(source);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Picker'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: _buildImagePicker(),
+      ),
+    );
+  }
+}
+```
+
+In this code, the `_images` list holds the selected images. The `_pickImage` method is called when the user selects an image from the camera or gallery. The `_buildImagePicker` method returns a `GridView` with a plus icon as the first item, which opens a dialog to select the image source when tapped. The selected images are displayed in the remaining grid items. Note that the `GridView` is wrapped in a `SingleChildScrollView` to avoid overflow errors.

@@ -1,0 +1,19 @@
+The error you're seeing is related to the Kotlin compiler and not directly related to your usage of Navigation SafeArgs. 
+
+Here are a few things you can try to resolve the issue:
+
+1. **Clean and Rebuild the project:** This is the simplest solution and it often works. Go to `Build > Clean Project` and then `Build > Rebuild Project`.
+
+2. **Invalidate Caches and Restart:** Sometimes, the caches of the IDE can cause issues. You can clear them by going to `File > Invalidate Caches / Restart... > Invalidate and Restart`.
+
+3. **Update Kotlin Plugin:** Make sure you're using the latest version of the Kotlin plugin. You can check for updates by going to `File > Settings > Plugins > Installed > Kotlin > Update`.
+
+4. **Update Gradle Plugin:** Similarly, make sure you're using the latest version of the Android Gradle plugin. You can update it in your project-level `build.gradle` file.
+
+5. **Check for conflicting dependencies:** Make sure there are no conflicting dependencies in your `build.gradle` files. For example, you might have different versions of the same library or libraries that are not compatible with each other.
+
+6. **Check your code for errors:** Make sure there are no errors in your Kotlin code. The error message suggests that there might be an issue with the `FavDish` class or the way it's used.
+
+7. **Try using a different version of Kotlin:** Sometimes, certain versions of Kotlin can have bugs. You can try downgrading or upgrading your Kotlin version to see if it resolves the issue.
+
+If none of these solutions work, you might want to consider creating a new project and gradually moving your code over to see if you can isolate the issue.

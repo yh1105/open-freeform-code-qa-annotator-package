@@ -1,0 +1,33 @@
+It looks like you're on the right track with creating the `.d.ts` file and including it in `tsconfig.json`. However, you also need to tell Parcel how to handle image imports.
+
+You can do this by installing the `parcel-plugin-static-files-copy` package and adding a `.parcelrc` file to the root of your project with the following content:
+
+```
+{
+  "extends": "@parcel/config-default",
+  "plugins": {
+    "parcel-plugin-static-files-copy": {
+      "staticPath": "src/assets"
+    }
+  }
+}
+```
+
+This tells Parcel to copy the files in the `src/assets` directory to the output directory when building the project.
+
+Then, in your component, you can import the image like this:
+
+```
+import * as React from 'react';
+import image from '../assets/image.jpg';
+
+const Box = props => {
+  return <img src={image} alt="My Image" />;
+}
+
+export default Box;
+```
+
+Note that you don't need to use the `* as` syntax when importing the image. Also, make sure to use the `src` attribute to display the image in your component.
+
+With these changes, TypeScript should no longer complain about the missing module.

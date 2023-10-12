@@ -1,0 +1,41 @@
+The issue you're facing is due to the scope of the `myInterval` variable. It's not preserving its value between renders, so when you're trying to clear the interval, it's not the same interval that was set in the previous render.
+
+To fix this, you can use `useRef` hook to store the interval id. This will preserve the value across renders. Here's how you can modify your code:
+
+```jsx
+import React, { useState, useEffect, useRef } from "react";
+
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef();
+
+  function startCounter() {
+    setIsRunning(true);
+    intervalRef.current = setInterval(() => setCounter((counter) => counter + 1), 1000);
+  }
+
+  function pauseCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+  }
+
+  function resetCounter() {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+    setCounter(0);
+  }
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={isRunning ? pauseCounter : startCounter}>
+        {isRunning ? "Pause" : "Start"}
+      </button>
+      <button onClick={resetCounter}>Reset</button>
+    </div>
+  );
+}
+```
+
+In this code, `intervalRef` is a mutable object which holds the interval id. `startCounter` and `pauseCounter` functions are used to start and pause the counter respectively. `isRunning` state is used to track whether the counter is running or not. This state is also used to decide which function (`startCounter` or `pauseCounter`) to call when the button is clicked.

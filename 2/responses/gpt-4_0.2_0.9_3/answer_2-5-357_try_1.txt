@@ -1,0 +1,15 @@
+Yes, you are correct. Since Spring 4.3, if a class, which is annotated with @Component or its derivatives like @Service, @Repository, @Controller, etc., contains a single constructor, the @Autowired annotation on that constructor is no longer necessary and the IoC container will use that constructor for autowiring.
+
+However, if the class has more than one constructor, then we need to use @Autowired on the constructor which we want to use for autowiring.
+
+So, why do people still use @Autowired on constructors?
+
+1. **Backward Compatibility**: If your codebase needs to be compatible with older versions of Spring, you need to use @Autowired.
+
+2. **Explicitness**: Using @Autowired makes it clear that Spring is managing this dependency. It can make the code easier to understand for someone who is not familiar with the newer features of Spring.
+
+3. **Multiple Constructors**: If your class has more than one constructor and you want Spring to use one of them for dependency injection, you need to use @Autowired.
+
+4. **Consistency**: If you're working in a large codebase where @Autowired is used everywhere, it might be better to continue using it for the sake of consistency.
+
+In conclusion, while it's not necessary to use @Autowired on single-constructor classes anymore, there are still situations where it can be useful or necessary.

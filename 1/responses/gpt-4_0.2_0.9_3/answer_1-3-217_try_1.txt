@@ -1,0 +1,33 @@
+You can achieve this by first expanding the dimensions of `d` to match the dimensions of `inps`, and then concatenating the two tensors along the third dimension. Here is how you can do it in PyTorch:
+
+```python
+import torch
+
+# Assuming inps and d are your tensors
+# inps.shape -> torch.Size([64, 161, 1])
+# d.shape -> torch.Size([64, 161])
+
+# First expand dimensions of d
+d_expanded = d.unsqueeze(2) # d_expanded.shape -> torch.Size([64, 161, 1])
+
+# Now concatenate along the third dimension
+result = torch.cat((inps, d_expanded), dim=2) # result.shape -> torch.Size([64, 161, 2])
+```
+
+And here is how you can do it in TensorFlow:
+
+```python
+import tensorflow as tf
+
+# Assuming inps and d are your tensors
+# inps.shape -> (64, 161, 1)
+# d.shape -> (64, 161)
+
+# First expand dimensions of d
+d_expanded = tf.expand_dims(d, axis=2) # d_expanded.shape -> (64, 161, 1)
+
+# Now concatenate along the third dimension
+result = tf.concat([inps, d_expanded], axis=2) # result.shape -> (64, 161, 2)
+```
+
+In both cases, the resulting tensor has the desired shape of `[64, 161, 2]`.

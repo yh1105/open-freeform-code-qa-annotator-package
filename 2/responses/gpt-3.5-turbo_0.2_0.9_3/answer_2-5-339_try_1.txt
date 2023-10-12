@@ -1,0 +1,10 @@
+This error is caused by a compatibility issue between the version of Gradle you are using and the version of Android Studio you have installed. 
+
+To resolve this issue, you can try the following steps:
+
+1. Update your Android Studio to the latest version.
+2. Update your Gradle version to the latest version.
+3. Clean and rebuild your project.
+4. Invalidate caches and restart Android Studio.
+
+If the issue persists, you can try downgrading your Gradle version to a previous release that was working fine for you.

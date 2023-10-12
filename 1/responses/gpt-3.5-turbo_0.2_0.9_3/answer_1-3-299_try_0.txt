@@ -1,0 +1,21 @@
+You can try the following code to create a bar plot with the values of each key in your dictionary:
+
+```
+import matplotlib.pyplot as plt
+
+# Convert the values in the dictionary to floats
+my_dict = {k: float(v[:-1]) for k, v in my_dict.items()}
+
+# Create a bar plot
+plt.bar(my_dict.keys(), my_dict.values())
+
+# Set the title and labels for the plot
+plt.title('Percentage of Passengers Embarked at Different Ports')
+plt.xlabel('Port of Embarkation')
+plt.ylabel('Percentage of Passengers')
+
+# Show the plot
+plt.show()
+```
+
+This code first converts the values in the dictionary to floats by removing the percentage sign and converting the resulting string to a float. Then, it creates a bar plot using the `plt.bar()` function from the `matplotlib` library. Finally, it sets the title and labels for the plot and shows it using the `plt.show()` function.

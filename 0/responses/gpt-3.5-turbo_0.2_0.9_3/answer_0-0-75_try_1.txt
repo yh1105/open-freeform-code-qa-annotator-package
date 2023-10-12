@@ -1,0 +1,25 @@
+The error message you are receiving indicates that `theme.mixins.toolbar` is undefined. This is likely because the `toolbar` mixin was removed in Material-UI version 5. Instead, you can use the `toolbar` style directly from the `theme` object.
+
+To fix the issue, you can modify your `useStyles` function to use the `theme` object directly:
+
+```
+const useStyles = makeStyles((theme) => ({
+  toolbarMargin: {
+    ...theme.mixins.toolbar,
+    marginBottom: "3em", // example custom style
+  },
+}));
+```
+
+should be updated to:
+
+```
+const useStyles = makeStyles((theme) => ({
+  toolbarMargin: {
+    ...theme.toolbar,
+    marginBottom: "3em", // example custom style
+  },
+}));
+```
+
+By using `theme.toolbar` instead of `theme.mixins.toolbar`, you should be able to access the `toolbar` style without any errors.

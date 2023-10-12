@@ -1,0 +1,40 @@
+The ViewModelProvider.of() method has been deprecated in recent versions of the 'androidx.lifecycle:lifecycle-extensions' library. You should use the ViewModelProvider constructor directly.
+
+Here is how you can initialize your ViewModel in your Activity:
+
+```kotlin
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: SheduleViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+
+        viewModel = ViewModelProvider(this).get(SheduleViewModel::class.java)
+    }
+}
+```
+
+This code will initialize your ViewModel using the ViewModelProvider constructor. The ViewModelProvider(this) call gets the ViewModelStore associated with your Activity and the default ViewModelProvider.Factory. 
+
+Make sure you have the following dependencies in your build.gradle file:
+
+```gradle
+dependencies {
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
+}
+```
+
+Also, ensure that your ViewModel class (SheduleViewModel in this case) extends ViewModel.

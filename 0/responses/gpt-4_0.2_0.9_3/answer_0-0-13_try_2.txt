@@ -1,0 +1,39 @@
+Yes, you can use an object to store all the form data and a single function to handle the changes. Here's how you can do it:
+
+First, define your state as an object:
+
+```jsx
+const [form, setForm] = useState({
+  mobile: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+});
+```
+
+Then, create a function to handle the changes:
+
+```jsx
+const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value
+  });
+}
+```
+
+This function uses the input's name attribute to determine which part of the state to update.
+
+Finally, in your inputs, set the name attribute to match the state and use the handleChange function for the onChange event:
+
+```jsx
+<input type="text"
+       name="mobile"
+       className="form-control"
+       id="mobile"
+       placeholder="Enter a valid mobile number"
+       onChange={handleChange}/>
+```
+
+Do the same for the other inputs, just change the `name` attribute to match the corresponding state property.

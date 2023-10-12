@@ -1,0 +1,13 @@
+You can create a triangle using Tailwind CSS by using the utility classes for width, height, and border. However, Tailwind CSS does not support border-triangle out of the box, so you need to use a custom CSS solution.
+
+Here is an example of how to create a triangle:
+
+```html
+<div class="relative w-16 h-16">
+  <div class="absolute w-0 h-0 border-solid border-l-16 border-t-16 border-l-transparent border-t-transparent border-b-16 border-black"></div>
+</div>
+```
+
+In this example, we are creating a div with a relative position and a specific width and height. Inside this div, we create an absolute positioned div with no width and height, but with borders. The borders create the triangle shape. The border colors are set to transparent, except for the border we want to use to create the triangle (in this case, the bottom border).
+
+Please note that you need to adjust the border sizes to get the triangle size you want. Also, this solution might not work if you are using the JIT mode in Tailwind CSS v2.1+, because it only generates classes that are used in your HTML.

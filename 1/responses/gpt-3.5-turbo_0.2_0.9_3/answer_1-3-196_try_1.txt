@@ -1,0 +1,17 @@
+You can use the `conda list --show-channel-urls` command to display the package size in bytes. Here's how to do it:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type `conda list --show-channel-urls` and press Enter.
+3. Wait for the list of packages to appear. The size of each package will be displayed in bytes in the rightmost column.
+
+Alternatively, you can use the `conda info --json` command to get a JSON object containing information about all installed packages, including their size. Here's how to do it:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type `conda info --json` and press Enter.
+3. Wait for the JSON object to appear. Each package is represented as an object with a `size` property containing the package size in bytes.
+
+You can also use the `du` command to find the size of the `pkgs` directory in your Anaconda installation. Here's how to do it:
+
+1. Open the Anaconda Prompt or your terminal.
+2. Type `du -sh <path-to-anaconda>/pkgs` and press Enter, replacing `<path-to-anaconda>` with the actual path to your Anaconda installation.
+3. Wait for the size of the `pkgs` directory to appear in a human-readable format. This will give you an idea of how much disk space your installed packages are taking up.

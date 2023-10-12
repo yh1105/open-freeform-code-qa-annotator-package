@@ -1,0 +1,15 @@
+The script you provided has a few issues. Here's a corrected version using `date` command in bash:
+
+```bash
+while IFS= read -r line
+do
+    d=$(date -d"$line" +"%d %b %Y" | awk '{ print $1 " " toupper($2) " " $3 }')
+    echo $d
+done < filename.txt
+```
+
+This script reads each line from the file `filename.txt`. For each line, it treats the line as a date string and converts it into the format `day month year`, where month is in uppercase. The result is then printed.
+
+Please replace `filename.txt` with your actual file path.
+
+Note: This script assumes that the date command on your system supports the `-d` option for parsing date strings. This is true on most Linux systems, but not on all Unix-like systems. If this script doesn't work for you, please provide more information about your system.

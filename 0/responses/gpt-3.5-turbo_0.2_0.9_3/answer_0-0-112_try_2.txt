@@ -1,0 +1,7 @@
+The error message indicates that the browser process failed to launch because of a permission issue. It's possible that the executable file doesn't have the necessary permissions to run on your system.
+
+You can try running the command `chmod +x /Users/iliebogdanbarbulescu/Downloads/firstProject/node_modules/chromium/lib/chromium/chrome-mac/Chromium.app` to give the file executable permissions.
+
+Alternatively, you can try using the `executablePath` option without specifying the full path to the executable file. For example, you can try `executablePath: 'chromium'` or `executablePath: 'google-chrome'` depending on which browser you want to use.
+
+If neither of these solutions work, you can try reinstalling the browser or using a different browser altogether.

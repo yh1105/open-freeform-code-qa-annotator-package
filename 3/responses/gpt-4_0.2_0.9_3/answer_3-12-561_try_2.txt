@@ -1,0 +1,29 @@
+This is likely due to the different timeout settings on Android and iOS for HTTP requests. Android has a shorter default timeout than iOS, which is why you're seeing the errorCallback being called almost instantly on Android when the server isn't running, but not on iOS.
+
+To fix this, you can set a timeout on the HTTP request. Here's how you can modify your method to include a timeout:
+
+```dart
+void _getSimpleReply( String command, callback, errorCallback ) async {
+
+    try {
+
+      HttpClientRequest request = await _myClient.get( _serverIPAddress, _serverPort, '/' )
+          .timeout(const Duration(seconds: 5)); // Set a timeout of 5 seconds
+
+      HttpClientResponse response = await request.close();
+
+      response.transform( utf8.decoder ).listen( (onData) { callback( onData ); } );
+
+    } on SocketException catch( e ) {
+
+      errorCallback( e.toString() );
+
+    } on TimeoutException catch (e) {
+
+      errorCallback( e.toString() );
+
+    }
+  }
+```
+
+In this code, I've added a timeout of 5 seconds to the HTTP request. If the request doesn't complete within 5 seconds, a `TimeoutException` is thrown, which is then caught and passed to the errorCallback. You can adjust the timeout duration to whatever you think is appropriate for your app.

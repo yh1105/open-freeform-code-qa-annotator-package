@@ -1,0 +1,21 @@
+The `::v-deep` combinator has been deprecated in Vue 3 and replaced with the `::v-deep(<inner-selector>)` syntax. To use the new syntax, you need to replace the `::v-deep` combinator with the `::v-deep(<inner-selector>)` syntax.
+
+For example, if you have the following CSS:
+
+```
+.parent ::v-deep .child {
+   ...
+}
+```
+
+You can update it to use the new syntax like this:
+
+```
+.parent ::v-deep(.child) {
+   ...
+}
+```
+
+This will apply the styles to the `.child` element inside the `.parent` element.
+
+Note that the `::v-deep(<inner-selector>)` syntax only works with the `>>>` and `::v-deep` selectors. If you're using the `/deep/` selector, you'll need to replace it with `>>>` or `::v-deep`.

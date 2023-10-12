@@ -1,0 +1,52 @@
+In Java, you can use a lambda expression to specify the priority of the elements in the PriorityQueue. Here's an example:
+
+```
+import java.util.PriorityQueue;
+
+public class Test {
+    public static void main(String[] args) {
+        int n = 5;
+
+        PriorityQueue<Integer> l = new PriorityQueue<>(n, (a, b) -> a - b);
+
+        l.add(1);
+        l.add(7);
+        l.add(2);
+        l.add(4);
+        l.add(9);
+
+        System.out.println(l.peek());
+    }
+}
+```
+
+In this example, we create a PriorityQueue of integers and specify the priority using a lambda expression `(a, b) -> a - b`. This lambda expression returns the difference between `a` and `b`, which means that the element with the smallest value will have the highest priority.
+
+We then add the integers to the PriorityQueue and use the `peek()` method to retrieve the element with the highest priority (i.e., the smallest value).
+
+In your case, you can modify the code to use a `Pair` object and specify the priority based on the value of the pair. Here's an example:
+
+```
+import javafx.util.Pair;
+import java.util.PriorityQueue;
+
+public class Test {
+    public static void main(String[] args) {
+        int n = 5;
+
+        PriorityQueue<Pair<Integer, Integer>> l = new PriorityQueue<>(n, (a, b) -> a.getValue() - b.getValue());
+
+        l.add(new Pair<>(1, 90));
+        l.add(new Pair<>(7, 54));
+        l.add(new Pair<>(2, 99));
+        l.add(new Pair<>(4, 88));
+        l.add(new Pair<>(9, 89));
+
+        System.out.println(l.peek().getKey());
+    }
+}
+```
+
+In this example, we create a PriorityQueue of `Pair<Integer, Integer>` objects and specify the priority using a lambda expression `(a, b) -> a.getValue() - b.getValue()`. This lambda expression returns the difference between the values of `a` and `b`, which means that the element with the smallest value will have the highest priority.
+
+We then add the `Pair` objects to the PriorityQueue and use the `peek()` method to retrieve the element with the highest priority (i.e., the `Pair` object with the smallest value). We then use the `getKey()` method to retrieve the key of the `Pair` object.

@@ -1,0 +1,46 @@
+To darken or lighten a color, you can use the HSL (Hue, Saturation, Lightness) color model. You can convert your RGB color to HSL, adjust the lightness, and then convert it back to RGB.
+
+Here is a simple example in Dart (since your code seems to be in Dart):
+
+```dart
+import 'dart:ui';
+
+Color darken(Color color, [double amount = .1]) {
+  final hsl = HSLColor.fromColor(color);
+  final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+  return hslDark.toColor();
+}
+
+Color lighten(Color color, [double amount = .1]) {
+  final hsl = HSLColor.fromColor(color);
+  final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+  return hslLight.toColor();
+}
+
+void main() {
+  final color = Color(0xff159424);
+  
+  print(darken(color).toString()); // Darken color
+  print(lighten(color).toString()); // Lighten color
+}
+```
+
+In the `darken` and `lighten` functions, `amount` is the amount by which to decrease/increase the lightness of the color. It's a value between 0 and 1. You can adjust it to get the desired darkness/lightness.
+
+Please note that the `Color` class in Dart doesn't support parsing colors from hexadecimal strings directly. If you want to convert a hexadecimal color string to a `Color` object, you can use the following function:
+
+```dart
+Color hexToColor(String code) {
+  return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
+```
+
+And use it like this:
+
+```dart
+final color = hexToColor('#159424');
+```
+
+This function assumes that the color code is in the format `#RRGGBB`. If you have colors with alpha, you'll need to adjust the function accordingly.

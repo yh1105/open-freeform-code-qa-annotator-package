@@ -1,0 +1,24 @@
+You can use the `?` operator to simplify this code. The `?` operator is used after an expression that returns `Result` or `Option`, and will return early if the `Result` is `Err` or the `Option` is `None`. 
+
+However, the `?` operator can only be used in functions that return `Result` or `Option`. So, you will need to change your function to return `Option<()>` or `Result<(), &'static str>`. 
+
+Here's how you can refactor your code using `?` operator:
+
+```rust
+fn main() -> Result<(), &'static str> {
+    let i = func1().ok_or("func 1 returned None")?;
+    let j = func2(i).ok_or("func 2 returned None")?;
+    let k = func3(j).ok_or("func 3 returned None")?;
+    let result = func4(k).ok_or("func 4 returned None")?;
+
+    // Do something with result
+
+    Ok(())
+}
+```
+
+In this code, `ok_or` is used to convert `Option` to `Result`. If the `Option` is `None`, it will return `Err` with the provided error message. If the `Option` is `Some`, it will return `Ok` with the value inside `Some`.
+
+The `?` operator will then check the `Result`. If it's `Ok`, it will take the value out of `Ok` and continue the execution. If it's `Err`, it will return early with the error.
+
+This way, your code is much cleaner and easier to read. The error messages also appear in the same order as the functions that can cause them.

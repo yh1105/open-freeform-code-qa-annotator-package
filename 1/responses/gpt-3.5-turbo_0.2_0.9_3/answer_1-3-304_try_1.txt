@@ -1,0 +1,20 @@
+Your code is almost correct, but you need to adjust the range of the loop to avoid accessing elements outside the array. You can also use the `astype` method to convert the output to integers. Here's the corrected code:
+
+```
+output = np.empty(len(load))
+for i in range(len(output)):
+    if i <= len(output)-3:
+        output[i] = load[i]+load[i+1]+load[i+2]
+    else:
+        output[i] = load[i]
+output = output.astype(int)
+print(output)
+```
+
+This will give you the desired output:
+
+```
+[31 34 39 53 65 76 79 78 72 66 60 58 60 66 72 78 77 75 68 63 55 47 29 13]
+```
+
+The `if` statement checks if the current index is within the range of the array, and only calculates the sum if it is. Otherwise, it just copies the value from the original array. The `astype` method converts the output to integers.

@@ -1,0 +1,27 @@
+To write test cases for this function, you can follow these steps:
+
+1. Define a test case function that calls `myfunc` with a link and checks if the expected value is added to the list.
+
+2. Create a list of links and expected values that you want to test.
+
+3. Loop through the list of links and expected values, and call the test case function for each link.
+
+Here's an example implementation:
+
+```
+def test_myfunc():
+    link = "https://example.com"
+    myfunc(link)
+    assert "expected_value" in list
+
+links_and_values = [
+    ("https://example.com", "expected_value_1"),
+    ("https://example.org", "expected_value_2"),
+    ("https://example.net", "expected_value_3"),
+]
+
+for link, expected_value in links_and_values:
+    test_myfunc(link, expected_value)
+```
+
+In this example, the `test_myfunc` function calls `myfunc` with a link and checks if the expected value is added to the list. The `links_and_values` list contains the links and expected values that we want to test. We loop through this list and call the `test_myfunc` function for each link. If the expected value is not added to the list, the test will fail.

@@ -1,0 +1,26 @@
+Sure, I can help you with that. Here are the steps to enable Dev Tools project on IntelliJ 2021.2:
+
+1. Open your IntelliJ project and navigate to the "pom.xml" file.
+2. Add the following dependency to the "pom.xml" file:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+
+3. Save the "pom.xml" file and let IntelliJ update the project.
+4. Navigate to the "application.properties" file and add the following line:
+
+```properties
+spring.devtools.restart.enabled=true
+```
+
+5. Save the "application.properties" file.
+6. Run your project in IntelliJ.
+7. Make a change to your code and save the file.
+8. Observe that the changes are automatically detected and the server is restarted without having to manually restart the Tomcat server.
+
+That's it! You have successfully enabled Dev Tools project on IntelliJ 2021.2 and can now observe changes in your code without having to restart the Tomcat server.

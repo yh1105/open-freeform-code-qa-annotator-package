@@ -1,0 +1,38 @@
+To achieve this, you can use a versioning system that increments the version number every time you deploy your app. Here's a simple way to do it:
+
+1. **Store the version in your package.json**: You can store the version of your app in the `package.json` file. This is a common practice and it allows you to easily increment the version number using npm versioning system.
+
+```json
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  ...
+}
+```
+
+2. **Increment the version**: You can increment the version number using the `npm version` command. This command will also create a git tag with the new version number.
+
+- To increment the patch version: `npm version patch`
+- To increment the minor version: `npm version minor`
+- To increment the major version: `npm version major`
+
+3. **Display the version in your app**: You can import the version number from your `package.json` file and display it in your app.
+
+```jsx
+import React from 'react';
+import { version } from '../package.json';
+
+const Footer = () => (
+  <footer>
+    <p>Version: {version}</p>
+  </footer>
+);
+
+export default Footer;
+```
+
+4. **Automate the process**: You can automate the process of incrementing the version number and deploying your app using a continuous integration/continuous deployment (CI/CD) tool. This tool can run the `npm version` command and deploy your app every time you push changes to your repository.
+
+Remember to commit and push the changes after running the `npm version` command to ensure that the updated `package.json` file is included in your repository.
+
+Please note that this is a simple way to manage the version of your app and it may not fit all use cases. Depending on your needs, you may want to use a more sophisticated versioning system or a tool specifically designed for version management.

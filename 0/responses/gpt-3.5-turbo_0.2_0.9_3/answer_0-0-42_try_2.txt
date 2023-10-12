@@ -1,0 +1,11 @@
+The error message is indicating that the `MongoStore` constructor function is being called without the `new` keyword. This means that the `MongoStore` function is being invoked as a regular function instead of as a constructor.
+
+To fix this error, you need to make sure that you are calling the `MongoStore` constructor function with the `new` keyword. In your code, you are already doing this correctly when you pass `mongoose.connection` as an argument to the `MongoStore` constructor:
+
+```
+store: new MongoStore({ mongooseConnection: mongoose.connection })
+```
+
+However, it's possible that the error is being caused by another part of your code that is calling the `MongoStore` function without the `new` keyword. Make sure that you are not accidentally calling the `MongoStore` function as a regular function anywhere else in your code.
+
+If you are still having trouble, try checking the version of the `connect-mongo` package you are using. It's possible that there is a compatibility issue with the version you are using and the version of Node.js you are running.

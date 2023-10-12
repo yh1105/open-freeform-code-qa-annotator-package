@@ -1,0 +1,7 @@
+If Eclipse Mars 2 does not appear in the "Programs and Features" area of the Windows Control Panel, you can try the following steps to uninstall it:
+
+1. Go to the installation folder of Eclipse Mars 2.
+2. Look for an executable file named "uninstall.exe" or "unins000.exe" and double-click it.
+3. Follow the prompts to uninstall Eclipse Mars 2.
+
+If you cannot find an uninstaller in the installation folder, you can try using a third-party uninstaller tool such as Revo Uninstaller or IOBit Uninstaller. These tools can help you remove any leftover files and registry entries associated with Eclipse Mars 2.

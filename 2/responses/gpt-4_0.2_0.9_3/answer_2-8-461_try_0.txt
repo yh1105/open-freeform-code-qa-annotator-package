@@ -1,0 +1,28 @@
+The error message you're seeing indicates that you're trying to insert a text value into a column that expects an integer. This is likely because you're using placeholders ($1, $2, etc.) in your SQL statements, but the values you're passing in don't match the expected types for the columns.
+
+In your INSERT statement, you're trying to insert values into the com1, com2, path, and time columns. You need to make sure that the types of result.Com1, result.Com2, result.Path, and result.Time match the types of these columns in your database.
+
+In your UPDATE statement, you're comparing the com1 and com2 columns to the values of result.Com1 and result.Com2. Again, you need to make sure these types match.
+
+If com1 and com2 are integer columns, you should make sure that result.Com1 and result.Com2 are integers. If they're currently strings, you'll need to convert them to integers before using them in your SQL statements. You can do this in Go using the strconv.Atoi function:
+
+```go
+com1, err := strconv.Atoi(result.Com1)
+if err != nil {
+    // handle error
+}
+
+com2, err := strconv.Atoi(result.Com2)
+if err != nil {
+    // handle error
+}
+```
+
+Then you can use com1 and com2 in your SQL statements:
+
+```go
+tx.MustExec(queryInsert, com1, com2, result.Path, result.Time)
+tx.MustExec(queryUpdate, com1, com2)
+```
+
+This should resolve the error you're seeing. If you're still having trouble, please provide more information about the types of the columns in your database and the types of the values you're trying to insert.

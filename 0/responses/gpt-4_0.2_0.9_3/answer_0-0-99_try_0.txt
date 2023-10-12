@@ -1,0 +1,38 @@
+Sure, I can help with that. 
+
+For Angular Validators.pattern, you can use regular expressions (regex) to validate the input. 
+
+(1) To allow only numbers, positive and negative, you can use the following regex:
+
+```javascript
+Validators.pattern(/^-?[0-9]\d*(\.\d+)?$/)
+```
+
+(2) To allow only numbers, positive and negative, optionally with up to 2 decimal places, you can use the following regex:
+
+```javascript
+Validators.pattern(/^-?[0-9]\d*(\.\d{1,2})?$/)
+```
+
+Here is a breakdown of the regex:
+
+- `^-?` allows for an optional negative sign at the beginning.
+- `[0-9]\d*` allows for at least one digit.
+- `(\.\d+)?` allows for an optional decimal followed by one or more digits.
+- `(\.\d{1,2})?` allows for an optional decimal followed by one or two digits.
+
+Remember to import Validators from @angular/forms in your component:
+
+```javascript
+import { Validators } from '@angular/forms';
+```
+
+And then you can use it in your form control:
+
+```javascript
+this.myForm = this.fb.group({
+  myNumber: ['', [Validators.required, Validators.pattern(/^-?[0-9]\d*(\.\d{1,2})?$/)]]
+});
+```
+
+This will ensure that the input is a number, optionally with up to 2 decimal places.

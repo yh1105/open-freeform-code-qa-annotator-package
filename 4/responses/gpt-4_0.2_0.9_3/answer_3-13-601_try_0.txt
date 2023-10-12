@@ -1,0 +1,31 @@
+The `kotlin-android-extensions` plugin is deprecated and you should replace it with the `kotlin-parcelize` plugin for `@Parcelize`.
+
+Here are the steps to do it:
+
+1. Remove `kotlin-android-extensions` from your `build.gradle` file.
+
+```groovy
+// Remove this line
+apply plugin: 'kotlin-android-extensions'
+```
+
+2. Add `kotlin-parcelize` to your `build.gradle` file.
+
+```groovy
+// Add this line
+apply plugin: 'kotlin-parcelize'
+```
+
+3. Replace the import statement in your Kotlin files.
+
+```kotlin
+// Replace this line
+import kotlinx.android.parcel.Parcelize
+
+// With this line
+import kotlinx.parcelize.Parcelize
+```
+
+4. Sync your project with Gradle files.
+
+After these steps, `@Parcelize` should now be coming from the `kotlin-parcelize` plugin.

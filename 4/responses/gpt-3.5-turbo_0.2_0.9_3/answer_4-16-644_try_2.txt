@@ -1,0 +1,11 @@
+This error message indicates that you do not have the necessary permissions to execute the `startup.sh` script. 
+
+You can try granting execute permission to the script by running the following command:
+
+```
+chmod +x startup.sh
+```
+
+This command will add execute permission to the script, allowing you to run it. 
+
+If you still encounter issues, you may need to check the ownership and permissions of the file and ensure that you have the necessary permissions to execute it.

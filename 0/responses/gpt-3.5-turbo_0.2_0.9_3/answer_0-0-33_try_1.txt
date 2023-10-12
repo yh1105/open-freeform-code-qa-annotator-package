@@ -1,0 +1,17 @@
+It seems like you have already tried some solutions, but let me suggest a few more things that might help you resolve the issue.
+
+1. Try setting up a custom error page in IIS for the 404 error. You can do this by going to the Error Pages section in IIS, selecting the 404 error, and then selecting "Edit Feature Settings" from the right-hand pane. From there, you can select "Custom error pages" and then specify the path to your custom 404 page. This should override the default IIS 404 page and show your custom page instead.
+
+2. Another option is to use a URL Rewrite rule in IIS to redirect all 404 errors to your custom 404 page. You can do this by going to the URL Rewrite section in IIS, selecting "Add Rule(s)" from the right-hand pane, and then selecting "Blank Rule" and specifying the following settings:
+
+   - Name: Custom 404 Redirect
+   - Pattern: ^(.*)$
+   - Conditions: {REQUEST_FILENAME} !-f
+   - Action Type: Redirect
+   - Redirect URL: /your-custom-404-page
+
+   This should redirect all 404 errors to your custom 404 page, regardless of whether they are caused by a missing file or a routing issue.
+
+3. If none of the above solutions work, you may need to check your server-side configuration to ensure that it is not interfering with your client-side routing. For example, if you are using ASP.NET or another server-side framework, it may be intercepting requests and returning its own 404 error page instead of passing the request through to your client-side app. In this case, you may need to modify your server-side configuration to allow client-side routing to work properly.
+
+I hope one of these solutions works for you. Let me know if you have any further questions or if there is anything else I can help you with.

@@ -1,0 +1,17 @@
+The issue with your code is that you are using a `@Binding` property in your `ContentView` struct, but you are not passing a binding to it when you create an instance of the view in your `ContentView_Previews` struct. 
+
+To fix this, you need to create a binding to the `selected` state variable in your `ContentView_Previews` struct and pass it to the `ContentView` view like this:
+
+```
+struct ContentView_Previews: PreviewProvider {
+    @State static var selected: Bool = false
+
+    static var previews: some View {
+        ContentView(isSelected: $selected)
+    }
+}
+```
+
+By using the `$` symbol before the `selected` state variable, you create a binding to it that can be passed to the `ContentView` view. 
+
+With this change, your code should work as expected and the view should update when the button is clicked.

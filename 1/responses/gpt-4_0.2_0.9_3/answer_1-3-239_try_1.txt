@@ -1,0 +1,38 @@
+Homebrew does not provide a way to install older versions of Python. However, you can install an older version of Python using pyenv, which is a simple, powerful and cross-platform tool for managing multiple Python versions.
+
+Here's how you can install Python 3.6.5 using pyenv:
+
+1. First, install pyenv using Homebrew:
+
+```bash
+brew install pyenv
+```
+
+2. Add pyenv init to your shell to enable shims and autocompletion:
+
+```bash
+echo 'if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+3. Install Python 3.6.5:
+
+```bash
+pyenv install 3.6.5
+```
+
+4. Set the global Python version to 3.6.5:
+
+```bash
+pyenv global 3.6.5
+```
+
+5. Verify that Python 3.6.5 is being used:
+
+```bash
+python --version
+```
+
+This should output "Python 3.6.5".
+
+If you don't want to use pyenv, you can download Python 3.6.5 directly from the Python website and install it manually. However, this might require more work to set up properly, especially if you want to switch between different Python versions.

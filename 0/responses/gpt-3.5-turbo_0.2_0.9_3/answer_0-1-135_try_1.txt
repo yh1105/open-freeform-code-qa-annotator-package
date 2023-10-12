@@ -1,0 +1,22 @@
+This is a known issue in Safari where it does not properly calculate the height of flex items with images that have a width set and `height: auto`. One workaround is to set a max-height on the image instead of using `height: auto`. 
+
+You can try updating your CSS to the following:
+
+```
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container section:first-child {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.container img {
+  width: 125px;
+  max-height: 100%;
+}
+```
+
+This should maintain the aspect ratio of the image and prevent it from being stretched in Safari.

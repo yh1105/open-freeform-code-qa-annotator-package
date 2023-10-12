@@ -1,0 +1,13 @@
+It seems like the VBA project may have become corrupted. Here are a few steps you can try to fix the issue:
+
+1. Make a backup copy of the workbook before proceeding with any of the following steps.
+
+2. Try opening the workbook in a different version of Excel. Sometimes, the issue may be related to a compatibility issue between the workbook and the version of Excel you are using.
+
+3. Try opening the workbook in safe mode. To do this, hold down the Ctrl key while opening Excel. This will prevent any add-ins or macros from running, which may be causing the issue.
+
+4. Try exporting the modules to a new workbook. To do this, open a new workbook and go to the VBE. From there, select the module you want to export, right-click, and select "Export File". Save the module to a new workbook and see if you can open it there.
+
+5. If none of the above steps work, you may need to recreate the VBA project. To do this, go to the VBE and select "Tools" > "References". Uncheck any references that are not needed and then save and close the workbook. Reopen the workbook and re-add the necessary references.
+
+If none of these steps work, you may need to seek further assistance from a VBA expert or Microsoft support.

@@ -1,0 +1,36 @@
+It looks like the issue is with the `node` configuration in your webpack configuration file. The error message indicates that the `node` configuration object has unknown properties `module`, `net`, and `fs`. 
+
+In Webpack 5, the `node` configuration object has been updated to be more restrictive. It now only accepts the properties `__dirname`, `__filename`, and `global`. 
+
+To fix this issue, you can remove the `node` configuration object from your webpack configuration file, or update it to only include the valid properties. Here's an updated version of your webpack configuration file with the `node` configuration object removed:
+
+```
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
+  devServer: {
+    contentBase: './dist',
+  },
+};
+```
+
+This should resolve the issue you're seeing with the webpack configuration. Let me know if you have any other questions or issues!

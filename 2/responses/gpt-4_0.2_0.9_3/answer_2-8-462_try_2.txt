@@ -1,0 +1,9 @@
+1. You're not overlooking anything obvious. The issue you're facing is due to the fact that Go's type system doesn't have a way to express "a type that can be new'd" as a constraint. This is why you can't use `new(T)` to create a new instance of `T` inside your generic function. 
+
+2. Yes, this is a limitation of generics in Go. The type parameters proposal does not include a way to express "a type that can be new'd" as a constraint. This is why you have to pass a constructor function to your generic function.
+
+3. This limitation is known and is a result of the design decisions made in the type parameters proposal. You can certainly raise an issue on the Go project if you feel this is a significant limitation, but it's likely that the Go team is already aware of this issue.
+
+The workaround you've found, passing a constructor function, is currently the best way to handle this situation. It's a bit more verbose, but it's explicit and clear about what's happening. 
+
+Remember that Go's philosophy is to prefer simplicity and clarity over brevity or cleverness. While it might feel a bit tedious to have to pass a constructor function, it makes it very clear what's happening: a new instance of `T` is being created for each value in the input slice. This explicitness can make your code easier to understand and maintain in the long run.

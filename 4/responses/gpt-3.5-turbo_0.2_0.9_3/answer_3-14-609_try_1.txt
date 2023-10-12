@@ -1,0 +1,31 @@
+It looks like you are using the wrong modifier to set the navigation bar title. Instead of using `.navigationBarItem`, you should use `.navigationBarItems` to add items to the navigation bar, and use `.navigationBarTitle` to set the title.
+
+Here's the corrected code:
+
+```
+import SwiftUI
+
+struct LandmarkList : View {
+    var body: some View {
+        NavigationView {
+            List(landmarkData) { landmark in
+                LandmarkRow(landmark: landmark)
+            }
+            .navigationBarTitle(Text("Landmarks"))
+            .navigationBarItems(trailing: Text("Done"))
+        }
+    }
+}
+
+#if DEBUG
+struct LandmarkList_Previews : PreviewProvider {
+    static var previews: some View {
+        LandmarkList()
+    }
+}
+#endif
+```
+
+In this code, we use `.navigationBarTitle` to set the title of the navigation bar, and `.navigationBarItems` to add a "Done" button to the trailing edge of the navigation bar.
+
+I hope this helps! Let me know if you have any other questions.

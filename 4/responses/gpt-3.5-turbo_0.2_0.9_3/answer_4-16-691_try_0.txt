@@ -1,0 +1,23 @@
+It seems like the Flutter SDK is not properly installed or added to the system path. Here are the steps to fix this issue:
+
+1. First, make sure that you have installed the Flutter SDK on your system. You can download it from the official Flutter website.
+
+2. Once you have downloaded the Flutter SDK, extract the contents of the archive to a suitable location on your system.
+
+3. Next, add the Flutter SDK to your system path. To do this, open the terminal and run the following command:
+
+   ```
+   export PATH="$PATH:[PATH_TO_FLUTTER_SDK]/bin"
+   ```
+
+   Replace `[PATH_TO_FLUTTER_SDK]` with the actual path to the Flutter SDK on your system.
+
+4. Finally, verify that the Flutter SDK is properly installed and added to the system path by running the following command in the terminal:
+
+   ```
+   flutter doctor
+   ```
+
+   This command will check your system for any missing dependencies and provide guidance on how to install them.
+
+If you still face any issues, please let me know.

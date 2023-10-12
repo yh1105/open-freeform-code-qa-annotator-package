@@ -1,0 +1,26 @@
+In Flutter, if you want to align multiple widgets in a single line and want the text to drop to the next line if it increases, you can use the `Wrap` widget instead of `Row`. The `Wrap` widget automatically adjusts its children along both the horizontal and vertical axis.
+
+Here's how you can modify your code:
+
+```dart
+Wrap(
+  crossAxisAlignment: WrapCrossAlignment.center,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Text(
+      'on the right hand corner to start a new chat.',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+  ],
+)
+```
+
+In this code, `WrapCrossAlignment.center` is used to align the widgets in the center. The `Wrap` widget will automatically move the text to the next line if it doesn't fit on the screen.

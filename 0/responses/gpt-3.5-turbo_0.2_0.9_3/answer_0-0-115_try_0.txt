@@ -1,0 +1,7 @@
+It looks like the warning message is correct, as path aliases are not supported by default in `create-react-app --typescript`. However, there are some workarounds that you can try:
+
+1. Use a custom webpack configuration: You can eject from `create-react-app` and modify the webpack configuration to support path aliases. This can be done by adding a `resolve.alias` property to the webpack configuration file. However, this approach has some drawbacks, such as losing the ability to easily update `create-react-app` and having to maintain the webpack configuration yourself.
+
+2. Use a third-party library: There are some third-party libraries that can help you set up path aliases in `create-react-app`. One such library is `react-app-rewire-alias`, which allows you to set up path aliases without ejecting from `create-react-app`. You can install it using npm or yarn and follow the instructions in the documentation.
+
+3. Use relative paths: If you don't want to use a custom webpack configuration or a third-party library, you can use relative paths instead of path aliases. For example, instead of using `import { AppState } from '@store/index';`, you can use `import { AppState } from '../store/index';`. This approach is less convenient, but it works without any additional configuration.

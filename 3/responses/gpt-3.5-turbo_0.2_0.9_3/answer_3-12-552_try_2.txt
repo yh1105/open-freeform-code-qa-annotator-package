@@ -1,0 +1,39 @@
+To achieve the desired layout, you can use a `Row` widget as the `title` of the `AppBar` and place the drawer icon and actions inside it. Here's an example code snippet:
+
+```
+appBar: AppBar(
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          // Open drawer
+        },
+      ),
+      Text(
+        'Title',
+        style: TextStyle(fontSize: 22.0, color: CustomColors.primaryDark),
+      ),
+      Row(
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Perform search
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              // Show notifications
+            },
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+```
+
+In this code, `mainAxisAlignment` is set to `MainAxisAlignment.spaceBetween` to evenly distribute the drawer icon and actions on either side of the title. You can customize the icons and actions as per your requirements.

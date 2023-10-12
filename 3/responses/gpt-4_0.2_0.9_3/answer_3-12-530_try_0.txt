@@ -1,0 +1,21 @@
+Yes, you are correct. The error is because the `Map` indexing operation can return `null` if the key is not found, and `int.parse` does not accept `null` as an argument. Your solution is correct, but it can be a bit verbose if you have to do it for many variables.
+
+Creating a function to handle this conversion can make your code cleaner and more maintainable. Here's an example of how you could do it:
+
+```dart
+int? parseToInt(String? value) {
+  if (value != null) {
+    return int.parse(value);
+  }
+  return null;
+}
+```
+
+Then, you can use this function to parse your values:
+
+```dart
+final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+int? id = parseToInt(routeArgs["id"]);
+```
+
+This way, if `routeArgs["id"]` is `null`, `parseToInt` will return `null` and `id` will be `null`. If `routeArgs["id"]` is not `null`, `parseToInt` will parse it to an `int` and `id` will hold that `int` value.

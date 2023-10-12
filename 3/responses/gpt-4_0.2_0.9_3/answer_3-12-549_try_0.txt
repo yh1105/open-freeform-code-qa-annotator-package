@@ -1,0 +1,34 @@
+The problem you're facing is due to the fact that in Dart, when you assign a list to another list (like `mylist = mynewlist;`), you're not creating a new list with the same values, but you're actually making `mylist` point to the same object in memory as `mynewlist`. So, when you clear `mylist`, it also clears `mynewlist` because they are pointing to the same object.
+
+To solve this problem, you should create a new list with the same values. You can do this by using the `List.from` constructor, which creates a new list from an existing one:
+
+```dart
+mylist = List.from(mynewlist);
+```
+
+This will create a new list with the same values as `mynewlist`, so when you clear `mylist`, `mynewlist` will not be affected. Here's how you can use it in your code:
+
+```dart
+FlatButton(
+  onPressed: () {
+    setState(() {
+      print('clicked 3rd');
+      print(mylist.length);
+      print(mynewlist.length);
+      mylist = List.from(mynewlist);
+    });
+  },
+  child: Container(
+    child: Column(
+      children: <Widget>[
+        Image.asset(
+          'images/bulb.png',
+          width: 100,
+          height: 100,
+        ),
+        Text('bulb')
+      ],
+    ),
+  ),
+),
+```

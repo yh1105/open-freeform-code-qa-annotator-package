@@ -1,0 +1,23 @@
+The issue you're facing is due to the incorrect path of the protobuf files. The protobuf plugin expects the `.proto` files to be in the `src/main/proto` directory, not in `src/main/java/proto`.
+
+Here's how you should structure your directories:
+
+```
+src > main > java
+           > proto > tech > tablesaw > service > common > column_metadata.proto
+                                                        > column_type.proto
+```
+
+After moving your `.proto` files to the correct directory, you should be able to import one protobuf into another without any issues.
+
+Also, when importing a protobuf file into another, you should not include the `.proto` extension in the import statement. So, your import statement should look like this:
+
+```protobuf
+import "tech/tablesaw/service/common/column_type";
+```
+
+Instead of:
+
+```protobuf
+import "tech/tablesaw/service/common/column_type.proto";
+```

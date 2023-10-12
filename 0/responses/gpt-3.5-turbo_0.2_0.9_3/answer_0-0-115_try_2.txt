@@ -1,0 +1,43 @@
+The warning message you received is correct. `create-react-app` does not support path aliases out of the box. However, you can use a third-party library like `react-app-rewired` to customize the configuration of `create-react-app` and add support for path aliases.
+
+Here are the steps to follow:
+
+1. Install `react-app-rewired` and `customize-cra` as dev dependencies:
+
+```
+npm install --save-dev react-app-rewired customize-cra
+```
+
+2. Create a `config-overrides.js` file in the root of your project with the following content:
+
+```
+const { override, addWebpackAlias } = require('customize-cra');
+const path = require('path');
+
+module.exports = override(
+  addWebpackAlias({
+    '@store': path.resolve(__dirname, 'src/store'),
+  })
+);
+```
+
+This will add a webpack alias for `@store` that points to the `src/store` directory.
+
+3. Update the `scripts` section of your `package.json` file to use `react-app-rewired` instead of `react-scripts`:
+
+```
+"scripts": {
+  "start": "react-app-rewired start",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+}
+```
+
+4. Restart your development server:
+
+```
+npm start
+```
+
+Now you should be able to use path aliases in your code without any warnings or errors.

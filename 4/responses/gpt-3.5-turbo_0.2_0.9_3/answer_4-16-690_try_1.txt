@@ -1,0 +1,15 @@
+To set the environment variable permanently, you need to add the export statement to the `~/.bash_profile` file. Here are the steps to do it:
+
+1. Open the Terminal app.
+2. Type `nano ~/.bash_profile` and press Enter. This will open the `~/.bash_profile` file in the nano text editor.
+3. Add the following line at the end of the file:
+
+```
+export JBOSS_HOME=/Users/{USERNAME}/Desktop/jboss7
+```
+
+4. Press `Ctrl+O` to save the file and `Ctrl+X` to exit nano.
+5. Type `source ~/.bash_profile` to reload the `~/.bash_profile` file.
+6. Type `echo $JBOSS_HOME` to verify that the environment variable is set correctly.
+
+Now, the environment variable should be set permanently and you should be able to access it from any terminal session.

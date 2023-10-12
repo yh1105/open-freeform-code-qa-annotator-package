@@ -1,0 +1,50 @@
+In Angular, the router does not reload the current page by default if you navigate to the same route. This is because Angular is designed to be a Single Page Application (SPA) framework, and reloading the page goes against this design.
+
+However, you can force Angular to reload the page by using a custom RouteReuseStrategy. Here is an example of how you can do this:
+
+```typescript
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
+
+export class CustomReuseStrategy implements RouteReuseStrategy {
+  shouldDetach(route: ActivatedRouteSnapshot): boolean {
+    return false;
+  }
+
+  store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void {}
+
+  shouldAttach(route: ActivatedRouteSnapshot): boolean {
+    return false;
+  }
+
+  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
+    return null;
+  }
+
+  shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+    return future.routeConfig === curr.routeConfig && JSON.stringify(future.params) === JSON.stringify(curr.params);
+  }
+}
+```
+
+You can then provide this strategy in your application module:
+
+```typescript
+@NgModule({
+  providers: [
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+  ]
+})
+export class AppModule { }
+```
+
+In your navigateToSelf method, you can then force a reload like this:
+
+```typescript
+navigateToSelf(route: ActivatedRoute) {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.onSameUrlNavigation = 'reload';
+  this.router.navigate([route.routeConfig.path], { relativeTo: route });
+}
+```
+
+This should force Angular to reload the page when you navigate to the same route. However, please note that this is not the recommended way to handle this situation in Angular. Instead, you should try to handle changes in your component without needing to reload the entire page. For example, you can use Observables and the async pipe to automatically update your component when the underlying data changes.

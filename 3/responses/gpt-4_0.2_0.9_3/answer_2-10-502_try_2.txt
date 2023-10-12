@@ -1,0 +1,15 @@
+The error message you're seeing suggests that the linker is unable to find the `libpq.lib` file. This file is a part of the PostgreSQL library, and it's required to build the `diesel_cli` crate with PostgreSQL support.
+
+Even though you have the PostgreSQL binaries on your `C:\pgsql` and the `lib` and `bin` directories on your `PATH`, it's possible that the build process is not finding the `libpq.lib` file.
+
+Here are a few things you can try:
+
+1. **Check the `lib` directory:** Make sure that the `libpq.lib` file is actually present in the `lib` directory of your PostgreSQL installation.
+
+2. **Check your `PATH` variable:** Make sure that the `PATH` environment variable includes the `lib` directory of your PostgreSQL installation. You can check your `PATH` by running `echo %PATH%` in the command prompt.
+
+3. **Use the `PQ_LIB_DIR` environment variable:** You can specify the path to the `lib` directory of your PostgreSQL installation using the `PQ_LIB_DIR` environment variable. You can set this variable by running `set PQ_LIB_DIR=C:\pgsql\lib` in the command prompt before you run the `cargo install` command.
+
+4. **Install the `vcpkg` package manager:** If you're on Windows, you might find it easier to install the `libpq` library using the `vcpkg` package manager. You can install `vcpkg` by following the instructions on its GitHub page. Once you've installed `vcpkg`, you can install `libpq` by running `vcpkg install libpq:x64-windows`. Then, you can set the `PQ_LIB_DIR` environment variable to the `lib` directory of the `vcpkg` installation.
+
+5. **Reinstall PostgreSQL:** If all else fails, you might want to try reinstalling PostgreSQL. It's possible that your installation is missing some necessary files or that it was installed in a way that's causing problems with the build process.

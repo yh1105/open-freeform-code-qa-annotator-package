@@ -1,0 +1,16 @@
+To get the mean SHAP values, you can use the `shap.TreeExplainer(model).shap_values(X_test)` function to generate the SHAP values for the test set, and then take the mean of each feature across all instances in the test set. Here's an example:
+
+```
+shap_values = shap.TreeExplainer(model).shap_values(X_test)
+mean_shap_values = np.mean(np.abs(shap_values), axis=0)
+```
+
+This will give you an array of mean SHAP values for each feature.
+
+To label the classes correctly in the SHAP summary plot, you can use the `class_names` parameter in the `shap.summary_plot()` function. The order of the class names should match the order of the classes in your original data. In your case, the order of the classes is ['a', 'b', 'c'], so you can use:
+
+```
+shap.summary_plot(shap_values, X_test, class_names=['a', 'b', 'c'])
+```
+
+This will label the classes correctly in the plot.

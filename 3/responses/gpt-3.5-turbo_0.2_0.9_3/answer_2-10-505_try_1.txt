@@ -1,0 +1,9 @@
+You can use the `DateTimeOffset` struct to convert the `SystemTime` variable to the ISO 8601 format. Here's an example:
+
+```csharp
+SystemTime systemTime = SystemTime.Now; // or any other SystemTime variable
+DateTimeOffset dateTimeOffset = new DateTimeOffset(systemTime.ToDateTime());
+string iso8601 = dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.fffK");
+```
+
+In the example above, we first create a `DateTimeOffset` object from the `SystemTime` variable by converting it to a `DateTime` object. Then, we use the `ToString` method with the `"yyyy-MM-ddTHH:mm:ss.fffK"` format string to get the ISO 8601 format. The `"K"` format specifier represents the time zone offset in the format `+/-HH:mm`.

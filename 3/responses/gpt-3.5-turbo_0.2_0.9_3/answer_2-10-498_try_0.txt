@@ -1,0 +1,25 @@
+In Rust, the caret operator (`^`) is not used for exponentiation, but for bitwise XOR. To perform exponentiation, you can use the `pow` method provided by the `num_traits` crate.
+
+First, add the `num_traits` crate to your `Cargo.toml` file:
+```toml
+[dependencies]
+num-traits = "0.2"
+```
+
+Then, you can use the `pow` method like this:
+```rust
+use num_traits::pow;
+
+assert_eq!(pow(2, 10), 1024);
+```
+
+Alternatively, you can use the `powi` method if you want to raise an integer to a non-negative integer power:
+```rust
+assert_eq!(2.powi(10), 1024);
+```
+
+Note that the `pow` method returns a `Num` trait object, which may not be what you want if you need to perform further calculations with the result. In that case, you can convert the result to the desired type using the `as` keyword, like this:
+```rust
+let result: i32 = pow(2, 10).as_();
+assert_eq!(result, 1024);
+```

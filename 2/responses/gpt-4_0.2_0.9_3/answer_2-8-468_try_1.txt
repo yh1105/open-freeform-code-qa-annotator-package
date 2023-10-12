@@ -1,0 +1,22 @@
+The error message you're seeing is because you're trying to convert a string to a rune, which is not allowed. A rune in Go represents a Unicode code point, and it's an alias for `int32`. 
+
+If you want to convert an integer to its corresponding ASCII character in Go, you can do it like this:
+
+```go
+a := 42
+fmt.Printf("%c", a) // prints *
+```
+
+If you want to convert a string that represents an integer to its corresponding ASCII character, you need to convert the string to an integer first:
+
+```go
+a := "42"
+i, err := strconv.Atoi(a)
+if err != nil {
+    fmt.Println(err)
+} else {
+    fmt.Printf("%c", i) // prints *
+}
+```
+
+In this code, `strconv.Atoi` function is used to convert a string to an integer. If the conversion is successful, it prints the ASCII character corresponding to the integer. If the conversion fails (for example, if the string cannot be parsed as an integer), it prints an error message.

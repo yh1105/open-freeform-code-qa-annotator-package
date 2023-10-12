@@ -1,0 +1,48 @@
+Yes, you can achieve this effect using JavaScript (or jQuery) to change the background color based on the scroll position. Here's a simple example using jQuery:
+
+```html
+<html>
+<head>
+  <style>
+    body {
+      height: 200vh;
+      transition: background 1s linear;
+    }
+    .section1 {
+      height: 100vh;
+    }
+    .section2 {
+      height: 100vh;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(window).scroll(function(){
+        var scrollPos = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        if(scrollPos <= windowHeight){
+          var percentage = scrollPos / windowHeight;
+          var gradient = "linear-gradient(to bottom, #ffffff " + (100 - percentage * 100) + "%, #f05fa6 " + (percentage * 100) + "%)";
+          $("body").css("background", gradient);
+        } else {
+          $("body").css("background", "linear-gradient(#f05fa6, #ed1654)");
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <section class="section1">
+    SECTION1
+  </section>
+  <section class="section2">
+    SECTION2
+  </section>
+</body>
+</html>
+```
+
+In this example, we use the `scroll()` function to listen for scroll events. When the user scrolls, we calculate the scroll position as a percentage of the window height. We then use this percentage to create a linear gradient that transitions from white to pink as the user scrolls down the page. Once the user scrolls past the first section, the background color is set to a fixed gradient.
+
+Please note that this is a very basic example and may not work perfectly in all situations. You may need to adjust the code to fit your specific needs.

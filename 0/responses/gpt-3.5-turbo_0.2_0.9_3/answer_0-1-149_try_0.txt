@@ -1,0 +1,35 @@
+To achieve the desired animation effect, you can use the `transition` property in CSS. Here's how you can modify your code to achieve the desired effect:
+
+1. Add the following CSS to your `.link` class:
+
+```css
+.link {
+  position: relative;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s ease-out;
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom right;
+}
+```
+
+2. Remove the `border-bottom` property from the `.link:hover` class.
+
+The `::after` pseudo-element is used to create a line that will be animated on hover. The `transform` property is used to scale the line from 0 to 1 on hover. The `transform-origin` property is used to set the origin of the transformation to the bottom left corner of the line. The `transition` property is used to set the duration and easing of the animation.
+
+Here's the updated codepen: [https://codepen.io/anon/pen/ROQJjV](https://codepen.io/anon/pen/ROQJjV)
+
+I hope this helps! Let me know if you have any further questions.

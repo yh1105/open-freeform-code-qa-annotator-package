@@ -1,0 +1,36 @@
+For your first issue, the problem is that you are using global variables `curve1` and `curve2` to store the plot items. When you check both checkboxes, both variables are defined and the `try` block in the `else` statement will not execute, so the curves will not be removed when you uncheck one of the checkboxes. To solve this, you can use a list to store the plot items and remove them all at once when a checkbox is unchecked. Here's the modified `todo` function:
+
+```
+def todo():
+    curves = []
+    if cbx1.isChecked():
+        curves.append(plot.plot(x, y1, pen='r'))
+    if cbx2.isChecked():
+        curves.append(plot.plot(x, y2, pen='y'))
+    if not cbx1.isChecked() or not cbx2.isChecked():
+        plot.removeItem(curves)
+```
+
+For your second issue, you can create the checkboxes and data sets dynamically using a loop. Here's an example:
+
+```
+# List of data sets
+data_sets = [np.sin(x), np.cos(x), np.tan(x), np.exp(x)]
+
+# Create checkboxes and connect them to the todo function
+checkboxes = []
+for i in range(len(data_sets)):
+    cbx = QtWidgets.QCheckBox()
+    cbx.setText(f'A{i+1}')
+    cbx.stateChanged.connect(todo)
+    checkboxes.append(cbx)
+
+# Add checkboxes and plot to the layout
+for i, cbx in enumerate(checkboxes):
+    layout.addWidget(cbx, i, 0)
+for i, data in enumerate(data_sets):
+    plot.plot(x, data, pen=pg.intColor(i))
+layout.addWidget(plot, len(data_sets), 0, 1, len(checkboxes))
+```
+
+This code creates checkboxes and data sets based on the length of the `data_sets` list. You can modify the list to include all 96 data sets and adjust the layout accordingly.

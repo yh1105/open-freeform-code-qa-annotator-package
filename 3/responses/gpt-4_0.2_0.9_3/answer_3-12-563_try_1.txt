@@ -1,0 +1,44 @@
+In Flutter, if a text overflows, it will automatically wrap and create a new line. However, if you want to manually create a new line in a string, you can use `\n`.
+
+For example:
+
+```dart
+String myString = 'This is line 1\nThis is line 2';
+```
+
+In your case, if you want to manually add a new line in your text, you can do something like this:
+
+```dart
+"${text[0]}\n${text[1]}"
+```
+
+This will create a new line between `text[0]` and `text[1]`.
+
+However, if your text is not wrapping as expected, it might be due to the `AutoSizeText` widget or the `Container` widget. You can try to wrap your `AutoSizeText` widget with `Expanded` widget to make sure it takes the available space and wraps the text correctly.
+
+```dart
+Expanded(
+  child: AutoSizeText(
+    "${text[0]}",
+    style: TextStyle(fontFamily: 'quran', fontSize: 30),
+    textAlign: TextAlign.end,
+  ),
+),
+```
+
+Also, make sure that the `Container` widget has enough width to display the text. If the width is too small, the text might not wrap correctly. You can use `MediaQuery` to get the width of the screen and set the width of the `Container` accordingly.
+
+```dart
+double width = MediaQuery.of(context).size.width;
+```
+
+Then you can use this width for your `Container`:
+
+```dart
+Container(
+  width: width,
+  child: // your widgets
+),
+```
+
+I hope this helps! Let me know if you have any other questions.

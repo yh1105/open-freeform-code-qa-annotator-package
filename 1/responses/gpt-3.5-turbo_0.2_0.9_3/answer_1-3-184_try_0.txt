@@ -1,0 +1,37 @@
+No worries, I can help you with that. Here's a code snippet that should do what you're asking for:
+
+```python
+import openpyxl
+
+# Load the workbook
+workbook = openpyxl.load_workbook('example.xlsx')
+
+# Select the worksheet
+worksheet = workbook['Sheet1']
+
+# Define the search term
+search_term = 'ABC'
+
+# Create a list to store the results
+results = []
+
+# Loop through each row in the worksheet
+for row in worksheet.iter_rows():
+
+    # Loop through each cell in the row
+    for cell in row:
+
+        # Check if the cell contains the search term
+        if search_term in str(cell.value):
+
+            # If it does, add the entire row to the results list
+            results.append([cell.value for cell in row])
+
+# Print the results
+for row in results:
+    print(row)
+```
+
+This code will load the Excel file, select the `Sheet1` worksheet, and define the search term as `ABC`. It will then loop through each row in the worksheet, and for each row, loop through each cell. If the cell contains the search term, it will add the entire row to the `results` list. Finally, it will print out the results.
+
+Note that this code assumes that the first row of the worksheet contains the column headers. If this is not the case, you'll need to modify the code accordingly.

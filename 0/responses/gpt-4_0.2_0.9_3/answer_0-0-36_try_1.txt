@@ -1,0 +1,29 @@
+You can use the `window.location.reload()` function to reload the current document, which is equivalent to the user clicking the refresh button. This will trigger a client-side reload.
+
+Here is an example of how you can use it:
+
+```javascript
+window.location.reload();
+```
+
+However, please note that this method will completely reload the page from the server, not from the browser cache. This means that all the scripts will be reloaded and re-executed, and all the components will be re-rendered.
+
+If you want to keep the current state of your application and just re-fetch the data, you might want to consider using a state management library like Redux or MobX. You can then dispatch an action to fetch the new data and update the state of your application, which will automatically re-render the components that depend on this data.
+
+Alternatively, if you're using Next.js, you can use the `Router.push()` method with the `shallow: true` option. This will change the URL without triggering a page refresh, and you can then manually call `getInitialProps()` in your component to fetch the new data.
+
+Here is an example:
+
+```javascript
+Router.push('/', '/', { shallow: true }).then(() => window.scrollTo(0, 0));
+```
+
+Then in your component:
+
+```javascript
+componentDidUpdate() {
+  this.getInitialProps();
+}
+```
+
+Please note that this method requires that you handle the data fetching logic in your component, and that `getInitialProps()` is not automatically called when the URL changes.

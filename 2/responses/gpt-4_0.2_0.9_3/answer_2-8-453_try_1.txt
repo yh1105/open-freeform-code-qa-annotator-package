@@ -1,0 +1,42 @@
+The `err113` linter is suggesting that you should use static errors instead of dynamic ones. This is because dynamic errors (like the ones you're creating with `errors.New()`) are not comparable, and this can make error handling more difficult.
+
+To fix this, you should define your errors as package-level variables, and then use those in your code. Here's an example:
+
+```go
+var (
+    ErrRepoGave = errors.New("repo gave err")
+    ErrOops = errors.New("oops")
+)
+
+func TestFoo(t *testing.T) {
+    // ...
+    repoMock.EXPECT().Save(gomock.Eq(&foooBarBar)).Return(nil, ErrRepoGave)
+    // ...
+    repoMock.EXPECT().FindAll().Return(nil, ErrOops)
+    // ...
+}
+```
+
+This way, the errors are static and can be compared. For example, you can do something like this in your code:
+
+```go
+if err == ErrRepoGave {
+    // handle this specific error
+}
+```
+
+If you need to add more context to your errors, you can use `fmt.Errorf()` to wrap your static errors:
+
+```go
+return fmt.Errorf("while saving foo: %w", ErrRepoGave)
+```
+
+This will still allow you to compare errors using `errors.Is()`, like so:
+
+```go
+if errors.Is(err, ErrRepoGave) {
+    // handle this specific error
+}
+```
+
+This is considered more idiomatic in Go, and it's what the `err113` linter is suggesting.

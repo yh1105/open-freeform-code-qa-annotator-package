@@ -1,0 +1,24 @@
+The `getByText` function from Testing Library does indeed take a `container` parameter, but it's not passed as an argument to the function. Instead, it's called as a method on the `container`.
+
+Here's how you can use it:
+
+```javascript
+const container = getByTestId('my-test-id');
+expect(within(container).getByText('some text')).toBeInTheDocument();
+```
+
+In this example, `within` is a function from Testing Library that gets the `getByText` method (and others) to search within the specified container. 
+
+Also, note that I used `toBeInTheDocument()` instead of `toBeTruthy()`. This is a custom Jest matcher from `@testing-library/jest-dom` that provides a more accurate error message for this use case. If the element is not found, it will say so directly, instead of saying something like `expected false to be true`.
+
+Remember to import `within` from `@testing-library/react`:
+
+```javascript
+import { within } from '@testing-library/react';
+```
+
+And `toBeInTheDocument` from `@testing-library/jest-dom`:
+
+```javascript
+import '@testing-library/jest-dom';
+```

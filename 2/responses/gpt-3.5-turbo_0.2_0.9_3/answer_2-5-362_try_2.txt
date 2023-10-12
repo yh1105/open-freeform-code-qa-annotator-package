@@ -1,0 +1,23 @@
+The error message suggests that the `spring.config.import` property is missing. This property is used to specify the location of the configuration server. Since you are not using a configuration server, you can set this property to an empty string to disable it.
+
+Try adding the following line to your `application.properties` file:
+
+```
+spring.config.import=
+```
+
+Alternatively, you can set the property in your test class using the `@TestPropertySource` annotation:
+
+```
+@SpringBootTest(
+    webEnvironment = WebEnvironment.RANDOM_PORT, 
+    classes = { 
+        ProductCompositeServiceApplication.class,
+        TestSecurityConfig.class }, 
+    properties = { 
+        "spring.main.allow-bean-definition-overriding=true" })
+@TestPropertySource(properties = "spring.config.import=")
+public class MyTest {
+    // ...
+}
+```

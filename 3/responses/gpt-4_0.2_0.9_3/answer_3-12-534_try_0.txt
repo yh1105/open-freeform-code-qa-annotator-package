@@ -1,0 +1,56 @@
+Yes, it's possible to use multiple `ChangeNotifier` providers for a single widget. However, it's also possible to use a single `ChangeNotifier` for managing multiple states. The choice depends on the complexity of your application and how you want to manage your states.
+
+If your states are related and you want to manage them together, it's better to use a single `ChangeNotifier`. If your states are independent and you want to manage them separately, you can use multiple `ChangeNotifier` providers.
+
+Here's an example of how you can use a single `ChangeNotifier` for your `CurvedNavigationBar`:
+
+```dart
+class NavigationModel extends ChangeNotifier {
+  int _currentIndex = 0;
+
+  int get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => NavigationModel(),
+      child: MaterialApp(
+        home: Scaffold(
+          body: Consumer<NavigationModel>(
+            builder: (context, model, child) {
+              return IndexedStack(
+                index: model.currentIndex,
+                children: <Widget>[
+                  // Your 4 different classes here
+                ],
+              );
+            },
+          ),
+          bottomNavigationBar: Consumer<NavigationModel>(
+            builder: (context, model, child) {
+              return CurvedNavigationBar(
+                index: model.currentIndex,
+                items: <Widget>[
+                  // Your 4 items here
+                ],
+                onTap: (index) {
+                  model.currentIndex = index;
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+In this example, `NavigationModel` is a `ChangeNotifier` that manages the current index of the `CurvedNavigationBar`. `Consumer` is used to rebuild the `IndexedStack` and `CurvedNavigationBar` whenever the current index changes.

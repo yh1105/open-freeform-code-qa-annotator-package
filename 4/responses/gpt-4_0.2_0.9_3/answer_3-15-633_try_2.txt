@@ -1,0 +1,33 @@
+Unfortunately, the `FILTER` function is a dynamic array function that is only available in Office 365 and Office 2019. However, you can achieve the same result using a combination of `INDEX` and `SMALL` functions in Office Pro Plus 2019.
+
+Here is the formula you can use:
+
+```
+=IFERROR(INDEX($B$1:$B$100, SMALL(IF($A$1:$A$100="x", ROW($A$1:$A$100)-ROW(INDEX($A$1:$A$100,1,1))+1), ROWS($A$1:A1))), "")
+```
+
+This formula should be entered as an array formula. After typing the formula, instead of pressing Enter, press Ctrl + Shift + Enter. Excel will surround the formula with curly braces `{}` to indicate it's an array formula.
+
+This formula works by creating an array of row numbers where column A is "x". The `SMALL` function then returns the smallest row number on the first row, the second smallest on the second row, and so on. The `INDEX` function then returns the value from column B for each of these row numbers.
+
+If you have a large dataset and you want to use a VBA macro instead, here is a simple example:
+
+```vba
+Sub FilterData()
+    Dim rng As Range
+    Dim cell As Range
+    Dim outputRow As Long
+
+    Set rng = ThisWorkbook.Sheets("Sheet1").Range("A1:A100")
+    outputRow = 1
+
+    For Each cell In rng
+        If cell.Value = "x" Then
+            ThisWorkbook.Sheets("Sheet2").Cells(outputRow, "A").Value = cell.Offset(0, 1).Value
+            outputRow = outputRow + 1
+        End If
+    Next cell
+End Sub
+```
+
+This macro will copy all values from column B to Sheet2 where the corresponding value in column A is "x". You can adjust the range and sheets as needed.

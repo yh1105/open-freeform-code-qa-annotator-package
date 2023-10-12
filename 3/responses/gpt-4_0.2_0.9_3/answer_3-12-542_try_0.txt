@@ -1,0 +1,30 @@
+The issue you're facing is due to the Scaffold's resizeToAvoidBottomInset property. By default, it is set to true, which means the body of the Scaffold is resized when the keyboard appears. This is why your bottom navigation bar is moving up along with the keyboard.
+
+To solve this, you can set resizeToAvoidBottomInset to false. This will prevent the Scaffold from resizing when the keyboard appears, keeping your bottom navigation bar at the bottom of the screen.
+
+Here's how you can do it:
+
+```dart
+final scaffold = Scaffold(
+  resizeToAvoidBottomInset: false, // Add this line
+  body: SafeArea(child: _buildBody(context)),
+  bottomNavigationBar: Container(
+    height: 48,
+    decoration: BoxDecoration(
+      color: StyledColors.BACKGROUND_COLOR,
+      boxShadow: [
+        BoxShadow(
+          color: StyledColors.FORGROUND_COLOR.withOpacity(0.16),
+          blurRadius: 12,
+          offset: Offset(0, 0),
+        ),
+      ],
+    ),
+    child: SafeArea(
+      child: _buildTabBar(context),
+    ),
+  ),
+);
+```
+
+This should solve your issue. However, please note that if your app has other widgets that need to be moved up when the keyboard appears, they won't be moved up because you've set resizeToAvoidBottomInset to false. In such cases, you might need to handle the resizing manually.

@@ -1,0 +1,26 @@
+It seems like there are a few issues going on here. Let's break them down:
+
+1. `ActiveSupport::MessageEncryptor::InvalidMessage` error when running `heroku run rails console`
+
+This error is occurring because Heroku is unable to decrypt your encrypted credentials file. The error message suggests that the message being decrypted is invalid, which could be caused by a few things:
+
+- The credentials file was encrypted with a different key than the one being used to decrypt it
+- The credentials file was corrupted during deployment
+- The credentials file was not deployed at all
+
+To fix this issue, you should try the following:
+
+- Make sure that your `master.key` file is present in your local environment and that it matches the one in your Heroku environment. You can check this by running `heroku config:get RAILS_MASTER_KEY` and comparing the output to the contents of your local `master.key` file.
+- If your `master.key` file is present and correct, try re-encrypting your credentials file and re-deploying it to Heroku. You can do this by running `EDITOR=vim rails credentials:edit` in your local environment, making any necessary changes, and then running `rails credentials:show` to verify that the changes were saved. Then, add the updated `config/credentials.yml.enc` file to your Git repository and push the changes to Heroku.
+
+2. `OpenSSL::Cipher::CipherError` error during asset precompilation on Heroku
+
+This error is occurring because Heroku is unable to decrypt your encrypted credentials file during the asset precompilation process. This is likely related to the `ActiveSupport::MessageEncryptor::InvalidMessage` error you are seeing when running `heroku run rails console`.
+
+To fix this issue, you should try the same steps as above to ensure that your `master.key` file and `config/credentials.yml.enc` file are both present and correct in your Heroku environment.
+
+3. `Your Gemfile lists the gem pg (>= 0) more than once` warning during deployment
+
+This warning is occurring because you have listed the `pg` gem twice in your Gemfile. You should remove one of the occurrences to avoid potential conflicts.
+
+To fix this issue, simply remove one of the lines that includes `pg` in your Gemfile and re-deploy to Heroku.

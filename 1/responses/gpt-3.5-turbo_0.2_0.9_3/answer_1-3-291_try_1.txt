@@ -1,0 +1,5 @@
+`__peg_parser__` is not a Python keyword, but rather a special attribute used internally by the Python parser. It is used to implement a new parsing engine called PEG (Parsing Expression Grammar) that was introduced in Python 3.9. 
+
+When you try to evaluate `__peg_parser__` in the interpreter, you get a `SyntaxError` with the message "You found it!" because the Python developers added this error message as a joke to indicate that you have stumbled upon something that is not meant to be used directly.
+
+In short, `__peg_parser__` is an implementation detail of the Python parser and is not intended to be used directly by Python programmers.

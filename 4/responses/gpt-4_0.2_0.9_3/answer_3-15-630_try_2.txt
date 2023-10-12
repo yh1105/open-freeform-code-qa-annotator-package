@@ -1,0 +1,16 @@
+1. Excel:
+   - To split the data into columns, you can use the "Text to Columns" feature. This feature allows you to specify the delimiter (comma in this case) and Excel will automatically split the data into separate columns.
+   - To split the data into rows, Excel doesn't have a built-in feature. However, you can use a combination of "Text to Columns" and "Transpose" features to achieve this. First, split the data into columns, then copy the split data and use "Paste Special -> Transpose" to convert it into rows.
+
+2. Google Sheets:
+   - Similar to Excel, Google Sheets also has a "Split text to columns" feature which you can use to split the data into columns.
+   - For splitting into rows, you can use the "SPLIT" function in combination with "FLATTEN" function (currently in beta). The SPLIT function splits the text around a specified delimiter, and the FLATTEN function changes the data from a horizontal array to a vertical array.
+
+3. Python (Pandas):
+   - To split the data into columns, you can use the "str.split" function with the "expand" parameter set to True. This will split the string at the specified delimiter and expand the result into separate columns.
+   - To split the data into rows, you can use the "str.split" function without the "expand" parameter, followed by the "explode" function. The explode function will transform each element of a list-like to a row.
+
+4. SQL:
+   - SQL doesn't have a built-in function to split a string into multiple columns or rows. However, you can create a function to achieve this. The function would use a loop to iterate through the string, splitting it at the specified delimiter and inserting the parts into new columns or rows.
+
+The methods provided are preferred because they are straightforward and efficient. They use built-in features or functions of the respective tools, which are optimized for performance. They also don't require any additional libraries or tools, making them easy to use and accessible to everyone.

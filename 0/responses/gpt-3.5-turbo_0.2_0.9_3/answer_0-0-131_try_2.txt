@@ -1,0 +1,10 @@
+Yes, there is a better solution in JavaScript to check if a value is not null and not an empty string. You can use the following code:
+
+```
+var data; //get its value from db 
+if(data && data.trim()) {
+   // do something
+}
+```
+
+This code checks if the `data` variable is truthy (not null, undefined, false, 0, or an empty string) and also checks if the trimmed value of `data` (removing any whitespace from the beginning and end of the string) is not an empty string. This is a more concise and efficient way to check for non-null and non-empty string values.

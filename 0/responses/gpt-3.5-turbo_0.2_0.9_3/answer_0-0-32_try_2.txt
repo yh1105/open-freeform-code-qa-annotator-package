@@ -1,0 +1,24 @@
+You can achieve this by using the Intersection Observer API. Here's an example code snippet that should work for your case:
+
+```
+const parent = document.querySelector('#parent');
+const divs = parent.querySelectorAll('div');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      console.log(entry.target.id + ' is visible on viewport');
+    }
+  });
+});
+
+divs.forEach(div => {
+  observer.observe(div);
+});
+```
+
+In this code, we first select the parent element and all the divs inside it. Then we create a new IntersectionObserver object and pass a callback function to it. This function will be called every time an observed element intersects with the viewport.
+
+Inside the callback function, we check if the observed element is intersecting with the viewport by checking the `isIntersecting` property of the `entry` object. If it is, we log a message to the console indicating that the element is visible on the viewport.
+
+Finally, we loop through all the divs and call the `observe` method of the observer object on each of them. This will start observing each div for intersection with the viewport.

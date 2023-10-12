@@ -1,0 +1,9 @@
+Yes, a cleaner way to handle this is to use the null-safe operator `?.` before calling the `trim()` method. This operator checks if the object is null before calling the method, and if it is null, it returns null instead of throwing a NullPointerException.
+
+Here's an example of how you can use it in your code:
+
+```
+siteRequest.getName()?.trim();
+```
+
+This will return null if `siteRequest.getName()` is null, and will trim the string if it's not null.

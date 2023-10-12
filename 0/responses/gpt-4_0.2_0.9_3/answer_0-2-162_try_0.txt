@@ -1,0 +1,34 @@
+Yes, you can achieve this effect using JavaScript or jQuery along with CSS. Here is a simple example using jQuery:
+
+First, include the jQuery library in your HTML file:
+
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+```
+
+Then, use the following jQuery code:
+
+```javascript
+$(window).scroll(function() {
+  var scroll = $(window).scrollTop();
+  if (scroll < 500) {
+    $('.section1').css('background', 'white');
+  } else {
+    $('.section1').css('background', 'linear-gradient(#f05fa6, #ed1654)');
+  }
+});
+```
+
+This code changes the background color of `.section1` based on the scroll position. When the scroll position is less than 500, the background color is white. When the scroll position is 500 or more, the background color changes to a gradient.
+
+However, this will result in an abrupt change. If you want a smooth transition, you can add a transition in your CSS:
+
+```css
+.section1 {
+  transition: background 2s ease;
+}
+```
+
+This will make the background color change over a period of 2 seconds.
+
+Please note that this is a simple example and might not work perfectly for your needs. You might need to adjust the scroll position and the transition duration to get the desired effect. Also, this example assumes that you are scrolling vertically. If you are scrolling horizontally, you will need to use `scrollLeft` instead of `scrollTop`.

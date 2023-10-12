@@ -1,0 +1,44 @@
+To hide the tabs on a specific screen in React Navigation v5, you can use the `tabBarVisible` option in the screen's options. Here's an example of how you can do it:
+
+```
+import Home from './components/Home';
+import SettingsScreen from './components/Settings';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const SettingsStack = createStackNavigator();
+const ProfileStack  = createStackNavigator();
+
+function SettingsStackScreen() {
+    return (
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+        </SettingsStack.Navigator>
+    )
+}
+
+function ProfileStackScreen() {
+    return (
+        <ProfileStack.Navigator>
+            <ProfileStack.Screen name="Home" component={Home} options={{ tabBarVisible: false }} />
+        </ProfileStack.Navigator>
+    )
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={ProfileStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+In this example, the `Home` screen in the `ProfileStack` has the `tabBarVisible` option set to `false`, which will hide the tab bar on that screen.

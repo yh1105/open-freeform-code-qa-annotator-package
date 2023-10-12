@@ -1,0 +1,35 @@
+In Go, you can achieve the same functionality as inheritance in other languages by using interfaces. In your case, you want a type to implement two interfaces. You can do this by defining a new interface that embeds the two interfaces you want your type to implement.
+
+For example, you can define a new interface `CardStringer` that embeds the `Card` and `fmt.Stringer` interfaces:
+
+```go
+type CardStringer interface {
+    Card
+    fmt.Stringer
+}
+```
+
+Then, you can change your `NewCard` function to return a `CardStringer` instead of a `Card`:
+
+```go
+func NewCard(num int) CardStringer {
+    newCard := card{
+        cardNum: num,
+        face:    faces[num%len(faces)],
+        suit:    suits[num/len(faces)],
+    }
+
+    return &newCard
+}
+```
+
+Now, your `card` type implements the `CardStringer` interface, and you can use it as such:
+
+```go
+func TestString(t *testing.T) {
+    card := NewCard(0)
+    assert.EqualValues(t, "AceHearts ", card.String(), " newly created card's string repr should be 'AceHearts '")
+}
+```
+
+This way, you don't have to add the `String` method to your `Card` interface, and you can still use the `String` method from the `fmt.Stringer` interface. You can use this pattern to make a type implement any number of interfaces.

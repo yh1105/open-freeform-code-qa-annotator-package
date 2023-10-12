@@ -1,0 +1,27 @@
+The performance issue you're experiencing is likely due to the fact that you're performing multiple JOIN operations in your query. Each JOIN operation can significantly slow down a query, especially if the tables involved have a large number of rows.
+
+One way to improve the performance of your query is to denormalize your data. This means adding redundant data to your tables to avoid JOIN operations. For example, you could add a `protocol_id` field to your `Expression` model. This would allow you to filter expressions by protocol without having to join the `Description` table.
+
+Another way to improve performance is to use database indexing. An index can significantly speed up data retrieval operations on a database table. You should consider adding indexes to the fields that you frequently use in your filter conditions, such as `class_id` and `description_id`.
+
+You could also consider using a more efficient data structure for your filters. Instead of a list of dictionaries, you could use a dictionary of lists, where the keys are the trait ids and the values are the lists of class ids. This would allow you to filter expressions by trait and class with a single query, instead of having to loop through the filters.
+
+Here's how you could implement these changes:
+
+```python
+# Add protocol_id to Expression model
+class Expression(models.Model):
+    ...
+    protocol = models.ForeignKey(Protocol)
+
+# Use a dictionary for filters
+filters = {
+  1: [2, 3],
+  2: [6,],
+}
+
+# Filter expressions with a single query
+queryset = Expression.objects.filter(protocol_id=protocol_id, class_id__in=class_ids)
+```
+
+Remember that denormalization and indexing come with their own trade-offs. Denormalization can make your data harder to manage and can increase storage requirements, while indexing can slow down write operations. Therefore, you should carefully consider these trade-offs before implementing these changes.

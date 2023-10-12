@@ -1,0 +1,17 @@
+A NuGet provider is a package provider for PowerShell that allows you to interact with NuGet-based repositories. It is not just nuget.exe, but rather a set of PowerShell cmdlets that allow you to search for, install, and manage packages from NuGet-based repositories.
+
+To install the NuGet provider, you can download the NuGet package from the official NuGet website (https://www.nuget.org/downloads) on a computer with internet access and transfer it to your Win 7 computer. Then, you can install it using the following command:
+
+```
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ProviderName NuGet -SourcePath {path to NuGet package}
+```
+
+Replace `{path to NuGet package}` with the path to the NuGet package you downloaded.
+
+Once the NuGet provider is installed, you should be able to install the PSWindowsUpdate module using the following command:
+
+```
+Install-Module -Name PSWindowsUpdate -RequiredVersion 2.0.0.4 -AllowClobber -Verbose -SkipPublisherCheck -Path {path to pswindowsupdate.2.0.0.4.nupkg}
+```
+
+Replace `{path to pswindowsupdate.2.0.0.4.nupkg}` with the path to the PSWindowsUpdate package you downloaded.

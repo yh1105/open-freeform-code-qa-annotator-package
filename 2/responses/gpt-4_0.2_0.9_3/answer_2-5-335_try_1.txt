@@ -1,0 +1,23 @@
+In Flutter, you can use the `print()` function to log data to the console. However, if you're not seeing any output, there could be a few reasons for this. Here are some things you can try:
+
+1. Make sure you're running your app in debug mode. In IntelliJ IDEA, you can do this by clicking on the bug icon in the toolbar.
+
+2. Check if you have any filters set up in your console that might be hiding your logs. You can do this by going to the "Logcat" tab in IntelliJ IDEA and checking the "Show only selected application" option.
+
+3. Try using the `debugPrint()` function instead of `print()`. The `debugPrint()` function is similar to `print()`, but it throttles the output to avoid dropping logs when the rate of logs is high.
+
+Here's an example of how you can use `print()` and `debugPrint()`:
+
+```dart
+print('This is a print message');
+
+debugPrint('This is a debugPrint message');
+```
+
+Remember to import the `foundation.dart` package to use `debugPrint()`:
+
+```dart
+import 'package:flutter/foundation.dart';
+```
+
+If you're still not seeing any logs, there might be an issue with your IntelliJ IDEA setup. You might want to try restarting IntelliJ IDEA or reinstalling the Flutter and Dart plugins.

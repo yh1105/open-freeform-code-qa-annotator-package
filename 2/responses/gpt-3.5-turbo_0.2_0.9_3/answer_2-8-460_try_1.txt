@@ -1,0 +1,35 @@
+You can loop through the map and print the key-value pairs as follows:
+
+```
+for key, value := range getUsersAppInfo[0] {
+    fmt.Printf("%s value is %v\n", key, value)
+}
+```
+
+This will output:
+
+```
+appId value is 2
+fcmServerKey value is keyTestTest
+name value is com.app
+``` 
+
+If you want to include the key name in the value output for the fcmServerKey, you can modify the print statement as follows:
+
+```
+for key, value := range getUsersAppInfo[0] {
+    if key == "fcmServerKey" {
+        fmt.Printf("%s:%v value is %v\n", key, value, value)
+    } else {
+        fmt.Printf("%s value is %v\n", key, value)
+    }
+}
+```
+
+This will output:
+
+```
+appId value is 2
+fcmServerKey:keyTestTest value is keyTestTest
+name value is com.app
+```

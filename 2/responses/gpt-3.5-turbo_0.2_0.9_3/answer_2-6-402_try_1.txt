@@ -1,0 +1,14 @@
+You can add a custom attribute to a cookie in ASP.NET Core by creating a new instance of the `CookieOptions` class and setting the `SameSite` property to `SameSiteMode.None`. Here's an example:
+
+```csharp
+var cookieOptions = new CookieOptions
+{
+    SameSite = SameSiteMode.None,
+    Secure = true, // Set this to true if the cookie should only be sent over HTTPS
+    HttpOnly = true // Set this to true if the cookie should not be accessible from JavaScript
+};
+
+Response.Cookies.Append("cookieName", "cookieValue", cookieOptions);
+```
+
+This will add a cookie with the name "cookieName" and the value "cookieValue", along with the `SameSite: None` attribute. Note that you should also set the `Secure` property to true if the cookie should only be sent over HTTPS, and the `HttpOnly` property to true if the cookie should not be accessible from JavaScript.

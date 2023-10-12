@@ -1,0 +1,25 @@
+This error message is related to the Laravel Telescope package, which is trying to access an array offset on a null value. This can happen when the database is not properly migrated or seeded before running the tests.
+
+Here are some steps you can take to resolve the issue:
+
+1. Make sure that your database is properly migrated and seeded before running the tests. You can do this by running the following commands:
+
+```
+php artisan migrate --seed
+```
+
+2. If the issue persists, try disabling Laravel Telescope by commenting out the following line in your `config/app.php` file:
+
+```
+App\Providers\TelescopeServiceProvider::class,
+```
+
+3. If you still encounter the issue, try updating your dependencies to the latest version by running the following command:
+
+```
+composer update
+```
+
+4. If none of the above steps work, you may need to downgrade to PHP 7.3 until Laravel Telescope is updated to support PHP 7.4.
+
+I hope this helps! Let me know if you have any further questions.

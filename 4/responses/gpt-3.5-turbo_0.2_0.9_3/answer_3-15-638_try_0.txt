@@ -1,0 +1,87 @@
+To create a reference plane using a selected face and point, you can use the following steps:
+
+1. Get the handle for the selected face and point objects.
+2. Create a reference point on the selected edge using the `CreatePoint` method of the `ModelDocExtension` object.
+3. Use the `SelectByID2` method to select the face and point objects.
+4. Use the `InsertRefPlane` method of the `FeatureManager` object to create the reference plane.
+
+Here is the updated code:
+
+```
+Dim swApp As SldWorks.SldWorks
+Dim swModel As SldWorks.ModelDoc2
+Dim swPart As SldWorks.PartDoc
+Dim swSelMgr As SldWorks.SelectionMgr
+Dim swModelDocExt As SldWorks.ModelDocExtension
+Dim swFeatMgr As SldWorks.FeatureManager
+
+Dim selBool As Boolean
+Dim longstatus As Long, longwarnings As Long
+
+Sub main()
+
+Set swApp = Application.SldWorks
+Set swModel = swApp.ActiveDoc
+Set swModelDocExt = swModel.Extension
+Set swPart = swModel
+Set swSelMgr = swModel.SelectionManager
+Set swFeatMgr = swModel.FeatureManager
+
+' Check which file is opened
+Dim filePath As String: filePath = swModel.GetPathName()
+Debug.Print "File path is:" & filePath
+
+'   User has to select the face and the edge of the body to create plane and
+'   sketch to convert face entities
+' Gets selection from SelectionManager
+Dim numSelectedObjs As Long
+Dim selectionMark As Long: selectionMark = -1
+
+numSelectedObjs = swSelMgr.GetSelectedObjectCount2(selectionMark)
+Debug.Print "Number of selected objects:" & numSelectedObjs
+
+Dim faceObj As SldWorks.Face2
+Dim edgeObj As SldWorks.Edge
+Dim midpointObj As Object
+
+If (numSelectedObjs > 0) Then
+    ' Get and validate selection
+    Dim selObj As Object
+    Dim selObjIndex As Long
+    Dim selObjType As Long
+    For selObjIndex = 1 To numSelectedObjs ' This method uses 1 as first index
+        selObjType = swSelMgr.GetSelectedObjectType3(selObjIndex, selectionMark)
+        ' Check selected object type and assign it to appropriate variable
+        If (selObjType = SwConst.swSelFACES) Then
+            Set faceObj = swSelMgr.GetSelectedObject6(selObjIndex, selectionMark)
+            Dim faceFeat As Object
+            Set faceFeat = faceObj.GetFeature()
+        ElseIf (selObjType = SwConst.swSelEDGES) Then
+            Set edgeObj = swSelMgr.GetSelectedObject6(selObjIndex, selectionMark)
+            midpointObj = swModelDocExt.CreatePoint(edgeObj.GetStartVertex().GetPoint())
+        Else
+            MsgBox "Wrong objects selected, select only face and edge"
+            Exit For
+        End If
+    Next
+End If
+
+' Select the face and point objects
+Dim faceName As String: faceName = faceObj.GetNameForSelection()
+Dim pointName As String: pointName = midpointObj.GetNameForSelection()
+Dim objType As Long: objType = SwConst.swSelectType_e.swSelFACES + SwConst.swSelectType_e.swSelPOINTS
+Dim selAppend As Boolean: selAppend = True
+Dim objMark As Long: objMark = 0
+Dim objCallout As Callout
+Dim selOption As swSelectOption_e: selOption = 0
+
+selBool = swModel.Extension.SelectByID2(faceName, objType, 0, 0, 0, selAppend, objMark, objCallout, selOption)
+selBool = swModel.Extension.SelectByID2(pointName, objType, 0, 0, 0, selAppend, objMark, objCallout, selOption)
+
+' Create reference plane using face and a point
+swFeatMgr.InsertRefPlane swRefPlaneReference, False, False, False
+
+End Sub
+```
+
+In this updated code, we create a reference point on the selected edge using the `CreatePoint` method of the `ModelDocExtension` object. We then use the `GetNameForSelection` method to get the names of the selected face and point objects, and use the `SelectByID2` method to select them. Finally, we use the `InsertRefPlane` method of the `FeatureManager` object to create the reference plane.

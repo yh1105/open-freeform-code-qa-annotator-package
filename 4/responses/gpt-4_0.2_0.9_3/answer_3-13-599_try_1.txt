@@ -1,0 +1,56 @@
+As of now, Jetpack Compose does not provide a built-in NumberPicker widget. However, you can create a custom one using the LazyColumn and ScrollState. Here is an example of how you can create a NumberPicker in Jetpack Compose:
+
+```kotlin
+@Composable
+fun NumberPicker(
+    range: IntRange,
+    selectedValue: MutableState<Int>,
+    modifier: Modifier = Modifier
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
+
+    Box(modifier = modifier) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            state = rememberLazyListState(),
+            verticalArrangement = Arrangement.Center
+        ) {
+            items(range.toList()) { number ->
+                Text(
+                    text = number.toString(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            coroutineScope.launch {
+                                scrollState.animateScrollToItem(number)
+                            }
+                        }
+                        .padding(16.dp),
+                    textAlign = TextAlign.Center,
+                    style = if (selectedValue.value == number) {
+                        TextStyle(fontWeight = FontWeight.Bold, fontSize = 24.sp)
+                    } else {
+                        TextStyle(fontWeight = FontWeight.Normal, fontSize = 16.sp)
+                    }
+                )
+            }
+        }
+    }
+
+    LaunchedEffect(scrollState.value) {
+        selectedValue.value = (scrollState.value / 56) + range.first
+    }
+}
+```
+
+In this example, we are using a LazyColumn to display the numbers. When a number is clicked, we animate the scroll to that number. We also change the style of the selected number to make it stand out.
+
+You can use this NumberPicker in your code like this:
+
+```kotlin
+var selectedNumber by remember { mutableStateOf(0) }
+NumberPicker(range = 0..100, selectedValue = remember { mutableStateOf(selectedNumber) })
+```
+
+Please note that this is a very basic example and might not cover all your needs. You might need to adjust it according to your requirements. For example, you might want to add fling behavior, snap to the nearest number, etc.

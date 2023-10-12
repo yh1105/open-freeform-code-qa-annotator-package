@@ -1,0 +1,33 @@
+To filter the input field, you can modify the `SearchData` function to check if the input field contains the name of the person in each row. Here's an updated version of the function:
+
+```
+function SearchData(name, coundivy, age) {
+    if (name.toUpperCase() == '' && coundivy.toUpperCase() == 'ALL' && age.toUpperCase() == 'ALL') {
+        $('#table11 .item').show();
+    } else {
+        $('#table11 .item:has(div)').each(function () {
+            var rowName = $.trim($(this).find('div:eq(0)').text());
+            var rowCoundivy = $.trim($(this).find('div:eq(1)').text());
+            var rowAge = $.trim($(this).find('div:eq(2)').text());
+            if (name.toUpperCase() !='' && coundivy.toUpperCase() != 'ALL' && age.toUpperCase() != 'ALL') {
+                if (rowCoundivy.toUpperCase() == coundivy.toUpperCase() && rowAge == age && rowName == name) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            } else {
+                var containsName = rowName.toUpperCase().indexOf(name.toUpperCase()) > -1;
+                if (containsName && (coundivy.toUpperCase() == 'ALL' || rowCoundivy.toUpperCase() == coundivy.toUpperCase()) && (age.toUpperCase() == 'ALL' || rowAge == age)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            }
+        });
+    }
+}
+```
+
+In this updated function, we first check if all three filters are set to "ALL". If so, we show all rows. Otherwise, we loop through each row and check if the name filter is set. If it is, we check if the name input field contains the name of the person in the row. If it does, we check the other filters and show the row if they match. If the name filter is not set, we check the other filters and show the row if they match. If they don't match, we hide the row.
+
+Note that we're using the `indexOf` method to check if the name input field contains the name of the person in the row. This method returns the index of the first occurrence of the specified value in a string, or -1 if it is not present. We're checking if the index is greater than -1, which means the value is present in the string.

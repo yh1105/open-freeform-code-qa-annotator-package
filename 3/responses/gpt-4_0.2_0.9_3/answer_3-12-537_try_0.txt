@@ -1,0 +1,23 @@
+The error message you're seeing is because Gradle is not able to find the Android Gradle plugin version 5.6.2. 
+
+The Android Gradle plugin version you're trying to use (5.6.2) does not exist. The latest version of Android Gradle plugin is 4.2.2 (as of July 2021). 
+
+You can check the available versions of Android Gradle plugin here: https://developer.android.com/studio/releases/gradle-plugin#updating-plugin
+
+To fix the issue, you should change the version of Android Gradle plugin in your project level build.gradle file to a valid version. For example, if you want to use the latest version, you can change it to 4.2.2:
+
+```gradle
+dependencies {
+    classpath 'com.android.tools.build:gradle:4.2.2'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath 'com.google.gms:google-services:4.3.3'
+}
+```
+
+Also, make sure that the version of Gradle you're using is compatible with the Android Gradle plugin version. For Android Gradle plugin version 4.2.2, you should use Gradle 6.7.1 or higher. You can change the Gradle version in your gradle-wrapper.properties file:
+
+```properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-all.zip
+```
+
+After making these changes, try to build your project again.

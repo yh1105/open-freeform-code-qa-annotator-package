@@ -1,0 +1,33 @@
+Yes, you can achieve the same result in Excel 2019 using an array formula or a VBA macro.
+
+Here's how you can do it with an array formula:
+
+1. Suppose you want to put the result in column D, starting from D2. In D2, enter the following formula:
+```
+=IFERROR(INDEX($B$2:$B$100, SMALL(IF($A$2:$A$100="x", ROW($A$2:$A$100)-ROW($A$2)+1), ROW(1:1))), "")
+```
+2. Press Ctrl+Shift+Enter to enter it as an array formula. Excel will surround the formula with curly braces {} to indicate it's an array formula.
+3. Drag the fill handle (the small square at the bottom-right corner of the cell) down to copy the formula to other cells in column D.
+
+This formula works by creating an array of row numbers where column A is "x", then using the SMALL function to get the k-th smallest value from this array, where k is the row number of the current cell in column D. The INDEX function then returns the value in column B at this row number.
+
+If you prefer using a VBA macro, here's a simple one that does the same thing:
+
+```vba
+Sub FilterColumnA()
+    Dim rng As Range, cell As Range
+    Dim i As Long
+
+    Set rng = Range("A2:A100")
+    i = 2
+
+    For Each cell In rng
+        If cell.Value = "x" Then
+            Cells(i, "D").Value = Cells(cell.Row, "B").Value
+            i = i + 1
+        End If
+    Next cell
+End Sub
+```
+
+This macro loops through each cell in column A, and if the cell's value is "x", it copies the value from the same row in column B to column D. The variable `i` keeps track of the next row in column D to copy to.

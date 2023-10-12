@@ -1,0 +1,11 @@
+To change the title of the Terminal window dynamically based on the currently running process, you can use the `PROMPT_COMMAND` environment variable in your `bash` shell.
+
+Here's an example of how you can set the `PROMPT_COMMAND` variable to update the Terminal window title with the current working directory and the last executed command:
+
+```
+export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/} (${BASH_COMMAND})\007"'
+```
+
+This will set the Terminal window title to the name of the current working directory and the last executed command. You can customize this to suit your needs.
+
+You can add this line to your `~/.bashrc` file to make it persistent across Terminal sessions.

@@ -1,0 +1,15 @@
+The issue you're encountering is due to the way you're trying to import the icons. The import paths you're using are incorrect. 
+
+The correct way to import icons from `react-icons` is as follows:
+
+```javascript
+import { MdTerrain } from "react-icons/md";
+import { TiSnowflake } from "react-icons/ti";
+import { FaCalendar } from "react-icons/fa";
+```
+
+Please note that the names of the icons are case sensitive and should match exactly with the names provided in the `react-icons` library. For example, it's `TiSnowflake` not `SnowFlake`, and `FaCalendar` not `Calender`.
+
+Also, the import path has changed in the newer versions of `react-icons`. You should now import from `react-icons/<icon-library>`. For example, `react-icons/fa` for Font Awesome, `react-icons/md` for Material Design, etc. 
+
+Please update your imports accordingly and your issue should be resolved.

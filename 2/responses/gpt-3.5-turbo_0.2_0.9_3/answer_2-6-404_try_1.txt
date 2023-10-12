@@ -1,0 +1,12 @@
+In C# 9, you can add a parameterless constructor to a record type by using the `init` keyword. Here's an example:
+
+```
+public record Person(int Id, string FirstName, string LastName)
+{
+    public Person() : this(0, "", "") { }
+}
+```
+
+In this example, we're using the `this` keyword to call the existing constructor with default values for the parameters. The `init` keyword allows us to set the properties of the record after it has been created.
+
+Note that the `init` keyword can only be used with properties that have a setter. If you need to set properties that are read-only, you can use the `with` expression to create a new record with the updated values.

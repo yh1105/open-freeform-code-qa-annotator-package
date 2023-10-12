@@ -1,0 +1,24 @@
+To achieve this, you can use the `PROMPT_COMMAND` variable in your `.bashrc` file to set the terminal window title to the current working directory and the last executed command.
+
+Here's an example of how you can set it up:
+
+1. Open your `.bashrc` file in a text editor:
+```
+$ nano ~/.bashrc
+```
+
+2. Add the following line at the end of the file:
+```
+PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/} (${BASH_COMMAND})\007"'
+```
+
+This will set the `PROMPT_COMMAND` variable to a command that echoes the current working directory and the last executed command, separated by a space, and sets the terminal window title to this string.
+
+3. Save and close the file.
+
+4. Reload your `.bashrc` file to apply the changes:
+```
+$ source ~/.bashrc
+```
+
+Now, whenever you execute a command in the terminal, the window title will be updated to show the current working directory and the last executed command.

@@ -1,0 +1,19 @@
+This error usually occurs when a script returns a non-zero exit code. GitLab CI treats any non-zero exit code as a failure. 
+
+In your case, the error might be caused by the `for` loop. If the last iteration of the loop doesn't find a file (i.e., `[[ -f "$dir" ]]` is false), then the exit code of the loop will be the exit code of the last command executed, which is `[[ -f "$dir" ]]`. Since this command returns false, it also returns a non-zero exit code, which GitLab CI interprets as a failure.
+
+To fix this issue, you can add an `exit 0` command at the end of your script. This will ensure that your script always returns a zero exit code, indicating success:
+
+```bash
+- >
+     for dir in $(git log -m -1 --name-only -r --pretty="format:" "$CI_COMMIT_SHA"); do 
+     if [[ -f "$dir" ]]; then 
+     SERVICE=$(echo "$dir")
+     # helm install the service
+     fi
+     done
+    - echo "deployed"
+    - exit 0
+```
+
+This should resolve the issue. However, please note that this will also mask any real errors that occur in your script. To avoid this, you might want to add some error handling to your script to catch and handle errors appropriately.

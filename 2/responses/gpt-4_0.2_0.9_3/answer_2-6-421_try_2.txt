@@ -1,0 +1,27 @@
+In Blazor, the `OnInitializedAsync` method is part of the component lifecycle and it's called when the component is initialized. However, the rendering of the component happens before the `OnInitializedAsync` method is called. This is why you see the data check being executed before the data is fetched.
+
+To solve this issue, you can use a boolean flag to indicate whether the data has been loaded or not. You can set this flag to true after the data has been fetched in the `OnInitializedAsync` method. In your markup, you can then check this flag before accessing the data.
+
+Here's an example of how you can do this:
+
+```csharp
+<Component1>
+  @if (IsDataLoaded)
+  {
+    @foreach (var item in Data) {
+         <Component2>
+    }
+  }
+</Component1>
+
+@code{
+  private bool IsDataLoaded = false;
+
+  protected override async Task OnInitializedAsync() {
+       Data = //data from dataBase
+       IsDataLoaded = true;
+  }
+}
+```
+
+In this example, the `IsDataLoaded` flag is initially set to false. After the data is fetched in the `OnInitializedAsync` method, the flag is set to true. The markup then checks this flag before accessing the data. This ensures that the data is only accessed after it has been loaded.

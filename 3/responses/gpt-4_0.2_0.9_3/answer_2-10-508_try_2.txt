@@ -1,0 +1,13 @@
+The `#[allow(dead_code)]` attribute is used to suppress the compiler warning for unused code. However, it is typically used for functions, structs, enums, etc. and not for variables.
+
+In your case, you are trying to use it for a variable `x` which is not used anywhere in the code. The Rust compiler will still give a warning for this.
+
+If you want to suppress the warning for an unused variable, you can use an underscore `_` before the variable name:
+
+```rust
+fn main() {
+    let _x = 0;
+}
+```
+
+This tells the Rust compiler that you intentionally did not use the variable `x`.

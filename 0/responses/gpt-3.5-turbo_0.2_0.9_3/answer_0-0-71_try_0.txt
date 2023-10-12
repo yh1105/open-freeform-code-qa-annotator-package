@@ -1,0 +1,35 @@
+The error message you are seeing is because TypeScript does not allow importing type declarations directly. Instead, you should import the module that exports the type declaration.
+
+In your case, you should export the `AuthKeyT` type from a module in your project, and then import it in your React component like this:
+
+```
+// src/types/app.ts
+export type AuthKeyT = string;
+
+// src/components/MyComponent.tsx
+import { AuthKeyT } from '../types/app';
+
+// use AuthKeyT in your component
+```
+
+Make sure that the path to the `app.ts` file is correct relative to the file that is importing it.
+
+Also, make sure that your `tsconfig.json` file has the `"baseUrl": "./src"` and `"paths"` set up correctly to allow for importing modules using the `@` symbol. For example:
+
+```
+// tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@types/*": ["./@types/*"]
+    }
+  }
+}
+```
+
+With this configuration, you should be able to import your custom type like this:
+
+```
+import { AuthKeyT } from '@types/app';
+```

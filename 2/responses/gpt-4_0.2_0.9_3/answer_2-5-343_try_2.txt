@@ -1,0 +1,24 @@
+Your code is not handling the problem correctly. The problem is asking for two contiguous subsequences A and B of the same size with maximum summation of the product of the boxes. But your code is not ensuring that the subsequences are contiguous and of the same size. 
+
+Here is a Python solution that uses dynamic programming to solve the problem:
+
+```python
+def max_sum_product(arr, n):
+    prefix = [0]*(n+1)
+    suffix = [0]*(n+1)
+    dp = [[0]*(n+1) for _ in range(n+1)]
+    for i in range(n):
+        prefix[i+1] = prefix[i] + arr[i]
+    for i in range(n-1, -1, -1):
+        suffix[i] = suffix[i+1] + arr[i]
+    for i in range(n):
+        for j in range(i+1, n+1):
+            dp[i][j] = max(dp[i][j], dp[i][j-1], dp[i-1][j], dp[i-1][j-1] + (prefix[j]-prefix[i])*(suffix[n-j+i]-suffix[n-i]))
+    return dp[n][n]
+
+n = int(input())
+arr = list(map(int, input().split()))
+print(max_sum_product(arr, n))
+```
+
+This code first calculates the prefix and suffix sum of the array. Then it uses dynamic programming to calculate the maximum summation of the product of the boxes. For each pair of indices i and j, it considers four possibilities: not including i or j, not including i, not including j, and including both i and j. The maximum of these four possibilities is stored in dp[i][j]. Finally, it returns dp[n][n], which is the maximum summation of the product of the boxes.

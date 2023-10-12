@@ -1,0 +1,53 @@
+You can use Django-filter's `FilterSet` to create a custom filter that searches over multiple fields. Here's how you can do it:
+
+First, install django-filter if you haven't done so:
+
+```bash
+pip install django-filter
+```
+
+Then, in your `filters.py` file (you may need to create this file), define your custom filter:
+
+```python
+import django_filters
+from .models import Location
+
+class LocationFilter(django_filters.FilterSet):
+    multi_name_fields = django_filters.CharFilter(method='filter_by_all_fields')
+
+    class Meta:
+        model = Location
+        fields = []
+
+    def filter_by_all_fields(self, queryset, name, value):
+        return queryset.filter(
+            Q(loc__icontains=value) | Q(loc_mansioned__icontains=value) |
+            Q(loc_country__icontains=value) | Q(loc_modern__icontains=value)
+        )
+```
+
+In the above code, `filter_by_all_fields` is a custom method that filters the queryset by all fields. The `Q` objects allow for complex lookups. The `icontains` lookup is used to make a case-insensitive search.
+
+Then, in your view, you can use this filter:
+
+```python
+from django_filters import rest_framework as filters
+from .models import Location
+from .filters import LocationFilter
+
+class LocationListView(ListAPIView):
+    queryset = Location.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = LocationFilter
+```
+
+Finally, you can use this in your template:
+
+```html
+<form method="get">
+  <input type="text" name="multi_name_fields">
+  <input type="submit" value="Search">
+</form>
+```
+
+Now, when you submit the form, it will filter the locations by all fields.

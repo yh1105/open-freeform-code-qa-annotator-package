@@ -1,0 +1,24 @@
+You can use the `useState` hook to store the memoized result and update it when the promise resolves. Here's an example:
+
+```
+export const MyComponent: React.FC = () => {
+    let [arg, setArg] = React.useState('100');
+    let [result, setResult] = React.useState('Not yet calculated');
+
+    const getExpensiveResult = async () => {
+        const expensiveResult = await SomeLongRunningApi(arg);
+        setResult(expensiveResult.interestingProperty);
+    };
+
+    return (
+        <div>
+            <p>Get your result:</p>
+            <input value={arg} onChange={e => setArg(e.target.value)}></input>
+            <button onClick={getExpensiveResult}>Calculate</button>
+            <p>{`Result is ${result}`}</p>
+        </div>
+    );
+};
+```
+
+In this example, we define a function `getExpensiveResult` that fetches the result from the API and updates the state with the interesting property. We then call this function when the "Calculate" button is clicked. The result is stored in the `result` state variable and displayed in the component. This way, the expensive calculation is only performed when the user clicks the button, and the result is memoized in the state.

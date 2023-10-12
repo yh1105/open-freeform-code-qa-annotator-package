@@ -1,0 +1,20 @@
+You can use the Intersection Observer API to detect when an element is visible on the viewport. Here's an example code snippet that should work for your use case:
+
+```
+const parent = document.querySelector('#parent');
+const divs = parent.querySelectorAll('div');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      console.log(entry.target.id + ' is visible on viewport');
+    }
+  });
+});
+
+divs.forEach(div => {
+  observer.observe(div);
+});
+```
+
+In this code, we first select the `#parent` element and all its child `div` elements. Then, we create a new `IntersectionObserver` instance and pass a callback function that will be called whenever an observed element intersects with the viewport. Inside the callback, we check if the `isIntersecting` property of the `entry` object is true, which means the element is currently visible on the viewport. Finally, we loop through all the `div` elements and call the `observe` method of the observer instance to start observing each element.

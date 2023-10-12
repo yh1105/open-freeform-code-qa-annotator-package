@@ -1,0 +1,13 @@
+Storing API keys directly in your client-side code is indeed a bad practice as it exposes your keys to the public. Since you don't have a backend for your webapp, you can't store your API keys there. 
+
+Here are a few options you can consider:
+
+1. **Environment Variables**: You can store your API keys in environment variables on the machine where your app runs. This is a common practice and it's supported by many hosting platforms like Netlify, Vercel, etc. However, this method still exposes your API key in the network request from client-side to the API server.
+
+2. **Serverless Functions**: You can use serverless functions (like AWS Lambda, Netlify Functions, Vercel Functions, etc.) to create a simple backend for your app. These functions can store your API keys securely and make requests to the API on behalf of your app. This way, your API keys are never exposed to the client-side.
+
+3. **Proxy Server**: Similar to serverless functions, you can set up a simple proxy server that stores your API keys and makes requests to the API. This can be a small Express.js app, for example.
+
+4. **Third-Party Secure Storage**: You can use a third-party service to securely store your API keys. These services provide an API that your app can use to access the keys. However, this method also exposes your keys in the network request.
+
+Remember, the goal is to prevent your API keys from being exposed in the client-side code or in network requests that can be inspected by users. The best solution depends on your specific needs and the resources available to you.

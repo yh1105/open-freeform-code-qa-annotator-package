@@ -1,0 +1,14 @@
+The issue is with the property key that you are using in the `@Value` annotation. You are using `main.header1.info` instead of `main.header.info`. The correct property key should be `main.header.info` as per the YAML structure you have provided.
+
+So, you can fix the issue by changing the `@Value` annotation as follows:
+```
+@Component
+@PropertySource("classpath:data.yml")
+public class SomeClass {
+    @Value("${main.header.info}")
+    private long info;
+    ...
+}
+```
+
+This should inject the value of `info` property from the `data.yml` file to the `info` field of `SomeClass`.

@@ -1,0 +1,28 @@
+The issue is that the environment variable `PATH` is not being expanded in the YAML file. You can use the `os.path.expandvars()` function to expand environment variables in a string.
+
+Here's an updated version of your script that uses `os.path.expandvars()` to expand the `PATH` variable in the YAML file:
+
+```
+import yaml
+import os
+import sys
+
+stream = open("sample.yml", "r")
+docs = yaml.load_all(stream)
+for doc in docs:
+    for k,v in doc.items():
+        if isinstance(v, str):
+            doc[k] = os.path.expandvars(v)
+    for k,v in doc.items():
+        print k, "->", v
+    print "\n",
+```
+
+In this version of the script, we check if the value of each key in the YAML file is a string. If it is, we use `os.path.expandvars()` to expand any environment variables in the string. We then print out the updated key-value pairs.
+
+With this updated script, the output should be:
+
+```
+Top -> /Users/abc/Downloads/tbwork/my.txt
+Vars -> ['a', 'b']
+```

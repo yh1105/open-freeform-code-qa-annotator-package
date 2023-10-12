@@ -1,0 +1,18 @@
+In Postman, you can send a path variable in a POST request as follows:
+
+1. Open Postman.
+2. Select POST from the dropdown list.
+3. In the URL field, enter the URL of your API endpoint. Replace `{code}` with the actual value you want to send. For example, if your server is running on localhost port 8080, and you want to send `123` as the `code`, you would enter: `http://localhost:8080/api/v1/customers/123`.
+4. In the `Body` tab, select `raw` and `JSON` from the dropdown list.
+5. Enter the JSON representation of your `CustomerDTO` object in the text field. For example:
+
+```json
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+```
+
+6. Click the `Send` button to send the request.
+
+In your `postRequest` method, `@PathVariable String code` will receive the value from the URL, and `@RequestBody CustomerDTO dto` will receive the JSON object from the request body.

@@ -1,0 +1,19 @@
+It looks like the issue is related to the version of ActiveSupport that you are using. Devise 4.8.0 requires ActiveSupport 4.2 or higher, but it seems like you might be using an older version of ActiveSupport.
+
+To fix this issue, you can try updating your version of ActiveSupport by adding the following line to your Gemfile:
+
+```
+gem 'activesupport', '>= 4.2'
+```
+
+Then run `bundle install` to install the updated version of ActiveSupport.
+
+If that doesn't work, you can try downgrading your version of Devise to an earlier version that is compatible with your version of ActiveSupport. You can do this by specifying the version number in your Gemfile:
+
+```
+gem 'devise', '4.7.3'
+```
+
+Then run `bundle install` to install the specified version of Devise.
+
+I hope this helps! Let me know if you have any further questions.

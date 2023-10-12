@@ -1,0 +1,19 @@
+You can use Java 8 Streams to filter out the objects from the `subjects1`, `subjects2`, and `subjects3` lists where the `status` is false. Here's an example code snippet that demonstrates how to do it:
+
+```
+student.setSubjects1(student.getSubjects1().stream()
+    .filter(subject -> subject.isStatus())
+    .collect(Collectors.toList()));
+
+student.setSubjects2(student.getSubjects2().stream()
+    .filter(subject -> subject.isStatus())
+    .collect(Collectors.toList()));
+
+student.setSubjects3(student.getSubjects3().stream()
+    .filter(subject -> subject.isStatus())
+    .collect(Collectors.toList()));
+```
+
+In this code, we are using the `filter()` method of the `Stream` class to filter out the objects where the `status` is false. Then, we are collecting the filtered objects into a new list using the `collect()` method of the `Collectors` class. Finally, we are setting the filtered lists back to the `Student` object using the respective setter methods.
+
+Note that we are using the `isStatus()` method instead of `getStatus()` method to check the `status` value because the `status` field is of boolean type.

@@ -1,0 +1,25 @@
+Yes, it is a good practice to use generic interfaces for dependency injection. It makes your code more flexible and reusable. However, you cannot directly register a generic service in the `Startup.cs` file like `services.AddScoped<IDatabaseService<T>>();` because the `T` type is not known at compile time.
+
+Instead, you should register each specific service individually:
+
+```csharp
+services.AddScoped<IDatabaseService<Project>, ProjectService>();
+services.AddScoped<IDatabaseService<Task>, TaskService>();
+// and so on for each specific type
+```
+
+Then, in your controller, you can inject the specific service:
+
+```csharp
+public class ProjectController : ControllerBase
+{
+    private readonly IDatabaseService<Project> projectService;
+
+    public ProjectController (IDatabaseService<Project> projectService)
+    {
+        this.projectService = projectService;
+    }
+}
+```
+
+This way, the dependency injection container will know which implementation to use for each specific type of `IDatabaseService<T>`.

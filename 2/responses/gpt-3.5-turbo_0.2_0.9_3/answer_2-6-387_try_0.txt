@@ -1,0 +1,32 @@
+This error is most likely caused by a missing or outdated migration. You can try running the following commands in the Package Manager Console to update the database:
+
+```
+Update-Database
+```
+
+If that doesn't work, you can try creating a new migration:
+
+```
+Add-Migration MigrationName
+```
+
+Replace "MigrationName" with a descriptive name for the migration. Then run the update command again.
+
+If you still encounter the same error after updating the database, you may need to manually create the missing "Keys" table in your database. You can do this by running the following SQL script:
+
+```
+CREATE TABLE Keys (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Algorithm TEXT NOT NULL,
+    Created TEXT NOT NULL,
+    Data TEXT NOT NULL,
+    DataProtected TEXT NULL,
+    IsX509Certificate INTEGER NOT NULL,
+    Use TEXT NOT NULL,
+    Version INTEGER NOT NULL
+);
+```
+
+Make sure to adjust the script to match your database schema if necessary.
+
+As for the migration from .NET 5 to 6 for IdentityServer4, there is no specific documentation available yet. However, you can refer to the official Microsoft documentation on migrating from ASP.NET Core 5.0 to 6.0, which may provide some guidance on the process. Additionally, you can check the IdentityServer4 GitHub repository for any updates or announcements regarding the migration process.

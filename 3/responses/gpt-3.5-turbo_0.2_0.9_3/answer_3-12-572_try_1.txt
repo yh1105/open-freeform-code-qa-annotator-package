@@ -1,0 +1,29 @@
+You can achieve the desired layout by wrapping the second Text widget with a Flexible widget instead of an Expanded widget. The Flexible widget will allow the second Text widget to wrap to the next line if the text is too long, while keeping the alignment of the first Text widget and the Icon widget intact.
+
+Here's the updated code:
+
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.start,
+  mainAxisSize: MainAxisSize.min,
+  children: <Widget>[
+    Text(
+      'Tap ',
+      style: TextStyle(
+        fontSize: 17,
+      ),
+    ),
+    Icon(Icons.add),
+    Flexible(
+      child: Text(
+        'on the right hand corner to start a new chat.',
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+    )
+  ],
+)
+```
+
+This should give you the desired layout where all the widgets appear in a single line and the second Text widget wraps to the next line if the text is too long.

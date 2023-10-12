@@ -1,0 +1,49 @@
+The error you're seeing is due to a mismatch between the Kotlin version used in your project and the one used in the Stripe SDK. The Stripe SDK version 16.8.0 is compiled with Kotlin 1.5.0, but your project is using an older version of Kotlin.
+
+To fix this, you need to update the Kotlin version in your project. You can do this by updating the version in your project-level build.gradle file:
+
+```gradle
+buildscript {
+    ext.kotlin_version = '1.5.0'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.3"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+```
+
+After updating the Kotlin version, you should be able to build your project without the error.
+
+As for collecting the email and cardholder name, the `CardMultilineWidget` does not support these fields. You will need to create your own form fields for the email and cardholder name, and then pass these values when creating a `PaymentMethodCreateParams.Card` object.
+
+Here is a simple example:
+
+```kotlin
+val card = cardMultilineWidget.card
+if (card != null) {
+    val billingDetails = PaymentMethod.BillingDetails.Builder()
+        .setName(nameEditText.text.toString())
+        .setEmail(emailEditText.text.toString())
+        .build()
+
+    val paymentMethodParamsCard = PaymentMethodCreateParams.Card.Builder()
+        .setNumber(card.number)
+        .setCvc(card.cvc)
+        .setExpiryMonth(card.expMonth)
+        .setExpiryYear(card.expYear)
+        .build()
+
+    val paymentMethodParams = PaymentMethodCreateParams
+        .create(paymentMethodParamsCard, billingDetails)
+
+    // Use paymentMethodParams for payment
+}
+```
+
+In this example, `nameEditText` and `emailEditText` are your own form fields for collecting the cardholder name and email.

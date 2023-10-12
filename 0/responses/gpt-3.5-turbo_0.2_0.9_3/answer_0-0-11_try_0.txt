@@ -1,0 +1,21 @@
+It seems like you are trying to reload the current route in Angular. The approach you are using should work, but there are a few things you can try to debug the issue.
+
+First, make sure that the `navigateToSelf` method is actually being called when you expect it to. You can add a console log or a breakpoint to check this.
+
+Second, try removing the `routeReuseStrategy` and `onSameUrlNavigation` settings and see if that makes a difference. These settings are not necessary for a simple route reload.
+
+Third, try passing an empty array to the `navigate` method instead of a single dot. This should reload the current route without changing any parameters or query strings.
+
+Finally, if none of these solutions work, you can try using the `Location` service to manually reload the current URL. Here's an example:
+
+```
+import { Location } from '@angular/common';
+
+constructor(private location: Location) {}
+
+navigateToSelf() {
+  this.location.replaceState(this.location.path());
+}
+```
+
+This will replace the current URL with the same URL, effectively reloading the current route.

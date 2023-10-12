@@ -1,0 +1,16 @@
+The error message suggests that the file you are trying to download from Google Drive does not have the correct permissions set. You need to ensure that the file is shared publicly, i.e., "Anyone with the link" can view it.
+
+Here are the steps to change the sharing settings of a file on Google Drive:
+
+1. Open Google Drive and find the file you want to share.
+2. Right-click the file and select "Share".
+3. In the "Share with people and groups" window, click on "Change to anyone with the link".
+4. In the next dropdown, select "Anyone with the link".
+5. Make sure the access is set to "Viewer". This allows anyone with the link to view the file.
+6. Click "Done".
+
+After you've done this, try running your code again. If the file is shared correctly, gdown should be able to download it.
+
+If you still encounter the same error, it might be due to the fact that the file is located in a shared drive. Files in shared drives have different sharing policies and might not be accessible even if they are set to "Anyone with the link". If this is the case, you might need to move the file to your personal drive and share it from there.
+
+If none of these solutions work, please provide more details about the error and the file you are trying to download.

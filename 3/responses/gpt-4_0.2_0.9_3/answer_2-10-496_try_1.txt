@@ -1,0 +1,16 @@
+You can use the `sort_by` function in Rust, which allows you to provide a custom comparator. This comparator can take into account multiple fields of your struct. Here is how you can do it:
+
+```rust
+my_vector.sort_by(|a, b| {
+    let row_cmp = a.row.cmp(&b.row);
+    if row_cmp == std::cmp::Ordering::Equal {
+        a.column.cmp(&b.column)
+    } else {
+        row_cmp
+    }
+});
+```
+
+In this code, we first compare the `row` fields of two structs. If they are equal, we then compare the `column` fields. This way, the vector will be sorted first by `row`, and then by `column` within each group of equal `row` values.
+
+This will sort your vector in ascending order. If you want to sort in descending order, you can simply swap `a` and `b` in the comparisons.

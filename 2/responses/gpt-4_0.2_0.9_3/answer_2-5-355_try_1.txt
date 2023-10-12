@@ -1,0 +1,15 @@
+Eclipse doesn't have a traditional uninstaller. It's essentially a portable application that you can delete to remove. However, it does create some additional files and shortcuts that you might want to remove manually.
+
+Here's how to uninstall Eclipse Mars 2:
+
+1. **Delete the Eclipse directory**: The first step is to delete the directory where Eclipse is installed. By default, it might be in your "Program Files" directory or in your user directory. If you're not sure where it is, you can right-click on the Eclipse shortcut on your desktop or start menu, select "Properties", and look at the "Start in" field.
+
+2. **Delete the workspace directory**: Eclipse creates a workspace directory where it saves your projects and settings. By default, this is in your user directory. If you're not sure where it is, you can check the workspace path in Eclipse (File > Switch Workspace > Other). If you want to keep your projects, make sure to back them up before deleting this directory.
+
+3. **Delete the shortcuts**: You can delete the Eclipse shortcuts from your desktop and start menu by right-clicking on them and selecting "Delete".
+
+4. **Clean up the system environment variables**: Eclipse might have added some system environment variables (like `JAVA_HOME` or `ECLIPSE_HOME`). You can check this by going to Control Panel > System > Advanced system settings > Environment Variables. If you see any Eclipse-related variables, you can delete them.
+
+5. **Clean up the registry**: This step is optional and should be done with caution, as incorrect changes to the registry can cause serious problems. Eclipse might have added some entries to the Windows registry. You can use a registry cleaner like CCleaner, or you can do it manually by pressing Win + R, typing `regedit`, and searching for "eclipse".
+
+Remember to restart your computer after these steps to make sure all changes are applied.

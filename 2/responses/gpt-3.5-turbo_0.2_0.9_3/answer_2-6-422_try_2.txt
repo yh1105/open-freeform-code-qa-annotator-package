@@ -1,0 +1,73 @@
+The error message you are receiving indicates that the `TodoItems` table already exists in your database, and therefore cannot be created again. This is likely because the `TodoItems_Initial` migration has already been applied to the database, and created the `TodoItems` table.
+
+To add the `ToDoItemDescription` model to your database, you need to create a new migration that includes the changes you made to your context. Here are the steps you can follow:
+
+1. Make sure that your `TodoItemsContext` includes the `ToDoItemDescription` model:
+
+```
+public class TodoItemsContext : DbContext 
+{
+   public TodoItemsContext(DbContextOptions<TodoItemsContext> options) : base(options) { }
+
+   public DbSet<TodoItem> TodoItems { get; set; }
+   public DbSet<ToDoItemDescription> TodoItemsDescription { get; set; }
+}
+```
+
+2. Create a new migration using the following command in the Package Manager Console:
+
+```
+Add-Migration AddToDoItemDescription
+```
+
+This will create a new migration file in your Migrations folder, with a name like `20201231123456_AddToDoItemDescription.cs`.
+
+3. In the `Up` method of the new migration file, add the code to create the `ToDoItemDescription` table:
+
+```
+protected override void Up(MigrationBuilder migrationBuilder)
+{
+    migrationBuilder.CreateTable(
+        name: "TodoItemsDescription",
+        columns: table => new
+        {
+            id = table.Column<int>(nullable: false)
+                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+            Description = table.Column<string>(nullable: true),
+            TodoItemId = table.Column<long>(nullable: true)
+        },
+        constraints: table =>
+        {
+            table.PrimaryKey("PK_TodoItemsDescription", x => x.id);
+            table.ForeignKey(
+                name: "FK_TodoItemsDescription_TodoItems_TodoItemId",
+                column: x => x.TodoItemId,
+                principalTable: "TodoItems",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+        });
+
+    migrationBuilder.CreateIndex(
+        name: "IX_TodoItemsDescription_TodoItemId",
+        table: "TodoItemsDescription",
+        column: "TodoItemId");
+}
+```
+
+4. In the `Down` method of the new migration file, add the code to drop the `ToDoItemDescription` table:
+
+```
+protected override void Down(MigrationBuilder migrationBuilder)
+{
+    migrationBuilder.DropTable(
+        name: "TodoItemsDescription");
+}
+```
+
+5. Apply the new migration to your database using the following command:
+
+```
+Update-Database
+```
+
+This should create the `ToDoItemDescription` table in your database, without affecting the existing `TodoItems` table.

@@ -1,0 +1,21 @@
+Yes, you can display the counted value of the histogram aggregate in Plotly.Express histogram by using the `custom_data` parameter. Here's an example code:
+
+```
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame({"A":[1,1,1,2,2,3,3,3,4,4,4,5]})
+
+fig = px.histogram(df, x="A", custom_data=["count"])
+fig.update_traces(texttemplate='%{y}', textposition='outside')
+fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+fig.show()
+```
+
+In this code, we added the `custom_data` parameter to the `px.histogram()` function and set it to `["count"]`. This will include the count of each bin in the custom data of the histogram. 
+
+Then, we updated the traces of the figure using `fig.update_traces()` to set the `texttemplate` to `'%{y}'`, which will display the y-axis value (i.e., the count) as the text label. We also set the `textposition` to `'outside'` to display the text label outside the bar.
+
+Finally, we updated the layout of the figure using `fig.update_layout()` to set the `uniformtext_minsize` to `8` and `uniformtext_mode` to `'hide'`. This will ensure that the text labels are readable and not overlapping with each other.
+
+I hope this helps!

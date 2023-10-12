@@ -1,0 +1,43 @@
+The error message you're seeing is due to the fact that the compiler is unable to find the `ruby/config.h` file. This is a common issue when the Ruby development headers are not installed or not found in the expected location by the compiler.
+
+Here are a few steps you can try:
+
+1. **Check your Ruby version**: Make sure you have a Ruby version installed that is compatible with the gem you're trying to install. You can check your Ruby version by running `ruby -v` in your terminal.
+
+2. **Install Ruby development headers**: If you installed Ruby using a package manager like Homebrew, you can install the Ruby development headers by reinstalling Ruby with the `--with-openssl-dir` flag. Here's how you can do it:
+
+    ```bash
+    brew reinstall ruby --with-openssl-dir=/usr/local/opt/openssl
+    ```
+
+    If you installed Ruby using RVM or rbenv, the development headers should have been installed automatically. If not, you might need to reinstall Ruby using RVM or rbenv.
+
+3. **Specify the path to the Ruby headers**: If the Ruby headers are installed but the compiler can't find them, you can specify the path to the headers using the `CFLAGS` environment variable. Here's how you can do it:
+
+    ```bash
+    export CFLAGS="-I /path/to/ruby/headers"
+    ```
+
+    Replace `/path/to/ruby/headers` with the actual path to the Ruby headers on your system.
+
+4. **Update your system**: Sometimes, these kinds of issues can be resolved by updating your system and the installed packages. If you're using macOS, you can do this by running `brew update && brew upgrade`.
+
+5. **Reinstall libffi**: The error message also mentions `libffi`, which is a library for calling C code from higher-level languages. You can try reinstalling `libffi` using Homebrew:
+
+    ```bash
+    brew reinstall libffi
+    ```
+
+    After reinstalling `libffi`, you might need to specify the path to the `libffi` headers using the `PKG_CONFIG_PATH` environment variable:
+
+    ```bash
+    export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+    ```
+
+After trying these steps, try to install the `travis` gem again:
+
+```bash
+gem install travis
+```
+
+If you're still having issues, please provide more information about your system (e.g., the macOS version, the Ruby version, how Ruby was installed, etc.) so I can provide more specific advice.

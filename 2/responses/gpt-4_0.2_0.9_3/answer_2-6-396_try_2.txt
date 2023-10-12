@@ -1,0 +1,20 @@
+The error is because you are trying to create an index on a navigation property. EF Core does not support this. You should create an index on the foreign key property instead. 
+
+Here's how you can modify your `OnModelCreating` method:
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<User>(user =>
+    {
+        user
+        .HasOne(x => x.Gender)
+        .WithMany(x => x.Users)
+        .HasForeignKey(x => x.GenderId);
+
+        user.HasIndex(x => x.GenderId); // Create index on GenderId, not Gender
+    });
+}
+```
+
+In this code, the `HasIndex` method is used to configure an index on the `GenderId` property of the `User` entity. This is the correct way to create an index on a foreign key property.

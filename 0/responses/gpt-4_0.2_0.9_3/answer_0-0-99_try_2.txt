@@ -1,0 +1,23 @@
+In Angular, you can use the Validators.pattern to validate form inputs against a regular expression. Here's how you can do it for your requirements:
+
+1) To allow only numbers, positive and negative:
+
+```typescript
+this.form = this.fb.group({
+  number: ['', [Validators.required, Validators.pattern(/^[-]?[0-9]+$/)]]
+});
+```
+
+This regular expression `^[-]?[0-9]+$` will match any string that starts with an optional negative sign, followed by one or more digits, and ends there.
+
+2) To allow only numbers, positive and negative, optionally with up to 2 decimal places:
+
+```typescript
+this.form = this.fb.group({
+  number: ['', [Validators.required, Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,2})?$/)]]
+});
+```
+
+This regular expression `^[-]?[0-9]+(\.[0-9]{1,2})?$` will match any string that starts with an optional negative sign, followed by one or more digits, and optionally followed by a decimal point and one or two digits, and ends there.
+
+Please note that the `Validators.pattern` function in Angular takes a string as input, not a RegExp object. So you should not use slashes `/` at the start and end of the pattern.

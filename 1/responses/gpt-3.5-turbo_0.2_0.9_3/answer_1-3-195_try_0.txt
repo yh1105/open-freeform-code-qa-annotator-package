@@ -1,0 +1,47 @@
+For your first issue, the problem is that you are using global variables `curve1` and `curve2` to store the plot curves. When you select both checkboxes, both curves are plotted and stored in their respective global variables. However, when you deselect `A1`, you are only removing `curve1`, but `curve2` is still plotted. To fix this, you can use a list to store the curves and remove all of them when a checkbox is deselected. Here's the modified `todo` function:
+
+```
+def todo():
+    curves = []
+    if cbx1.isChecked():
+        curves.append(plot.plot(x, y1, pen='r'))
+    if cbx2.isChecked():
+        curves.append(plot.plot(x, y2, pen='y'))
+    if not cbx1.isChecked() or not cbx2.isChecked():
+        for curve in curves:
+            plot.removeItem(curve)
+```
+
+For your second issue, you can create the checkboxes and their associated data sets dynamically using a loop. Here's an example:
+
+```
+# List of data sets
+data_sets = [np.sin(x), np.cos(x), np.tan(x), np.exp(x), np.log(x)]
+
+# List of checkbox labels
+checkbox_labels = list(string.ascii_uppercase)[:len(data_sets)]
+
+# Dictionary to store the curves
+curves = {}
+
+# Loop to create checkboxes and connect them to the todo function
+for i, label in enumerate(checkbox_labels):
+    cbx = QtWidgets.QCheckBox()
+    cbx.setText(label)
+    cbx.stateChanged.connect(todo)
+    layout.addWidget(cbx, i, 0)
+    curves[label] = None
+
+# todo function modified to use the curves dictionary
+def todo():
+    for label, data in zip(checkbox_labels, data_sets):
+        if eval(f"cbx{label}.isChecked()"):
+            if curves[label] is None:
+                curves[label] = plot.plot(x, data, pen='r')
+        else:
+            if curves[label] is not None:
+                plot.removeItem(curves[label])
+                curves[label] = None
+```
+
+This creates checkboxes labeled `A` to `E` and associates them with the data sets in `data_sets`. The `curves` dictionary is used to store the plot curves for each checkbox label. The `todo` function is modified to use the `curves` dictionary and the `eval` function is used to dynamically access the checkbox objects based on their labels.

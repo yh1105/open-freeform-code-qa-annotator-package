@@ -1,0 +1,34 @@
+You can achieve this by first filtering the dataframe for rows where 'Value' is 1, then grouping by 'ID' and finding the index of the maximum 'Date' within each group. You can then create a new column 'Latest' and set its value to 'Latest' for these indices.
+
+Here's how you can do it in pandas:
+
+```python
+# Filter dataframe for rows where 'Value' is 1
+df_filtered = df[df['Value'] == 1]
+
+# Group by 'ID' and find index of maximum 'Date' within each group
+idx = df_filtered.groupby('ID')['Date'].idxmax()
+
+# Create new column 'Latest' and set its value to 'Latest' for these indices
+df['Latest'] = ''
+df.loc[idx, 'Latest'] = 'Latest'
+```
+
+Regarding your edit, if you want to break ties by using the maximum 'ID 2' within groups, you can sort the dataframe by 'Date' and 'ID 2' before finding the index of the maximum 'Date':
+
+```python
+# Filter dataframe for rows where 'Value' is 1
+df_filtered = df[df['Value'] == 1]
+
+# Sort by 'Date' and 'ID 2'
+df_sorted = df_filtered.sort_values(['Date', 'ID 2'])
+
+# Group by 'ID' and find index of maximum 'Date' within each group
+idx = df_sorted.groupby('ID')['Date'].idxmax()
+
+# Create new column 'Latest' and set its value to 'Latest' for these indices
+df['Latest'] = ''
+df.loc[idx, 'Latest'] = 'Latest'
+```
+
+This will ensure that if there are multiple rows with the same maximum 'Date' within a group, the one with the maximum 'ID 2' will be selected.

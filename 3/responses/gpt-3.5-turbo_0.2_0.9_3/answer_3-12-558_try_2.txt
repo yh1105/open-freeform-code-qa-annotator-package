@@ -1,0 +1,75 @@
+To make your widget rebuild on listening to the changes you made using the provider package, you can use the `Consumer` widget provided by the package. 
+
+Here are the steps you can follow:
+
+1. Wrap your widget tree with the `MultiProvider` widget and provide the required providers.
+
+2. In your widget where you want to listen to the changes, use the `Consumer` widget and provide the required provider.
+
+3. Inside the `Consumer` widget, use a builder function that returns the widget tree that needs to be rebuilt when the provider data changes.
+
+4. In your case, you can use the data stored in the local storage as the initial value for the provider.
+
+Here's an example code snippet:
+
+```
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MyData>(
+          create: (_) => MyData(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Consumer<MyData>(
+          builder: (context, myData, child) {
+            return Text(myData.data);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MyData with ChangeNotifier {
+  String _data;
+
+  MyData() {
+    // Get data from local storage and set it as initial value
+    _data = 'Initial data';
+  }
+
+  String get data => _data;
+
+  void updateData(String newData) {
+    _data = newData;
+    notifyListeners();
+  }
+}
+```
+
+In this example, the `MyData` class is a provider that holds a string value. The `MyHomePage` widget listens to changes in the `MyData` provider using the `Consumer` widget. When the `updateData` method is called on the `MyData` provider, the widget tree inside the `Consumer` widget is rebuilt with the updated data. 
+
+You can modify this example to fit your specific use case.

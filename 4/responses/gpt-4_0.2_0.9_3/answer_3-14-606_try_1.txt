@@ -1,0 +1,9 @@
+This alert typically means that the app you're trying to open is a developer-signed app, and you need to trust the developer on your device before you can use it. Here's how you can enable Developer Mode on your iOS device:
+
+1. Open the Settings app on your iOS device.
+2. Scroll down and tap on "General."
+3. Scroll down to "Device Management" or "Profiles & Device Management."
+4. Under the "DEVELOPER APP" section, you should see the developer of the app you're trying to open. Tap on it.
+5. You'll see a blue "Trust" button. Tap on it, and when the confirmation alert pops up, tap "Trust" again.
+
+After these steps, you should be able to open and use the app. If the app still doesn't open, it might be because the app is not compatible with iOS 16.0 or there might be an issue with the app's code. In that case, you should contact the developer of the app for further assistance.

@@ -1,0 +1,17 @@
+The error you're encountering is due to a compatibility issue between Devise and Ruby 3.0.0. The method `Module#ref` has been removed in Ruby 3.0.0, which is causing this error. 
+
+Devise 4.8.0 is not compatible with Ruby 3.0.0. You will need to use Devise 4.7.3 or lower, or wait until a new version of Devise is released that supports Ruby 3.0.0.
+
+To resolve this issue, you can do the following:
+
+1. Specify the version of Devise in your Gemfile:
+
+```ruby
+gem 'devise', '4.7.3'
+```
+
+2. Run `bundle install` to install the specified version of Devise.
+
+3. If you still encounter issues, you might need to downgrade your Ruby version to 2.7.2 or lower until Devise releases a version that is compatible with Ruby 3.0.0.
+
+Remember to always check the compatibility of your gems with your current Ruby and Rails version to avoid such issues.

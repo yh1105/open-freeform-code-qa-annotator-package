@@ -1,0 +1,15 @@
+You were close with your first attempt. The issue is that you are checking if the string `'USDT'` is in `my_set` instead of checking if it is in each individual string in `my_set`. Here's the corrected code:
+
+```
+my_set = ['LUNAUSDT', 'ETHBTC', 'ETHBNB', 'BTCUSDT', 'MANATUSD', 'ALICEETH']
+my_final_set = [word for word in my_set if word.endswith('USDT')]
+print(my_final_set)
+```
+
+This will output:
+
+```
+['LUNAUSDT', 'BTCUSDT']
+```
+
+The list comprehension iterates over each string in `my_set` and checks if it ends with `'USDT'`. If it does, it is added to the new list `my_final_set`.

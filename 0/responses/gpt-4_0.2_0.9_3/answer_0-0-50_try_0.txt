@@ -1,0 +1,35 @@
+Let's break down these two options:
+
+1. `"esModuleInterop": true,`
+
+This option changes how TypeScript interoperates with CommonJS and AMD modules to be more compatible with Babel. 
+
+In JavaScript, you can import a CommonJS module like this:
+
+```javascript
+const express = require('express');
+```
+
+In TypeScript, without `esModuleInterop`, you would import it like this:
+
+```typescript
+import * as express from 'express';
+```
+
+With `esModuleInterop` set to `true`, you can import it like this:
+
+```typescript
+import express from 'express';
+```
+
+This is more in line with standard ES6 module syntax and is how Babel does it.
+
+2. `"allowSyntheticDefaultImports": true,`
+
+This option is related to the above. It allows you to use default imports syntax (`import express from 'express';`) even if the imported module does not have a default export. 
+
+This does not affect the runtime behavior of the compiled JavaScript. It's a type-checking feature. It allows TypeScript to type-check uses of the imported module as if it had a default export.
+
+The reason for this is that many JavaScript modules export a function or an object as `module.exports`, and this is what you want to use most of the time. This option allows TypeScript to pretend that these functions or objects are the default export of the module, so you can use the simpler and more readable default import syntax.
+
+In summary, these two options make TypeScript's module syntax and type-checking more compatible with Babel and with the way many JavaScript modules are written.

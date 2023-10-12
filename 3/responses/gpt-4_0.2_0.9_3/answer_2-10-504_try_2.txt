@@ -1,0 +1,44 @@
+Your current implementation is already quite efficient and idiomatic in Rust. However, if you want to simplify it further, you can use the `HashSet` directly with `Person` instead of just the name. This will work if you implement `Eq` and `Hash` for `Person`. 
+
+Here is how you can do it:
+
+```rust
+use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
+
+#[derive(Debug)]
+struct Person {
+    name: String,
+    age: u32,
+}
+
+impl PartialEq for Person {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}
+
+impl Eq for Person {}
+
+impl Hash for Person {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.name.hash(state);
+    }
+}
+
+fn main() {
+    let arr = [
+        Person { name: "aaa".to_string(), age: 10 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "bbb".to_string(), age: 20 },
+        Person { name: "ccc".to_string(), age: 30 },
+    ];
+
+    let arr2: HashSet<_> = arr.iter().collect();
+    dbg!(arr2);
+}
+```
+
+In this code, we implement `PartialEq`, `Eq`, and `Hash` for `Person` so that we can use it in a `HashSet`. We only use the `name` field for equality and hashing, so two `Person` instances with the same name are considered the same, regardless of their `age` field. This will give you a `HashSet` with unique `Person` instances. If you need a `Vec`, you can convert it using `arr2.into_iter().collect()`.
+
+Please note that this solution assumes that two `Person` instances with the same name are considered the same. If this is not the case, you need to adjust the `PartialEq` and `Hash` implementations accordingly.

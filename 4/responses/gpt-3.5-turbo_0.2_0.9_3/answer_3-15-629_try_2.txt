@@ -1,0 +1,9 @@
+You can try using the following code to copy the value of the node to the clipboard:
+
+```
+Dim objData As New DataObject
+objData.SetText Me.NodeKey.Value
+objData.PutInClipboard
+```
+
+This code creates a new `DataObject` and sets its text to the value of `Me.NodeKey.Value`. Then, it puts the data object in the clipboard using the `PutInClipboard` method. This should copy the value to the Windows clipboard and allow you to paste it elsewhere.

@@ -1,0 +1,28 @@
+The issue you're facing is common when trying to use different conda environments as kernels in Jupyter Lab. Here are the steps to make it work:
+
+1. First, make sure you have `ipykernel` installed in your base environment. If not, install it using `conda install ipykernel`.
+
+2. Create your new environment and install `ipykernel` in it as well. For example, if your new environment is named `myenv`, you would do:
+
+    ```bash
+    conda activate myenv
+    conda install ipykernel
+    ```
+
+3. While still in your new environment (`myenv`), run the following command to add your new environment to the list of available kernels:
+
+    ```bash
+    python -m ipykernel install --user --name=myenv
+    ```
+
+    This command will add `myenv` to the list of kernels available in Jupyter Lab.
+
+4. Now, deactivate your new environment and go back to your base environment:
+
+    ```bash
+    conda deactivate
+    ```
+
+5. Launch Jupyter Lab from your base environment. You should now be able to see `myenv` in the list of available kernels.
+
+Remember, every time you create a new environment that you want to use in Jupyter Lab, you need to install `ipykernel` in it and run the `ipykernel install` command.

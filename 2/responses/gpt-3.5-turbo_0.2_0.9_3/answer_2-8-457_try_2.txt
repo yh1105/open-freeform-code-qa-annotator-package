@@ -1,0 +1,23 @@
+It seems like the issue is related to running the debugger under Rosetta, which is not supported by the debugger. You can try the following steps to resolve the issue:
+
+1. Make sure that you have installed the latest version of the Go extension for VS Code.
+
+2. Check that you have the correct version of Go installed for your CPU architecture. You can check this by running the following command in your terminal:
+
+   ```
+   go env GOARCH
+   ```
+
+   This should return `arm64` for your M1 Mac.
+
+3. Try running VS Code natively on your M1 Mac instead of under Rosetta. You can do this by right-clicking on the VS Code app icon and selecting "Get Info". Then, check the "Open using Rosetta" option to disable it.
+
+4. If none of the above steps work, you can try using a different debugger like Delve instead of dlv. You can install Delve by running the following command in your terminal:
+
+   ```
+   go get github.com/go-delve/delve/cmd/dlv
+   ```
+
+   Then, update your launch configuration in VS Code to use Delve instead of dlv.
+
+I hope this helps you resolve the issue. Let me know if you have any further questions.

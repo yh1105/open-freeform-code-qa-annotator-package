@@ -1,0 +1,18 @@
+Yes, you are correct. The `builder` parameter in `ChangeNotifierProvider` has been deprecated since version 4.0.0 and removed in version 5.0.0. The recommended way to create the provider now is to use the `create` parameter instead of `builder`.
+
+Here's how you can modify your code to remove the warning:
+
+```
+main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Auth()), // use create instead of builder
+      ],
+      child: App(),
+    ),
+  );
+}
+```
+
+This should remove the warning and ensure that your code is up-to-date with the latest version of the provider package.

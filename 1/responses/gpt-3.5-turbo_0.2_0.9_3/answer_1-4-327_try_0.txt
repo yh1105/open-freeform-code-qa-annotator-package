@@ -1,0 +1,7 @@
+To select the second column by name, you can use the `[[` operator and specify the column name as a string:
+
+```
+d3[["a.x"]]
+```
+
+This will select the second column, which was named "a" in the original `d2` data frame and was renamed to "a.x" in `d3` due to the column name collision.

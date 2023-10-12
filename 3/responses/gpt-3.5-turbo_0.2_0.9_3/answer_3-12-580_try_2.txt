@@ -1,0 +1,22 @@
+To programmatically close a snackbar in GetX, you can use the `Get.back()` method. This method will remove the current snackbar from the screen.
+
+In your code, you can call `Get.back()` after the API request is completed, like this:
+
+```
+List importantData = await _client.requestAPI(basicAuthString: token, body: inputData)
+  .then((importantData) {
+    Get.back(); // Close the snackbar
+    return importantData;
+  });
+```
+
+You can also call `Get.back()` in the `catch` block to close the snackbar in case of an API error.
+
+```
+} on DioError catch (error) {
+  Get.back(); // Close the snackbar
+  // Handle API errors...
+}
+``` 
+
+This way, the snackbar will be closed regardless of how long the API request takes or if the user dismisses it manually.

@@ -1,0 +1,5 @@
+1. In C, variable declarations must be at the beginning of a block (i.e. before any statements). Therefore, the line `int a = 2;` cannot be placed inside the `if` statement as it is in the example code. This is why the code does not compile in C.
+
+2. The difference between C and C++ in this case is due to the fact that C++ allows variable declarations to be mixed with statements. This feature is known as "declaration and initialization in a statement" and is not present in C. This allows the code `if (1) int a = 2;` to compile in C++. 
+
+Overall, C++ has evolved from C and has added many new features and improvements, including the ability to mix variable declarations with statements. This is one of the reasons why C++ is considered a more modern and flexible language compared to C.

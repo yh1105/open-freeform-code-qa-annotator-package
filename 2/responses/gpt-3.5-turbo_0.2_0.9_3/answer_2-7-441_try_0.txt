@@ -1,0 +1,11 @@
+This error message is related to Laravel Telescope, which is trying to access a null value in the QueryWatcher class. One possible solution is to disable Telescope during testing by adding the following line to your `phpunit.xml` file:
+
+```
+<env name="TELESCOPE_ENABLED" value="false"/>
+```
+
+This will prevent Telescope from running during your tests and should resolve the issue.
+
+Alternatively, you can try updating your Laravel and Telescope versions to the latest ones, as this issue may have been fixed in a newer release.
+
+Lastly, you can also try running your tests with a different database driver, such as MySQL or PostgreSQL, as this issue may be related to SQLite.

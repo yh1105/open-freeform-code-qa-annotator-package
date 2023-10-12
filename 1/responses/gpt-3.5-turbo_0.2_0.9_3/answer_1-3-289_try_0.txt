@@ -1,0 +1,31 @@
+You can use nested loops to iterate through the 3-D list and append each element to a new list. Here's an example code that should work for your case:
+
+```
+import numpy as np
+
+a = [[[0, 0], [3, 0]], [[1, 0], [4, 0]], [[2, 0], [6, 0]] ]
+
+# Convert to numpy array for easier manipulation
+a = np.array(a)
+
+# Flatten the array and append each element to a new list
+new_list = []
+for i in range(a.shape[0]):
+    for j in range(a.shape[1]):
+        new_list.append(a[i][j])
+
+# Print the new list
+for element in new_list:
+    print(element)
+```
+
+This should give you the desired output:
+
+```
+[0, 0]
+[3, 0]
+[1, 0]
+[4, 0]
+[2, 0]
+[6, 0]
+```

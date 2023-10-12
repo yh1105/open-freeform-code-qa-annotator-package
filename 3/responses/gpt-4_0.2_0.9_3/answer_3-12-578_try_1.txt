@@ -1,0 +1,14 @@
+In Flutter, when you use the `const` keyword before a widget like `Text`, it means that widget is a compile-time constant. A compile-time constant value is a value that is determined during the compilation of your program, not at runtime. Therefore, it cannot be changed after it's compiled.
+
+In your case, `textSize` is a runtime value, not a compile-time constant. It's a variable that can be changed at runtime. Therefore, you cannot use it in a `const` widget.
+
+If you want to use `textSize` in your `Text` widget, you should remove the `const` keyword:
+
+```dart
+child: Text('Calculate Client Fees',
+            style: TextStyle(fontSize: textSize),)
+```
+
+This way, the `Text` widget is not a compile-time constant anymore, and you can use runtime values in it.
+
+The reason why you might want to use `const` widgets is that they can improve the performance of your app. When Flutter sees a `const` widget, it doesn't need to rebuild that widget in every build cycle, because it knows that widget cannot change. But if performance is not a concern in your case, you can use non-const widgets.

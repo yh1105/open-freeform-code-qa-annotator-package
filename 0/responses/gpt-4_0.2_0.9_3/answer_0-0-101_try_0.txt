@@ -1,0 +1,52 @@
+The `desktopCapturer` API in Electron is indeed designed to capture video of the desktop, not static images. However, you can use it to capture a single frame of video and use that as a screenshot.
+
+Here's a rough idea of how you might do this:
+
+1. Use `desktopCapturer.getSources()` to get a `MediaStream` of the desktop video.
+2. Create a `Video` element and set its `srcObject` to the `MediaStream`.
+3. Wait for the video to load a frame, then draw that frame to a `Canvas` element.
+4. Use `Canvas.toBlob()` to get a `Blob` of the image data.
+
+Here's some sample code to illustrate these steps:
+
+```javascript
+const video = document.createElement('video');
+video.onloadedmetadata = () => {
+  video.play();
+
+  // Wait for video to play, then draw a frame to the canvas
+  video.onplaying = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Get a Blob of the image data
+    canvas.toBlob(blob => {
+      // Now you can send the blob to your server
+      this.http.post<Result>('http://localhost:5050', blob);
+    });
+  };
+};
+
+navigator.mediaDevices.getUserMedia({
+  audio: false,
+  video: {
+    mandatory: {
+      chromeMediaSource: 'desktop',
+      chromeMediaSourceId: source.id,
+      minWidth: 1280,
+      maxWidth: 1280,
+      minHeight: 720,
+      maxHeight: 720
+    }
+  }
+}).then(stream => {
+  video.srcObject = stream;
+});
+```
+
+This code will capture a single frame of video as soon as the video starts playing. If you want to capture a frame at a later time, you can move the code inside `video.onplaying` to a separate function and call it when needed.
+
+As for sending the `Blob` to your Python server, you'll need to convert it to a format that your server can understand. The `Blob` object represents a chunk of binary data, so you'll need to read it as such on the server side. In Python, you can use the `io.BytesIO` class to read the incoming data as a byte stream.

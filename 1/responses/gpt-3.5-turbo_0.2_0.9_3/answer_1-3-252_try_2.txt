@@ -1,0 +1,10 @@
+You can achieve this by using `groupby` on column A and then applying `idxmin` on column B to get the index of the row with the minimum value in column B for each group. Finally, you can use `loc` to select the rows with those indices:
+```
+df.loc[df.groupby('A')['B'].idxmin()]
+```
+This will give you the desired output:
+```
+A  B   C
+2  1  2  10
+4  2  4   4
+```

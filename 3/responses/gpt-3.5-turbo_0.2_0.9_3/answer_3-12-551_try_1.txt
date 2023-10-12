@@ -1,0 +1,23 @@
+The error is occurring because the `AppBarDesign` class is not implementing the `PreferredSizeWidget` interface. The `appBar` property of the `Scaffold` widget expects a widget that implements the `PreferredSizeWidget` interface.
+
+To fix this error, you can make the `AppBarDesign` class implement the `PreferredSizeWidget` interface by adding a `preferredSize` property to the class. Here's an updated version of the `AppBarDesign` class:
+
+```
+class AppBarDesign extends StatelessWidget implements PreferredSizeWidget {
+  AppBarDesign(Key key, this.title) : super(key: key);
+
+  final title;
+
+  @override
+  Widget build(BuildContext context) {
+    return new AppBar(
+      title: new Text(title),
+    );
+  }
+
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+}
+```
+
+By implementing the `PreferredSizeWidget` interface and providing a `preferredSize` property, the `AppBarDesign` class can now be used as the `appBar` property of the `Scaffold` widget without causing the error.

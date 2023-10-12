@@ -1,0 +1,27 @@
+You can use the `conda` package manager to find out the size of the packages. However, `conda` does not provide a direct command to list the size of the packages. 
+
+Here is a workaround using the `mamba` package manager, which is a fast drop-in replacement for `conda`. `mamba` provides a command to list the size of the packages. 
+
+First, install `mamba` using `conda`:
+
+```bash
+conda install mamba -n base -c conda-forge
+```
+
+Then, you can use the following command to list the packages along with their sizes:
+
+```bash
+mamba list --size
+```
+
+This will list all the packages in the current environment along with their sizes.
+
+If you want to list the packages in a specific environment, you can use the `-n` or `--name` option followed by the name of the environment:
+
+```bash
+mamba list --size -n myenv
+```
+
+This will list all the packages in the `myenv` environment along with their sizes.
+
+Please note that the sizes listed by `mamba` are the sizes of the packages when they were downloaded and installed, and do not include any data that the packages may have created after installation.

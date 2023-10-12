@@ -1,0 +1,31 @@
+The error message you're seeing suggests that the Python interpreter you're using in Atom or PyCharm is not the same one where you installed BeautifulSoup4. 
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Check the Python interpreter in your IDE:** Make sure that Atom or PyCharm is using the Python 3 interpreter where you installed BeautifulSoup4. You can usually find this setting in the IDE's preferences or settings. 
+
+    For PyCharm:
+    - Go to `File > Settings > Project: [your_project_name] > Python Interpreter`.
+    - Check if the interpreter selected is the one where BeautifulSoup4 is installed. If not, select the correct one.
+
+    For Atom:
+    - You might be using a package like `script` or `atom-python-run` to run your Python scripts. These packages have settings where you can specify the Python interpreter to use. Make sure to set it to your Python 3 interpreter.
+
+2. **Check the Python interpreter in your script:** You can add these lines at the top of your script to check which Python interpreter you're using:
+
+    ```python
+    import sys
+    print(sys.executable)
+    ```
+
+    Run your script again. The output will be the path to the Python interpreter you're using. If this is not the Python 3 interpreter where you installed BeautifulSoup4, you'll need to adjust your settings in Atom or PyCharm.
+
+3. **Install BeautifulSoup4 for the correct Python interpreter:** If you're still having trouble, you can try installing BeautifulSoup4 directly for the Python interpreter you're using in Atom or PyCharm. You can do this by specifying the full path to the Python interpreter in the terminal:
+
+    ```bash
+    /full/path/to/python3 -m pip install beautifulsoup4
+    ```
+
+    Replace `/full/path/to/python3` with the actual path to your Python 3 interpreter. You can find this path by running `which python3` in the terminal.
+
+I hope this helps! Let me know if you have any other questions.

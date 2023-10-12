@@ -1,0 +1,37 @@
+The error message "Unexpected end of JSON input" usually means that the JSON string you are trying to parse is incomplete or invalid. In your case, it seems that the `scatterSeries` variable is an empty array when you try to parse it using `JSON.parse(scatterSeries)`, which results in an error.
+
+To fix this, you should move the `scatterSeries` initialization inside the `getJSON` callback function, after you have successfully retrieved the data from the server. This way, you can ensure that the `scatterSeries` variable is properly populated with the JSON data before you try to parse it.
+
+Here's an updated version of your code that should work:
+
+```
+function DashboardViewModel() {
+  
+    var self = this;
+    self.lineTypeValue = ko.observable('curved');
+    var scatterSeries = []; 
+    
+    $.getJSON( "http://localhost:8080/points", function (data) {
+        console.info(data);
+        var ch = '{"name":"graphe1","items":'+JSON.stringify(data.results[1])+ '}';
+        console.info(ch);
+        scatterSeries.push(JSON.parse(ch));
+        console.info(scatterSeries);
+        self.scatterSeriesValue(scatterSeries);
+    });
+    
+    /* chart data */
+    this.scatterSeriesValue = ko.observableArray([]);
+    
+    self.lineTypeOptions = [
+        {id: 'straight', label: 'straight'},
+        {id: 'curved', label: 'curved'},
+        {id: 'stepped', label: 'stepped'},
+        {id: 'segmented', label: 'segmented'},
+        {id: 'none', label: 'none'}
+    ];
+  
+}
+```
+
+Note that I also added a line to update the `scatterSeriesValue` observable array with the `scatterSeries` data after it has been properly populated.

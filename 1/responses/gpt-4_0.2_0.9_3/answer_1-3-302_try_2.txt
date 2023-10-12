@@ -1,0 +1,31 @@
+The error message you're seeing is due to pip not being able to verify the SSL certificate of the server it's trying to connect to. This is not necessarily a problem with your `_ssl.c` file.
+
+The `--trusted-host` option in pip is used to mark a certain host as trusted, regardless of SSL certificate. However, it doesn't bypass SSL verification entirely. The SSL connection is still established, but pip just doesn't verify the certificate of the specified host.
+
+The error message suggests that pip is having trouble establishing an SSL connection to the server. This could be due to a number of reasons, including network issues, firewall settings, or issues with the SSL library on your system.
+
+Here are a few things you could try:
+
+1. Upgrade pip: Sometimes these issues can be resolved by upgrading pip to the latest version. You can do this with the following command:
+
+    ```
+    pip install --upgrade pip
+    ```
+
+2. Use a different network: If you're on a corporate network, it's possible that your network's firewall is blocking the connection. Try connecting from a different network, or speak to your network administrator.
+
+3. Check your SSL library: Python uses the OpenSSL library for SSL connections. It's possible that there's an issue with this library on your system. You can check the version of OpenSSL that Python is using with the following command:
+
+    ```
+    python -c "import ssl; print(ssl.OPENSSL_VERSION)"
+    ```
+
+    If you're using an outdated version of OpenSSL, you might need to update it. The process for this varies depending on your operating system.
+
+4. Use HTTP instead of HTTPS: As a last resort, you can try using HTTP instead of HTTPS to download the package. This is not recommended as it's less secure, but it can be a useful troubleshooting step. You can do this by adding the `--trusted-host` option with the HTTP URL of the PyPI server:
+
+    ```
+    pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org dedupe
+    ```
+
+Remember that this should only be used as a temporary workaround, and you should switch back to HTTPS as soon as possible.

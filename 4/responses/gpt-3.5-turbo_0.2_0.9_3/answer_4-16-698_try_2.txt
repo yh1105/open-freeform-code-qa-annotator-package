@@ -1,0 +1,15 @@
+In macOS, you can restart your current terminal session without closing the window by using the following command:
+
+```
+source ~/.bash_profile
+```
+
+This command will reload your `.bash_profile` file and apply any changes you have made to it. Your prompt and aliases should be updated immediately.
+
+Alternatively, you can use the following command to start a new shell session within the same terminal window:
+
+```
+bash
+```
+
+This will start a new instance of the Bash shell within your current terminal window, allowing you to see any changes you have made to your `.bash_profile`.

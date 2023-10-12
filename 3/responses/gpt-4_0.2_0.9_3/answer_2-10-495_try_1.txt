@@ -1,0 +1,44 @@
+The problem you're facing is due to Rust's ownership and borrowing rules. When you create a new thread with `thread::spawn`, the closure you pass to it needs to have a `'static` lifetime. This means that all data it accesses must either be owned by the closure or live for the entire duration of the program.
+
+In your case, you're trying to pass a reference to a string (`s`) to each thread. However, these references are not `'static` - they're tied to the lifetime of `strings`, which is not `'static`. This is why you're getting the error "`strings` does not live long enough".
+
+One way to solve this problem is to pass the ownership of each string to the thread. You can do this by moving the strings into the threads. However, this means you can't use them in the main thread anymore after they've been moved. Here's how you can do this:
+
+```rust
+use std::thread;
+
+fn child_job(mut s: String) -> String {
+    s = s.to_uppercase();
+    s
+}
+
+fn main() {
+    // initialize
+    let mut thread_handles = vec![];
+    let strings = vec![
+        "hello".to_string(),
+        "world".to_string(),
+        "testing".to_string(),
+        "good enough".to_string(),
+    ];
+
+    // create threads
+    for s in strings {
+        thread_handles.push(thread::spawn(move || child_job(s)));
+    }
+
+    // wait for threads and collect results
+    let mut results = Vec::new();
+    for handle in thread_handles {
+        let result = handle.join().unwrap();
+        results.push(result);
+    }
+
+    // print result
+    for s in results {
+        println!("{}", s);
+    }
+}
+```
+
+In this code, `child_job` now takes ownership of a `String` and returns it after modifying it. The threads are created by moving each string into the closure, and the results are collected into a new vector after the threads have finished.

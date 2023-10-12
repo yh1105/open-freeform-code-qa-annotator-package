@@ -1,0 +1,14 @@
+The issue you're facing might be due to the fact that Jedi is not just a linter but also a library for autocompletion and code navigation. Therefore, even if you disable it as a linter, it might still be active for other tasks.
+
+Here are a few steps you can take to resolve this issue:
+
+1. Check if you have any other extensions installed that might be using Jedi. If you find any, disable them and see if the problem persists.
+
+2. Try to disable Jedi completely by adding the following line to your settings.json file:
+   `"python.jediEnabled": false`
+   
+3. If the above steps don't work, you can try to uninstall and reinstall the Python extension. Sometimes, this can help to reset the settings and solve any conflicts.
+
+4. If none of the above steps work, it might be a bug in the Python extension. In this case, you should report the issue to the developers of the extension. They might be able to provide a fix or a workaround.
+
+Remember to restart your IDE after making these changes to ensure they take effect.

@@ -1,0 +1,30 @@
+Based on the information you provided, it seems like your Xdebug setup is correct. However, PhpStorm might not be able to detect the Xdebug extension due to some misconfiguration.
+
+Here are some steps you can follow to troubleshoot this issue:
+
+1. **Check Xdebug Installation in Docker Container:** Connect to your Docker container and check if Xdebug is correctly installed. You can do this by running `php -v` or `php -m` command. If Xdebug is installed correctly, you should see it in the list of modules.
+
+2. **Check Xdebug Configuration:** Make sure that Xdebug is correctly configured in your `php.ini` file. The configuration should look something like this:
+
+    ```
+    zend_extension=xdebug.so
+    xdebug.remote_enable=1
+    xdebug.remote_handler=dbgp
+    xdebug.remote_port=9000
+    xdebug.remote_autostart=1
+    xdebug.remote_connect_back=0
+    xdebug.idekey=PHPSTORM
+    xdebug.remote_host=host.docker.internal
+    ```
+
+    Note: The `xdebug.remote_host` should be set to `host.docker.internal` if you are running Docker on Windows or MacOS. If you are running Docker on Linux, you should set it to the IP address of your machine.
+
+3. **Check PhpStorm Configuration:** Make sure that PhpStorm is correctly configured to use Xdebug. Go to `File > Settings > Languages & Frameworks > PHP > Debug` and make sure that Xdebug is selected as the debugging engine and the debug port is set to 9000. Also, check `File > Settings > Languages & Frameworks > PHP > Servers` and make sure that your server is correctly configured.
+
+4. **Check PhpStorm Interpreter:** Go to `File > Settings > Languages & Frameworks > PHP` and make sure that the correct PHP interpreter is selected. The interpreter should be the one from your Docker container.
+
+5. **Listen for PHP Debug Connections:** Make sure that PhpStorm is listening for PHP Debug connections. You can do this by clicking on the telephone icon in the top right corner of the PhpStorm interface.
+
+6. **Check Firewall Settings:** If you are running a firewall on your machine, make sure that it is not blocking the Xdebug port (9000 by default).
+
+If you have followed all these steps and PhpStorm is still not able to detect the Xdebug extension, there might be some other issue. In that case, I would recommend reaching out to JetBrains support for further assistance.

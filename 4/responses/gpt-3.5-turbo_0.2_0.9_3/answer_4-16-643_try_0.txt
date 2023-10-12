@@ -1,0 +1,11 @@
+You can achieve this by setting the `PROMPT_COMMAND` environment variable in your `.bashrc` file. This variable is executed just before the primary prompt is printed, so you can use it to set the terminal window title.
+
+Here's an example of how you can set the `PROMPT_COMMAND` variable to update the terminal window title with the current working directory and the last executed command:
+
+```
+PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/} (${BASH_COMMAND})\007"'
+```
+
+This will set the terminal window title to the name of the current directory and the last executed command. The `${PWD##*/}` parameter expansion will extract the name of the current directory from the full path, and the `\033]0;` and `\007` escape sequences will set the terminal window title.
+
+You can customize this command to include other information in the title, such as the user name, hostname, or date and time. Just make sure to enclose the command in single quotes to prevent any unwanted expansions.

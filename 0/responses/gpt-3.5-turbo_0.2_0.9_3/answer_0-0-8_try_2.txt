@@ -1,0 +1,53 @@
+You can use a recursive function to traverse the nested object tree and find the object with the specified ID. Here's an example implementation:
+
+```
+function findObject(id, obj) {
+  if (obj.id === id) {
+    return obj;
+  }
+  for (var i = 0; i < obj.child.length; i++) {
+    var result = findObject(id, obj.child[i]);
+    if (result) {
+      return result;
+    }
+  }
+  return null;
+}
+
+// Example usage
+var obj = {
+  "id": "A",
+  "name": "Item A",
+  "child": [
+    {
+      "id": "B",
+      "name": "Item B",
+      "child": [
+        {
+          "id": "C",
+          "name": "Item C",
+          "child": []
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Item D",
+      "child": []
+    }
+  ]
+};
+
+var result = findObject("C", obj);
+console.log(result);
+```
+
+This will output the following object:
+
+```
+{
+  "id": "C",
+  "name": "Item C",
+  "child": []
+}
+```

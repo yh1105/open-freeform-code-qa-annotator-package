@@ -1,0 +1,33 @@
+The issue you're experiencing may be due to the way Azure handles static files. Azure doesn't serve static files by default. You need to configure it to do so.
+
+Here are a few steps you can take to resolve this issue:
+
+1. **Use Azure Storage for static files**: Azure Web Apps do not officially support serving your static files. You can use Azure Storage for serving your static files. You can create a storage account and then create a Blob container. After that, you can upload your static files to this Blob container and use the Blob service endpoint URL in your Django settings.
+
+2. **Use WhiteNoise**: WhiteNoise is a Django library that simplifies static file serving. It works well with Azure and other cloud providers. You can install it using pip:
+
+    ```
+    pip install whitenoise
+    ```
+
+    Then, add it to your MIDDLEWARE in settings.py:
+
+    ```python
+    MIDDLEWARE = [
+      'django.middleware.security.SecurityMiddleware',
+      'whitenoise.middleware.WhiteNoiseMiddleware',
+      # ...
+    ]
+    ```
+
+    And finally, add this line to your settings.py:
+
+    ```python
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    ```
+
+3. **Check your static file paths**: Ensure that the file paths in your templates match the actual paths of your static files. The path should be relative to the static directory. For example, if your image is in a directory called images inside the static directory, the path should be 'images/myimage.png'.
+
+4. **Check your STATIC_URL and STATIC_ROOT settings**: Ensure that STATIC_URL is set to '/static/' and STATIC_ROOT is set to the absolute path of the directory where collectstatic will copy your static files.
+
+Remember to run `python manage.py collectstatic` again after making these changes.

@@ -1,0 +1,9 @@
+You are correct that Spring's constructor injection works without the `@Autowired` annotation. However, using `@Autowired` on the constructor has some benefits:
+
+1. It makes the code more readable and explicit: By using `@Autowired` on the constructor, you are explicitly stating that the dependency is required for the class to function properly. This makes the code more readable and easier to understand.
+
+2. It helps with testing: When you use `@Autowired` on the constructor, it becomes easier to write unit tests for the class. You can simply pass in a mock object for the dependency in the constructor and test the class in isolation.
+
+3. It helps with refactoring: If you need to change the dependency in the future, you can simply update the constructor parameter and Spring will take care of the rest. This makes refactoring easier and less error-prone.
+
+In summary, while it is not necessary to use `@Autowired` on the constructor, it can make the code more readable, easier to test, and easier to refactor.

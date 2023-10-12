@@ -1,0 +1,37 @@
+You can use regular expressions to achieve this. Here's an example code that should work for your use case:
+
+```
+import re
+
+def split_string(string):
+    pattern = r'^(.*?)(?:\s+(and|&|\-)\s+(.*))?$'
+    match = re.match(pattern, string)
+    if match:
+        groups = match.groups()
+        if groups[1]:
+            delimiter = groups[1]
+            return [groups[0].strip(), delimiter + ' ' + groups[2].strip()]
+        else:
+            return [groups[0].strip()]
+    else:
+        return [string]
+
+# Example usage
+print(split_string('121 34 adsfd')) # ['121 34 adsfd']
+print(split_string('dsfsd and adfd')) # ['dsfsd', 'and adfd']
+print(split_string('dsfsd & adfd')) # ['dsfsd', '& adfd']
+print(split_string('dsfsd - adfd')) # ['dsfsd', '- adfd']
+print(split_string('dsfsd and adfd and adsfa')) # ['dsfsd', 'and adfd and adsfa']
+print(split_string('dsfsd and adfd - adsfa')) # ['dsfsd', 'and adfd - adsfa']
+print(split_string('dsfsd - adfd and adsfa')) # ['dsfsd - adfd', 'and adsfa']
+```
+
+The regular expression pattern `^(.*?)(?:\s+(and|&|\-)\s+(.*))?$` matches the string and captures three groups:
+
+1. The first group `(.*?)` matches any characters (except newline) in a non-greedy way. This group captures the first part of the string before the delimiter.
+2. The second group `(?:\s+(and|&|\-)\s+(.*))?` is a non-capturing group that matches the delimiter and the second part of the string (if any). The delimiter can be "and", "&", or "-". The second part of the string can be any characters (except newline).
+3. The third group `(.*)` matches any characters (except newline) in a greedy way. This group captures the second part of the string after the delimiter.
+
+The `if` statement checks if the second group is captured. If it is, it means that the string contains a delimiter and needs to be split. The `delimiter` variable is set to the captured delimiter, and the function returns a list containing the first part of the string (trimmed) and the second part of the string (trimmed and concatenated with the delimiter).
+
+If the second group is not captured, it means that the string does not contain a delimiter and can be returned as is (trimmed).

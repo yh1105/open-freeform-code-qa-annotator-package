@@ -1,0 +1,53 @@
+To prevent variable expansion and preserve the double quotes around arguments with spaces, you can use single quotes around the entire command string in the array. Then, in the function, you can use `eval` to execute the command string as a whole. Here's an updated version of the function:
+
+```
+# Print and run the passed-in command
+# USAGE:
+#       cmd_array=('ls -a -l -F /' 'df -h')
+#       print_and_run_cmd cmd_array
+# See:
+# 1. My answer on how to pass regular "indexed" and associative arrays by reference:
+#    https://stackoverflow.com/a/71060036/4561887 and
+# 1. My answer on how to pass associative arrays: https://stackoverflow.com/a/71060913/4561887
+print_and_run_cmd() {
+    local -n array_reference="$1"
+    for cmd in "${array_reference[@]}"; do
+        echo "Running cmd:  $cmd"
+        eval "$cmd"
+    done
+}
+```
+
+Note that I changed the input array to contain separate command strings instead of a single array with all the commands concatenated together. This allows for more flexibility in case you want to run different commands with different options or arguments.
+
+Usage:
+
+```
+cmd_array=('ls -1 "$HOME/temp/some folder with spaces"' 'df -h')
+print_and_run_cmd cmd_array
+```
+
+Output:
+
+```
+Running cmd:  ls -1 "$HOME/temp/some folder with spaces"
+(all output of that command should be here)
+Running cmd:  df -h
+(all output of that command should be here)
+```
+
+As for your follow-up question, you can use the same approach with single quotes around the entire command string. Here's an example:
+
+```
+cmd_array=('ls -l | grep myfile' 'echo "Hello, world!"')
+print_and_run_cmd cmd_array
+```
+
+Output:
+
+```
+Running cmd:  ls -l | grep myfile
+(all output of that command should be here)
+Running cmd:  echo "Hello, world!"
+Hello, world!
+```

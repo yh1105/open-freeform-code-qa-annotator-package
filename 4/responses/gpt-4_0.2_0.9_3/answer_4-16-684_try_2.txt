@@ -1,0 +1,13 @@
+In GitHub Actions, you can access environment variables using the `env` context. However, the syntax you're using is incorrect. You should use `${{ env.CURRENT_BRANCH }}` instead of `${{ env:CURRENT_BRANCH }}`.
+
+Here's the correct way to use it:
+
+```yaml
+- name: Checkout repo  
+  uses: actions/checkout@v2
+  with:
+    repository: 'MyOrg/MyRepo'
+    ref: ${{ env.CURRENT_BRANCH }}
+```
+
+This will correctly reference the `CURRENT_BRANCH` environment variable that you've set in a previous step.

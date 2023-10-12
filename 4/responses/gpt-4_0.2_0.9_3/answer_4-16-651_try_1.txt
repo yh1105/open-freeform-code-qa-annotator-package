@@ -1,0 +1,11 @@
+The SHA-1 hash in Git is computed based on the content of the commit, which includes the commit message, author, date, and the content of the repository at that point. This means that even a small change in any of these will result in a completely different SHA-1 hash. 
+
+Therefore, it's not possible to manually set or override the SHA-1 hash of a commit. The hash is a result of the commit and not something that can be arbitrarily set. This is by design, as it ensures the integrity of the commit history in Git.
+
+If you want to keep two Git repositories in sync, the usual way to do it is to simply push the same commits to both repositories. If you want to skip certain commits, you could create a new branch and cherry-pick the commits you want, then push that branch to the other repository. 
+
+However, this will result in different commit hashes if the parent commits are not the same. If you need to maintain a mapping between commits in the two repositories, you will have to do this manually.
+
+Another approach could be to use `git bundle` to create a bundle of the commits you want to transfer, then apply this bundle on the other repository. This will keep the commit hashes the same, but it requires that the repositories are identical up to the point where you start creating bundles.
+
+In conclusion, there is no way to manually set a commit's SHA in Git. You'll need to find a different solution to your problem.

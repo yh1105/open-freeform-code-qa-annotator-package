@@ -1,0 +1,16 @@
+Yes, you're correct. The issue you're facing is due to floating point precision error. JavaScript (and many other languages) use a binary floating point representation which can sometimes result in these tiny rounding errors.
+
+You can solve this issue by parsing the width value to an integer before comparing it. This way, you're only comparing the whole number part of the width, and ignoring the decimal part.
+
+Here's how you can do it:
+
+```javascript
+cy.get('.target').then(($el) => {
+  const width = parseInt($el.css('width'), 10);
+  expect(width).to.eq(200);
+});
+```
+
+In this code, `$el.css('width')` gets the width of the element as a string, `parseInt` converts it to an integer, and then `expect` is used to check that the width is equal to 200.
+
+This way, you're not comparing the exact string values, but the actual numeric values, which should be more reliable and less prone to these kinds of precision errors.

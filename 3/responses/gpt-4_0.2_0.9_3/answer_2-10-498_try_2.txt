@@ -1,0 +1,9 @@
+The caret (`^`) operator in Rust is not used for exponentiation, it's used for bitwise XOR operation. That's why you're getting unexpected results.
+
+To perform exponentiation in Rust, you can use the `pow` method from the standard library. Here's how you can do it:
+
+```rust
+assert_eq!(2u32.pow(10), 1024);
+```
+
+In this example, `2u32.pow(10)` raises `2` to the power of `10`, which equals `1024`.

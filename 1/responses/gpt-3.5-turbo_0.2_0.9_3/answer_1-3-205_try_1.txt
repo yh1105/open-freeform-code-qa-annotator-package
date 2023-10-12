@@ -1,0 +1,28 @@
+To make multiple fields search with Django-filter, you can create a custom filter class that searches over all fields of the Location model. Here's an example:
+
+```
+import django_filters
+
+class LocationFilter(django_filters.FilterSet):
+    q = django_filters.CharFilter(method='search_all')
+
+    class Meta:
+        model = Location
+        fields = ['q']
+
+    def search_all(self, queryset, name, value):
+        return queryset.filter(
+            Q(loc__icontains=value) |
+            Q(loc_mansioned__icontains=value) |
+            Q(loc_country__icontains=value) |
+            Q(loc_modern__icontains=value)
+        )
+```
+
+In this example, we create a custom filter class called `LocationFilter` that inherits from `django_filters.FilterSet`. We define a `CharFilter` called `q` that will be used for the search input field on the website.
+
+We then define a method called `search_all` that takes in the `queryset`, `name`, and `value` parameters. This method uses the `Q` object to search over all fields of the Location model for the `value` parameter.
+
+Finally, we include the `q` field in the `fields` list of the `Meta` class to tell Django-filter to use our custom filter class for the `q` field.
+
+With this custom filter class, you can use the `LocationFilter` class in your views to filter the Location model based on the search input field.

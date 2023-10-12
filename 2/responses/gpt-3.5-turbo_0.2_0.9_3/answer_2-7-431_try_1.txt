@@ -1,0 +1,21 @@
+You can use the `dump()` function instead of `dd()` to view the nested data. The `dump()` function will output the data to the browser console instead of stopping the script execution like `dd()` does. This way, you can view the data without overwhelming the browser.
+
+To use the `dump()` function, replace `dd()` with `dump()` in your code. For example:
+
+```
+dump($myNestedData);
+```
+
+You can also use the `dump()` function to output multiple variables at once:
+
+```
+dump($var1, $var2, $var3);
+```
+
+Additionally, you can customize the output of the `dump()` function by passing options as the second argument. For example:
+
+```
+dump($myNestedData, ['maxDepth' => 10, 'maxItemsPerDepth' => 100]);
+```
+
+This will limit the maximum depth of nested data to 10 and the maximum number of items per depth to 100. You can adjust these values to suit your needs.

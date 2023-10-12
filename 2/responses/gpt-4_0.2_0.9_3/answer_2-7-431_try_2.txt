@@ -1,0 +1,28 @@
+The `dd()` function in Laravel uses the Symfony VarDumper component, which has a default maximum depth of 20 levels. This is to prevent memory issues when dumping large or complex data structures.
+
+If you want to increase the maximum depth, you can create a `VarDumper` instance and configure it yourself. Here's an example:
+
+```php
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+
+$cloner = new VarCloner();
+$cloner->setMaxItems(-1); // No limit
+$cloner->setMaxString(-1); // No limit
+$cloner->setMaxDepth(100); // Increase depth to 100
+
+$dumper = new HtmlDumper();
+$dumper->dump($cloner->cloneVar($yourVariable));
+```
+
+This will dump your variable with the new settings.
+
+Alternatively, you can use a package like Laravel Debugbar or Laravel Telescope which provide more advanced debugging tools and can handle larger data structures.
+
+Another option is to log the data instead of dumping it. This can be done using Laravel's logging functions, which can handle large data structures and won't slow down your browser:
+
+```php
+\Log::info(print_r($yourVariable, true));
+```
+
+This will write the data to your log file, which you can then view at your leisure.

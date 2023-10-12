@@ -1,0 +1,7 @@
+This is actually intended behavior. When you use double square brackets `[[ ]]` to select a column in a DataFrame, it returns a DataFrame with one column, whereas using single square brackets `[ ]` returns a Series. 
+
+So when you use `df[['name']] = df[['age']]`, you are assigning a DataFrame to a DataFrame, which results in the entire column being replaced with NaN values because the shape of the two DataFrames doesn't match.
+
+On the other hand, when you use `df.loc[:, 'name'] = df.loc[:, 'age']`, you are assigning a Series to a Series, which works as expected. 
+
+So, to summarize, if you want to select a single column as a Series, use single square brackets `[ ]`, and if you want to select a single column as a DataFrame, use double square brackets `[[ ]]`.

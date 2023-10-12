@@ -1,0 +1,34 @@
+Yes, you can achieve this by providing your own `dict_factory` function to the `asdict` function. This function will be used to create a new dictionary and it will be called with two arguments: a sequence of `(key, value)` pairs and the original object.
+
+Here's how you can do it:
+
+```python
+from dataclasses import dataclass, asdict
+from enum import Enum
+
+
+@dataclass
+class Foobar:
+    name: str
+    template: "FoobarEnum"
+
+
+class FoobarEnum(Enum):
+    FIRST = "foobar"
+    SECOND = "baz"
+
+
+def enum_dict_factory(pairs, obj):
+    return {k: v.value if isinstance(v, Enum) else v for k, v in pairs}
+
+
+foobar = Foobar(name="John", template=FoobarEnum.FIRST)
+
+print(asdict(foobar, dict_factory=enum_dict_factory))
+```
+
+In the `enum_dict_factory` function, we check if the value is an instance of `Enum`. If it is, we use its `value` attribute. Otherwise, we use the value as is. This will give you the desired output:
+
+```
+{'name': 'John', 'template': 'foobar'}
+```

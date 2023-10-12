@@ -1,0 +1,15 @@
+You can select the first element by using the `:first-of-type` pseudo-class in your CSS selector. Here is how you can modify your locator:
+
+```css
+[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex span:first-of-type
+```
+
+This will select the first `span` element that is a direct child of an element with the class `.flex` within an element with the attribute `data-cy="offerBreakUpTableHeaderCellRenderer"`.
+
+However, if there are multiple `.flex` elements and you want to select the first `span` of the first `.flex`, you might need to use `:first-of-type` twice:
+
+```css
+[data-cy="offerBreakUpTableHeaderCellRenderer"] .flex:first-of-type span:first-of-type
+```
+
+This will select the first `span` of the first `.flex` within an element with the attribute `data-cy="offerBreakUpTableHeaderCellRenderer"`.

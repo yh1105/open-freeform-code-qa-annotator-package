@@ -1,0 +1,34 @@
+1) To move the stop button at the top to properly align with the begin button, you can use the `top` property in CSS. The `top` property affects the vertical position of a positioned element. This property has no effect on non-positioned elements. Here is how you can do it:
+
+```css
+#StopBtn{
+    position: fixed;
+    left: 500px;
+    top: 10px; /* Add this line */
+    /* Rest of your CSS */
+}
+```
+
+2) To slightly move the bottom arrows up so they would display properly, you can use the `bottom` property in CSS. The `bottom` property affects the vertical position of a positioned element. This property has no effect on non-positioned elements. Here is how you can do it:
+
+```css
+#controls {
+    padding-left: 350px;
+    position: fixed; /* Add this line */
+    bottom: 10px; /* Add this line */
+}
+```
+
+3) To add color on the text "Points Earned" and "click to start the game", you can use the `color` property in CSS. The `color` property sets the color of the text. Here is how you can do it:
+
+```css
+.Points {
+    color: red; /* Add this line */
+}
+
+.Status {
+    color: blue; /* Add this line */
+}
+```
+
+You can replace `red` and `blue` with any color you want.

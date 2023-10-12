@@ -1,0 +1,14 @@
+It looks like you are using the correct class `truncate` in your code. However, the `truncate` class only works if the parent element has a fixed width. 
+
+Try adding a width to the parent element like this:
+
+```
+<div className="ml-1 inline-block w-64">
+   <span>Label: </span>
+   <span className="font-semibold truncate">
+     long texttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+   </span>
+</div>
+```
+
+In this example, I added the `w-64` class to the parent element to give it a fixed width of 64 pixels. You can adjust the width to fit your needs.

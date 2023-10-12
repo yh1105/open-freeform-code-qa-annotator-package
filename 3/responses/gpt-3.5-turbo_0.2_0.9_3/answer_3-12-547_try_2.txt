@@ -1,0 +1,24 @@
+To ensure that the child class implements the super constructor, you can add the `@required` annotation to the `BaseClass` constructor. This will ensure that any subclass that extends `BaseClass` must call the super constructor with the required parameters.
+
+Here's an example of how you can modify the `BaseClass` constructor to achieve this:
+
+```
+abstract class BaseClass {
+  final String name;
+
+  const BaseClass({
+    @required this.name,
+  });
+}
+```
+
+Now, if you try to create a subclass of `BaseClass` without calling the super constructor, you will get a compile-time error. For example:
+
+```
+class ChildClass extends BaseClass {
+  // This will result in a compile-time error:
+  // The superclass 'BaseClass' doesn't have a zero argument constructor.
+}
+```
+
+By adding the `@required` annotation to the `BaseClass` constructor, you are telling the compiler that any subclass of `BaseClass` must call the super constructor with the required parameters. This will help catch errors at compile-time rather than at runtime.

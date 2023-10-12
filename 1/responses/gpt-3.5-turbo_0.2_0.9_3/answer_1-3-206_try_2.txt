@@ -1,0 +1,96 @@
+To keep the position of the buttons fixed in the Navbar of your Dash app, you can add the `fixed` attribute to the `Navbar` component. This will ensure that the Navbar remains fixed at the top of the screen even when you zoom in or if the screen size changes. Here's an example:
+
+```
+import dash_bootstrap_components as dbc
+
+navbar = dbc.Navbar(
+    [
+        dbc.NavbarBrand("Brand"),
+        dbc.Nav(
+            [
+                dbc.NavItem(dbc.NavLink("Home", href="#")),
+                dbc.NavItem(dbc.NavLink("Page 1", href="#")),
+                dbc.NavItem(dbc.NavLink("Page 2", href="#")),
+            ],
+            navbar=True,
+            className="ml-auto",
+        ),
+    ],
+    color="dark",
+    dark=True,
+    fixed="top",
+)
+```
+
+In your code, you can add the `fixed` attribute to the `Navbar` component like this:
+
+```
+navbar = dbc.Navbar(
+    [
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='HOME',
+                       style={
+                           'display': 'inline-block',
+                           'align': 'center',
+                           'color': 'white', 'marginLeft': '100px',
+                           'fontSize': '15px ',
+                           'backgroundColor': '#101820',
+                           'width': '150px',
+                           'height': '50px',
+                           'marginRight': '100px'
+                       }, className='lg'),
+
+            href='http://127.0.0.1:5050/', refresh=True), className='lg'),
+
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='OVERVIEW',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '10px',
+                              'fontSize': '15px ',
+                              'width': '150px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/overview', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='GRAPH',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/pages/graph_page', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='CONSOLE',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'fontSize': '15px ',
+                              'marginLeft': '10px',
+                              'marginRight': '100px',
+                              'width': '150px',
+                              'height': '50px'
+                              }),
+            href='/log_stream', refresh=True)),
+        dbc.NavbarBrand(dcc.Link(
+            dbc.Button(children='DIAGNOSTIC',
+                       style={'color': 'white',
+                              'backgroundColor': '#101820',
+                              'marginLeft': '2px',
+                              'fontSize': '15px ',
+                              'width': '170px',
+                              'marginRight': '100px',
+                              'height': '50px'
+                              }),
+            href='/pages/diag', refresh=True))
+    ],
+    color="dark",
+    dark=True,
+    fixed="top",
+)
+```
+
+This should keep the position of the buttons fixed in the Navbar of your Dash app.

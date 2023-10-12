@@ -1,0 +1,16 @@
+The problem is that when you save the model, the custom objects (like the Lambda layer with the custom function) are not saved with it. So when you load the model, Keras doesn't know how to handle the Lambda layer.
+
+To solve this, you need to provide the custom_objects argument to the load_model function, like this:
+
+```python
+from keras.models import load_model
+import tensorflow as tf
+
+def learning(test_samples):
+    model = load_model('my_model.h5', custom_objects={'tf': tf, 'lambda': lambda x: tf.reduce_mean(x, axis=1)})
+    #rest of the code
+```
+
+This tells Keras that when it encounters a Lambda layer, it should use the provided function (tf.reduce_mean in this case). 
+
+Also, please note that you don't need to import Lambda from keras.layers in the second script, as you are not defining a new model there, just loading an existing one.

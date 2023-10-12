@@ -1,0 +1,9 @@
+The `rename` function does not work on a Series object, which is what you get after using `groupby` and `mean`. The `rename` function works on DataFrame objects. 
+
+If you want to rename the Series after using `groupby` and `mean`, you can convert it to a DataFrame first and then use the `rename` function. Here is how you can do it:
+
+```python
+avg = df.groupby(["t"], sort=False)["p"].mean().reset_index().rename(columns={"p":"mean"})
+```
+
+In this code, `reset_index()` is used to convert the Series to a DataFrame and then `rename` is used to rename the column.

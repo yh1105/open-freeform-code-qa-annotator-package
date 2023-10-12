@@ -1,0 +1,9 @@
+`db_index=True` should be used on fields that are frequently used in queries, especially in `WHERE` clauses. Indexing a field can speed up queries that filter or order by that field, but it can also slow down inserts, updates, and deletes. 
+
+You should consider using `db_index=True` on fields that are frequently used in queries, such as foreign keys, fields used for filtering or ordering, and fields used in joins. 
+
+It is not necessary to use `db_index=True` only on fields that have unique values like the primary field `id`. You can use it on fields that have repetitive data, but it may not be as effective as indexing unique fields. 
+
+If you enable indexing for fields that are not unique and contain repetitive data, it may increase the size of the index and slow down inserts, updates, and deletes. It may also not be as effective in speeding up queries as indexing unique fields. 
+
+In summary, use `db_index=True` on fields that are frequently used in queries, especially in `WHERE` clauses, and consider the trade-offs between query performance and insert/update/delete performance.

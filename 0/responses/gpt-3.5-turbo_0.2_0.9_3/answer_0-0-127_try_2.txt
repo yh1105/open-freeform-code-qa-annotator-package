@@ -1,0 +1,19 @@
+It looks like there is an issue with your shell configuration file. The error message suggests that there is a problem with the `export` command in your `.bashrc` file.
+
+To fix this issue, you can try the following steps:
+
+1. Open your terminal and navigate to your home directory by typing `cd ~`.
+
+2. Edit your `.bashrc` file by typing `nano .bashrc`.
+
+3. Look for the line that contains the `export` command that is causing the error.
+
+4. Check if the syntax of the `export` command is correct. Make sure that there are no typos or missing characters.
+
+5. Save the changes to the file by pressing `Ctrl + X`, then `Y`, and finally `Enter`.
+
+6. Reload your shell configuration by typing `source .bashrc`.
+
+7. Check if the error message has disappeared by typing a command in the terminal.
+
+If the error message persists, you may need to seek further assistance from a technical expert.

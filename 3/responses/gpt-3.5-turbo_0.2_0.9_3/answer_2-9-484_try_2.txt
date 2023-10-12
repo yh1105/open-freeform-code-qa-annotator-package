@@ -1,0 +1,17 @@
+You can use the `split()` method to split the string at the `|` character and then take the first element of the resulting list. Here's an example:
+
+```python
+a = '2.452811139617034,42.10874821716908|3.132087902867818,42.028314077306646|-0.07934861041448178,41.647538468746916|-0.07948265046522918,41.64754863599606'
+
+result = a.split('|')[0]
+
+print(result)
+```
+
+This will output:
+
+```
+2.452811139617034,42.10874821716908
+```
+
+Here, we first split the string `a` at the `|` character using the `split()` method. This returns a list of strings, where each string is a substring of `a` between two `|` characters. We then take the first element of this list using `[0]`, which gives us the substring we want.

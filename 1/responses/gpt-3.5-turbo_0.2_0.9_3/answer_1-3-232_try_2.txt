@@ -1,0 +1,15 @@
+The issue is that the `tf` module is not defined in the scope of the `Lambda` layer when you load the model. You can fix this by importing `tf` in the same scope as the `Lambda` layer:
+
+```
+from keras.models import load_model
+from keras.layers import Lambda
+import tensorflow as tf
+
+
+def learning(test_samples):
+    # Import tf in the same scope as the Lambda layer
+    model = load_model('my_model.h5', custom_objects={'tf': tf})
+    # rest of the code
+```
+
+By passing `custom_objects={'tf': tf}` to `load_model`, you are telling Keras to use the `tf` module when it encounters the `Lambda` layer.

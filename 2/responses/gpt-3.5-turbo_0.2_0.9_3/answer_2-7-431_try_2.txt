@@ -1,0 +1,20 @@
+You can use the `dump()` function instead of `dd()` to view the nested data. The `dump()` function is similar to `dd()` but it does not stop the execution of the script. This means that you can continue to view the data in your browser without having to reload the page.
+
+To increase the `dump()` function limitations, you can add the following lines of code to your `config/app.php` file:
+
+```
+'providers' => [
+    // ...
+    Illuminate\Debug\DumperServiceProvider::class,
+],
+
+'debug' => [
+    // ...
+    'max_items' => 2500,
+    'max_string_length' => 10000,
+],
+```
+
+This will increase the maximum number of items and the maximum string length that can be displayed by the `dump()` function.
+
+Alternatively, you can use a third-party package like Laravel Debugbar or Clockwork to view the nested data in a more organized and user-friendly way. These packages provide a toolbar that displays information about the current request, including the database queries, HTTP requests, and response data.

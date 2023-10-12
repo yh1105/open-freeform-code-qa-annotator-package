@@ -1,0 +1,20 @@
+The `getByText` function from Testing Library does indeed take a `container` parameter, but it's not the first parameter. The first parameter is the text or text matcher you're looking for. The `container` parameter is actually an option that you can pass in as part of an options object as the second parameter.
+
+However, the `container` option is not used to scope the search to a specific part of the DOM. Instead, it's used to specify where to start the search from. By default, `getByText` will start searching from the root of the document.
+
+If you want to search within a specific container, you should call `getByText` on the return value of `getByTestId` or any other query that returns a DOM node. Here's how you can do it:
+
+```javascript
+const container = getByTestId('my-test-id');
+expect(within(container).getByText('some text')).toBeInTheDocument();
+```
+
+In this example, `within(container).getByText('some text')` will return the element with the text 'some text' that is inside the element with the test ID 'my-test-id'. The `toBeInTheDocument()` function is an assertion from `@testing-library/jest-dom` that checks if the element is in the document.
+
+Remember to import `within` from `@testing-library/react`:
+
+```javascript
+import { within } from '@testing-library/react';
+```
+
+This way, you're ensuring that the text you're looking for is within a specific part of your component.

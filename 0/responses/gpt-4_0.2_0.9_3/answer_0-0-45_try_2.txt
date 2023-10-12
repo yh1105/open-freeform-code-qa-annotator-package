@@ -1,0 +1,25 @@
+Yes, there is a better way to type `previousPieceSelected` in the initial state return. You can use the `as` keyword to assert the type of `previousPieceSelected` as `Piece | undefined`. Here's how you can do it:
+
+```ts
+export const useStore = defineStore("game", {
+  state: () => ({
+    moves: [],
+    gameBoard:  getInitialBoard(),
+    playerTurn: PieceColor.White,
+    previousPieceSelected: undefined as Piece | undefined,
+  }),
+  actions: {
+    changePlayer() {
+      this.playerTurn =
+        this.playerTurn === PieceColor.White
+          ? PieceColor.Black
+          : PieceColor.White;
+    },
+    updatePreviousPieceSelected(piece: Piece | undefined ) {
+      this.previousPieceSelected = piece
+    }
+  }
+})
+```
+
+This way, you are explicitly telling TypeScript that `previousPieceSelected` can be either `Piece` or `undefined`, and TypeScript will not complain when you try to assign a `Piece` to `previousPieceSelected`.

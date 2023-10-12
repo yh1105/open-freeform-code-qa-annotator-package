@@ -1,0 +1,27 @@
+The `csv_diff.compare` function returns a dictionary, which is not directly convertible to a CSV file. You need to convert the dictionary to a pandas DataFrame first. However, the dictionary has different keys with values as lists of dictionaries, which cannot be directly converted to a DataFrame. 
+
+You can create separate DataFrames for 'added', 'removed', and 'changed' and then save them to CSV files. Here is how you can do it:
+
+```python
+import pandas as pd
+
+# Convert the lists of dictionaries to DataFrames
+added_df = pd.DataFrame(diff['added'])
+removed_df = pd.DataFrame(diff['removed'])
+changed_df = pd.DataFrame(diff['changed'])
+
+# Add a new column to each DataFrame to indicate the action
+added_df['action'] = 'added'
+removed_df['action'] = 'removed'
+changed_df['action'] = 'changed'
+
+# Concatenate the DataFrames
+result_df = pd.concat([added_df, removed_df, changed_df])
+
+# Save the result to a CSV file
+result_df.to_csv('diff.csv', index=False)
+```
+
+This will create a CSV file with an extra column named 'action' which indicates whether the row was 'added', 'removed', or 'changed'. 
+
+Please note that this code assumes that all the dictionaries in the lists 'added', 'removed', and 'changed' have the same keys. If this is not the case, you may need to handle it separately.
