@@ -1,15 +1,5 @@
-Flutter FormatException: Unexpected character (at character 1)
-
-In flutter, i use a php file which returns a json response from a db query, but when i try to decode json i getting this error:
-```
-E/flutter ( 8294): [ERROR:flutter/lib/ui/ui_dart_state.cc(148)] Unhandled
-Exception: FormatException: Unexpected character (at character 1)
-E/flutter ( 8294): ï»¿[{"0":"PRUEBA","usu_nombre":"PRUEBA"}]
-E/flutter ( 8294): ^
-```
-
 Here is my dart function:
-```
+```dart
 Future<String> iniciarSesion() async{
 var usuario = textUsuario.text;
 var password = textPassword.text;
@@ -26,39 +16,8 @@ var response = await http.post(
   List data = json.decode(response.body);
 }
 ```
-
-And code from my php file:
+In flutter, i use a php file which returns a json response from a db query, but when i try to decode json i getting this error:
 ```
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-include_once "Clases/conexion.php";
-
-$usuario = $_POST['usuario'];
-$password = $_POST['password'];
-
-$consulta = "select usu_nombre
-FROM usu_usuarios
-WHERE usu_nusuario='$usuario'and usu_password='$password' and  usu_activo='SI'";
-
-$mysql_obj = new Conectar();
-$mysqli = $mysql_obj->crearConexion();
-
-if($result = $mysqli->query($consulta)) {
-if ($mysqli->affected_rows > 0) {
-    while($row = $result->fetch_array()) {
-        $myArray[] = $row;
-    }
-    header('Content-type: application/json');
-    echo json_encode($myArray);
-}else {
-    header("HTTP/1.0 401 Datos Incorrectos");
-    header('Content-type: application/json');
-    $data = array("mensaje" => "Datos Incorrectos");
-    echo json_encode($data);
-}}
-?>
+ERROR:flutter/lib/ui/ui_dart_state.cc(148)] Unhandled Exception: FormatException: Unexpected character (at character 1)
 ```
-
-I'm using HTTP dart dependence
+How to solve the FormatException?

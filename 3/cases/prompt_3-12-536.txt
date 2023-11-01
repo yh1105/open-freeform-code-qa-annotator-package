@@ -1,14 +1,5 @@
-Create a button with rounded border
+How to create a rounded button with border-radius in Flutter?
+Specifically, pelase don't add other text and repeat the following paragraph with [blank] filled:
 
-How would you make a `FlatButton` into a button with a rounded border? I have the rounded border shape using `RoundedRectangleBorder` but somehow need to color the border.
-
-```
-new FlatButton(
-  child: new Text("Button text),
-  onPressed: null,
-  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-)
-```
-
-
-Example of how button with rounded button would look :  [](https://i.stack.imgur.com/GdvrF.png)
+You can use [blank], [blank] and [blank] that are not deprecated button themes.
+You can change the [blank] property which placed in the [blank] property.

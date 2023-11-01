@@ -1,4 +1,5 @@
-Add/Subtract months/years to date in dart?
+How to Add/Subtract months/years to date in dart?
+Specifically, please don't add other text and repeat the following paragraph with [blank] filled:
 
-I saw that in dart there is a class Duration but it cant be used add/subtract years or month. How did you managed this issue, I need to subtract 6 months from an date. Is there something like moment.js for dart or something around?
-Thank you
+You can use the [blank] and [blank] methods.
+Also you can use [blank] to define the base time and change the day/month/[blank] properties.

@@ -1,7 +1,6 @@
 Is there a simple way remove duplicate elements from an array?
-
-I want to remove duplicate elements from an array:
-```
+I want to remove duplicate elements from an array and I have implement two ways:
+```rust
 use itertools::Itertools;
 use std::collections::HashSet;
 
@@ -37,16 +36,6 @@ fn main() {
             .collect::<Vec<_>>()
     };
     dbg!(arr2);
-
-    /*
-    expect:
-        [
-            Person{name: "aaa".to_string(), age: 10},
-            Person{name: "bbb".to_string(), age: 20},
-            Person{name: "ccc".to_string(), age: 30},
-        ]
-    */
 }
-```
-
+``` 
 Way 2 is simple compared to way 1, but is there anything simpler?

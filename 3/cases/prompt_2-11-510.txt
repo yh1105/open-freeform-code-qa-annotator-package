@@ -1,62 +1,17 @@
-'std::filesystem' has not been declared after including <experimental/filesystem>
-
-I have checked a lot of issues about the link of filesystem under c++17 and I still cannot make the link successfully. My `main.cpp` file is as the following.
-
-```
+How to fix the "error: ‘std::filesystem’ has not been declared" after including the library <experimental/filesystem> under c++17?
+The ```main.cpp``` file is as the following:
+```c++
 #include <experimental/filesystem>
-
 
 int main(int argc, char** argv)
 {
     std::string imageDirectory = "./image";;
     std::vector<std::string> imagePath;
-
     for (const auto& entry: std::filesystem::directory_iterator(imageDirectory))
     {
         imagePath.push_back(entry.path());
         std::cout << entry.path() << std::endl;
     }
-
     return 0;
 }
 ```
-
-
-My `CMakeLists.txt` is as the following. 
-
-```
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
-
-project(visual_hull LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 17)
-add_library(dataIO
-        STATIC
-            dataIO.hpp
-            dataIO.cpp)
-
-find_package(OpenCV REQUIRED core highgui imgproc)
-
-target_link_libraries(dataIO ${OpenCV_LIBS})
-
-add_executable(visual_hull main.cpp)
-
-target_link_libraries(visual_hull PUBLIC dataIO
-                                         stdc++fs)
-```
-
-
-The error is as the following.
-
-```
-/home/SENSETIME/zhangshunkang/Downloads/programming/c++/visual_hull/main.cpp: In function ‘int main(int, char**)’:
-/home/SENSETIME/zhangshunkang/Downloads/programming/c++/visual_hull/main.cpp:15:31: error: ‘std::filesystem’ has not been declared
-  for (const auto& entry: std::filesystem::directory_iterator(imageDirectory))
-                               ^
-CMakeFiles/visual_hull.dir/build.make:62: recipe for target 'CMakeFiles/visual_hull.dir/main.cpp.o' failed
-make[2]: *** [CMakeFiles/visual_hull.dir/main.cpp.o] Error 1
-CMakeFiles/Makefile2:72: recipe for target 'CMakeFiles/visual_hull.dir/all' failed
-make[1]: *** [CMakeFiles/visual_hull.dir/all] Error 2
-Makefile:83: recipe for target 'all' failed
-make: *** [all] Error 2
-```
-

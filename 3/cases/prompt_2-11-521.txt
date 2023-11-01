@@ -1,5 +1,4 @@
-Is a constructor a function and is it possible to call a constructor
+Here is one user comment:
+A constructor cannot be called, it is not a function. It is invoked automatically when a new object is created.
 
-I came across [this](https://stackoverflow.com/questions/71680246/how-to-make-a-function-call-to-a-constructor) where one of the user comment says:
-> A constructor , it is . It is invoked automatically when a new object is created.
-My question is that is the above comment true/correct? If yes, then why isn't a constructor considered a function and why can't we call it?
+Is the above comment true/correct and why? 

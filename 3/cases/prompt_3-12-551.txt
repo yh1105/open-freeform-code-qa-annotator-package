@@ -1,13 +1,8 @@
-The AppBarDesign can't be assigned to the parameter type 'PreferredSizeWidget'
-
-Anyone please give some information why this is happening?
-
-When I try to add a class  which implements  flutter is giving the below error.
-
-> error: The argument type 'AppBarDesign' can't be assigned to the parameter type 'PreferredSizeWidget'. (argument_type_not_assignable at [flutterbyrajath] lib\main.dart:27)
-
-```
-import 'package:flutter/material.dart';
+When I try to add a class AppBarDesign which implements appBar flutter is giving the below error:
+error: The argument type 'AppBarDesign' can't be assigned to the parameter type 'PreferredSizeWidget'.
+Code:
+```dart
+    import 'package:flutter/material.dart';
 
     main() {
       runApp(new MyApp());
@@ -51,4 +46,7 @@ import 'package:flutter/material.dart';
       }
     }
 ```
+How to fix it?
+Specifically, please don't add other text and repeat the following paragraph with [blank] filled:
 
+Either wrap your custom appbar into a [blank] or or implement [blank].

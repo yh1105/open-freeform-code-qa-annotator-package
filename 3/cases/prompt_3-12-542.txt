@@ -1,8 +1,7 @@
-How to disable the behavior Bottom Navigation Bar goes up with keyboard in flutter
-
-In my app, I have a search page and when I click on the search text field bottom navigation bar also moves up with the keyboard where it supposed to be hidden under the keyboard. Because while the keyboard is showing I can navigate to other pages which is undesirable behavior.
-The Code:
-```
+In my app, I have a search page and when I click on the search text field bottom navigation bar also moves up with the keyboard where it supposed to be hidden under the keyboard.
+What is supposed to behave is when I click on the search, the bottom navigation bar should stay behind the keyboard and not come up with the keyboard.
+How to disable the behavior Bottom Navigation Bar goes up with keyboard in flutter?
+```dart
 class _AppHomeViewState extends State<AppHomeView>
     with TickerProviderStateMixin {
 
@@ -37,60 +36,6 @@ class _AppHomeViewState extends State<AppHomeView>
       ),
     );
   }
-
-  Widget _buildBody(BuildContext context) {
-    return TabBarView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: tabController,
-      children: <Widget>[
-        HomeView(),
-        SearchView(),
-        OrdersView(),
-        ProfileView(),
-      ],
-    );
-  }
-
-  Widget _buildTabBar(BuildContext context) {
-    return TabBar(
-      controller: tabController,
-      tabs: <Widget>[
-        Tab(
-          icon: Icon(
-            Icons.store,
-            size: 28,
-          ),
-        ),
-        Tab(
-          icon: Icon(
-            Icons.search,
-            size: 28,
-          ),
-        ),
-        Tab(
-          icon: Icon(
-            Icons.receipt,
-            size: 28,
-          ),
-        ),
-        Tab(
-          icon: Icon(
-            Icons.person,
-            size: 28,
-          ),
-        )
-      ],
-      indicatorColor: Colors.transparent,
-      unselectedLabelColor: StyledColors.MEDIUM_GREY,
-      labelColor: StyledColors.PRIMARY_COLOR,
-    );
-  }
-
-  void handleTabSelection() {
-    setState(() {});
-  }
+  ...
 }
 ```
-
-[](https://i.stack.imgur.com/w3nzh.png)
-What is supposed to behave is when I click on the search, the bottom navigation bar should stay behind the keyboard and not come up with the keyboard?

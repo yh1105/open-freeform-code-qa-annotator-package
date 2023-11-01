@@ -1,22 +1,13 @@
-Dart null safety - retrieving value from map in a null safe way
-
-I had code similar to this example code (never mind that it makes no sense):
-```
-void foo(Map<int, String> myMap) {
-  String s = myMap[1];
-}
-```
-
-The dart analyzer warns me about the line `String s = myMap[1];` with the following warning:
-> A value of type 'String?' can't be assigned to a variable of type
-'String'.  Try changing the type of the variable, or casting the
-right-hand type to 'String'.
-I see that this is happening because retrieving a value from a map can result in `null`. Why does the following snippet give me the same warning?
-```
+Here is a snippet written in dart:
+```dart
 void foo(Map<int, String> myMap) {
   if (myMap.containsKey(1)) {
     String s = myMap[1];
   }
 }
 ```
-
+This snippet give me the warning:
+```
+A value of type 'String?' can't be assigned to a variable of type 'String'. Try changing the type of the variable, or casting the right-hand type to 'String'.
+```
+How to solve the warning?
