@@ -1,14 +1,11 @@
-Simplest syntax for string interpolation in c++
-
-I'm used to easy-to-read syntax for string interpolation like this in c# or JavaScript, so when I started learning c++ I expected that it will have a similar feature, but when googling for string interpolation in c++ I couldn't find anything like that.
+What is the simplest syntax for string interpolation in c++?
+I'm used to easy-to-read syntax for string interpolation like this in c# or JavaScript.
 In c# strings are interpolated like this:
-```
+```c#
 $"My variable has value {myVariable}"
 ```
-
 In JavaScript it looks like this:
-```
+```javascript
 `My variable has value ${myVariable}`
 ```
-
-Inserting multiple values in different places in a string literal is such a common problem I'm sure there is some standard way of doing this in c++. I want to know what is the simplest way of doing this in c++ and how do people usually do it.
+What is the simplest way of doing this in c++?

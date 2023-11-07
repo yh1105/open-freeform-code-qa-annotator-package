@@ -1,8 +1,5 @@
-What does the rust-analyzer error "could not resolve macro `$crate::format_args`" mean and how do I fix it?
-
-I'm using rust-analyzer version 0.2.408 on Visual Studio Code.
 I'm writing a command line application that involves centering text in the terminal. This is the function I wrote to do this:
-```
+```rust
 use console::{Alignment, pad_str};
 
 fn get_padded_row(row: &str, width: u16, symbol: Option<char>) -> String {
@@ -12,9 +9,8 @@ fn get_padded_row(row: &str, width: u16, symbol: Option<char>) -> String {
         .replace(' ', &symbol.to_string());
 }
 ```
-
 This function works perfectly fine, and there were no errors with it. Then I wrote a test:
-```
+```rust
 #[cfg(test)]
 mod tests {
     use crate::get_padded_row;
@@ -29,6 +25,5 @@ mod tests {
     }
 }
 ```
-
-The code still works perfectly fine. Both `cargo run` and `cargo test` work, the function passes the test, and `cargo check` returns no issues. But rust-analyzer gives an error, highlighting everything from the `tr};` in the `use` statement to the `p` right after `return`: "could not resolve macro `$crate::format_args` rust-analyzer(macro-error)". Searching for this error returns nothing. VSCode links me to [rust-analyzer user manual](https://rust-analyzer.github.io/manual.html#macro-error), which says only "This diagnostic is shown for macro expansion errors". Restarting VSCode and reinstalling rust-analyzer have done nothing. The error always comes back, and highlighting the same oddly specific region. The only way I've found to get rid of it while keeping rust-analyzer installed is to remove the test.
-Judging from how the error is about macro expansion, and how removing the test fixes the issue, I'd imagine it's caused by the `#[test]` macro, but it's strange that rustc finds no issues at all with my code while rust-analyzer is freaking out about this error. So far, I've had better experiences with rust-analyzer than with the official Rust VSCode extension, but I'm on the verge of switching back to fix this issue.
+The code still works perfectly fine. Both `cargo run` and `cargo test` work, the function passes the test, and `cargo check` returns no issues. But rust-analyzer gives an error, highlighting everything from the `tr};` in the `use` statement to the `p` right after `return`: "could not resolve macro `$crate::format_args` rust-analyzer(macro-error)". 
+What does the error mean and how do I fix it?

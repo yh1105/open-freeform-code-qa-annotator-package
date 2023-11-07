@@ -1,7 +1,10 @@
-operator== marked 'override', but does not override
-
-I am have an issue while overriding the base class operator==. Here is the code.
+I am have an issue while overriding the base class operator==.
+It complains that:
 ```
+error: 'bool SeviceClient::operator==(const SeviceClient&)' marked 'override', but does not override
+```
+The code is:
+```c++
 #include <iostream>
 #include <vector>
 
@@ -32,16 +35,4 @@ class SeviceClient : public IClient<int8_t> {
   }
 };
 ```
-
-It complains that
-```
-error: 'bool SeviceClient::operator==(const SeviceClient&)' marked 'override', but does not override
-```
-
-The compiler looks happy when i convert the function to
-```
-bool operator==(const IClient<int8_t>& anotherClient) override {}
-```
-
-Is this solution for the problem or am I missing something here ?
-Thanks
+What am I missing here?

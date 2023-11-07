@@ -1,7 +1,6 @@
 What is the idiomatic way to do something when an Option is either None, or the inner value meets some condition?
-
-Is there a more idiomatic way to express something like the following?
-```
+Is there a more idiomatic way to express something like the following? List as many ways as possible.
+```rust
 fn main() {
     let mut foo: Option<u8> = None;
     match foo {
@@ -10,6 +9,3 @@ fn main() {
     }
 }
 ```
-
-It seems like most of the time there's an alternative to having an arm that doesn't do anything, but I've been unable to find one for this particular case.
-What I'd like to say is the more direct `if foo.is_none() || /* some way to extract and test the inner value */ { ... }`, or perhaps some chaining trick that's eluding me.

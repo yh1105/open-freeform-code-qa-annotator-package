@@ -1,7 +1,8 @@
-Template function with multiple parameters of same type
-
-I'm trying to create a function that can take multiple parameters of the same type, passed in as a template. The number of arguments is known in compile time:
-```
+Please write a function ```fun``` in C++ that can take multiple parameters of the same type (struct Foo in the following example), passed in as a template. The number of arguments is known in compile time.
+There are two constraints: 1. no heap memory allocations. 2. no va_args.
+In function ```fun```, print the values of each parameter separated with ' ', ended with '\n'.
+The C++ version is C++14 or new versions.
+```c++
 struct Foo
 {
     int a, b, c;
@@ -17,17 +18,6 @@ void fun(T ...args) // max number of args == argsCount
 int main()
 {
     fun<3, Foo>( { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } );
-
-    // Dont want to do:
-    // fun( Foo{}, Foo{}, Foo{} );
-    // nor:
-    // fun<Foo, Foo, Foo>( ... );
-
     return 0;
 }
 ```
-
-I must take into consideration these constraints:
-- - 
-Is it possible to do something similar in C++14 (preferably C++14, but curious what are the solutions in newer versions)?
-edit: cleaned up the initial sloppy pseudcode.

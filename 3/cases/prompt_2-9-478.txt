@@ -1,25 +1,5 @@
-Error when trying to install devise in Ruby on Rails 7.0.0
-
-I'm trying to install devise in the rails version I get the error of the latest version of devise
-I have tried with other devise versions but it is update it to the latest,
-this is the error:
+I'm trying to install devise in the rails version I get the error of the latest version of devise:
 ```
 /usr/local/bundle/gems/devise-4.8.0/lib/devise.rb:321:in `ref': undefined method `reference' for ActiveSupport::Dependencies:Module (NoMethodError)
-web_1  |    from /usr/local/bundle/gems/devise-4.8.0/lib/devise.rb:340:in `mailer='
-web_1  |    from /usr/local/bundle/gems/devise-4.8.0/lib/devise.rb:342:in `<module:Devise>'
-web_1  |    from /usr/local/bundle/gems/devise-4.8.0/lib/devise.rb:11:in `<main>'
-web_1  |    from /usr/local/bundle/gems/bootsnap-1.8.1/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:23:in `require'
-web_1  |    from /usr/local/bundle/gems/bootsnap-1.8.1/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:23:in `block in require_with_bootsnap_lfi'
-web_1  |    from /usr/local/bundle/gems/bootsnap-1.8.1/lib/bootsnap/load_path_cache/loaded_features_index.rb:92:in `register'
-web_1  |    from /usr/local/bundle/gems/bootsnap-1.8.1/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:22:in `require_with_bootsnap_lfi'
-web_1  |    from /usr/local/bundle/gems/bootsnap-1.8.1/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:31:in `require'
-web_1  |    from /usr/local/bundle/gems/zeitwerk-2.5.0.beta3/lib/zeitwerk/kernel.rb:35:in `require'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler/runtime.rb:66:in `block (2 levels) in require'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler/runtime.rb:61:in `each'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler/runtime.rb:61:in `block in require'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler/runtime.rb:50:in `each'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler/runtime.rb:50:in `require'
-web_1  |    from /usr/local/lib/ruby/3.0.0/bundler.rb:174:in `require'
 ```
-
-if you could help me I'd be grateful
+How to fix it?
