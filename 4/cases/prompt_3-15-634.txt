@@ -1,6 +1,6 @@
 Getting Error 3340 Query ' ' is corrupt while executing queries DoCmd.RunSQL
 
-Since installing [the windows update for Office 2010 resolving KB 4484127](https://support.microsoft.com/en-us/help/4484127/security-update-for-office-2010-november-12-2019) I get an error while executing queries which contain a WHERE clause.
+Since installing [the windows update for Office 2010 resolving KB 4484127] I get an error while executing queries which contain a WHERE clause.
 
 For example executing this query:
 
@@ -13,8 +13,5 @@ Results in this error:
 
 > Error number = 3340 Query ' ' is corrupt
 
-The [update in question](https://support.microsoft.com/en-us/help/20191112/security-update-deployment-information-november-12-2019) is currently still installed:
-
-[](https://i.stack.imgur.com/V5hEf.png)
 
 How can I successfully run my queries? Should I just uninstall this update?

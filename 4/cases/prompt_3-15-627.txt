@@ -2,13 +2,9 @@ How can I create a calendar input in VBA Excel?
 
 
 
-In VBA, three main kinds of date time controls can be used provided certain ocxs have been registered using [administrator rights](https://social.msdn.microsoft.com/Forums/en-US/91cf3127-70fe-4726-8a27-31b8964430c5/registering-mscomct2ocx-in-64-bit-windows-7?forum=sbappdev). These are VB6 controls and are not native to VBA environment. To install the  and , we need to set a reference to  which can only be accessed by elevated registration of . Similarly for  and . Having said that, the  may or may not work on Windows 10. 
+In VBA, three main kinds of date time controls can be used provided certain ocxs have been registered using [administrator rights]. These are VB6 controls and are not native to VBA environment. To install the  and , we need to set a reference to  which can only be accessed by elevated registration of . Similarly for  and . Having said that, the  may or may not work on Windows 10.
 
 Depending on your Windows and Office versions (32 bit or 64 bit), it can be really painful to register these ocxs.
-
-The ,  and the  look like below.
-
-[](https://i.stack.imgur.com/LXHzf.png)
 
 
 
@@ -18,16 +14,11 @@ And hence it is highly advisable  to use them in your project
 
 
 
-This [calendar, using Userform and Worksheet](https://stackoverflow.com/questions/12012206/formatting-mm-dd-yyyy-dates-in-textbox-in-vba/12013961#12013961), was suggested earlier and is incredibly basic.
+This was suggested earlier and is incredibly basic.
 
 When I saw the Windows 10 calendar which popped up when I clicked on the date and time from the system tray, I could not help but wonder if we can replicate that in VBA.
 
 This post is about how to create a calendar  which is not dependant on any ocx or 32bit/64bit and can be freely distributed with your project.
 
-This is what the calendar looks like in Windows 10:
 
-[](https://i.stack.imgur.com/e412s.png)
 
-and this is how you interact with it:
-
-[](https://i.stack.imgur.com/O4G2j.png)

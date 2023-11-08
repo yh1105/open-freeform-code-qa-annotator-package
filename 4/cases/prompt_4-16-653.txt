@@ -16,6 +16,7 @@ I have data in a file where one column is a date column which has date in the fo
 
 
 ```
+bash
 while -r read line
 do
     year=`echo $line | awk '{ print $1 }' `

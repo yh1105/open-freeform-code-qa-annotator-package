@@ -11,5 +11,3 @@ I had one hope when i found a way to convert a URL to a Local path, however, thi
 however, i noticed if i goto File > Info, there is a button for "Open File Location" which takes me directly to the local path folder of the file, which tells me this information is somewhere in excel, there must be a way to retrieve it, i haven't seen reference to this in any of my searches, upon pointing it out, does anyone have any ideas on how or if this could work?
 i tried to record a macro, but it didn't register it at all.
 any help would be appreciated and thank you in advance.
-[File > Info - Screenshot](https://i.stack.imgur.com/2uQds.png)
-[](https://i.stack.imgur.com/vAQkE.png)

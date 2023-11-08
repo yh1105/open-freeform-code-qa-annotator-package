@@ -1,6 +1,7 @@
 grep command in an if statement
 
 ```
+bash
 #!/bin/bash
 read -p "enter search term here: " searchT
 

@@ -4,6 +4,7 @@ I see others post with issues using SwiftUI Previews in Xcode 11 and 12, but hav
 Older project that worked in Xcode 11, loaded in Xcode 12, fails to launch the preview, no matter how simple the Preview content.
 Actual preview code:
 ```
+swift
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Text("I heart Xcode")

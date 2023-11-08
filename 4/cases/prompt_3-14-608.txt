@@ -1,16 +1,14 @@
 SwiftUI - Align contents of Button to the left
 
-I have a design that looks like this:
+I have a design that looks in the left.
+When I wrap it in a Button, the Image and "HOME" text move toward the center.
 
-[](https://i.stack.imgur.com/WKwWo.png)
 
-When I wrap it in a Button, the Image and "HOME" text move toward the center: 
-
-[](https://i.stack.imgur.com/sEHQx.png)
 
 I am trying to keep the contents aligned to the left but I'm having trouble. Here's the code that makes up this component.
 
 ```
+swift
 struct HomeSection: View {
 var body: some View {
     Button(action: {

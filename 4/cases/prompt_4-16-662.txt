@@ -19,4 +19,3 @@ I want to obtain:
 ```
 
 
-[it's pretty-print counterpart](https://stackoverflow.com/q/352098/6320039)

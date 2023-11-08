@@ -5,6 +5,7 @@ Suppose in a cell I have a value: abc@123!-245
 After executing my code I got output abc 123 245
 Here my code is working fine to remove all the special characters. My code is given below:
 ```
+vba
 Sub ReplaceSpecial()
     Dim cel As Range
     Dim strVal As String

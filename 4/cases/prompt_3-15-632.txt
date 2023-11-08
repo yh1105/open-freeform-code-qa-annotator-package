@@ -4,6 +4,7 @@ I need to extract data from text file into Excel file. I once asked at [Vbscript
 But after trying for few weeks and still no success so I use vba instead.
 Here what i have:
 ```
+vba
 Sub ExtractData()
 
 Dim filename As String, nextrow As Long, MyFolder As String
@@ -90,6 +91,7 @@ End Sub
 
 Almost successful but the only problem is i can't seem to figure out how to make this line split the data into 5 separate columns.
 ```
+vba
 idx = InStr(textline, "Cabinet No.")
 If idx > 0 Then
         
@@ -101,6 +103,4 @@ nextrow = nextrow + 1 'now move to next row
 End If`
 ```
 
-Sample input in text file [Input](https://i.stack.imgur.com/V3ePc.png)
-And my desired output should be like this [Output](https://i.stack.imgur.com/r4sAD.png)
 Thanks in advance and really appreciate.

@@ -24,6 +24,7 @@ cups=89
 
 I came with this simple solution which works but is very slow, it takes 5 min to complete for file with 2000 lines.
 ```
+bash
 VALUES=$(cat input.txt)
 for x in $VALUES; do
   if [[ -n $(echo $x | grep 'name=') ]]; then

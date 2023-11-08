@@ -3,6 +3,7 @@ How can I conform to ShapeStyle protocol in SwiftUI?
 I am looking to conform to ShapeStyle, the goal is just conforming to ShapeStyle(Nothing more and nothing less).
 Here is my code and the issue:
 ```
+swift
 struct MyContentView: View {
     var body: some View {
         Circle()

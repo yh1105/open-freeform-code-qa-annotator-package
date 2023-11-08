@@ -63,5 +63,5 @@ if (mbrComponent != null && mbrIntent == null) {
 }
 ```
 
-Source code demonstrating the problem - [https://github.com/adelinolobao/issue-media-session-compat](https://github.com/adelinolobao/issue-media-session-compat)
+
 Do you guys have any idea how can I fix the error?

@@ -5,6 +5,7 @@ I would like to automate this using VBA, where I can just run my power query aut
 Macro recorder doesn't seem to allow me to record the steps. And there isn't much online about doing this.
 Trying some simpler code:
 ```
+vba
 Sub LoadToWorksheetOnly()
 
 'Sub LoadToWorksheetOnly(query As WorkbookQuery, currentSheet As Worksheet)
@@ -36,5 +37,3 @@ Sub LoadToWorksheetOnly()
 End Sub
 ```
 
-Here is my issue when trying to load to new sheet manually.
-[](https://i.stack.imgur.com/GSIGK.jpg)

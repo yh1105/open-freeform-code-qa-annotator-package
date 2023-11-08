@@ -2,9 +2,8 @@ SwiftUI @Binding update doesn't refresh view
 
 I feel like I'm missing something very basic, but this example SwiftUI code will not modify the view (despite the Binding updating) when the button is clicked
 
-[Tutorials](https://medium.com/flawless-app-stories/swiftui-understanding-binding-8e20269a76bc?) I have read suggest this is the correct way to use a binding and the view should refresh automatically
-
 ```
+swift
 import SwiftUI
 
 struct ContentView: View {

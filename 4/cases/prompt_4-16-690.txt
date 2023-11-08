@@ -9,4 +9,3 @@ export JBOSS_HOME=/Users/{USERNAME}/Desktop/jboss7
 
 Afterward, exit the terminal and open it again when executing `echo $JBOSS_HOME` I get nothing.
 
-[](https://i.stack.imgur.com/i8pyb.png)

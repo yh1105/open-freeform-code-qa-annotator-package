@@ -17,7 +17,6 @@ It would be really time-consuming for the 1700+ products (besides, we have multi
 
 
 
-[Imagine this text in a cell]
 
 Maecenas non aliquet dui. Maecenas varius, ante vel pharetra porta, augue lectus accumsan risus, non dapibus orci leo a erat.
  Cras ullamcorper iaculis tortor eget rhoncus. Integer hendrerit vulputate felis

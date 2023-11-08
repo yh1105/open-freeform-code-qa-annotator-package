@@ -2,6 +2,7 @@ Error: java.io.IOException: No such file or directory in android 11
 
 I am trying to create a file on the file system, but I still get this exception:
 ```
+java
 private fun getTempFolder(): File {
         val directoryFolder =
             File(Environment.getExternalStorageDirectory(), "sample-take-image")
