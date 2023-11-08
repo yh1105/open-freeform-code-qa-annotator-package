@@ -1,9 +1,0 @@
-How to open 'This PC' using CMD or Powershell?
-
-I need a way of opening the explorer at This PC , in the same way as opening in a windows explorer Gui, but I am incapable of this as using Explorer.exe in CMD opens quick access.
-
-I tried opening it with a shortcut and that too failed. 
-
-Does anyone know of a way to do this?
-
-Cheers

@@ -1,8 +1,0 @@
-Flutter command not found
-
-Apparently, none of the Flutter commands are working in the terminal of Android Studio which I believe I am trying to run it at the root of my project.
-Output:
-```
-bash: flutter: command not found
-```
-

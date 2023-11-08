@@ -1,9 +1,0 @@
-How to scroll List programmatically in SwiftUI?
-
-It looks like in current tools/system, just released Xcode 11.4 / iOS 13.4, there will be no SwiftUI-native support for "scroll-to" feature in `List`. So even if they, Apple, will provide it in next  released, I will need backward support for iOS 13.x.
-
-So how would I do it in most simple & light way? 
-
-- - - 
-
-(I don't like wrapping full `UITableView` infrastructure into `UIViewRepresentable/UIViewControllerRepresentable` as was proposed earlier on SO).

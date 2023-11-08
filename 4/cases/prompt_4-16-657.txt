@@ -1,5 +1,0 @@
-How does one output bold text in powershell?
-
-I got a  script that do some automatic procedures, I use a "Write-Host" at the end of each one of them to tell the technical user that step is finished, but I realize is kind of hard to read and keep track so, ¿Is there a way to output a bold text?
-
-Thank you in advance.

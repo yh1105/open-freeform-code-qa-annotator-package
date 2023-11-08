@@ -1,4 +1,0 @@
-Kotlin like scope functions (let, also, apply, run) in Javascript?
-
-Is it possible to create Kotlin like scope functions in Javascript/Typescript? Is there any library that does it?
-Reference: [https://kotlinlang.org/docs/reference/scope-functions.html](https://kotlinlang.org/docs/reference/scope-functions.html)
